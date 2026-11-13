@@ -10,7 +10,7 @@ import {
   type CollectionItem,
   type CollectionKey,
   type SelectionProps,
-} from "../list-box/list-box.js";
+} from "../list-box/collection-model.js";
 
 export interface TagGroupRootProps
   extends StyleXProps<React.ComponentPropsWithRef<"div">>, SelectionProps {
@@ -139,7 +139,9 @@ export function TagGroupRoot({
           style={{ ...compiled.style, ...style }}
           role="grid"
           aria-multiselectable={selectionMode === "multiple" || undefined}
-          data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tag-group"}
+          data-lenso-slot={
+            (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "tag-group"
+          }
           tabIndex={!disabled && model.active === null ? 0 : -1}
           aria-disabled={disabled || undefined}
           onKeyDown={(event) => {
@@ -175,7 +177,9 @@ export function TagGroupList({ children, xstyle, style, ...props }: TagGroupList
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tag-group-list"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "tag-group-list"
+      }
       role="presentation"
     >
       {typeof children === "function"

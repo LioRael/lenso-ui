@@ -27,9 +27,19 @@ StyleX scans. Existing projects using the retired integration require this
 migration before upgrading. The remaining component migrations below still
 apply when upgrading from the older registry packages.
 
-The new Command implementation is published as `@lenso/primitives/command`;
-existing DataGrid, ResizeHandle and Sidebar component source is unchanged.
-The Command distribution entry explicitly retains its client boundary for Next.
+Unstyled Command parts come directly from `@ui-sdk/react/command`.
+Use `@lenso/ui/command` for Lenso presentation. The redundant
+`@lenso/primitives/command` entry has been removed; migrate imports to the SDK's
+named parts (`Command`, `CommandInput`, `CommandList`, `CommandItem`, and so on).
+The unused DataGrid and ResizeHandle entries have also been removed. Sidebar, SectionIndex and SwipeActions expose native SDK parts from
+`@lenso/primitives`; List, model controls and WheelPicker expose core definitions. Existing Lenso Table components
+and the TanStack Table examples remain available.
+Sidebar behavior now uses SDK core primitives and a `createParts` React adapter.
+Import its framework-independent definition from `@lenso/primitives/sidebar/core`.
+Replace Group/Provider/targetId integrations with native layout and a
+`createSidebarController`; open callbacks now receive native change details.
+Use data-open/data-closed and data-selected/data-nested for state styling;
+navigation items render anchors.
 UI pins the new primitives version in addition to Glass and Tokens. Docs pins
 the matching UI, Glass and Tokens versions through the packed workspace manifests.
 
@@ -41,6 +51,28 @@ does not create Git tags or GitHub Releases. No npm publication is implied by
 the prepared versions or by pushing the source commits.
 
 # Unreleased: control and layout compatibility
+
+- SDK `data-slot` attributes remain SDK-owned. Lenso materials and selectors use
+  `data-lenso-slot`; migrate custom selectors that targeted Lenso presentation names.
+  Slider thumbs must be children of `Slider.Track`.
+- List selection uses `value`, `defaultValue` and `onValueChange(value, details)`
+  with key arrays. Replace `selectedKeys`, `defaultSelectedKeys` and
+  `onSelectionChange`; callbacks can refuse changes with `details.cancel()`.
+- SectionIndex, SwipeActions and WheelPicker expose native change details and
+  controllers. Wheel changes distinguish scrolling, dragging and list navigation.
+- Date, time, calendar and color fields expose cancellable `onValueChange` and
+  serializable controllers/agent actions. Their callbacks retain date/time/color
+  value models. Form reset restores the initial domain value.
+- Picker disclosure uses native `open`, `defaultOpen` and cancellable
+  `onOpenChange`; remove `isOpen` and value-model open/close calls. Position
+  popovers with native `side` and `align` instead of `placement`.
+- Picker `Dialog` wrappers are removed. Put content directly in `Popover`, name
+  that native content with `aria-label` or `Title`, and use `Close` and
+  `PopoverDescription` for native popup operations and naming.
+- A composed ColorPicker owns channel values and change callbacks. Configure its
+  color `space` on the root; nested Area, Slider and Swatches use that owner.
+  Standalone controls create their own native ColorPicker. Swatch render state
+  uses the SDK's `selected` property.
 
 These are source changes; use the migration details for the version you consume.
 
@@ -252,7 +284,7 @@ current [consumer integration guide](apps/docs/content/lenso/en/react/getting-st
 
 Replace Dropdown imports and composition with the exported `Menu` parts.
 There is no Dropdown alias; an old documentation URL redirect does not restore
-the removed API. Check the current native Base UI props and generated
+the removed API. Check the current native UI SDK props and generated
 TypeScript declarations rather than mechanically renaming an upstream API.
 
 Theme configuration is additive. See the
@@ -322,7 +354,7 @@ import { Button } from "@lenso/ui";
 </Button>;
 ```
 
-Ordinary components use native Base UI props and composition, including
+Ordinary components use native UI SDK props and composition, including
 `disabled`, `onClick`, `render`, refs and state-style callbacks. Replace former
 wrapper APIs such as `isDisabled`, `onPress` and `asChild` where the new native
 contract requires it. Date, time and color components retain their specialized
@@ -332,7 +364,7 @@ Use StyleX `xstyle` for component overrides and keep the consumer's StyleX
 compiler settings compatible with the precompiled package: `dev: false`,
 no CSS layers, and preserved native `:dir()` selectors. Former registry
 recipes, token generators and styled component aliases are not compatibility
-exports. Preserved headless data-grid/sidebar behavior remains available from
+exports. Headless Sidebar behavior remains available from
 `@lenso/primitives`; it does not restore the retired styled UI.
 
 ## Deferred work
@@ -351,3 +383,16 @@ The manual `Release` workflow reuses `.github/workflows/release.yml` and the
 versions and tarballs, publishes tokens before UI with provenance, then verifies
 registry integrity and `latest` tags. No npm token is stored in the repository,
 and this workflow never publishes primitives.
+
+## Docs host migration
+
+Standalone Lenso Docs now uses Vite / TanStack Start, matching the product docs.
+Remove `--turbopack` from development scripts. A custom `build` module now exports
+Vite configuration rather than NextConfig; remove old Next/Babel/PostCSS host
+configuration. Presentation factories and MDX components execute during SSR and
+in the browser; move filesystem work into source adapters. Authored content,
+basic configuration, shared UI and static `out/` deployment remain supported.
+
+Before publication, `bun run docs:create <directory>` creates an independent site
+with packed local dependencies. See `packages/docs/README.md` for setup and
+migration details. This workflow does not publish packages.

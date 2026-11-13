@@ -32,7 +32,7 @@ export function SurfaceRoot({
       ref={ref}
       data-variant={variant}
       data-material={variant === "glass" ? "thick" : undefined}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "surface"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "surface"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >

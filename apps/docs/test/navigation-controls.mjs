@@ -100,7 +100,7 @@ try {
         assert.equal(await explicit.getByRole("heading").count(), 1);
         assert.equal(
           await explicit
-            .locator('[data-slot="navigation-bar-title"]')
+            .locator('[data-lenso-slot="navigation-bar-title"]')
             .evaluate((node) => getComputedStyle(node).opacity),
           "0",
         );
@@ -114,13 +114,16 @@ try {
         assert.ok(Math.abs((await bar.boundingBox()).y - top) < 1);
         assert.equal(
           await explicit
-            .locator('[data-slot="navigation-bar-title"]')
+            .locator('[data-lenso-slot="navigation-bar-title"]')
             .evaluate((node) => getComputedStyle(node).opacity),
           "1",
         );
         assert.ok(await explicit.evaluate((node) => node.scrollWidth <= node.clientWidth + 1));
         await page.getByRole("button", { name: "Toggle large title" }).click();
-        assert.equal(await explicit.locator('[data-slot="navigation-bar-large-title"]').count(), 0);
+        assert.equal(
+          await explicit.locator('[data-lenso-slot="navigation-bar-large-title"]').count(),
+          0,
+        );
         assert.equal(await explicit.getByRole("heading").count(), 1);
         const inferred = page.locator('[data-case="inferred"]');
         await inferred.evaluate((node) => {
@@ -170,7 +173,7 @@ try {
         );
         await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
         await page.waitForFunction(() =>
-          [...document.querySelectorAll('[data-slot="navigation-bar"]')]
+          [...document.querySelectorAll('[data-lenso-slot="navigation-bar"]')]
             .at(-1)
             ?.hasAttribute("data-collapsed"),
         );
@@ -184,7 +187,7 @@ try {
         await story.getByRole("button", { name: "Back to albums" }).click();
         await story.getByRole("button", { name: "Reverse order" }).click();
         assert.equal(
-          await story.locator('[data-slot="list-action"]').first().textContent(),
+          await story.locator('[data-lenso-slot="list-action"]').first().textContent(),
           "Screenshots",
         );
         await page.setViewportSize({ width: 1280, height: 900 });

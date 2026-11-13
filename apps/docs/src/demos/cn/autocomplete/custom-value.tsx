@@ -1,7 +1,7 @@
 "use client";
 
 import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, styles } from "../../en/autocomplete/_native";
+import { OptionPicker, styles } from "../../en/autocomplete/_native";
 const currencies = [
   {
     code: "USD",
@@ -39,7 +39,7 @@ const currencies = [
 }));
 export function CustomValue() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={currencies}
       label="货币"
       placeholder="选择货币"

@@ -10,8 +10,8 @@ export function ControlledInputValue() {
       <AnimalPicker
         label="Search (controlled input)"
         placeholder="Type to search..."
-        inputValue={inputValue}
-        onInputValueChange={setInputValue}
+        query={inputValue}
+        onQueryChange={setInputValue}
       />
       <p {...stylex.props(styles.muted)}>Input value: {inputValue || "(empty)"}</p>
     </div>

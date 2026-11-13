@@ -168,349 +168,328 @@ export function PhotosViewer({
           if (!open) close(details.reason !== "escape-key");
         }}
       >
-        <Modal.Portal>
-          <Modal.Backdrop variant="transparent" xstyle={s.instantBackdrop} />
-          <Modal.Viewport>
-            <Modal.Popup
-              ref={popup}
-              size="full"
-              xstyle={s.viewer}
-              onKeyDown={(event) => {
-                if (
-                  event.defaultPrevented ||
-                  event.ctrlKey ||
-                  event.metaKey ||
-                  event.altKey ||
-                  event.target instanceof HTMLInputElement ||
-                  event.target instanceof HTMLTextAreaElement ||
-                  (event.target instanceof Element &&
-                    (event.target.closest(
-                      '[data-photo-information], [data-slot="popover-popup"], [data-slot="sheet-popup"], [data-slot="menu-popup"], [data-slot="action-sheet-popup"]',
-                    ) ||
-                      event.target.closest('[data-slot="modal-popup"]') !== event.currentTarget))
-                )
-                  return;
-                keyDown(event);
-                if (event.defaultPrevented) return;
-                if (event.key === "ArrowRight" && index < photos.length - 1) {
-                  event.preventDefault();
-                  onChange(photos[index + 1]!.id);
-                }
-                if (event.key === "ArrowLeft" && index > 0) {
-                  event.preventDefault();
-                  onChange(photos[index - 1]!.id);
-                }
-              }}
-            >
-              {photo && (
-                <>
-                  <div
-                    ref={backdropRef}
-                    aria-hidden="true"
-                    {...stylex.props(s.viewerBackdrop, immersive && s.immersiveBackdrop)}
-                  />
-                  {immersive && (
-                    <Button variant="borderless" xstyle={s.showControls} onClick={toggleControls}>
-                      Show photo controls
-                    </Button>
-                  )}
-                  <div ref={chromeRef} {...stylex.props(s.viewerContent)}>
-                    <header
-                      inert={immersive || infoOpen}
-                      aria-hidden={immersive || infoOpen || undefined}
-                      onPointerDownCapture={cancelTap}
-                      {...stylex.props(s.viewerHeader, (immersive || infoOpen) && s.chromeHidden)}
-                    >
-                      <Modal.Close
-                        render={
-                          <GlassButton
-                            data-photo-control=""
-                            size="md"
-                            xstyle={s.roundControl}
-                            isIconOnly
-                            aria-label="Close photo"
-                            icon={<ChevronLeft width={24} height={24} />}
-                          />
-                        }
-                      />
-                      <Toolbar aria-label="Photo title" xstyle={s.titleToolbar}>
-                        <Toolbar.Group data-photo-control="" xstyle={s.metadataGroup}>
-                          <div {...stylex.props(s.viewerMetadata)}>
-                            <Modal.Title xstyle={s.viewerTitle}>{photo.title}</Modal.Title>
-                            <Modal.Description xstyle={s.viewerDescription}>
-                              {photo.collection} · {photo.width} × {photo.height}
-                            </Modal.Description>
-                          </div>
-                        </Toolbar.Group>
-                      </Toolbar>
-                      <PhotosViewerMenu
-                        open={moreOpen}
-                        onOpenChange={(open) => {
-                          setMoreOpen(open);
-                          if (open) setShareStatus("");
-                        }}
-                        onCopy={copyPhoto}
-                        onDuplicate={() => onDuplicate(photo.id)}
-                        onHide={() => confirm("hide", photo.id)}
-                        onSlideshow={() => {
-                          setSlideshow(true);
-                          setImmersive(true);
-                        }}
-                        onAlbum={(name) => {
-                          onAlbum(photo.id, name);
-                          setStatusPhoto(photo.id);
-                          setShareStatus(`Added photo to ${name}`);
-                        }}
-                        onInformation={() => setInfoOpen(true)}
-                      />
-                    </header>
-                    <div
-                      ref={surfaceRef}
-                      data-photo-surface=""
-                      {...gestureHandlers}
-                      {...stylex.props(
-                        s.viewerImage,
-                        immersive && s.immersiveImage,
-                        infoOpen && s.infoPreviewImage,
-                      )}
-                    >
-                      <div ref={trackRef} {...stylex.props(s.photoTrack)}>
-                        <div ref={imageRef} data-photo-current="" {...stylex.props(s.photoSlide)}>
-                          <PhotoImage key={photo.id} photo={photo} full />
-                        </div>
-                        {[-2, -1, 1, 2].map((offset) => {
-                          const adjacent = photos[index + offset];
-                          return (
-                            adjacent && (
-                              <div
-                                key={adjacent.id}
-                                aria-hidden="true"
-                                inert
-                                {...stylex.props(s.photoSlide, s.photoOffset(offset))}
-                              >
-                                <img
-                                  src={adjacent.src}
-                                  alt=""
-                                  draggable={false}
-                                  {...stylex.props(s.image, s.fullImage)}
-                                />
-                              </div>
-                            )
-                          );
-                        })}
-                      </div>
-                    </div>
-                    <PhotoInformation
-                      photo={photo}
-                      open={infoOpen}
-                      caption={captions.get(photo.id) ?? ""}
-                      onCaptionChange={(value) => onCaption(photo.id, value)}
-                      edited={edits.has(photo.id)}
-                    />
-                    <div
-                      data-photo-control=""
-                      inert={immersive || infoOpen}
-                      aria-hidden={immersive || infoOpen || undefined}
-                      onPointerDownCapture={cancelTap}
-                      aria-label="Photo filmstrip"
-                      {...stylex.props(
-                        s.filmstrip,
-                        immersive && s.chromeHidden,
-                        infoOpen && s.infoChromeHidden,
-                      )}
-                    >
-                      {photos.map((item) => (
-                        <Button
-                          key={item.id}
-                          variant="borderless"
-                          aria-label={`View ${item.title}`}
-                          aria-pressed={item.id === selected}
-                          ref={(node) => {
-                            if (node && item.id === selected)
-                              node.scrollIntoView({ block: "nearest", inline: "center" });
-                          }}
-                          xstyle={[s.filmstripItem, item.id === selected && s.filmstripCurrent]}
-                          onClick={() => onChange(item.id)}
-                        >
-                          <img
-                            src={item.thumb}
-                            alt=""
-                            draggable={false}
-                            {...stylex.props(s.image)}
-                          />
-                        </Button>
-                      ))}
-                    </div>
-                    <Toolbar
-                      aria-label="Photo actions"
-                      inert={immersive}
-                      aria-hidden={immersive || undefined}
-                      onPointerDownCapture={cancelTap}
-                      xstyle={[s.viewerControls, immersive && s.chromeHidden]}
-                    >
-                      <Popover
-                        open={shareOpen}
-                        onOpenChange={(open) => {
-                          setShareOpen(open);
-                          setShareStatus("");
-                        }}
-                      >
-                        <Popover.Trigger
-                          render={
-                            <GlassButton
-                              data-photo-control=""
-                              size="md"
-                              xstyle={s.roundControl}
-                              isIconOnly
-                              aria-label="Share photo"
-                              icon={<ArrowUpFromSquare width={22} height={22} />}
-                            />
-                          }
-                        />
-                        <Popover.Portal>
-                          <Popover.Positioner side="top" align="start" sideOffset={16}>
-                            <Popover.Popup xstyle={s.options}>
-                              <Popover.Title>Share photo</Popover.Title>
-                              <Link href={photo.src} download={`${photo.title}.jpg`}>
-                                Save Image
-                              </Link>
-                              <Button variant="borderless" onClick={copyLink}>
-                                {edits.has(photo.id)
-                                  ? "Copy Original Image Link"
-                                  : "Copy Image Link"}
-                              </Button>
-                              {shareStatus && (
-                                <output {...stylex.props(s.secondary)}>{shareStatus}</output>
-                              )}
-                            </Popover.Popup>
-                          </Popover.Positioner>
-                        </Popover.Portal>
-                      </Popover>
-                      <Toolbar.Group data-photo-control="" xstyle={s.viewerActionGroup}>
-                        <Toolbar.Button
-                          xstyle={s.toolButton}
-                          aria-label={
-                            favorites.has(photo.id) ? "Remove from favorites" : "Add to favorites"
-                          }
-                          aria-pressed={favorites.has(photo.id)}
-                          onClick={() => onFavorite(photo.id)}
-                        >
-                          {favorites.has(photo.id) ? (
-                            <HeartFill width={23} height={23} />
-                          ) : (
-                            <Heart width={23} height={23} />
-                          )}
-                        </Toolbar.Button>
-                        <Toolbar.Button
-                          xstyle={s.toolButton}
-                          ref={infoButton}
-                          aria-label="Photo information"
-                          aria-expanded={infoOpen}
-                          onClick={() => setInfoOpen((open) => !open)}
-                        >
-                          <CircleInfo width={23} height={23} />
-                        </Toolbar.Button>
-                        <Toolbar.Button
-                          xstyle={s.toolButton}
-                          aria-label="Edit photo"
-                          onClick={() => setEditing(true)}
-                        >
-                          <Sliders width={23} height={23} />
-                        </Toolbar.Button>
-                      </Toolbar.Group>
+        <Modal.Backdrop variant="transparent" xstyle={s.instantBackdrop} />
+        <Modal.Content
+          ref={popup}
+          size="full"
+          xstyle={s.viewer}
+          onKeyDown={(event) => {
+            if (
+              event.defaultPrevented ||
+              event.ctrlKey ||
+              event.metaKey ||
+              event.altKey ||
+              event.target instanceof HTMLInputElement ||
+              event.target instanceof HTMLTextAreaElement ||
+              (event.target instanceof Element &&
+                (event.target.closest(
+                  '[data-photo-information], [data-lenso-slot="popover-popup"], [data-lenso-slot="sheet-popup"], [data-lenso-slot="menu-popup"], [data-lenso-slot="action-sheet-popup"]',
+                ) ||
+                  event.target.closest('[data-lenso-slot="modal-popup"]') !== event.currentTarget))
+            )
+              return;
+            keyDown(event);
+            if (event.defaultPrevented) return;
+            if (event.key === "ArrowRight" && index < photos.length - 1) {
+              event.preventDefault();
+              onChange(photos[index + 1]!.id);
+            }
+            if (event.key === "ArrowLeft" && index > 0) {
+              event.preventDefault();
+              onChange(photos[index - 1]!.id);
+            }
+          }}
+        >
+          {photo && (
+            <>
+              <div
+                ref={backdropRef}
+                aria-hidden="true"
+                {...stylex.props(s.viewerBackdrop, immersive && s.immersiveBackdrop)}
+              />
+              {immersive && (
+                <Button variant="borderless" xstyle={s.showControls} onClick={toggleControls}>
+                  Show photo controls
+                </Button>
+              )}
+              <div ref={chromeRef} {...stylex.props(s.viewerContent)}>
+                <header
+                  inert={immersive || infoOpen}
+                  aria-hidden={immersive || infoOpen || undefined}
+                  onPointerDownCapture={cancelTap}
+                  {...stylex.props(s.viewerHeader, (immersive || infoOpen) && s.chromeHidden)}
+                >
+                  <Modal.Close
+                    render={
                       <GlassButton
                         data-photo-control=""
                         size="md"
                         xstyle={s.roundControl}
                         isIconOnly
-                        aria-label="Delete photo"
-                        icon={<TrashBin width={22} height={22} />}
-                        onClick={() => confirm("delete", photo.id)}
+                        aria-label="Close photo"
+                        icon={<ChevronLeft width={24} height={24} />}
                       />
-                    </Toolbar>
-                    <span aria-live="polite" {...stylex.props(s.visuallyHidden)}>
-                      Photo {index + 1} of {photos.length}
-                    </span>
-                  </div>
-                  <div ref={ghostRef} aria-hidden="true" inert {...stylex.props(s.zoomLayer)}>
-                    <img src={photo.src} alt="" {...stylex.props(s.zoomImage)} />
-                  </div>
-                  {editing && (
-                    <PhotosEditor
-                      key={photo.id}
-                      photo={originals.find((item) => item.id === photo.id)!}
-                      initial={edits.get(photo.id)?.adjustments ?? originalAdjustments}
-                      onClose={() => setEditing(false)}
-                      onSave={(edit) => {
-                        onEdit(photo.id, edit);
-                        setEditing(false);
-                      }}
-                    />
+                    }
+                  />
+                  <Toolbar aria-label="Photo title" xstyle={s.titleToolbar}>
+                    <Toolbar.Group data-photo-control="" xstyle={s.metadataGroup}>
+                      <div {...stylex.props(s.viewerMetadata)}>
+                        <Modal.Title xstyle={s.viewerTitle}>{photo.title}</Modal.Title>
+                        <Modal.Description xstyle={s.viewerDescription}>
+                          {photo.collection}· {photo.width}× {photo.height}
+                        </Modal.Description>
+                      </div>
+                    </Toolbar.Group>
+                  </Toolbar>
+                  <PhotosViewerMenu
+                    open={moreOpen}
+                    onOpenChange={(open) => {
+                      setMoreOpen(open);
+                      if (open) setShareStatus("");
+                    }}
+                    onCopy={copyPhoto}
+                    onDuplicate={() => onDuplicate(photo.id)}
+                    onHide={() => confirm("hide", photo.id)}
+                    onSlideshow={() => {
+                      setSlideshow(true);
+                      setImmersive(true);
+                    }}
+                    onAlbum={(name) => {
+                      onAlbum(photo.id, name);
+                      setStatusPhoto(photo.id);
+                      setShareStatus(`Added photo to ${name}`);
+                    }}
+                    onInformation={() => setInfoOpen(true)}
+                  />
+                </header>
+                <div
+                  ref={surfaceRef}
+                  data-photo-surface=""
+                  {...gestureHandlers}
+                  {...stylex.props(
+                    s.viewerImage,
+                    immersive && s.immersiveImage,
+                    infoOpen && s.infoPreviewImage,
                   )}
-                  {slideshow && (
+                >
+                  <div ref={trackRef} {...stylex.props(s.photoTrack)}>
+                    <div ref={imageRef} data-photo-current="" {...stylex.props(s.photoSlide)}>
+                      <PhotoImage key={photo.id} photo={photo} full />
+                    </div>
+                    {[-2, -1, 1, 2].map((offset) => {
+                      const adjacent = photos[index + offset];
+                      return (
+                        adjacent && (
+                          <div
+                            key={adjacent.id}
+                            aria-hidden="true"
+                            inert
+                            {...stylex.props(s.photoSlide, s.photoOffset(offset))}
+                          >
+                            <img
+                              src={adjacent.src}
+                              alt=""
+                              draggable={false}
+                              {...stylex.props(s.image, s.fullImage)}
+                            />
+                          </div>
+                        )
+                      );
+                    })}
+                  </div>
+                </div>
+                <PhotoInformation
+                  photo={photo}
+                  open={infoOpen}
+                  caption={captions.get(photo.id) ?? ""}
+                  onCaptionChange={(value) => onCaption(photo.id, value)}
+                  edited={edits.has(photo.id)}
+                />
+                <div
+                  data-photo-control=""
+                  inert={immersive || infoOpen}
+                  aria-hidden={immersive || infoOpen || undefined}
+                  onPointerDownCapture={cancelTap}
+                  aria-label="Photo filmstrip"
+                  {...stylex.props(
+                    s.filmstrip,
+                    immersive && s.chromeHidden,
+                    infoOpen && s.infoChromeHidden,
+                  )}
+                >
+                  {photos.map((item) => (
                     <Button
-                      xstyle={s.slideshowStop}
-                      onClick={() => {
-                        setSlideshow(false);
-                        setImmersive(false);
+                      key={item.id}
+                      variant="borderless"
+                      aria-label={`View ${item.title}`}
+                      aria-pressed={item.id === selected}
+                      ref={(node) => {
+                        if (node && item.id === selected)
+                          node.scrollIntoView({ block: "nearest", inline: "center" });
                       }}
+                      xstyle={[s.filmstripItem, item.id === selected && s.filmstripCurrent]}
+                      onClick={() => onChange(item.id)}
                     >
-                      Stop Slideshow
+                      <img src={item.thumb} alt="" draggable={false} {...stylex.props(s.image)} />
                     </Button>
-                  )}
-                  {!shareOpen && statusPhoto === photo.id && shareStatus && (
-                    <output {...stylex.props(s.viewerStatus)}>{shareStatus}</output>
-                  )}
-                </>
+                  ))}
+                </div>
+                <Toolbar
+                  aria-label="Photo actions"
+                  inert={immersive}
+                  aria-hidden={immersive || undefined}
+                  onPointerDownCapture={cancelTap}
+                  xstyle={[s.viewerControls, immersive && s.chromeHidden]}
+                >
+                  <Popover
+                    open={shareOpen}
+                    onOpenChange={(open) => {
+                      setShareOpen(open);
+                      setShareStatus("");
+                    }}
+                  >
+                    <Popover.Trigger
+                      render={
+                        <GlassButton
+                          data-photo-control=""
+                          size="md"
+                          xstyle={s.roundControl}
+                          isIconOnly
+                          aria-label="Share photo"
+                          icon={<ArrowUpFromSquare width={22} height={22} />}
+                        />
+                      }
+                    />
+                    <Popover.Content xstyle={s.options} side="top" align="start" sideOffset={16}>
+                      <Popover.Title>Share photo</Popover.Title>
+                      <Link href={photo.src} download={`${photo.title}.jpg`}>
+                        Save Image
+                      </Link>
+                      <Button variant="borderless" onClick={copyLink}>
+                        {edits.has(photo.id) ? "Copy Original Image Link" : "Copy Image Link"}
+                      </Button>
+                      {shareStatus && <output {...stylex.props(s.secondary)}>{shareStatus}</output>}
+                    </Popover.Content>
+                  </Popover>
+                  <Toolbar.Group data-photo-control="" xstyle={s.viewerActionGroup}>
+                    <Toolbar.Button
+                      xstyle={s.toolButton}
+                      aria-label={
+                        favorites.has(photo.id) ? "Remove from favorites" : "Add to favorites"
+                      }
+                      aria-pressed={favorites.has(photo.id)}
+                      onClick={() => onFavorite(photo.id)}
+                    >
+                      {favorites.has(photo.id) ? (
+                        <HeartFill width={23} height={23} />
+                      ) : (
+                        <Heart width={23} height={23} />
+                      )}
+                    </Toolbar.Button>
+                    <Toolbar.Button
+                      xstyle={s.toolButton}
+                      ref={infoButton}
+                      aria-label="Photo information"
+                      aria-expanded={infoOpen}
+                      onClick={() => setInfoOpen((open) => !open)}
+                    >
+                      <CircleInfo width={23} height={23} />
+                    </Toolbar.Button>
+                    <Toolbar.Button
+                      xstyle={s.toolButton}
+                      aria-label="Edit photo"
+                      onClick={() => setEditing(true)}
+                    >
+                      <Sliders width={23} height={23} />
+                    </Toolbar.Button>
+                  </Toolbar.Group>
+                  <GlassButton
+                    data-photo-control=""
+                    size="md"
+                    xstyle={s.roundControl}
+                    isIconOnly
+                    aria-label="Delete photo"
+                    icon={<TrashBin width={22} height={22} />}
+                    onClick={() => confirm("delete", photo.id)}
+                  />
+                </Toolbar>
+                <span aria-live="polite" {...stylex.props(s.visuallyHidden)}>
+                  Photo {index + 1}of {photos.length}
+                </span>
+              </div>
+              <div ref={ghostRef} aria-hidden="true" inert {...stylex.props(s.zoomLayer)}>
+                <img src={photo.src} alt="" {...stylex.props(s.zoomImage)} />
+              </div>
+              {editing && (
+                <PhotosEditor
+                  key={photo.id}
+                  photo={originals.find((item) => item.id === photo.id)!}
+                  initial={edits.get(photo.id)?.adjustments ?? originalAdjustments}
+                  onClose={() => setEditing(false)}
+                  onSave={(edit) => {
+                    onEdit(photo.id, edit);
+                    setEditing(false);
+                  }}
+                />
               )}
-            </Modal.Popup>
-          </Modal.Viewport>
-        </Modal.Portal>
-      </Modal>
-      <AlertDialog open={confirmationOpen} onOpenChange={setConfirmationOpen}>
-        <AlertDialog.Portal>
-          <AlertDialog.Backdrop />
-          <AlertDialog.Viewport>
-            <AlertDialog.Popup>
-              <AlertDialog.Header>
-                <AlertDialog.Title>
-                  {confirmation?.kind === "revert"
-                    ? "Revert to original?"
-                    : confirmation?.kind === "hide"
-                      ? "Hide this photo?"
-                      : "Delete this photo?"}
-                </AlertDialog.Title>
-              </AlertDialog.Header>
-              <AlertDialog.Body>
-                <AlertDialog.Description>
-                  {confirmation?.kind === "revert"
-                    ? "All adjustments to this photo will be removed. The original photo will be restored."
-                    : confirmation?.kind === "hide"
-                      ? "This hides the photo from this sample library. You can undo it in the library."
-                      : "This removes the photo from this sample library. You can undo it in the library."}
-                </AlertDialog.Description>
-              </AlertDialog.Body>
-              <AlertDialog.Footer>
-                <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
-                <AlertDialog.Action
-                  variant="destructive"
+              {slideshow && (
+                <Button
+                  xstyle={s.slideshowStop}
                   onClick={() => {
-                    if (confirmation?.kind === "revert") onEdit(confirmation.id, undefined);
-                    else if (confirmation?.kind === "delete") onDelete(confirmation.id);
-                    else if (confirmation?.kind === "hide") onHide(confirmation.id);
-                    setConfirmationOpen(false);
+                    setSlideshow(false);
+                    setImmersive(false);
                   }}
                 >
-                  {confirmation?.kind === "revert"
-                    ? "Revert to Original"
-                    : confirmation?.kind === "hide"
-                      ? "Hide Photo"
-                      : "Delete Photo"}
-                </AlertDialog.Action>
-              </AlertDialog.Footer>
-            </AlertDialog.Popup>
-          </AlertDialog.Viewport>
-        </AlertDialog.Portal>
+                  Stop Slideshow
+                </Button>
+              )}
+              {!shareOpen && statusPhoto === photo.id && shareStatus && (
+                <output {...stylex.props(s.viewerStatus)}>{shareStatus}</output>
+              )}
+            </>
+          )}
+        </Modal.Content>
+      </Modal>
+      <AlertDialog open={confirmationOpen} onOpenChange={setConfirmationOpen}>
+        <AlertDialog.Backdrop />
+        <AlertDialog.Content>
+          <AlertDialog.Header>
+            <AlertDialog.Title>
+              {confirmation?.kind === "revert"
+                ? "Revert to original?"
+                : confirmation?.kind === "hide"
+                  ? "Hide this photo?"
+                  : "Delete this photo?"}
+            </AlertDialog.Title>
+          </AlertDialog.Header>
+          <AlertDialog.Body>
+            <AlertDialog.Description>
+              {confirmation?.kind === "revert"
+                ? "All adjustments to this photo will be removed. The original photo will be restored."
+                : confirmation?.kind === "hide"
+                  ? "This hides the photo from this sample library. You can undo it in the library."
+                  : "This removes the photo from this sample library. You can undo it in the library."}
+            </AlertDialog.Description>
+          </AlertDialog.Body>
+          <AlertDialog.Footer>
+            <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+            <AlertDialog.Action
+              variant="destructive"
+              onClick={() => {
+                if (confirmation?.kind === "revert") onEdit(confirmation.id, undefined);
+                else if (confirmation?.kind === "delete") onDelete(confirmation.id);
+                else if (confirmation?.kind === "hide") onHide(confirmation.id);
+                setConfirmationOpen(false);
+              }}
+            >
+              {confirmation?.kind === "revert"
+                ? "Revert to Original"
+                : confirmation?.kind === "hide"
+                  ? "Hide Photo"
+                  : "Delete Photo"}
+            </AlertDialog.Action>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
       </AlertDialog>
     </>
   );

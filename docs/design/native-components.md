@@ -14,7 +14,7 @@ uses native text input and accessibility infrastructure with Lenso presentation 
 the existing native Glass renderer. React Native TextInput already hosts system
 UITextField/UITextView and Android editing views; preserve its event-count,
 composition, selection, clipboard and keyboard implementation rather than introducing
-a competing text bridge. Web Base UI contracts and preserved primitives are unchanged.
+a competing text bridge. Web UI SDK contracts and preserved primitives are unchanged.
 
 Share state/value models and compatible StyleX/RSD declarations. Keep platform-specific
 native presentation files and native interaction APIs (`onPress`, native refs, etc.).

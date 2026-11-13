@@ -6,28 +6,28 @@ function scene() {
   const page = document.createElement("main");
   page.id = "nd-notebook-layout";
   page.innerHTML =
-    '<section><button data-slot="menu-trigger" aria-controls="root-menu"></button></section>';
+    '<section><button data-lenso-slot="menu-trigger" aria-controls="root-menu"></button></section>';
   document.body.append(page);
   const root = document.createElement("div");
   root.id = "root-menu";
-  root.dataset["slot"] = "menu-popup";
+  root.dataset["lensoSlot"] = "menu-popup";
   root.setAttribute("data-open", "");
   root.innerHTML =
-    '<div data-slot="menu-content" style="opacity:1"></div><span data-material-lens></span>';
+    '<div data-lenso-slot="menu-content" style="opacity:1"></div><span data-material-lens></span>';
   document.body.append(root);
   return { page, example: page.querySelector("section")!, root };
 }
 function child(parent: HTMLElement, id: string) {
   const trigger = document.createElement("div");
-  trigger.dataset["slot"] = "menu-submenu-trigger";
+  trigger.dataset["lensoSlot"] = "menu-submenu-trigger";
   trigger.setAttribute("aria-controls", id);
   parent.append(trigger);
   const popup = document.createElement("div");
   popup.id = id;
-  popup.dataset["slot"] = "menu-popup";
+  popup.dataset["lensoSlot"] = "menu-popup";
   popup.setAttribute("data-open", "");
   popup.innerHTML =
-    '<div data-slot="menu-content" style="opacity:1"></div><span data-material-lens></span>';
+    '<div data-lenso-slot="menu-content" style="opacity:1"></div><span data-material-lens></span>';
   document.body.append(popup);
   return popup;
 }
@@ -40,7 +40,7 @@ test("the scene supplies the same complete source to its root, child and grandch
     const result = menuBackdrop(example, popup.querySelector("span")!);
     expect(result?.source === page).toBe(true);
     expect(result?.ready()).toBe(true);
-    expect(result?.foreground === popup.querySelector("[data-slot=menu-content]")).toBe(true);
+    expect(result?.foreground === popup.querySelector("[data-lenso-slot=menu-content]")).toBe(true);
   }
 });
 test("unrelated, dangling and cyclic submenu links cannot claim another scene", async () => {
@@ -76,7 +76,7 @@ test("a native trigger link committed after the lens ref can become ready", () =
   const trigger = example.querySelector("button")!;
   trigger.removeAttribute("aria-controls");
   root.setAttribute("data-open", "");
-  root.querySelector<HTMLElement>('[data-slot="menu-content"]')!.style.opacity = "1";
+  root.querySelector<HTMLElement>('[data-lenso-slot="menu-content"]')!.style.opacity = "1";
   const options = menuBackdrop(example, root.querySelector("span")!)!;
   expect(options.ready()).toBe(false);
   trigger.setAttribute("aria-controls", root.id);

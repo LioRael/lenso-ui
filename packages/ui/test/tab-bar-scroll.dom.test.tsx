@@ -153,13 +153,13 @@ test("minimizing retains the row and optical layers while moving focus to an exp
     );
   await render(false);
   const current = host.querySelector<HTMLElement>("[data-tab-bar-list] [data-current]")!;
-  const indicator = host.querySelector("[data-slot='tab-bar-indicator']");
-  const highlight = host.querySelector("[data-slot='tab-bar-highlight']");
+  const indicator = host.querySelector("[data-lenso-slot='tab-bar-indicator']");
+  const highlight = host.querySelector("[data-lenso-slot='tab-bar-highlight']");
   const list = host.querySelector("[data-tab-bar-list]")!;
   current.focus();
   await render(true);
-  expect(host.querySelector("[data-slot='tab-bar-indicator']")).toBe(indicator);
-  expect(host.querySelector("[data-slot='tab-bar-highlight']")).toBe(highlight);
+  expect(host.querySelector("[data-lenso-slot='tab-bar-indicator']")).toBe(indicator);
+  expect(host.querySelector("[data-lenso-slot='tab-bar-highlight']")).toBe(highlight);
   expect(host.querySelectorAll("[data-tab-bar-list] [data-tab-bar-item]")).toHaveLength(2);
   expect(list.hasAttribute("inert")).toBe(true);
   expect(list.getAttribute("aria-hidden")).toBe("true");
@@ -167,5 +167,5 @@ test("minimizing retains the row and optical layers while moving focus to an exp
   await render(false);
   expect(document.activeElement).toBe(current);
   expect(list.hasAttribute("inert")).toBe(false);
-  expect(host.querySelector("[data-slot='tab-bar-indicator']")).toBe(indicator);
+  expect(host.querySelector("[data-lenso-slot='tab-bar-indicator']")).toBe(indicator);
 });

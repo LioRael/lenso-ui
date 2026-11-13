@@ -37,7 +37,9 @@ export function AlertRoot({
     <ColorContext.Provider value={status}>
       <div
         {...props}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-root"}
+        data-lenso-slot={
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-root"
+        }
         {...compiled}
         style={{ ...compiled.style, ...style }}
         data-material="glass-medium"
@@ -54,7 +56,9 @@ export function AlertTitle({ xstyle, style, ...props }: StyleXProps<ComponentPro
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-title"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-title"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -71,13 +75,15 @@ export function AlertIndicator({
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-indicator"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-indicator"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >
       {children ?? (
         <svg
-          data-slot="alert-default-icon"
+          data-lenso-slot="alert-default-icon"
           {...stylex.props(alertStyles.icon)}
           viewBox="0 0 16 16"
           fill="none"
@@ -99,7 +105,9 @@ export function AlertContent({ xstyle, style, ...props }: StyleXProps<ComponentP
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-content"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-content"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -110,7 +118,9 @@ export function AlertDescription({ xstyle, style, ...props }: StyleXProps<Compon
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-description"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-description"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />

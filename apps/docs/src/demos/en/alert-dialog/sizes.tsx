@@ -18,44 +18,40 @@ export function Sizes() {
           <AlertDialog.Trigger render={<Button />}>
             {size.charAt(0).toUpperCase() + size.slice(1)}
           </AlertDialog.Trigger>
-          <AlertDialog.Portal>
-            <AlertDialog.Backdrop />
-            <AlertDialog.Viewport>
-              <AlertDialog.Popup size={size}>
-                <AlertDialog.Close aria-label="Close dialog" />
-                <AlertDialog.Header>
-                  <AlertDialog.Icon variant="default" xstyle={styles.icon}>
-                    <Rocket {...stylex.props(styles.rocket)} />
-                  </AlertDialog.Icon>
-                  <AlertDialog.Title>
-                    Size: {size.charAt(0).toUpperCase() + size.slice(1)}
-                  </AlertDialog.Title>
-                </AlertDialog.Header>
-                <AlertDialog.Body>
-                  <AlertDialog.Description>
-                    {size === "cover" ? (
-                      <>
-                        This alert dialog uses the <code>cover</code> size variant. It spans the
-                        full screen with margins: 16px on mobile and 40px on desktop. Maintains
-                        rounded corners and standard padding. Perfect for critical confirmations
-                        that need maximum width while preserving alert dialog aesthetics.
-                      </>
-                    ) : (
-                      <>
-                        This alert dialog uses the <code>{size}</code> size variant. On mobile
-                        devices, all sizes adapt to near full-width for optimal viewing. On desktop,
-                        each size provides a different maximum width to suit various content needs.
-                      </>
-                    )}
-                  </AlertDialog.Description>
-                </AlertDialog.Body>
-                <AlertDialog.Footer>
-                  <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
-                  <AlertDialog.Action>Confirm</AlertDialog.Action>
-                </AlertDialog.Footer>
-              </AlertDialog.Popup>
-            </AlertDialog.Viewport>
-          </AlertDialog.Portal>
+          <AlertDialog.Backdrop />
+          <AlertDialog.Content size={size}>
+            <AlertDialog.Close aria-label="Close dialog" />
+            <AlertDialog.Header>
+              <AlertDialog.Icon variant="default" xstyle={styles.icon}>
+                <Rocket {...stylex.props(styles.rocket)} />
+              </AlertDialog.Icon>
+              <AlertDialog.Title>
+                Size: {size.charAt(0).toUpperCase() + size.slice(1)}
+              </AlertDialog.Title>
+            </AlertDialog.Header>
+            <AlertDialog.Body>
+              <AlertDialog.Description>
+                {size === "cover" ? (
+                  <>
+                    This alert dialog uses the <code>cover</code> size variant. It spans the full
+                    screen with margins: 16px on mobile and 40px on desktop. Maintains rounded
+                    corners and standard padding. Perfect for critical confirmations that need
+                    maximum width while preserving alert dialog aesthetics.
+                  </>
+                ) : (
+                  <>
+                    This alert dialog uses the <code>{size}</code> size variant. On mobile devices,
+                    all sizes adapt to near full-width for optimal viewing. On desktop, each size
+                    provides a different maximum width to suit various content needs.
+                  </>
+                )}
+              </AlertDialog.Description>
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+              <AlertDialog.Action>Confirm</AlertDialog.Action>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
         </AlertDialog>
       ))}
     </div>

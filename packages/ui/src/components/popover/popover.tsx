@@ -1,109 +1,95 @@
 "use client";
+import * as SdkPopover from "@ui-sdk/react/popover";
+import { slotRender } from "../../utils/sdk-render.js";
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Popover as Base } from "@base-ui/react/popover";
 import { materialStyles } from "@lenso/tokens/materials";
 import { AnchoredMaterial } from "../../utils/materials/anchored.js";
 import { presentationMaterials } from "../../utils/materials/presentation.js";
-import { useDirection } from "@base-ui/react/direction-provider";
 import { popoverStyles as s } from "@lenso/tokens/popover";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
-export function PopoverRoot<Payload = unknown>(props: Base.Root.Props<Payload>) {
-  return <Base.Root {...props} />;
+export function PopoverRoot(props: React.ComponentProps<typeof SdkPopover.Popover>) {
+  return <SdkPopover.Popover {...props} />;
 }
 export function PopoverTrigger({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Trigger.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Trigger>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkPopover.PopoverTrigger>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkPopover.PopoverTrigger>, "ref">) {
   const ownPresentation =
     props.render == null ||
     (React.isValidElement(props.render) && typeof props.render.type === "string");
   const compiled = stylex.props(ownPresentation && s.trigger, xstyle);
   return (
-    <Base.Trigger
+    <SdkPopover.PopoverTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Trigger.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-trigger"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "popover-trigger",
+        props.render,
+      )}
     />
   );
 }
-export function PopoverPortal({
-  container,
-  ...props
-}: React.ComponentPropsWithRef<typeof Base.Portal>) {
-  const themed = useThemePortalContainer();
-  return (
-    <Base.Portal
-      {...props}
-      container={container === undefined ? (themed ?? undefined) : container}
-    />
-  );
-}
-export function PopoverPositioner({
+export function PopoverContent({
+  children,
   sideOffset = 16,
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Positioner.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Positioner>, "ref">) {
-  const compiled = stylex.props(s.positioner, xstyle);
-  return (
-    <Base.Positioner
-      sideOffset={sideOffset}
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Positioner.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-positioner"}
-    />
-  );
-}
-export function PopoverPopup({
-  children,
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Popup.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Popup>, "ref">) {
-  const direction = useDirection();
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkPopover.PopoverContent>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkPopover.PopoverContent>, "ref">) {
   const compiled = stylex.props(
     materialStyles.root,
-    materialStyles[presentationMaterials.anchored],
-    s.popup,
     materialStyles.accessible,
+    materialStyles[presentationMaterials.anchored],
+    s.positioner,
+    s.popup,
     xstyle,
   );
   return (
-    <Base.Popup
+    <SdkPopover.PopoverContent
+      sideOffset={sideOffset}
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Popup.State>(compiled.style, style)}
-      data-direction={direction}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-popup"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "popover-popup",
+        props.render,
+      )}
       data-material={presentationMaterials.anchored}
     >
-      <AnchoredMaterial kind="popover" />
-      {children}
-    </Base.Popup>
+      {(state) => (
+        <>
+          <AnchoredMaterial kind="popover" />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </SdkPopover.PopoverContent>
   );
 }
 export function PopoverTitle({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Title.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Title>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkPopover.PopoverTitle>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkPopover.PopoverTitle>, "ref">) {
   const compiled = stylex.props(s.title, xstyle);
   return (
-    <Base.Title
+    <SdkPopover.PopoverTitle
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Title.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-title"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "h2",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "popover-title",
+        props.render,
+      )}
     />
   );
 }
@@ -111,15 +97,19 @@ export function PopoverDescription({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Description.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Description>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkPopover.PopoverDescription>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkPopover.PopoverDescription>, "ref">) {
   const compiled = stylex.props(s.description, xstyle);
   return (
-    <Base.Description
+    <SdkPopover.PopoverDescription
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Description.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-description"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "p",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "popover-description",
+        props.render,
+      )}
     />
   );
 }
@@ -127,31 +117,19 @@ export function PopoverClose({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Close.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkPopover.PopoverClose>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkPopover.PopoverClose>, "ref">) {
   const compiled = stylex.props(xstyle);
   return (
-    <Base.Close
+    <SdkPopover.PopoverClose
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Close.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-close"}
-    />
-  );
-}
-export function PopoverBackdrop({
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Backdrop.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Backdrop>, "ref">) {
-  const compiled = stylex.props(xstyle);
-  return (
-    <Base.Backdrop
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Backdrop.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-backdrop"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "popover-close",
+        props.render,
+      )}
     />
   );
 }
@@ -160,54 +138,36 @@ export function PopoverArrow({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Arrow.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Arrow>, "ref">) {
-  const direction = useDirection();
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkPopover.PopoverArrow>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkPopover.PopoverArrow>, "ref">) {
   const compiled = stylex.props(s.arrow, xstyle);
   return (
-    <Base.Arrow
+    <SdkPopover.PopoverArrow
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Arrow.State>(compiled.style, style)}
-      data-direction={direction}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-arrow"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "popover-arrow",
+        props.render,
+      )}
     >
       {children ?? (
         <span
           aria-hidden="true"
-          data-slot="popover-arrow-material"
+          data-lenso-slot="popover-arrow-material"
           {...stylex.props(s.arrowMaterial)}
         />
       )}
-    </Base.Arrow>
-  );
-}
-export function PopoverViewport({
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Viewport.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, "ref">) {
-  const compiled = stylex.props(xstyle);
-  return (
-    <Base.Viewport
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Viewport.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "popover-viewport"}
-    />
+    </SdkPopover.PopoverArrow>
   );
 }
 export const Popover = Object.assign(PopoverRoot, {
   Root: PopoverRoot,
   Trigger: PopoverTrigger,
-  Portal: PopoverPortal,
-  Positioner: PopoverPositioner,
-  Popup: PopoverPopup,
+  Content: PopoverContent,
   Title: PopoverTitle,
   Description: PopoverDescription,
   Close: PopoverClose,
-  Backdrop: PopoverBackdrop,
   Arrow: PopoverArrow,
-  Viewport: PopoverViewport,
 });

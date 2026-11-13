@@ -1,12 +1,15 @@
 "use client";
+import type { ReactNode } from "react";
 
-import { useRef, useState } from "react";
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
+import { useRef, useState } from "react";
 import { Notifications, styles } from "./_shared";
 
+const toaster = createToaster<ReactNode>();
+
 function History() {
-  const manager = Toast.useToastManager();
+  const manager = toaster;
   const [closedHistory, setClosedHistory] = useState<
     Array<{ id: number; message: string; time: string }>
   >([]);
@@ -24,10 +27,10 @@ function History() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "File saved",
-                onClose: () => addToHistory("File saved (closed after 3 seconds)"),
-                timeout: 3000,
+                onDismiss: () => addToHistory("File saved (closed after 3 seconds)"),
+                duration: 3000,
               })
             }
           >
@@ -37,10 +40,10 @@ function History() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "Changes saved",
-                onClose: () => addToHistory("Changes saved (closed after 10 seconds)"),
-                timeout: 10000,
+                onDismiss: () => addToHistory("Changes saved (closed after 10 seconds)"),
+                duration: 10000,
               })
             }
           >
@@ -50,10 +53,10 @@ function History() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "Event created",
                 type: "success",
-                onClose: () => addToHistory("Event created (closed after default timeout)"),
+                onDismiss: () => addToHistory("Event created (closed after default timeout)"),
               })
             }
           >
@@ -63,11 +66,11 @@ function History() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "Important notification",
                 description: "This toast will stay until dismissed",
-                onClose: () => addToHistory("Important notification (manually closed)"),
-                timeout: 0,
+                onDismiss: () => addToHistory("Important notification (manually closed)"),
+                duration: Infinity,
               })
             }
           >
@@ -119,15 +122,15 @@ function History() {
           </div>
         </div>
       </div>
-      <Notifications />
+      <Notifications toaster={toaster} />
     </>
   );
 }
 
 export function Callbacks() {
   return (
-    <Toast.Provider>
+    <>
       <History />
-    </Toast.Provider>
+    </>
   );
 }

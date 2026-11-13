@@ -28,6 +28,7 @@ export interface Shape {
   materialSurface?: "group";
   materialForeground?: boolean;
   materialClarity?: number;
+  materialRim?: "classic";
   materialProfile?: "small" | "medium" | "large" | "clear" | "toggle-knob" | "slider-knob";
   sourceBlur: number | undefined;
 }
@@ -60,6 +61,7 @@ export interface OpticalPoint {
 export type GeometrySampler = ((x: number, y: number) => OpticalPoint) & {
   signedDistance?: (x: number, y: number) => number;
   materialRows?: { top: number; height: number; count: number };
+  roundedRect?: { x: number; y: number; width: number; height: number; radius: number };
 };
 
 export async function maps(

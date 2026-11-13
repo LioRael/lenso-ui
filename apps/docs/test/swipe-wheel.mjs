@@ -58,7 +58,9 @@ try {
           await remove.evaluate((node) => getComputedStyle(node).color),
           "rgb(255, 255, 255)",
         );
-        await row.getByRole("button", { name: "Show trailing actions" }).press("Tab");
+        await row
+          .getByRole("button", { name: "Show trailing actions" })
+          .press(name === "webkit" ? "Alt+Tab" : "Tab");
         assert.ok(await remove.evaluate((node) => node === document.activeElement));
         await remove.press("Escape");
         assert.equal(await row.getAttribute("data-open-side"), null);
@@ -79,11 +81,17 @@ try {
         assert.equal(await page.getByLabel("Actions executed").textContent(), "1");
         await row.getByRole("button", { name: "Show trailing actions" }).click();
         await remove.press("Escape");
-        await page.mouse.move(box.x + 18, box.y + 4);
+        const bodyBox = await row.locator("[data-swipe-body]").boundingBox();
+        await page.mouse.move(bodyBox.x + 2, bodyBox.y + bodyBox.height / 2);
         await page.mouse.down();
-        await page.mouse.move(box.x + box.width - 12, box.y + 4, { steps: 8 });
+        await page.mouse.move(box.x + box.width - 2, bodyBox.y + bodyBox.height / 2, { steps: 8 });
         await page.mouse.up();
         assert.equal(await page.getByLabel("Actions executed").textContent(), "2");
+        assert.equal(
+          await row.getAttribute("data-open-side"),
+          null,
+          "full swipe retained an open row",
+        );
         if (name === "chromium" && theme === "light") {
           const cdp = await page.context().newCDPSession(page);
           const touch = async (type, x, y) =>
@@ -99,7 +107,7 @@ try {
           assert.equal(await row.getAttribute("data-open-side"), null);
           assert.equal(
             await row
-              .locator('[data-slot="swipe-actions-content"]')
+              .locator('[data-lenso-slot="swipe-actions-content"]')
               .evaluate((node) => getComputedStyle(node).transform),
             "matrix(1, 0, 0, 1, 0, 0)",
           );
@@ -113,6 +121,11 @@ try {
           );
           assert.equal(await page.getByLabel("Rows opened").textContent(), "0");
           await row.getByRole("button", { name: "Show trailing actions" }).click();
+          assert.equal(
+            await row.getAttribute("data-open-side"),
+            null,
+            "trigger must close after a touch swipe",
+          );
           const startY = box.y + box.height - 8;
           await touch("touchStart", box.x + box.width / 2, startY);
           for (const delta of [20, 40, 60, 80])
@@ -163,6 +176,13 @@ try {
           await wheel.locator('[role="option"][tabindex="0"]').textContent(),
           "2 minutes",
         );
+        await page.waitForFunction(() => {
+          const view = document.querySelector('[data-case="wheel-form"] [role="listbox"]');
+          return (
+            Math.abs(view.scrollTop - 2 * view.querySelector('[role="option"]').clientHeight) < 2
+          );
+        });
+        await page.waitForTimeout(150);
         await wheel.evaluate((node) => {
           // Once native snapping finishes, committing selection must not restart
           // scrolling. DOM tests cannot observe this browser feedback loop.

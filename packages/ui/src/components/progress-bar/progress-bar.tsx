@@ -30,8 +30,10 @@ export function ProgressBarRoot({
     <Context.Provider value={{ size, indeterminate: props.value == null }}>
       <Primitive.Progress
         {...props}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-bar"}
-        render={slotRender("div", props["data-slot"] ?? "progress-bar", props.render)}
+        data-lenso-slot={
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "progress-bar"
+        }
+        render={slotRender("div", props["data-lenso-slot"] ?? "progress-bar", props.render)}
         {...compiled}
         style={mergeStyle<Primitive.ProgressState>(compiled.style, style)}
       />
@@ -48,8 +50,10 @@ export function ProgressBarTrack({
   return (
     <Primitive.ProgressTrack
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-bar-track"}
-      render={slotRender("div", props["data-slot"] ?? "progress-bar-track", props.render)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "progress-bar-track"
+      }
+      render={slotRender("div", props["data-lenso-slot"] ?? "progress-bar-track", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.ProgressState>(compiled.style, style)}
     />
@@ -70,8 +74,10 @@ export function ProgressBarFill({
   return (
     <Primitive.ProgressIndicator
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-bar-fill"}
-      render={slotRender("div", props["data-slot"] ?? "progress-bar-fill", props.render)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "progress-bar-fill"
+      }
+      render={slotRender("div", props["data-lenso-slot"] ?? "progress-bar-fill", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.ProgressState>(compiled.style, style)}
     />
@@ -86,8 +92,8 @@ export function ProgressBarLabel({
   return (
     <Primitive.ProgressLabel
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "label"}
-      render={slotRender("span", props["data-slot"] ?? "label", props.render)}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "label"}
+      render={slotRender("span", props["data-lenso-slot"] ?? "label", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.ProgressState>(compiled.style, style)}
     />
@@ -102,8 +108,10 @@ export function ProgressBarOutput({
   return (
     <Primitive.ProgressValue
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-bar-output"}
-      render={slotRender("span", props["data-slot"] ?? "progress-bar-output", props.render)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "progress-bar-output"
+      }
+      render={slotRender("span", props["data-lenso-slot"] ?? "progress-bar-output", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.ProgressValueState>(compiled.style, style)}
     />

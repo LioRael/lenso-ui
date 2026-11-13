@@ -7,8 +7,8 @@ export const calendarStyles = stylex.create({
     position: "relative",
     width: {
       default: 338,
-      ":is([data-slot=date-picker-popover] > *)": 346,
-      ":is([data-slot=date-range-picker-popover] > *)": 346,
+      ":is([data-lenso-slot=date-picker-popover] > *)": 346,
+      ":is([data-lenso-slot=date-range-picker-popover] > *)": 346,
     },
     maxWidth: "100%",
     containerType: "inline-size",

@@ -11,7 +11,7 @@ export function OnSurface() {
           <Label>验证账户</Label>
           <p {...stylex.props(styles.muted)}>我们已向 a****@gmail.com 发送验证码</p>
         </div>
-        <InputOTP length={6} name="code" variant="secondary">
+        <InputOTP maxLength={6} name="code" variant="secondary">
           <Slots />
         </InputOTP>
         <div {...stylex.props(styles.resend)}>

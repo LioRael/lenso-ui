@@ -22,7 +22,7 @@ export function SegmentedControlStory({
   lift = 20,
   compareTabs = false,
 }: SegmentedControlStoryProps) {
-  const [value, setValue] = useState("all");
+  const [value, setValue] = useState<string | null>("all");
   return (
     <div>
       <SegmentedControl
@@ -40,7 +40,7 @@ export function SegmentedControlStory({
       {compareTabs && (
         <Tabs
           value={value}
-          onValueChange={(next) => setValue(String(next))}
+          onValueChange={setValue}
           size={size}
           glass={glass}
           elastic={elastic}

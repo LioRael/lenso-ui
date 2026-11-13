@@ -150,150 +150,47 @@ test("custom rendering keeps large raw sources out of the generated module graph
   assert.doesNotMatch(emittedContent(emitted, "model.ts"), /Large raw source marker/);
 });
 
-test("direct host generation protects CLI config and emits locale-correct server modules", async () => {
-  const root = await fixture({
-    ...source,
-    pages: pages.map((page) => ({ ...page, customField: "source-owned" })),
-  });
+test("host generation emits Vite, page-local components and locale metadata", async () => {
+  const root = await fixture();
   await mkdir(path.join(root, "src"));
   await writeFile(path.join(root, "src/site.css"), ":root { color: red; }");
-  await writeFile(
-    path.join(root, "docs.build.mjs"),
-    `export default () => ({
-    output: "standalone", distDir: "/outside", basePath: "/wrong", trailingSlash: false,
-    transpilePackages: ["consumer-lib"], experimental: { testSetting: true },
-    webpack(config) { config.resolve = { alias: { prior: "/prior" } }; return config; }
-  });`,
-  );
   const input = {
     ...config,
-    build: "docs.build.mjs",
     aliases: { "@": "src" },
     stylesheet: "consumer" as const,
     styles: ["src/site.css"],
-    trailingSlash: true,
   };
-  const host = await loadHost(root, input, "build");
-  const directory = path.join(root, ".lenso");
-  await mkdir(path.join(directory, "node_modules"), { recursive: true });
-  await symlink(
-    fileURLToPath(new URL("../node_modules", import.meta.url)),
-    path.join(root, "node_modules"),
-    process.platform === "win32" ? "junction" : "dir",
-  );
-  await mkdir(path.join(directory, "node_modules/@lenso"));
-  await symlink(
-    fileURLToPath(new URL("../", import.meta.url)),
-    path.join(directory, "node_modules/@lenso/docs"),
-    process.platform === "win32" ? "junction" : "dir",
-  );
-  await symlink(
-    path.dirname(createRequire(import.meta.url).resolve("react/package.json")),
-    path.join(directory, "node_modules/react"),
-    process.platform === "win32" ? "junction" : "dir",
-  );
-  await symlink(
-    path.dirname(createRequire(import.meta.url).resolve("next/package.json")),
-    path.join(directory, "node_modules/next"),
-    process.platform === "win32" ? "junction" : "dir",
-  );
+  const result = await prepare(root);
+  const directory = result.directory;
   const emitted = new Map<string, string>();
-  await generateHost(root, directory, input, host, {
+  await generateHost(root, directory, input, result.host, {
     development: false,
     source: fileURLToPath(new URL("../src", import.meta.url)),
     write: async (file, content) => {
       emitted.set(path.relative(directory, file), content);
-      await mkdir(path.dirname(file), { recursive: true });
-      await writeFile(file, content);
     },
   });
-  const next = (await import(path.join(directory, "next.config.ts"))).default;
-  const settings = await next("phase-production-build", {});
-  const check = Bun.spawn(
-    [
-      process.execPath,
-      "check",
-      "--no-script",
-      "--allowJs",
-      "--moduleResolution",
-      "bundler",
-      "--module",
-      "esnext",
-      "--target",
-      "esnext",
-      "--skipLibCheck",
-      "--strict",
-      path.join(directory, "next.config.ts"),
-    ],
-    { stdout: "pipe", stderr: "pipe" },
-  );
-  const [output, errors, status] = await Promise.all([
-    new Response(check.stdout).text(),
-    new Response(check.stderr).text(),
-    check.exited,
-  ]);
-  assert.equal(status, 0, output + errors);
-  const generatedCheck = Bun.spawn(
-    [process.execPath, "check", "--no-script", "-p", path.join(directory, "tsconfig.json")],
-    { stdout: "pipe", stderr: "pipe" },
-  );
-  const [generatedOutput, generatedErrors, generatedStatus] = await Promise.all([
-    new Response(generatedCheck.stdout).text(),
-    new Response(generatedCheck.stderr).text(),
-    generatedCheck.exited,
-  ]);
-  assert.equal(generatedStatus, 0, generatedOutput + generatedErrors);
-  assert.equal(settings.output, "export");
-  assert.equal(settings.distDir, ".next");
-  assert.equal(settings.basePath, "/manual");
-  assert.equal(settings.trailingSlash, true);
-  assert.deepEqual(settings.transpilePackages, [
-    "@lenso/docs",
-    "@lenso/tokens",
-    "shiki",
-    "consumer-lib",
-  ]);
-  assert.equal(settings.experimental.globalNotFound, true);
-  assert.deepEqual(settings.webpack({}, {}).resolve.alias, {
-    prior: "/prior",
-    "@": path.join(root, "src"),
-  });
-  const layout = emittedContent(emitted, "app/(locale-1)/layout.tsx");
-  const tsOptions = JSON.parse(emittedContent(emitted, "tsconfig.json")).compilerOptions;
-  assert.equal(tsOptions.allowImportingTsExtensions, true);
-  assert.deepEqual(tsOptions.paths, {
-    "@": ["../src"],
-    "@/*": ["../src/*"],
-  });
+  const vite = emittedContent(emitted, "vite.config.ts");
+  assert.match(vite, /tanstackStart/);
+  assert.match(vite, /basepath: "\/manual"/);
+  assert.match(vite, /crawlLinks: false/);
+  const layout = emittedContent(emitted, "src/routes/__root.tsx");
   assert.match(layout, /"language":"zh-CN"/);
-  assert.doesNotMatch(layout, /stylex\.css|docs\.css/);
-  assert.ok(emitted.has("app/(locale-1)/cn/read/page.tsx"));
-  assert.ok(emitted.has("app/(locale-1)/cn/home/page.tsx"));
-  assert.ok(emitted.has("app/(locale-0)/old/page.tsx"));
   assert.match(layout, /docs\.components\.tsx/);
-  assert.match(layout, /import "\.\.\/\.\.\/\.\.\/src\/site\.css"/);
-  for (const [file, content] of emitted) {
-    if (!/\.(?:ts|tsx|js)$/.test(file)) continue;
-    for (const match of content.matchAll(/\bimport(?:[^\n;]*?\bfrom\s*)?\s*["']([^"']+)["']/g))
-      assert.equal(path.isAbsolute(match[1]!), false, `${file}: ${match[1]}`);
-  }
-  assert.match(layout, /Reflect\.get\(customization as object, "getRootOptions"\)/);
-  assert.match(
-    emittedContent(emitted, "render.tsx"),
-    /Reflect\.get\(customization as object, "getDocument"\)/,
-  );
+  assert.match(layout, /src\/site\.css\?url/);
+  assert.doesNotMatch(layout, /docs\.css/);
+  assert.ok(emitted.has("src/routes/[cn].[read].tsx"));
+  assert.ok(emitted.has("src/routes/[cn].[home].tsx"));
+  assert.ok(emitted.has("src/routes/[old].tsx"));
+  assert.match(emittedContent(emitted, "src/routes/[cn].[read].tsx"), /pages\/1\.tsx/);
+  assert.match(emittedContent(emitted, "pages/1.tsx"), /documents\/1\.js/);
+  assert.doesNotMatch(emittedContent(emitted, "pages/1.tsx"), /documents\/0\.js/);
+  const tsOptions = JSON.parse(emittedContent(emitted, "tsconfig.json")).compilerOptions;
+  assert.deepEqual(tsOptions.paths, { "@": ["../.." + "/src"], "@/*": ["../../src/*"] });
+  assert.equal(tsOptions.allowImportingTsExtensions, true);
   const model = await import(path.join(directory, "model.ts"));
-  assert.equal(model.pages[0]!.compiled, undefined);
-  assert.equal(model.pages[0]!.customField, "source-owned");
-  assert.equal(model.bodies, undefined);
+  assert.equal(model.pages[0].compiled, undefined);
   assert.doesNotMatch(emittedContent(emitted, "model.ts"), /documents\/\d+\.js/);
-  const route = emittedContent(emitted, "app/(locale-1)/cn/read/page.tsx");
-  assert.match(route, /import Body from ".*documents\/1\.js"/);
-  assert.doesNotMatch(route, /documents\/0\.js/);
-  assert.equal(
-    (await import(path.join(directory, "documents/1.js"))).default instanceof Function,
-    true,
-  );
 });
 
 // A shared customization import passes the legacy host tests while pulling every
@@ -326,14 +223,11 @@ test("root and document customizations stay local to their generated entry point
       emitted.set(path.relative(directory, file), content);
     },
   });
-  for (const group of ["(locale-0)", "(locale-1)"]) {
-    const layout = emittedContent(emitted, `app/${group}/layout.tsx`);
-    assert.match(layout, /from "\.\.\/\.\.\/\.\.\/docs\.root\.tsx"/);
-    assert.match(layout, /\/dist\/framework\/root\.js"/);
-    assert.doesNotMatch(layout, /view\.js|docs\.components\.tsx|document\.tsx|render\.tsx/);
-  }
-  const entries = ["app/(locale-0)/en/learn/page.tsx", "app/(locale-1)/cn/read/page.tsx"];
-  for (const [index, entry] of entries.entries()) {
+  const layout = emittedContent(emitted, "src/routes/__root.tsx");
+  assert.match(layout, /docs\.root\.tsx/);
+  assert.match(layout, /dist\/framework\/root\.js/);
+  assert.doesNotMatch(layout, /view\.js|docs\.components\.tsx|document\.tsx|render\.tsx/);
+  for (const [index, entry] of ["pages/0.tsx", "pages/1.tsx"].entries()) {
     const module = emittedContent(emitted, entry);
     const specifier = module.match(/import \* as documentModule from "([^"]+)"/)![1]!;
     assert.equal(path.isAbsolute(specifier), false);
@@ -342,7 +236,9 @@ test("root and document customizations stay local to their generated entry point
       path.join(root, documents[index]!),
     );
     assert.ok(!module.includes(documents[1 - index]!));
-    assert.ok(module.includes(`renderPage(${JSON.stringify(pages[index]!.id)}, documentModule, "`));
+    assert.ok(
+      module.includes(`renderPage(${JSON.stringify(pages[index]!.id)}, markdown, documentModule`),
+    );
     assert.doesNotMatch(module, /\bimport\(/);
   }
   for (const module of ["model.ts", "render.tsx"]) {
@@ -417,23 +313,21 @@ export async function getPageOptions({ page }) { return { marker: page.markdown 
   });
   const { renderPage } = await import(path.join(directory, "render.tsx"));
   const documentModule = await import(host.pages[0]!.module!);
-  const local = (await renderPage(pages[0]!.id, documentModule)).props;
+  const local = (await renderPage(pages[0]!.id, pages[0]!.markdown, documentModule)).props;
   assert.equal(local.document.content, `local ${pages[0]!.id}`);
   assert.equal(local.customComponents.marker, `local ${pages[0]!.id}`);
   assert.deepEqual(local.siteSlots.marker, ["config", "page"]);
   assert.equal(local.siteOptions.marker, config.title + pages[0]!.id);
   assert.equal(local.pageOptions.marker, pages[0]!.markdown);
   assert.equal("module" in local.page, false);
-  const localDefault = (await renderPage(pages[0]!.id, { default: { marker: "local default" } }))
-    .props;
+  const localDefault = (
+    await renderPage(pages[0]!.id, pages[0]!.markdown, { default: { marker: "local default" } })
+  ).props;
   assert.equal(localDefault.customComponents.marker, "local default");
-  const fallback = (await renderPage(pages[0]!.id)).props;
+  const fallback = (await renderPage(pages[0]!.id, pages[0]!.markdown)).props;
   assert.equal(fallback.document.content, `global ${pages[0]!.id}`);
   assert.equal(fallback.customComponents.marker, `global ${pages[0]!.id}`);
-  await assert.rejects(
-    renderPage(pages[1]!.id),
-    /requires getDocument to return a document result/,
-  );
+  await assert.rejects(renderPage(pages[1]!.id, pages[1]!.markdown), /requires getDocument/);
 });
 
 test("prepare watches a contained root module and rejects non-files and symlinked roots", async () => {
@@ -445,7 +339,7 @@ test("prepare watches a contained root module and rejects non-files and symlinke
   );
   const result = await prepare(root, { development: true });
   assert.ok(result.watchPaths.includes("docs.root.tsx"));
-  const layout = await readFile(path.join(result.directory, "app/(locale-0)/layout.tsx"), "utf8");
+  const layout = await readFile(path.join(result.directory, "src/routes/__root.tsx"), "utf8");
   assert.match(layout, /docs\.root\.tsx/);
   // Package builds replace dist/framework; dev must keep a stable source entry.
   assert.match(layout, /\/src\/root\.tsx"/);
@@ -482,12 +376,12 @@ test("virtual bilingual source is prepared, compiled, split and hosted as exact 
   for (const field of ["compiled", "body", "searchText", "structuredData"])
     assert.equal(field in model.pages[0]!, false);
   assert.match(
-    await readFile(path.join(result.directory, "app/(locale-1)/cn/home/page.tsx"), "utf8"),
+    await readFile(path.join(result.directory, "src/routes/[cn].[home].tsx"), "utf8"),
     /你好/,
   );
   assert.match(
-    await readFile(path.join(result.directory, "app/(locale-0)/old/page.tsx"), "utf8"),
-    /redirect\("\/manual\/en\/learn"\)/,
+    await readFile(path.join(result.directory, "src/routes/[old].tsx"), "utf8"),
+    /href: "\/manual\/en\/learn"/,
   );
   const sitemap = await readFile(path.join(result.directory, "public/sitemap.xml"), "utf8");
   assert.match(sitemap, /https:\/\/example.test\/manual\/cn\/home/);

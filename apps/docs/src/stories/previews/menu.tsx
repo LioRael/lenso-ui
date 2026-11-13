@@ -17,12 +17,12 @@ export interface MenuStoryProps {
 export function MenuStory({
   presentation = "popup",
   elastic = true,
+  morphTrigger = true,
+  submenuPresentation = "auto",
   label,
   open,
   disabled,
   align,
-  submenuPresentation,
-  morphTrigger = true,
 }: MenuStoryProps) {
   const engine = useDataEngine(),
     id = useId();
@@ -31,10 +31,8 @@ export function MenuStory({
     <div {...stylex.props(s.row)}>
       <Menu
         open={open}
-        morphTrigger={morphTrigger}
         elastic={elastic}
-        triggerId={id}
-        disabled={disabled}
+        morphTrigger={morphTrigger}
         onOpenChange={(next) => engine.update(["open"], next)}
       >
         {presentation === "bar" ? (
@@ -42,34 +40,26 @@ export function MenuStory({
             <Menu.BarItem onClick={() => setAction("Cut")}>Cut</Menu.BarItem>
             <Menu.BarItem onClick={() => setAction("Copy")}>Copy</Menu.BarItem>
             <Menu.BarItem onClick={() => setAction("Paste")}>Paste</Menu.BarItem>
-            <Menu.ExpandTrigger id={id} aria-label={label} />
+            <Menu.ExpandTrigger id={id} disabled={disabled} aria-label={label} />
           </Menu.Bar>
         ) : (
-          <Menu.Trigger id={id} aria-label={label} />
+          <Menu.Trigger id={id} disabled={disabled} aria-label={label} />
         )}
-        <Menu.Portal>
-          <Menu.Positioner align={align}>
-            <Menu.Popup aria-label={label}>
-              <Menu.Item onClick={() => setAction("Edit")}>Edit</Menu.Item>
-              <Menu.Item onClick={() => setAction("Duplicate")}>Duplicate</Menu.Item>
-              <Menu.SubmenuRoot presentation={submenuPresentation}>
-                <Menu.SubmenuTrigger>Sort by</Menu.SubmenuTrigger>
-                <Menu.Portal>
-                  <Menu.Positioner>
-                    <Menu.Popup>
-                      <Menu.Item onClick={() => setAction("Sort by name")}>Name</Menu.Item>
-                      <Menu.Item onClick={() => setAction("Sort by date")}>Date modified</Menu.Item>
-                    </Menu.Popup>
-                  </Menu.Positioner>
-                </Menu.Portal>
-              </Menu.SubmenuRoot>
-              <Menu.Separator />
-              <Menu.Item variant="danger" onClick={() => setAction("Delete")}>
-                Delete
-              </Menu.Item>
-            </Menu.Popup>
-          </Menu.Positioner>
-        </Menu.Portal>
+        <Menu.Content aria-label={label} align={align}>
+          <Menu.Item onClick={() => setAction("Edit")}>Edit</Menu.Item>
+          <Menu.Item onClick={() => setAction("Duplicate")}>Duplicate</Menu.Item>
+          <Menu.Sub presentation={submenuPresentation}>
+            <Menu.SubTrigger>Sort by</Menu.SubTrigger>
+            <Menu.SubContent align={align}>
+              <Menu.Item onClick={() => setAction("Sort by name")}>Name</Menu.Item>
+              <Menu.Item onClick={() => setAction("Sort by date")}>Date modified</Menu.Item>
+            </Menu.SubContent>
+          </Menu.Sub>
+          <Menu.Separator />
+          <Menu.Item variant="danger" onClick={() => setAction("Delete")}>
+            Delete
+          </Menu.Item>
+        </Menu.Content>
       </Menu>
       <output {...stylex.props(s.output)}>{action}</output>
     </div>

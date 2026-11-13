@@ -9,7 +9,7 @@ try {
   await p.goto("http://127.0.0.1:4337/cn/docs/react/components/menu", {
     waitUntil: "domcontentloaded",
   });
-  await p.locator("[data-slot=menu-trigger][aria-label=Actions]").waitFor();
+  await p.locator("[data-lenso-slot=menu-trigger][aria-label=Actions]").waitFor();
   await p.evaluate(async () => {
     const { mount } = await import("/test/menu-curves-fixture.tsx");
     for (const child of document.body.children)

@@ -11,14 +11,14 @@ const defaultSnapPoints = [1];
 export function ShareSheetRoot({ snapPoints = defaultSnapPoints, ...props }: ShareSheetRootProps) {
   return <Sheet.Root {...props} snapPoints={snapPoints} />;
 }
-export type ShareSheetPopupProps = ComponentProps<typeof Sheet.Popup>;
-export function ShareSheetPopup({ xstyle, surfaceXstyle, ...props }: ShareSheetPopupProps) {
+export type ShareSheetContentProps = ComponentProps<typeof Sheet.Content>;
+export function ShareSheetContent({ xstyle, surfaceXstyle, ...props }: ShareSheetContentProps) {
   return (
-    <Sheet.Popup
+    <Sheet.Content
       {...props}
       xstyle={[s.popup, xstyle]}
       surfaceXstyle={[s.surface, surfaceXstyle]}
-      data-slot="share-sheet-popup"
+      data-lenso-slot="share-sheet-popup"
     />
   );
 }
@@ -34,7 +34,7 @@ export function ShareSheetHeader({ xstyle, style, ...props }: ShareSheetHeaderPr
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="share-sheet-header"
+      data-lenso-slot="share-sheet-header"
     />
   );
 }
@@ -46,7 +46,7 @@ export function ShareSheetThumbnail({ xstyle, style, ...props }: ShareSheetThumb
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="share-sheet-thumbnail"
+      data-lenso-slot="share-sheet-thumbnail"
     />
   );
 }
@@ -58,7 +58,7 @@ export function ShareSheetMetadata({ xstyle, style, ...props }: ShareSheetMetada
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="share-sheet-metadata"
+      data-lenso-slot="share-sheet-metadata"
     />
   );
 }
@@ -78,7 +78,7 @@ export function ShareSheetTargets({ xstyle, style, ...props }: ShareSheetTargets
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="share-sheet-targets"
+      data-lenso-slot="share-sheet-targets"
     />
   );
 }
@@ -89,7 +89,7 @@ export function ShareSheetTarget({ xstyle, ...props }: ShareSheetTargetProps) {
       variant="borderless"
       {...props}
       xstyle={[s.target, xstyle]}
-      data-slot="share-sheet-target"
+      data-lenso-slot="share-sheet-target"
     />
   );
 }
@@ -107,7 +107,7 @@ export function ShareSheetTargetIcon({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="share-sheet-target-icon"
+      data-lenso-slot="share-sheet-target-icon"
       data-contact={contact || undefined}
     />
   );
@@ -127,10 +127,8 @@ export function ShareSheetAction({ xstyle, ...props }: ShareSheetActionProps) {
 export const ShareSheet = Object.assign(ShareSheetRoot, {
   Root: ShareSheetRoot,
   Trigger: Sheet.Trigger,
-  Portal: Sheet.Portal,
   Backdrop: Sheet.Backdrop,
-  Viewport: Sheet.Viewport,
-  Popup: ShareSheetPopup,
+  Content: ShareSheetContent,
   Handle: Sheet.Handle,
   Close: Sheet.Close,
   Body: ShareSheetBody,

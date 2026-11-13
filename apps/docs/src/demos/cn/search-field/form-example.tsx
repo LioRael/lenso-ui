@@ -1,4 +1,5 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 
 import { Button, Description, FieldError, Form, Label, SearchField, Spinner } from "@lenso/ui";
 import * as React from "react";
@@ -15,6 +16,7 @@ const styles = stylex.create({
   },
 });
 export function FormExample() {
+  const log = usePlaygroundLog();
   const [value, setValue] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const timer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -31,7 +33,7 @@ export function FormExample() {
     if (value.length < MIN_LENGTH || isSubmitting) return;
     setIsSubmitting(true);
     timer.current = setTimeout(() => {
-      console.log("Search submitted:", {
+      log("Search submitted:", {
         query: value,
       });
       setValue("");

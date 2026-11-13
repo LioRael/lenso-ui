@@ -71,7 +71,10 @@ export const controlButtonStyles = stylex.create({
     scale: "var(--lg-press-scale, 1 1)",
     translate: "var(--lg-press-translate, 0px 0px)",
     paddingBlock: 0,
-    paddingLeft: { default: null, ":has(> [data-slot='button-icon']):not([data-icon='only'])": 12 },
+    paddingLeft: {
+      default: null,
+      ":has(> [data-lenso-slot='button-icon']):not([data-icon='only'])": 12,
+    },
     whiteSpace: "nowrap",
     userSelect: "none",
     cursor: {
@@ -145,29 +148,29 @@ export const controlButtonStyles = stylex.create({
   },
   smallIcon: { width: 16, height: 16 },
   groupedHorizontal: {
-    borderStartStartRadius: { default: 0, ":nth-child(1 of :not([data-base-ui-focus-guard]))": 20 },
-    borderEndStartRadius: { default: 0, ":nth-child(1 of :not([data-base-ui-focus-guard]))": 20 },
+    borderStartStartRadius: { default: 0, ":first-child": 20 },
+    borderEndStartRadius: { default: 0, ":first-child": 20 },
     borderStartEndRadius: {
       default: 0,
-      ":nth-last-child(1 of :not([data-base-ui-focus-guard]))": 20,
+      ":last-child": 20,
     },
     borderEndEndRadius: {
       default: 0,
-      ":nth-last-child(1 of :not([data-base-ui-focus-guard]))": 20,
+      ":last-child": 20,
     },
     transform: { default: "none", ":active": "none" },
     zIndex: { default: 0, ":focus-visible": 10 },
   },
   groupedVertical: {
-    borderStartStartRadius: { default: 0, ":nth-child(1 of :not([data-base-ui-focus-guard]))": 20 },
-    borderStartEndRadius: { default: 0, ":nth-child(1 of :not([data-base-ui-focus-guard]))": 20 },
+    borderStartStartRadius: { default: 0, ":first-child": 20 },
+    borderStartEndRadius: { default: 0, ":first-child": 20 },
     borderEndStartRadius: {
       default: 0,
-      ":nth-last-child(1 of :not([data-base-ui-focus-guard]))": 20,
+      ":last-child": 20,
     },
     borderEndEndRadius: {
       default: 0,
-      ":nth-last-child(1 of :not([data-base-ui-focus-guard]))": 20,
+      ":last-child": 20,
     },
     transform: { default: "none", ":active": "none" },
     zIndex: { default: 0, ":focus-visible": 10 },

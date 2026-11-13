@@ -5,12 +5,12 @@ export function FourDigits() {
   return (
     <TextField name="pin" xstyle={styles.field}>
       <Label>Enter PIN</Label>
-      <InputOTP length={4} name="pin">
+      <InputOTP maxLength={4} name="pin">
         <InputOTP.Group>
-          <InputOTP.Slot aria-label="Digit 1" />
-          <InputOTP.Slot aria-label="Digit 2" />
-          <InputOTP.Slot aria-label="Digit 3" />
-          <InputOTP.Slot aria-label="Digit 4" />
+          <InputOTP.Slot aria-label="Digit 1" index={0} />
+          <InputOTP.Slot aria-label="Digit 2" index={1} />
+          <InputOTP.Slot aria-label="Digit 3" index={2} />
+          <InputOTP.Slot aria-label="Digit 4" index={3} />
         </InputOTP.Group>
       </InputOTP>
     </TextField>

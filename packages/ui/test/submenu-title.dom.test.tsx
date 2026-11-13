@@ -32,10 +32,10 @@ test.each([false, true])(
     const host = document.createElement("div");
     document.body.append(host);
     const parent = document.createElement("div");
-    parent.dataset["slot"] = "menu-popup";
+    parent.dataset["lensoSlot"] = "menu-popup";
     parent.setAttribute("data-open", "");
     parent.innerHTML =
-      '<div data-slot="menu-surface"></div><div data-slot="menu-content"><div role="menuitem">View Options</div></div>';
+      '<div data-lenso-slot="menu-surface"></div><div data-lenso-slot="menu-content"><div role="menuitem">View Options</div></div>';
     host.append(parent);
     const item = parent.querySelector<HTMLElement>('[role="menuitem"]')!;
     item.style.fontWeight = "400";
@@ -43,7 +43,7 @@ test.each([false, true])(
       offsetWidth: { value: 218 },
       offsetHeight: { value: 40 },
     });
-    const parentContent = parent.querySelector<HTMLElement>('[data-slot="menu-content"]')!;
+    const parentContent = parent.querySelector<HTMLElement>('[data-lenso-slot="menu-content"]')!;
     item.getBoundingClientRect = () =>
       new DOMRect(100, 250, 218 * (Number(parentContent.style.scale) || 1), 40);
     const trigger = createRef<HTMLElement>();
@@ -61,14 +61,14 @@ test.each([false, true])(
     }) {
       const ref = useSubmenuPopupRef(popupRef, owner, onUnmount, true);
       return (
-        <div ref={ref} data-slot="menu-popup" data-open="">
-          <div data-slot="menu-surface" />
-          <div data-slot="menu-content">
-            <div data-slot="menu-plate" />
-            <div data-slot="menu-submenu-heading" role="menuitem" style={{ fontWeight: 600 }}>
+        <div ref={ref} data-lenso-slot="menu-popup" data-open="">
+          <div data-lenso-slot="menu-surface" />
+          <div data-lenso-slot="menu-content">
+            <div data-lenso-slot="menu-plate" />
+            <div data-lenso-slot="menu-submenu-heading" role="menuitem" style={{ fontWeight: 600 }}>
               View Options
             </div>
-            <div data-slot="menu-submenu-body">Zoom In</div>
+            <div data-lenso-slot="menu-submenu-body">Zoom In</div>
           </div>
         </div>
       );
@@ -85,8 +85,8 @@ test.each([false, true])(
     try {
       await act(() => root.render(<Example />));
       const popup = caller.current!;
-      const heading = popup.querySelector<HTMLElement>('[data-slot="menu-submenu-heading"]')!;
-      const surface = popup.querySelector<HTMLElement>('[data-slot="menu-surface"]')!;
+      const heading = popup.querySelector<HTMLElement>('[data-lenso-slot="menu-submenu-heading"]')!;
+      const surface = popup.querySelector<HTMLElement>('[data-lenso-slot="menu-surface"]')!;
       for (const [node, width, height] of [
         [popup, 250, 180],
         [surface, 250, 180],
@@ -110,14 +110,14 @@ test.each([false, true])(
         const scale = heading.style.transform.match(/scale\(([^,]+),/)!;
         expect(Number(scale[1])).toBeLessThanOrEqual(1);
       }
-      expect(popup.querySelector('[data-slot="menu-submenu-glyph"]')).toBeNull();
+      expect(popup.querySelector('[data-lenso-slot="menu-submenu-glyph"]')).toBeNull();
       await act(() => {
         for (let i = 0; i < 120; i++) {
           frames();
           expect(heading.style.opacity).toBe("1");
         }
       });
-      expect(popup.querySelector('[data-slot="menu-submenu-heading"]')).toBe(heading);
+      expect(popup.querySelector('[data-lenso-slot="menu-submenu-heading"]')).toBe(heading);
       expect(heading.style.transform).toBe("");
       expect(heading.style.fontWeight).toBe("600");
       expect(item.style.opacity).toBe("0");
@@ -137,7 +137,7 @@ test.each([false, true])(
           for (let i = 0; i < 120; i++) frames();
         });
         expect(closed).toBe(0);
-        expect(popup.querySelector('[data-slot="menu-submenu-heading"]')).toBe(heading);
+        expect(popup.querySelector('[data-lenso-slot="menu-submenu-heading"]')).toBe(heading);
         expect(heading.style.opacity).toBe("1");
       }
       await act(async () => {

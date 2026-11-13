@@ -31,7 +31,9 @@ for (const [name, engine] of [
       mountElastic(host);
     });
     const sample = (label) =>
-      page.locator('[data-slot="glass-button"]').filter({ hasText: new RegExp(`^${label}$`) });
+      page
+        .locator('[data-lenso-slot="glass-button"]')
+        .filter({ hasText: new RegExp(`^${label}$`) });
     await sample("Small").waitFor({ state: "attached" });
     for (const label of ["Small", "Medium", "Large"]) {
       const button = sample(label);
@@ -130,13 +132,13 @@ for (const [name, engine] of [
     assert.ok(["0px", "0px 0px"].includes(reduced.translate), JSON.stringify(reduced));
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await page.waitForFunction(() => !matchMedia("(prefers-reduced-motion: reduce)").matches);
-    const toggle = page.locator('[data-slot="glass-toggle-button"]').first();
+    const toggle = page.locator('[data-lenso-slot="glass-toggle-button"]').first();
     await toggle.waitFor();
     await toggle.scrollIntoViewIfNeeded();
     await page.waitForFunction(() =>
       Boolean(
         document
-          .querySelector('[data-slot="glass-toggle-button"]')
+          .querySelector('[data-lenso-slot="glass-toggle-button"]')
           ?.style.getPropertyValue("--lenso-glass-clarity"),
       ),
     );

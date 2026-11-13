@@ -1,6 +1,8 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 
 import { Button } from "@lenso/ui";
 export function Basic() {
-  return <Button onClick={() => console.log("Button pressed")}>点我</Button>;
+  const log = usePlaygroundLog();
+  return <Button onClick={() => log("Button pressed")}>点我</Button>;
 }

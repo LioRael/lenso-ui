@@ -4,6 +4,7 @@ import { compile } from "@mdx-js/mdx";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
+import { rehypeHighlight } from "./rehype-highlight.ts";
 import {
   remarkStructure,
   remarkStructureDefaultOptions,
@@ -280,6 +281,7 @@ export async function buildContent(
         {
           format: file.endsWith(".mdx") ? "mdx" : "md",
           outputFormat: "program",
+          rehypePlugins: [rehypeHighlight],
           jsx: false,
           remarkPlugins: [
             remarkGfm,

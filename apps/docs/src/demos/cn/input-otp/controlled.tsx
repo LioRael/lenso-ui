@@ -9,7 +9,7 @@ export function Controlled() {
   return (
     <TextField name="code" xstyle={styles.field}>
       <Label>验证账户</Label>
-      <InputOTP length={6} name="code" value={value} onValueChange={setValue}>
+      <InputOTP maxLength={6} name="code" value={value} onValueChange={setValue}>
         <Slots />
       </InputOTP>
       <Description>

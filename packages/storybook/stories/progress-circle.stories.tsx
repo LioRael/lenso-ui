@@ -1,4 +1,4 @@
-// Base UI represents indeterminate progress with value=null, not isIndeterminate.
+// UI SDK represents indeterminate progress with value=null, not isIndeterminate.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";

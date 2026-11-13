@@ -33,39 +33,35 @@ export function DismissBehavior() {
             }}
           >
             <Modal.Trigger render={<Button />}>Open Modal</Modal.Trigger>
-            <Modal.Portal>
-              <Modal.Backdrop />
-              <Modal.Viewport>
-                <Modal.Popup xstyle={styles.popup}>
-                  <Modal.Close aria-label="Close dialog" />
-                  <Modal.Header>
-                    <Modal.Icon xstyle={styles.icon}>
-                      <CircleInfo {...stylex.props(styles.circle)} />
-                    </Modal.Icon>
-                    <Modal.Title>
-                      {blockedReason === "outside-press"
-                        ? "Backdrop dismissal disabled"
-                        : "Keyboard dismissal disabled"}
-                    </Modal.Title>
-                    <Modal.Description xstyle={styles.caption}>
-                      {blockedReason === "outside-press"
-                        ? "Clicking the backdrop won't close this modal"
-                        : "ESC key is disabled"}
-                    </Modal.Description>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <p>
-                      {blockedReason === "outside-press"
-                        ? "Try clicking outside this modal on the overlay - it won't close. You must use the close button or press ESC to dismiss it."
-                        : "Press ESC - nothing happens. You must use the close button or click the overlay backdrop to dismiss this modal."}
-                    </p>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Modal.Close render={<Button xstyle={styles.action} />}>Close</Modal.Close>
-                  </Modal.Footer>
-                </Modal.Popup>
-              </Modal.Viewport>
-            </Modal.Portal>
+            <Modal.Backdrop />
+            <Modal.Content xstyle={styles.popup}>
+              <Modal.Close aria-label="Close dialog" />
+              <Modal.Header>
+                <Modal.Icon xstyle={styles.icon}>
+                  <CircleInfo {...stylex.props(styles.circle)} />
+                </Modal.Icon>
+                <Modal.Title>
+                  {blockedReason === "outside-press"
+                    ? "Backdrop dismissal disabled"
+                    : "Keyboard dismissal disabled"}
+                </Modal.Title>
+                <Modal.Description xstyle={styles.caption}>
+                  {blockedReason === "outside-press"
+                    ? "Clicking the backdrop won't close this modal"
+                    : "ESC key is disabled"}
+                </Modal.Description>
+              </Modal.Header>
+              <Modal.Body>
+                <p>
+                  {blockedReason === "outside-press"
+                    ? "Try clicking outside this modal on the overlay - it won't close. You must use the close button or press ESC to dismiss it."
+                    : "Press ESC - nothing happens. You must use the close button or click the overlay backdrop to dismiss this modal."}
+                </p>
+              </Modal.Body>
+              <Modal.Footer>
+                <Modal.Close render={<Button xstyle={styles.action} />}>Close</Modal.Close>
+              </Modal.Footer>
+            </Modal.Content>
           </Modal>
         </div>
       ))}

@@ -27,7 +27,7 @@ export const fieldsetStyles = stylex.create({
     columnGap: 12,
     rowGap: 4,
     paddingBlock: 8,
-    minHeight: { default: 52, ":has(> [data-slot='description'])": 68 },
+    minHeight: { default: 52, ":has(> [data-lenso-slot='description'])": 68 },
   },
   actions: { display: "flex", alignItems: "center", gap: 8, paddingTop: 4 },
 });

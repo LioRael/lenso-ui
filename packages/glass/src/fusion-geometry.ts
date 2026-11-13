@@ -3,6 +3,7 @@ import type { OpticalPoint } from "./refraction.js";
 type DistanceField = ((x: number, y: number) => OpticalPoint) & {
   signedDistance(x: number, y: number): number;
   materialRows?: { top: number; height: number; count: number };
+  roundedRect?: { x: number; y: number; width: number; height: number; radius: number };
 };
 export type FusionEdgePixels = Uint8Array & { indices?: number[] };
 
@@ -130,6 +131,10 @@ export function fusionGeometry(
     const length = Math.sqrt(nx * nx + ny * ny) || 1;
     return { distance, nx: nx / length, ny: ny / length, localY, localHeight, thickness };
   };
+  const rectangle =
+    group?.progress === 0 ? group.hull : shapes.length === 1 ? shapes[0] : undefined;
+  if (rectangle && (!rectangle.corners || rectangle.corners.every((r) => r === rectangle.radius)))
+    (sample as DistanceField).roundedRect = rectangle;
   const first = shapes[0];
   if (
     first &&

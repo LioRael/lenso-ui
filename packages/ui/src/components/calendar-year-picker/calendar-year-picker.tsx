@@ -11,7 +11,13 @@ import {
   type ReactNode,
 } from "react";
 import { NativeButton as Button } from "../../utils/native-button.js";
-import { useRender } from "@base-ui/react/use-render";
+import { usePart, type PartProps } from "@ui-sdk/react/primitive";
+import { CollapsibleTrigger, CollapsiblePanel } from "@ui-sdk/react/collapsible";
+import { yearPicker } from "@lenso/primitives/model-control";
+import { useModelControl, type ModelControlHandle } from "../../utils/model-control.js";
+import { withSource } from "@ui-sdk/core/observe";
+import { sourceOf, type ChangeSource, type ChangeDetails } from "@ui-sdk/core";
+import type { ModelChangeReason, ModelController } from "@lenso/primitives/model-control";
 import { useLocale } from "../../utils/locale.js";
 import {
   calendarHeading,
@@ -28,15 +34,13 @@ import { useYearPicker, useCalendarOrRangeState } from "./year-picker-context.js
 export interface CalendarYearPickerTriggerRenderProps {
   isOpen: boolean;
   monthYear: string;
-  toggle: () => void;
 }
 const TriggerContext = createContext<CalendarYearPickerTriggerRenderProps | null>(null);
 export type CalendarYearPickerTriggerProps = StyleXProps<
-  Omit<ComponentPropsWithRef<typeof Button>, "children">
+  Omit<ComponentPropsWithRef<typeof CollapsibleTrigger>, "children">
 > & { children: ReactNode | ((values: CalendarYearPickerTriggerRenderProps) => ReactNode) };
 export function CalendarYearPickerTrigger({
   children,
-  onClick,
   onKeyDown,
   xstyle,
   style,
@@ -50,31 +54,27 @@ export function CalendarYearPickerTrigger({
   const values = {
     isOpen: isYearPickerOpen,
     monthYear,
-    toggle: () => setIsYearPickerOpen(!isYearPickerOpen),
   };
   return (
     <TriggerContext value={values}>
-      <Button
+      <CollapsibleTrigger
         {...compiled}
-        data-slot="calendar-year-picker-trigger"
+        data-lenso-slot="calendar-year-picker-trigger"
         style={mergeStyle(compiled.style, style)}
         {...props}
+        disabled={props.disabled ?? state.isDisabled}
         aria-expanded={isYearPickerOpen}
         aria-label={`${monthYear}, year selector`}
-        onClick={(event, details) => {
-          onClick?.(event, details);
-          if (!event.defaultPrevented) values.toggle();
-        }}
         onKeyDown={(event) => {
           onKeyDown?.(event);
           if (!event.defaultPrevented && event.key === "Escape") {
             event.preventDefault();
-            setIsYearPickerOpen(false);
+            withSource("keyboard", () => setIsYearPickerOpen(false));
           }
         }}
       >
         {typeof children === "function" ? children(values) : children}
-      </Button>
+      </CollapsibleTrigger>
     </TriggerContext>
   );
 }
@@ -102,8 +102,9 @@ export function CalendarYearPickerTriggerHeading({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={
-        (props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-year-picker-trigger-heading"
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: unknown })["data-lenso-slot"] ??
+        "calendar-year-picker-trigger-heading"
       }
     >
       {typeof children === "function" ? children(values) : (children ?? heading)}
@@ -127,8 +128,8 @@ export function CalendarYearPickerTriggerIndicator({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={
-        (props as { "data-slot"?: unknown })["data-slot"] ??
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: unknown })["data-lenso-slot"] ??
         "calendar-year-picker-trigger-indicator"
       }
       aria-hidden="true"
@@ -158,25 +159,29 @@ export interface CalendarYearPickerCellRenderProps {
   isOpen: boolean;
   selectYear: () => void;
 }
-type YearItem = { year: number; formatted: string; id: number };
+type YearItem = { year: number; formatted: string; id: string; modelId: number };
 const GridContext = createContext<{
   items: YearItem[];
-  active: number;
+  control: ModelControlHandle;
   focused: number;
   current: number;
   open: boolean;
-  setActive: (year: number) => void;
-  select: (year: number) => void;
+  select: (year: number, event?: Event) => void;
 } | null>(null);
-export type CalendarYearPickerGridProps = StyleXProps<
-  Omit<useRender.ComponentProps<"div">, "children">
-> & { format?: Pick<Intl.DateTimeFormatOptions, "year" | "era">; visibleYears?: number } & {
+export type CalendarYearPickerGridProps = StyleXProps<Omit<PartProps<"div">, "children">> & {
+  format?: Pick<Intl.DateTimeFormatOptions, "year" | "era">;
+  visibleYears?: number;
+  controller?: ModelController;
+  onValueChange?: (year: number, details: ChangeDetails<ModelChangeReason>) => void;
+} & {
   children?: ReactNode;
 };
 export function CalendarYearPickerGrid({
   children,
   format,
   visibleYears,
+  controller: providedController,
+  onValueChange,
   ref,
   render,
   xstyle,
@@ -189,6 +194,7 @@ export function CalendarYearPickerGrid({
     calendarGridSlot,
     isYearPickerOpen: open,
     setIsYearPickerOpen,
+    controller: disclosure,
   } = useYearPicker();
   const state = useCalendarOrRangeState();
   const { direction, locale } = useLocale();
@@ -207,106 +213,131 @@ export function CalendarYearPickerGrid({
   const items = model.items.map((item) => ({
     year: item.date.year,
     formatted: item.formatted,
-    id: item.id as number,
+    id: `${item.date.era}:${item.date.year}`,
+    modelId: item.id,
   }));
+  const selectedId = items.find((item) => item.modelId === model.value)?.id;
   const focused = model.items[model.value as number]?.date.year ?? state.focusedDate.year;
-  const [active, setActive] = useState(focused);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const [geometry, setGeometry] = useState<{ top?: number; height?: number }>({});
-  const wasOpen = useRef(false);
-  const focus = (year: number) =>
-    gridRef.current?.querySelector<HTMLElement>(`[data-year="${year}"]`)?.focus();
   useEffect(() => {
     const dayGrid = calendarRef.current?.querySelector<HTMLElement>(
-      `[data-slot="${calendarGridSlot}"]`,
+      `[data-lenso-slot="${calendarGridSlot}"]`,
     );
     if (dayGrid) setGeometry({ top: dayGrid.offsetTop, height: dayGrid.offsetHeight });
   }, [calendarRef, calendarGridSlot, state.focusedDate]);
+  const close = (source: ChangeSource) =>
+    withSource(source, () => {
+      if (setIsYearPickerOpen(false) && !disclosure.isOpen()) disclosure.focus();
+    });
+  const control = useModelControl<string>(
+    yearPicker,
+    {
+      value: selectedId ?? null,
+      disabled: state.isDisabled,
+      controller: providedController,
+      onValueChange(value, details) {
+        const item = items.find((item) => String(item.id) === value);
+        if (!item) {
+          details.cancel();
+          return;
+        }
+        onValueChange?.(item.year, details);
+        if (!details.canceled) {
+          model.onChange(item.modelId);
+          close(details.source);
+        }
+      },
+    },
+    (value) => value,
+    (value) => {
+      if (typeof value !== "string" || !items.some((item) => String(item.id) === value))
+        throw new Error("Expected a visible year");
+      return value;
+    },
+    {
+      move(event, from) {
+        const index = items.findIndex((item) => String(item.id) === from);
+        const steps: Record<string, number> = {
+          ArrowRight: direction === "rtl" ? -1 : 1,
+          ArrowLeft: direction === "rtl" ? 1 : -1,
+          ArrowDown: 3,
+          ArrowUp: -3,
+        };
+        const next =
+          event.key === "Home"
+            ? 0
+            : event.key === "End"
+              ? items.length - 1
+              : steps[event.key] === undefined
+                ? undefined
+                : Math.max(0, Math.min(items.length - 1, index + steps[event.key]!));
+        return next === undefined ? undefined : String(items[next]!.id);
+      },
+    },
+  );
   useEffect(() => {
-    const justOpened = open && !wasOpen.current;
-    wasOpen.current = open;
-    if (!justOpened) return;
-    setActive(focused);
-    const frame = requestAnimationFrame(() => focus(focused));
-    return () => cancelAnimationFrame(frame);
-  }, [open, focused]);
-  const close = () => {
-    setIsYearPickerOpen(false);
-    requestAnimationFrame(() =>
-      calendarRef.current
-        ?.querySelector<HTMLElement>('[data-slot="calendar-year-picker-trigger"]')
-        ?.focus(),
-    );
-  };
-  const select = (year: number) => {
-    const item = items.find((candidate) => candidate.year === year);
-    if (!item) return;
-    model.onChange(item.id);
-    close();
+    if (open) control.handle.api.focus(selectedId);
+  }, [open, selectedId, control.handle]);
+  const select = (year: number, event?: Event) => {
+    const item = items.find((item) => item.year === year);
+    if (!item || state.isDisabled) return;
+    if (control.handle.api.getValue() === item.id) close(sourceOf(event));
+    else
+      control.handle.api.setValue(item.id, { reason: "item-press", ...(event ? { event } : {}) });
   };
   const compiled = stylex.props(styles.grid, !open && styles.hidden, xstyle);
+  const element = usePart(
+    control.handle,
+    "root",
+    {},
+    {
+      ...props,
+      ...compiled,
+      ref(node) {
+        const own = assignRef(gridRef, node),
+          caller = assignRef(ref, node);
+        return () => {
+          own();
+          caller();
+        };
+      },
+      render,
+      "aria-label": model["aria-label"],
+      "aria-hidden": !open,
+      ...{ "data-lenso-slot": props["data-lenso-slot"] ?? "calendar-year-picker-grid" },
+      style: mergeStyle({ ...compiled.style, ...geometry }, style),
+      onKeyDown(event) {
+        onKeyDown?.(event);
+        if (event.defaultPrevented || !open) return;
+        if (event.key === "Escape") {
+          event.preventDefault();
+          close("keyboard");
+        } else {
+          control.handle.api.navigate(event.nativeEvent);
+          if (event.nativeEvent.defaultPrevented) event.preventDefault();
+        }
+      },
+      children,
+    },
+    "div",
+  );
   return (
     <GridContext
       value={{
         items,
-        active,
+        control: control.handle,
         focused,
         current: today(state.timeZone).year,
         open,
-        setActive,
         select,
       }}
     >
-      <YearGrid
-        {...props}
-        {...compiled}
-        ref={(node) => {
-          const own = assignRef(gridRef, node);
-          const caller = assignRef(ref, node);
-          return () => {
-            own();
-            caller();
-          };
-        }}
-        render={render}
-        aria-label={model["aria-label"]}
-        aria-hidden={!open}
-        data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-year-picker-grid"}
-        style={mergeStyle({ ...compiled.style, ...geometry }, style)}
-        onKeyDown={(event) => {
-          onKeyDown?.(event);
-          if (event.defaultPrevented || !open) return;
-          if (event.key === "Escape") {
-            event.preventDefault();
-            close();
-            return;
-          }
-          const index = items.findIndex((item) => item.year === active);
-          const steps: Record<string, number> = {
-            ArrowRight: direction === "rtl" ? -1 : 1,
-            ArrowLeft: direction === "rtl" ? 1 : -1,
-            ArrowDown: 3,
-            ArrowUp: -3,
-          };
-          let next = index;
-          if (event.key === "Home") next = 0;
-          else if (event.key === "End") next = items.length - 1;
-          else if (steps[event.key] !== undefined)
-            next = Math.max(0, Math.min(items.length - 1, index + steps[event.key]!));
-          else return;
-          const year = items[next]?.year;
-          if (year !== undefined) {
-            event.preventDefault();
-            setActive(year);
-            focus(year);
-          }
-        }}
-      >
-        {children}
-      </YearGrid>
+      <CollapsiblePanel keepMounted>{element}</CollapsiblePanel>
     </GridContext>
   );
 }
+
 export type CalendarYearPickerGridBodyProps = {
   children?: (values: CalendarYearPickerCellRenderProps) => ReactNode;
 };
@@ -341,14 +372,17 @@ export function CalendarYearPickerCell({
   children,
   onClick,
   onFocus,
+  ref,
   style,
   xstyle,
   ...props
 }: CalendarYearPickerCellProps) {
   const context = use(GridContext);
   if (!context) throw new Error("Year picker cell requires Grid");
+  const item = context.items.find((item) => item.year === year);
+  if (!item) return null;
   const selected = year === context.focused;
-  const formattedYear = context.items.find((item) => item.year === year)?.formatted ?? String(year);
+  const formattedYear = item.formatted;
   const values = {
     year,
     formattedYear,
@@ -360,27 +394,43 @@ export function CalendarYearPickerCell({
   return (
     <Button
       {...stylex.props(styles.cell, selected && styles.selected, xstyle)}
-      data-slot="calendar-year-picker-year-cell"
+      data-agent-hidden=""
+      data-lenso-slot="calendar-year-picker-year-cell"
       style={style}
       {...props}
+      disabled={context.control.state.disabled || props.disabled}
       aria-pressed={selected}
       aria-label={formattedYear}
       data-year={year}
-      tabIndex={context.open && context.active === year ? 0 : -1}
+      tabIndex={
+        context.open && !context.control.state.disabled
+          ? Number(
+              context.control.api.roving.tabIndex(context.control.state, {
+                key: item.id,
+                props: { value: String(year) },
+              }),
+            )
+          : -1
+      }
+      ref={(node) => {
+        const own = node ? context.control.api.bind(node, String(item.id)) : undefined;
+        const caller = assignRef(ref, node);
+        return () => {
+          own?.();
+          caller();
+        };
+      }}
       onFocus={(event) => {
         onFocus?.(event);
-        context.setActive(year);
       }}
       onClick={(event, details) => {
-        onClick?.(event, details);
-        if (!event.defaultPrevented) context.select(year);
+        const result = onClick?.(event, details);
+        if (!event.defaultPrevented)
+          withSource(details.source, () => context.select(year, event.nativeEvent));
+        return result;
       }}
     >
       {typeof children === "function" ? children(values) : (children ?? formattedYear)}
     </Button>
   );
-}
-
-function YearGrid({ render, ref, ...props }: useRender.ComponentProps<"div">) {
-  return useRender({ defaultTagName: "div", render, ref, props: { role: "group", ...props } });
 }

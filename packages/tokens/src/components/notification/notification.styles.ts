@@ -8,10 +8,10 @@ export const notificationStyles = stylex.create({
     isolation: "isolate",
     width: 386,
     maxWidth: "100%",
-    borderRadius: { default: 24, ":has(> [data-slot=notification-panel]:not([hidden]))": 26 },
+    borderRadius: { default: 24, ":has(> [data-lenso-slot=notification-panel]:not([hidden]))": 26 },
     backgroundColor: {
       default: "transparent",
-      ":has(> [data-slot=notification-panel]:not([hidden]))": tokens.backgroundPrimary,
+      ":has(> [data-lenso-slot=notification-panel]:not([hidden]))": tokens.backgroundPrimary,
     },
     fontFamily: tokens.fontBody,
     color: tokens.labelPrimary,
@@ -19,7 +19,7 @@ export const notificationStyles = stylex.create({
   surface: {
     visibility: {
       default: "visible",
-      ":is(:has(> [data-slot=notification-panel]:not([hidden])) > *)": "hidden",
+      ":is(:has(> [data-lenso-slot=notification-panel]:not([hidden])) > *)": "hidden",
     },
     position: "absolute",
     inset: 0,

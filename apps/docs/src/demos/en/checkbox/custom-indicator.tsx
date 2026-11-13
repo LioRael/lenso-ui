@@ -54,7 +54,7 @@ export function CustomIndicator() {
           Plus
         </Checkbox.Content>
       </Checkbox>
-      <Checkbox indeterminate name="indeterminate">
+      <Checkbox checked="indeterminate" name="indeterminate">
         <Checkbox.Content>
           <Checkbox.Control>
             <Checkbox.Indicator

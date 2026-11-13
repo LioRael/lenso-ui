@@ -7,7 +7,7 @@ export function Validation() {
   return (
     <div {...stylex.props(styles.column)}>
       <TextField invalid name="quantity">
-        <NumberField required min={0} name="quantity" value={-5} allowOutOfRange>
+        <NumberField required min={0} name="quantity" value={-5}>
           <Label required>Quantity</Label>
           <Controls />
           <FieldError match>Quantity must be greater than or equal to 0</FieldError>
@@ -21,7 +21,6 @@ export function Validation() {
           name="percentage"
           step={0.1}
           value={1.5}
-          allowOutOfRange
         >
           <Label>Percentage</Label>
           <Controls />

@@ -1,7 +1,8 @@
 "use client";
+import type { ReactNode } from "react";
 
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
 import { Notifications, styles } from "../../en/toast/_shared";
 const uploadFile = (): Promise<{
   filename: string;
@@ -47,8 +48,10 @@ const fetchUser = (): Promise<{
       2000,
     );
   });
+const toaster = createToaster<ReactNode>();
+
 function Workflows() {
-  const manager = Toast.useToastManager();
+  const manager = toaster;
   return (
     <>
       <div {...stylex.props(styles.frame, styles.promise)}>
@@ -62,19 +65,17 @@ function Workflows() {
               size="sm"
               variant="bordered"
               onClick={() => {
-                void manager
-                  .promise(uploadFile(), {
-                    error: {
-                      title: "Failed to upload file",
-                    },
-                    loading: {
-                      title: "Uploading file...",
-                    },
-                    success: (data) => ({
-                      title: `File ${data.filename} uploaded (${data.size}KB)`,
-                    }),
-                  })
-                  .catch(() => {});
+                void manager.promise(uploadFile(), {
+                  error: {
+                    title: "Failed to upload file",
+                  },
+                  loading: {
+                    title: "Uploading file...",
+                  },
+                  success: (data) => ({
+                    title: `File ${data.filename} uploaded (${data.size}KB)`,
+                  }),
+                });
               }}
             >
               上传文件
@@ -83,19 +84,17 @@ function Workflows() {
               size="sm"
               variant="bordered"
               onClick={() => {
-                void manager
-                  .promise(createEvent(), {
-                    error: (error: Error) => ({
-                      title: error.message,
-                    }),
-                    loading: {
-                      title: "Creating event...",
-                    },
-                    success: {
-                      title: "Event created",
-                    },
-                  })
-                  .catch(() => {});
+                void manager.promise(createEvent(), {
+                  error: (error: unknown) => ({
+                    title: error instanceof Error ? error.message : String(error),
+                  }),
+                  loading: {
+                    title: "Creating event...",
+                  },
+                  success: {
+                    title: "Event created",
+                  },
+                });
               }}
             >
               创建活动（错误）
@@ -104,19 +103,17 @@ function Workflows() {
               size="sm"
               variant="bordered"
               onClick={() => {
-                void manager
-                  .promise(saveData(), {
-                    error: (error: Error) => ({
-                      title: error.message,
-                    }),
-                    loading: {
-                      title: "Saving changes...",
-                    },
-                    success: (data) => ({
-                      title: `Saved ${data.count} items`,
-                    }),
-                  })
-                  .catch(() => {});
+                void manager.promise(saveData(), {
+                  error: (error: unknown) => ({
+                    title: error instanceof Error ? error.message : String(error),
+                  }),
+                  loading: {
+                    title: "Saving changes...",
+                  },
+                  success: (data) => ({
+                    title: `Saved ${data.count} items`,
+                  }),
+                });
               }}
             >
               保存数据（随机）
@@ -125,19 +122,17 @@ function Workflows() {
               size="sm"
               variant="bordered"
               onClick={() => {
-                void manager
-                  .promise(fetchUser(), {
-                    error: {
-                      title: "Failed to fetch user",
-                    },
-                    loading: {
-                      title: "Loading user...",
-                    },
-                    success: (data) => ({
-                      title: `Welcome back, ${data.name}!`,
-                    }),
-                  })
-                  .catch(() => {});
+                void manager.promise(fetchUser(), {
+                  error: {
+                    title: "Failed to fetch user",
+                  },
+                  loading: {
+                    title: "Loading user...",
+                  },
+                  success: (data) => ({
+                    title: `Welcome back, ${data.name}!`,
+                  }),
+                });
               }}
             >
               获取用户
@@ -154,11 +149,11 @@ function Workflows() {
               size="sm"
               variant="bordered"
               onClick={() => {
-                const id = manager.add({
+                const id: string = manager({
                   title: "Uploading file...",
                   description: "请稍候，正在上传您的文件",
                   type: "loading",
-                  timeout: 0,
+                  duration: Infinity,
                 });
                 setTimeout(
                   () =>
@@ -166,7 +161,7 @@ function Workflows() {
                       title: "File uploaded",
                       description: "您的文件已成功上传",
                       type: "success",
-                      timeout: 5000,
+                      duration: 5000,
                     }),
                   3000,
                 );
@@ -178,10 +173,10 @@ function Workflows() {
               size="sm"
               variant="bordered"
               onClick={() => {
-                const id = manager.add({
+                const id: string = manager({
                   title: "Processing payment...",
                   type: "loading",
-                  timeout: 0,
+                  duration: Infinity,
                 });
                 setTimeout(
                   () =>
@@ -189,7 +184,7 @@ function Workflows() {
                       title: "Payment processed",
                       description: "您的付款已成功处理",
                       type: "success",
-                      timeout: 5000,
+                      duration: 5000,
                     }),
                   2500,
                 );
@@ -201,18 +196,18 @@ function Workflows() {
               size="sm"
               variant="bordered"
               onClick={() => {
-                const id = manager.add({
+                const id: string = manager({
                   title: "Saving changes...",
                   type: "loading",
-                  timeout: 0,
+                  duration: Infinity,
                 });
                 setTimeout(
                   () =>
                     manager.update(id, {
                       title: "Failed to save",
                       description: "请重试",
-                      type: "danger",
-                      timeout: 5000,
+                      type: "error",
+                      duration: 5000,
                     }),
                   2000,
                 );
@@ -223,14 +218,14 @@ function Workflows() {
           </div>
         </div>
       </div>
-      <Notifications />
+      <Notifications toaster={toaster} />
     </>
   );
 }
 export function PromiseDemo() {
   return (
-    <Toast.Provider>
+    <>
       <Workflows />
-    </Toast.Provider>
+    </>
   );
 }

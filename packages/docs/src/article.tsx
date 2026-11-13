@@ -32,33 +32,34 @@ export function DocumentationArticle({
   kind = "docs",
 }: DocumentationArticleProps): ReactNode {
   const chinese = locale === "cn" || locale.startsWith("zh");
-  return (
+  const article = (
+    <DocsPage
+      id="main-content"
+      lang={chinese ? "zh-CN" : locale}
+      tabIndex={-1}
+      data-documentation-kind={kind}
+      slots={{ container: PageContainer }}
+      breadcrumb={{ enabled: false }}
+      footer={{ enabled: false }}
+      tableOfContent={{ enabled: false }}
+      tableOfContentPopover={{ enabled: false }}
+    >
+      <div {...stylex.props(notebook.headingRow)}>
+        <DocsTitle {...stylex.props(styles.title)}>{title}</DocsTitle>
+        {actions}
+      </div>
+      {description && <p {...stylex.props(styles.description)}>{description}</p>}
+      {beforeContent}
+      <div className="lenso-prose">{children}</div>
+      {footer}
+    </DocsPage>
+  );
+  return kind === "component" ? (
+    article
+  ) : (
     <>
-      <PageTableOfContents
-        items={headings.filter((heading) => kind !== "component" || heading.depth === 2)}
-        locale={chinese ? "cn" : "en"}
-        title={title}
-      />
-      <DocsPage
-        id="main-content"
-        lang={chinese ? "zh-CN" : locale}
-        tabIndex={-1}
-        data-documentation-kind={kind}
-        slots={{ container: PageContainer }}
-        breadcrumb={{ enabled: false }}
-        footer={{ enabled: false }}
-        tableOfContent={{ enabled: false }}
-        tableOfContentPopover={{ enabled: false }}
-      >
-        <div {...stylex.props(notebook.headingRow)}>
-          <DocsTitle {...stylex.props(styles.title)}>{title}</DocsTitle>
-          {actions}
-        </div>
-        {description && <p {...stylex.props(styles.description)}>{description}</p>}
-        {beforeContent}
-        <div className="lenso-prose">{children}</div>
-        {footer}
-      </DocsPage>
+      <PageTableOfContents items={[...headings]} locale={chinese ? "cn" : "en"} title={title} />
+      {article}
     </>
   );
 }

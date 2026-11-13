@@ -1,6 +1,6 @@
 # Glass
 
-`Glass` is a presentation-only native div composed with Base UI `useRender`.
+`Glass` is a presentation-only native div composed with UI SDK `renderElement`.
 It fits the glass optical model to its actual geometry. Native
 `render`, ref cleanup, runtime `style` and caller-last `xstyle` remain available.
 It does not supply activation, selection, roles or keyboard behavior.

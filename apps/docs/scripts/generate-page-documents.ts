@@ -10,12 +10,21 @@ import {
   type LiveManifest,
 } from "./generate-live-registry.ts";
 import { resolveDemo, type DemoLocale } from "../src/lib/demo-locale.ts";
-import { canonicalExampleName } from "./docs-projection.ts";
+import {
+  canonicalExampleName,
+  playgroundExamples,
+  examplePresentation,
+} from "./docs-projection.ts";
 import { searchMarkdown } from "./static-search.ts";
 import { nativeApiFamily } from "../src/lib/native-api-section.ts";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-type Page = { locale: DemoLocale; slug: string; markdownFile: string };
+type Page = {
+  locale: DemoLocale;
+  slug: string;
+  markdownFile: string;
+  examples?: { name: string; file: string }[];
+};
 type MdxNode = {
   type: string;
   name?: string;
@@ -140,6 +149,7 @@ export async function generatePageDocuments(
   const previews = new Map<string, string[]>();
   const pageComponents = new Map<string, string[]>();
   const pageStories = new Map<string, string[]>();
+  const pageScenarios = new Map<string, { name: string; file: string }[]>();
   for (const page of pages) {
     if (page.locale !== "en" && page.locale !== "cn")
       throw new Error(`Unsupported document locale: ${page.locale}`);
@@ -151,7 +161,13 @@ export async function generatePageDocuments(
         nativeApiFamily(page.slug),
       ),
     );
-    previews.set(`${page.locale}/${page.slug}`, references.previews);
+    const scenarios = references.stories.length
+      ? playgroundExamples(page.examples ?? [], references.stories[0]!)
+      : [];
+    pageScenarios.set(`${page.locale}/${page.slug}`, scenarios);
+    previews.set(`${page.locale}/${page.slug}`, [
+      ...new Set([...references.previews, ...scenarios.map(({ name }) => name)]),
+    ]);
     pageComponents.set(`${page.locale}/${page.slug}`, references.components);
     pageStories.set(`${page.locale}/${page.slug}`, references.stories);
   }
@@ -224,7 +240,7 @@ export async function generatePageDocuments(
         `ComponentsCategory: ({ category }: { category: string }) => <ComponentsCategory pages={source.pages.filter((page) => page.locale === ${JSON.stringify(page.locale)} && page.slug.startsWith("react/components/") && page.componentCategory === category)} />`,
       );
     }
-    if (tags.has("NativeApiReference") || nativeApiFamily(page.slug)) {
+    if (tags.has("NativeApiReference")) {
       imports.push(
         `import { NativeApiReference } from ${JSON.stringify(relativeImport(server, "src/components/native-api-reference"))};`,
       );
@@ -275,15 +291,15 @@ export async function generatePageDocuments(
       const storyEntry = storySources![family];
       if (storyEntry) playgroundSources = await sourcesFor(storyEntry);
       storyClient = `import { story as pageStory } from ${JSON.stringify(relativeImport(client, `src/stories/${family}.story`))};
-import { StoryLanguage, type StoryFile } from ${JSON.stringify(relativeImport(client, "src/stories/story-panel"))};
-export function PageStory({locale, loadFiles}: {locale: "en" | "cn"; loadFiles?: () => Promise<StoryFile[]>}) {
-  return <StoryLanguage locale={locale} loadFiles={loadFiles}><pageStory.WithControl /></StoryLanguage>;
+import { StoryLanguage, type StoryFile, type PlaygroundScenario } from ${JSON.stringify(relativeImport(client, "src/stories/story-panel"))};
+export function PageStory({locale, loadFiles, scenarios}: {locale: "en" | "cn"; loadFiles?: () => Promise<StoryFile[]>; scenarios?: PlaygroundScenario[]}) {
+  return <StoryLanguage locale={locale} loadFiles={loadFiles} scenarios={scenarios}><pageStory.WithControl /></StoryLanguage>;
 }`;
       imports.push(
         `import { PageStory } from ${JSON.stringify(relativeImport(server, client.slice(0, -4)))};`,
       );
       extensions.push(
-        `ComponentPlayground: () => <ComponentPlayground family=${JSON.stringify(family)} locale=${JSON.stringify(page.locale)} Preview={PageStory} loadFiles={() => loadSources().then(module=>module.playground())} />`,
+        `ComponentPlayground: () => <ComponentPlayground family=${JSON.stringify(family)} locale=${JSON.stringify(page.locale)} Preview={PageStory} loadFiles={() => loadSources().then(module=>module.playground())} scenarios={[${(pageScenarios.get(`${page.locale}/${page.slug}`) ?? []).map(({ name }) => `{id:${JSON.stringify(name)},title:${JSON.stringify(examplePresentation(name, family, page.locale).title)},${name === "menu-default" ? "initial:true," : ""}Preview:demos[${JSON.stringify(name)}]!,loadFiles:()=>loadSources().then(module=>module.examples[${JSON.stringify(name)}]!())}`).join(",")}]} />`,
       );
     }
     const identities = new Map<string, number>();

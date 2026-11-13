@@ -198,36 +198,32 @@ export function CustomStyles() {
             <ChevronDown />
           </Button.Icon>
         </Menu.Trigger>
-        <Menu.Portal>
-          <Menu.Positioner side="bottom" align="end">
-            <Menu.Popup xstyle={styles.popup}>
-              {[
-                {
-                  id: "merge",
-                  label: "Create a merge commit",
-                  description: "All commits from this branch will be added to the base branch",
-                },
-                {
-                  id: "squash-and-merge",
-                  label: "Squash and merge",
-                  description:
-                    "The 14 commits from this branch will be combined into one commit in the base branch",
-                },
-                {
-                  id: "rebase-and-merge",
-                  label: "Rebase and merge",
-                  description:
-                    "The 14 commits from this branch will be rebased and added to the base branch",
-                },
-              ].map((item) => (
-                <Menu.Item key={item.id} xstyle={styles.item}>
-                  <span {...stylex.props(styles.menuLabel)}>{item.label}</span>
-                  <span {...stylex.props(styles.menuDescription)}>{item.description}</span>
-                </Menu.Item>
-              ))}
-            </Menu.Popup>
-          </Menu.Positioner>
-        </Menu.Portal>
+        <Menu.Content xstyle={styles.popup} side="bottom" align="end">
+          {[
+            {
+              id: "merge",
+              label: "Create a merge commit",
+              description: "All commits from this branch will be added to the base branch",
+            },
+            {
+              id: "squash-and-merge",
+              label: "Squash and merge",
+              description:
+                "The 14 commits from this branch will be combined into one commit in the base branch",
+            },
+            {
+              id: "rebase-and-merge",
+              label: "Rebase and merge",
+              description:
+                "The 14 commits from this branch will be rebased and added to the base branch",
+            },
+          ].map((item) => (
+            <Menu.Item key={item.id} xstyle={styles.item}>
+              <span {...stylex.props(styles.menuLabel)}>{item.label}</span>
+              <span {...stylex.props(styles.menuDescription)}>{item.description}</span>
+            </Menu.Item>
+          ))}
+        </Menu.Content>
       </Menu>
     </ButtonGroup>
   );

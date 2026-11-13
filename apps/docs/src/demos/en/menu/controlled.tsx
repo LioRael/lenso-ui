@@ -23,7 +23,7 @@ export function Controlled() {
             <Menu.CheckboxItem
               key={value}
               checked={selected.has(value)}
-              closeOnClick={false}
+              closeOnSelect={false}
               onKeyDown={(event) => {
                 if (event.key === "Enter") setOpen(false);
               }}
@@ -35,11 +35,12 @@ export function Controlled() {
                   return next;
                 })
               }
+              value={value}
             >
               <Menu.Item.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</Menu.Item.Label>
-              <Menu.CheckboxItemIndicator keepMounted xstyle={styles.selectionIndicator}>
+              <Menu.ItemIndicator keepMounted xstyle={styles.selectionIndicator}>
                 <Checkmark />
-              </Menu.CheckboxItemIndicator>
+              </Menu.ItemIndicator>
             </Menu.CheckboxItem>
           ))}
         </Popup>

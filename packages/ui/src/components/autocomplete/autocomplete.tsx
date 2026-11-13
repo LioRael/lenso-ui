@@ -1,19 +1,32 @@
 "use client";
+import { materialStyles } from "@lenso/tokens/materials";
+import { MaterialBackground } from "../../utils/materials/render.js";
+import * as Sdk from "@ui-sdk/react/autocomplete";
+import { slotRender } from "../../utils/sdk-render.js";
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: native Base UI combobox with popup search; no React Aria Filter adapter.
+ * Modified: native UI SDK combobox with popup search; no React Aria Filter adapter.
  */
-import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 import {
   autocompleteStyles,
   autocompleteFieldStyles,
   autocompleteSharedStyles,
 } from "@lenso/tokens/autocomplete";
-import { createContext, useContext, useMemo, useState, type ComponentPropsWithRef } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  type ComponentPropsWithRef,
+} from "react";
+import { assignRef } from "../../utils/interaction/ref.js";
+import { InputGroupRoot } from "../input-group/input-group.js";
+import { inputGroupMaterialStyles } from "@lenso/tokens/input-group";
+import { comboBoxStyles } from "@lenso/tokens/combo-box";
 import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
 import { useFocusMethodRef } from "../../utils/interaction/focus-method.js";
 
 const AutocompleteStyleContext = createContext({
@@ -22,123 +35,119 @@ const AutocompleteStyleContext = createContext({
   virtualized: false,
   keyboardHighlight: false,
 });
-export function AutocompleteRoot<Value, Multiple extends boolean | undefined = false>({
-  variant = "primary",
-  fullWidth = false,
-  virtualized = false,
-  onItemHighlighted,
-  onOpenChange,
-  ...props
-}: AutocompleteRootProps<Value, Multiple>) {
-  const [keyboardHighlight, setKeyboardHighlight] = useState(false);
-  const appearance = useMemo(
-    () => ({ variant, fullWidth, virtualized, keyboardHighlight }),
-    [variant, fullWidth, virtualized, keyboardHighlight],
-  );
-  return (
-    <AutocompleteStyleContext value={appearance}>
-      <BaseCombobox.Root
-        {...props}
-        virtualized={virtualized}
-        onItemHighlighted={(value, details) => {
-          setKeyboardHighlight(details.reason === "keyboard");
-          onItemHighlighted?.(value, details);
-        }}
-        onOpenChange={(open, details) => {
-          onOpenChange?.(open, details);
-          if (!open && !details.isCanceled) setKeyboardHighlight(false);
-        }}
-      />
-    </AutocompleteStyleContext>
-  );
-}
+const AnchorContext = createContext<{
+  element: HTMLElement | null;
+  setElement: (element: HTMLElement | null) => void;
+} | null>(null);
+const InputGroupContext = createContext(false);
 export function AutocompleteInputGroup({
+  ref,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.InputGroup.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(autocompleteFieldStyles.inputGroup, xstyle);
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
+  const setAnchor = useContext(AnchorContext)?.setElement;
+  const appearance = useContext(AutocompleteStyleContext);
+  const register = useCallback(
+    (node: HTMLDivElement | null) => {
+      setAnchor?.(node);
+      const cleanup = assignRef(ref, node);
+      return () => {
+        setAnchor?.(null);
+        cleanup();
+      };
+    },
+    [ref, setAnchor],
+  );
   return (
-    <BaseCombobox.InputGroup
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseCombobox.InputGroup.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-input-group"}
-    />
+    <InputGroupContext value>
+      <InputGroupRoot
+        {...props}
+        ref={register}
+        glass
+        variant={appearance.variant}
+        fullWidth={appearance.fullWidth}
+        xstyle={xstyle}
+        style={style}
+        data-lenso-slot={slot ?? "autocomplete-input-group"}
+      />
+    </InputGroupContext>
   );
 }
 export function AutocompleteInput({
   ref,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Input.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteInput>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const focusRef = useFocusMethodRef(ref);
-  const compiled = stylex.props(autocompleteStyles.input, xstyle);
+  const grouped = useContext(InputGroupContext);
+  const compiled = stylex.props(
+    autocompleteStyles.input,
+    grouped && inputGroupMaterialStyles.input,
+    xstyle,
+  );
   return (
-    <BaseCombobox.Input
+    <Sdk.AutocompleteInput
       ref={focusRef}
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Input.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-input"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("input", slot ?? "autocomplete-input", props.render)}
     />
   );
 }
-export type AutocompleteValueProps = BaseCombobox.Value.Props & {
-  xstyle?: StyleXProps<ComponentPropsWithRef<"span">>["xstyle"];
-};
-export function AutocompleteValue({ xstyle, ...props }: AutocompleteValueProps) {
-  return (
-    <span {...stylex.props(autocompleteSharedStyles.value, xstyle)} data-slot="autocomplete-value">
-      <BaseCombobox.Value {...props} />
-    </span>
-  );
-}
-export type AutocompleteTriggerProps = StyleXProps<BaseCombobox.Trigger.Props> & {
-  "data-slot"?: unknown;
+export type AutocompleteTriggerProps = StyleXProps<
+  React.ComponentProps<typeof Sdk.AutocompleteTrigger>
+> & {
+  "data-lenso-slot"?: unknown;
 };
 export function AutocompleteTrigger({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: AutocompleteTriggerProps) {
   const inherited = useContext(AutocompleteStyleContext);
+  const grouped = useContext(InputGroupContext);
   const compiled = stylex.props(
-    autocompleteSharedStyles.trigger,
-    inherited.variant === "secondary" && autocompleteSharedStyles.secondary,
-    inherited.fullWidth && autocompleteSharedStyles.fullWidth,
+    grouped
+      ? [comboBoxStyles.trigger, comboBoxStyles.groupedTrigger]
+      : autocompleteSharedStyles.trigger,
+    !grouped && inherited.variant === "secondary" && autocompleteSharedStyles.secondary,
+    !grouped && inherited.fullWidth && autocompleteSharedStyles.fullWidth,
     xstyle,
   );
   return (
-    <BaseCombobox.Trigger
+    <Sdk.AutocompleteTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Trigger.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-trigger"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("button", slot ?? "autocomplete-trigger", props.render)}
     />
   );
 }
-export type AutocompleteIndicatorProps = StyleXProps<BaseCombobox.Icon.Props> & {
-  "data-slot"?: unknown;
+export type AutocompleteIndicatorProps = StyleXProps<React.ComponentPropsWithRef<"span">> & {
+  "data-lenso-slot"?: unknown;
 };
 export function AutocompleteIndicator({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: AutocompleteIndicatorProps) {
   const compiled = stylex.props(autocompleteSharedStyles.indicator, xstyle);
   return (
-    <BaseCombobox.Icon
+    <span
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Icon.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-indicator"}
+      style={mergeStyle(compiled.style, style)}
+      data-lenso-slot={slot ?? "autocomplete-indicator"}
     >
       {children ?? (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -151,212 +160,188 @@ export function AutocompleteIndicator({
           />
         </svg>
       )}
-    </BaseCombobox.Icon>
+    </span>
   );
 }
-export type AutocompletePortalProps = ComponentPropsWithRef<typeof BaseCombobox.Portal>;
-export function AutocompletePortal({ container, ...props }: AutocompletePortalProps) {
-  const themeContainer = useThemePortalContainer();
-  return (
-    <BaseCombobox.Portal
-      {...props}
-      container={container === undefined ? (themeContainer ?? undefined) : container}
-    />
-  );
-}
-export function AutocompletePositioner({
+export function AutocompleteContent({
+  children,
   xstyle,
   style,
-  "data-slot": slot,
+  sideOffset = 8,
   ...props
-}: StyleXProps<BaseCombobox.Positioner.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(autocompleteSharedStyles.positioner, xstyle);
-  return (
-    <BaseCombobox.Positioner
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseCombobox.Positioner.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-positioner"}
-    />
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteContent>>) {
+  const anchor = useContext(AnchorContext)?.element;
+  const compiled = stylex.props(
+    materialStyles.root,
+    materialStyles.accessible,
+    autocompleteSharedStyles.positioner,
+    autocompleteStyles.popover,
+    xstyle,
   );
-}
-export function AutocompletePopover({
-  xstyle,
-  style,
-  "data-slot": slot,
-  ...props
-}: StyleXProps<BaseCombobox.Popup.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(autocompleteStyles.popover, xstyle);
   return (
-    <BaseCombobox.Popup
+    <Sdk.AutocompleteContent
+      anchor={anchor}
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Popup.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-popover"}
-    />
+      sideOffset={sideOffset}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", props["data-lenso-slot"] ?? "autocomplete-popover", props.render)}
+      data-material="glass-small"
+    >
+      {(state) => (
+        <>
+          <MaterialBackground variant="glass-small" liveBackdrop />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </Sdk.AutocompleteContent>
   );
 }
 export function AutocompleteList({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.List.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteList>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const { virtualized } = useContext(AutocompleteStyleContext);
   const compiled = stylex.props(autocompleteStyles.list, xstyle);
   return (
-    <BaseCombobox.List
+    <Sdk.AutocompleteList
       data-virtualized={virtualized ? "" : undefined}
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.List.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-list"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "autocomplete-list", props.render)}
     />
   );
 }
 export function AutocompleteItem({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Item.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteItem>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const { keyboardHighlight } = useContext(AutocompleteStyleContext);
   const compiled = stylex.props(autocompleteSharedStyles.item, xstyle);
   return (
-    <BaseCombobox.Item
+    <Sdk.AutocompleteItem
       {...props}
       {...compiled}
       data-keyboard-highlight={keyboardHighlight ? "" : undefined}
-      style={mergeStyle<BaseCombobox.Item.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-item"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "autocomplete-item", props.render)}
     />
-  );
-}
-export type AutocompleteItemIndicatorProps = StyleXProps<BaseCombobox.ItemIndicator.Props> & {
-  "data-slot"?: unknown;
-};
-export function AutocompleteItemIndicator({
-  children,
-  xstyle,
-  style,
-  "data-slot": slot,
-  ...props
-}: AutocompleteItemIndicatorProps) {
-  const compiled = stylex.props(autocompleteSharedStyles.itemIndicator, xstyle);
-  return (
-    <BaseCombobox.ItemIndicator
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseCombobox.ItemIndicator.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-item-indicator"}
-    >
-      {children ?? (
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path
-            d="m2 6 2.5 2.5L10 3"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      )}
-    </BaseCombobox.ItemIndicator>
   );
 }
 export function AutocompleteLabel({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Label.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteLabel>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(autocompleteSharedStyles.label, xstyle);
   return (
-    <BaseCombobox.Label
+    <Sdk.AutocompleteLabel
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Label.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-label"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("label", slot ?? "autocomplete-label", props.render)}
     />
   );
 }
 export function AutocompleteGroup({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Group.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteGroup>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(xstyle);
   return (
-    <BaseCombobox.Group
+    <Sdk.AutocompleteGroup
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Group.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-group"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "autocomplete-group", props.render)}
     />
   );
 }
 export function AutocompleteGroupLabel({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.GroupLabel.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteGroupLabel>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(autocompleteSharedStyles.groupLabel, xstyle);
   return (
-    <BaseCombobox.GroupLabel
+    <Sdk.AutocompleteGroupLabel
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.GroupLabel.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-group-label"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "autocomplete-group-label", props.render)}
     />
   );
 }
 export function AutocompleteSeparator({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Separator.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteSeparator>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(autocompleteSharedStyles.separator, xstyle);
   return (
-    <BaseCombobox.Separator
+    <Sdk.AutocompleteSeparator
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Separator.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-separator"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "autocomplete-separator", props.render)}
     />
   );
 }
 export function AutocompleteArrow({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Arrow.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteArrow>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(autocompleteSharedStyles.arrow, xstyle);
   return (
-    <BaseCombobox.Arrow
+    <Sdk.AutocompleteArrow
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Arrow.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-arrow"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "autocomplete-arrow", props.render)}
     />
   );
 }
 export function AutocompleteEmpty({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Empty.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteEmpty>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(autocompleteFieldStyles.empty, xstyle);
   return (
-    <BaseCombobox.Empty
+    <Sdk.AutocompleteEmpty
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Empty.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-empty"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "autocomplete-empty", props.render)}
     />
   );
 }
@@ -364,16 +349,18 @@ export function AutocompleteClearButton({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Clear.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.AutocompleteClear>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(autocompleteFieldStyles.clear, xstyle);
   return (
-    <BaseCombobox.Clear
+    <Sdk.AutocompleteClear
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Clear.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-clear-button"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("button", slot ?? "autocomplete-clear-button", props.render)}
     >
       {children ?? (
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -385,71 +372,43 @@ export function AutocompleteClearButton({
           />
         </svg>
       )}
-    </BaseCombobox.Clear>
+    </Sdk.AutocompleteClear>
   );
 }
-export function AutocompleteChips({
-  xstyle,
-  style,
-  "data-slot": slot,
-  ...props
-}: StyleXProps<BaseCombobox.Chips.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(autocompleteFieldStyles.chips, xstyle);
-  return (
-    <BaseCombobox.Chips
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseCombobox.Chips.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-chips"}
-    />
-  );
-}
-export function AutocompleteChip({
-  xstyle,
-  style,
-  "data-slot": slot,
-  ...props
-}: StyleXProps<BaseCombobox.Chip.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(autocompleteFieldStyles.chip, xstyle);
-  return (
-    <BaseCombobox.Chip
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseCombobox.Chip.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-chip"}
-    />
-  );
-}
-export function AutocompleteChipRemove({
-  xstyle,
-  style,
-  "data-slot": slot,
-  ...props
-}: StyleXProps<BaseCombobox.ChipRemove.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(autocompleteFieldStyles.chipRemove, xstyle);
-  return (
-    <BaseCombobox.ChipRemove
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseCombobox.ChipRemove.State>(compiled.style, style)}
-      data-slot={slot ?? "autocomplete-chip-remove"}
-    />
-  );
-}
-export const AutocompleteCollection = BaseCombobox.Collection;
-export const AutocompleteRow = BaseCombobox.Row;
-export const AutocompleteStatus = BaseCombobox.Status;
-export const AutocompleteBackdrop = BaseCombobox.Backdrop;
-export const useAutocompleteFilter = BaseCombobox.useFilter;
-export type AutocompleteRootProps<
-  Value,
-  Multiple extends boolean | undefined = false,
-> = BaseCombobox.Root.Props<Value, Multiple> & {
+export const AutocompleteStatus = Sdk.AutocompleteStatus;
+export type AutocompleteInputProps = ComponentPropsWithRef<typeof AutocompleteInput>;
+export type AutocompleteContentProps = ComponentPropsWithRef<typeof AutocompleteContent>;
+export type AutocompleteListProps = ComponentPropsWithRef<typeof AutocompleteList>;
+export type AutocompleteItemProps = ComponentPropsWithRef<typeof AutocompleteItem>;
+
+export type AutocompleteRootProps = Sdk.AutocompleteProps & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
 };
-export type AutocompleteInputProps = ComponentPropsWithRef<typeof AutocompleteInput>;
-export type AutocompletePopoverProps = ComponentPropsWithRef<typeof AutocompletePopover>;
-export type AutocompletePositionerProps = ComponentPropsWithRef<typeof AutocompletePositioner>;
-export type AutocompleteListProps = ComponentPropsWithRef<typeof AutocompleteList>;
-export type AutocompleteItemProps = ComponentPropsWithRef<typeof AutocompleteItem>;
+export function AutocompleteRoot({
+  variant = "primary",
+  fullWidth = false,
+  onHighlight,
+  ...props
+}: AutocompleteRootProps) {
+  const [keyboardHighlight, setKeyboardHighlight] = useState(false);
+  const [element, setElement] = useState<HTMLElement | null>(null);
+  const anchor = useMemo(() => ({ element, setElement }), [element]);
+  const appearance = useMemo(
+    () => ({ variant, fullWidth, keyboardHighlight, virtualized: false }),
+    [variant, fullWidth, keyboardHighlight],
+  );
+  return (
+    <AutocompleteStyleContext value={appearance}>
+      <AnchorContext value={anchor}>
+        <Sdk.Autocomplete
+          {...props}
+          onHighlight={(value, details) => {
+            setKeyboardHighlight(details.event?.type.startsWith("key") ?? false);
+            onHighlight?.(value, details);
+          }}
+        />
+      </AnchorContext>
+    </AutocompleteStyleContext>
+  );
+}

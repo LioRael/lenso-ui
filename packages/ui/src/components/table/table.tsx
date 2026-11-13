@@ -11,7 +11,7 @@ import {
   type CollectionKey,
   type SelectionProps,
   type CollectionDragProps,
-} from "../list-box/list-box.js";
+} from "../list-box/collection-model.js";
 
 export interface SortDescriptor {
   column: CollectionKey;
@@ -63,7 +63,7 @@ export function TableRoot({
     <VariantContext.Provider value={variant}>
       <div
         {...props}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table"}
+        data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table"}
         {...compiled}
         style={{ ...compiled.style, ...style }}
       />
@@ -79,7 +79,9 @@ export function TableScrollContainer({
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-scroll-container"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-scroll-container"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -94,7 +96,9 @@ export function TableResizableContainer({
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-resizable-container"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-resizable-container"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -105,7 +109,9 @@ export function TableFooter({ xstyle, style, ...props }: StyleXProps<React.Compo
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-footer"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-footer"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -266,7 +272,9 @@ export function TableContent({
           ...style,
           tableLayout: columns.some((column) => column.width !== undefined) ? "fixed" : undefined,
         }}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-content"}
+        data-lenso-slot={
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-content"
+        }
         aria-rowcount={
           props["aria-rowcount"] ??
           (selection.collectionSize !== undefined ? selection.collectionSize + 1 : undefined)
@@ -365,7 +373,9 @@ export function TableHeader<T extends { key: CollectionKey }>({
   return (
     <thead
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-header"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-header"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >
@@ -423,7 +433,7 @@ export function TableBody<T extends { key: CollectionKey }>({
   const window = useCollectionWindow(items?.length ?? 0, virtualized, viewport);
   React.useLayoutEffect(() => {
     viewport.current =
-      body.current?.closest<HTMLElement>('[data-slot="table-scroll-container"]') ?? null;
+      body.current?.closest<HTMLElement>('[data-lenso-slot="table-scroll-container"]') ?? null;
   });
   const renderItems = () => {
     if (!items || typeof children !== "function")
@@ -479,7 +489,7 @@ export function TableBody<T extends { key: CollectionKey }>({
     // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Table body delegates virtualized row keyboard navigation; the focus targets are its cells.
     <tbody
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-body"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-body"}
       ref={(value) => {
         body.current = value;
         if (typeof ref === "function") return ref(value);
@@ -584,7 +594,9 @@ export function TableColumn({
           if (ref) ref.current = value;
         }}
         style={{ ...compiled.style, ...style, width: cssWidth, minWidth, maxWidth }}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-column"}
+        data-lenso-slot={
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-column"
+        }
         data-allows-sorting={allowsSorting || undefined}
         aria-sort={allowsSorting ? (sortDirection ?? "none") : undefined}
         onClick={(event) => {
@@ -649,7 +661,7 @@ function TableDetailRow({
   colSpan: number;
 }) {
   return expanded && content ? (
-    <tr data-slot="table-expanded-row">
+    <tr data-lenso-slot="table-expanded-row">
       <td colSpan={colSpan}>{content}</td>
     </tr>
   ) : null;
@@ -698,7 +710,9 @@ export function TableRow({
           if (ref) ref.current = value;
         }}
         style={{ ...compiled.style, ...style }}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-row"}
+        data-lenso-slot={
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-row"
+        }
         aria-disabled={isDisabled || undefined}
         draggable={!isDisabled && (props.draggable ?? selection.drag.enabled)}
         onDragStart={(event) => {
@@ -785,7 +799,7 @@ export function TableCell({
     <td
       tabIndex={row?.disabled ? -1 : 0}
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-cell"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-cell"}
       role={props.role ?? (context?.treeColumn !== undefined ? "gridcell" : undefined)}
       data-tree-column={isTreeColumn ? "" : undefined}
       {...compiled}
@@ -883,7 +897,10 @@ export function TableSortableColumnHeader({
   return (
     <span
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-sortable-column-header"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ??
+        "table-sortable-column-header"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >
@@ -936,7 +953,9 @@ export function TableColumnResizer({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-column-resizer"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-column-resizer"
+      }
       role="separator"
       aria-label={props["aria-label"] ?? "Resize column"}
       aria-orientation="vertical"
@@ -1001,7 +1020,9 @@ export function TableLoadMoreContent({
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-load-more-content"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-load-more-content"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -1036,7 +1057,9 @@ export function TableLoadMore({
   return (
     <tr
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "table-load-more"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "table-load-more"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
       ref={(value) => {

@@ -1,157 +1,74 @@
 "use client";
+import * as SdkTooltip from "@ui-sdk/react/tooltip";
+import { slotRender } from "../../utils/sdk-render.js";
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Tooltip as Base } from "@base-ui/react/tooltip";
-import { useDirection } from "@base-ui/react/direction-provider";
 import { materialStyles } from "@lenso/tokens/materials";
 import { tooltipStyles as s } from "@lenso/tokens/tooltip";
 import { AnchoredMaterial } from "../../utils/materials/anchored.js";
 import { presentationMaterials } from "../../utils/materials/presentation.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
-export function TooltipRoot<Payload = unknown>(props: Base.Root.Props<Payload>) {
-  return <Base.Root {...props} />;
-}
-const ArrowPresenceContext = React.createContext<React.Dispatch<
-  React.SetStateAction<boolean>
-> | null>(null);
-const TimingContext = React.createContext<Pick<Base.Provider.Props, "delay" | "closeDelay">>({});
-export function TooltipProvider({ delay, closeDelay, ...props }: Base.Provider.Props) {
-  const inherited = React.useContext(TimingContext);
-  const timing = React.useMemo(
-    () => ({ delay: delay ?? inherited.delay, closeDelay: closeDelay ?? inherited.closeDelay }),
-    [delay, closeDelay, inherited],
-  );
-  return (
-    <TimingContext.Provider value={timing}>
-      <Base.Provider {...props} delay={timing.delay} closeDelay={timing.closeDelay} />
-    </TimingContext.Provider>
-  );
+const ArrowPresenceContext = React.createContext<((present: boolean) => void) | null>(null);
+
+export function TooltipRoot(props: React.ComponentProps<typeof SdkTooltip.Tooltip>) {
+  return <SdkTooltip.Tooltip delay={1500} closeDelay={500} {...props} />;
 }
 export function TooltipTrigger({
-  delay,
-  closeDelay,
-  ref,
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Trigger.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Trigger>, "ref">) {
-  const timing = React.useContext(TimingContext);
-  const localRef = React.useRef<HTMLElement | null>(null);
-  const attachRef = React.useCallback((element: HTMLElement | null) => {
-    localRef.current = element;
-  }, []);
-  React.useImperativeHandle(ref, () => localRef.current!);
-  const [delays, setDelays] = React.useState({ open: 1500, close: 500 });
-  React.useLayoutEffect(() => {
-    const refresh = () => {
-      const styles = getComputedStyle(localRef.current ?? document.documentElement);
-      const time = (name: string, fallback: number) => {
-        const raw = styles.getPropertyValue(name).trim();
-        const value = Number.parseFloat(raw);
-        return Number.isFinite(value)
-          ? Math.max(0, value * (raw.endsWith("ms") ? 1 : 1000))
-          : fallback;
-      };
-      const open = time("--lenso-tooltip-delay", 1500);
-      const close = time("--lenso-tooltip-close-delay", 500);
-      setDelays((previous) =>
-        previous.open === open && previous.close === close ? previous : { open, close },
-      );
-    };
-    refresh();
-    // Delays inherit from the trigger's ancestors, including portalled theme scopes.
-    const observer = new MutationObserver(refresh);
-    for (let element = localRef.current; element; element = element.parentElement) {
-      observer.observe(element, { attributes: true });
-    }
-    observer.observe(document.head, { childList: true, subtree: true, characterData: true });
-    window.addEventListener("resize", refresh);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", refresh);
-    };
-  }, []);
-  const ownPresentation =
-    props.render == null ||
-    (React.isValidElement(props.render) && typeof props.render.type === "string");
-  const compiled = stylex.props(ownPresentation && s.trigger, xstyle);
+}: StyleXProps<React.ComponentProps<typeof SdkTooltip.TooltipTrigger>>) {
+  const compiled = stylex.props(s.trigger, xstyle);
   return (
-    <Base.Trigger
+    <SdkTooltip.TooltipTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Trigger.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-trigger"}
-      ref={attachRef}
-      delay={delay ?? timing.delay ?? delays.open}
-      closeDelay={closeDelay ?? timing.closeDelay ?? delays.close}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("button", props["data-lenso-slot"] ?? "tooltip-trigger", props.render)}
     />
   );
 }
-export function TooltipPortal({
-  container,
-  ...props
-}: React.ComponentPropsWithRef<typeof Base.Portal>) {
-  const themed = useThemePortalContainer();
-  return (
-    <Base.Portal
-      {...props}
-      container={container === undefined ? (themed ?? undefined) : container}
-    />
-  );
-}
-export function TooltipPositioner({
+export function TooltipContent({
+  children,
   sideOffset,
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Positioner.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Positioner>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkTooltip.TooltipContent>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkTooltip.TooltipContent>, "ref">) {
   const [hasArrow, setHasArrow] = React.useState(false);
-  const compiled = stylex.props(s.positioner, xstyle);
-  return (
-    <ArrowPresenceContext.Provider value={setHasArrow}>
-      <Base.Positioner
-        side="top"
-        sideOffset={sideOffset ?? (hasArrow ? 7 : 3)}
-        {...props}
-        {...compiled}
-        style={mergeStyle<Base.Positioner.State>(compiled.style, style)}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-positioner"}
-      />
-    </ArrowPresenceContext.Provider>
-  );
-}
-export function TooltipPopup({
-  children,
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Popup.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Popup>, "ref">) {
-  const direction = useDirection();
   const compiled = stylex.props(
     materialStyles.root,
-    materialStyles[presentationMaterials.anchored],
-    s.popup,
     materialStyles.accessible,
+    materialStyles[presentationMaterials.anchored],
+    s.positioner,
+    s.popup,
     xstyle,
   );
   return (
-    <Base.Popup
-      role="tooltip"
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Popup.State>(compiled.style, style)}
-      data-direction={direction}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-popup"}
-      data-material={presentationMaterials.anchored}
-    >
-      <AnchoredMaterial kind="tooltip" />
-      {children}
-    </Base.Popup>
+    <ArrowPresenceContext value={setHasArrow}>
+      <SdkTooltip.TooltipContent
+        sideOffset={sideOffset ?? (hasArrow ? 7 : 3)}
+        role="tooltip"
+        {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        render={slotRender(
+          "div",
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "tooltip-popup",
+          props.render,
+        )}
+        data-material={presentationMaterials.anchored}
+      >
+        {(state) => (
+          <>
+            <AnchoredMaterial kind="tooltip" />
+            {typeof children === "function" ? children(state) : children}
+          </>
+        )}
+      </SdkTooltip.TooltipContent>
+    </ArrowPresenceContext>
   );
 }
 export function TooltipArrow({
@@ -159,57 +76,38 @@ export function TooltipArrow({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Arrow.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Arrow>, "ref">) {
-  const direction = useDirection();
-  const setHasArrow = React.useContext(ArrowPresenceContext);
-  // Registration also covers arrows inside custom components or conditional popup content.
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkTooltip.TooltipArrow>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkTooltip.TooltipArrow>, "ref">) {
+  const setArrowPresent = React.useContext(ArrowPresenceContext);
   React.useLayoutEffect(() => {
-    setHasArrow?.(true);
-    return () => setHasArrow?.(false);
-  }, [setHasArrow]);
+    setArrowPresent?.(true);
+    return () => setArrowPresent?.(false);
+  }, [setArrowPresent]);
   const compiled = stylex.props(s.arrow, xstyle);
   return (
-    <Base.Arrow
+    <SdkTooltip.TooltipArrow
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Arrow.State>(compiled.style, style)}
-      data-direction={direction}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-arrow"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "tooltip-arrow",
+        props.render,
+      )}
     >
       {children ?? (
         <span
           aria-hidden="true"
-          data-slot="tooltip-arrow-material"
+          data-lenso-slot="tooltip-arrow-material"
           {...stylex.props(s.arrowMaterial)}
         />
       )}
-    </Base.Arrow>
-  );
-}
-export function TooltipViewport({
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Viewport.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, "ref">) {
-  const compiled = stylex.props(xstyle);
-  return (
-    <Base.Viewport
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Viewport.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tooltip-viewport"}
-    />
+    </SdkTooltip.TooltipArrow>
   );
 }
 export const Tooltip = Object.assign(TooltipRoot, {
   Root: TooltipRoot,
-  Provider: TooltipProvider,
   Trigger: TooltipTrigger,
-  Portal: TooltipPortal,
-  Positioner: TooltipPositioner,
-  Popup: TooltipPopup,
+  Content: TooltipContent,
   Arrow: TooltipArrow,
-  Viewport: TooltipViewport,
 });

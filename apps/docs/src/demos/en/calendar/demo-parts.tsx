@@ -91,22 +91,19 @@ export function DurationSelect({
           <Select.Value />
           <Select.Indicator />
         </Select.Trigger>
-        <Select.Portal>
-          <Select.Positioner>
-            <Select.Popover>
-              <Select.List>
-                {options.map((option) => (
-                  <Select.Item key={option} value={String(option)}>
-                    <Select.ItemText>
-                      {option} {option === 1 ? singular : unit}
-                    </Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.List>
-            </Select.Popover>
-          </Select.Positioner>
-        </Select.Portal>
+        <Select.Content>
+          <Select.List>
+            {options.map((option) => (
+              <Select.Item key={option} value={String(option)}>
+                <Select.ItemText>
+                  {option}
+                  {option === 1 ? singular : unit}
+                </Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.List>
+        </Select.Content>
       </Select>
     </div>
   );

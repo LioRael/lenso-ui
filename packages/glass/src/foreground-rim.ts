@@ -4,7 +4,7 @@
  * Modified: fitted host contour, shared optical lifetime, independent foreground paint and pixel-area coverage.
  */
 import { encodeImageData } from "./canvas.js";
-import type { Shape } from "./optical-fields.js";
+import type { GeometrySampler, Shape } from "./optical-fields.js";
 
 const depth = 24;
 
@@ -23,7 +23,13 @@ export function foregroundRimShadow(size = 0) {
 }
 
 /** Includes the outside hairline; CSS places this image one pixel beyond the host. */
-export function foregroundRimPixels(width: number, height: number, radius: number, shape: Shape) {
+export function foregroundRimPixels(
+  width: number,
+  height: number,
+  radius: number,
+  shape: Shape,
+  geometry?: GeometrySampler,
+) {
   const density = 2;
   const columns = Math.ceil((width + 2) * density),
     rows = Math.ceil((height + 2) * density);
@@ -32,6 +38,7 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
     pitchY = (height + 2) / image.height;
   const shine = Math.max(0, (shape.lightIntensity ?? 0.25) / 0.25);
   const clear = shape.materialProfile === "clear" ? 1 : (shape.materialClarity ?? 0);
+  const classic = shape.materialRim === "classic";
   const lightPanel = shape.appleMode === "light" && shape.materialProfile === "medium";
   const angle = (shape.lightAngle * Math.PI) / 180;
   const cos = Math.cos(angle),
@@ -49,10 +56,11 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
     const ox = Math.max(qx, 0),
       oy = Math.max(qy, 0),
       length = Math.sqrt(ox * ox + oy * oy);
-    const distance = radius - length - Math.min(Math.max(qx, qy), 0);
+    const point = geometry?.(px + width / 2, py + height / 2);
+    const distance = point?.distance ?? radius - length - Math.min(Math.max(qx, qy), 0);
     if (distance > depth || distance <= -0.75) return;
-    const nx = length ? (ox / length) * Math.sign(px) : qx > qy ? Math.sign(px) : 0;
-    const ny = length ? (oy / length) * Math.sign(py) : qx > qy ? 0 : Math.sign(py);
+    const nx = point?.nx ?? (length ? (ox / length) * Math.sign(px) : qx > qy ? Math.sign(px) : 0);
+    const ny = point?.ny ?? (length ? (oy / length) * Math.sign(py) : qx > qy ? 0 : Math.sign(py));
     const vertical = ny * cos - nx * sin;
     const end = vertical * vertical,
       side = Math.max(0, 1 - end);
@@ -63,14 +71,22 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
       if (lightPanel) {
         // Rex's light reference has a 1px white crest and a bright inward
         // decay, rather than the small-control recipe's dark upper band.
-        light = end * (distance < 1 ? 1 : 0.55 * Math.exp(-(distance - 1) / 1.8));
+        const reflectionDistance = distance - (classic ? 0.5 : 0);
+        light =
+          end * (reflectionDistance < 1 ? 1 : 0.55 * Math.exp(-(reflectionDistance - 1) / 1.8));
       } else if (vertical < 0) {
         light = end * (line + (distance > 1 ? 0.05 * Math.max(0, 1 - (distance - 1) / 2.5) : 0));
         const onset = Math.max(0, Math.min(1, (distance - 1.5) / 1.5));
-        shade = end * 0.02 * onset * Math.exp(-0.5 * ((distance - 3) / 4) ** 2);
+        shade += end * 0.02 * onset * Math.exp(-0.5 * ((distance - 3) / 4) ** 2);
       } else if (vertical > 0) light = end * line;
       if (side > 0) shade += side * 0.028 * Math.exp(-0.5 * (distance / 10) ** 2);
     } else shade = (side * 0.75 + end * 0.2) * Math.max(0, Math.min(1, 1 + distance / 0.75));
+    // Scrollable popup hosts clip the outside hairline. Keep it inside their
+    // bounds and above the reflection, without changing the panel's tone.
+    if (classic && distance >= 0 && distance < 0.5) {
+      light = 0;
+      shade = (side * 0.75 + end * 0.2) * (1 - distance / 0.5);
+    }
     light = Math.min(1, light * shine * (1 + clear * 1.1));
     shade = Math.min(1, shade * shine);
     const coverage = light + shade - light * shade;
@@ -88,15 +104,15 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
   const bottom = Math.floor((height - margin + 1) / pitchY) - 1;
   const packed = new Uint32Array(image.data.buffer);
   for (let y = 0; y < image.height; y++) {
-    if (y > top && y <= bottom) {
+    if (!geometry && y > top && y <= bottom) {
       packed.copyWithin(y * columns, top * columns, (top + 1) * columns);
       continue;
     }
     const py = (y + 0.5) * pitchY - 1 - height / 2;
     const cornerY = Math.max(0, Math.abs(py) - (innerHeight - innerRadius));
     const span = innerWidth - innerRadius + Math.sqrt(Math.max(0, innerRadius ** 2 - cornerY ** 2));
-    const skip = innerWidth > 0 && innerHeight > 0 && Math.abs(py) < innerHeight;
-    const repeat = !skip && right > left;
+    const skip = !geometry && innerWidth > 0 && innerHeight > 0 && Math.abs(py) < innerHeight;
+    const repeat = !geometry && !skip && right > left;
     const skipStart = skip ? Math.ceil((width / 2 - span + 1) / pitchX - 0.5) : left + 1;
     const skipEnd = skip ? Math.floor((width / 2 + span + 1) / pitchX - 0.5) : right;
     for (let x = 0; x < image.width; x++) {
@@ -114,7 +130,9 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
         qy = Math.abs(py) - (height / 2 - radius);
       const ox = Math.max(qx, 0),
         oy = Math.max(qy, 0);
-      const distance = radius - Math.sqrt(ox * ox + oy * oy) - Math.min(Math.max(qx, qy), 0);
+      const point = geometry?.(px + width / 2, py + height / 2);
+      const distance =
+        point?.distance ?? radius - Math.sqrt(ox * ox + oy * oy) - Math.min(Math.max(qx, qy), 0);
       // Even the nearest subpixel is beyond the outside hairline.
       if (distance > depth || distance < -0.75 - halfDiagonal) continue;
       premult = 0;
@@ -123,8 +141,8 @@ export function foregroundRimPixels(width: number, height: number, radius: numbe
       // would turn transparent samples into dark fringes.
       const count =
         Math.abs(distance) < halfDiagonal ? 16 : distance > -1.1 && distance < 1.7 ? 4 : 1;
-      const samplesX = qx <= 0 && qy >= qx ? 1 : count;
-      const samplesY = qy <= 0 && qx > qy ? 1 : count;
+      const samplesX = (point ? point.nx === 0 : qx <= 0 && qy >= qx) ? 1 : count;
+      const samplesY = (point ? point.ny === 0 : qy <= 0 && qx > qy) ? 1 : count;
       for (let sy = 0; sy < samplesY; sy++)
         for (let sx = 0; sx < samplesX; sx++) {
           sample(

@@ -52,7 +52,7 @@ export const editor = stylex.create({
     display: "grid",
     gridTemplateColumns: "1fr auto 1fr",
     alignItems: "center",
-    ':is(*) > [data-slot="toolbar-group"]:last-child': { justifySelf: "end" },
+    ':is(*) > [data-lenso-slot="toolbar-group"]:last-child': { justifySelf: "end" },
   },
   toolbarIcon: { width: 42, minWidth: 42, height: 42, paddingInline: 0, paddingBlock: 0 },
   title: { fontSize: 15, fontWeight: 500, color: "var(--lenso-label-secondary)", margin: 0 },

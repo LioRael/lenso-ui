@@ -121,3 +121,36 @@ for (const [name, attach] of painters) {
       }
     }));
 }
+
+// Native top-layer ownership uses no sibling paint nodes; preference changes
+// must still reach that owner and restore caller state on retirement.
+test("native popup paint preserves opaque and clear preferences", () =>
+  fixture(async (lens) => {
+    lens.setAttribute("popover", "manual");
+    lens.style.setProperty("--lenso-native-material-filter", "caller-filter", "important");
+    const stop = paintMovingMaterialBackdrop(lens);
+    try {
+      expect(lens.style.getPropertyValue("--lenso-native-material-filter")).toContain(
+        "blur(15.3px)",
+      );
+      lens.style.setProperty("--lenso-glass-transparency", "0");
+      await settle();
+      expect(lens.hasAttribute("data-lenso-glass-opaque")).toBe(true);
+      expect(lens.style.getPropertyValue("--lenso-native-material-filter")).toBe("none");
+      lens.style.setProperty("--lenso-glass-transparency", ".4");
+      lens.style.setProperty("--lenso-glass-tint-amount", "0");
+      await settle();
+      expect(lens.hasAttribute("data-lenso-glass-opaque")).toBe(false);
+      expect(
+        parseFloat(
+          lens.style.getPropertyValue("--lenso-native-material-filter").match(/blur\(([^)]+)/)![1]!,
+        ),
+      ).toBeCloseTo(1.3);
+      expect(lens.style.getPropertyValue("--lenso-glass-preference-paint")).toContain("60%");
+    } finally {
+      stop();
+    }
+    expect(lens.style.getPropertyValue("--lenso-native-material-filter")).toBe("caller-filter");
+    expect(lens.style.getPropertyPriority("--lenso-native-material-filter")).toBe("important");
+    expect(lens.className).toBe("caller-material-class");
+  }));

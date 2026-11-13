@@ -10,7 +10,7 @@ export function WithMultipleSelection() {
     <Menu.CheckboxItem
       key={value}
       checked={selected.has(value)}
-      closeOnClick={false}
+      closeOnSelect={false}
       onKeyDown={(event) => {
         if (event.key === "Enter") setOpen(false);
       }}
@@ -22,10 +22,11 @@ export function WithMultipleSelection() {
           return next;
         })
       }
+      value={value}
     >
-      <Menu.CheckboxItemIndicator keepMounted xstyle={styles.selectionIndicator}>
+      <Menu.ItemIndicator keepMounted xstyle={styles.selectionIndicator}>
         <Checkmark />
-      </Menu.CheckboxItemIndicator>
+      </Menu.ItemIndicator>
       <Menu.Item.Label>{label}</Menu.Item.Label>
     </Menu.CheckboxItem>
   );

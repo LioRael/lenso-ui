@@ -1,6 +1,6 @@
 "use client";
 
-import { NativeAutocomplete } from "../../en/autocomplete/_native";
+import { OptionPicker } from "../../en/autocomplete/_native";
 const tags = [
   {
     id: "react",
@@ -37,7 +37,7 @@ const tags = [
 ];
 export function TagGroupSelection() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={tags}
       label="标签"
       placeholder="选择标签"

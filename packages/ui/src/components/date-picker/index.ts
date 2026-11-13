@@ -1,11 +1,15 @@
 // Copyright NextUI Inc. Apache-2.0. Modified for Lenso StyleX.
 import type { ComponentProps } from "react";
 import {
+  PopoverTitle as DatePickerTitle,
+  PopoverClose as DatePickerClose,
+  PopoverDescription as DatePickerPopoverDescription,
+} from "../popover/index.js";
+import {
   DatePickerRoot,
   DatePickerTrigger,
   DatePickerTriggerIndicator,
   DatePickerPopover,
-  DatePickerDialog,
   DatePickerLabel,
   DatePickerDescription,
   DatePickerError,
@@ -18,7 +22,6 @@ export {
   DatePickerTrigger,
   DatePickerTriggerIndicator,
   DatePickerPopover,
-  DatePickerDialog,
   DatePickerLabel,
   DatePickerDescription,
   DatePickerError,
@@ -32,7 +35,9 @@ export const DatePicker = Object.assign(DatePickerRoot, {
   Trigger: DatePickerTrigger,
   TriggerIndicator: DatePickerTriggerIndicator,
   Popover: DatePickerPopover,
-  Dialog: DatePickerDialog,
+  Title: DatePickerTitle,
+  Close: DatePickerClose,
+  PopoverDescription: DatePickerPopoverDescription,
   Label: DatePickerLabel,
   Description: DatePickerDescription,
   Error: DatePickerError,
@@ -43,3 +48,11 @@ export const DatePicker = Object.assign(DatePickerRoot, {
   Prefix: DatePickerPrefix,
   Suffix: DatePickerSuffix,
 });
+
+export { createModelController as createDatePickerController } from "@lenso/primitives/model-control";
+export type {
+  ModelController as DatePickerController,
+  ModelChangeReason as DatePickerChangeReason,
+} from "@lenso/primitives/model-control";
+
+export { DatePickerClose, DatePickerTitle, DatePickerPopoverDescription };

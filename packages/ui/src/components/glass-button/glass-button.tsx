@@ -1,7 +1,7 @@
 "use client";
 
-import { NativeButton as BaseButton } from "../../utils/native-button.js";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { NativeButton as SdkButton } from "../../utils/native-button.js";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import {
   cloneElement,
   isValidElement,
@@ -29,8 +29,8 @@ export type GlassButtonVariant = "default" | "prominent";
 // A non-oscillating return avoids repeatedly crossing a proximity threshold.
 export const glassButtonRelease = [230, 31] as const;
 export const glassButtonFusionTouchRelease = [342, 37] as const;
-export type GlassButtonRootProps = StyleXProps<ComponentProps<typeof BaseButton>> & {
-  "data-slot"?: unknown;
+export type GlassButtonRootProps = StyleXProps<ComponentProps<typeof SdkButton>> & {
+  "data-lenso-slot"?: unknown;
   size?: GlassButtonSize;
   variant?: GlassButtonVariant;
   isIconOnly?: boolean;
@@ -46,13 +46,13 @@ function Icon({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(glassButtonStyles.icon, xstyle);
   return (
     <span
       {...mergeProps(compiled, props)}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "glass-button-icon"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "glass-button-icon"}
     />
   );
 }
@@ -70,7 +70,7 @@ export function GlassButtonRoot({
   elastic = true,
   xstyle,
   style,
-  "data-slot": dataSlot,
+  "data-lenso-slot": dataSlot,
   render,
   onClickCapture,
   onDoubleClickCapture,
@@ -100,7 +100,7 @@ export function GlassButtonRoot({
       variant === "prominent" ? `${variant}:${tint ?? ""}:${destructive}` : variant,
     ),
     {
-      enabled: elastic && !joined && !isLoading && !disabled,
+      enabled: elastic && !isLoading && !disabled,
       release: fusion ? glassButtonRelease : undefined,
       touchRelease: fusion ? glassButtonFusionTouchRelease : undefined,
     },
@@ -130,11 +130,11 @@ export function GlassButtonRoot({
     xstyle,
   );
   return (
-    <BaseButton
+    <SdkButton
       {...mergeProps(compiled, props)}
       ref={glassRef}
       style={mergeStyle(compiled.style, style)}
-      data-slot={dataSlot ?? "glass-button"}
+      data-lenso-slot={dataSlot ?? "glass-button"}
       data-glass="true"
       data-lenso-group-item={group.orientation ? "" : undefined}
       data-variant={variant}
@@ -164,14 +164,14 @@ export function GlassButtonRoot({
         <>
           <span
             aria-hidden="true"
-            data-slot="glass-press-highlight"
+            data-lenso-slot="glass-press-highlight"
             {...stylex.props(liquidMaterialStyles.pressHighlight)}
           />
           {icon != null && <GlassButtonIcon>{icon}</GlassButtonIcon>}
           {typeof children === "function" ? children(state) : children}
         </>
       )}
-    </BaseButton>
+    </SdkButton>
   );
 }
 /** Wrap decorative SVGs explicitly; only their viewport size is supplied, never their paths. */

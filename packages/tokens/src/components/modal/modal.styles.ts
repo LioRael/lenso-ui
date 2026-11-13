@@ -64,7 +64,33 @@ export const modalStyles = stylex.create({
     overflowY: "auto",
     height: "var(--visual-viewport-height, 100dvh)",
   },
+  nativeContent: {
+    visibility: {
+      default: null,
+      ":is([popover]:not(:popover-open),[data-closed]:not([data-ending-style]))": "hidden",
+    },
+    position: "fixed",
+    inset: { default: 16, ":is([data-size='full'])": 0 },
+    margin: "auto",
+    height: {
+      default: "max-content",
+      ":is([data-size='cover'])": "calc(100dvh - 32px)",
+      ":is([data-size='full'])": "100dvh",
+    },
+    minHeight: 0,
+    width: { default: "calc(100% - 32px)", ":is([data-size='full'])": "100%" },
+    maxHeight: { default: "calc(100dvh - 32px)", ":is([data-size='full'])": "100dvh" },
+    overflowY: { default: "clip", ":is([data-scroll='outside'])": "auto" },
+    zIndex: tokens.zIndexOverlay,
+    marginBlockStart: { default: "auto", ":is([data-placement='top'])": 0 },
+    marginBlockEnd: {
+      default: 0,
+      "@media (min-width: 640px)": { default: "auto", ":is([data-placement='bottom'])": 0 },
+      ":is([data-placement='center'],[data-placement='top'])": "auto",
+    },
+  },
   popup: {
+    borderWidth: 0,
     boxSizing: "border-box",
     position: "relative",
     display: "flex",

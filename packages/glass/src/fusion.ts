@@ -109,6 +109,8 @@ export function attachFusion(
   let frame = 0;
   let still = 0;
   let lastChange = performance.now();
+  let lastGeometryChange = 0;
+  let previousBox = "";
   let previous = "";
   let visible = true;
   let destroyed = false;
@@ -123,6 +125,11 @@ export function attachFusion(
     frame = 0;
     if (destroyed || !visible || document.hidden) return;
     const box = root.getBoundingClientRect();
+    const presentation = `${box.x}:${box.y}:${box.width}:${box.height}`;
+    if (presentation !== previousBox) {
+      previousBox = presentation;
+      lastGeometryChange = performance.now();
+    }
     const rootStyle = getComputedStyle(root);
     const width = layoutSize(root, rootStyle, "width");
     const height = layoutSize(root, rootStyle, "height");
@@ -232,7 +239,7 @@ export function attachFusion(
       !opaque &&
       (!motion.matches || grouped) &&
       spacing > 0 &&
-      shownMembers.length > 1 &&
+      (shownMembers.length > 1 || (grouped && members.length > 1 && shownMembers.length === 1)) &&
       sharesFusionMaterial(surface, shownMembers);
     const fused = continuous ? shapes : shapes.filter((_, index) => connected[index]);
     const fusedMembers = continuous
@@ -291,6 +298,7 @@ export function attachFusion(
     ]);
     if (next !== previous) {
       previous = next;
+      lastGeometryChange = performance.now();
       still = 0;
       lastChange = performance.now();
       // Optical preparation may retain the preceding plane between updates.
@@ -306,21 +314,34 @@ export function attachFusion(
         optics.update(paintWidth, paintHeight, fused, spacing, fusedMembers, grouped);
       }
     } else still++;
-    if (!disconnected) optics?.lighting(fused, fusedMembers, spacing);
+
     // A CSS/WAAPI delay can exceed the idle grace period.
-    const animated = root
-      .getAnimations({ subtree: true })
-      .some((animation) => animation.playState === "running" || animation.pending);
+    const animations = root.getAnimations({ subtree: true });
+    const active = (animation: Animation) => animation.playState === "running" || animation.pending;
+    const animated = animations.some(active);
+    const memberMotion = animations.some((animation) => {
+      const target = (animation.effect as KeyframeEffect | null)?.target;
+      return (
+        active(animation) &&
+        (target === root || (target instanceof HTMLElement && group.members.has(target)))
+      );
+    });
+    if (!disconnected) {
+      optics?.motion(memberMotion || performance.now() - lastGeometryChange < 80);
+      optics?.lighting(fused, fusedMembers, spacing);
+    }
     if (still < 12 || performance.now() - lastChange < 300 || animated)
       frame = requestAnimationFrame(measure);
   };
-  const wake = () => {
+  const wake = (event?: Event) => {
+    if (event && /^(pointerdown|transitionrun|animationstart)$/.test(event.type))
+      optics?.motion(true);
     still = 0;
     lastChange = performance.now();
     if (!frame && visible && !document.hidden && !destroyed) frame = requestAnimationFrame(measure);
   };
   group.update = wake;
-  const resize = new ResizeObserver(wake);
+  const resize = new ResizeObserver(() => wake());
   resize.observe(root);
   const mutations = new MutationObserver((records) => {
     if (

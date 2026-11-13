@@ -1,7 +1,7 @@
 "use client";
-import { Autocomplete } from "@lenso/ui";
+import { ComboBox } from "@lenso/ui";
 import { useId, useState } from "react";
-import { NativeAutocomplete } from "./_native";
+import { OptionPicker } from "./_native";
 
 const groups = [
   {
@@ -34,7 +34,10 @@ const groups = [
 ];
 export function WithSections() {
   const id = useId();
-  const { contains } = Autocomplete.useFilter({ sensitivity: "base" });
+  const { contains } = {
+    contains: (text: string, query: string) =>
+      text.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+  };
   const [query, setQuery] = useState("");
   const visibleGroups = groups
     .map((group) => ({
@@ -43,30 +46,30 @@ export function WithSections() {
     }))
     .filter((group) => group.items.length);
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={groups.flatMap((group) => group.items)}
       filteredItems={visibleGroups.flatMap((group) => group.items)}
       label="Country"
       placeholder="Select a country"
       searchLabel="Search countries"
       searchPlaceholder="Search countries..."
-      inputValue={query}
-      onInputValueChange={setQuery}
+      query={query}
+      onQueryChange={setQuery}
       list={
-        <Autocomplete.List>
+        <ComboBox.List>
           {visibleGroups.map((group, index) => (
-            <Autocomplete.Group key={group.name} aria-labelledby={`${id}-${index}`}>
-              {index > 0 && <Autocomplete.Separator />}
-              <Autocomplete.GroupLabel id={`${id}-${index}`}>{group.name}</Autocomplete.GroupLabel>
+            <ComboBox.Group key={group.name} aria-labelledby={`${id}-${index}`}>
+              {index > 0 && <ComboBox.Separator />}
+              <ComboBox.GroupLabel id={`${id}-${index}`}>{group.name}</ComboBox.GroupLabel>
               {group.items.map((item) => (
-                <Autocomplete.Item key={item.id} value={item}>
+                <ComboBox.Item key={item.id} value={item} label={item.name}>
                   {item.name}
-                  <Autocomplete.ItemIndicator />
-                </Autocomplete.Item>
+                  <ComboBox.ItemIndicator />
+                </ComboBox.Item>
               ))}
-            </Autocomplete.Group>
+            </ComboBox.Group>
           ))}
-        </Autocomplete.List>
+        </ComboBox.List>
       }
     />
   );

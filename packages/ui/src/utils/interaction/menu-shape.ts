@@ -1,6 +1,6 @@
 // Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz. SPDX-License-Identifier: MIT.
 // Shape samples adapted from onlymoein/liquidglass 89f8b736.
-// Modified: normalized reversible sampling; Base UI retains placement and lifecycle.
+// Modified: normalized reversible sampling; UI SDK retains placement and lifecycle.
 import {
   menuInk,
   sampleMenuOpening,

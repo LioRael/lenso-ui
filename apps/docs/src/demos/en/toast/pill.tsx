@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useRef, useState, type ComponentProps, type MouseEvent } from "react";
+import { Button, Disclosure as Collapsible, Separator, Toast, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Collapsible } from "@base-ui/react/collapsible";
-import { Button, Separator, Toast } from "@lenso/ui";
+import type { Toast as ToastData } from "@ui-sdk/core/toast";
+import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Stage = "checking" | "available" | "downloading" | "installed";
 type UpdateData = { stage: Stage; progress?: number };
@@ -66,6 +67,8 @@ const s = stylex.create({
   description: { fontSize: 13, lineHeight: "18px" },
 });
 
+const toaster = createToaster<ReactNode>();
+
 function DownloadIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...stylex.props(s.glyph)}>
@@ -95,17 +98,28 @@ function InstalledIcon() {
   );
 }
 
-function UpdateNotice({
-  toast,
-}: {
-  toast: ComponentProps<typeof Toast.Root>["toast"] & { data?: UpdateData };
-}) {
+function readUpdateData(data: unknown): UpdateData | undefined {
+  if (!data || typeof data !== "object" || !("stage" in data)) return undefined;
+  const stage = data.stage;
+  if (
+    stage !== "checking" &&
+    stage !== "available" &&
+    stage !== "downloading" &&
+    stage !== "installed"
+  )
+    return undefined;
+  return {
+    stage,
+    progress: "progress" in data && typeof data.progress === "number" ? data.progress : undefined,
+  };
+}
+function UpdateNotice({ toast }: { toast: ToastData<ReactNode> & { data?: UpdateData } }) {
   const [expanded, setExpanded] = useState(false);
   const stage = toast.data?.stage;
   const installed = stage === "installed";
   if (!installed && expanded) setExpanded(false);
   return (
-    <Toast.Root toast={toast} variant="pill" xstyle={expanded && s.expanded}>
+    <Toast.Root variant="pill" xstyle={expanded && s.expanded}>
       {installed ? (
         <Collapsible.Root open={expanded} onOpenChange={setExpanded} {...stylex.props(s.installed)}>
           <div {...stylex.props(s.row)}>
@@ -126,12 +140,12 @@ function UpdateNotice({
             <Toast.Action />
             <Toast.Close aria-label="Dismiss update notification" />
           </div>
-          <Collapsible.Panel {...stylex.props(s.panel)}>
+          <Collapsible.Content {...stylex.props(s.panel)}>
             <Separator xstyle={s.divider} />
             <div {...stylex.props(s.details)}>
               <Toast.Description xstyle={s.description} />
             </div>
-          </Collapsible.Panel>
+          </Collapsible.Content>
         </Collapsible.Root>
       ) : stage === "downloading" ? (
         <Toast.Progress value={toast.data?.progress ?? 0} aria-label="Downloading update">
@@ -160,9 +174,9 @@ function UpdateNotice({
 function UpdateWorkflow({
   placement,
 }: {
-  placement: ComponentProps<typeof Toast.Viewport>["placement"];
+  placement: "top" | "bottom" | "top-start" | "top-end" | "bottom-start" | "bottom-end";
 }) {
-  const manager = Toast.useToastManager<UpdateData>();
+  const manager = toaster;
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const id = useRef<string | null>(null);
   const [relaunch, setRelaunch] = useState(false);
@@ -174,14 +188,16 @@ function UpdateWorkflow({
   const later = (action: () => void, delay: number) => {
     timers.current.push(setTimeout(action, delay));
   };
-  const download = (event: MouseEvent<HTMLButtonElement>) => {
+  const download = (event: Event | undefined) => {
     if (!id.current) return;
-    event.currentTarget.closest<HTMLElement>('[data-slot="toast"]')?.focus({ preventScroll: true });
+    (event?.target instanceof HTMLElement ? event.target : null)
+      ?.closest<HTMLElement>('[data-lenso-slot="toast"]')
+      ?.focus({ preventScroll: true });
     const current = id.current;
     manager.update(current, {
       title: "Downloading update",
-      type: "progress",
-      actionProps: undefined,
+      type: "loading",
+      action: undefined,
       data: { stage: "downloading", progress: 0 },
     });
     [1, 2, 3, 4, 7, 12, 18, 24, 31, 40, 49, 58, 68, 78, 88, 96, 100].forEach((progress, index) =>
@@ -199,11 +215,11 @@ function UpdateWorkflow({
           description: "Your terminal tabs won't be lost",
           type: "success",
           data: { stage: "installed" },
-          actionProps: {
-            children: "Relaunch Now",
-            onClick: () => {
+          action: {
+            label: "Relaunch Now",
+            onAction: () => {
               setRelaunch(true);
-              manager.close(current);
+              manager.dismiss(current);
             },
           },
         }),
@@ -213,24 +229,24 @@ function UpdateWorkflow({
   const check = () => {
     clear();
     setRelaunch(false);
-    id.current = manager.add({
+    id.current = manager({
       id: "rex-update-demo",
       title: "Checking for updates",
       type: "loading",
-      timeout: 0,
+      duration: Infinity,
       description: undefined,
-      actionProps: undefined,
+      action: undefined,
       data: { stage: "checking" },
-      onClose: clear,
+      onDismiss: clear,
     });
     const current = id.current;
     later(
       () =>
         manager.update(current, {
           title: "An update is available",
-          type: "accent",
+          type: "info",
           data: { stage: "available" },
-          actionProps: { children: "Download", onClick: download },
+          action: { label: "Download", onAction: download },
         }),
       1400,
     );
@@ -245,23 +261,27 @@ function UpdateWorkflow({
             : "Local demo · Download to continue, then expand the completed message."}
         </p>
       </div>
-      <Toast.Portal>
-        <Toast.Viewport placement={placement}>
-          {manager.toasts.map((toast) => (
-            <UpdateNotice key={toast.id} toast={toast} />
-          ))}
-        </Toast.Viewport>
-      </Toast.Portal>
+      <Toast.Region
+        toaster={manager}
+        side={placement.startsWith("top") ? "top" : "bottom"}
+        align={placement.endsWith("start") ? "start" : placement.endsWith("end") ? "end" : "center"}
+      >
+        {(toast) => (
+          <UpdateNotice key={toast.id} toast={{ ...toast, data: readUpdateData(toast.data) }} />
+        )}
+      </Toast.Region>
     </>
   );
 }
 
 export function Pill({
   placement = "bottom-end",
-}: Pick<ComponentProps<typeof Toast.Viewport>, "placement">) {
+}: {
+  placement?: "top" | "bottom" | "top-start" | "top-end" | "bottom-start" | "bottom-end";
+}) {
   return (
-    <Toast.Provider timeout={0}>
+    <>
       <UpdateWorkflow placement={placement} />
-    </Toast.Provider>
+    </>
   );
 }

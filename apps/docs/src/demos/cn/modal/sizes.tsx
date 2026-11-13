@@ -38,47 +38,43 @@ export function Sizes() {
           <Modal.Trigger render={<Button />}>
             {size.charAt(0).toUpperCase() + size.slice(1)}
           </Modal.Trigger>
-          <Modal.Portal>
-            <Modal.Backdrop />
-            <Modal.Viewport>
-              <Modal.Popup size={size}>
-                <Modal.Close aria-label="Close dialog" />
-                <Modal.Header>
-                  <Modal.Icon xstyle={styles.icon}>
-                    <Rocket {...stylex.props(styles.rocket)} />
-                  </Modal.Icon>
-                  <Modal.Title>Size: {size.charAt(0).toUpperCase() + size.slice(1)}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Modal.Description>
-                    {size === "cover" ? (
-                      <>
-                        此模态框使用<code>通栏</code>尺寸：在移动端与桌面端保留边距（移动端约
-                        16px、桌面端约
-                        40px）铺满可视区域，仍保持圆角与标准内边距，适合需要最大宽度又保留模态框气质的内容展示。
-                      </>
-                    ) : size === "full" ? (
-                      <>
-                        此模态框使用<code>全屏</code> size variant. It occupies the entire viewport
-                        without any margins, rounded corners, or shadows, creating a true fullscreen
-                        experience. Ideal for immersive content or full-page interactions.
-                      </>
-                    ) : (
-                      <>
-                        此模态框使用<code>{SIZE_LABELS[size]}</code> size variant. On mobile
-                        devices, all sizes adapt to near full-width for optimal viewing. On desktop,
-                        each size provides a different maximum width to suit various content needs.
-                      </>
-                    )}
-                  </Modal.Description>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Modal.Close render={<Button variant="bordered" />}>取消</Modal.Close>
-                  <Modal.Close render={<Button />}>确认</Modal.Close>
-                </Modal.Footer>
-              </Modal.Popup>
-            </Modal.Viewport>
-          </Modal.Portal>
+          <Modal.Backdrop />
+          <Modal.Content size={size}>
+            <Modal.Close aria-label="Close dialog" />
+            <Modal.Header>
+              <Modal.Icon xstyle={styles.icon}>
+                <Rocket {...stylex.props(styles.rocket)} />
+              </Modal.Icon>
+              <Modal.Title>Size: {size.charAt(0).toUpperCase() + size.slice(1)}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Modal.Description>
+                {size === "cover" ? (
+                  <>
+                    此模态框使用<code>通栏</code>尺寸：在移动端与桌面端保留边距（移动端约
+                    16px、桌面端约
+                    40px）铺满可视区域，仍保持圆角与标准内边距，适合需要最大宽度又保留模态框气质的内容展示。
+                  </>
+                ) : size === "full" ? (
+                  <>
+                    此模态框使用<code>全屏</code> size variant. It occupies the entire viewport
+                    without any margins, rounded corners, or shadows, creating a true fullscreen
+                    experience. Ideal for immersive content or full-page interactions.
+                  </>
+                ) : (
+                  <>
+                    此模态框使用<code>{SIZE_LABELS[size]}</code> size variant. On mobile devices,
+                    all sizes adapt to near full-width for optimal viewing. On desktop, each size
+                    provides a different maximum width to suit various content needs.
+                  </>
+                )}
+              </Modal.Description>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.Close render={<Button variant="bordered" />}>取消</Modal.Close>
+              <Modal.Close render={<Button />}>确认</Modal.Close>
+            </Modal.Footer>
+          </Modal.Content>
         </Modal>
       ))}
     </div>

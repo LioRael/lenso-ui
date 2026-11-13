@@ -47,8 +47,8 @@ export const inputStyles = stylex.create({
       ":is([data-material-filter])": "transparent",
     },
     boxShadow: {
-      default: "var(--lenso-material-action-shadow)",
-      ":is([data-invalid], [aria-invalid='true'])": `inset 0 0 0 1px ${tokens.statusErrorIndicator}, var(--lenso-material-action-shadow)`,
+      default: "var(--lg-foreground-shadow, var(--lenso-material-action-shadow))",
+      ":is([data-invalid], [aria-invalid='true'])": `inset 0 0 0 1px ${tokens.statusErrorIndicator}, var(--lg-foreground-shadow, var(--lenso-material-action-shadow))`,
     },
   },
   formGrouped: {

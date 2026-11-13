@@ -1,11 +1,14 @@
 "use client";
+import type { ReactNode } from "react";
 
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
 import { Notifications, styles } from "./_shared";
 
+const toaster = createToaster<ReactNode>();
+
 function Messages() {
-  const manager = Toast.useToastManager();
+  const manager = toaster;
   return (
     <>
       <div {...stylex.props(styles.frame)}>
@@ -13,49 +16,49 @@ function Messages() {
           <Button
             size="sm"
             variant="bordered"
-            onClick={() => manager.add({ title: "Simple message", type: "default" })}
+            onClick={() => manager({ title: "Simple message", type: "default" })}
           >
             Default
           </Button>
           <Button
             size="sm"
             variant="bordered"
-            onClick={() => manager.add({ title: "Operation completed", type: "success" })}
+            onClick={() => manager({ title: "Operation completed", type: "success" })}
           >
             Success
           </Button>
           <Button
             size="sm"
             variant="bordered"
-            onClick={() => manager.add({ title: "New update available", type: "accent" })}
+            onClick={() => manager({ title: "New update available", type: "info" })}
           >
             Info
           </Button>
           <Button
             size="sm"
             variant="bordered"
-            onClick={() => manager.add({ title: "Please check your settings", type: "warning" })}
+            onClick={() => manager({ title: "Please check your settings", type: "warning" })}
           >
             Warning
           </Button>
           <Button
             size="sm"
             variant="bordered"
-            onClick={() => manager.add({ title: "Something went wrong", type: "danger" })}
+            onClick={() => manager({ title: "Something went wrong", type: "error" })}
           >
             Error
           </Button>
         </div>
       </div>
-      <Notifications />
+      <Notifications toaster={toaster} />
     </>
   );
 }
 
 export function Simple() {
   return (
-    <Toast.Provider>
+    <>
       <Messages />
-    </Toast.Provider>
+    </>
   );
 }

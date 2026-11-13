@@ -2,7 +2,7 @@
 import type { ComponentProps as StoryComponentProps } from "react";
 export interface ToolbarStoryProps extends Pick<
   StoryComponentProps<typeof Toolbar>,
-  "disabled" | "orientation" | "loopFocus" | "elastic"
+  "disabled" | "orientation" | "loop" | "elastic"
 > {
   navigation?: boolean;
 }
@@ -10,7 +10,7 @@ export const initialArgs: ToolbarStoryProps = /* story-args:start */ {
   disabled: false,
   elastic: true,
   orientation: "horizontal",
-  loopFocus: false,
+  loop: false,
 }; /* story-args:end */
 
 import { Toolbar } from "@lenso/ui";
@@ -20,11 +20,7 @@ export function Basic(overrides: ToolbarStoryProps) {
   const { navigation, ...props } = overrides;
   if (navigation)
     return (
-      <NavigationToolbar
-        disabled={props.disabled}
-        elastic={props.elastic}
-        loopFocus={props.loopFocus}
-      />
+      <NavigationToolbar disabled={props.disabled} elastic={props.elastic} loop={props.loop} />
     );
   return <ToolbarExample {...initialArgs} {...props} />;
 }

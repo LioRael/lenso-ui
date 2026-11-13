@@ -7,7 +7,7 @@ export function Disabled() {
     <TextField disabled name="code" xstyle={styles.field}>
       <Label>验证账户</Label>
       <Description>验证码校验当前已禁用</Description>
-      <InputOTP disabled length={6} name="code">
+      <InputOTP disabled maxLength={6} name="code">
         <Slots />
       </InputOTP>
     </TextField>

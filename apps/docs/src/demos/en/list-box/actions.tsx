@@ -27,8 +27,9 @@ export function Actions({ disabled = false }: { disabled?: boolean }) {
     icon: React.ReactNode,
   ) => (
     <ListBox.Item
-      itemKey={key}
-      textValue={name}
+      value={key}
+      label={name}
+      disabled={disabled && key === "delete-file"}
       variant={key === "delete-file" ? "danger" : "default"}
     >
       <div {...stylex.props(actionStyles.iconBox)} aria-hidden="true">
@@ -50,9 +51,9 @@ export function Actions({ disabled = false }: { disabled?: boolean }) {
       <ListBox
         aria-label="File actions"
         xstyle={actionStyles.list}
-        selectionMode="none"
-        disabledKeys={disabled ? new Set(["delete-file"]) : undefined}
-        onAction={(key) => alert(`Selected item: ${String(key)}`)}
+
+        activation="manual"
+        onValueChange={(key) => alert(`Selected item: ${String(key)}`)}
       >
         <ListBox.Section aria-label="Actions">
           <ListBox.SectionLabel>Actions</ListBox.SectionLabel>

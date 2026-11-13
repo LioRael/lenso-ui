@@ -36,11 +36,11 @@ test("sidebar disclosure preserves native refs, state styles and retained closed
     );
     const trigger = host.querySelector<HTMLButtonElement>("button")!;
     const panel = ref.current!;
-    expect(panel.dataset["slot"]).toBe("sidebar-disclosure-panel");
+    expect(panel.dataset["lensoSlot"]).toBe("sidebar-disclosure-panel");
     expect(panel.style.color).toBe("red");
-    expect(panel.querySelector('[data-slot="sidebar-disclosure-body"] > a')?.textContent).toBe(
-      "Recently Added",
-    );
+    expect(
+      panel.querySelector('[data-lenso-slot="sidebar-disclosure-body"] > a')?.textContent,
+    ).toBe("Recently Added");
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
     await act(() => trigger.click());
     expect(trigger.getAttribute("aria-expanded")).toBe("false");

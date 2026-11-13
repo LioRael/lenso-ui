@@ -7,12 +7,7 @@ export function WithValidation() {
   const [value, setValue] = useState<number | null>(null);
   const isInvalid = value !== null && (value < 0 || value > 1);
   return (
-    <TextField
-      invalid={isInvalid}
-      name="percentage"
-      validationMode="onChange"
-      xstyle={styles.field}
-    >
+    <TextField invalid={isInvalid} name="percentage" xstyle={styles.field}>
       <NumberField
         required
         format={{
@@ -24,7 +19,6 @@ export function WithValidation() {
         step={0.1}
         value={value}
         onValueChange={setValue}
-        allowOutOfRange
       >
         <Label required>百分比</Label>
         <Controls />

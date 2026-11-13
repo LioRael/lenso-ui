@@ -1,22 +1,20 @@
 "use client";
 import type { ComponentProps } from "react";
-import { NativeAutocomplete } from "../en/autocomplete/_native";
+import { TextSuggestions } from "../en/autocomplete/text-suggestions";
 import { states } from "../en/autocomplete/default";
 export interface AutocompleteStoryProps extends Pick<
-  ComponentProps<typeof NativeAutocomplete>,
-  "label" | "placeholder" | "disabled" | "required" | "multiple" | "chips" | "variant"
+  ComponentProps<typeof TextSuggestions>,
+  "label" | "placeholder" | "disabled" | "required" | "variant"
 > {}
 export const initialArgs: AutocompleteStoryProps = /* story-args:start */ {
-  label: "States to visit",
-  placeholder: "Select states",
+  label: "State to visit",
+  placeholder: "Enter any state",
   disabled: false,
   required: false,
-  multiple: false,
-  chips: false,
   variant: "primary",
 }; /* story-args:end */
 
 export function Preview(overrides: AutocompleteStoryProps) {
   const args = { ...initialArgs, ...overrides };
-  return <NativeAutocomplete items={states} {...args} />;
+  return <TextSuggestions options={states.map((item) => item.name)} {...args} />;
 }

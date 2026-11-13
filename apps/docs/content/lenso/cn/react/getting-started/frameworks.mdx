@@ -55,7 +55,7 @@ export default defineConfig({
 });
 ```
 
-具名 `unplugin` 导出兼容模板的 NodeNext 类型配置。`optimizeDeps.exclude` 保证开发模式中的 Lenso 声明经过 StyleX 编译。`optimizeDeps.include` 则预构建 Base UI 使用的 CommonJS 依赖，同时保留 Lenso 声明供样式编译，详见 [Vite 依赖优化](https://vite.dev/config/dep-optimization-options#optimizedeps-exclude)。
+具名 `unplugin` 导出兼容模板的 NodeNext 类型配置。`optimizeDeps.exclude` 保证开发模式中的 Lenso 声明经过 StyleX 编译。`optimizeDeps.include` 则预构建 UI SDK 使用的 CommonJS 依赖，同时保留 Lenso 声明供样式编译，详见 [Vite 依赖优化](https://vite.dev/config/dep-optimization-options#optimizedeps-exclude)。
 
 ### Vite 入口与示例
 
@@ -102,11 +102,11 @@ export default function App() {
       </Button>
       <Menu.Root morphTrigger={false}>
         <Menu.Trigger render={<GlassButton />}>Actions</Menu.Trigger>
-        <Menu.Portal>
-          <Menu.Positioner>
-            <Menu.Popup><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Popup>
-          </Menu.Positioner>
-        </Menu.Portal>
+
+
+            <Menu.Content><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Content>
+
+
       </Menu.Root>
     </main>
   );
@@ -257,11 +257,11 @@ export default function Page() {
         </Button>
         <Menu.Root morphTrigger={false}>
           <Menu.Trigger render={<GlassButton />}>Actions</Menu.Trigger>
-          <Menu.Portal>
-            <Menu.Positioner>
-              <Menu.Popup><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Popup>
-            </Menu.Positioner>
-          </Menu.Portal>
+
+
+              <Menu.Content><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Content>
+
+
         </Menu.Root>
       </main>
     </ThemeScope>

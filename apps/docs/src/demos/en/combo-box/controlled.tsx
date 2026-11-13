@@ -9,7 +9,7 @@ export function Controlled() {
     <div {...stylex.props(styles.column)}>
       <AnimalPicker
         label="Animal (controlled)"
-        items={smallAnimals}
+        items={smallAnimals.map((value) => ({ value, label: value.name }))}
         value={selectedAnimal}
         onValueChange={setSelectedAnimal}
       />

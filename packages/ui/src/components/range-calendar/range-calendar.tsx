@@ -1,15 +1,19 @@
 "use client";
-// Modified: Base UI button/render contracts and internationalized range state.
-import { use } from "react";
+// Modified: UI SDK button/render contracts and internationalized range state.
+import { use, useCallback } from "react";
 import { NativeButton as Button } from "../../utils/native-button.js";
-import { useRender } from "@base-ui/react/use-render";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { usePart, renderElement } from "@ui-sdk/react/primitive";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import {
   useRangeCalendarState,
   type RangeCalendarProps,
   type DateValue,
 } from "react-stately/useRangeCalendarState";
 import { createCalendar } from "@internationalized/date";
+import { rangeCalendar as rangeCalendarPrimitive } from "@lenso/primitives/model-control";
+import { useModelControl, type ModelValueOptions } from "../../utils/model-control.js";
+import { encodeRange, decodeRange, type DateRangeValue } from "../../utils/date-values.js";
+import { moveCalendarFocus } from "../../utils/calendar-control.js";
 import * as stylex from "@stylexjs/stylex";
 import { rangeCalendarStyles } from "@lenso/tokens/range-calendar";
 import { calendarStyles as styles } from "@lenso/tokens/calendar";
@@ -25,6 +29,7 @@ import {
 } from "../calendar-year-picker/year-picker-context.js";
 import {
   CalendarView,
+  CalendarControlContext,
   CalendarGestures,
   useCalendarGestures,
   useCalendarBounds,
@@ -44,23 +49,34 @@ import {
   CalendarCellSelection,
 } from "../calendar/calendar.js";
 export type RangeCalendarRootProps<T extends DateValue = DateValue> =
-  StyleXProps<CalendarDOMProps> & RangeCalendarProps<T> & YearPickerOptions;
+  StyleXProps<CalendarDOMProps> &
+    RangeCalendarProps<T> &
+    Pick<ModelValueOptions<{ start: T; end: T }>, "onValueChange" | "controller"> &
+    YearPickerOptions;
 export function RangeCalendarRoot<T extends DateValue = DateValue>({
   isYearPickerOpen,
   defaultYearPickerOpen,
   onYearPickerOpenChange,
   ...props
 }: RangeCalendarRootProps<T>) {
+  const picker = use(PickerRangeContext);
   return (
     <YearPickerProvider
       range
+      disabled={props.isDisabled ?? picker?.calendarProps.isDisabled}
+      label={props["aria-label"]}
       {...{ isYearPickerOpen, defaultYearPickerOpen, onYearPickerOpenChange }}
     >
       <Inner {...props} />
     </YearPickerProvider>
   );
 }
-function Inner<T extends DateValue>(props: StyleXProps<CalendarDOMProps> & RangeCalendarProps<T>) {
+function Inner<T extends DateValue>(
+  props: Omit<
+    RangeCalendarRootProps<T>,
+    "isYearPickerOpen" | "defaultYearPickerOpen" | "onYearPickerOpenChange"
+  >,
+) {
   const { locale } = useLocale();
   const { calendarRef } = useYearPicker();
   const picker = use(PickerRangeContext);
@@ -69,18 +85,38 @@ function Inner<T extends DateValue>(props: StyleXProps<CalendarDOMProps> & Range
   const inherit = props.value === undefined && props.defaultValue === undefined && picker;
   const range = picker?.model.dateRange;
   const pickerValue = range?.start && range.end ? { start: range.start, end: range.end } : null;
-  const state = useRangeCalendarState<DateValue>({
-    ...options,
-    ...bounds,
-    locale,
-    createCalendar,
-    value: inherit ? pickerValue : props.value,
-    onChange: (value) => {
-      if (inherit) picker.select(value);
-      props.onChange?.(value as Parameters<NonNullable<typeof props.onChange>>[0]);
+  const control = useModelControl<DateRangeValue>(
+    rangeCalendarPrimitive,
+    {
+      ...options,
+      value: inherit ? pickerValue : props.value,
+      onValueChange(value, details) {
+        props.onValueChange?.(value as { start: T; end: T } | null, details);
+        if (!details.canceled && inherit && picker.select(value, details) === false)
+          details.cancel();
+        if (!details.canceled)
+          props.onChange?.(value as Parameters<NonNullable<typeof props.onChange>>[0]);
+      },
+      onChange: undefined,
     },
-  });
-  const gestures = useCalendarGestures(state);
+    encodeRange,
+    useCallback(
+      (value) => decodeRange(value, props.value ?? props.defaultValue),
+      [props.value, props.defaultValue],
+    ),
+    { move: (event, from) => moveCalendarFocus(event, from, state, locale, props.firstDayOfWeek) },
+  );
+  const state: ReturnType<typeof useRangeCalendarState<DateValue>> =
+    useRangeCalendarState<DateValue>({
+      ...options,
+      ...bounds,
+      locale,
+      createCalendar,
+      value: control.value,
+      defaultValue: undefined,
+      onChange: control.change,
+    });
+  const gestures = useCalendarGestures(state, control.handle);
   const { xstyle, style, render, ref, children } = props;
   const presentation: CalendarRenderState = {
     isDisabled: state.isDisabled,
@@ -89,46 +125,52 @@ function Inner<T extends DateValue>(props: StyleXProps<CalendarDOMProps> & Range
     state,
   };
   const compiled = stylex.props(rangeCalendarStyles.root, xstyle);
-  const element = useRender({
-    defaultTagName: "div",
-    render,
-    ref: (node) => {
-      const caller = assignRef(ref, node);
-      const own = assignRef(calendarRef, node);
-      return () => {
-        caller();
-        own();
-      };
+  const element = usePart(
+    control.handle,
+    "root",
+    {},
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, calendarDOMProps(props), {
+        role: props.role ?? "group",
+        "data-lenso-slot": props["data-lenso-slot"] ?? "range-calendar",
+        "data-disabled": state.isDisabled || undefined,
+        style:
+          typeof style === "function"
+            ? { ...compiled.style, ...style(presentation) }
+            : mergeStyle(compiled.style, style),
+        children: typeof children === "function" ? children(presentation) : children,
+      }),
+      render: (node) => renderElement("div", node, render, presentation),
+      ref: (node: React.ComponentRef<"div"> | null) => {
+        const caller = assignRef(ref, node);
+        const own = assignRef(calendarRef, node);
+        return () => {
+          caller();
+          own();
+        };
+      },
     },
-    state: presentation,
-    stateAttributesMapping: { state: () => null },
-    props: mergeProps(compiled, calendarDOMProps(props), {
-      role: props.role ?? "group",
-      "data-slot": props["data-slot"] ?? "range-calendar",
-      "data-disabled": state.isDisabled || undefined,
-      style:
-        typeof style === "function"
-          ? { ...compiled.style, ...style(presentation) }
-          : mergeStyle(compiled.style, style),
-      children: typeof children === "function" ? children(presentation) : children,
-    }),
-  });
+    "div",
+  );
   return (
-    <CalendarStateContext value={state}>
-      <CalendarGestures value={gestures}>
-        <CalendarView
-          value={{
-            days:
-              props.visibleDuration?.days ??
-              (props.visibleDuration?.weeks ? props.visibleDuration.weeks * 7 : undefined),
-            firstDayOfWeek: props.firstDayOfWeek,
-            autoFocus: props.autoFocus,
-          }}
-        >
-          {element}
-        </CalendarView>
-      </CalendarGestures>
-    </CalendarStateContext>
+    <CalendarControlContext value={control.handle}>
+      <CalendarStateContext value={state}>
+        <CalendarGestures value={gestures}>
+          <CalendarView
+            value={{
+              days:
+                props.visibleDuration?.days ??
+                (props.visibleDuration?.weeks ? props.visibleDuration.weeks * 7 : undefined),
+              firstDayOfWeek: props.firstDayOfWeek,
+              autoFocus: props.autoFocus,
+            }}
+          >
+            {element}
+          </CalendarView>
+        </CalendarGestures>
+      </CalendarStateContext>
+    </CalendarControlContext>
   );
 }
 export {
@@ -145,6 +187,7 @@ export type RangeCalendarCellProps = CalendarCellProps & { buttonXstyle?: stylex
 export function RangeCalendarCell({
   date,
   children,
+  onClick,
   buttonXstyle,
   xstyle,
   style,
@@ -170,12 +213,17 @@ export function RangeCalendarCell({
     <td {...stylex.props(styles.cellContainer)} aria-selected={state.isSelected}>
       <Button
         {...mergeProps(native, props, compiled)}
-        data-slot={props["data-slot"] ?? "range-calendar-cell"}
+        onClick={(event, details) => {
+          const result = onClick?.(event, details);
+          if (!event.defaultPrevented) native.onClick(event, details);
+          return result;
+        }}
+        data-lenso-slot={props["data-lenso-slot"] ?? "range-calendar-cell"}
         style={{ ...compiled.style, ...(typeof style === "function" ? style(state) : style) }}
       >
         <CalendarCellSelection value={state.isSelected}>
           <span
-            data-slot="range-calendar-cell-button"
+            data-lenso-slot="range-calendar-cell-button"
             {...stylex.props(
               rangeCalendarStyles.cellButton,
               state.isToday && styles.today,

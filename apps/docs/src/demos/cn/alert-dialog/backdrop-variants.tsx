@@ -21,33 +21,29 @@ export function BackdropVariants() {
           <AlertDialog.Trigger render={<Button />}>
             {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </AlertDialog.Trigger>
-          <AlertDialog.Portal>
-            <AlertDialog.Backdrop variant={variant} />
-            <AlertDialog.Viewport>
-              <AlertDialog.Popup xstyle={styles.popup}>
-                <AlertDialog.Close aria-label="Close dialog" />
-                <AlertDialog.Header>
-                  <AlertDialog.Icon variant="accent" />
-                  <AlertDialog.Title>
-                    Backdrop: {variant.charAt(0).toUpperCase() + variant.slice(1)}
-                  </AlertDialog.Title>
-                </AlertDialog.Header>
-                <AlertDialog.Body>
-                  <AlertDialog.Description>
-                    {variant === "opaque"
-                      ? "不透明的深色背景会完全遮挡背后内容，让用户把注意力集中在对话框上。"
-                      : variant === "blur"
-                        ? "模糊背景会柔和地虚化背后内容，同时保留一定的环境上下文。"
-                        : "透明背景会完整保留背后内容，适合重要性较低的确认场景。"}
-                  </AlertDialog.Description>
-                </AlertDialog.Body>
-                <AlertDialog.Footer>
-                  <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
-                  <AlertDialog.Action>确认</AlertDialog.Action>
-                </AlertDialog.Footer>
-              </AlertDialog.Popup>
-            </AlertDialog.Viewport>
-          </AlertDialog.Portal>
+          <AlertDialog.Backdrop variant={variant} />
+          <AlertDialog.Content xstyle={styles.popup}>
+            <AlertDialog.Close aria-label="Close dialog" />
+            <AlertDialog.Header>
+              <AlertDialog.Icon variant="accent" />
+              <AlertDialog.Title>
+                Backdrop: {variant.charAt(0).toUpperCase() + variant.slice(1)}
+              </AlertDialog.Title>
+            </AlertDialog.Header>
+            <AlertDialog.Body>
+              <AlertDialog.Description>
+                {variant === "opaque"
+                  ? "不透明的深色背景会完全遮挡背后内容，让用户把注意力集中在对话框上。"
+                  : variant === "blur"
+                    ? "模糊背景会柔和地虚化背后内容，同时保留一定的环境上下文。"
+                    : "透明背景会完整保留背后内容，适合重要性较低的确认场景。"}
+              </AlertDialog.Description>
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
+              <AlertDialog.Action>确认</AlertDialog.Action>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
         </AlertDialog>
       ))}
     </div>

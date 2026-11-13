@@ -3,7 +3,7 @@
 `GlassContainer` combines nearby glass surfaces into one fluid silhouette. Import
 it from `@lenso/ui` or `@lenso/ui/glass-container`. Existing `Glass`, `GlassButton`
 and `GlassToggleButton` participate automatically. A custom element uses
-`GlassContainer.Item`, an alias of `Glass` with native Base UI `render` composition.
+`GlassContainer.Item`, an alias of `Glass` with native UI SDK `render` composition.
 
 ```tsx
 <GlassContainer spacing={18} style={{ display: "flex", gap: 12, padding: 24 }}>

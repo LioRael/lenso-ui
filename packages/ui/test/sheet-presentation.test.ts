@@ -25,9 +25,9 @@ test("three-stage sheets attach at both ends and float between them in either di
 });
 
 test("pixel and rem stops respect viewport limits, resizing and reordered configuration", () => {
-  const snaps = [1, "12.5rem", "420px", 0.9, "invalid", Number.NaN];
+  const snaps = [1 as const, "12.5rem" as const, "420px" as const, 0.9, Number.NaN];
   const points = resolvePresentationPoints(snaps, [1, "12.5rem"], 800, 700, 16);
-  // Base UI resolves duplicate heights using the last configured stop.
+  // The material model resolves duplicate heights using the last configured stop.
   expect(points).toEqual([
     { height: 200, attached: true },
     { height: 420, attached: false },
@@ -36,6 +36,10 @@ test("pixel and rem stops respect viewport limits, resizing and reordered config
   expect(resolvePresentationPoints(["12.5rem", 1], [1], 500, 438, 20)).toEqual([
     { height: 250, attached: false },
     { height: 438, attached: true },
+  ]);
+  expect(resolvePresentationPoints(["25%", "content"], ["content"], 800, 700, 16)).toEqual([
+    { height: 200, attached: false },
+    { height: 700, attached: true },
   ]);
   expect(sheetPresentationAt([], 200)).toEqual({ floating: 0, solid: 0 });
 });

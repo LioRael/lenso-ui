@@ -1,12 +1,23 @@
 "use client";
+import { materialStyles } from "@lenso/tokens/materials";
+import { MaterialBackground } from "../../utils/materials/render.js";
+import * as Sdk from "@ui-sdk/react/combobox";
+import { slotRender } from "../../utils/sdk-render.js";
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: Base UI native combobox, including multiple selection and chips.
+ * Modified: UI SDK native combobox, including multiple selection and chips.
  */
-import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 import { comboBoxStyles, comboBoxSharedStyles } from "@lenso/tokens/combo-box";
-import { createContext, useContext, useMemo, useState, type ComponentPropsWithRef } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  type ComponentPropsWithRef,
+} from "react";
+import { assignRef } from "../../utils/interaction/ref.js";
 import { glassStyles } from "@lenso/tokens/glass";
 import { inputGroupMaterialStyles } from "@lenso/tokens/input-group";
 import { inputStyles } from "@lenso/tokens/input";
@@ -14,7 +25,6 @@ import { useGlassRef } from "@lenso/glass/react";
 import { useFocusMethodRef } from "../../utils/interaction/focus-method.js";
 import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
 const AppearanceContext = createContext({
   variant: "primary" as "primary" | "secondary",
@@ -22,40 +32,14 @@ const AppearanceContext = createContext({
   keyboardHighlight: false,
 });
 const InputGroupContext = createContext(false);
-export function ComboBoxRoot<Value, Multiple extends boolean | undefined = false>({
-  variant = "primary",
-  fullWidth = false,
-  onItemHighlighted,
-  onOpenChange,
-  ...props
-}: ComboBoxRootProps<Value, Multiple>) {
-  const [keyboardHighlight, setKeyboardHighlight] = useState(false);
-  const appearance = useMemo(
-    () => ({ variant, fullWidth, keyboardHighlight }),
-    [variant, fullWidth, keyboardHighlight],
-  );
-  return (
-    <AppearanceContext value={appearance}>
-      <InputGroupContext value={false}>
-        <BaseCombobox.Root
-          {...props}
-          onItemHighlighted={(value, details) => {
-            setKeyboardHighlight(details.reason === "keyboard");
-            onItemHighlighted?.(value, details);
-          }}
-          onOpenChange={(open, details) => {
-            onOpenChange?.(open, details);
-            if (!open && !details.isCanceled) setKeyboardHighlight(false);
-          }}
-        />
-      </InputGroupContext>
-    </AppearanceContext>
-  );
-}
-export type ComboBoxInputGroupProps = StyleXProps<BaseCombobox.InputGroup.Props> & {
+const AnchorContext = createContext<{
+  element: HTMLElement | null;
+  setElement: (element: HTMLElement | null) => void;
+} | null>(null);
+export type ComboBoxInputGroupProps = StyleXProps<React.ComponentPropsWithRef<"div">> & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 export function ComboBoxInputGroup({
   ref,
@@ -63,11 +47,23 @@ export function ComboBoxInputGroup({
   fullWidth,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: ComboBoxInputGroupProps) {
   const inherited = useContext(AppearanceContext);
-  const glassRef = useFocusMethodRef(useGlassRef(ref, true));
+  const setAnchor = useContext(AnchorContext)?.setElement;
+  const register = useCallback(
+    (node: HTMLDivElement | null) => {
+      setAnchor?.(node);
+      const cleanup = assignRef(ref, node);
+      return () => {
+        setAnchor?.(null);
+        cleanup();
+      };
+    },
+    [ref, setAnchor],
+  );
+  const glassRef = useFocusMethodRef(useGlassRef(register, true));
   const compiled = stylex.props(
     comboBoxStyles.inputGroup,
     comboBoxStyles.field,
@@ -79,12 +75,12 @@ export function ComboBoxInputGroup({
   );
   return (
     <InputGroupContext value={true}>
-      <BaseCombobox.InputGroup
+      <div
         {...props}
         ref={glassRef}
         {...compiled}
-        style={mergeStyle<BaseCombobox.InputGroup.State>(compiled.style, style)}
-        data-slot={slot ?? "combo-box-input-group"}
+        style={mergeStyle(compiled.style, style)}
+        data-lenso-slot={slot ?? "combo-box-input-group"}
       />
     </InputGroupContext>
   );
@@ -93,9 +89,9 @@ export function ComboBoxInput({
   ref,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Input.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxInput>> & { "data-lenso-slot"?: unknown }) {
   const grouped = useContext(InputGroupContext);
   const appearance = useContext(AppearanceContext);
   const glassRef = useFocusMethodRef(useGlassRef(ref, !grouped));
@@ -110,22 +106,24 @@ export function ComboBoxInput({
     xstyle,
   );
   return (
-    <BaseCombobox.Input
+    <Sdk.ComboboxInput
       {...props}
       ref={glassRef}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Input.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-input"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("input", slot ?? "combo-box-input", props.render)}
     />
   );
 }
-export const ComboBoxValue = BaseCombobox.Value;
+export const ComboBoxValue = Sdk.ComboboxValue;
 export function ComboBoxTrigger({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Trigger.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxTrigger>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const grouped = useContext(InputGroupContext);
   const compiled = stylex.props(
     comboBoxStyles.trigger,
@@ -134,31 +132,31 @@ export function ComboBoxTrigger({
     xstyle,
   );
   return (
-    <BaseCombobox.Trigger
+    <Sdk.ComboboxTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Trigger.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-trigger"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("button", slot ?? "combo-box-trigger", props.render)}
     />
   );
 }
-export type ComboBoxIndicatorProps = StyleXProps<BaseCombobox.Icon.Props> & {
-  "data-slot"?: unknown;
+export type ComboBoxIndicatorProps = StyleXProps<React.ComponentPropsWithRef<"span">> & {
+  "data-lenso-slot"?: unknown;
 };
 export function ComboBoxIndicator({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: ComboBoxIndicatorProps) {
   const compiled = stylex.props(comboBoxStyles.icon, xstyle);
   return (
-    <BaseCombobox.Icon
+    <span
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Icon.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-indicator"}
+      style={mergeStyle(compiled.style, style)}
+      data-lenso-slot={slot ?? "combo-box-indicator"}
     >
       {children ?? (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -171,102 +169,96 @@ export function ComboBoxIndicator({
           />
         </svg>
       )}
-    </BaseCombobox.Icon>
+    </span>
   );
 }
-export type ComboBoxPortalProps = ComponentPropsWithRef<typeof BaseCombobox.Portal>;
-export function ComboBoxPortal({ container, ...props }: ComboBoxPortalProps) {
-  const themeContainer = useThemePortalContainer();
-  return (
-    <BaseCombobox.Portal
-      {...props}
-      container={container === undefined ? (themeContainer ?? undefined) : container}
-    />
-  );
-}
-export function ComboBoxPositioner({
+export function ComboBoxContent({
+  children,
   xstyle,
   style,
-  "data-slot": slot,
+  sideOffset = 8,
   ...props
-}: StyleXProps<BaseCombobox.Positioner.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(comboBoxSharedStyles.positioner, xstyle);
-  return (
-    <BaseCombobox.Positioner
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseCombobox.Positioner.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-positioner"}
-    />
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxContent>>) {
+  const anchor = useContext(AnchorContext)?.element;
+  const compiled = stylex.props(
+    materialStyles.root,
+    materialStyles.accessible,
+    comboBoxSharedStyles.positioner,
+    comboBoxSharedStyles.popover,
+    xstyle,
   );
-}
-export function ComboBoxPopover({
-  xstyle,
-  style,
-  "data-slot": slot,
-  ...props
-}: StyleXProps<BaseCombobox.Popup.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(comboBoxSharedStyles.popover, xstyle);
   return (
-    <BaseCombobox.Popup
+    <Sdk.ComboboxContent
+      anchor={anchor}
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Popup.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-popover"}
-    />
+      sideOffset={sideOffset}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", props["data-lenso-slot"] ?? "combo-box-popover", props.render)}
+      data-material="glass-small"
+    >
+      {(state) => (
+        <>
+          <MaterialBackground variant="glass-small" liveBackdrop />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </Sdk.ComboboxContent>
   );
 }
 export function ComboBoxList({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.List.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxList>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(comboBoxSharedStyles.list, xstyle);
   return (
-    <BaseCombobox.List
+    <Sdk.ComboboxList
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.List.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-list"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-list", props.render)}
     />
   );
 }
 export function ComboBoxItem({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Item.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxItem>> & { "data-lenso-slot"?: unknown }) {
   const { keyboardHighlight } = useContext(AppearanceContext);
   const compiled = stylex.props(comboBoxSharedStyles.item, xstyle);
   return (
-    <BaseCombobox.Item
+    <Sdk.ComboboxItem
       {...props}
       {...compiled}
       data-keyboard-highlight={keyboardHighlight ? "" : undefined}
-      style={mergeStyle<BaseCombobox.Item.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-item"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-item", props.render)}
     />
   );
 }
-export type ComboBoxItemIndicatorProps = StyleXProps<BaseCombobox.ItemIndicator.Props> & {
-  "data-slot"?: unknown;
+export type ComboBoxItemIndicatorProps = StyleXProps<
+  React.ComponentProps<typeof Sdk.ComboboxItemIndicator>
+> & {
+  "data-lenso-slot"?: unknown;
 };
 export function ComboBoxItemIndicator({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: ComboBoxItemIndicatorProps) {
   const compiled = stylex.props(comboBoxSharedStyles.itemIndicator, xstyle);
   return (
-    <BaseCombobox.ItemIndicator
+    <Sdk.ComboboxItemIndicator
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.ItemIndicator.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-item-indicator"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-item-indicator", props.render)}
     >
       {children ?? (
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -279,186 +271,210 @@ export function ComboBoxItemIndicator({
           />
         </svg>
       )}
-    </BaseCombobox.ItemIndicator>
+    </Sdk.ComboboxItemIndicator>
   );
 }
 export function ComboBoxLabel({
-  htmlFor,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"label">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxLabel>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(comboBoxSharedStyles.label, xstyle);
   return (
-    <label
+    <Sdk.ComboboxLabel
       {...props}
       {...compiled}
-      htmlFor={htmlFor}
-      style={{ ...compiled.style, ...style }}
-      data-slot={slot ?? "combo-box-label"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("label", slot ?? "combo-box-label", props.render)}
     />
   );
 }
 export function ComboBoxGroup({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Group.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxGroup>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(xstyle);
   return (
-    <BaseCombobox.Group
+    <Sdk.ComboboxGroup
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Group.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-group"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-group", props.render)}
     />
   );
 }
 export function ComboBoxGroupLabel({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.GroupLabel.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxGroupLabel>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(comboBoxSharedStyles.groupLabel, xstyle);
   return (
-    <BaseCombobox.GroupLabel
+    <Sdk.ComboboxGroupLabel
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.GroupLabel.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-group-label"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-group-label", props.render)}
     />
   );
 }
 export function ComboBoxSeparator({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Separator.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxSeparator>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(comboBoxSharedStyles.separator, xstyle);
   return (
-    <BaseCombobox.Separator
+    <Sdk.ComboboxSeparator
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Separator.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-separator"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-separator", props.render)}
     />
   );
 }
 export function ComboBoxArrow({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Arrow.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxArrow>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(comboBoxSharedStyles.arrow, xstyle);
   return (
-    <BaseCombobox.Arrow
+    <Sdk.ComboboxArrow
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Arrow.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-arrow"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-arrow", props.render)}
     />
   );
 }
 export function ComboBoxEmpty({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Empty.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxEmpty>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(comboBoxStyles.empty, xstyle);
   return (
-    <BaseCombobox.Empty
+    <Sdk.ComboboxEmpty
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Empty.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-empty"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-empty", props.render)}
     />
   );
 }
 export function ComboBoxClearButton({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Clear.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxClear>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(comboBoxStyles.clear, xstyle);
   return (
-    <BaseCombobox.Clear
+    <Sdk.ComboboxClear
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Clear.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-clear-button"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("button", slot ?? "combo-box-clear-button", props.render)}
     />
   );
 }
 export function ComboBoxChips({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Chips.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxChips>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(comboBoxStyles.chips, xstyle);
   return (
-    <BaseCombobox.Chips
+    <Sdk.ComboboxChips
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Chips.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-chips"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-chips", props.render)}
     />
   );
 }
 export function ComboBoxChip({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.Chip.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxChip>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(comboBoxStyles.chip, xstyle);
   return (
-    <BaseCombobox.Chip
+    <Sdk.ComboboxChip
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.Chip.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-chip"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-chip", props.render)}
     />
   );
 }
 export function ComboBoxChipRemove({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseCombobox.ChipRemove.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.ComboboxChipRemove>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(comboBoxStyles.chipRemove, xstyle);
   return (
-    <BaseCombobox.ChipRemove
+    <Sdk.ComboboxChipRemove
       {...props}
       {...compiled}
-      style={mergeStyle<BaseCombobox.ChipRemove.State>(compiled.style, style)}
-      data-slot={slot ?? "combo-box-chip-remove"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "combo-box-chip-remove", props.render)}
     />
   );
 }
-export const ComboBoxCollection = BaseCombobox.Collection;
-export const ComboBoxRow = BaseCombobox.Row;
-export const ComboBoxStatus = BaseCombobox.Status;
-export const ComboBoxBackdrop = BaseCombobox.Backdrop;
-export const useComboBoxFilter = BaseCombobox.useFilter;
-export type ComboBoxRootProps<
-  Value,
-  Multiple extends boolean | undefined = false,
-> = BaseCombobox.Root.Props<Value, Multiple> & {
-  variant?: "primary" | "secondary";
-  fullWidth?: boolean;
-};
+export const ComboBoxStatus = Sdk.ComboboxStatus;
 export type ComboBoxInputProps = ComponentPropsWithRef<typeof ComboBoxInput>;
 export type ComboBoxTriggerProps = ComponentPropsWithRef<typeof ComboBoxTrigger>;
-export type ComboBoxPopoverProps = ComponentPropsWithRef<typeof ComboBoxPopover>;
-export type ComboBoxPositionerProps = ComponentPropsWithRef<typeof ComboBoxPositioner>;
+export type ComboBoxContentProps = ComponentPropsWithRef<typeof ComboBoxContent>;
 export type ComboBoxListProps = ComponentPropsWithRef<typeof ComboBoxList>;
 export type ComboBoxItemProps = ComponentPropsWithRef<typeof ComboBoxItem>;
+
+export type ComboBoxRootProps<
+  Value = string,
+  Multiple extends boolean | undefined = false,
+> = Sdk.ComboboxProps<Value, Multiple> & { variant?: "primary" | "secondary"; fullWidth?: boolean };
+export function ComboBoxRoot<Value = string, Multiple extends boolean | undefined = false>(
+  props: ComboBoxRootProps<Value, Multiple>,
+) {
+  const { variant = "primary", fullWidth = false } = props;
+  const [keyboardHighlight, setKeyboardHighlight] = useState(false);
+  const [element, setElement] = useState<HTMLElement | null>(null);
+  const anchor = useMemo(() => ({ element, setElement }), [element]);
+  const appearance = useMemo(
+    () => ({ variant, fullWidth, keyboardHighlight }),
+    [variant, fullWidth, keyboardHighlight],
+  );
+  return (
+    <AppearanceContext value={appearance}>
+      <AnchorContext value={anchor}>
+        <InputGroupContext value={false}>
+          <Sdk.Combobox<Value, Multiple>
+            {...props}
+            onHighlight={(value, details) => {
+              setKeyboardHighlight(details.event?.type.startsWith("key") ?? false);
+              props.onHighlight?.(value, details);
+            }}
+          />
+        </InputGroupContext>
+      </AnchorContext>
+    </AppearanceContext>
+  );
+}

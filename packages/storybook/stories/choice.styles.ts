@@ -88,7 +88,7 @@ export const choiceStyles = stylex.create({
     backgroundColor: {
       default: "var(--lenso-background-grouped-tertiary)",
       ":is([data-checked] *)": "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
-      ":is([data-slot='radio']:focus-visible *)":
+      ":is([data-lenso-slot='radio']:focus-visible *)":
         "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
     },
   },

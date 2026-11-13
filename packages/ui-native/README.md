@@ -20,7 +20,7 @@ Reduce Transparency selects opaque surfaces. Reduce Motion disables custom press
 System UIKit controls retain system behavior. `glassCapabilities` reports platform API
 support, not whether a particular backdrop was captured or a GPU render succeeded.
 The first slice selects the platform renderer automatically; iOS custom rendering,
-TabBar, Menu and Sheet are not implemented here yet. Web Base UI components and
+TabBar, Menu and Sheet are not implemented here yet. Web UI SDK components and
 `packages/primitives` remain separately owned.
 
 The expansion also supplies native content/feedback parts and grouped selections.
@@ -63,7 +63,7 @@ from the existing Apple semantic color data, and the Android tone shader is gene
 from `packages/glass/src/material-tone.ts`. Press springs share the Web motion model.
 
 This shares compatible declarations, variables and themes. Existing Web classes,
-CSS selectors, browser shaders and Base UI DOM behavior do not become native controls.
+CSS selectors, browser shaders and UI SDK DOM behavior do not become native controls.
 RSD's compatibility bridge is experimental and pinned to version 0.0.55.
 
 ## Backdrop ownership

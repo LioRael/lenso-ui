@@ -41,7 +41,7 @@ for (const [name, engine] of [
           );
         });
         const glass = page
-          .locator('#rectangle-fixture [data-slot="glass"]')
+          .locator('#rectangle-fixture [data-lenso-slot="glass"]')
           .filter({ hasText: "清晰文字" });
         await glass.scrollIntoViewIfNeeded();
         const check = async (locator) => {

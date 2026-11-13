@@ -44,14 +44,12 @@ function createBackdrop(
     return layer;
   };
   const layers = [createLayer()];
-  // Nested Base UI portals are siblings of the parent positioner. Keep the
-  // child paints after that positioner, or its content paints over the child.
-  let portal = element.closest<HTMLElement>("[data-base-ui-portal]") ?? element;
-  if (portal === element)
-    while (portal.parentElement && portal.parentElement !== document.body)
-      portal = portal.parentElement;
   if (floating) floating.prepend(container);
-  else portal.before(container);
+  else {
+    let host = element;
+    while (host.parentElement && host.parentElement !== document.body) host = host.parentElement;
+    host.before(container);
+  }
   let previous = "",
     stopped = false;
   const subscription = observeBackdrop({

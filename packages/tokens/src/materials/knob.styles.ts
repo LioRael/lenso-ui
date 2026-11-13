@@ -6,9 +6,17 @@ export const knobMaterialStyles = stylex.create({
   content: {
     position: "absolute",
     inset: -24,
+    // WebKit drops the filtered track in scrolling ancestors without its own composited layer.
+    transform: "translateZ(0)",
     pointerEvents: "none",
-    visibility: "hidden",
+    visibility: "visible",
     zIndex: 0,
+  },
+  filteredContent: {
+    position: "absolute",
+    inset: 0,
+    visibility: "hidden",
+    transform: "translateZ(0)",
   },
   layer: {
     position: "absolute",

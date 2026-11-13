@@ -69,14 +69,8 @@ export const styles = stylex.create({
   dot: { width: 6, height: 6, borderRadius: 9999, backgroundColor: "currentColor" },
 });
 
-export function Popup({ children, ...props }: ComponentProps<typeof Menu.Popup>) {
-  return (
-    <Menu.Portal>
-      <Menu.Positioner>
-        <Menu.Popup {...props}>{children}</Menu.Popup>
-      </Menu.Positioner>
-    </Menu.Portal>
-  );
+export function Popup({ children, ...props }: ComponentProps<typeof Menu.Content>) {
+  return <Menu.Content {...props}>{children}</Menu.Content>;
 }
 
 export function Shortcut({
@@ -106,7 +100,7 @@ export function ActionItem({
   shortcut,
   navigationLabel,
   ...props
-}: ComponentProps<typeof Menu.Item> & {
+}: Omit<ComponentProps<typeof Menu.Item>, "shortcut" | "label"> & {
   label: string;
   description?: string;
   icon?: ReactNode;

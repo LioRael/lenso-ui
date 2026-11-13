@@ -95,28 +95,27 @@ export function GroupedForm({
               <Select
                 name="frequency"
                 defaultValue="daily"
-                items={{ daily: "Daily", weekly: "Weekly" }}
+                items={[
+                  { value: "daily", label: "Daily" },
+                  { value: "weekly", label: "Weekly" },
+                ]}
               >
                 <Select.Trigger id={`${id}-frequency`}>
                   <Select.Value />
                   <Select.Indicator />
                 </Select.Trigger>
-                <Select.Portal>
-                  <Select.Positioner>
-                    <Select.Popover>
-                      <Select.List>
-                        <Select.Item value="daily">
-                          <Select.ItemText>Daily</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
-                        <Select.Item value="weekly">
-                          <Select.ItemText>Weekly</Select.ItemText>
-                          <Select.ItemIndicator />
-                        </Select.Item>
-                      </Select.List>
-                    </Select.Popover>
-                  </Select.Positioner>
-                </Select.Portal>
+                <Select.Content>
+                  <Select.List>
+                    <Select.Item value="daily">
+                      <Select.ItemText>Daily</Select.ItemText>
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                    <Select.Item value="weekly">
+                      <Select.ItemText>Weekly</Select.ItemText>
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  </Select.List>
+                </Select.Content>
               </Select>
             </Fieldset.Row>
             <Accordion variant="surface">

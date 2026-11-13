@@ -37,7 +37,7 @@ export function GlassMagnifier({
     <Glass
       {...props}
       ref={combinedRef}
-      data-slot={props["data-slot"] ?? "glass-magnifier"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "glass-magnifier"}
       xstyle={[glassMagnifierStyles.root, draggable && glassMagnifierStyles.draggable, xstyle]}
     />
   );

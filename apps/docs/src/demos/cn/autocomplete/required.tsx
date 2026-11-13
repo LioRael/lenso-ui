@@ -1,84 +1,25 @@
 "use client";
-
-import { Button } from "@lenso/ui";
 import { useState } from "react";
-import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, styles, type Option } from "../../en/autocomplete/_native";
-import { states } from "./default";
-const countries = [
-  {
-    id: "usa",
-    name: "United States",
-  },
-  {
-    id: "canada",
-    name: "Canada",
-  },
-  {
-    id: "mexico",
-    name: "Mexico",
-  },
-  {
-    id: "uk",
-    name: "United Kingdom",
-  },
-  {
-    id: "france",
-    name: "France",
-  },
-  {
-    id: "germany",
-    name: "Germany",
-  },
-];
+import { Button, Form } from "@lenso/ui";
+import { TextSuggestions } from "../../en/autocomplete/text-suggestions";
+import { states } from "../../en/autocomplete/default";
 export function Required() {
-  const [state, setState] = useState<Option | Option[] | null>(null);
-  const [country, setCountry] = useState<Option | Option[] | null>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [result, setResult] = useState("");
   return (
-    <form
-      noValidate
-      {...stylex.props(styles.stack)}
+    <Form
       onSubmit={(event) => {
         event.preventDefault();
-        setSubmitted(true);
-        const data = new FormData(event.currentTarget);
-        if (data.get("state") && data.get("country")) {
-          alert("表单提交成功！");
-          return;
-        }
-        const fields =
-          event.currentTarget.querySelectorAll<HTMLButtonElement>('button[role="combobox"]');
-        const firstInvalid = fields[data.get("state") ? 1 : 0];
-        requestAnimationFrame(() => {
-          if (firstInvalid?.isConnected) firstInvalid.focus();
-        });
+        setResult(String(new FormData(event.currentTarget).get("destination")));
       }}
     >
-      <NativeAutocomplete
-        items={states}
-        label="州"
-        name="state"
+      <TextSuggestions
         required
-        value={state}
-        onValueChange={setState}
-        invalid={submitted && !state}
-        error={submitted && !state ? "Please select a state." : undefined}
-        searchLabel="Search states"
+        name="destination"
+        label="计划前往的州"
+        options={states.map((item) => item.name)}
       />
-      <NativeAutocomplete
-        items={countries}
-        label="国家"
-        name="country"
-        required
-        value={country}
-        onValueChange={setCountry}
-        invalid={submitted && !country}
-        error={submitted && !country ? "Please select a country." : undefined}
-        placeholder="选择一个国家"
-        searchLabel="Search countries"
-      />
-      <Button type="submit">提交</Button>
-    </form>
+      <Button type="submit">Submit destination</Button>
+      <output>{result}</output>
+    </Form>
   );
 }

@@ -33,12 +33,12 @@ export function SpinnerRoot({
       role="status"
       aria-label="Loading"
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "spinner"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "spinner"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >
       <svg
-        data-slot="spinner-icon"
+        data-lenso-slot="spinner-icon"
         {...stylex.props(spinnerStyles.icon)}
         aria-hidden="true"
         viewBox={`0 0 ${dimension} ${dimension}`}

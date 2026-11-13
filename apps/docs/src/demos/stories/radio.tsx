@@ -2,7 +2,7 @@
 import type { ComponentProps } from "react";
 import { Radio, RadioGroup } from "@lenso/ui";
 export interface RadioStoryProps extends Pick<
-  ComponentProps<typeof Radio>,
+  ComponentProps<typeof RadioGroup>,
   "disabled" | "readOnly" | "required"
 > {}
 export const initialArgs: RadioStoryProps = /* story-args:start */ {
@@ -14,9 +14,9 @@ export const initialArgs: RadioStoryProps = /* story-args:start */ {
 export function Preview(overrides: RadioStoryProps) {
   const args = { ...initialArgs, ...overrides };
   return (
-    <RadioGroup aria-label="Plan" defaultValue="basic">
+    <RadioGroup aria-label="Plan" defaultValue="basic" {...args}>
       {["basic", "premium"].map((value) => (
-        <Radio key={value} value={value} {...args}>
+        <Radio key={value} value={value}>
           <Radio.Content>
             <Radio.Control>
               <Radio.Indicator />

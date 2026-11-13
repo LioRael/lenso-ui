@@ -28,7 +28,10 @@ const channelProps = {
 export function WithSliders() {
   const [colorSpace, setColorSpace] = useState<Space>("hsl");
   return (
-    <ColorPicker defaultValue="hsl(219, 58%, 93%)">
+    <ColorPicker
+      space={colorSpace === "hsb" ? "hsv" : colorSpace === "rgb" ? "srgb" : "hsl"}
+      defaultValue="hsl(219, 58%, 93%)"
+    >
       <ColorPicker.Trigger>
         <ColorSwatch size="lg" />
         <span>Pick a color</span>

@@ -50,17 +50,13 @@ export function Granularity() {
       <div {...stylex.props(styles.selector)}>
         <div {...stylex.props(styles.selectorLabel)}>
           <span id={labelId}>粒度</span>
-          <Tooltip>
-            <Tooltip.Trigger delay={0} aria-label="粒度说明">
+          <Tooltip delay={0}>
+            <Tooltip.Trigger aria-label="粒度说明">
               <CircleQuestion {...stylex.props(styles.icon)} aria-hidden="true" />
             </Tooltip.Trigger>
-            <Tooltip.Portal>
-              <Tooltip.Positioner side="bottom" align="start">
-                <Tooltip.Popup>
-                  <p>决定日期选择器显示的最小单位。默认情况下，日期为「日」，时间为「分」。</p>
-                </Tooltip.Popup>
-              </Tooltip.Positioner>
-            </Tooltip.Portal>
+            <Tooltip.Content side="bottom" align="start">
+              <p>决定日期选择器显示的最小单位。默认情况下，日期为「日」，时间为「分」。</p>
+            </Tooltip.Content>
           </Tooltip>
         </div>
         <Select
@@ -72,27 +68,23 @@ export function Granularity() {
         >
           <Select.Trigger xstyle={styles.select} aria-labelledby={labelId}>
             <Select.Value>
-              {(value) =>
+              {({ value }) =>
                 granularityOptions.find((option) => option.id === value)?.label ??
                 "Select granularity"
               }
             </Select.Value>
             <Select.Indicator />
           </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popover>
-                <Select.List>
-                  {granularityOptions.map((option) => (
-                    <Select.Item key={option.id} value={option.id}>
-                      <Select.ItemText>{option.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.List>
-              </Select.Popover>
-            </Select.Positioner>
-          </Select.Portal>
+          <Select.Content>
+            <Select.List>
+              {granularityOptions.map((option) => (
+                <Select.Item key={option.id} value={option.id}>
+                  <Select.ItemText>{option.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.List>
+          </Select.Content>
         </Select>
       </div>
     </div>

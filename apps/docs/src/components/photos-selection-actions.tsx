@@ -67,28 +67,25 @@ export function PhotosSelectionActions({
             >
               <ArrowUpFromSquare width={22} height={22} />
             </Popover.Trigger>
-            <Popover.Portal>
-              <Popover.Positioner side="top" align="start" sideOffset={12}>
-                <Popover.Popup xstyle={s.share}>
-                  <Popover.Title>
-                    Share {photos.length} {photos.length === 1 ? "Photo" : "Photos"}
-                  </Popover.Title>
-                  <div {...stylex.props(s.downloads)}>
-                    {photos.map((p) => (
-                      <Link key={p.id} href={p.src} download={`${p.title}.jpg`}>
-                        Save {p.title}
-                      </Link>
-                    ))}
-                  </div>
-                  <Button onClick={copy}>
-                    {photos.some((p) => p.src.startsWith("blob:"))
-                      ? "Copy Original Image Links"
-                      : "Copy Image Links"}
-                  </Button>
-                  <output>{status}</output>
-                </Popover.Popup>
-              </Popover.Positioner>
-            </Popover.Portal>
+            <Popover.Content xstyle={s.share} side="top" align="start" sideOffset={12}>
+              <Popover.Title>
+                Share {photos.length}
+                {photos.length === 1 ? "Photo" : "Photos"}
+              </Popover.Title>
+              <div {...stylex.props(s.downloads)}>
+                {photos.map((p) => (
+                  <Link key={p.id} href={p.src} download={`${p.title}.jpg`}>
+                    Save {p.title}
+                  </Link>
+                ))}
+              </div>
+              <Button onClick={copy}>
+                {photos.some((p) => p.src.startsWith("blob:"))
+                  ? "Copy Original Image Links"
+                  : "Copy Image Links"}
+              </Button>
+              <output>{status}</output>
+            </Popover.Content>
           </Popover>
         </Toolbar.Group>
         <Toolbar.Group>
@@ -115,69 +112,62 @@ export function PhotosSelectionActions({
         </Toolbar.Group>
       </Toolbar>
       <Sheet open={preview} onOpenChange={setPreview}>
-        <Sheet.Portal>
-          <Sheet.Backdrop />
-          <Sheet.Viewport>
-            <Sheet.Popup xstyle={s.popup}>
-              <Sheet.Handle />
-              <Sheet.Header>
-                <Sheet.Close aria-label="Close selected photos" />
-                <Sheet.Title>Selected Photos ({photos.length})</Sheet.Title>
-              </Sheet.Header>
-              <Sheet.Body>
-                {photos.length ? (
-                  <div {...stylex.props(s.grid)}>
-                    {photos.map((p) => (
-                      <Button
-                        key={p.id}
-                        variant="borderless"
-                        xstyle={s.tile}
-                        aria-label={`Deselect ${p.title}`}
-                        aria-pressed
-                        onClick={() => onDeselect(p.id)}
-                      >
-                        <PhotoImage photo={p} />
-                      </Button>
-                    ))}
-                  </div>
-                ) : (
-                  <p>No photos selected.</p>
-                )}
-              </Sheet.Body>
-            </Sheet.Popup>
-          </Sheet.Viewport>
-        </Sheet.Portal>
+        <Sheet.Backdrop />
+        <Sheet.Content xstyle={s.popup}>
+          <Sheet.Handle />
+          <Sheet.Header>
+            <Sheet.Close aria-label="Close selected photos" />
+            <Sheet.Title>Selected Photos ({photos.length})</Sheet.Title>
+          </Sheet.Header>
+          <Sheet.Body>
+            {photos.length ? (
+              <div {...stylex.props(s.grid)}>
+                {photos.map((p) => (
+                  <Button
+                    key={p.id}
+                    variant="borderless"
+                    xstyle={s.tile}
+                    aria-label={`Deselect ${p.title}`}
+                    aria-pressed
+                    onClick={() => onDeselect(p.id)}
+                  >
+                    <PhotoImage photo={p} />
+                  </Button>
+                ))}
+              </div>
+            ) : (
+              <p>No photos selected.</p>
+            )}
+          </Sheet.Body>
+        </Sheet.Content>
       </Sheet>
       <AlertDialog open={confirm} onOpenChange={setConfirm}>
-        <AlertDialog.Portal>
-          <AlertDialog.Backdrop />
-          <AlertDialog.Viewport>
-            <AlertDialog.Popup>
-              <AlertDialog.Header>
-                <AlertDialog.Title>
-                  Delete {photos.length} {photos.length === 1 ? "photo" : "photos"}?
-                </AlertDialog.Title>
-              </AlertDialog.Header>
-              <AlertDialog.Body>
-                <AlertDialog.Description>
-                  Remove these photos from this sample library? You can undo this in the library.
-                </AlertDialog.Description>
-              </AlertDialog.Body>
-              <AlertDialog.Footer>
-                <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
-                <AlertDialog.Action
-                  variant="destructive"
-                  onClick={() => {
-                    onDelete();
-                    setConfirm(false);
-                  }}
-                >
-                  Delete {photos.length === 1 ? "Photo" : "Photos"}
-                </AlertDialog.Action>
-              </AlertDialog.Footer>
-            </AlertDialog.Popup>
-          </AlertDialog.Viewport>
-        </AlertDialog.Portal>
+        <AlertDialog.Backdrop />
+        <AlertDialog.Content>
+          <AlertDialog.Header>
+            <AlertDialog.Title>
+              Delete {photos.length}
+              {photos.length === 1 ? "photo" : "photos"}?
+            </AlertDialog.Title>
+          </AlertDialog.Header>
+          <AlertDialog.Body>
+            <AlertDialog.Description>
+              Remove these photos from this sample library? You can undo this in the library.
+            </AlertDialog.Description>
+          </AlertDialog.Body>
+          <AlertDialog.Footer>
+            <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+            <AlertDialog.Action
+              variant="destructive"
+              onClick={() => {
+                onDelete();
+                setConfirm(false);
+              }}
+            >
+              Delete {photos.length === 1 ? "Photo" : "Photos"}
+            </AlertDialog.Action>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
       </AlertDialog>
     </>
   );
@@ -214,39 +204,31 @@ export function PhotosSelectionMenu({
           <Ellipsis width={22} height={22} />
         </span>
       </Menu.Trigger>
-      <Menu.Portal>
-        <Menu.Positioner side="bottom" align="end">
-          <Menu.Popup aria-label="Selection options">
-            <Menu.Item onClick={onFavorite}>
-              <Menu.Item.Icon>
-                <Heart />
-              </Menu.Item.Icon>
-              {allFavorites ? "Remove from Favorites" : "Favorite"}
-            </Menu.Item>
-            <Menu.SubmenuRoot>
-              <Menu.SubmenuTrigger>
-                Add to Album
-                <Menu.Item.SubmenuIndicator>
-                  <ChevronRight />
-                </Menu.Item.SubmenuIndicator>
-              </Menu.SubmenuTrigger>
-              <Menu.Portal>
-                <Menu.Positioner>
-                  <Menu.Popup aria-label="Add to album">
-                    {albumNames.map((name) => (
-                      <Menu.Item key={name} onClick={() => onAddTo(name)}>
-                        {name}
-                      </Menu.Item>
-                    ))}
-                  </Menu.Popup>
-                </Menu.Positioner>
-              </Menu.Portal>
-            </Menu.SubmenuRoot>
-            <Menu.Separator />
-            <Menu.Item onClick={onClear}>Deselect All</Menu.Item>
-          </Menu.Popup>
-        </Menu.Positioner>
-      </Menu.Portal>
+      <Menu.Content aria-label="Selection options" side="bottom" align="end">
+        <Menu.Item onClick={onFavorite}>
+          <Menu.Item.Icon>
+            <Heart />
+          </Menu.Item.Icon>
+          {allFavorites ? "Remove from Favorites" : "Favorite"}
+        </Menu.Item>
+        <Menu.Sub>
+          <Menu.SubTrigger>
+            Add to Album
+            <Menu.Item.SubmenuIndicator>
+              <ChevronRight />
+            </Menu.Item.SubmenuIndicator>
+          </Menu.SubTrigger>
+          <Menu.SubContent aria-label="Add to album" side="bottom" align="end">
+            {albumNames.map((name) => (
+              <Menu.Item key={name} onClick={() => onAddTo(name)}>
+                {name}
+              </Menu.Item>
+            ))}
+          </Menu.SubContent>
+        </Menu.Sub>
+        <Menu.Separator />
+        <Menu.Item onClick={onClear}>Deselect All</Menu.Item>
+      </Menu.Content>
     </Menu>
   );
 }

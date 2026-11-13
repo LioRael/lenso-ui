@@ -2,14 +2,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
-const enter = stylex.keyframes({
-  from: { opacity: 0, transform: "var(--picker-enter-from,scale(.95))" },
-  to: { opacity: 1, transform: "scale(1)" },
-});
-const exit = stylex.keyframes({
-  from: { opacity: 1, transform: "scale(1)" },
-  to: { opacity: 0, transform: "scale(.95)" },
-});
 export const colorPickerStyles = stylex.create({
   root: { display: "inline-flex" },
   trigger: {
@@ -27,6 +19,34 @@ export const colorPickerStyles = stylex.create({
   focused: { outline: "none", boxShadow: focusRing.outer },
   disabled: { opacity: 0.5 },
   popover: {
+    borderWidth: 0,
+    margin: 0,
+    padding: 0,
+    visibility: {
+      default: null,
+      ":is([popover]:not(:popover-open),[data-closed]:not([data-ending-style]))": "hidden",
+    },
+    transformOrigin: "var(--transform-origin)",
+    opacity: { default: 1, ":is([data-starting-style],[data-ending-style])": 0 },
+    transform: {
+      default: "scale(1)",
+      ":is([data-starting-style],[data-ending-style])": "scale(.95)",
+    },
+    translate: {
+      default: "0 0",
+      ':is([data-starting-style])[data-side="top"]': "0 4px",
+      ':is([data-starting-style])[data-side="bottom"]': "0 -4px",
+      ':is([data-starting-style])[data-side="left"]': "4px 0",
+      ':is([data-starting-style])[data-side="right"]': "-4px 0",
+    },
+    transitionProperty: "opacity, transform, translate",
+    transitionDuration: {
+      default: "150ms",
+      ":is([data-ending-style])": "100ms",
+      "@media (prefers-reduced-motion: reduce)": "0ms",
+    },
+    transitionTimingFunction: tokens.motionEaseSmooth,
+    pointerEvents: { default: "auto", ":is([data-ending-style])": "none" },
     width: 386,
     maxWidth: "calc(100vw - 24px)",
     maxHeight: "var(--available-height)",
@@ -52,21 +72,5 @@ export const colorPickerStyles = stylex.create({
     overflowY: "auto",
     overscrollBehavior: "contain",
     scrollbarWidth: "none",
-  },
-  dialog: { outline: "none" },
-  entering: {
-    animationName: enter,
-    animationDuration: { default: "150ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
-    animationTimingFunction: tokens.motionEaseSmooth,
-    transformOrigin: "var(--trigger-anchor-point)",
-    willChange: "opacity,transform",
-  },
-  exiting: {
-    animationName: exit,
-    animationDuration: { default: "100ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
-    animationTimingFunction: tokens.motionEaseSmooth,
-    pointerEvents: "none",
-    transformOrigin: "var(--trigger-anchor-point)",
-    willChange: "opacity,transform",
   },
 });

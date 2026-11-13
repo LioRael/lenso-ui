@@ -60,10 +60,8 @@ const DatePickerField = ({ showDescription = false }: { showDescription?: boolea
     {showDescription ? (
       <DatePicker.Description>Select a date from the calendar.</DatePicker.Description>
     ) : null}
-    <DatePicker.Popover>
-      <DatePicker.Dialog aria-label="Choose date">
-        <CalendarContent />
-      </DatePicker.Dialog>
+    <DatePicker.Popover aria-label="Choose date">
+      <CalendarContent />
     </DatePicker.Popover>
   </>
 );
@@ -125,10 +123,8 @@ export const WithValidation: Story = {
         ) : (
           <DatePicker.Description>Select a date from today onward.</DatePicker.Description>
         )}
-        <DatePicker.Popover>
-          <DatePicker.Dialog aria-label="Choose appointment date">
-            <CalendarContent />
-          </DatePicker.Dialog>
+        <DatePicker.Popover aria-label="Choose appointment date">
+          <CalendarContent />
         </DatePicker.Popover>
       </DatePicker>
     );
@@ -151,10 +147,8 @@ export const WithCustomIndicator: Story = {
       <DatePicker.Description>
         Use a custom trigger icon while keeping DatePicker behavior.
       </DatePicker.Description>
-      <DatePicker.Popover>
-        <DatePicker.Dialog aria-label="Choose date">
-          <CalendarContent />
-        </DatePicker.Dialog>
+      <DatePicker.Popover aria-label="Choose date">
+        <CalendarContent />
       </DatePicker.Popover>
     </DatePicker>
   ),
@@ -201,10 +195,8 @@ export const FormExample: Story = {
           ) : (
             <DatePicker.Description>Choose a valid appointment date.</DatePicker.Description>
           )}
-          <DatePicker.Popover>
-            <DatePicker.Dialog aria-label="Choose appointment date">
-              <CalendarContent />
-            </DatePicker.Dialog>
+          <DatePicker.Popover aria-label="Choose appointment date">
+            <CalendarContent />
           </DatePicker.Popover>
         </DatePicker>
         <Button

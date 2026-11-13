@@ -1,14 +1,15 @@
 "use client";
+import { Field as SdkField, type FieldState } from "@ui-sdk/react/field";
+import { slotRender } from "../../utils/sdk-render.js";
 import * as React from "react";
 import { Input, type InputProps } from "../input/input.js";
 import { inputStyles } from "@lenso/tokens/input";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import { useElasticRef, useGlassRef } from "@lenso/glass/react";
-import { NativeButton as BaseButton } from "../../utils/native-button.js";
+import { NativeButton as SdkButton } from "../../utils/native-button.js";
 import { clearInput } from "../../utils/clear-input.js";
 import { Label } from "../label/label.js";
 import { Description } from "../description/description.js";
-import { Field } from "@base-ui/react/field";
 import { textFieldStyles } from "@lenso/tokens/textfield";
 import { groupStyles } from "@lenso/tokens/surface";
 import * as stylex from "@stylexjs/stylex";
@@ -16,17 +17,17 @@ import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { FieldScope } from "./field-scope.js";
 import { FieldGroupContext } from "./group-context.js";
 
-export type TextFieldRootProps = StyleXProps<Field.Root.Props> & {
+export type TextFieldRootProps = StyleXProps<React.ComponentProps<typeof SdkField>> & {
   fullWidth?: boolean;
   layout?: "row" | "stacked";
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 export function TextFieldRoot({
   fullWidth = false,
   layout,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: TextFieldRootProps) {
   const grouped = React.useContext(FieldGroupContext);
@@ -44,11 +45,11 @@ export function TextFieldRoot({
   );
   return (
     <FieldScope value={true}>
-      <Field.Root
+      <SdkField
         {...props}
         {...compiled}
-        style={mergeStyle<Field.Root.State>(compiled.style, style)}
-        data-slot={slot ?? "text-field"}
+        style={mergeStyle<FieldState>(compiled.style, style)}
+        render={slotRender("div", slot ?? "text-field", props.render)}
         data-field-layout={fieldLayout}
         data-field-grouped={grouped || undefined}
       />
@@ -73,7 +74,7 @@ export function TextFieldGroup({
         {...props}
         {...compiled}
         style={{ ...compiled.style, ...style }}
-        data-slot="text-field-group"
+        data-lenso-slot="text-field-group"
       />
     </FieldGroupContext.Provider>
   );
@@ -102,7 +103,7 @@ export function TextFieldInput({
   return (
     <div
       ref={controlRef}
-      data-slot="text-field-control"
+      data-lenso-slot="text-field-control"
       {...stylex.props(
         glass && liquidMaterialStyles.small,
         inputStyles.input,
@@ -124,13 +125,13 @@ export function TextFieldInput({
         }}
         xstyle={[inputStyles.groupedControl, textFieldStyles.input, xstyle]}
         style={style}
-        data-slot="text-field-input"
+        data-lenso-slot="text-field-input"
       />
       {clearable && (
-        <BaseButton
+        <SdkButton
           type="button"
           aria-label={clearLabel}
-          data-slot="text-field-clear"
+          data-lenso-slot="text-field-clear"
           {...stylex.props(textFieldStyles.clear)}
           onPointerDown={(event) => event.preventDefault()}
           onClick={() => {
@@ -147,7 +148,7 @@ export function TextFieldInput({
               strokeLinecap="round"
             />
           </svg>
-        </BaseButton>
+        </SdkButton>
       )}
     </div>
   );

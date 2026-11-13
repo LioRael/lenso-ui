@@ -116,8 +116,8 @@ export function FirstPaintFixture({ theme }: { theme: "light" | "dark" }) {
           <Slider.Control data-check-box="control">
             <Slider.Track data-check-box="track">
               <Slider.Fill />
+              <Slider.Thumb data-check-box="thumb" aria-label="Volume" />
             </Slider.Track>
-            <Slider.Thumb data-check-box="thumb" aria-label="Volume" />
           </Slider.Control>
         </Slider>
       </section>

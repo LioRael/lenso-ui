@@ -1,18 +1,10 @@
 "use client";
-
-import { Surface } from "@lenso/ui";
-import { NativeAutocomplete, styles } from "../../en/autocomplete/_native";
-import { states } from "./default";
+import { TextSuggestions } from "../../en/autocomplete/text-suggestions";
+import { states } from "../../en/autocomplete/default";
 export function OnSurface() {
   return (
-    <Surface xstyle={styles.surface}>
-      <NativeAutocomplete
-        items={states}
-        label="州"
-        variant="secondary"
-        fullWidth
-        searchLabel="Search states"
-      />
-    </Surface>
+    <div>
+      <TextSuggestions label="计划前往的州" options={states.map((item) => item.name)} />
+    </div>
   );
 }

@@ -64,6 +64,7 @@ export function SwipeWheelFixture({ dark = false }: { dark?: boolean }) {
             aria-label="Rejected minutes"
             options={options}
             value="2"
+            onValueChange={(_value, details) => details.cancel()}
           />
           <div data-case="swipe-story">
             <SwipeActionsStory disabled={false} fullSwipe />

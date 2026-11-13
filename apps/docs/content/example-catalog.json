@@ -60,21 +60,11 @@
         "autocomplete-disabled",
         "autocomplete-with-disabled-options",
         "autocomplete-allows-empty-collection",
-        "autocomplete-with-sections",
-        "autocomplete-multiple-select",
         "autocomplete-controlled",
-        "autocomplete-controlled-multiple",
         "autocomplete-controlled-open-state",
         "autocomplete-asynchronous-filtering",
-        "autocomplete-custom-indicator",
-        "autocomplete-custom-value",
         "autocomplete-on-surface",
-        "autocomplete-virtualization",
-        "autocomplete-user-selection",
-        "autocomplete-user-selection-multiple",
-        "autocomplete-location-search",
-        "autocomplete-tag-group-selection",
-        "autocomplete-email-recipients"
+        "autocomplete-location-search"
       ]
     },
     {
@@ -1198,21 +1188,11 @@
         "autocomplete-disabled",
         "autocomplete-with-disabled-options",
         "autocomplete-allows-empty-collection",
-        "autocomplete-with-sections",
-        "autocomplete-multiple-select",
         "autocomplete-controlled",
-        "autocomplete-controlled-multiple",
         "autocomplete-controlled-open-state",
         "autocomplete-asynchronous-filtering",
-        "autocomplete-custom-indicator",
-        "autocomplete-custom-value",
         "autocomplete-on-surface",
-        "autocomplete-virtualization",
-        "autocomplete-user-selection",
-        "autocomplete-user-selection-multiple",
-        "autocomplete-location-search",
-        "autocomplete-tag-group-selection",
-        "autocomplete-email-recipients"
+        "autocomplete-location-search"
       ]
     },
     {

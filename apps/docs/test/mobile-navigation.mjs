@@ -35,24 +35,40 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         document.querySelector('[data-component-story="Tabs"] [data-ready]'),
       );
       await assertSelectionInk(page, tabs, `${name}/${colorScheme}: Tabs playground`);
+      await group
+        .locator(":scope > [data-material] [data-lenso-live-rim]")
+        .waitFor({ state: "attached" });
       await page.evaluate(() => {
+        const rim = document.querySelector(
+          '[aria-label="Documentation navigation"] [data-tab-bar-group] > [data-material] [data-lenso-live-rim]',
+        );
         window.tabBarContinuity = { samples: 0, failures: [], frame: 0, ticks: 0, active: true };
         const sample = () => {
           const state = window.tabBarContinuity;
           const group = document.querySelector(
             '[aria-label="Documentation navigation"] [data-tab-bar-group]',
           );
+          const lens = group?.querySelector(":scope > [data-material] [data-material-lens]");
+          if (lens && state.failures.length < 8) {
+            const current = lens.querySelector("[data-lenso-live-rim]");
+            if (current !== rim || !lens.hasAttribute("data-material-live-rim"))
+              state.failures.push(
+                "The foreground rim must remain mounted through motion and settling",
+              );
+            else if (
+              Math.abs(parseFloat(current.style.width) - lens.offsetWidth - 2) > 1 ||
+              Math.abs(parseFloat(current.style.height) - lens.offsetHeight - 2) > 1
+            )
+              state.failures.push("The foreground rim must track the animated surface size");
+          }
           if (group?.hasAttribute("data-tab-bar-resizing")) {
             state.samples++;
-            const lens = group.querySelector(":scope > [data-material] [data-material-lens]");
-            if (
-              lens &&
-              (!getComputedStyle(lens).backdropFilter.includes("blur(") ||
-                lens.hasAttribute("data-material-filter"))
-            )
-              state.failures.push(
-                "Moving glass must retain native blur without rebuilding fitted filters",
-              );
+            const paintId = lens?.getAttribute("data-material-paints");
+            const blur = paintId
+              ? document.querySelector(`[data-material-local-paints="${paintId}"] > *`)
+              : lens;
+            if (!blur || !getComputedStyle(blur).backdropFilter.includes("blur("))
+              state.failures.push("Moving glass must retain native blur");
             const content = group.querySelector(
               "[data-tab-bar-list] [data-current] [data-tab-bar-content]",
             );

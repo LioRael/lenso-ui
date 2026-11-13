@@ -32,7 +32,7 @@ and information group. Share offers image download and copying its URL. Delete
 removes a sample from in-memory state after confirmation; the library offers
 Undo. The central toolbar also opens a working, non-destructive adjustment editor.
 
-The viewer keeps the Base UI modal for focus containment, Escape, nested
+The viewer keeps the UI SDK modal for focus containment, Escape, nested
 popovers and focus restoration. The same Lenso Toolbar and TabBar materials
 own the floating controls; the page does not introduce another glass recipe.
 The thumbnail strip selects real photos in the current collection.
@@ -48,7 +48,7 @@ Opening uses 280 ms and closing 240 ms with the existing
 Closing during an opening animation reads its current transform, crop and
 opacity before reversing. Changing photos or unmounting cancels animations
 and restores visibility. Reduced motion and keyboard opening skip the zoom;
-Escape closes immediately. Toolbar arrow-key ownership remains with Base UI.
+Escape closes immediately. Toolbar arrow-key ownership remains with UI SDK.
 
 ## Pull-down dismissal
 
@@ -121,7 +121,7 @@ the event location. A non-passive listener is attached through the stage's ref,
 including when its portal mounts after the parent effect. Resize clamps the
 current image into the new stage dimensions. Photo options provide Zoom In and
 Reset Zoom for keyboard users; plus zooms, zero/minus resets, and arrow keys pan
-when zoomed. At the fitted size, arrows continue to change photos. Base UI retains
+when zoomed. At the fitted size, arrows continue to change photos. UI SDK retains
 modal, toolbar, popover and focus ownership. Reduced motion keeps direct gesture
 tracking and applies final zoom/page positions without animated settlement.
 
@@ -281,7 +281,7 @@ Browser samples at 0, 60, 120, 180 and 240ms measured a 22px icon between 22px a
 
 Photos sets the internal `--lg-menu-content-start-scale` presentation variable to
 `.92`, allowing content to reveal through the expanding glass clip near reading
-size. Other menus retain the existing `.5` default. Base UI continues to own
+size. Other menus retain the existing `.5` default. UI SDK continues to own
 open state, selection, dismissal, focus and unmount. Media Types uses the same
 icon/label columns as its neighboring filter rows.
 

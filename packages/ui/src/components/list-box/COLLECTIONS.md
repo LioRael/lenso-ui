@@ -3,24 +3,21 @@
 ## Implementation
 
 These collection components use native HTML, explicit collection contexts and
-Base UI render composition. For third-party attribution, see
+UI SDK rendering. For third-party attribution, see
 [THIRD_PARTY_NOTICES.md](../../../../../THIRD_PARTY_NOTICES.md).
 
 ## API
 
-- `ListBox` / `ListBox.Root`: native `div` props and selection props.
-  Optional `items: readonly CollectionItem[]` supports `children(item)`.
-  `virtualized: { rowHeight, height, overscan? }` creates a real fixed-row window.
-  Keyboard boundaries/typeahead and select-all address the logical collection,
-  not only mounted options. The focused option stays mounted while scrolling.
-  Virtual options expose their full collection size and logical positions.
-  `onAction(key)` and Base UI `render` are supported.
-- `ListBoxItem.Root`: required `itemKey: React.Key` and `textValue: string`;
-  native `div` props, `disabled`, and `variant: "default" | "danger"`.
-  Item and indicator children accept native render-state callbacks. The default
-  indicator retains the upstream polyline, dash lengths/offsets and 250ms linear
-  selected transition; reduced motion disables that transition.
-- `ListBoxSection.Root`: native group structure. Supply an accessible name.
+- `ListBox` / `ListBox.Root`: native SDK Listbox props, including `multiple`,
+  `value`, `defaultValue`, `onValueChange`, `activation`, `loop`, `items`,
+  `onHighlight`, `name`, `form` and a native controller.
+- `ListBoxItem.Root`: native SDK `value`, searchable `label`, `disabled`,
+  `index` and render state (`selected`, `disabled`, `highlighted`). Lenso adds
+  only the `default | danger` visual variant. Indicator uses native selection
+  state and presence; sections use SDK group and group-label parts.
+- Virtualized ListBox callers supply full native `items` data, render visible
+  options with logical `index`, and scroll through `onHighlight`. Selection and
+  keyboard navigation remain in the SDK. See the runnable virtualization demo.
 - `TagGroup.Root`: selection props, native `div` props, `disabled`,
   `size: "sm" | "md" | "lg"`, `variant: "default" | "surface"`,
   `items` / `defaultItems`, `onItemsChange(items)`, and `onRemove(keys)`.
@@ -43,7 +40,7 @@ Base UI render composition. For third-party attribution, see
   and `onLoadMore`; `LoadMoreContent` styles its content.
 
 `CollectionItem` is `{ key: React.Key; textValue: string; disabled?: boolean }`.
-Selection props are `selectionMode: "none" | "single" | "multiple"`,
+Table and TagGroup selection props are `selectionMode: "none" | "single" | "multiple"`,
 `selectedKeys`, `defaultSelectedKeys`, `disabledKeys`, and
 `onSelectionChange(Set<React.Key>)`. Sets preserve key type: numeric `1` and
 string `"1"` are different collection identities, including React fragment keys.
@@ -58,7 +55,7 @@ Shift arrows and Shift click extend ranges, skipping disabled items; shrinking
 a range removes its former tail. Ctrl/Meta+A selects all enabled keys. The
 header `Table.SelectionCheckbox` selects/clears the enabled row collection.
 
-ListBox and Table Content accept `dragAndDrop` with `onReorder`, `getItems`, and
+Table Content accepts `dragAndDrop` with `onReorder`, `getItems`, and
 `onDrop`. Native drag events carry the selected enabled keys and typed text
 payloads. Consumers commit reordered data themselves. A native button with
 `slot="drag"` starts keyboard drag with Enter; arrows choose targets, Enter

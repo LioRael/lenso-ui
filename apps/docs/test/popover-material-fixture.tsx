@@ -27,17 +27,13 @@ export function mount(
         ) : (
           <Popover>
             <Popover.Trigger render={<Button />}>Open popover</Popover.Trigger>
-            <Popover.Portal>
-              <Popover.Positioner side={side}>
-                <Popover.Popup style={{ width: 320 }}>
-                  <Popover.Arrow />
-                  <Popover.Title>Popover Title</Popover.Title>
-                  <Popover.Description>
-                    This is the popover content. You can put any content here.
-                  </Popover.Description>
-                </Popover.Popup>
-              </Popover.Positioner>
-            </Popover.Portal>
+            <Popover.Content style={{ width: 320 }} side={side}>
+              <Popover.Arrow />
+              <Popover.Title>Popover Title</Popover.Title>
+              <Popover.Description>
+                This is the popover content. You can put any content here.
+              </Popover.Description>
+            </Popover.Content>
           </Popover>
         )}
       </main>
@@ -51,23 +47,18 @@ export function mount(
 function TooltipCase({ side }: { side: "top" | "bottom" | "left" | "right" }) {
   const [open, setOpen] = useState(true);
   return (
-    <Tooltip.Provider delay={0}>
-      <Tooltip
-        open={open}
-        onOpenChange={(next, details) => {
-          if (!next && details.reason === "escape-key") setOpen(false);
-        }}
-      >
-        <Tooltip.Trigger render={<Button />}>Open tooltip</Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner side={side}>
-            <Tooltip.Popup>
-              <Tooltip.Arrow />
-              Helpful description
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
-      </Tooltip>
-    </Tooltip.Provider>
+    <Tooltip
+      open={open}
+      onOpenChange={(next, details) => {
+        if (!next && details.reason === "escape-key") setOpen(false);
+      }}
+      delay={0}
+    >
+      <Tooltip.Trigger render={<Button />}>Open tooltip</Tooltip.Trigger>
+      <Tooltip.Content delay={0} side={side}>
+        <Tooltip.Arrow />
+        Helpful description
+      </Tooltip.Content>
+    </Tooltip>
   );
 }

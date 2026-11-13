@@ -99,12 +99,11 @@ export function AsynchronousLoading() {
     <div {...stylex.props(styles.field)}>
       <ComboBox<Character>
         {...menu.root}
-        items={items}
-        filter={null}
-        inputValue={inputValue}
-        onInputValueChange={setInputValue}
-        itemToStringLabel={(character) => character.name}
-        itemToStringValue={(character) => character.name}
+        filter={false}
+        query={inputValue}
+        onQueryChange={setInputValue}
+        itemToLabel={(character) => character.name}
+        itemToValue={(character) => character.name}
       >
         <ComboBox.Label htmlFor={id}>Pick a Character</ComboBox.Label>
         <ComboBox.InputGroup>
@@ -113,39 +112,33 @@ export function AsynchronousLoading() {
             <ComboBox.Indicator />
           </ComboBox.Trigger>
         </ComboBox.InputGroup>
-        <ComboBox.Portal>
-          <ComboBox.Positioner>
-            <ComboBox.Popover>
-              <ComboBox.List aria-busy={loading}>
-                {(character: Character) => (
-                  <ComboBox.Item key={character.name} value={character}>
-                    {character.name}
-                    <ComboBox.ItemIndicator />
-                  </ComboBox.Item>
-                )}
-              </ComboBox.List>
-              <ComboBox.Empty>
-                {loading ? "Loading..." : (error ?? "No results found")}
-              </ComboBox.Empty>
-              <div ref={setSentinel} {...stylex.props(styles.loading)}>
-                {loading && (
-                  <>
-                    <Spinner size="sm" />
-                    <span {...stylex.props(styles.muted)}>
-                      {items.length ? "Loading more..." : "Loading..."}
-                    </span>
-                  </>
-                )}
-                {cursor && !loading && (
-                  <button type="button" onClick={() => setNextPage(cursor)}>
-                    Load more
-                  </button>
-                )}
-                {error && items.length > 0 && <span role="alert">{error}</span>}
-              </div>
-            </ComboBox.Popover>
-          </ComboBox.Positioner>
-        </ComboBox.Portal>
+        <ComboBox.Content>
+          <ComboBox.List aria-busy={loading}>
+            {items.map((character: Character) => (
+              <ComboBox.Item key={character.name} value={character}>
+                {character.name}
+                <ComboBox.ItemIndicator />
+              </ComboBox.Item>
+            ))}
+          </ComboBox.List>
+          <ComboBox.Empty>{loading ? "Loading..." : (error ?? "No results found")}</ComboBox.Empty>
+          <div ref={setSentinel} {...stylex.props(styles.loading)}>
+            {loading && (
+              <>
+                <Spinner size="sm" />
+                <span {...stylex.props(styles.muted)}>
+                  {items.length ? "Loading more..." : "Loading..."}
+                </span>
+              </>
+            )}
+            {cursor && !loading && (
+              <button type="button" onClick={() => setNextPage(cursor)}>
+                Load more
+              </button>
+            )}
+            {error && items.length > 0 && <span role="alert">{error}</span>}
+          </div>
+        </ComboBox.Content>
       </ComboBox>
     </div>
   );

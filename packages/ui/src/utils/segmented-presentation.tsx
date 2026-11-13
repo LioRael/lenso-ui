@@ -17,7 +17,7 @@ export function SelectionTrack({
 }) {
   return (
     <span
-      data-slot={`${kind}-glass`}
+      data-lenso-slot={`${kind}-glass`}
       data-material={glass ? "glass-small" : undefined}
       aria-hidden="true"
       {...stylex.props(
@@ -41,19 +41,22 @@ export function SelectionHighlight({
 }) {
   return (
     <span
-      data-slot={`${kind}-tint`}
+      data-lenso-slot={`${kind}-tint`}
       aria-hidden="true"
       inert
       {...stylex.props(s.tint, s.initialIndicator)}
     >
-      <span data-slot={`${kind}-highlight-ring`} {...stylex.props(s.highlightClip)}>
-        <span data-slot={`${kind}-highlight-optics`} {...stylex.props(s.highlightOptics)}>
-          <span data-slot={`${kind}-row`} {...stylex.props(s.row, vertical && s.rowVertical)} />
+      <span data-lenso-slot={`${kind}-highlight-ring`} {...stylex.props(s.highlightClip)}>
+        <span data-lenso-slot={`${kind}-highlight-optics`} {...stylex.props(s.highlightOptics)}>
+          <span
+            data-lenso-slot={`${kind}-row`}
+            {...stylex.props(s.row, vertical && s.rowVertical)}
+          />
         </span>
       </span>
-      <span data-slot={`${kind}-highlight-centre`} {...stylex.props(s.highlightClip)}>
+      <span data-lenso-slot={`${kind}-highlight-centre`} {...stylex.props(s.highlightClip)}>
         <span
-          data-slot={`${kind}-centre-row`}
+          data-lenso-slot={`${kind}-centre-row`}
           {...stylex.props(s.row, vertical && s.rowVertical)}
         />
       </span>
@@ -64,7 +67,7 @@ export function SelectionHighlight({
 export function SelectionLensPaint({ kind }: { kind: SegmentedPresentationKind }) {
   return (
     <span
-      data-slot={`${kind}-refraction`}
+      data-lenso-slot={`${kind}-refraction`}
       // Sample the composited track, not a fresh copy of the page's marked photo.
       data-lenso-backdrop="live"
       aria-hidden="true"
@@ -80,7 +83,7 @@ export function SelectionFallback({ kind }: { kind: SegmentedPresentationKind })
     <span
       aria-hidden="true"
       inert
-      data-slot={`${kind}-fallback`}
+      data-lenso-slot={`${kind}-fallback`}
       data-lg-tabs-lens="fallback"
       {...stylex.props(s.indicator, glassStyles.hotspot, s.lens, s.fallback, s.initialIndicator)}
     >

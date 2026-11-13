@@ -1,31 +1,30 @@
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: explicit native Base UI anatomy, DOM field shells, native value
+ * Modified: explicit native UI SDK anatomy, DOM field shells, native value
  * callbacks and popup filtering. These helpers are private story fixtures.
  */
+import { descriptionStyles } from "@lenso/tokens/description";
+import { labelStyles } from "@lenso/tokens/label";
+import { listBoxSectionLabelStyles } from "@lenso/tokens/list-box";
 import {
-  Autocomplete,
   Avatar,
   Button,
   Chip,
   ComboBox,
+  FieldError,
   Form,
   Kbd,
-  ListBox,
   Label,
-  Select,
+  ListBox,
   SearchField,
+  Select,
   Separator,
   Spinner,
   Surface,
   TextField,
-  FieldError,
 } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { labelStyles } from "@lenso/tokens/label";
-import { descriptionStyles } from "@lenso/tokens/description";
-import { listBoxSectionLabelStyles } from "@lenso/tokens/list-box";
 import {
   Fragment,
   useCallback,
@@ -36,9 +35,9 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { selectionStyles as s } from "./selection.stylex";
 import { states, type SelectionItem } from "./selection-data.fixtures";
 import { SelectionIcon } from "./selection-icons.fixtures";
+import { selectionStyles as s } from "./selection.stylex";
 
 export function SelectionStack({
   children,
@@ -220,26 +219,22 @@ export function SelectField({
             </Button>
           )}
         </div>
-        <Select.Portal>
-          <Select.Positioner alignItemWithTrigger={false}>
-            <Select.Popover xstyle={s.popup}>
-              <Select.List>
-                {groups.map((group, index) =>
-                  group ? (
-                    <Select.Group key={group}>
-                      <Select.GroupLabel>{group}</Select.GroupLabel>
-                      {items.filter((item) => item.group === group).map(option)}
-                      {index < groups.length - 1 && <Select.Separator />}
-                    </Select.Group>
-                  ) : (
-                    items.filter((item) => !item.group).map(option)
-                  ),
-                )}
-                {onLoadMore && <LoadMoreSentinel loading={loadingMore} onLoadMore={onLoadMore} />}
-              </Select.List>
-            </Select.Popover>
-          </Select.Positioner>
-        </Select.Portal>
+        <Select.Content xstyle={s.popup} alignItemWithTrigger={false}>
+          <Select.List>
+            {groups.map((group, index) =>
+              group ? (
+                <Select.Group key={group}>
+                  <Select.GroupLabel>{group}</Select.GroupLabel>
+                  {items.filter((item) => item.group === group).map(option)}
+                  {index < groups.length - 1 && <Select.Separator />}
+                </Select.Group>
+              ) : (
+                items.filter((item) => !item.group).map(option)
+              ),
+            )}
+            {onLoadMore && <LoadMoreSentinel loading={loadingMore} onLoadMore={onLoadMore} />}
+          </Select.List>
+        </Select.Content>
       </Select>
       {required && <FieldError />}
       {description && (
@@ -257,7 +252,7 @@ export function SelectField({
       )}
       {controlledOpen && (
         <>
-          <Button onClick={() => setOpen(!open)}>{open ? "Close" : "Open"} Select</Button>
+          <Button onClick={() => setOpen(!open)}>{open ? "Close" : "Open"}Select</Button>
           <p {...stylex.props(s.muted)}>Select is {open ? "open" : "closed"}</p>
         </>
       )}
@@ -309,8 +304,7 @@ export function SearchPicker({
   onClear,
   onSelection,
 }: SearchPickerProps) {
-  const Picker = popupSearch ? Autocomplete : ComboBox;
-  const ChipsScope = multiple ? Picker.Chips : Fragment;
+  const ChipsScope = multiple ? ComboBox.Chips : Fragment;
   const id = useId();
   const [value, setValue] = useState<SelectionItem | SelectionItem[] | null>(() => {
     if (multiple)
@@ -327,7 +321,10 @@ export function SearchPicker({
   const [scroll, setScroll] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
   const anchorRef = useRef<HTMLDivElement>(null);
-  const { contains } = Picker.useFilter({ sensitivity: "base" });
+  const { contains } = {
+    contains: (text: string, query: string) =>
+      text.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+  };
   const asyncList = useCharacterList(asynchronous === "characters", input);
   const [searching, setSearching] = useState(false);
   useEffect(() => {
@@ -381,35 +378,30 @@ export function SearchPicker({
   const start = virtualized ? Math.max(0, Math.floor(scroll / 50) - 3) : 0;
   const visible = virtualized ? filtered.slice(start, start + 15) : filtered;
   const option = (item: SelectionItem, index = filtered.indexOf(item)) => (
-    <Picker.Item key={item.id} value={item} index={index} disabled={disabledIds.includes(item.id)}>
+    <ComboBox.Item
+      key={item.id}
+      value={item}
+      index={index}
+      disabled={disabledIds.includes(item.id)}
+    >
       <ItemContent item={item} />
-      <Picker.ItemIndicator />
-    </Picker.Item>
+      <ComboBox.ItemIndicator />
+    </ComboBox.Item>
   );
   const chips = multiple && (
-    <div {...stylex.props(s.value)}>
-      <Picker.Value>
-        {(values: SelectionItem[]) =>
-          values.length === 0 ? (
-            <span {...stylex.props(s.muted)}>
-              {popupSearch ? placeholder : "No animals selected"}
-            </span>
-          ) : (
-            values.map((item) => (
-              <Picker.Chip key={item.id}>
-                {emailValue ? item.email : <ItemContent item={item} compact />}
-                <Picker.ChipRemove aria-label={`Remove ${emailValue ? item.email : item.name}`}>
-                  <RemoveIcon />
-                </Picker.ChipRemove>
-              </Picker.Chip>
-            ))
-          )
-        }
-      </Picker.Value>
-    </div>
+    <ComboBox.Chips>
+      {selected.map((item) => (
+        <ComboBox.Chip key={item.id} value={item}>
+          {emailValue ? item.email : <ItemContent item={item} compact />}
+          <ComboBox.ChipRemove aria-label={`Remove ${item.name}`}>
+            <RemoveIcon />
+          </ComboBox.ChipRemove>
+        </ComboBox.Chip>
+      ))}
+    </ComboBox.Chips>
   );
   const searchInput = (
-    <Picker.Input
+    <ComboBox.Input
       id={popupSearch ? `${id}-search` : id}
       aria-label={popupSearch ? `Search ${label.toLowerCase()}` : undefined}
       placeholder={inputPlaceholder}
@@ -437,17 +429,17 @@ export function SearchPicker({
   );
   return (
     <TextField xstyle={[s.field, fullWidth && s.full, virtualized && s.userWidth]}>
-      <Picker<SelectionItem, boolean>
-        items={allItems}
-        filteredItems={filtered}
+      <ComboBox<SelectionItem, boolean>
+        items={filtered.map((value) => ({ value, label: value.name }))}
+        filter={false}
         value={value}
         onValueChange={(next) => {
           setValue(next);
           onSelection?.(next === null ? [] : Array.isArray(next) ? next : [next]);
           if (popupSearch || multiple) setInput("");
         }}
-        itemToStringLabel={(item) => (emailValue ? (item.email ?? item.name) : item.name)}
-        itemToStringValue={(item) => item.id}
+        itemToLabel={(item) => (emailValue ? (item.email ?? item.name) : item.name)}
+        itemToValue={(item) => item.id}
         isItemEqualToValue={(a, b) => a.id === b.id}
         multiple={multiple}
         disabled={disabled}
@@ -455,8 +447,8 @@ export function SearchPicker({
         name={name ?? (customValueAllowed ? "animal" : undefined)}
         variant={variant}
         fullWidth={fullWidth}
-        inputValue={input}
-        onInputValueChange={(next) => {
+        query={input}
+        onQueryChange={(next) => {
           setInput(next);
           setScroll(0);
         }}
@@ -466,9 +458,7 @@ export function SearchPicker({
             return;
           setOpen(next);
         }}
-        openOnInputClick={popupSearch || menuTrigger === "focus"}
-        virtualized={virtualized}
-        onItemHighlighted={(item) => {
+        onHighlight={(item) => {
           if (!virtualized || !item || !listRef.current) return;
           const index = filtered.findIndex((candidate) => candidate.id === item.id);
           if (index < 0) return;
@@ -479,19 +469,19 @@ export function SearchPicker({
           }
         }}
       >
-        <Picker.Label htmlFor={popupSearch ? `${id}-trigger` : id}>
+        <ComboBox.Label htmlFor={popupSearch ? `${id}-trigger` : id}>
           {label}
           {required && (
             <span aria-hidden="true" {...stylex.props(s.requiredIndicator)}>
               *
             </span>
           )}
-        </Picker.Label>
+        </ComboBox.Label>
         <ChipsScope>
-          <div ref={anchorRef} {...stylex.props(s.column, s.full)}>
+          <div ref={anchorRef} id={`${id}-anchor`} {...stylex.props(s.column, s.full)}>
             {popupSearch ? (
               <div {...stylex.props(s.row)}>
-                <Picker.Trigger id={`${id}-trigger`} xstyle={s.trigger}>
+                <ComboBox.Trigger id={`${id}-trigger`} xstyle={s.trigger}>
                   {multiple ? (
                     selected.length ? (
                       `${selected.length} selected`
@@ -507,103 +497,97 @@ export function SearchPicker({
                   ) : (
                     placeholder
                   )}
-                  <Picker.Indicator>
+                  <ComboBox.Indicator>
                     {customIndicator ? <ExpandIndicator /> : undefined}
-                  </Picker.Indicator>
-                </Picker.Trigger>
+                  </ComboBox.Indicator>
+                </ComboBox.Trigger>
                 {clear && (
-                  <Picker.ClearButton aria-label="Clear selection" onClick={onClear}>
+                  <ComboBox.Clear aria-label="Clear selection" onClick={onClear}>
                     <RemoveIcon />
-                  </Picker.ClearButton>
+                  </ComboBox.Clear>
                 )}
               </div>
             ) : (
-              <Picker.InputGroup>
+              <ComboBox.InputGroup>
                 {searchInput}
-                <Picker.Trigger aria-label={`Show ${label.toLowerCase()} options`}>
-                  {customIndicator ? <ExpandIndicator /> : <Picker.Indicator />}
-                </Picker.Trigger>
-              </Picker.InputGroup>
+                <ComboBox.Trigger aria-label={`Show ${label.toLowerCase()} options`}>
+                  {customIndicator ? <ExpandIndicator /> : <ComboBox.Indicator />}
+                </ComboBox.Trigger>
+              </ComboBox.InputGroup>
             )}
             {chips}
           </div>
-          <Picker.Portal>
-            <Picker.Positioner anchor={anchorRef}>
-              <Picker.Popover xstyle={s.popup}>
-                {popupSearch && (
-                  <Picker.InputGroup xstyle={s.search}>
-                    <SearchField.SearchIcon />
-                    {searchInput}
-                    {asynchronous === "characters" && asyncList.loading ? (
-                      <Spinner size="sm" />
-                    ) : (
-                      input && (
-                        <Button
-                          aria-label="Clear search"
-                          variant="borderless"
-                          isIconOnly
-                          size="sm"
-                          onClick={() => setInput("")}
-                        >
-                          <RemoveIcon />
-                        </Button>
-                      )
-                    )}
-                  </Picker.InputGroup>
+          <ComboBox.Content anchor={`#${id}-anchor`} xstyle={s.popup}>
+            {popupSearch && (
+              <ComboBox.InputGroup xstyle={s.search}>
+                <SearchField.SearchIcon />
+                {searchInput}
+                {asynchronous === "characters" && asyncList.loading ? (
+                  <Spinner size="sm" />
+                ) : (
+                  input && (
+                    <Button
+                      aria-label="Clear search"
+                      variant="borderless"
+                      isIconOnly
+                      size="sm"
+                      onClick={() => setInput("")}
+                    >
+                      <RemoveIcon />
+                    </Button>
+                  )
                 )}
-                <Picker.Empty>{searching ? "Searching..." : emptyText}</Picker.Empty>
-                <Picker.List
-                  ref={listRef}
-                  xstyle={s.list}
-                  style={virtualized ? { height: 400 } : undefined}
-                  onScroll={(event) => {
-                    if (virtualized) setScroll(event.currentTarget.scrollTop);
-                  }}
-                >
-                  {virtualized ? (
-                    <div style={{ height: filtered.length * 50, position: "relative" }}>
-                      {visible.map((item, offset) => (
-                        <div
-                          key={item.id}
-                          data-window-index={start + offset}
-                          style={{
-                            position: "absolute",
-                            top: (start + offset) * 50,
-                            height: 50,
-                            width: "100%",
-                          }}
-                        >
-                          {option(item, start + offset)}
-                        </div>
-                      ))}
+              </ComboBox.InputGroup>
+            )}
+            <ComboBox.Empty>{searching ? "Searching..." : emptyText}</ComboBox.Empty>
+            <ComboBox.List
+              ref={listRef}
+              xstyle={s.list}
+              style={virtualized ? { height: 400 } : undefined}
+              onScroll={(event) => {
+                if (virtualized) setScroll(event.currentTarget.scrollTop);
+              }}
+            >
+              {virtualized ? (
+                <div style={{ height: filtered.length * 50, position: "relative" }}>
+                  {visible.map((item, offset) => (
+                    <div
+                      key={item.id}
+                      data-window-index={start + offset}
+                      style={{
+                        position: "absolute",
+                        top: (start + offset) * 50,
+                        height: 50,
+                        width: "100%",
+                      }}
+                    >
+                      {option(item, start + offset)}
                     </div>
+                  ))}
+                </div>
+              ) : (
+                groups.map((group, index) =>
+                  group ? (
+                    <ComboBox.Group key={group}>
+                      <ComboBox.GroupLabel>{group}</ComboBox.GroupLabel>
+                      {filtered.filter((item) => item.group === group).map((item) => option(item))}
+                      {index < groups.length - 1 && <ComboBox.Separator />}
+                    </ComboBox.Group>
                   ) : (
-                    groups.map((group, index) =>
-                      group ? (
-                        <Picker.Group key={group}>
-                          <Picker.GroupLabel>{group}</Picker.GroupLabel>
-                          {filtered
-                            .filter((item) => item.group === group)
-                            .map((item) => option(item))}
-                          {index < groups.length - 1 && <Picker.Separator />}
-                        </Picker.Group>
-                      ) : (
-                        filtered.filter((item) => !item.group).map((item) => option(item))
-                      ),
-                    )
-                  )}
-                  {asynchronous === "characters" && !popupSearch && asyncList.cursor && (
-                    <LoadMoreSentinel loading={asyncList.loading} onLoadMore={asyncList.loadMore} />
-                  )}
-                </Picker.List>
-                {asyncList.error && asynchronous === "characters" && (
-                  <p role="alert">{asyncList.error}</p>
-                )}
-              </Picker.Popover>
-            </Picker.Positioner>
-          </Picker.Portal>
+                    filtered.filter((item) => !item.group).map((item) => option(item))
+                  ),
+                )
+              )}
+              {asynchronous === "characters" && !popupSearch && asyncList.cursor && (
+                <LoadMoreSentinel loading={asyncList.loading} onLoadMore={asyncList.loadMore} />
+              )}
+            </ComboBox.List>
+            {asyncList.error && asynchronous === "characters" && (
+              <p role="alert">{asyncList.error}</p>
+            )}
+          </ComboBox.Content>
         </ChipsScope>
-      </Picker>
+      </ComboBox>
       {required && <FieldError />}
       {description && (
         <p id={`${id}-description`} {...stylex.props(descriptionStyles.description)}>
@@ -621,7 +605,7 @@ export function SearchPicker({
       {controlledInput && <p {...stylex.props(s.muted)}>Input value: {input || "(empty)"}</p>}
       {controlledOpen && (
         <>
-          <Button onClick={() => setOpen(!open)}>{open ? "Close" : "Open"} Autocomplete</Button>
+          <Button onClick={() => setOpen(!open)}>{open ? "Close" : "Open"}Autocomplete</Button>
           <p {...stylex.props(s.muted)}>Autocomplete is {open ? "open" : "closed"}</p>
         </>
       )}
@@ -642,7 +626,7 @@ function LoadMoreSentinel({ loading, onLoadMore }: { loading: boolean; onLoadMor
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) onLoadMore();
       },
-      { root: node.closest("[data-slot=select-popover]") ?? node.parentElement },
+      { root: node.closest("[data-lenso-slot=select-popover]") ?? node.parentElement },
     );
     observer.observe(node);
     return () => observer.disconnect();
@@ -800,13 +784,25 @@ export function CollectionStory({
   virtualized?: boolean;
   bare?: boolean;
 }) {
-  const [selected, setSelected] = useState<ReadonlySet<string>>(new Set(controlled ? ["1"] : []));
+  const [selected, setSelected] = useState<string[]>(controlled ? ["1"] : []);
+  const viewport = useRef<HTMLDivElement>(null);
+  const [start, setStart] = useState(0);
+  const [focused, setFocused] = useState<number | null>(null);
+  const indices = Array.from({ length: Math.min(14, items.length - start) }, (_, i) => start + i);
+  if (focused !== null && !indices.includes(focused)) indices.push(focused);
   const [action, setAction] = useState("");
   const groups = [...new Set(items.map((item) => item.group))];
-  const renderItem = (item: SelectionItem) => (
+  const renderItem = (item: SelectionItem, index?: number) => (
     <ListBox.Item
-      itemKey={item.id}
-      textValue={item.name}
+      value={item.id}
+      label={item.name}
+      disabled={disabledIds.includes(item.id)}
+      index={index}
+      style={
+        virtualized && index !== undefined
+          ? { position: "absolute", top: index * 50, height: 50, width: "100%" }
+          : undefined
+      }
       key={item.id}
       variant={item.danger ? "danger" : "default"}
     >
@@ -814,8 +810,8 @@ export function CollectionStory({
       {!actions && (
         <ListBox.Item.Indicator>
           {customCheck
-            ? ({ isSelected }) =>
-                isSelected ? (
+            ? ({ selected }) =>
+                selected ? (
                   <SelectionIcon name="check" {...stylex.props(s.icon, s.accentIcon)} />
                 ) : null
             : undefined}
@@ -824,32 +820,58 @@ export function CollectionStory({
     </ListBox.Item>
   );
   const list = (
-    <ListBox
+    <ListBox<string, boolean>
       aria-label={
         virtualized ? "Virtualized list with 1000 items" : actions ? "File actions" : "Users"
       }
-      items={items.map((item) => ({ key: item.id, textValue: item.name }))}
-      selectionMode={actions || virtualized ? "none" : multiple ? "multiple" : "single"}
-      selectedKeys={controlled ? selected : undefined}
-      onSelectionChange={(keys) => setSelected(new Set(Array.from(keys, String)))}
-      disabledKeys={new Set(disabledIds)}
-      virtualized={virtualized ? { height: 400, rowHeight: 50 } : undefined}
-      onAction={actions ? (key) => setAction(`Selected item: ${key}`) : undefined}
+      ref={viewport}
+      multiple={multiple}
+      activation={actions ? "manual" : undefined}
+      items={
+        virtualized
+          ? items.map((item) => ({
+              value: item.id,
+              label: item.name,
+              disabled: disabledIds.includes(item.id),
+            }))
+          : undefined
+      }
+      value={controlled ? (multiple ? selected : (selected[0] ?? null)) : undefined}
+      onValueChange={(value) => {
+        setSelected(Array.isArray(value) ? value : value === null ? [] : [value]);
+        if (actions) setAction(`Selected item: ${value}`);
+      }}
+      style={virtualized ? { height: 400, overflowY: "auto" } : undefined}
+      onScroll={(event) => {
+        if (virtualized) setStart(Math.max(0, Math.floor(event.currentTarget.scrollTop / 50) - 3));
+      }}
+      onHighlight={(_, { index }) => {
+        if (!virtualized || !viewport.current) return;
+        setFocused(index);
+        if (index * 50 < viewport.current.scrollTop) viewport.current.scrollTop = index * 50;
+        else if (index * 50 + 50 > viewport.current.scrollTop + 400)
+          viewport.current.scrollTop = index * 50 - 350;
+        setStart(Math.max(0, Math.floor(viewport.current.scrollTop / 50) - 3));
+      }}
       xstyle={[bare ? s.smallList : s.full, actions && s.actionList]}
     >
-      {virtualized
-        ? (collectionItem) => renderItem(items.find((item) => item.id === collectionItem.key)!)
-        : groups.map((group, index) =>
-            group ? (
-              <ListBox.Section key={group} aria-label={group}>
-                <h3 {...stylex.props(listBoxSectionLabelStyles.root)}>{group}</h3>
-                {items.filter((item) => item.group === group).map(renderItem)}
-                {index < groups.length - 1 && <Separator />}
-              </ListBox.Section>
-            ) : (
-              items.filter((item) => !item.group).map(renderItem)
-            ),
-          )}
+      {virtualized ? (
+        <div style={{ height: items.length * 50, position: "relative" }}>
+          {indices.sort((a, b) => a - b).map((index) => renderItem(items[index]!, index))}
+        </div>
+      ) : (
+        groups.map((group, index) =>
+          group ? (
+            <ListBox.Section key={group} aria-label={group}>
+              <h3 {...stylex.props(listBoxSectionLabelStyles.root)}>{group}</h3>
+              {items.filter((item) => item.group === group).map((item) => renderItem(item))}
+              {index < groups.length - 1 && <Separator />}
+            </ListBox.Section>
+          ) : (
+            items.filter((item) => !item.group).map((item) => renderItem(item))
+          ),
+        )
+      )}
     </ListBox>
   );
   return (

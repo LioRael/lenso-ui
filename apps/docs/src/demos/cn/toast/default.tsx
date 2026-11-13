@@ -1,11 +1,14 @@
 "use client";
+import type { ReactNode } from "react";
 
 import { Persons } from "@gravity-ui/icons";
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
-import { Notifications, styles, type ToastData } from "../../en/toast/_shared";
+import { Notifications, styles } from "../../en/toast/_shared";
+const toaster = createToaster<ReactNode>();
+
 function InvitationQueue() {
-  const manager = Toast.useToastManager<ToastData>();
+  const manager = toaster;
   return (
     <>
       <div {...stylex.props(styles.frame)}>
@@ -13,7 +16,7 @@ function InvitationQueue() {
           size="sm"
           variant="bordered"
           onClick={() => {
-            const id = manager.add({
+            const id: string = manager({
               title: "You have been invited to join a team",
               description: "Bob 邀请您加入 团队",
               type: "default",
@@ -21,24 +24,21 @@ function InvitationQueue() {
                 indicator: <Persons />,
                 actionStyle: "tertiary",
               },
-              actionProps: {
-                children: "忽略",
-                onClick: () => manager.close(id),
-              },
+              action: { label: "忽略", onAction: () => manager.dismiss(id) },
             });
           }}
         >
           显示 Toast
         </Button>
       </div>
-      <Notifications />
+      <Notifications toaster={toaster} />
     </>
   );
 }
 export function Default() {
   return (
-    <Toast.Provider>
+    <>
       <InvitationQueue />
-    </Toast.Provider>
+    </>
   );
 }

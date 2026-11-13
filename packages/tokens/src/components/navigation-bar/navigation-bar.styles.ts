@@ -47,6 +47,5 @@ export const navigationBarStyles = stylex.create({
     lineHeight: "41px",
     overflowWrap: "anywhere",
   },
-  backIcon: { width: 20, height: 20 },
-  backIconRtl: { transform: "scaleX(-1)" },
+  backIcon: { width: 20, height: 20, transform: { default: "none", ":dir(rtl)": "scaleX(-1)" } },
 });

@@ -11,12 +11,12 @@ export function useTabsOverflow(host: RefObject<HTMLDivElement | null>, enabled:
   useLayoutEffect(() => {
     const container = host.current;
     if (!container || !enabled) return;
-    const list = container.querySelector<HTMLElement>('[data-slot="tabs-list"]');
+    const list = container.querySelector<HTMLElement>('[data-lenso-slot="tabs-list"]');
     if (!list) return;
     let frame = 0;
     const measure = () => {
       frame = 0;
-      const tabs = [...list.querySelectorAll<HTMLElement>('[data-slot="tabs-tab"]')];
+      const tabs = [...list.querySelectorAll<HTMLElement>('[data-lenso-slot="tabs-tab"]')];
       for (const tab of tabs) tab.removeAttribute("data-tabs-overflow");
       const available = container.clientWidth;
       if (!available) return;
@@ -79,13 +79,13 @@ export function useTabsOverflow(host: RefObject<HTMLDivElement | null>, enabled:
       resize.disconnect();
       resize.observe(container);
       resize.observe(list);
-      for (const tab of list.querySelectorAll('[data-slot="tabs-tab"]')) resize.observe(tab);
+      for (const tab of list.querySelectorAll('[data-lenso-slot="tabs-tab"]')) resize.observe(tab);
     };
     const mutations = new MutationObserver((records) => {
       if (
         records.every((record) =>
           (record.target instanceof Element ? record.target : record.target.parentElement)?.closest(
-            '[data-slot="tabs-row"], [data-slot="tabs-centre-row"]',
+            '[data-lenso-slot="tabs-row"], [data-lenso-slot="tabs-centre-row"]',
           ),
         )
       )

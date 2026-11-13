@@ -1,54 +1,46 @@
 "use client";
+import * as SdkDialog from "@ui-sdk/react/dialog";
+import { slotRender } from "../../utils/sdk-render.js";
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Dialog as Base } from "@base-ui/react/dialog";
 import { actionSheetStyles as s } from "@lenso/tokens/action-sheet";
 import { modalStyles } from "@lenso/tokens/modal";
-import { materialStyles } from "@lenso/tokens/materials";
-import { MaterialBackground } from "../../utils/materials/render.js";
+import { useGlassRef } from "@lenso/glass/react";
+import { liquidMaterialStyles, materialStyles } from "@lenso/tokens/materials";
 import { presentationMaterials } from "../../utils/materials/presentation.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
 const DimContext = React.createContext(true);
-export function ActionSheetRoot<Payload = unknown>({
+export function ActionSheetRoot({
   dim = true,
   ...props
-}: Base.Root.Props<Payload> & { dim?: boolean }) {
+}: React.ComponentProps<typeof SdkDialog.Dialog> & { dim?: boolean }) {
   return (
     <DimContext.Provider value={dim}>
-      <Base.Root {...props} />
+      <SdkDialog.Dialog {...props} />
     </DimContext.Provider>
-  );
-}
-export function ActionSheetPortal({
-  container,
-  ...props
-}: React.ComponentPropsWithRef<typeof Base.Portal>) {
-  const themed = useThemePortalContainer();
-  return (
-    <Base.Portal
-      {...props}
-      container={container === undefined ? (themed ?? undefined) : container}
-    />
   );
 }
 export function ActionSheetTrigger({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Trigger.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Trigger>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogTrigger>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogTrigger>, "ref">) {
   const ownPresentation =
     props.render == null ||
     (React.isValidElement(props.render) && typeof props.render.type === "string");
   const compiled = stylex.props(ownPresentation && modalStyles.trigger, xstyle);
   return (
-    <Base.Trigger
+    <SdkDialog.DialogTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Trigger.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-trigger"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-trigger",
+        props.render,
+      )}
     />
   );
 }
@@ -56,73 +48,89 @@ export function ActionSheetBackdrop({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Backdrop.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Backdrop>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogBackdrop>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogBackdrop>, "ref">) {
   const dim = React.useContext(DimContext);
   const compiled = stylex.props(s.backdrop, !dim && s.undimmed, xstyle);
   return (
-    <Base.Backdrop
+    <SdkDialog.DialogBackdrop
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Backdrop.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-backdrop"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-backdrop",
+        props.render,
+      )}
     />
   );
 }
-export function ActionSheetViewport({
-  placement = "center",
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Viewport.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, "ref"> & {
-    placement?: "auto" | "center" | "bottom";
-  }) {
-  const compiled = stylex.props(s.viewport, xstyle);
-  return (
-    <Base.Viewport
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Viewport.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-viewport"}
-      data-placement={placement}
-    />
-  );
-}
-export function ActionSheetPopup({
+export function ActionSheetContent({
   children,
+  ref,
+  placement = "auto",
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Popup.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Popup>, "ref">) {
-  const compiled = stylex.props(materialStyles.root, s.popup, materialStyles.accessible, xstyle);
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogContent>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogContent>, "ref"> & {
+    placement?: "auto" | "bottom" | "center";
+  }) {
+  const glassRef = useGlassRef(
+    ref,
+    true,
+    false,
+    presentationMaterials.compact,
+    undefined,
+    false,
+    true,
+  );
+  const compiled = stylex.props(
+    materialStyles.root,
+    liquidMaterialStyles.small,
+    liquidMaterialStyles.medium,
+    liquidMaterialStyles.compact,
+    materialStyles.accessible,
+    s.popup,
+    s.nativeContent,
+    s.placement(placement),
+    xstyle,
+  );
   return (
-    <Base.Popup
+    <SdkDialog.DialogContent
       {...props}
+      ref={glassRef}
       {...compiled}
-      style={mergeStyle<Base.Popup.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-popup"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-popup",
+        props.render,
+      )}
+      data-placement={placement}
       data-material={presentationMaterials.compact}
     >
-      <MaterialBackground variant={presentationMaterials.compact} liveGeometry />
-      {children}
-    </Base.Popup>
+      {(state) => <>{typeof children === "function" ? children(state) : children}</>}
+    </SdkDialog.DialogContent>
   );
 }
 export function ActionSheetTitle({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Title.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Title>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogTitle>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogTitle>, "ref">) {
   const compiled = stylex.props(s.title, xstyle);
   return (
-    <Base.Title
+    <SdkDialog.DialogTitle
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Title.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-title"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "h2",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-title",
+        props.render,
+      )}
     />
   );
 }
@@ -130,15 +138,19 @@ export function ActionSheetDescription({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Description.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Description>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogDescription>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogDescription>, "ref">) {
   const compiled = stylex.props(s.description, xstyle);
   return (
-    <Base.Description
+    <SdkDialog.DialogDescription
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Description.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-description"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "p",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-description",
+        props.render,
+      )}
     />
   );
 }
@@ -146,15 +158,19 @@ export function ActionSheetClose({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Close.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogClose>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogClose>, "ref">) {
   const compiled = stylex.props(s.action, xstyle);
   return (
-    <Base.Close
+    <SdkDialog.DialogClose
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Close.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-close"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-close",
+        props.render,
+      )}
     />
   );
 }
@@ -169,7 +185,9 @@ export function ActionSheetHeader({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-header"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-header"
+      }
     />
   );
 }
@@ -184,7 +202,9 @@ export function ActionSheetActions({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-actions"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-actions"
+      }
     />
   );
 }
@@ -194,26 +214,30 @@ export function ActionSheetAction({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Close.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref"> & { destructive?: boolean }) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogClose>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogClose>, "ref"> & {
+    destructive?: boolean;
+  }) {
   const compiled = stylex.props(s.action, destructive && s.destructive, xstyle);
   return (
-    <Base.Close
+    <SdkDialog.DialogClose
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Close.State>(compiled.style, style)}
+      style={mergeStyle(compiled.style, style)}
       data-destructive={destructive || undefined}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "action-sheet-action"}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "action-sheet-action",
+        props.render,
+      )}
     />
   );
 }
 export const ActionSheet = Object.assign(ActionSheetRoot, {
   Root: ActionSheetRoot,
   Trigger: ActionSheetTrigger,
-  Portal: ActionSheetPortal,
   Backdrop: ActionSheetBackdrop,
-  Viewport: ActionSheetViewport,
-  Popup: ActionSheetPopup,
+  Content: ActionSheetContent,
   Header: ActionSheetHeader,
   Title: ActionSheetTitle,
   Description: ActionSheetDescription,

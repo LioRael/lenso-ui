@@ -32,7 +32,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         .click();
       assert.ok(
         (await page
-          .locator('[data-slot="refresh-control-viewport"]')
+          .locator('[data-lenso-slot="refresh-control-viewport"]')
           .evaluate((node) => node.scrollTop)) > 0,
       );
       assert.equal(await page.evaluate(() => scrollY), 0);
@@ -58,6 +58,12 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       assert.equal(await handle.getAttribute("aria-pressed"), "true");
       await handle.press("ArrowDown");
       await handle.press("Enter");
+      await page.waitForFunction(
+        () =>
+          document
+            .querySelector('[aria-label="Move Accessibility"]')
+            ?.getAttribute("aria-pressed") === "false",
+      );
       assert.equal(await handle.getAttribute("aria-pressed"), "false");
       assert.ok(await handle.evaluate((node) => node === document.activeElement));
       const order = await rows().evaluateAll((nodes) => nodes.map((n) => n.dataset.listKey));
@@ -119,11 +125,13 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         .getByRole("link", { name: "A", exact: true })
         .click();
       await page
-        .locator('[data-slot="refresh-control-viewport"]')
+        .locator('[data-lenso-slot="refresh-control-viewport"]')
         .evaluate((node) => (node.scrollTop = 0));
       if (name === "chromium") {
         const cdp = await page.context().newCDPSession(page);
-        const view = await page.locator('[data-slot="refresh-control-viewport"]').boundingBox();
+        const view = await page
+          .locator('[data-lenso-slot="refresh-control-viewport"]')
+          .boundingBox();
         const x = view.x + 80,
           y = view.y + 60;
         await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x, y }] });
@@ -171,7 +179,8 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         }
         await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
         await page.waitForFunction(
-          () => document.querySelector('[data-slot="refresh-control-viewport"]').scrollTop > 0,
+          () =>
+            document.querySelector('[data-lenso-slot="refresh-control-viewport"]').scrollTop > 0,
         );
         assert.equal(await rows().count(), count);
         await cdp.detach();
@@ -186,7 +195,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       await page.getByRole("button", { name: "Edit", exact: true }).click();
       await page.addStyleTag({
         content:
-          '[data-slot="list-title"] {font-size:26px!important;line-height:34px!important} [data-slot="list-description"] {font-size:22px!important;line-height:28px!important}',
+          '[data-lenso-slot="list-title"] {font-size:26px!important;line-height:34px!important} [data-lenso-slot="list-description"] {font-size:22px!important;line-height:28px!important}',
       });
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       assert.ok(

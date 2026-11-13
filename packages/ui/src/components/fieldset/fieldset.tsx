@@ -1,6 +1,12 @@
 "use client";
-import { Fieldset as BaseFieldset } from "@base-ui/react/fieldset";
-import { Field } from "@base-ui/react/field";
+import {
+  Field as SdkField,
+  FieldSet as SdkFieldSet,
+  FieldLegend as SdkFieldLegend,
+  type FieldState,
+  type FieldSetState,
+} from "@ui-sdk/react/field";
+import { slotRender } from "../../utils/sdk-render.js";
 import { fieldsetStyles } from "@lenso/tokens/fieldset";
 import { groupStyles } from "@lenso/tokens/surface";
 import { FieldGroupContext } from "../textfield/group-context.js";
@@ -10,20 +16,22 @@ import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 export function FieldsetRoot({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<Omit<BaseFieldset.Root.Props, "ref"> & React.RefAttributes<HTMLElement>> & {
-  "data-slot"?: unknown;
+}: StyleXProps<
+  Omit<React.ComponentProps<typeof SdkFieldSet>, "ref"> & React.RefAttributes<HTMLFieldSetElement>
+> & {
+  "data-lenso-slot"?: unknown;
 }) {
   const compiled = stylex.props(fieldsetStyles.root, xstyle);
   return (
     <FieldGroupContext value={false}>
       <FieldScope value={false}>
-        <BaseFieldset.Root
+        <SdkFieldSet
           {...props}
           {...compiled}
-          style={mergeStyle<BaseFieldset.Root.State>(compiled.style, style)}
-          data-slot={slot ?? "fieldset"}
+          style={mergeStyle<FieldSetState>(compiled.style, style)}
+          render={slotRender("fieldset", slot ?? "fieldset", props.render)}
         />
       </FieldScope>
     </FieldGroupContext>
@@ -32,25 +40,25 @@ export function FieldsetRoot({
 export function FieldsetLegend({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseFieldset.Legend.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof SdkFieldLegend>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(fieldsetStyles.legend, xstyle);
   return (
-    <BaseFieldset.Legend
+    <SdkFieldLegend
       {...props}
       {...compiled}
-      style={mergeStyle<BaseFieldset.Legend.State>(compiled.style, style)}
-      data-slot={slot ?? "fieldset-legend"}
+      style={mergeStyle<FieldSetState>(compiled.style, style)}
+      render={slotRender("legend", slot ?? "fieldset-legend", props.render)}
     />
   );
 }
 export function FieldsetGroup({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(
     groupStyles.surface,
     groupStyles.group,
@@ -63,7 +71,7 @@ export function FieldsetGroup({
         {...props}
         {...compiled}
         style={{ ...compiled.style, ...style }}
-        data-slot={slot ?? "fieldset-group"}
+        data-lenso-slot={slot ?? "fieldset-group"}
       />
     </FieldGroupContext>
   );
@@ -71,7 +79,11 @@ export function FieldsetGroup({
 /** @deprecated Use Fieldset.Group for a shared form surface. */
 export const FieldGroup = FieldsetGroup;
 
-export function FieldsetRow({ xstyle, style, ...props }: StyleXProps<Field.Root.Props>) {
+export function FieldsetRow({
+  xstyle,
+  style,
+  ...props
+}: StyleXProps<React.ComponentProps<typeof SdkField>>) {
   const compiled = stylex.props(
     groupStyles.row,
     groupStyles.divided,
@@ -81,11 +93,11 @@ export function FieldsetRow({ xstyle, style, ...props }: StyleXProps<Field.Root.
   );
   return (
     <FieldScope value={true}>
-      <Field.Root
+      <SdkField
         {...props}
         {...compiled}
-        style={mergeStyle<Field.Root.State>(compiled.style, style)}
-        data-slot="fieldset-row"
+        style={mergeStyle<FieldState>(compiled.style, style)}
+        render={slotRender("div", "fieldset-row", props.render)}
         data-field-layout="row"
       />
     </FieldScope>
@@ -94,16 +106,16 @@ export function FieldsetRow({ xstyle, style, ...props }: StyleXProps<Field.Root.
 export function FieldsetActions({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(fieldsetStyles.actions, xstyle);
   return (
     <div
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={slot ?? "fieldset-actions"}
+      data-lenso-slot={slot ?? "fieldset-actions"}
     />
   );
 }

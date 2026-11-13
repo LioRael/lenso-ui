@@ -1,6 +1,4 @@
-import type { Drawer } from "@base-ui/react/drawer";
-
-type SnapPoint = Drawer.Root.SnapPoint;
+import type { SnapPoint } from "@ui-sdk/react/drawer";
 
 export interface SheetPresentationPoint {
   height: number;
@@ -22,11 +20,15 @@ export function resolvePresentationPoints(
         ? point <= 1
           ? point * viewportHeight
           : point
-        : point.trim().endsWith("rem")
-          ? Number.parseFloat(point) * rootFontSize
-          : point.trim().endsWith("px")
-            ? Number.parseFloat(point)
-            : Number.NaN;
+        : point === "content"
+          ? popupHeight
+          : point.trim().endsWith("%")
+            ? (Number.parseFloat(point) * viewportHeight) / 100
+            : point.trim().endsWith("rem")
+              ? Number.parseFloat(point) * rootFontSize
+              : point.trim().endsWith("px")
+                ? Number.parseFloat(point)
+                : Number.NaN;
     if (!Number.isFinite(height)) continue;
     const resolved = Math.max(0, Math.min(height, popupHeight, viewportHeight));
     if (points.some((existing) => Math.abs(existing.height - resolved) <= 1)) continue;

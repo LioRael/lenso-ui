@@ -17,9 +17,9 @@ const styles = stylex.create({
 
 export function Default() {
   return (
-    <ListBox aria-label="Users" xstyle={styles.root} selectionMode="single">
+    <ListBox aria-label="Users" xstyle={styles.root}>
       {users.map((user) => (
-        <ListBox.Item key={user.key} itemKey={user.key} textValue={user.textValue}>
+        <ListBox.Item key={user.key} value={user.key} label={user.textValue}>
           <Avatar size="sm">
             <Avatar.Image alt={user.textValue} src={`/assets/demo/avatars/${user.color}.svg`} />
             <Avatar.Fallback>{user.textValue[0]}</Avatar.Fallback>

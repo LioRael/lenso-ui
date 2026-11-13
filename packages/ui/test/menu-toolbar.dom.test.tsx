@@ -43,13 +43,9 @@ async function mount(onMore: () => void = () => {}) {
         <Toolbar.Group>
           <Menu>
             <Menu.Trigger render={<Toolbar.Button />}>Filter</Menu.Trigger>
-            <Menu.Portal>
-              <Menu.Positioner>
-                <Menu.Popup>
-                  <Menu.Item>All Photos</Menu.Item>
-                </Menu.Popup>
-              </Menu.Positioner>
-            </Menu.Portal>
+            <Menu.Content>
+              <Menu.Item>All Photos</Menu.Item>
+            </Menu.Content>
           </Menu>
           <Toolbar.Button disabled onClick={onMore}>
             More
@@ -59,35 +55,60 @@ async function mount(onMore: () => void = () => {}) {
     ),
   );
   return {
-    trigger: host.querySelector<HTMLButtonElement>('[data-slot="menu-trigger"]')!,
-    group: host.querySelector<HTMLElement>('[data-slot="toolbar-group"]')!,
+    trigger: host.querySelector<HTMLButtonElement>('button[aria-haspopup="menu"]')!,
+    group: host.querySelector<HTMLElement>('[data-lenso-slot="toolbar-group"]')!,
     disabled: [...host.querySelectorAll<HTMLButtonElement>("button")].find(
       (e) => e.textContent === "More",
     )!,
   };
 }
-test("a menu waits for release, rejects elastic drags including a returned endpoint, and still accepts click activation", async () => {
+test("menu follows SDK pointer activation and returns focus after Escape", async () => {
   const { trigger } = await mount();
   await step(() => {
     pointer(trigger, "pointerdown", 20);
     trigger.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, button: 0 }));
   });
-  expect(trigger.getAttribute("aria-expanded")).toBe("false");
-  await step(() => {
-    pointer(window, "pointermove", 60);
-    pointer(window, "pointermove", 20);
-    pointer(window, "pointerup", 20);
-    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
-  });
-  expect(trigger.getAttribute("aria-expanded")).toBe("false");
-  await step(() => {
-    pointer(trigger, "pointerdown", 20);
-    trigger.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, button: 0 }));
-    pointer(window, "pointerup", 21);
-    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, detail: 1 }));
-  });
   expect(trigger.getAttribute("aria-expanded")).toBe("true");
   expect(document.querySelector('[role="menu"]')).not.toBeNull();
+  await step(() =>
+    document
+      .querySelector<HTMLElement>('[role="menu"]')!
+      .dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }),
+      ),
+  );
+  expect(trigger.getAttribute("aria-expanded")).toBe("false");
+});
+test("compact menu bars keep native action buttons and morph from the whole bar", async () => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  root = createRoot(host);
+  let copied = 0;
+  await step(() =>
+    root!.render(
+      <Menu>
+        <Menu.Bar aria-label="Edit actions">
+          <Menu.BarItem onClick={() => copied++}>Copy</Menu.BarItem>
+          <Menu.ExpandTrigger />
+        </Menu.Bar>
+        <Menu.Content>
+          <Menu.Item>Duplicate</Menu.Item>
+        </Menu.Content>
+      </Menu>,
+    ),
+  );
+  const bar = host.querySelector<HTMLElement>('[data-lenso-slot="menu-bar"]')!;
+  const copy = host.querySelector<HTMLButtonElement>('[data-lenso-slot="menu-bar-item"]')!;
+  expect(copy.tagName).toBe("BUTTON");
+  expect(copy.getAttribute("role")).not.toBe("menuitem");
+  await step(() => copy.click());
+  expect(copied).toBe(1);
+  const trigger = bar.querySelector<HTMLButtonElement>("[data-menu-expand]")!;
+  await step(() => trigger.click());
+  expect(trigger.getAttribute("aria-expanded")).toBe("true");
+  for (let frame = 0; frame < 10; frame++) await step(() => {});
+  expect(bar.style.opacity).toContain("--lg-menu-trigger-opacity");
+  expect(trigger.style.opacity).not.toContain("--lg-menu-trigger-opacity");
 });
 test("disabled toolbar members retain surface press feedback without becoming actionable", async () => {
   let clicked = 0;
@@ -129,10 +150,10 @@ test("a closing menu cannot unmask a shared toolbar source still owned by anothe
     );
     return (
       <div ref={attach} data-open="">
-        <div data-slot="menu-surface" />
-        <div data-slot="menu-glyph" />
-        <div data-slot="menu-content">
-          <div data-slot="menu-plate" />
+        <div data-lenso-slot="menu-surface" />
+        <div data-lenso-slot="menu-glyph" />
+        <div data-lenso-slot="menu-content">
+          <div data-lenso-slot="menu-plate" />
         </div>
       </div>
     );
@@ -160,4 +181,36 @@ test("a closing menu cannot unmask a shared toolbar source still owned by anothe
   expect(source.current.style.opacity).toBe("var(--lg-menu-trigger-opacity, 1)");
   await render(false, false);
   expect(source.current.style.opacity).toBe(".75");
+});
+
+test("a menu without trigger morph preserves its source through open and close", async () => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  root = createRoot(host);
+  await step(() =>
+    root!.render(
+      <Menu morphTrigger={false}>
+        <Menu.Trigger>Language</Menu.Trigger>
+        <Menu.Content>
+          <Menu.Item>English</Menu.Item>
+        </Menu.Content>
+      </Menu>,
+    ),
+  );
+  const trigger = host.querySelector<HTMLButtonElement>("button")!;
+  trigger.style.opacity = ".8";
+  await step(() => trigger.click());
+  for (let i = 0; i < 12; i++) await step(() => {});
+  expect(trigger.style.opacity).toBe(".8");
+  expect(trigger.style.getPropertyValue("--lg-menu-trigger-opacity")).toBe("");
+  expect(trigger.style.transform).toBe("");
+  await step(() =>
+    document
+      .querySelector<HTMLElement>('[role="menu"]')!
+      .dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true }),
+      ),
+  );
+  expect(trigger.style.opacity).toBe(".8");
+  expect(trigger.getAttribute("aria-expanded")).toBe("false");
 });

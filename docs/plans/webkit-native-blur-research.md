@@ -23,10 +23,10 @@ Reviewed `onlymoein/liquidglass` at
 [`cf8804252dd092a399e50eebfa23b0d97de745d1`](https://github.com/onlymoein/liquidglass/tree/cf8804252dd092a399e50eebfa23b0d97de745d1).
 Its Safari behavior has two materially different paths:
 
-| Condition | Rendering path |
-| --- | --- |
-| No eligible marked source, or selection mode | Native CSS backdrop blur/tone plus a fitted rim; no live SVG displacement. |
-| Eligible `data-liquidglass-backdrop` source | Copied DOM with CSS `filter` blur/tone in a sibling layer. Safari still pays for copying and synchronization, although its SVG refraction is disabled. |
+| Condition                                    | Rendering path                                                                                                                                         |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| No eligible marked source, or selection mode | Native CSS backdrop blur/tone plus a fitted rim; no live SVG displacement.                                                                             |
+| Eligible `data-liquidglass-backdrop` source  | Copied DOM with CSS `filter` blur/tone in a sibling layer. Safari still pays for copying and synchronization, although its SVG refraction is disabled. |
 
 The decisive source locations are:
 
@@ -106,11 +106,11 @@ source unchanged. It removes these automatic copied backgrounds while
 retaining native paints and rims; it does not disable explicit owned snapshots
 or every foreground/Fusion optical path.
 
-| Metric across four changes per arm | Current | Native candidate |
-| --- | --- | --- |
-| `copyOf` invocations per change | 30 | 0 |
-| Synchronous time inside `copyOf` | 662–680ms | 0ms |
-| Maximum observed rAF gap | 833–1246ms | 21–37ms |
+| Metric across four changes per arm | Current    | Native candidate |
+| ---------------------------------- | ---------- | ---------------- |
+| `copyOf` invocations per change    | 30         | 0                |
+| Synchronous time inside `copyOf`   | 662–680ms  | 0ms              |
+| Maximum observed rAF gap           | 833–1246ms | 21–37ms          |
 
 These measurements identify a strong scene-specific benefit, not a steady
 FPS ratio or a physical-iPhone result. The candidate was injected only in

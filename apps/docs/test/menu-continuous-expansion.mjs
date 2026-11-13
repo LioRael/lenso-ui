@@ -62,14 +62,14 @@ for (const [engine, type] of [
           n++
         )
           await page.clock.runFor(16);
-        const popup = page.locator('[data-slot="menu-popup"][data-open]');
+        const popup = page.locator('[data-lenso-slot="menu-popup"][data-open]');
         const frames = [];
         for (let t = 0; t <= 448; t += 16) {
           const elapsed = await page.evaluate(() => performance.now() - window.expansionStart);
           if (t > elapsed) await page.clock.runFor(t - elapsed);
           frames.push(
             await popup.evaluate((e) => {
-              const r = e.querySelector('[data-slot="menu-surface"]').getBoundingClientRect();
+              const r = e.querySelector('[data-lenso-slot="menu-surface"]').getBoundingClientRect();
               return {
                 t: performance.now() - window.expansionStart,
                 width: r.width,

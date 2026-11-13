@@ -6,7 +6,7 @@ export function WithPattern() {
     <TextField name="code" xstyle={styles.field}>
       <Label>Enter code (letters only)</Label>
       <Description>Only alphabetic characters are allowed</Description>
-      <InputOTP length={6} name="code" validationType="alpha">
+      <InputOTP maxLength={6} name="code" pattern="alphanumeric">
         <Slots />
       </InputOTP>
     </TextField>

@@ -1,144 +1,107 @@
 # Documentation framework interfaces
 
-## One reading system, three document kinds
+## Shared reading system
 
-`docs`, `component` and `api` share document identity, locale, title, description,
-navigation, heading anchors, source Markdown and the article layout. Kind is
-metadata, not a separate router or an unrelated renderer.
+The standalone CLI and the product documentation both use Vite, TanStack Start,
+Fumadocs and official StyleX compilation. They share package-owned presentation,
+site layout, search, article, responsive TOC and Lenso Tabs. Theme presets, the
+Glass theme picker/provider, mode switch and header control styles are also
+package-owned; product adapters re-export that implementation. Product content generation,
+component/API extraction, custom routes and product-specific controls remain in
+`apps/docs`; an ordinary site authors content and `docs.config.ts` only.
 
-- Ordinary documents need only Markdown/MDX.
-- Component documents can compose `ComponentExample` and `ReferenceTable`, or
-  register their own live examples and generated property reference.
-- API documents can compose `ApiOperation`, `ReferenceTable` and `ApiResponses`,
-  or adapt a generated specification into documents.
+`docs`, `component` and `api` are document kinds, not separate routers. They share
+identity, locale, title, headings, navigation, Markdown source and reading layout.
+Component and API blocks compose within that layout. TypeScript/OpenAPI ingestion
+and request clients require explicit adapters.
 
-The built-in API blocks describe endpoints; they do not make requests, handle
-credentials or generate pages from OpenAPI. Client-side examples are trusted
-project code, not a sandbox.
+## Source boundary
 
-## Source and compilation
+The file adapter discovers local Markdown/MDX, validates frontmatter and compiles
+one ESM body per page. Relative component imports resolve from the authored file.
+Headings and search data come from that compilation. Fenced code highlighting is
+compiled into HTML, keeping its parser out of the page's client graph.
 
-Compilation units follow execution scope. `root` customization contains only
-document-wide providers and metadata; it must not import document compilation or
-preview registries. A generated source page can name its own contained server
-`module`. The exact route imports that module directly and passes it to shared
-rendering; no global page-to-loader table connects every page's code.
+A contained source module may generate pages, exact product routes, redirects,
+watch paths and advanced static search exports. It executes under Bun and may
+access the filesystem. Optional prepare/background/watch hooks use the existing
+serialized lifecycle; an edit during preparation receives one bounded catch-up.
+A custom-rendered page selects its own contained module, or a shared customization
+module, with `getDocument`. It does not emit an unused MDX body.
 
-The Lenso adapter generates one server document unit per authored page. Only
-preview-bearing pages get a client unit with named lazy demo references, resolved
-through the locale manifest and actual MDX preview names. A guide without previews
-imports no preview infrastructure. ComponentPreview receives its page's references
-instead of looking up a name in an executable site-wide registry.
+`createDocumentationSource` owns locale-aware lookup, aliases, alternate URLs and
+navigation. Locale and slug remain separate identity keys. `translationKey`
+connects translated pages whose localized slugs differ. Custom `metadata` is JSON,
+not executable frontmatter.
 
-Shiki uses a cached core highlighter, two explicit themes and a bounded authored
-language inventory, rather than its all-language registry. Unknown labels retain
-plain-text fallback. Root-only rendering does not import that highlighter.
+## Generated Vite host
 
-`@lenso/docs/source` exposes `createDocumentationSource`. A source adapter supplies
-page metadata, locale definitions, source reading and optional alias policy.
-The framework owns locale-aware identity, page lookup, alternates and grouped
-navigation. Locale and slug are separate identity keys; a page cannot be found
-through a different or unregistered locale.
-Optional `translationKey` connects documents whose localized slugs differ.
-Namespaced `metadata` carries custom JSON data without extending routing rules
-or introducing executable hooks into frontmatter.
+The CLI owns `.lenso/dev/` and `.lenso/build/` separately. Each has its own Vite
+config/cache, TanStack route tree, public mirror and page modules. Files are
+written atomically only when bytes change. A production build can run alongside
+development without rewriting the development graph.
 
-There are two real adapters:
+The generator emits exact file routes with static head metadata and a page-local
+lazy component. Loader and component share a split group. The loader preloads the
+component before SSR, avoiding a suspended article that requires JavaScript to
+become visible. Only that component imports its compiled body, source Markdown
+and page-local customization. The common model contains metadata/navigation,
+not document bodies or one global executable registry of every preview.
 
-- The standalone file adapter discovers and validates local `.md`/`.mdx` files.
-- The Lenso adapter supplies its generated bilingual index and exact source
-  readers. Component inventory, canonical aliases and generated API data are
-  product policy, not framework requirements.
+The generated root selects the HTML language by registered route prefix and
+mounts the Fumadocs TanStack provider. It imports shared theme/font styles and
+package presentation. Development includes the official StyleX virtual stylesheet
+and update runtime, matching the product docs. Production extracts CSS and
+prerenders only published pages plus a 404 document. Source artifacts and search
+indexes are ready before route modules invalidate the development graph.
 
-`@lenso/docs/server` exposes `compileDocument` for an existing Next host. Consumers
-can supply MDX components, remark transforms and a heading policy. Transforms run
-before heading collection; exact source Markdown is returned independently of
-transformed rendering. Custom heading components must honor the supplied `id`.
+The optional build module exports Vite configuration. CLI defaults retain ownership
+of root, deployment prefix and static client output. Aliases and local styles are
+explicit config fields; authors do not maintain generated framework files.
 
-The standalone CLI emits MDX ESM modules so source-relative component imports
-remain resolvable by Next. The embedded compiler uses RSC evaluation. These are
-different execution formats, not different document kinds. Heading-text and
-non-rendering-prefix rules are shared; adapters can preserve existing anchors.
-Embedded content uses registered MDX component names rather than source-relative
-MDX ESM imports; the standalone ESM pipeline supports those imports.
+## Presentation boundary
 
-## Presentation and customization
+`@lenso/docs/client` contains interactive site layout, navigation and search,
+without filesystem discovery or MDX compilation. `@lenso/docs/react` exposes the
+article, MDX defaults, reference blocks and customization types. Embedded hosts
+supply one framework/theme/search provider; standalone hosts generate them.
 
-`@lenso/docs/client` contains only interactive site layout, navigation and search.
-It does not import filesystem discovery or RSC compilation. `@lenso/docs/react`
-exposes the article, MDX defaults, reference blocks and composition types.
+Named site slots customize header, search, desktop/mobile actions and drawer
+regions while preserving navigation and dismissal. `getComponents`,
+`getSiteSlots`, `getSiteOptions`, `getPageOptions`, `getDocument` and
+`getRootOptions` may be async. Presentation factories are evaluated once at module
+load in both SSR and the browser, so their modules must be universal and their
+results deterministic. Put server-only generation in the source adapter.
+Root customization stays separate from page-local renderers. A supplied Provider
+replaces the default; it does not create a second theme or search owner.
 
-`DocumentationSiteLayout` owns header structure, section navigation, sidebar,
-mobile drawer, dismissal and focus behavior. Hosts supply brand and navigation
-data. Named slots supply identity controls, search, desktop/mobile actions,
-drawer actions and footer content without replacing the frame or tree behavior.
-In an embedded host, it is used inside that host's document/theme providers.
+The runtime page context contains identity, locale, kind, headings, metadata and
+exact Markdown, not compiled/search internals. Local overrides replace named
+components/slots directly; there is no global plugin registry or override chain.
 
-Desktop sidebar state belongs to the navigation scope, not the current article
-or the lifetime of a page component. Hosts should pass `navigationStateKey` as a
-stable locale + collection identity (for example `en:components`); the brand URL
-also namespaces this key. Without an explicit key the framework uses the brand
-URL/title, the navigation URLs' common directory and the first navigation URL.
-That fallback distinguishes menus/locales but cannot infer collection identity
-for overlapping menus, so those hosts must provide the key.
+The desktop sidebar preserves its own tab-local scroll and expansion state by
+navigation scope, separately from document scroll and mobile drawers. Embedded
+hosts with overlapping menus should supply a stable `navigationStateKey`.
 
-Within a scope, actual desktop scroll events save the offset and nested branch
-expansions retain their stable ancestry/URL (title for URL-less groups) identity.
-The framework restores before paint, clamps to available menu content, and
-keeps separate positions when changing scopes or using browser back. State is
-tab-local session storage with a bounded 32-scope in-memory fallback when storage
-is unavailable; no article-history-specific scroll override is introduced.
-Hidden desktop geometry is not saved, and the mobile drawer does not participate
-in this state. Restoring sidebar state never scrolls the document or automatically
-reveals the selected article. A persistent host layout avoids structural remounts,
-but is not required for this state rule.
+`compileDocument` is an independent server-only in-memory MDX adapter with explicit
+heading transforms; standalone pages instead use compiled ESM so source-relative
+imports remain bundler-owned. Both preserve the exact source Markdown separately
+from rendered content.
 
-`DocumentationSearch` owns native Fumadocs search UI and focus restoration.
-Callers supply the static index URL, optional database initialization/tokenizer
-and accessible labels. Empty-query suggestions are opt-in. Theme ownership is
-separate: do not mount a second theme or enabled search provider.
+## Distribution and acceptance
 
-For a standalone site, `docs.config.ts` can name a `components` module:
+The initializer creates a content project pinned to the framework version.
+`--packages` copies packed local Lenso dependencies into the project for use before
+publication. `bun run docs:create <directory>` builds and packs the checkout and
+invokes that path. Neither requires workspace symlinks in the created project.
 
-```ts
-export default {
-  title: "Project documentation",
-  components: "docs-components.tsx",
-};
-```
+`lenso-docs build` stages a complete prerendered export and replaces only an owned
+`out/`, retaining the previous export if replacement fails. Static preview serves
+that export, configured redirects, deployment prefix and real missing-page status.
+Public files cannot replace generated routes, search, source or metadata assets.
 
-That server-compatible module can export a default MDX component map, or
-`getComponents(context)` and `getSiteSlots(context)`. The context contains config
-and a runtime page projection: identity, locale, kind, headings and exact source,
-not internal compiled code or search database data. Factories may return promises.
-Registered widgets may be Client Components, but the factories themselves run
-on the server. Local CSS imports can customize presentation; runtime theme CSS
-variables remain the existing Lenso token contract.
-
-No global plugin registry or implicit override order is involved: defaults are
-created first, then the consumer's named components/slots override their regions.
-
-## Current adoption and limits
-
-The Lenso product site runs through `lenso-docs dev`, `build` and `preview`.
-It supplies `docs.config.ts`, a server-side source adapter, a server customization
-module, a narrow build adapter and explicit product route components. The CLI
-owns generated Next routes, locale root layouts, redirects, source artifacts,
-static metadata and the development/build lifecycle. No manual `src/app`,
-`next.config.ts` or application-owned root HTML layout is required.
-
-The standalone starter proves ordinary, component and API documents, custom
-server-side component/slot factories, source-relative client imports and a live
-counter. Locale-aware file sources or generated sources are both CLI adapters;
-each locale has a correct server-rendered HTML language and isolated search.
-Custom source adapters can supply existing advanced search exports instead of
-rebuilding an inappropriate index from generated API source.
-
-Sources default to MDX program compilation. A source with `render: "custom"`
-delegates rendering to `getDocument`; it does not also produce unused ESM body
-modules. Raw Markdown is stored per page and loaded only for that page, not
-embedded in one enormous generated module. This distinction prevents large
-generated API catalogs from multiplying compilation and memory costs.
-
-Automatic OpenAPI ingestion, authenticated request playgrounds and remote/CMS
-sources remain separate future adapters.
+The packed-consumer regression verifies installation outside the repository,
+content and component updates, added routes, concurrent development/build,
+source fidelity, production assets, preview, 404 and base-path deployment.
+Browser testing separately establishes responsive layout, themes, hydration,
+search, keyboard behavior and interaction; unit tests do not establish those.

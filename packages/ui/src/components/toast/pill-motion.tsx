@@ -13,7 +13,7 @@ export function usePillSize(enabled: boolean) {
     const root = content?.parentElement?.parentElement;
     if (!enabled || !content || !root) return;
     const viewport =
-      root.closest<HTMLElement>('[data-slot="toast-viewport"]') ?? root.parentElement;
+      root.closest<HTMLElement>('[data-lenso-slot="toast-viewport"]') ?? root.parentElement;
     const constrain = () => {
       if (viewport)
         content.style.setProperty("--toast-pill-available", `${viewport.clientWidth}px`);

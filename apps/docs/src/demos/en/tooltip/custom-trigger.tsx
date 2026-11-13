@@ -55,63 +55,51 @@ export function TooltipCustomTrigger() {
   const infoId = useId();
   return (
     <div {...stylex.props(styles.row)}>
-      <Tooltip>
-        <Tooltip.Trigger delay={0} aria-label="User avatar" aria-describedby={avatarId}>
+      <Tooltip delay={0}>
+        <Tooltip.Trigger aria-label="User avatar" aria-describedby={avatarId}>
           <Avatar size="sm">
             <Avatar.Image alt="Jane Doe" src="/assets/demo/avatars/red.svg" />
             <Avatar.Fallback>JD</Avatar.Fallback>
           </Avatar>
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner sideOffset={7}>
-            <Tooltip.Popup id={avatarId}>
-              <Tooltip.Arrow />
-              <div {...stylex.props(styles.profile)}>
-                <p {...stylex.props(styles.strong)}>Jane Doe</p>
-                <p {...stylex.props(styles.email)}>jane@example.com</p>
-              </div>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content id={avatarId} sideOffset={7}>
+          <Tooltip.Arrow />
+          <div {...stylex.props(styles.profile)}>
+            <p {...stylex.props(styles.strong)}>Jane Doe</p>
+            <p {...stylex.props(styles.email)}>jane@example.com</p>
+          </div>
+        </Tooltip.Content>
       </Tooltip>
-      <Tooltip>
-        <Tooltip.Trigger delay={0} aria-label="Status chip" aria-describedby={statusId}>
+      <Tooltip delay={0}>
+        <Tooltip.Trigger aria-label="Status chip" aria-describedby={statusId}>
           <Chip color="success">
             <CircleCheckFill width={12} />
             <Chip.Label>Active</Chip.Label>
           </Chip>
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner>
-            <Tooltip.Popup id={statusId} xstyle={styles.status}>
-              <span {...stylex.props(styles.dot)} aria-hidden="true">
-                <span {...stylex.props(styles.pulse)} />
-                <span {...stylex.props(styles.dotCenter)} />
-              </span>
-              <p>Jane is currently online</p>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content id={statusId} xstyle={styles.status}>
+          <span {...stylex.props(styles.dot)} aria-hidden="true">
+            <span {...stylex.props(styles.pulse)} />
+            <span {...stylex.props(styles.dotCenter)} />
+          </span>
+          <p>Jane is currently online</p>
+        </Tooltip.Content>
       </Tooltip>
-      <Tooltip>
-        <Tooltip.Trigger delay={0} aria-label="Info icon" aria-describedby={infoId}>
+      <Tooltip delay={0}>
+        <Tooltip.Trigger aria-label="Info icon" aria-describedby={infoId}>
           <div {...stylex.props(styles.iconBackground)}>
             <CircleQuestion {...stylex.props(styles.icon)} />
           </div>
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner sideOffset={7}>
-            <Tooltip.Popup id={infoId}>
-              <Tooltip.Arrow />
-              <div {...stylex.props(styles.help)}>
-                <p {...stylex.props(styles.helpHeading)}>Help Information</p>
-                <p {...stylex.props(styles.helpText)}>
-                  This is a helpful tooltip with more detailed information about this feature.
-                </p>
-              </div>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content id={infoId} sideOffset={7}>
+          <Tooltip.Arrow />
+          <div {...stylex.props(styles.help)}>
+            <p {...stylex.props(styles.helpHeading)}>Help Information</p>
+            <p {...stylex.props(styles.helpText)}>
+              This is a helpful tooltip with more detailed information about this feature.
+            </p>
+          </div>
+        </Tooltip.Content>
       </Tooltip>
     </div>
   );

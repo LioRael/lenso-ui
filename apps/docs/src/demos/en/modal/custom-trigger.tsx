@@ -52,30 +52,26 @@ export function CustomTrigger() {
           <p {...stylex.props(styles.caption)}>Manage your preferences</p>
         </div>
       </Modal.Trigger>
-      <Modal.Portal>
-        <Modal.Backdrop />
-        <Modal.Viewport>
-          <Modal.Popup xstyle={styles.popup}>
-            <Modal.Close aria-label="Close dialog" />
-            <Modal.Header>
-              <Modal.Icon xstyle={styles.icon}>
-                <Gear {...stylex.props(styles.gear)} />
-              </Modal.Icon>
-              <Modal.Title>Settings</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Modal.Description>
-                Use <code>Modal.Trigger</code> to create custom trigger elements beyond standard
-                buttons. This example shows a card-style trigger with icons and descriptive text.
-              </Modal.Description>
-            </Modal.Body>
-            <Modal.Footer>
-              <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
-              <Modal.Close render={<Button />}>Save</Modal.Close>
-            </Modal.Footer>
-          </Modal.Popup>
-        </Modal.Viewport>
-      </Modal.Portal>
+      <Modal.Backdrop />
+      <Modal.Content xstyle={styles.popup}>
+        <Modal.Close aria-label="Close dialog" />
+        <Modal.Header>
+          <Modal.Icon xstyle={styles.icon}>
+            <Gear {...stylex.props(styles.gear)} />
+          </Modal.Icon>
+          <Modal.Title>Settings</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Modal.Description>
+            Use <code>Modal.Trigger</code>to create custom trigger elements beyond standard buttons.
+            This example shows a card-style trigger with icons and descriptive text.
+          </Modal.Description>
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
+          <Modal.Close render={<Button />}>Save</Modal.Close>
+        </Modal.Footer>
+      </Modal.Content>
     </Modal>
   );
 }

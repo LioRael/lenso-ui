@@ -46,6 +46,15 @@ for (const [name, engine] of [
           .click();
         const dialog = page.getByRole("dialog");
         await dialog.getByRole("option").first().waitFor();
+        const boundary = await dialog.boundingBox();
+        const command = await dialog.locator("[data-docs-search-glass]").boundingBox();
+        assert.ok(boundary && command && boundary.width > 0 && boundary.height > 0);
+        for (const edge of ["x", "y", "width", "height"])
+          assert.ok(
+            Math.abs(boundary[edge] - command[edge]) < 1,
+            `Search Dialog must enclose the visible Command: ${edge}`,
+          );
+
         await page.waitForFunction(() => {
           const glass = document.querySelector("[data-docs-search-glass]");
           return (

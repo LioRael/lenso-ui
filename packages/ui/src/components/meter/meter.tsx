@@ -23,8 +23,8 @@ export function MeterRoot({
     <SizeContext.Provider value={size}>
       <Primitive.Meter
         {...props}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "meter"}
-        render={slotRender("div", props["data-slot"] ?? "meter", props.render)}
+        data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "meter"}
+        render={slotRender("div", props["data-lenso-slot"] ?? "meter", props.render)}
         {...compiled}
         style={mergeStyle<Primitive.MeterState>(compiled.style, style)}
       />
@@ -41,8 +41,10 @@ export function MeterTrack({
   return (
     <Primitive.MeterTrack
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "meter-track"}
-      render={slotRender("div", props["data-slot"] ?? "meter-track", props.render)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "meter-track"
+      }
+      render={slotRender("div", props["data-lenso-slot"] ?? "meter-track", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.MeterState>(compiled.style, style)}
     />
@@ -58,8 +60,8 @@ export function MeterFill({
   return (
     <Primitive.MeterIndicator
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "meter-fill"}
-      render={slotRender("div", props["data-slot"] ?? "meter-fill", props.render)}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "meter-fill"}
+      render={slotRender("div", props["data-lenso-slot"] ?? "meter-fill", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.MeterState>(compiled.style, style)}
     />
@@ -74,8 +76,8 @@ export function MeterLabel({
   return (
     <Primitive.MeterLabel
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "label"}
-      render={slotRender("span", props["data-slot"] ?? "label", props.render)}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "label"}
+      render={slotRender("span", props["data-lenso-slot"] ?? "label", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.MeterState>(compiled.style, style)}
     />
@@ -90,8 +92,10 @@ export function MeterOutput({
   return (
     <Primitive.MeterValue
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "meter-output"}
-      render={slotRender("span", props["data-slot"] ?? "meter-output", props.render)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "meter-output"
+      }
+      render={slotRender("span", props["data-lenso-slot"] ?? "meter-output", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.MeterValueState>(compiled.style, style)}
     />

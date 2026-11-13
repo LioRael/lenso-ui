@@ -1,29 +1,27 @@
 "use client";
-// Copyright NextUI Inc. Apache-2.0. Modified: Base UI radio selection and native form behavior.
+// Copyright NextUI Inc. Apache-2.0. Modified: UI SDK radio selection and native form behavior.
 import {
   createContext,
   use,
-  useState,
   type ComponentPropsWithRef,
   type ReactNode,
   type CSSProperties,
 } from "react";
-import { RadioGroup } from "@base-ui/react/radio-group";
-import { Radio } from "@base-ui/react/radio";
+import {
+  ColorPickerSwatches,
+  ColorPickerSwatchItem,
+  type ColorPickerSwatchItemState,
+} from "@ui-sdk/react/color-picker";
+import { renderElement, type RenderProp } from "@ui-sdk/react/primitive";
+import { slotRender } from "../../utils/sdk-render.js";
 import { parseColor, type Color } from "react-stately/Color";
-import type { ColorPickerProps } from "react-stately/useColorPickerState";
 import * as stylex from "@stylexjs/stylex";
 import { colorSwatchPickerStyles as styles } from "@lenso/tokens/color-swatch-picker";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useColorValue } from "../../utils/color-state.js";
+import { ColorScope, ColorValueContext, type ColorScopeProps } from "../../utils/color-state.js";
 import { ColorSwatchRoot, type ColorSwatchRootProps } from "../color-swatch/color-swatch.js";
 type Size = "xs" | "sm" | "md" | "lg" | "xl";
-export interface ColorSwatchPickerItemRenderProps {
-  color: Color;
-  isSelected: boolean;
-  isDisabled: boolean;
-  isFocusVisible: boolean;
-}
+export type ColorSwatchPickerItemRenderProps = ColorPickerSwatchItemState & { color: Color };
 const Options = createContext<{
   size: Size;
   variant: "circle" | "square";
@@ -32,15 +30,12 @@ const Options = createContext<{
   palette: boolean;
 }>({ size: "md", variant: "circle", color: null, disabled: false, palette: false });
 const ItemState = createContext<ColorSwatchPickerItemRenderProps | null>(null);
-export type ColorSwatchPickerRootProps = StyleXProps<
-  Omit<ComponentPropsWithRef<typeof RadioGroup<string>>, "value" | "defaultValue" | "onChange">
-> &
-  ColorPickerProps & {
-    size?: Size;
-    variant?: "circle" | "square";
-    layout?: "grid" | "stack" | "palette";
-    isDisabled?: boolean;
-  };
+export type ColorSwatchPickerRootProps = StyleXProps<ColorScopeProps> & {
+  size?: Size;
+  variant?: "circle" | "square";
+  layout?: "grid" | "stack" | "palette";
+  isDisabled?: boolean;
+};
 export function ColorSwatchPickerRoot({
   size = "md",
   variant = "circle",
@@ -48,14 +43,64 @@ export function ColorSwatchPickerRoot({
   value,
   defaultValue,
   onChange,
+  onChangeEnd,
   onValueChange,
+  onValueCommit,
   isDisabled,
   disabled = isDisabled,
-  xstyle,
-  style,
+  controller,
+  name,
+  form,
+  required,
+  readOnly,
+  space,
+  format,
+  gamut,
   ...props
 }: ColorSwatchPickerRootProps) {
-  const state = useColorValue({ value, defaultValue, onChange });
+  const parent = use(ColorValueContext);
+  const swatches = <Swatches {...props} size={size} variant={variant} layout={layout} />;
+  if (parent && value === undefined && defaultValue === undefined) return swatches;
+  return (
+    <ColorScope
+      value={value}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      onChangeEnd={onChangeEnd}
+      onValueChange={onValueChange}
+      onValueCommit={onValueCommit}
+      controller={controller}
+      disabled={disabled}
+      required={required}
+      readOnly={readOnly}
+      name={name}
+      form={form}
+      space={space}
+      format={format}
+      gamut={gamut}
+      aria-label={props["aria-label"]}
+      aria-labelledby={props["aria-labelledby"]}
+      style={{ display: "contents" }}
+    >
+      {swatches}
+    </ColorScope>
+  );
+}
+function Swatches({
+  size,
+  variant,
+  layout,
+  xstyle,
+  style,
+  children,
+  ...props
+}: StyleXProps<Omit<ComponentPropsWithRef<typeof ColorPickerSwatches>, "children">> & {
+  children?: ColorScopeProps["children"];
+  size: Size;
+  variant: "circle" | "square";
+  layout: "grid" | "stack" | "palette";
+}) {
+  const scope = use(ColorValueContext)!;
   const compiled = stylex.props(
     styles.root,
     layout === "stack" && styles.stack,
@@ -67,29 +112,29 @@ export function ColorSwatchPickerRoot({
       value={{
         size,
         variant,
-        color: state.color,
-        disabled: !!disabled,
+        color: scope.color,
+        disabled: scope.native.disabled,
         palette: layout === "palette",
       }}
     >
-      <RadioGroup<string>
+      <ColorPickerSwatches
         {...props}
         {...compiled}
-        disabled={disabled}
-        value={state.color.toString("hexa")}
-        onValueChange={(color, details) => {
-          onValueChange?.(color, details);
-          if (!details.isCanceled) state.setColor(parseColor(color));
-        }}
-        data-slot={props["data-slot"] ?? "color-swatch-picker"}
         style={mergeStyle(compiled.style, style)}
-      />
+        render={slotRender("div", props["data-lenso-slot"] ?? "color-swatch-picker", props.render)}
+      >
+        {typeof children === "function" ? children(scope) : children}
+      </ColorPickerSwatches>
     </Options>
   );
 }
 export type ColorSwatchPickerItemProps = StyleXProps<
-  Omit<ComponentPropsWithRef<typeof Radio.Root<string>>, "value" | "children" | "style">
+  Omit<
+    ComponentPropsWithRef<typeof ColorPickerSwatchItem>,
+    "value" | "children" | "style" | "render"
+  >
 > & {
+  render?: RenderProp<ColorSwatchPickerItemRenderProps>;
   color: string | Color;
   isDisabled?: boolean;
   children?: ReactNode | ((state: ColorSwatchPickerItemRenderProps) => ReactNode);
@@ -98,59 +143,65 @@ export type ColorSwatchPickerItemProps = StyleXProps<
 export function ColorSwatchPickerItemPart({
   color,
   children,
+  render,
   isDisabled,
   disabled = isDisabled,
   xstyle,
   style,
-  onFocus,
-  onBlur,
   ...props
 }: ColorSwatchPickerItemProps) {
   const options = use(Options);
-  const [focused, setFocused] = useState(false);
   const parsed = typeof color === "string" ? parseColor(color) : color;
-  const state: ColorSwatchPickerItemRenderProps = {
-    color: parsed,
-    isSelected: parsed.toString("hexa") === options.color?.toString("hexa"),
-    isDisabled: !!disabled || options.disabled,
-    isFocusVisible: focused,
-  };
-  const compiled = stylex.props(
-    styles.item,
-    styles[options.size],
-    options.variant === "square" && styles.square,
-    state.isSelected && styles.selected,
-    state.isDisabled && styles.disabled,
-    options.palette && styles.paletteItem,
-    options.palette && state.isSelected && styles.paletteSelected,
-    xstyle,
-  );
   return (
-    <Radio.Root<string>
+    <ColorPickerSwatchItem
       {...props}
-      {...compiled}
       value={parsed.toString("hexa")}
       disabled={disabled}
       aria-label={props["aria-label"] ?? parsed.toString("hexa")}
-      onFocus={(event) => {
-        onFocus?.(event);
-        setFocused(event.currentTarget.matches(":focus-visible"));
+      render={(partProps, native) => {
+        const state: ColorSwatchPickerItemRenderProps = {
+          color: parsed,
+          selected: native.selected,
+          disabled: !!disabled || native.disabled,
+        };
+        const compiled = stylex.props(
+          styles.item,
+          styles[options.size],
+          options.variant === "square" && styles.square,
+          state.selected && styles.selected,
+          state.disabled && styles.disabled,
+          options.palette && styles.paletteItem,
+          options.palette && state.selected && styles.paletteSelected,
+          xstyle,
+        );
+        return renderElement(
+          "button",
+          {
+            ...partProps,
+            ...compiled,
+            "data-lenso-slot": props["data-lenso-slot"] ?? "color-swatch-picker-item",
+            style: {
+              ...(partProps["style"] as CSSProperties),
+              ...compiled.style,
+              borderColor: state.selected ? parsed.toString("css") : undefined,
+              ...(typeof style === "function" ? style(state) : style),
+            },
+            children: (
+              <>
+                <span {...stylex.props(styles.srOnly)}>
+                  {props["aria-label"] ?? parsed.toString("hexa")}
+                </span>
+                <ItemState value={state}>
+                  {typeof children === "function" ? children(state) : children}
+                </ItemState>
+              </>
+            ),
+          },
+          render,
+          state,
+        );
       }}
-      onBlur={(event) => {
-        onBlur?.(event);
-        setFocused(false);
-      }}
-      data-slot={props["data-slot"] ?? "color-swatch-picker-item"}
-      style={{
-        ...compiled.style,
-        borderColor: state.isSelected ? parsed.toString("css") : undefined,
-        ...(typeof style === "function" ? style(state) : style),
-      }}
-    >
-      <ItemState value={state}>
-        {typeof children === "function" ? children(state) : children}
-      </ItemState>
-    </Radio.Root>
+    />
   );
 }
 export function ColorSwatchPickerSwatch({ xstyle, color, ...props }: ColorSwatchRootProps) {
@@ -161,10 +212,10 @@ export function ColorSwatchPickerSwatch({ xstyle, color, ...props }: ColorSwatch
       {...props}
       color={color ?? state?.color}
       aria-hidden={props["aria-hidden"] ?? true}
-      data-slot={props["data-slot"] ?? "color-swatch-picker-swatch"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "color-swatch-picker-swatch"}
       xstyle={[
         styles.swatch,
-        state?.isSelected && !options.palette && styles.selectedSwatch,
+        state?.selected && !options.palette && styles.selectedSwatch,
         options.palette && styles.paletteSwatch,
         xstyle,
       ]}
@@ -190,7 +241,7 @@ export function ColorSwatchPickerIndicator({
   const compiled = stylex.props(
     styles.indicator,
     luminance > 0.5 && styles.lightIndicator,
-    !state.isSelected && styles.hidden,
+    !state.selected && styles.hidden,
     xstyle,
   );
   return (
@@ -198,7 +249,7 @@ export function ColorSwatchPickerIndicator({
       {...props}
       {...compiled}
       aria-hidden="true"
-      data-slot={props["data-slot"] ?? "color-swatch-picker-indicator"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "color-swatch-picker-indicator"}
       style={mergeStyle(compiled.style, props.style)}
     >
       {typeof children === "function"

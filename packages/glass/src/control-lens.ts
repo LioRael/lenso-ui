@@ -1041,6 +1041,7 @@ interface Member {
 /** Content under one or more lenses, and its filter. */
 interface Surface {
   content: HTMLElement;
+  clip: HTMLElement;
   /** The lenses made over it, active or not. */
   lenses: number;
   /** The active ones, in the order they became active. */
@@ -1053,6 +1054,7 @@ interface Surface {
   placed: string;
   version: number;
   originals: Map<HTMLElement, string>;
+  originalMask?: string;
 }
 
 const surfaces = new Map<HTMLElement, Surface>();
@@ -1109,6 +1111,10 @@ function render(surface: Surface): void {
     content.style.removeProperty("filter");
     if (surface.standIn) content.style.removeProperty("visibility");
     surface.standIn = false;
+    if (surface.originalMask !== undefined) {
+      restoreMask(surface.clip, surface.originalMask);
+      surface.originalMask = undefined;
+    }
     for (const [element, original] of surface.originals) {
       restoreMask(element, original);
     }
@@ -1133,6 +1139,22 @@ function render(surface: Surface): void {
     surface.placed = "";
   }
   const placed = shown.map((member) => member.placed!);
+  if (standIn && box) {
+    surface.originalMask ??= saveMask(surface.clip);
+    // Clip after filtering too: displaced stand-in pixels must stay inside the knobs.
+    mask(
+      surface.clip,
+      {
+        image: shown.map((member) => `url("${member.fit!.maps.shape}")`).join(", "),
+        position: placed.map(({ x, y }) => `${x}px ${y}px`).join(", "),
+        size: placed.map(({ width, height }) => `${width}px ${height}px`).join(", "),
+      },
+      true,
+    );
+  } else if (surface.originalMask !== undefined) {
+    restoreMask(surface.clip, surface.originalMask);
+    surface.originalMask = undefined;
+  }
   const next = [
     across,
     down,
@@ -1214,18 +1236,19 @@ function restoreMask(element: HTMLElement, saved: string) {
 function mask(
   element: HTMLElement,
   layers?: { image: string; position: string; size: string },
+  union = false,
 ): void {
   for (const part of MASKING) {
     element.style.removeProperty(`-webkit-mask-${part}`);
     element.style.removeProperty(`mask-${part}`);
   }
   if (!layers) return;
-  const values = { ...layers, repeat: "no-repeat", composite: "exclude, add" };
+  const values = { ...layers, repeat: "no-repeat", composite: union ? "add" : "exclude, add" };
   for (const part of MASKING) {
     // Older WebKit knows only the prefixed names, and calls exclude xor.
     element.style.setProperty(
       `-webkit-mask-${part}`,
-      part === "composite" ? "xor, source-over" : values[part],
+      part === "composite" ? (union ? "source-over" : "xor, source-over") : values[part],
     );
     element.style.setProperty(`mask-${part}`, values[part]);
   }
@@ -1239,17 +1262,21 @@ function mask(
  * glass's `--lg-lens-shine` sets the light on its rim: above 0 it brightens,
  * below 0 it darkens, as on a light page. Both it and the strength property
  * are read each time the lens becomes active or is refitted.
+ * In WebKit, a separate outputClip keeps the output mask off SourceGraphic;
+ * it must have the same box as content.
  */
 export function createControlLens(
   glass: HTMLElement,
   content: HTMLElement,
   options: ControlLensOptions,
   replaces?: HTMLElement | readonly HTMLElement[],
+  outputClip: HTMLElement = content,
 ): ControlLens {
   let surface = surfaces.get(content);
   if (!surface) {
     surface = {
       content,
+      clip: outputClip,
       lenses: 0,
       members: [],
       name: `lenso-control-lens-${made++}`,

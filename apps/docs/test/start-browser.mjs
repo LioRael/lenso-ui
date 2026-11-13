@@ -18,7 +18,7 @@ for (const [name, engine] of [
       .getByRole("tablist", { name: "Playground view" })
       .evaluate((list) => {
         const tab = list.querySelector('[role="tab"]');
-        const tint = list.querySelector('[data-slot="tabs-tint"]');
+        const tint = list.querySelector('[data-lenso-slot="tabs-tint"]');
         return {
           label: tab?.textContent,
           tab: Number(getComputedStyle(tab).zIndex),
@@ -214,7 +214,10 @@ for (const [name, engine] of [
       }
 
       // Recreating the provider implementation must not replace its shared Context.
-      const providerFile = new URL("../src/components/docs-design-theme.tsx", import.meta.url);
+      const providerFile = new URL(
+        "../../../packages/docs/src/docs-design-theme.tsx",
+        import.meta.url,
+      );
       const providerSource = await readFile(providerFile, "utf8");
       try {
         await writeFile(

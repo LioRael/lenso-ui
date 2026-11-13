@@ -9,9 +9,9 @@ Start from the matching family documentation, native signatures and applicable
 example. Identify the root's state owner, its supporting parts and any context
 requirements. Use actual public exports from `@lenso/ui`.
 
-Base UI owns controls, collections, forms and overlays. Specialized date, time
+UI SDK owns controls, collections, forms and overlays. Specialized date, time
 and color parts share their internationalized value model while using native
-Base UI interaction parts. Native HTML owns static structure. Follow the queried API for that family; similarly
+UI SDK interaction parts. Native HTML owns static structure. Follow the queried API for that family; similarly
 named parts from another library are not interchangeable.
 
 Use controlled state when the surrounding workflow needs to coordinate it.
@@ -80,24 +80,19 @@ import { Button, Modal } from "@lenso/ui";
 
 <Modal.Root>
   <Modal.Trigger render={<Button />}>Edit profile</Modal.Trigger>
-  <Modal.Portal>
-    <Modal.Backdrop />
-    <Modal.Viewport>
-      <Modal.Popup>
-        <Modal.Header>
-          <Modal.Title>Edit profile</Modal.Title>
-          <Modal.Description>Update your profile details.</Modal.Description>
-        </Modal.Header>
-        <Modal.Body>{/* The actual editing form belongs here. */}</Modal.Body>
-        <Modal.Footer>
-          <Modal.Close render={<Button />}>Cancel</Modal.Close>
-        </Modal.Footer>
-      </Modal.Popup>
-    </Modal.Viewport>
-  </Modal.Portal>
+  <Modal.Backdrop />
+  <Modal.Content>
+    <Modal.Header>
+      <Modal.Title>Edit profile</Modal.Title>
+      <Modal.Description>Update your profile details.</Modal.Description>
+    </Modal.Header>
+    <Modal.Body>{/* The actual editing form belongs here. */}</Modal.Body>
+    <Modal.Footer>
+      <Modal.Close render={<Button />}>Cancel</Modal.Close>
+    </Modal.Footer>
+  </Modal.Content>
 </Modal.Root>;
 ```
 
-`Modal.Popup`, the accessible title and the native portal/viewport structure
-carry behavior and presentation. Renaming them to another library's Dialog
-parts loses the Lenso contract.
+`Modal.Content` owns portal, presence and focus. Use the native SDK composition
+from the installed types and update callers when its contract changes.

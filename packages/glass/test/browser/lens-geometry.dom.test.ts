@@ -2,6 +2,93 @@ import { expect, test } from "bun:test";
 import { createControlLens, lensMap } from "../../src/control-lens.js";
 import { observeGlassPreferences } from "../../src/preferences.js";
 
+test.each(["AppleWebKit/605.1.15", "Chrome/156"])(
+  "%s stand-in keeps output clipping separate from filter input",
+  (agent) => {
+    const userAgent = Object.getOwnPropertyDescriptor(navigator, "userAgent");
+    Object.defineProperty(navigator, "userAgent", { configurable: true, value: agent });
+    const webkit = agent.startsWith("AppleWebKit");
+    const context = HTMLCanvasElement.prototype.getContext;
+    const url = HTMLCanvasElement.prototype.toDataURL;
+    HTMLCanvasElement.prototype.getContext = (() => ({
+      createImageData: (width: number, height: number) => ({
+        data: new Uint8ClampedArray(width * height * 4),
+      }),
+      putImageData() {},
+    })) as unknown as typeof context;
+    HTMLCanvasElement.prototype.toDataURL = () => "data:image/png;base64,bounded-knob";
+    const content = document.createElement("span");
+    const clip = document.createElement("span");
+    clip.append(content);
+    const track = document.createElement("span");
+    const knobs = [document.createElement("span"), document.createElement("span")];
+    clip.style.maskImage = "linear-gradient(black, black)";
+    const previous = clip.style.maskImage;
+    document.body.append(clip, track, ...knobs);
+    for (const node of [content, clip, track, ...knobs]) {
+      Object.defineProperties(node, { offsetWidth: { value: 58 }, offsetHeight: { value: 38 } });
+      node.getBoundingClientRect = () => new DOMRect(0, 0, 58, 38);
+    }
+    const lenses = knobs.map((knob) =>
+      createControlLens(
+        knob,
+        content,
+        {
+          strength: 0.75,
+          dispersion: 0.65,
+          depth: 2,
+          dome: 5,
+          splay: 0.5,
+          paintsLight: true,
+          pill: true,
+        },
+        track,
+        clip,
+      ),
+    );
+    try {
+      lenses[0]!.update(1, {
+        contentWidth: 200,
+        contentHeight: 80,
+        x: 12,
+        y: 20,
+        width: 58,
+        height: 38,
+      });
+      lenses[0]!.setActive(true);
+      expect(content.style.maskImage).toBe("");
+      expect(content.style.filter).toContain("url(");
+      expect(clip.style.maskPosition).toBe(webkit ? "12px 20px" : "");
+      expect(clip.style.maskSize).toBe(webkit ? "58px 38px" : "");
+      lenses[1]!.update(1, {
+        contentWidth: 200,
+        contentHeight: 80,
+        x: 100,
+        y: 20,
+        width: 58,
+        height: 38,
+      });
+      lenses[1]!.setActive(true);
+      expect(clip.style.maskComposite).toBe(webkit ? "add" : "");
+      expect(clip.style.maskPosition).toBe(webkit ? "12px 20px, 100px 20px" : "");
+      if (!webkit) expect(clip.style.maskImage).toBe(previous);
+      lenses[0]!.setActive(false);
+      expect(clip.style.maskPosition).toBe(webkit ? "100px 20px" : "");
+      lenses[1]!.setActive(false);
+      expect(clip.style.maskImage).toBe(previous);
+      expect(clip.style.maskPosition).toBe("");
+      expect(content.style.visibility).toBe("");
+    } finally {
+      for (const lens of lenses) lens.destroy();
+      for (const node of [content, clip, track, ...knobs]) node.remove();
+      HTMLCanvasElement.prototype.getContext = context;
+      HTMLCanvasElement.prototype.toDataURL = url;
+      if (userAgent) Object.defineProperty(navigator, "userAgent", userAgent);
+      else Reflect.deleteProperty(navigator, "userAgent");
+    }
+  },
+);
+
 // Channel packing must preserve both displacement bytes and mask coverage;
 // a refit must not reuse the packed cache entry for spectral rays.
 // At DPR 1.5, unconditionally mirroring the short axis of the 126 × 11 and 11 × 126

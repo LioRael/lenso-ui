@@ -1,9 +1,9 @@
 "use client";
 
-import { Autocomplete } from "@lenso/ui";
+import { ComboBox } from "@lenso/ui";
 import { useRef, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, OptionContent, type Option } from "../../en/autocomplete/_native";
+import { OptionPicker, OptionContent, type Option } from "../../en/autocomplete/_native";
 const firstNames = [
   "Emma",
   "Liam",
@@ -81,9 +81,10 @@ const virtualStyles = stylex.create({
   }),
 });
 export function Virtualization() {
-  const { contains } = Autocomplete.useFilter({
-    sensitivity: "base",
-  });
+  const { contains } = {
+    contains: (text: string, query: string) =>
+      text.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+  };
   const [query, setQuery] = useState("");
   const [scrollTop, setScrollTop] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
@@ -102,7 +103,7 @@ export function Virtualization() {
     setScrollTop(element.scrollTop);
   };
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={allUsers}
       xstyle={virtualStyles.field}
       filteredItems={filtered}
@@ -112,37 +113,38 @@ export function Virtualization() {
       placeholder="选择用户"
       searchLabel="Search users"
       searchPlaceholder="Search users..."
-      inputValue={query}
-      onInputValueChange={(next) => {
+      query={query}
+      onQueryChange={(next) => {
         setQuery(next);
         setScrollTop(0);
         if (listRef.current) listRef.current.scrollTop = 0;
       }}
       list={
-        <Autocomplete.List
+        <ComboBox.List
           ref={listRef}
           xstyle={virtualStyles.list}
           onScroll={(event) => setScrollTop(event.currentTarget.scrollTop)}
         >
           <div aria-hidden="true" {...stylex.props(virtualStyles.spacer(start * 50))} />
           {filtered.slice(start, end).map((item, offset) => (
-            <Autocomplete.Item
+            <ComboBox.Item
               key={item.id}
               value={item}
+              label={item.name}
               index={start + offset}
               aria-setsize={filtered.length}
               aria-posinset={start + offset + 1}
               xstyle={virtualStyles.row}
             >
               <OptionContent item={item} />
-              <Autocomplete.ItemIndicator />
-            </Autocomplete.Item>
+              <ComboBox.ItemIndicator />
+            </ComboBox.Item>
           ))}
           <div
             aria-hidden="true"
             {...stylex.props(virtualStyles.spacer((filtered.length - end) * 50))}
           />
-        </Autocomplete.List>
+        </ComboBox.List>
       }
     />
   );

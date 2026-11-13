@@ -1,57 +1,16 @@
 "use client";
 
-import { useSyncExternalStore, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Toggle } from "@base-ui/react/toggle";
-import { ToggleGroup } from "@base-ui/react/toggle-group";
-import { ChevronLeft, ChevronRight, Sun, Moon, Display } from "@gravity-ui/icons";
+import { ChevronLeft, ChevronRight } from "@gravity-ui/icons";
 import Link from "fumadocs-core/link";
-import { useTheme } from "fumadocs-ui/provider/base";
 import { useTreePath } from "fumadocs-ui/contexts/tree";
 import { useFooterItems } from "fumadocs-ui/utils/use-footer-items";
 import { useTranslations } from "@fuma-translate/react";
 import type { FooterProps } from "fumadocs-ui/layouts/notebook/page/slots/footer";
 import { notebook } from "@lenso/docs/presentation";
 
-const subscribeTheme = () => () => {};
-const themeOptions = [
-  ["light", Sun],
-  ["dark", Moon],
-  ["system", Display],
-] as const;
-
-export function DocumentationThemeSwitch(): ReactNode {
-  const { theme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    subscribeTheme,
-    () => true,
-    () => false,
-  );
-  return (
-    <ToggleGroup
-      aria-label="Color theme"
-      value={mounted && theme ? [theme] : []}
-      onValueChange={(values) => {
-        if (values[0]) setTheme(values[0]);
-      }}
-      {...stylex.props(notebook.themeGroup)}
-    >
-      {themeOptions.map(([value, Icon]) => (
-        <Toggle
-          key={value}
-          value={value}
-          aria-label={`${value[0]?.toUpperCase()}${value.slice(1)} theme`}
-          {...stylex.props(
-            notebook.themeButton,
-            mounted && theme === value && notebook.themeActive,
-          )}
-        >
-          <Icon width={14} height={14} aria-hidden="true" />
-        </Toggle>
-      ))}
-    </ToggleGroup>
-  );
-}
+export { ThemeToggle as DocumentationThemeSwitch } from "./theme-toggle";
 
 export function DocumentationFooter({ items }: FooterProps): ReactNode {
   const pages = useFooterItems();

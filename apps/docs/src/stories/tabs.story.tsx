@@ -9,7 +9,7 @@ export const story = defineStory({
       initial: {
         value: "overview",
         orientation: "horizontal",
-        activateOnFocus: true,
+        activation: "automatic",
         lift: 20,
         elastic: true,
         glass: true,

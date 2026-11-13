@@ -1,8 +1,7 @@
 import {
   CommandRoot,
-  CommandPortal,
   CommandBackdrop,
-  CommandPopup,
+  CommandContent,
   CommandHeader,
   CommandInputGroup,
   CommandSearchIcon,
@@ -28,17 +27,13 @@ import {
   CommandGroup,
   CommandGroupLabel,
   CommandSeparator,
-  CommandCollection,
   CommandStatus,
-  CommandClear,
-  useCommandFilter,
 } from "./command.js";
 
 export const Command: typeof CommandRoot & {
   Root: typeof CommandRoot;
-  Portal: typeof CommandPortal;
   Backdrop: typeof CommandBackdrop;
-  Popup: typeof CommandPopup;
+  Content: typeof CommandContent;
   Header: typeof CommandHeader;
   InputGroup: typeof CommandInputGroup;
   SearchIcon: typeof CommandSearchIcon;
@@ -65,15 +60,11 @@ export const Command: typeof CommandRoot & {
   Group: typeof CommandGroup;
   GroupLabel: typeof CommandGroupLabel;
   Separator: typeof CommandSeparator;
-  Collection: typeof CommandCollection;
   Status: typeof CommandStatus;
-  Clear: typeof CommandClear;
-  useFilter: typeof useCommandFilter;
 } = Object.assign(CommandRoot, {
   Root: CommandRoot,
-  Portal: CommandPortal,
   Backdrop: CommandBackdrop,
-  Popup: CommandPopup,
+  Content: CommandContent,
   Header: CommandHeader,
   InputGroup: CommandInputGroup,
   SearchIcon: CommandSearchIcon,
@@ -100,10 +91,7 @@ export const Command: typeof CommandRoot & {
   Group: CommandGroup,
   GroupLabel: CommandGroupLabel,
   Separator: CommandSeparator,
-  Collection: CommandCollection,
   Status: CommandStatus,
-  Clear: CommandClear,
-  useFilter: useCommandFilter,
 });
 
 export * from "./command.js";

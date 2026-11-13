@@ -10,3 +10,5 @@ export {
 export type { StyleXProps, XStyle } from "./utils/styled.js";
 
 export { I18nProvider, useLocale, isRTL } from "./utils/locale.js";
+
+export { ScrollEdge, type ScrollEdgeProps } from "./components/scroll-edge/index.js";

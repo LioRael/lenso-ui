@@ -304,7 +304,7 @@ export async function generateApiReference(directory = root, dependencyRoot = di
               isStringLiteral(statement.moduleSpecifier) ? [statement.moduleSpecifier.text] : [],
             );
           const native = imports.filter((specifier) =>
-            /^(?:@base-ui\/react|react-aria-components)(?:\/|$)/.test(specifier),
+            /^(?:@ui-sdk\/(?:react|core)|react-aria-components)(?:\/|$)/.test(specifier),
           );
           const signatureDeclaration = await checker.signatureToSignatureDeclaration(
             signature,

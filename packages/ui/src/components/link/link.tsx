@@ -1,7 +1,7 @@
 "use client";
 
 import { type ComponentProps } from "react";
-import { useRender } from "@base-ui/react/use-render";
+import { renderElement, type PartProps } from "@ui-sdk/react/primitive";
 import { linkStyles } from "@lenso/tokens/link";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import type * as React from "react";
@@ -10,19 +10,19 @@ function Icon({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(linkStyles.icon, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "link-icon"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "link-icon"}
     />
   );
 }
-export type LinkRootProps = StyleXProps<useRender.ComponentProps<"a">> & {
-  "data-slot"?: unknown;
+export type LinkRootProps = StyleXProps<PartProps<"a">> & {
+  "data-lenso-slot"?: unknown;
   disabled?: boolean;
 };
 export function LinkRoot({
@@ -39,37 +39,39 @@ export function LinkRoot({
   ...props
 }: LinkRootProps) {
   const compiled = stylex.props(linkStyles.root, xstyle);
-  return useRender({
-    defaultTagName: "a",
-    render,
-    ref,
-    props: {
-      ...props,
-      ...compiled,
-      style: mergeStyle(compiled.style, style),
-      "data-slot": props["data-slot"] ?? "link",
-      href: disabled ? undefined : href,
-      role: role ?? (disabled && !render ? "link" : undefined),
-      "aria-disabled": disabled || undefined,
-      tabIndex: disabled ? -1 : tabIndex,
-      onClickCapture: (event: React.MouseEvent<HTMLAnchorElement>) => {
-        if (disabled) {
-          event.preventDefault();
-          event.stopPropagation();
-          return;
-        }
-        onClickCapture?.(event);
+  return renderElement(
+    "a",
+    {
+      ...{
+        ...props,
+        ...compiled,
+        style: mergeStyle(compiled.style, style),
+        "data-lenso-slot": props["data-lenso-slot"] ?? "link",
+        href: disabled ? undefined : href,
+        role: role ?? (disabled && !render ? "link" : undefined),
+        "aria-disabled": disabled || undefined,
+        tabIndex: disabled ? -1 : tabIndex,
+        onClickCapture: (event: React.MouseEvent<HTMLAnchorElement>) => {
+          if (disabled) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+          onClickCapture?.(event);
+        },
+        onKeyDownCapture: (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+          if (disabled && (event.key === "Enter" || event.key === " ")) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+          onKeyDownCapture?.(event);
+        },
       },
-      onKeyDownCapture: (event: React.KeyboardEvent<HTMLAnchorElement>) => {
-        if (disabled && (event.key === "Enter" || event.key === " ")) {
-          event.preventDefault();
-          event.stopPropagation();
-          return;
-        }
-        onKeyDownCapture?.(event);
-      },
+      ref: ref,
     },
-  });
+    render,
+  );
 }
 export type LinkIconProps = ComponentProps<typeof Icon>;
 export function LinkIcon({ children, xstyle, ...props }: LinkIconProps) {

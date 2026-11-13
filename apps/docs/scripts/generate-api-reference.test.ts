@@ -89,11 +89,11 @@ test("API generation is independent of the caller's working directory", async ()
 }, 120000);
 
 // Archived RAC tables cannot prove the replacement button's native event and composition API.
-test("Button uses the actual Base UI props, callbacks, variants and defaults", () => {
+test("Button uses native UI SDK props, callbacks, variants and defaults", () => {
   const button = part("button", "ButtonRoot");
   const props = rows(button);
   assert.match(props.disabled.type, /boolean/);
-  assert.match(props.onClick.type, /MouseEvent<HTMLButtonElement/);
+  assert.match(props.onClick.type, /MouseEvent<HTMLElement/);
   assert.match(props.style.type, /\(state: ButtonState\)/);
   assert.match(props.render.type, /ButtonState/);
   for (const variant of ["prominent", "bordered", "borderless"])

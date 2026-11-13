@@ -71,10 +71,8 @@ const DateRangePickerField = ({ showDescription = false }: { showDescription?: b
         Select your check-in and check-out dates.
       </DateRangePicker.Description>
     ) : null}
-    <DateRangePicker.Popover>
-      <DateRangePicker.Dialog aria-label="Choose trip dates">
-        <RangeCalendarContent />
-      </DateRangePicker.Dialog>
+    <DateRangePicker.Popover aria-label="Choose trip dates">
+      <RangeCalendarContent />
     </DateRangePicker.Popover>
   </>
 );
@@ -159,10 +157,8 @@ export const WithValidation: Story = {
             Choose a check-in and check-out date.
           </DateRangePicker.Description>
         )}
-        <DateRangePicker.Popover>
-          <DateRangePicker.Dialog aria-label="Choose booking period">
-            <RangeCalendarContent />
-          </DateRangePicker.Dialog>
+        <DateRangePicker.Popover aria-label="Choose booking period">
+          <RangeCalendarContent />
         </DateRangePicker.Popover>
       </DateRangePicker>
     );
@@ -191,10 +187,8 @@ export const WithCustomIndicator: Story = {
       <DateRangePicker.Description>
         Use a custom trigger icon while preserving DateRangePicker behavior.
       </DateRangePicker.Description>
-      <DateRangePicker.Popover>
-        <DateRangePicker.Dialog aria-label="Choose trip dates">
-          <RangeCalendarContent />
-        </DateRangePicker.Dialog>
+      <DateRangePicker.Popover aria-label="Choose trip dates">
+        <RangeCalendarContent />
       </DateRangePicker.Popover>
     </DateRangePicker>
   ),
@@ -251,10 +245,8 @@ export const FormExample: Story = {
               Select your check-in and check-out dates.
             </DateRangePicker.Description>
           )}
-          <DateRangePicker.Popover>
-            <DateRangePicker.Dialog aria-label="Choose trip dates">
-              <RangeCalendarContent />
-            </DateRangePicker.Dialog>
+          <DateRangePicker.Popover aria-label="Choose trip dates">
+            <RangeCalendarContent />
           </DateRangePicker.Popover>
         </DateRangePicker>
         <Button

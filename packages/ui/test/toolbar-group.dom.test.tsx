@@ -50,9 +50,10 @@ test("detaching preserves toolbar controls, refs, native render and group disabl
   document.body.append(host);
   root = createRoot(host);
   await act(() => root!.render(<Example />));
-  const group = host.querySelector<HTMLElement>('[data-slot="toolbar-group"]')!;
+  const group = host.querySelector<HTMLElement>('[data-lenso-slot="toolbar-group"]')!;
   const buttons = [...host.querySelectorAll<HTMLButtonElement>("[data-toolbar-item]")];
   expect(group.tagName).toBe("SECTION");
+  expect(group.querySelector("[data-lenso-glass-fusion]")).not.toBeNull();
   expect(group.dataset["owner"]).toBe("caller");
   expect(group.style.getPropertyValue("--test-orientation")).toBe("horizontal");
   buttons[0]!.focus();
@@ -74,4 +75,21 @@ test("detaching preserves toolbar controls, refs, native render and group disabl
   await act(() => root!.unmount());
   root = undefined;
   expect(cleaned).toBe(assigned);
+});
+
+test("detachable groups retain native children state alongside the fusion surface", async () => {
+  const host = document.createElement("div");
+  document.body.append(host);
+  root = createRoot(host);
+  await act(() =>
+    root!.render(
+      <Toolbar orientation="vertical" aria-label="Editing">
+        <Toolbar.Group isDetached={false}>
+          {(state) => <Toolbar.Button>{state.orientation}</Toolbar.Button>}
+        </Toolbar.Group>
+      </Toolbar>,
+    ),
+  );
+  expect(host.querySelector("button")?.textContent).toBe("vertical");
+  expect(host.querySelector("[data-lenso-glass-fusion]")).not.toBeNull();
 });

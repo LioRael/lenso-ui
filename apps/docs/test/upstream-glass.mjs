@@ -39,7 +39,7 @@ for (const [name, engine] of [
       await page.waitForLoadState("networkidle");
       await page.waitForTimeout(1000);
       const links = group.locator("[data-tab-bar-list] [data-tab-bar-destination]");
-      const indicator = group.locator('[data-slot="tab-bar-indicator"]');
+      const indicator = group.locator('[data-lenso-slot="tab-bar-indicator"]');
       assert.equal(await indicator.count(), 1);
       // Record presentation each frame, including the down/up distinction of a quick tap.
       await indicator.evaluate((node) => {
@@ -181,11 +181,11 @@ for (const [name, engine] of [
       const sheet = page.getByRole("dialog", { name: "Comparison sheet", exact: true });
       await sheet.waitFor();
       await page.waitForTimeout(700);
-      const body = sheet.locator('[data-slot="sheet-body"]');
+      const body = sheet.locator('[data-lenso-slot="sheet-body"]');
       const measure = () =>
         sheet.evaluate((node) => ({
           y: node.getBoundingClientRect().y,
-          scroll: node.querySelector('[data-slot="sheet-body"]').scrollTop,
+          scroll: node.querySelector('[data-lenso-slot="sheet-body"]').scrollTop,
           expanded: node.hasAttribute("data-expanded"),
         }));
       if (name === "chromium") {
@@ -277,7 +277,9 @@ for (const [name, engine] of [
       assert.equal(await rtlDestination.getAttribute("aria-current"), "page");
       const aligned = await rtl.evaluate((node) => {
         const target = node.querySelector("[data-current]").getBoundingClientRect();
-        const lens = node.querySelector('[data-slot="tab-bar-indicator"]').getBoundingClientRect();
+        const lens = node
+          .querySelector('[data-lenso-slot="tab-bar-indicator"]')
+          .getBoundingClientRect();
         return Math.abs(target.x + target.width / 2 - lens.x - lens.width / 2) < 1;
       });
       assert.ok(aligned, "desktop RTL indicator aligns with the keyboard-selected destination");

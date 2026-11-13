@@ -75,16 +75,9 @@ export function ScrollbarModes() {
                 mode === "none" && styles.hidden,
               )}
             >
-              <ListBox
-                aria-label={`${["纤细", "浏览器默认", "隐藏"][index]}动物列表`}
-                selectionMode="single"
-              >
+              <ListBox aria-label={`${["纤细", "浏览器默认", "隐藏"][index]}动物列表`}>
                 {animals.map((name) => (
-                  <ListBox.Item
-                    key={name}
-                    itemKey={`${mode}-${name.toLowerCase()}`}
-                    textValue={name}
-                  >
+                  <ListBox.Item key={name} value={`${mode}-${name.toLowerCase()}`} label={name}>
                     {name}
                   </ListBox.Item>
                 ))}

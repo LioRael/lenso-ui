@@ -40,7 +40,11 @@ function groupMaterial(shape: Shape): Shape {
     (shape.materialProfile && !["small", "clear"].includes(shape.materialProfile))
   )
     return shape;
-  return { ...shape, materialSize: 1, materialSurface: "group" };
+  return {
+    ...shape,
+    materialSize: shape.appleMode === "light" ? (shape.materialSize ?? 0) : 1,
+    materialSurface: "group",
+  };
 }
 
 /** Compatible islands can stay on one material plane before their outlines meet. */
@@ -103,7 +107,11 @@ export function createFusionOptics(surface: HTMLElement) {
   let running = false;
   let ready = false;
   let previousLight = "";
+  let pressClarity = 0;
+  let paintRim: (() => void) | undefined;
   let lightState: { shapes: FusionShape[]; members: HTMLElement[]; spacing: number } | undefined;
+  let moving = false;
+  let motionHidden = false;
   let sharedMaterial = false;
   let referenceContour = false;
   let bootstrap: ReturnType<typeof createMaterialLens> | undefined;
@@ -120,6 +128,34 @@ export function createFusionOptics(surface: HTMLElement) {
   let copyContour: boolean | undefined;
   let stopPaint: (() => void) | undefined;
   let sharedPaint = "none";
+  const showOptics = () => {
+    if (!ready) return;
+    // WebKit re-rasterizes copied SVG refraction under a moving mask. The
+    // material base and live rim follow motion until an exact resting field is ready.
+    const pendingMotion =
+      base &&
+      latest?.grouped &&
+      sharedMaterial &&
+      !refractsBackdrop() &&
+      (moving || committed?.outline !== latest.outline);
+    if (pendingMotion) {
+      motionHidden = true;
+      if (!surface.hasAttribute("data-lenso-fusion-moving"))
+        surface.setAttribute("data-lenso-fusion-moving", "");
+      if (surface.style.getPropertyValue("--lenso-fusion-opacity") !== "0")
+        surface.style.setProperty("--lenso-fusion-opacity", "0");
+    } else {
+      surface.removeAttribute("data-lenso-fusion-moving");
+      surface.style.removeProperty("--lenso-fusion-opacity");
+      if (motionHidden) {
+        motionHidden = false;
+        // A skipped copy has no placement box; restart it once with resting geometry.
+        stopCopy?.();
+        stopCopy = undefined;
+        startBackdrop();
+      }
+    }
+  };
   const paintPreference = (paint: string) => {
     sharedPaint = paint;
     const value = ready && sharedMaterial ? paint : "none";
@@ -181,7 +217,7 @@ export function createFusionOptics(surface: HTMLElement) {
     const layers: string[] = [];
     const lights: { x: number; y: number; radius: number; opacity: number }[] = [];
     members.forEach((member, index) => {
-      const light = member.querySelector<HTMLElement>('[data-slot="glass-press-highlight"]');
+      const light = member.querySelector<HTMLElement>('[data-lenso-slot="glass-press-highlight"]');
       if (!light) return;
       const style = getComputedStyle(light);
       const opacity = Number(style.opacity);
@@ -196,8 +232,13 @@ export function createFusionOptics(surface: HTMLElement) {
         (shape.height * parseFloat(pointer.getPropertyValue("--lg-light-y") || "50%")) / 100;
       const radius = parseFloat(pointer.getPropertyValue("--lg-light-radius")) || 240;
       lights.push({ x, y, radius, opacity });
+      const fill =
+        pointer.getPropertyValue("--lenso-glass-press-fill").trim() ||
+        pointer.getPropertyValue("--lenso-glass-active-fill").trim() ||
+        pointer.getPropertyValue("--lenso-glass-default-active-fill").trim() ||
+        style.backgroundColor;
       const color = (strength: number) =>
-        `color-mix(in srgb, ${style.backgroundColor} ${opacity * strength * 100}%, transparent)`;
+        `color-mix(in srgb, ${fill} ${opacity * strength * 100}%, transparent)`;
       layers.push(
         `radial-gradient(circle ${radius}px at ${x}px ${y}px, ${color(1)}, ${color(5 / 7)} 50%, transparent)`,
       );
@@ -217,6 +258,11 @@ export function createFusionOptics(surface: HTMLElement) {
       );
       lightLabel(member, lights.length ? strength : undefined);
     });
+    const clarity = Math.max(0, ...lights.map((light) => light.opacity));
+    if (clarity !== pressClarity) {
+      pressClarity = clarity;
+      paintRim?.();
+    }
     const background = layers.join(", ") || "none";
     if (background !== previousLight) {
       previousLight = background;
@@ -229,7 +275,7 @@ export function createFusionOptics(surface: HTMLElement) {
       if (stopped) return;
       ready = true;
       paintPreference(sharedPaint);
-      if (current.length) surface.style.removeProperty("--lenso-fusion-opacity");
+      if (current.length) showOptics();
       edge.style.removeProperty("visibility");
       shadow.visible(referenceContour);
       if (sharedMaterial) hideMembers([...wanted]);
@@ -456,7 +502,7 @@ export function createFusionOptics(surface: HTMLElement) {
       }
       styled.add(member);
     });
-    if (ready) surface.style.removeProperty("--lenso-fusion-opacity");
+    if (ready) showOptics();
     // Keep the preceding filter alive until copied backdrop layers have read the new URL.
     retired.forEach((lens) => lens.destroy());
     retired = current;
@@ -491,6 +537,10 @@ export function createFusionOptics(surface: HTMLElement) {
     }
   };
   return {
+    motion(active: boolean) {
+      moving = active;
+      showOptics();
+    },
     restore() {
       const delayed = [...styled].some(
         (member) => member.hasAttribute("data-copy") || member.hasAttribute("data-material-paints"),
@@ -502,6 +552,8 @@ export function createFusionOptics(surface: HTMLElement) {
       surface.style.setProperty("--lenso-fusion-opacity", "0");
       pressLight.style.backgroundImage = "none";
       previousLight = "none";
+      pressClarity = 0;
+      paintRim = undefined;
       lightState = undefined;
       for (const member of styled) clearMember(member);
       return delayed ? 32 : 0;
@@ -593,7 +645,23 @@ export function createFusionOptics(surface: HTMLElement) {
         shadow.update(width, height, outline, contourShape?.appleMode === "dark");
       shadow.visible(ready && referenceContour);
       positionLayers(width, height);
-      paintFusionContour(edge, width, height, outline, sample, contourShape, edgePixels);
+      paintRim = () =>
+        paintFusionContour(
+          edge,
+          width,
+          height,
+          outline,
+          sample,
+          contourShape && {
+            ...contourShape,
+            materialClarity:
+              (contourShape.materialProfile === "clear" ? 1 : (contourShape.materialClarity ?? 0)) *
+                (1 - pressClarity) +
+              pressClarity,
+          },
+          edgePixels,
+        );
+      paintRim();
       const mask = sharedMaterial
         ? contourMask.update(width, height, outline)
         : fusionMasks(width, height, shapes, spacing, outline).bridge;
@@ -645,6 +713,7 @@ export function createFusionOptics(surface: HTMLElement) {
       fieldsRenderer.destroy();
       surface.removeAttribute("data-lenso-fusion-compute");
       surface.removeAttribute("data-lenso-fusion-field");
+      surface.removeAttribute("data-lenso-fusion-moving");
       contourMask.destroy();
       opticalMask.destroy();
       shadow.destroy();

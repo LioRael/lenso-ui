@@ -5,9 +5,9 @@ import { chromium, webkit } from "playwright";
 const server = await createFirstPaintServer();
 
 function tabsGeometry() {
-  return [...document.querySelectorAll('[data-case] [data-slot="tabs-list"]')].map((list) => {
-    const tab = list.querySelector('[data-slot="tabs-tab"][data-active]');
-    const tint = list.querySelector('[data-slot="tabs-tint"]');
+  return [...document.querySelectorAll('[data-case] [data-lenso-slot="tabs-list"]')].map((list) => {
+    const tab = list.querySelector('[data-lenso-slot="tabs-tab"][data-active]');
+    const tint = list.querySelector('[data-lenso-slot="tabs-tint"]');
     const t = tab?.getBoundingClientRect(),
       i = tint.getBoundingClientRect();
     const inset =
@@ -33,7 +33,7 @@ function tabBarGeometry() {
   const group = document.querySelector('[data-case="tab-bar"] [data-tab-bar-group]');
   const current = group.querySelector("[data-current]");
   const ink = group.hasAttribute("data-indicator-ready")
-    ? group.querySelector('[data-slot="tab-bar-indicator"]')
+    ? group.querySelector('[data-lenso-slot="tab-bar-indicator"]')
     : current.querySelector("[data-tab-bar-fallback]");
   const t = current.getBoundingClientRect(),
     i = ink.getBoundingClientRect();
@@ -78,7 +78,7 @@ try {
         );
         assert.equal(
           await staticPage
-            .locator('[data-case="custom-height-padding"] [data-slot="tabs-indicator"]')
+            .locator('[data-case="custom-height-padding"] [data-lenso-slot="tabs-indicator"]')
             .evaluate((node) => getComputedStyle(node).backgroundColor),
           "rgb(90, 40, 180)",
         );
@@ -113,9 +113,9 @@ try {
           window.sampleSlider = true;
           function sample() {
             const control = document.querySelector(
-              '[data-case="slider"] [data-slot="slider-control"]',
+              '[data-case="slider"] [data-lenso-slot="slider-control"]',
             );
-            const thumb = control?.querySelector('[data-slot="slider-thumb"]');
+            const thumb = control?.querySelector('[data-lenso-slot="slider-thumb"]');
             if (
               thumb &&
               getComputedStyle(thumb).visibility !== "hidden" &&
@@ -136,7 +136,9 @@ try {
         });
         await page.goto(`${base}__first-paint?theme=${theme}`, { waitUntil: "commit" });
         await page.waitForFunction(() => {
-          const thumb = document.querySelector('[data-case="slider"] [data-slot="slider-thumb"]');
+          const thumb = document.querySelector(
+            '[data-case="slider"] [data-lenso-slot="slider-thumb"]',
+          );
           return thumb && getComputedStyle(thumb).visibility !== "hidden";
         });
         const preHydrationBoxes = await page.evaluate(boxes);
@@ -144,7 +146,7 @@ try {
         releaseClient();
         await page.waitForFunction(() =>
           document
-            .querySelector('[data-case="custom-height-padding"] [data-slot="tabs-list"]')
+            .querySelector('[data-case="custom-height-padding"] [data-lenso-slot="tabs-list"]')
             .hasAttribute("data-ready"),
         );
         await page.waitForTimeout(500);

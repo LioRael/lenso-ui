@@ -25,7 +25,9 @@ export const swipeActionsStyles = stylex.create({
     minHeight: 52,
     minWidth: 0,
     backgroundColor: "var(--lenso-list-surface, var(--lenso-background-grouped-secondary))",
-    ":has(> [data-slot='swipe-actions-body'] > [data-slot='list-row'])": { paddingInline: 0 },
+    ":has(> [data-lenso-slot='swipe-actions-body'] > [data-lenso-slot='list-row'])": {
+      paddingInline: 0,
+    },
     touchAction: "pan-y",
     userSelect: {
       default: "none",
@@ -39,12 +41,15 @@ export const swipeActionsStyles = stylex.create({
       default: "none",
       ":has(input:focus, textarea:focus, [contenteditable]:focus)": "default",
     },
+    transform: "translateX(var(--swipe-x, 0px))",
     transitionProperty: "transform",
-    transitionDuration: { default: "180ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
+    transitionDuration: {
+      default: "180ms",
+      "[data-swiping]": "0ms",
+      "@media (prefers-reduced-motion: reduce)": "0ms",
+    },
     transitionTimingFunction: tokens.motionEaseOut,
   },
-  offset: (value: number) => ({ transform: `translateX(${value}px)` }),
-  dragging: { transitionDuration: "0ms", userSelect: "none" },
   body: { flexGrow: 1, minWidth: 0 },
   actions: {
     position: "absolute",
@@ -54,11 +59,14 @@ export const swipeActionsStyles = stylex.create({
     paddingInline: 10,
     display: "flex",
     alignItems: "stretch",
-    visibility: "hidden",
+    visibility: {
+      default: "hidden",
+      ":is([data-swipe='start'] > [data-side='start'], [data-swipe='end'] > [data-side='end'])":
+        "visible",
+    },
   },
   start: { insetInlineStart: 0 },
   end: { insetInlineEnd: 0 },
-  visible: { visibility: "visible" },
   action: {
     display: "flex",
     flexDirection: "column",

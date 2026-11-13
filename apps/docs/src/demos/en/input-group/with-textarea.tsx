@@ -54,61 +54,45 @@ export function WithTextArea() {
           onChange={(event) => setValue(event.target.value)}
         />
         <InputGroup.Suffix xstyle={styles.suffix}>
-          <Tooltip>
+          <Tooltip delay={0}>
             <Tooltip.Trigger
-              delay={0}
               render={
                 <GlassButton isIconOnly aria-label="Attach file" size="sm" variant="default" />
               }
             >
               <Plus aria-hidden="true" />
             </Tooltip.Trigger>
-            <Tooltip.Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Popup>
-                  <p {...stylex.props(styles.hint)}>Add a files and more</p>
-                </Tooltip.Popup>
-              </Tooltip.Positioner>
-            </Tooltip.Portal>
+            <Tooltip.Content>
+              <p {...stylex.props(styles.hint)}>Add a files and more</p>
+            </Tooltip.Content>
           </Tooltip>
-          <Tooltip>
+          <Tooltip delay={0}>
             <Tooltip.Trigger
-              delay={0}
               render={
                 <GlassButton isIconOnly aria-label="Connect Apps" size="sm" variant="default" />
               }
             >
               <PlugConnection aria-hidden="true" />
             </Tooltip.Trigger>
-            <Tooltip.Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Popup>
-                  <p {...stylex.props(styles.hint)}>Connect apps</p>
-                </Tooltip.Popup>
-              </Tooltip.Positioner>
-            </Tooltip.Portal>
+            <Tooltip.Content>
+              <p {...stylex.props(styles.hint)}>Connect apps</p>
+            </Tooltip.Content>
           </Tooltip>
           <div {...stylex.props(styles.actions)}>
-            <Tooltip>
+            <Tooltip delay={0}>
               <Tooltip.Trigger
-                delay={0}
                 render={
                   <Button isIconOnly aria-label="Voice input" size="sm" variant="borderless" />
                 }
               >
                 <Microphone aria-hidden="true" />
               </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <Tooltip.Positioner>
-                  <Tooltip.Popup>
-                    <p {...stylex.props(styles.hint)}>Voice input</p>
-                  </Tooltip.Popup>
-                </Tooltip.Positioner>
-              </Tooltip.Portal>
+              <Tooltip.Content>
+                <p {...stylex.props(styles.hint)}>Voice input</p>
+              </Tooltip.Content>
             </Tooltip>
-            <Tooltip>
+            <Tooltip delay={0}>
               <Tooltip.Trigger
-                delay={0}
                 render={
                   <Button
                     isIconOnly
@@ -125,16 +109,12 @@ export function WithTextArea() {
                   <ArrowUp aria-hidden="true" />
                 )}
               </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <Tooltip.Positioner>
-                  <Tooltip.Popup xstyle={styles.tooltip}>
-                    <p {...stylex.props(styles.hint)}>Send</p>
-                    <Kbd xstyle={styles.key}>
-                      <Kbd.Abbr keyValue="enter" />
-                    </Kbd>
-                  </Tooltip.Popup>
-                </Tooltip.Positioner>
-              </Tooltip.Portal>
+              <Tooltip.Content xstyle={styles.tooltip}>
+                <p {...stylex.props(styles.hint)}>Send</p>
+                <Kbd xstyle={styles.key}>
+                  <Kbd.Abbr keyValue="enter" />
+                </Kbd>
+              </Tooltip.Content>
             </Tooltip>
           </div>
         </InputGroup.Suffix>

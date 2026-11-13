@@ -1,29 +1,29 @@
 "use client";
 
-import { NativeButton as BaseButton } from "../../utils/native-button.js";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { NativeButton as SdkButton } from "../../utils/native-button.js";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import { popupButtonStyles } from "@lenso/tokens/popup-button";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentPropsWithRef } from "react";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 
-export type PopupButtonProps = StyleXProps<ComponentPropsWithRef<typeof BaseButton>> & {
-  "data-slot"?: unknown;
+export type PopupButtonProps = StyleXProps<ComponentPropsWithRef<typeof SdkButton>> & {
+  "data-lenso-slot"?: unknown;
 };
 
 export function PopupButton({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: PopupButtonProps) {
   const compiled = stylex.props(popupButtonStyles.root, xstyle);
   return (
-    <BaseButton
+    <SdkButton
       {...mergeProps(compiled, props)}
       style={mergeStyle<import("@ui-sdk/react/button").ButtonState>(compiled.style, style)}
-      data-slot={slot ?? "popup-button"}
+      data-lenso-slot={slot ?? "popup-button"}
       data-popup-button=""
     >
       {(state) => (
@@ -31,7 +31,7 @@ export function PopupButton({
           {typeof children === "function" ? children(state) : children}
           <span
             aria-hidden="true"
-            data-slot="popup-button-indicator"
+            data-lenso-slot="popup-button-indicator"
             {...stylex.props(popupButtonStyles.indicator)}
           >
             <svg width="14" height="18" viewBox="0 0 16 16" fill="none">
@@ -46,6 +46,6 @@ export function PopupButton({
           </span>
         </>
       )}
-    </BaseButton>
+    </SdkButton>
   );
 }

@@ -21,7 +21,11 @@ export function Controlled() {
   const [isSelected, setIsSelected] = useState(true);
   return (
     <div {...stylex.props(styles.root)}>
-      <Checkbox id="email-notifications" checked={isSelected} onCheckedChange={setIsSelected}>
+      <Checkbox
+        id="email-notifications"
+        checked={isSelected}
+        onCheckedChange={(checked) => setIsSelected(checked === true)}
+      >
         <Checkbox.Content>
           <Checkbox.Control>
             <Checkbox.Indicator />

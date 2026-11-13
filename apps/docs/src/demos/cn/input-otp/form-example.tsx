@@ -1,4 +1,5 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 
 import {
   Button,
@@ -15,6 +16,7 @@ import { useState, type FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Slots, styles } from "../../en/input-otp/parts";
 export function FormExample() {
+  const log = usePlaygroundLog();
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,7 +31,7 @@ export function FormExample() {
     setIsSubmitting(true);
     setTimeout(() => {
       if (value === "123456") {
-        console.log("Code verified successfully!");
+        log("Code verified successfully!");
         setValue("");
       } else setError("Invalid code. Please try again.");
       setIsSubmitting(false);
@@ -41,7 +43,7 @@ export function FormExample() {
         <Label>双重身份验证</Label>
         <Description>请输入身份验证器应用中的 6 位验证码</Description>
         <InputOTP
-          length={6}
+          maxLength={6}
           name="code"
           value={value}
           onValueChange={(next) => {

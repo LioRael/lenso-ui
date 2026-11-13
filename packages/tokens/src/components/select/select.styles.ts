@@ -53,8 +53,8 @@ export const selectStyles = stylex.create({
     outline: {
       default: "none",
       ":focus-visible": "1.5px solid var(--lenso-focus-ring)",
-      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *)": "none",
-      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *):focus-visible": "none",
+      ":is([data-field-grouped] *, [data-lenso-slot='fieldset-row'] *)": "none",
+      ":is([data-field-grouped] *, [data-lenso-slot='fieldset-row'] *):focus-visible": "none",
     },
     outlineOffset: 2,
     boxShadow: {

@@ -33,97 +33,93 @@ export function ShareSheetStory({ dim }: ShareSheetStoryProps) {
   return (
     <ShareSheet dim={dim}>
       <ShareSheet.Trigger render={<Button />}>Share photo</ShareSheet.Trigger>
-      <ShareSheet.Portal>
-        <ShareSheet.Backdrop />
-        <ShareSheet.Viewport>
-          <ShareSheet.Popup>
-            <ShareSheet.Handle />
-            <ShareSheet.Header>
-              <ShareSheet.Thumbnail>
-                <img
-                  src="/assets/demo/illustrations/landscape.svg"
-                  alt=""
-                  {...stylex.props(styles.image)}
-                />
-              </ShareSheet.Thumbnail>
-              <ShareSheet.Metadata>
-                <ShareSheet.Title>Mountain sunrise</ShareSheet.Title>
-                <ShareSheet.Description>1 photo</ShareSheet.Description>
-              </ShareSheet.Metadata>
-              <ShareSheet.Close />
-            </ShareSheet.Header>
-            <ShareSheet.Body>
-              <ShareSheet.Targets aria-label="Contacts">
-                {["Alex", "Sam", "Morgan", "Taylor", "Robin"].map((name) => (
-                  <ShareSheet.Target
-                    key={name}
-                    onClick={() => setResult(`${name} selected — demo only`)}
-                  >
-                    <ShareSheet.TargetIcon contact>
-                      <Avatar xstyle={styles.avatar}>
-                        <Avatar.Fallback>{name[0]}</Avatar.Fallback>
-                      </Avatar>
-                    </ShareSheet.TargetIcon>
-                    {name}
-                  </ShareSheet.Target>
-                ))}
-              </ShareSheet.Targets>
-              <ShareSheet.Targets aria-label="Apps">
-                {[
-                  { name: "Messages", Icon: Comment },
-                  { name: "Mail", Icon: Envelope },
-                  { name: "Notes", Icon: FileText },
-                  { name: "More", Icon: Ellipsis },
-                ].map(({ name, Icon }) => (
-                  <ShareSheet.Target
-                    key={name}
-                    onClick={() => setResult(`${name} selected — demo only`)}
-                  >
-                    <ShareSheet.TargetIcon>
-                      <Icon width={30} height={30} aria-hidden="true" />
-                    </ShareSheet.TargetIcon>
-                    {name}
-                  </ShareSheet.Target>
-                ))}
-              </ShareSheet.Targets>
-              <ShareSheet.Targets aria-label="Quick actions">
-                {photoActions.map(({ name, Icon }) => (
-                  <ShareSheet.Target key={name} onClick={() => setResult(`${name} — demo only`)}>
-                    <ShareSheet.TargetIcon xstyle={styles.circularIcon}>
-                      <Icon width={30} height={30} aria-hidden="true" />
-                    </ShareSheet.TargetIcon>
-                    {name}
-                  </ShareSheet.Target>
-                ))}
-              </ShareSheet.Targets>
-              {[
-                { label: "Photo actions", actions: photoActions },
-                {
-                  label: "Editing and printing",
-                  actions: [
-                    { name: "Markup", Icon: Pencil },
-                    { name: "Print", Icon: Printer },
-                  ],
-                },
-              ].map(({ label, actions }) => (
-                <ShareSheet.ActionGroup key={label} aria-label={label}>
-                  {actions.map(({ name, Icon }) => (
-                    <ShareSheet.Action key={name} onClick={() => setResult(`${name} — demo only`)}>
-                      <List.Leading>
-                        <Icon width={32} height={22} aria-hidden="true" />
-                      </List.Leading>
-                      <List.Content>
-                        <List.Title>{name}</List.Title>
-                      </List.Content>
-                    </ShareSheet.Action>
-                  ))}
-                </ShareSheet.ActionGroup>
+      <ShareSheet.Backdrop />
+      <ShareSheet.Content>
+        <ShareSheet.Handle />
+        <ShareSheet.Header>
+          <ShareSheet.Thumbnail>
+            <img
+              src="/assets/demo/illustrations/landscape.svg"
+              alt=""
+              {...stylex.props(styles.image)}
+            />
+          </ShareSheet.Thumbnail>
+          <ShareSheet.Metadata>
+            <ShareSheet.Title>Mountain sunrise</ShareSheet.Title>
+            <ShareSheet.Description>1 photo</ShareSheet.Description>
+          </ShareSheet.Metadata>
+          <ShareSheet.Close />
+        </ShareSheet.Header>
+        <ShareSheet.Body>
+          <ShareSheet.Targets aria-label="Contacts">
+            {["Alex", "Sam", "Morgan", "Taylor", "Robin"].map((name) => (
+              <ShareSheet.Target
+                key={name}
+                onClick={() => setResult(`${name} selected — demo only`)}
+              >
+                <ShareSheet.TargetIcon contact>
+                  <Avatar xstyle={styles.avatar}>
+                    <Avatar.Fallback>{name[0]}</Avatar.Fallback>
+                  </Avatar>
+                </ShareSheet.TargetIcon>
+                {name}
+              </ShareSheet.Target>
+            ))}
+          </ShareSheet.Targets>
+          <ShareSheet.Targets aria-label="Apps">
+            {[
+              { name: "Messages", Icon: Comment },
+              { name: "Mail", Icon: Envelope },
+              { name: "Notes", Icon: FileText },
+              { name: "More", Icon: Ellipsis },
+            ].map(({ name, Icon }) => (
+              <ShareSheet.Target
+                key={name}
+                onClick={() => setResult(`${name} selected — demo only`)}
+              >
+                <ShareSheet.TargetIcon>
+                  <Icon width={30} height={30} aria-hidden="true" />
+                </ShareSheet.TargetIcon>
+                {name}
+              </ShareSheet.Target>
+            ))}
+          </ShareSheet.Targets>
+          <ShareSheet.Targets aria-label="Quick actions">
+            {photoActions.map(({ name, Icon }) => (
+              <ShareSheet.Target key={name} onClick={() => setResult(`${name} — demo only`)}>
+                <ShareSheet.TargetIcon xstyle={styles.circularIcon}>
+                  <Icon width={30} height={30} aria-hidden="true" />
+                </ShareSheet.TargetIcon>
+                {name}
+              </ShareSheet.Target>
+            ))}
+          </ShareSheet.Targets>
+          {[
+            { label: "Photo actions", actions: photoActions },
+            {
+              label: "Editing and printing",
+              actions: [
+                { name: "Markup", Icon: Pencil },
+                { name: "Print", Icon: Printer },
+              ],
+            },
+          ].map(({ label, actions }) => (
+            <ShareSheet.ActionGroup key={label} aria-label={label}>
+              {actions.map(({ name, Icon }) => (
+                <ShareSheet.Action key={name} onClick={() => setResult(`${name} — demo only`)}>
+                  <List.Leading>
+                    <Icon width={32} height={22} aria-hidden="true" />
+                  </List.Leading>
+                  <List.Content>
+                    <List.Title>{name}</List.Title>
+                  </List.Content>
+                </ShareSheet.Action>
               ))}
-              <output {...stylex.props(styles.status)}>{result}</output>
-            </ShareSheet.Body>
-          </ShareSheet.Popup>
-        </ShareSheet.Viewport>
-      </ShareSheet.Portal>
+            </ShareSheet.ActionGroup>
+          ))}
+          <output {...stylex.props(styles.status)}>{result}</output>
+        </ShareSheet.Body>
+      </ShareSheet.Content>
     </ShareSheet>
   );
 }

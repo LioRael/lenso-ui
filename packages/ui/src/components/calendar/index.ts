@@ -59,3 +59,9 @@ export const Calendar = Object.assign(CalendarRoot, {
   YearPickerGridBody: CalendarYearPicker.GridBody,
   YearPickerCell: CalendarYearPicker.Cell,
 });
+
+export { createModelController as createCalendarController } from "@lenso/primitives/model-control";
+export type {
+  ModelController as CalendarController,
+  ModelChangeReason as CalendarChangeReason,
+} from "@lenso/primitives/model-control";

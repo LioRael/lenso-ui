@@ -16,16 +16,16 @@ export function Example() {
   return (
     <Modal.Root>
       <Modal.Trigger>打开对话框</Modal.Trigger>
-      <Modal.Portal>
+
         <Modal.Backdrop />
-        <Modal.Viewport>
-          <Modal.Popup>
+
+          <Modal.Content>
             <Modal.Title>账户设置</Modal.Title>
             <Modal.Description>管理账户偏好。</Modal.Description>
             <Modal.Close>关闭</Modal.Close>
-          </Modal.Popup>
-        </Modal.Viewport>
-      </Modal.Portal>
+          </Modal.Content>
+
+
     </Modal.Root>
   );
 }
@@ -35,11 +35,11 @@ export function Example() {
 
 ## 交互边界
 
-Base UI 管理普通原生控件、导航和覆盖层。Lenso 使用组件专属 StyleX 映射组合具体原生部件，不通过通用兼容包装将所有系列转换成另一套 API。
+UI SDK 管理普通原生控件、导航和覆盖层。Lenso 使用组件专属 StyleX 映射组合具体原生部件，不通过通用兼容包装将所有系列转换成另一套 API。
 
 ListBox、TagGroup 和 Table 使用 Lenso 本地集合模型：稳定 key、Set 选择、项目注册和集合焦点管理。它们不是 React Aria 集合包装。应阅读本地签名，不假设它们采用 Menu、Select 或其他库的集合契约。
 
-React Aria Components 管理日期、时间和颜色模型，以及依赖这些上下文的辅助部件。日期分段、日历网格或颜色输入区域不能仅因外观相似就放入不相关的 Base UI 字段。
+React Aria Components 管理日期、时间和颜色模型，以及依赖这些上下文的辅助部件。日期分段、日历网格或颜色输入区域不能仅因外观相似就放入不相关的 UI SDK 字段。
 
 原生 HTML 管理非交互结构。卡片、文本表面和布局区域不会仅因添加样式就获得键盘行为。
 

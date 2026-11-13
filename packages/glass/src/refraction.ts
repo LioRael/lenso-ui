@@ -1,7 +1,7 @@
 /**
  * Adapted optical renderer.
  * Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT
- * Modified: reference-counted lifetime, Base UI/StyleX composition and opt-in Apple optics.
+ * Modified: reference-counted lifetime, UI SDK/StyleX composition and opt-in Apple optics.
  */
 import { appendAppleMaterial } from "./apple-material.js";
 import { foregroundRim, foregroundRimShadow, hasForegroundRim } from "./foreground-rim.js";
@@ -23,6 +23,7 @@ import { whenNearViewport } from "./initial-visibility.js";
 import { createResizableFilter } from "./resizable-filter.js";
 import { afterGeometrySettles } from "./settled-geometry.js";
 import { createLiveRim } from "./live-rim.js";
+import { createNativeEditorRim } from "./native-editor-rim.js";
 import { splitFilter } from "./filter-split.js";
 
 // Refraction model: https://kube.io/blog/liquid-glass-css-svg/
@@ -608,11 +609,12 @@ export function createMaterialLens(shape: Shape, shade?: string) {
   };
 }
 
-export function readLens(element: HTMLElement) {
-  const width = element.offsetWidth;
-  const height = element.offsetHeight;
+export function readLens(
+  element: HTMLElement,
+  style = getComputedStyle(element),
+  { width, height } = { width: element.offsetWidth, height: element.offsetHeight },
+) {
   if (!width || !height) return;
-  const style = getComputedStyle(element);
   // A composited morph may counter-scale CSS corners without resizing its
   // optical input. Keep the cached map tied to the input geometry.
   const corner = style.getPropertyValue("--lg-map-radius").trim() || style.borderTopLeftRadius;
@@ -650,6 +652,10 @@ export function readLens(element: HTMLElement) {
         : undefined,
     materialSize: clamp(length("--lg-material-size") ?? (Math.min(width, height) - 60) / 60, 0, 1),
     materialClarity: length("--lenso-glass-clarity") ?? 0,
+    materialRim:
+      style.getPropertyValue("--lenso-glass-rim").trim() === "classic"
+        ? ("classic" as const)
+        : undefined,
     materialProfile: (style.getPropertyValue("--apple-material-profile").trim() || "small") as
       | "small"
       | "medium"
@@ -673,7 +679,32 @@ export function createGlassContour(surface: HTMLElement) {
   let rim: ReturnType<typeof createLiveRim> | undefined;
   let geometry: ReturnType<typeof readLens>;
   let stop: (() => void) | undefined;
+  let opaque = false;
+  let presentation:
+    | { width: number; height: number; radius: number; layout: { width: number; height: number } }
+    | undefined;
   const clear = () => rim?.destroy();
+  const paint = () => {
+    if (!element || !presentation) return;
+    if (opaque) {
+      clear();
+      return;
+    }
+    geometry ??= readLens(element);
+    if (geometry) {
+      const { width, height, radius, layout } = presentation;
+      rim!.paint(width, height, radius, geometry.shape, layout);
+    }
+  };
+  const resize = new ResizeObserver(() => {
+    if (!element || !presentation || !surface.hasAttribute("data-material-resting")) return;
+    geometry = readLens(element);
+    if (!geometry) return;
+    const { width, height, radius } = geometry;
+    presentation = { width, height, radius, layout: { width, height } };
+    paint();
+  });
+  resize.observe(surface);
   return {
     paint(
       width: number,
@@ -685,23 +716,32 @@ export function createGlassContour(surface: HTMLElement) {
       if (current !== element) {
         clear();
         stop?.();
+        element?.removeAttribute("data-material-contour");
         element = current;
+        element?.setAttribute("data-material-contour", "");
         geometry = undefined;
         rim = element ? createLiveRim(element) : undefined;
         stop = element
           ? observeGlassPreferences(element, () => {
+              if (element) opaque = glassIsOpaque(element);
               geometry = undefined;
+              paint();
             })
           : undefined;
       }
       if (!element) return;
-      geometry ??= readLens(element);
-      if (geometry) rim!.paint(width, height, radius, geometry.shape, layout);
+      presentation = { width, height, radius, layout };
+      paint();
     },
-    clear,
+    clear() {
+      presentation = undefined;
+      clear();
+    },
     destroy() {
+      resize.disconnect();
       clear();
       stop?.();
+      element?.removeAttribute("data-material-contour");
     },
   };
 }
@@ -791,20 +831,31 @@ function refract(
   let resized: ReturnType<typeof createResizableFilter> | undefined;
   let fittedSize = "";
   let fittedAppearance = "";
+  let rimGeometry = "";
+  let movingRim = liveGeometry;
+  let editorRim: ReturnType<typeof createNativeEditorRim> | undefined;
   const liveRim = !selection ? createLiveRim(element) : undefined;
   const paintRim = () => {
     if (!liveRim || !nearViewport) return;
+    if (element.matches("input, textarea")) {
+      editorRim ??= createNativeEditorRim(element, (style, size) => readLens(element, style, size));
+      editorRim.invalidate();
+      return;
+    }
+    if (element.matches("select, [data-material-contour]")) return;
     const pressed = element.matches("[data-lenso-light-pressed], [data-lenso-key-pressed]");
-    if ((!liveGeometry && !pressed) || element.hasAttribute("data-lenso-glass-fused")) {
+    const geometry = readLens(element);
+    if (!geometry) return;
+    const next = `${geometry.width}:${geometry.height}:${geometry.radius}`;
+    if (rimGeometry && next !== rimGeometry) movingRim = true;
+    rimGeometry = next;
+    if ((!movingRim && !pressed) || element.hasAttribute("data-lenso-glass-fused")) {
       liveRim.destroy();
       return;
     }
-    const geometry = readLens(element);
-    if (geometry) {
-      // Brighten only the foreground; pressing must not invalidate backdrop optics or tone.
-      if (pressed) geometry.shape.materialClarity = 1;
-      liveRim.paint(geometry.width, geometry.height, geometry.radius, geometry.shape);
-    }
+    // Brighten only the foreground; pressing must not invalidate backdrop optics or tone.
+    if (pressed) geometry.shape.materialClarity = 1;
+    liveRim.paint(geometry.width, geometry.height, geometry.radius, geometry.shape);
   };
   const pressedRim = !selection ? new MutationObserver(paintRim) : undefined;
   pressedRim?.observe(element, {
@@ -857,6 +908,7 @@ function refract(
     const next = JSON.stringify([
       shape.appleMode,
       shape.materialProfile,
+      shape.materialRim,
       shape.materialTint,
       shape.materialSize,
       shape.materialClarity,
@@ -890,7 +942,7 @@ function refract(
     }
     cancel?.();
     if (frame !== undefined) cancelAnimationFrame(frame);
-    if (liveGeometry && fitted && radiusTransitions.size) return;
+    if (fitted && radiusTransitions.size) return;
     const version = ++generation;
     const current = () => !disposed && generation === version;
     const run = () => {
@@ -927,6 +979,9 @@ function refract(
     else if (liveGeometry && fitted) cancel = afterGeometrySettles(run);
     else frame = requestAnimationFrame(run);
   };
+  // Popup material must exist before its first paint; optical maps still wait
+  // for visibility. Hidden native popups acquire size in the resize callback.
+  if (liveGeometry || element.hasAttribute("data-material-lens")) refreshMaterial();
   const stopWaiting = whenNearViewport(element, () => {
     nearViewport = true;
     paintRim();
@@ -936,6 +991,7 @@ function refract(
   const observer = new ResizeObserver(() => {
     // Layout changes before paint; never show a narrow filter region on a wider surface.
     // Live geometry keeps its material transfer while exact optics wait for rest.
+    refreshMaterial();
     paintRim();
     resizeFitted();
     schedule(!liveGeometry, liveGeometry);
@@ -967,11 +1023,9 @@ function refract(
     radiusTransitions.delete(event.propertyName);
     schedule(false);
   };
-  if (liveGeometry) {
-    surface?.addEventListener("transitionrun", radiusStart);
-    surface?.addEventListener("transitionend", radiusEnd);
-    surface?.addEventListener("transitioncancel", radiusEnd);
-  }
+  surface?.addEventListener("transitionrun", radiusStart);
+  surface?.addEventListener("transitionend", radiusEnd);
+  surface?.addEventListener("transitioncancel", radiusEnd);
   // A theme change invalidates an in-flight encode before it can paint stale pixels.
   const themes =
     getComputedStyle(element).getPropertyValue("--lg-material").trim() === "apple"
@@ -995,6 +1049,7 @@ function refract(
     if (frame !== undefined) cancelAnimationFrame(frame);
     if (rimFrame !== undefined) cancelAnimationFrame(rimFrame);
     liveRim?.destroy();
+    editorRim?.destroy();
     cancel?.();
     observer.disconnect();
     surface?.removeEventListener("transitionrun", radiusStart);

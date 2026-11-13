@@ -117,7 +117,7 @@ test("emits only authored page targets with locale resolution, export selection 
     JSON.stringify({ families: { field: { parts: [] }, button: { parts: [] } }, properties: [] }),
   );
   const outputs = await generatePageDocuments(directory);
-  assert.equal(outputs.length, 9, "preview-free pages need only one component module");
+  assert.equal(outputs.length, 7, "preview-free pages need only one component module");
   const read = (file: string) =>
     readFile(path.join(directory, "src/generated/documents", file), "utf8");
   const enClient = inspect(await read("en/react/components/field.examples.tsx"));
@@ -154,8 +154,8 @@ test("emits only authored page targets with locale resolution, export selection 
   assert.ok(!prose.includes("native-api-reference"), "ordinary prose must not load API tables");
   assert.ok(!prose.includes("color-section"), "ordinary prose must not load color controls");
   assert.ok(
-    (await read("en/react/components/field.tsx")).includes("native-api-reference"),
-    "component pages need the API renderer inserted by the heading transform",
+    !(await read("en/react/components/field.tsx")).includes("native-api-reference"),
+    "compact component pages must not import API tables implicitly",
   );
   const clientCode = await read("cn/react/components/field.examples.tsx");
   assert.ok(clientCode.includes('"data-example-mounted"'));
@@ -166,6 +166,21 @@ test("emits only authored page targets with locale resolution, export selection 
   const before = await stat(path.join(directory, outputs[0]));
   await generatePageDocuments(directory);
   assert.equal((await stat(path.join(directory, outputs[0]))).mtimeMs, before.mtimeMs);
+  await put(
+    "src/generated/lenso-docs-index.json",
+    JSON.stringify({
+      pages: pages.map((page) =>
+        page.locale === "en" && page.slug === "react/components/field"
+          ? { ...page, examples: [{ name: "unrelated", file: "en/field/unrelated.tsx" }] }
+          : page,
+      ),
+    }),
+  );
+  await generatePageDocuments(directory);
+  const gallery = await read("en/react/components/field.tsx");
+  assert.ok(gallery.includes('id: "unrelated"'));
+  assert.ok(gallery.includes('Preview: demos["unrelated"]'));
+  assert.ok((await read("en/react/components/field.examples.tsx")).includes("en/field/unrelated"));
   await put("content/field-en.mdx", "# Now prose only");
   await put("src/generated/documents/en/stale.tsx", "// obsolete");
   await put("src/generated/outside.tsx", "// not owned");

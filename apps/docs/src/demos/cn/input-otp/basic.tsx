@@ -10,7 +10,7 @@ export function Basic() {
         <Label>验证码</Label>
         <p {...stylex.props(styles.muted)}>输入六位验证码以继续。</p>
       </div>
-      <InputOTP length={6} name="code">
+      <InputOTP maxLength={6} name="code">
         <Slots />
       </InputOTP>
     </TextField>

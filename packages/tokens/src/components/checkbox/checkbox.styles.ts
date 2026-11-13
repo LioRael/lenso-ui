@@ -1,6 +1,6 @@
 /**
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
- * Modified: StyleX styles and Base UI state selectors.
+ * Modified: StyleX styles and UI SDK state selectors.
  */
 import * as stylex from "@stylexjs/stylex";
 import { focusRing } from "../../focus-ring.stylex.const.js";
@@ -42,25 +42,26 @@ export const checkboxStyles = stylex.create({
     borderColor: {
       default: tokens.controlFieldBorder,
 
-      ":is([data-slot='checkbox'][data-checked] *)": "transparent",
-      ":is([data-slot='checkbox'][data-indeterminate] *)": "transparent",
-      ":is([data-slot='checkbox'][data-invalid] *)": tokens.statusErrorBorder,
+      ":is([data-lenso-slot='checkbox'][data-checked] *)": "transparent",
+      ":is([data-lenso-slot='checkbox'][data-indeterminate] *)": "transparent",
+      ":is([data-lenso-slot='checkbox'][data-invalid] *)": tokens.statusErrorBorder,
     },
     backgroundColor: {
       default: tokens.controlFieldFill,
-      ":is([data-slot='checkbox'][data-indeterminate] *)": tokens.tint,
-      ":is([data-slot='checkbox'][data-invalid][data-checked] *)": tokens.statusErrorIndicator,
-      ":is([data-slot='checkbox'][data-invalid][data-indeterminate] *)":
+      ":is([data-lenso-slot='checkbox'][data-indeterminate] *)": tokens.tint,
+      ":is([data-lenso-slot='checkbox'][data-invalid][data-checked] *)":
+        tokens.statusErrorIndicator,
+      ":is([data-lenso-slot='checkbox'][data-invalid][data-indeterminate] *)":
         tokens.statusErrorIndicator,
     },
     color: {
       default: tokens.labelOnTint,
-      ":is([data-slot='checkbox'][data-invalid] *)": tokens.statusErrorOnFill,
+      ":is([data-lenso-slot='checkbox'][data-invalid] *)": tokens.statusErrorOnFill,
     },
     "--lenso-focus-elevation": tokens.fieldShadow,
     boxShadow: {
       default: focusRing.elevation,
-      ":is([data-slot='checkbox']:focus-visible *)": focusRing.outerElevated,
+      ":is([data-lenso-slot='checkbox']:focus-visible *)": focusRing.outerElevated,
     },
     "::after": {
       content: '""',
@@ -73,10 +74,11 @@ export const checkboxStyles = stylex.create({
         default: "transparent",
         "@media (hover: hover) and (pointer: fine)": {
           default: null,
-          ":is([data-slot='checkbox']:hover:not(:focus):not([data-disabled]) *)":
+          ":is([data-lenso-slot='checkbox']:hover:not(:focus):not([data-disabled]) *)":
             "var(--lenso-fill-secondary)",
         },
-        ":is([data-slot='checkbox']:focus:not([data-disabled]) *)": "var(--lenso-fill-primary)",
+        ":is([data-lenso-slot='checkbox']:focus:not([data-disabled]) *)":
+          "var(--lenso-fill-primary)",
       },
     },
     outline: "none",
@@ -92,12 +94,12 @@ export const checkboxStyles = stylex.create({
       pointerEvents: "none",
       borderRadius: tokens.shapeContentMd,
       transformOrigin: "center",
-      scale: { default: ".7", ":is([data-slot='checkbox'][data-checked] *)": "1" },
-      opacity: { default: 0, ":is([data-slot='checkbox'][data-checked] *)": 1 },
+      scale: { default: ".7", ":is([data-lenso-slot='checkbox'][data-checked] *)": "1" },
+      opacity: { default: 0, ":is([data-lenso-slot='checkbox'][data-checked] *)": 1 },
       backgroundColor: {
         default: tokens.tint,
 
-        ":is([data-slot='checkbox'][data-invalid] *)": tokens.statusErrorIndicator,
+        ":is([data-lenso-slot='checkbox'][data-invalid] *)": tokens.statusErrorIndicator,
       },
       transition: {
         default: `scale 100ms linear, opacity 200ms linear, background-color 200ms ${tokens.motionEaseOut}`,
@@ -138,21 +140,31 @@ export const checkboxSupportingStyles = stylex.create({
   direct: {
     paddingInlineStart: {
       default: null,
-      ":is([data-slot='checkbox'] > *, [data-slot='switch'] > *)":
+      ":is([data-lenso-slot='checkbox'] > *, [data-lenso-slot='switch'] > *)":
         "var(--choice-supporting-indent)",
     },
-    width: { default: null, ":is([data-slot='checkbox'] > *, [data-slot='switch'] > *)": "100%" },
-    minWidth: { default: null, ":is([data-slot='checkbox'] > *, [data-slot='switch'] > *)": 0 },
-    cursor: { default: null, ":is([data-slot='checkbox'] > *, [data-slot='switch'] *)": "default" },
+    width: {
+      default: null,
+      ":is([data-lenso-slot='checkbox'] > *, [data-lenso-slot='switch'] > *)": "100%",
+    },
+    minWidth: {
+      default: null,
+      ":is([data-lenso-slot='checkbox'] > *, [data-lenso-slot='switch'] > *)": 0,
+    },
+    cursor: {
+      default: null,
+      ":is([data-lenso-slot='checkbox'] > *, [data-lenso-slot='switch'] *)": "default",
+    },
     userSelect: {
       default: null,
-      ":is([data-slot='checkbox'] > *, [data-slot='switch'] *)": "none",
+      ":is([data-lenso-slot='checkbox'] > *, [data-lenso-slot='switch'] *)": "none",
     },
   },
   error: {
     color: {
       default: tokens.statusErrorText,
-      ":is([data-slot='checkbox'] > *, [data-slot='switch'] > *)": tokens.labelSecondary,
+      ":is([data-lenso-slot='checkbox'] > *, [data-lenso-slot='switch'] > *)":
+        tokens.labelSecondary,
     },
   },
 });

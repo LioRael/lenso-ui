@@ -1,6 +1,7 @@
 "use client";
-// Modified: Base UI native value/onValueChange contract.
-import { CheckboxGroup as BaseCheckboxGroup } from "@base-ui/react/checkbox-group";
+// Modified: UI SDK native value/onValueChange contract.
+import { CheckboxGroup as SdkCheckboxGroup } from "@ui-sdk/react/checkbox";
+import { slotRender } from "../../utils/sdk-render.js";
 import { checkboxGroupStyles } from "@lenso/tokens/checkbox-group";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import type * as React from "react";
@@ -8,10 +9,10 @@ import * as stylex from "@stylexjs/stylex";
 import { CheckboxVariantContext, type CheckboxVariant } from "../checkbox/checkbox.js";
 
 export type CheckboxGroupRootProps = StyleXProps<
-  Omit<BaseCheckboxGroup.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseCheckboxGroup>["ref"];
+  Omit<React.ComponentProps<typeof SdkCheckboxGroup>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkCheckboxGroup>["ref"];
   }
-> & { "data-slot"?: unknown; variant?: CheckboxVariant };
+> & { "data-lenso-slot"?: unknown; variant?: CheckboxVariant };
 export function CheckboxGroupRoot({
   variant = "primary",
   xstyle,
@@ -21,11 +22,11 @@ export function CheckboxGroupRoot({
   const compiled = stylex.props(checkboxGroupStyles.root, xstyle);
   return (
     <CheckboxVariantContext value={variant}>
-      <BaseCheckboxGroup
+      <SdkCheckboxGroup
         {...props}
         {...compiled}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "checkbox-group"}
+        render={slotRender("div", props["data-lenso-slot"] ?? "checkbox-group", props.render)}
       />
     </CheckboxVariantContext>
   );

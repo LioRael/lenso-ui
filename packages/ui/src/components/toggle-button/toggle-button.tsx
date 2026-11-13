@@ -1,6 +1,6 @@
 "use client";
 
-import { Toggle as BaseToggle } from "@ui-sdk/react/toggle";
+import { Toggle as SdkToggle } from "@ui-sdk/react/toggle";
 import { mergeProps } from "@ui-sdk/react/primitive";
 import { useContext, type ComponentProps, type ReactNode } from "react";
 import {
@@ -22,7 +22,7 @@ import {
   type ButtonVariant,
 } from "../button/button.js";
 
-export type ToggleButtonRootProps = StyleXProps<ComponentProps<typeof BaseToggle>> & {
+export type ToggleButtonRootProps = StyleXProps<ComponentProps<typeof SdkToggle>> & {
   size?: ButtonSize;
   variant?: ButtonVariant | "default" | "ghost";
   isIconOnly?: boolean;
@@ -73,13 +73,13 @@ export function ToggleButtonRoot({
   );
   return (
     <ButtonSizeContext value={size}>
-      <BaseToggle
+      <SdkToggle
         {...mergeProps(compiled, props)}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "toggle-button"}
+        data-lenso-slot={props["data-lenso-slot"] ?? "toggle-button"}
         render={slotRender(
           "button",
-          props["data-slot"] ?? "toggle-button",
+          props["data-lenso-slot"] ?? "toggle-button",
           props.render,
           group.disabled ? { disabled: true } : undefined,
         )}
@@ -93,7 +93,7 @@ export function ToggleButtonRoot({
             {typeof children === "function" ? children(state) : children}
           </>
         )}
-      </BaseToggle>
+      </SdkToggle>
     </ButtonSizeContext>
   );
 }

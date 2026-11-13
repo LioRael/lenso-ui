@@ -14,6 +14,7 @@ const POINTER: Feel = pointerPress;
 const TOUCH: Feel = touchPress;
 
 export interface PressOptions {
+  capture?: boolean;
   grow?: number;
   release?: readonly [number, number];
   touchRelease?: readonly [number, number];
@@ -91,9 +92,9 @@ export function press(
     const feel = pointer?.feel ?? POINTER;
     pointer = null;
     element.removeAttribute("data-lenso-pressed");
-    window.removeEventListener("pointermove", move);
-    window.removeEventListener("pointerup", end);
-    window.removeEventListener("pointercancel", end);
+    window.removeEventListener("pointermove", move, true);
+    window.removeEventListener("pointerup", end, true);
+    window.removeEventListener("pointercancel", end, true);
     target(
       [1, 1, 0, 0],
       (feel === TOUCH ? options.touchRelease : undefined) ?? options.release ?? feel.release,
@@ -136,9 +137,10 @@ export function press(
           event.target.isContentEditable),
     };
     element.setAttribute("data-lenso-pressed", "");
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", end);
-    window.addEventListener("pointercancel", end);
+    // Native parts may stop bubbling; their release still ends visual feedback.
+    window.addEventListener("pointermove", move, true);
+    window.addEventListener("pointerup", end, true);
+    window.addEventListener("pointercancel", end, true);
     track(event);
   };
   const reset = () => end();
@@ -148,7 +150,7 @@ export function press(
   const motionChanged = () => {
     if (motion.matches) target([1, 1, 0, 0], POINTER.release);
   };
-  element.addEventListener("pointerdown", down);
+  element.addEventListener("pointerdown", down, options.capture);
   element.addEventListener("lostpointercapture", end);
   document.addEventListener("visibilitychange", visibility);
   window.addEventListener("blur", reset);
@@ -158,7 +160,7 @@ export function press(
     springs.forEach((spring) => spring.stop());
     element.style.removeProperty(`${propertyPrefix}-scale`);
     element.style.removeProperty(`${propertyPrefix}-translate`);
-    element.removeEventListener("pointerdown", down);
+    element.removeEventListener("pointerdown", down, options.capture);
     element.removeEventListener("lostpointercapture", end);
     document.removeEventListener("visibilitychange", visibility);
     window.removeEventListener("blur", reset);

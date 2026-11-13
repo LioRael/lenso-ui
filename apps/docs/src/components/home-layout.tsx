@@ -89,19 +89,20 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
                     >
                       <Sliders width={16} height={16} aria-hidden="true" />
                     </Popover.Trigger>
-                    <Popover.Portal>
-                      <Popover.Positioner align="end" sideOffset={12} collisionPadding={24}>
-                        <Popover.Popup xstyle={s.mobileContent}>
-                          <Popover.Title xstyle={s.mobileTitle}>
-                            {cn ? "外观与语言" : "Appearance and language"}
-                          </Popover.Title>
-                          <div {...stylex.props(s.mobilePreferences)}>
-                            <LanguageToggle locale={locale} slug="" />
-                            <AppearanceControls locale={locale} />
-                          </div>
-                        </Popover.Popup>
-                      </Popover.Positioner>
-                    </Popover.Portal>
+                    <Popover.Content
+                      xstyle={s.mobileContent}
+                      align="end"
+                      sideOffset={12}
+                      collisionPadding={24}
+                    >
+                      <Popover.Title xstyle={s.mobileTitle}>
+                        {cn ? "外观与语言" : "Appearance and language"}
+                      </Popover.Title>
+                      <div {...stylex.props(s.mobilePreferences)}>
+                        <LanguageToggle locale={locale} slug="" />
+                        <AppearanceControls locale={locale} />
+                      </div>
+                    </Popover.Content>
                   </Popover.Root>
                   <RepositoryControl repository={product.repository} />
                 </div>
@@ -117,25 +118,26 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
                       <ChevronDown width={14} height={14} aria-hidden="true" />
                     </Popover.Trigger>
                   </div>
-                  <Popover.Portal>
-                    <Popover.Positioner align="end" sideOffset={12} collisionPadding={24}>
-                      <Popover.Popup xstyle={s.mobileContent}>
-                        <Popover.Title xstyle={s.mobileTitle}>
-                          {cn ? "导航与外观" : "Navigation & appearance"}
-                        </Popover.Title>
-                        <nav
-                          aria-label={cn ? "移动端导航" : "Mobile navigation"}
-                          {...stylex.props(s.mobileNavigation)}
-                        >
-                          {navigation}
-                        </nav>
-                        <div {...stylex.props(s.mobilePreferences)}>
-                          <LanguageToggle locale={locale} slug="" />
-                          <AppearanceControls locale={locale} />
-                        </div>
-                      </Popover.Popup>
-                    </Popover.Positioner>
-                  </Popover.Portal>
+                  <Popover.Content
+                    xstyle={s.mobileContent}
+                    align="end"
+                    sideOffset={12}
+                    collisionPadding={24}
+                  >
+                    <Popover.Title xstyle={s.mobileTitle}>
+                      {cn ? "导航与外观" : "Navigation & appearance"}
+                    </Popover.Title>
+                    <nav
+                      aria-label={cn ? "移动端导航" : "Mobile navigation"}
+                      {...stylex.props(s.mobileNavigation)}
+                    >
+                      {navigation}
+                    </nav>
+                    <div {...stylex.props(s.mobilePreferences)}>
+                      <LanguageToggle locale={locale} slug="" />
+                      <AppearanceControls locale={locale} />
+                    </div>
+                  </Popover.Content>
                 </Popover.Root>
               </div>
             </ThemeScope>

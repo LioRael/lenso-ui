@@ -1,10 +1,11 @@
 "use client";
+import * as Sdk from "@ui-sdk/react/select";
+import { slotRender } from "../../utils/sdk-render.js";
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: native Base UI selection/collection API and scoped portals.
+ * Modified: native UI SDK selection/collection API and scoped portals.
  */
-import { Select as BaseSelect } from "@base-ui/react/select";
 import { menuStyles, menuItemStyles, menuSectionStyles } from "@lenso/tokens/menu";
 import { materialStyles } from "@lenso/tokens/materials";
 import { MaterialBackground } from "../../utils/materials/render.js";
@@ -12,68 +13,35 @@ import { selectStyles } from "@lenso/tokens/select";
 import { popupButtonStyles } from "@lenso/tokens/popup-button";
 import {
   createContext,
-  useCallback,
   useContext,
   useMemo,
   useRef,
+  useCallback,
   isValidElement,
   type ComponentPropsWithRef,
-  type RefObject,
 } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
+
 import { useMenuPopupRef } from "../../utils/interaction/menu.js";
+import { usePopupExit } from "../../utils/interaction/popup-exit.js";
 import { assignRef } from "../../utils/interaction/ref.js";
 
-const SelectMotionContext = createContext<{
-  trigger: RefObject<HTMLElement | null>;
-  popup: RefObject<HTMLDivElement | null>;
-  unmount: () => void;
-  morphTrigger: boolean;
+const SelectMotion = createContext<{
+  trigger: React.RefObject<HTMLElement | null>;
+  popup: React.RefObject<HTMLDivElement | null>;
+  finishExit: () => void;
+  morph: boolean;
 } | null>(null);
 
 const SelectStyleContext = createContext({
   variant: "primary" as "primary" | "secondary",
   fullWidth: false,
 });
-export function SelectRoot<Value, Multiple extends boolean | undefined = false>({
-  variant = "primary",
-  fullWidth = false,
-  morphTrigger = true,
-  actionsRef,
-  onOpenChange,
-  ...props
-}: SelectRootProps<Value, Multiple>) {
-  const appearance = useMemo(() => ({ variant, fullWidth }), [variant, fullWidth]);
-  const trigger = useRef<HTMLElement>(null);
-  const popup = useRef<HTMLDivElement>(null);
-  const ownActions = useRef<BaseSelect.Root.Actions>(null);
-  const actions = actionsRef ?? ownActions;
-  const unmount = useCallback(() => actions.current?.unmount(), [actions]);
-  const motion = useMemo(
-    () => ({ trigger, popup, unmount, morphTrigger }),
-    [unmount, morphTrigger],
-  );
-  return (
-    <SelectStyleContext value={appearance}>
-      <SelectMotionContext value={motion}>
-        <BaseSelect.Root
-          {...props}
-          actionsRef={actions}
-          onOpenChange={(open, details) => {
-            onOpenChange?.(open, details);
-            if (!open && !details.isCanceled) details.preventUnmountOnClose();
-          }}
-        />
-      </SelectMotionContext>
-    </SelectStyleContext>
-  );
-}
-export type SelectTriggerProps = StyleXProps<BaseSelect.Trigger.Props> & {
+export type SelectTriggerProps = StyleXProps<React.ComponentProps<typeof Sdk.SelectTrigger>> & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 export function SelectTrigger({
   ref,
@@ -82,23 +50,23 @@ export function SelectTrigger({
   fullWidth,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: SelectTriggerProps) {
   const inherited = useContext(SelectStyleContext);
-  const ownPresentation = !render || (isValidElement(render) && typeof render.type === "string");
-  const motion = useContext(SelectMotionContext)!;
+  const motion = useContext(SelectMotion);
   const register = useCallback(
-    (node: HTMLButtonElement | null) => {
-      const own = assignRef(motion.trigger, node);
+    (node: HTMLElement | null) => {
+      const own = assignRef(motion?.trigger, node);
       const caller = assignRef(ref, node);
       return () => {
         own();
         caller();
       };
     },
-    [motion.trigger, ref],
+    [motion?.trigger, ref],
   );
+  const ownPresentation = !render || (isValidElement(render) && typeof render.type === "string");
   const compiled = stylex.props(
     ownPresentation && popupButtonStyles.root,
     ownPresentation && selectStyles.validation,
@@ -107,47 +75,49 @@ export function SelectTrigger({
     xstyle,
   );
   return (
-    <BaseSelect.Trigger
+    <Sdk.SelectTrigger
       {...props}
       ref={register}
-      render={render}
+
       {...compiled}
-      style={mergeStyle<BaseSelect.Trigger.State>(compiled.style, style)}
-      data-slot={slot ?? "select-trigger"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("button", slot ?? "select-trigger", render)}
     />
   );
 }
 export function SelectValue({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseSelect.Value.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectValue>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(selectStyles.value, xstyle);
   return (
-    <BaseSelect.Value
+    <Sdk.SelectValue
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.Value.State>(compiled.style, style)}
-      data-slot={slot ?? "select-value"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-value", props.render)}
     />
   );
 }
-export type SelectIndicatorProps = StyleXProps<BaseSelect.Icon.Props> & { "data-slot"?: unknown };
+export type SelectIndicatorProps = StyleXProps<React.ComponentPropsWithRef<"span">> & {
+  "data-lenso-slot"?: unknown;
+};
 export function SelectIndicator({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: SelectIndicatorProps) {
   const compiled = stylex.props(selectStyles.indicator, xstyle);
   return (
-    <BaseSelect.Icon
+    <span
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.Icon.State>(compiled.style, style)}
-      data-slot={slot ?? "select-indicator"}
+      style={mergeStyle(compiled.style, style)}
+      data-lenso-slot={slot ?? "select-indicator"}
     >
       {children ?? (
         <svg width="14" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -160,118 +130,118 @@ export function SelectIndicator({
           />
         </svg>
       )}
-    </BaseSelect.Icon>
+    </span>
   );
 }
-export type SelectPortalProps = ComponentPropsWithRef<typeof BaseSelect.Portal>;
-export function SelectPortal({ container, ...props }: SelectPortalProps) {
-  const themeContainer = useThemePortalContainer();
-  return (
-    <BaseSelect.Portal
-      {...props}
-      container={container === undefined ? (themeContainer ?? undefined) : container}
-    />
-  );
-}
-export function SelectPositioner({
-  xstyle,
-  style,
-  "data-slot": slot,
-  ...props
-}: StyleXProps<BaseSelect.Positioner.Props> & { "data-slot"?: unknown }) {
-  const compiled = stylex.props(selectStyles.positioner, xstyle);
-  return (
-    <BaseSelect.Positioner
-      {...props}
-      {...compiled}
-      style={mergeStyle<BaseSelect.Positioner.State>(compiled.style, style)}
-      data-slot={slot ?? "select-positioner"}
-    />
-  );
-}
-export function SelectPopover({
+export function SelectContent({
   ref,
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  sideOffset = 8,
+  alignItemWithTrigger = true,
+  // Match the trigger text after the list's 8px padding and 36px check gutter.
+  alignOffset = alignItemWithTrigger ? -44 : 0,
   ...props
-}: StyleXProps<BaseSelect.Popup.Props> & { "data-slot"?: unknown }) {
-  const motion = useContext(SelectMotionContext)!;
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectContent>>) {
+  const motion = useContext(SelectMotion)!;
   const popupRef = useMenuPopupRef(
     ref,
     motion.popup,
     motion.trigger,
-    motion.unmount,
-    motion.morphTrigger,
+    motion.finishExit,
+    motion.morph,
     true,
     "select",
   );
   const compiled = stylex.props(
     materialStyles.root,
+    materialStyles.accessible,
     menuStyles.popup,
     menuStyles.morph,
+    selectStyles.positioner,
     selectStyles.popover,
     selectStyles.typography,
-    materialStyles.accessible,
     xstyle,
   );
   return (
-    <BaseSelect.Popup
+    <Sdk.SelectContent
       {...props}
-      ref={popupRef}
       {...compiled}
-      style={mergeStyle<BaseSelect.Popup.State>(compiled.style, style)}
-      data-slot={slot ?? "select-popover"}
+      ref={popupRef}
+      sideOffset={sideOffset}
+      alignItemWithTrigger={alignItemWithTrigger}
+      alignOffset={alignOffset}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", props["data-lenso-slot"] ?? "select-popover", props.render)}
       data-material="glass-medium"
       data-menu-elastic="false"
     >
-      <div
-        aria-hidden="true"
-        data-material-hidden=""
-        data-slot="select-surface"
-        {...stylex.props(menuStyles.surface)}
-      >
-        <MaterialBackground
-          variant="glass-medium"
-          sourceAnchor={motion.trigger}
-          liveBackdrop
-          deferOptics
-        />
-      </div>
-      <div aria-hidden="true" inert data-slot="select-glyph" {...stylex.props(menuStyles.glyph)} />
-      {children}
-    </BaseSelect.Popup>
+      {(state) => (
+        <>
+          <div
+            data-lenso-slot="select-surface"
+            data-material-hidden={state.presentation === "sheet" ? undefined : ""}
+            aria-hidden="true"
+            {...stylex.props(menuStyles.surface)}
+          >
+            <MaterialBackground
+              variant="glass-medium"
+              sourceAnchor={motion.trigger}
+              liveBackdrop
+              deferOptics={state.presentation !== "sheet"}
+            />
+          </div>
+          <div
+            data-lenso-slot="select-glyph"
+            aria-hidden="true"
+            inert
+            {...stylex.props(menuStyles.glyph)}
+          />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </Sdk.SelectContent>
   );
 }
 export function SelectList({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseSelect.List.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectList>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(menuStyles.content, selectStyles.list, xstyle);
   return (
-    <BaseSelect.List
+    <Sdk.SelectList
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.List.State>(compiled.style, style)}
-      data-slot={slot ?? "select-list"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-list", props.render)}
       data-select-content=""
     >
-      <div data-slot="select-plate" aria-hidden="true" {...stylex.props(menuStyles.plate)} />
-      {children}
-    </BaseSelect.List>
+      {(state) => (
+        <>
+          <div
+            data-lenso-slot="select-plate"
+            aria-hidden="true"
+            {...stylex.props(menuStyles.plate)}
+          />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </Sdk.SelectList>
   );
 }
 export function SelectItem({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<Omit<BaseSelect.Item.Props, "ref"> & React.RefAttributes<HTMLElement>> & {
-  "data-slot"?: unknown;
+}: StyleXProps<
+  Omit<React.ComponentProps<typeof Sdk.SelectItem>, "ref"> & React.RefAttributes<HTMLDivElement>
+> & {
+  "data-lenso-slot"?: unknown;
 }) {
   const { variant } = useContext(SelectStyleContext);
   const compiled = stylex.props(
@@ -281,47 +251,49 @@ export function SelectItem({
     xstyle,
   );
   return (
-    <BaseSelect.Item
+    <Sdk.SelectItem
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.Item.State>(compiled.style, style)}
-      data-slot={slot ?? "select-item"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-item", props.render)}
     />
   );
 }
 export function SelectItemText({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseSelect.ItemText.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectItemText>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(selectStyles.itemText, xstyle);
   return (
-    <BaseSelect.ItemText
+    <Sdk.SelectItemText
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.ItemText.State>(compiled.style, style)}
-      data-slot={slot ?? "select-item-text"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-item-text", props.render)}
     />
   );
 }
-export type SelectItemIndicatorProps = StyleXProps<BaseSelect.ItemIndicator.Props> & {
-  "data-slot"?: unknown;
+export type SelectItemIndicatorProps = StyleXProps<
+  React.ComponentProps<typeof Sdk.SelectItemIndicator>
+> & {
+  "data-lenso-slot"?: unknown;
 };
 export function SelectItemIndicator({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: SelectItemIndicatorProps) {
   const compiled = stylex.props(menuItemStyles.indicator, xstyle);
   return (
-    <BaseSelect.ItemIndicator
+    <Sdk.SelectItemIndicator
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.ItemIndicator.State>(compiled.style, style)}
-      data-slot={slot ?? "select-item-indicator"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-item-indicator", props.render)}
     >
       {children ?? (
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -334,103 +306,134 @@ export function SelectItemIndicator({
           />
         </svg>
       )}
-    </BaseSelect.ItemIndicator>
+    </Sdk.SelectItemIndicator>
   );
 }
 export function SelectLabel({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseSelect.Label.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectLabel>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(selectStyles.label, xstyle);
   return (
-    <BaseSelect.Label
+    <Sdk.SelectLabel
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.Label.State>(compiled.style, style)}
-      data-slot={slot ?? "select-label"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-label", props.render)}
     />
   );
 }
 export function SelectGroup({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseSelect.Group.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectGroup>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(xstyle);
   return (
-    <BaseSelect.Group
+    <Sdk.SelectGroup
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.Group.State>(compiled.style, style)}
-      data-slot={slot ?? "select-group"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-group", props.render)}
     />
   );
 }
 export function SelectGroupLabel({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseSelect.GroupLabel.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectGroupLabel>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(menuSectionStyles.label, xstyle);
   return (
-    <BaseSelect.GroupLabel
+    <Sdk.SelectGroupLabel
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.GroupLabel.State>(compiled.style, style)}
-      data-slot={slot ?? "select-group-label"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-group-label", props.render)}
     />
   );
 }
 export function SelectSeparator({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseSelect.Separator.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectSeparator>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(menuStyles.separator, xstyle);
   return (
-    <BaseSelect.Separator
+    <Sdk.SelectSeparator
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.Separator.State>(compiled.style, style)}
-      data-slot={slot ?? "select-separator"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-separator", props.render)}
     />
   );
 }
 export function SelectArrow({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseSelect.Arrow.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof Sdk.SelectArrow>> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(selectStyles.arrow, xstyle);
   return (
-    <BaseSelect.Arrow
+    <Sdk.SelectArrow
       {...props}
       {...compiled}
-      style={mergeStyle<BaseSelect.Arrow.State>(compiled.style, style)}
-      data-slot={slot ?? "select-arrow"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", slot ?? "select-arrow", props.render)}
     />
   );
 }
-export const SelectScrollUpArrow = BaseSelect.ScrollUpArrow;
-export const SelectScrollDownArrow = BaseSelect.ScrollDownArrow;
-export const SelectBackdrop = BaseSelect.Backdrop;
-export type SelectRootProps<
-  Value = unknown,
-  Multiple extends boolean | undefined = false,
-> = BaseSelect.Root.Props<Value, Multiple> & {
-  variant?: "primary" | "secondary";
-  fullWidth?: boolean;
-  /** Keep the trigger visible and animate the popup independently when false. */
-  morphTrigger?: boolean;
-};
 export type SelectValueProps = ComponentPropsWithRef<typeof SelectValue>;
-export type SelectPopoverProps = ComponentPropsWithRef<typeof SelectPopover>;
-export type SelectPositionerProps = ComponentPropsWithRef<typeof SelectPositioner>;
+export type SelectContentProps = ComponentPropsWithRef<typeof SelectContent>;
 export type SelectListProps = ComponentPropsWithRef<typeof SelectList>;
 export type SelectItemProps = ComponentPropsWithRef<typeof SelectItem>;
+
+export type SelectRootProps<
+  Value = string,
+  Multiple extends boolean | undefined = false,
+> = Sdk.SelectProps<Value, Multiple> & {
+  variant?: "primary" | "secondary";
+  fullWidth?: boolean;
+  morphTrigger?: boolean;
+};
+export function SelectRoot<Value = string, Multiple extends boolean | undefined = false>(
+  props: SelectRootProps<Value, Multiple>,
+) {
+  const {
+    variant = "primary",
+    fullWidth = false,
+    morphTrigger = true,
+    onOpenChange,
+    ...native
+  } = props;
+  const trigger = useRef<HTMLElement>(null);
+  const { popup, holdExit, finishExit } = usePopupExit(props.open);
+  const motion = useMemo(
+    () => ({ trigger, popup, finishExit, morph: morphTrigger }),
+    [popup, finishExit, morphTrigger],
+  );
+  const appearance = useMemo(() => ({ variant, fullWidth }), [variant, fullWidth]);
+  return (
+    <SelectMotion value={motion}>
+      <SelectStyleContext value={appearance}>
+        <Sdk.Select<Value, Multiple>
+          {...(native as Sdk.SelectProps<Value, Multiple>)}
+          onOpenChange={(open, details) => {
+            onOpenChange?.(open, details);
+            if (!details.canceled) holdExit(open);
+          }}
+        />
+      </SelectStyleContext>
+    </SelectMotion>
+  );
+}

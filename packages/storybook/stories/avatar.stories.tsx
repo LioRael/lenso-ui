@@ -1,4 +1,4 @@
-// Base UI Fallback uses delay rather than the source delayMs.
+// UI SDK Fallback uses delay rather than the source delayMs.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";

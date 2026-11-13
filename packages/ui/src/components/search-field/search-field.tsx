@@ -1,9 +1,10 @@
 "use client";
+import { Field as SdkField, type FieldState } from "@ui-sdk/react/field";
+import { slotRender } from "../../utils/sdk-render.js";
 import * as React from "react";
 import { clearInput } from "../../utils/clear-input.js";
-import { Field } from "@base-ui/react/field";
-import { Input as BaseInput } from "@base-ui/react/input";
-import { NativeButton as BaseButton } from "../../utils/native-button.js";
+import { Input as SdkInput, type InputState } from "@ui-sdk/react/input";
+import { NativeButton as SdkButton } from "../../utils/native-button.js";
 import { searchFieldStyles, searchFieldGroupStyles } from "@lenso/tokens/search-field";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import { useGlassRef } from "@lenso/glass/react";
@@ -27,17 +28,17 @@ function useSearch() {
   if (!context) throw new Error("SearchField parts must be inside SearchField.Root");
   return context;
 }
-export type SearchFieldRootProps = StyleXProps<Field.Root.Props> & {
+export type SearchFieldRootProps = StyleXProps<React.ComponentProps<typeof SdkField>> & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 export function SearchFieldRoot({
   variant = "primary",
   fullWidth = false,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: SearchFieldRootProps) {
   const input = React.useRef<HTMLInputElement>(null);
@@ -67,11 +68,11 @@ export function SearchFieldRoot({
   return (
     <SearchContext value={context}>
       <FieldScope value={true}>
-        <Field.Root
+        <SdkField
           {...props}
           {...compiled}
-          style={mergeStyle<Field.Root.State>(compiled.style, style)}
-          data-slot={slot ?? "search-field"}
+          style={mergeStyle<FieldState>(compiled.style, style)}
+          render={slotRender("div", slot ?? "search-field", props.render)}
         />
       </FieldScope>
     </SearchContext>
@@ -80,11 +81,11 @@ export function SearchFieldRoot({
 export function SearchFieldGroup({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ref,
   onPointerDown,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
   const { variant, fullWidth, input, inputDisabled } = useSearch();
   const glassRef = useFocusMethodRef(useGlassRef(ref, true));
   const compiled = stylex.props(
@@ -109,14 +110,14 @@ export function SearchFieldGroup({
           input.current?.focus();
       }}
       style={{ ...compiled.style, ...style }}
-      data-slot={slot ?? "search-field-group"}
+      data-lenso-slot={slot ?? "search-field-group"}
       data-disabled={inputDisabled ? "" : undefined}
     />
   );
 }
 export type SearchFieldInputProps = StyleXProps<
-  Omit<BaseInput.Props, "ref"> & React.RefAttributes<HTMLElement>
-> & { "data-slot"?: unknown };
+  Omit<React.ComponentProps<typeof SdkInput>, "ref"> & React.RefAttributes<HTMLElement>
+> & { "data-lenso-slot"?: unknown };
 export function SearchFieldInput({
   ref,
   value,
@@ -125,7 +126,7 @@ export function SearchFieldInput({
   onKeyDown,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: SearchFieldInputProps) {
   const context = useSearch();
@@ -134,12 +135,12 @@ export function SearchFieldInput({
   }, [value, defaultValue, context]);
   const compiled = stylex.props(searchFieldGroupStyles.input, xstyle);
   return (
-    <BaseInput
+    <SdkInput
       type="search"
       {...props}
       {...compiled}
-      style={mergeStyle<BaseInput.State>(compiled.style, style)}
-      data-slot={slot ?? "search-field-input"}
+      style={mergeStyle<InputState>(compiled.style, style)}
+      render={slotRender("input", slot ?? "search-field-input", props.render)}
       value={value}
       defaultValue={defaultValue}
       ref={(node) => {
@@ -169,8 +170,8 @@ export function SearchFieldInput({
 }
 
 export type SearchFieldClearButtonProps = StyleXProps<
-  Omit<React.ComponentProps<typeof BaseButton>, "ref"> & React.RefAttributes<HTMLElement>
-> & { "data-slot"?: unknown };
+  Omit<React.ComponentProps<typeof SdkButton>, "ref"> & React.RefAttributes<HTMLElement>
+> & { "data-lenso-slot"?: unknown };
 export function SearchFieldClearButton({
   children = (
     <svg
@@ -190,19 +191,19 @@ export function SearchFieldClearButton({
   disabled,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: SearchFieldClearButtonProps) {
   const { input, empty, inputDisabled } = useSearch();
   const compiled = stylex.props(searchFieldStyles.clear, xstyle);
   return (
-    <BaseButton
+    <SdkButton
       type="button"
       aria-label="Clear search"
       {...props}
       {...compiled}
       style={mergeStyle<import("@ui-sdk/react/button").ButtonState>(compiled.style, style)}
-      data-slot={slot ?? "search-field-clear-button"}
+      data-lenso-slot={slot ?? "search-field-clear-button"}
       disabled={disabled || empty || inputDisabled}
       onPointerDown={(event) => {
         onPointerDown?.(event);
@@ -220,17 +221,17 @@ export function SearchFieldClearButton({
       }}
     >
       {children}
-    </BaseButton>
+    </SdkButton>
   );
 }
 export type SearchFieldSearchIconProps = StyleXProps<React.ComponentPropsWithRef<"svg">> & {
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 export function SearchFieldSearchIcon({
   children,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: SearchFieldSearchIconProps) {
   const compiled = stylex.props(searchFieldStyles.icon, xstyle);
@@ -245,7 +246,7 @@ export function SearchFieldSearchIcon({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={slot ?? "search-field-search-icon"}
+      data-lenso-slot={slot ?? "search-field-search-icon"}
     >
       {children ?? (
         <>

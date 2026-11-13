@@ -1,4 +1,5 @@
-import { afterEach, expect, test } from "bun:test";
+import { mockSwipeGeometry } from "./helpers/dom.js";
+import { afterEach, beforeEach, expect, test } from "bun:test";
 import { act, useState, type Key, type ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { List } from "../src/components/list/index.js";
@@ -6,10 +7,15 @@ import { RefreshControl } from "../src/components/refresh-control/index.js";
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
   true;
 let root: Root | undefined;
+let restoreGeometry: () => void;
+beforeEach(() => {
+  restoreGeometry = mockSwipeGeometry();
+});
 afterEach(async () => {
   if (root) await act(() => root!.unmount());
   root = undefined;
   document.body.replaceChildren();
+  restoreGeometry();
 });
 async function mount(children: ReactNode) {
   const host = document.createElement("div");
@@ -43,10 +49,10 @@ test("List editing selects native row controls, skips disabled rows and preserve
     return (
       <List
         editing
-        selectedKeys={selected}
-        onSelectionChange={(keys) => {
-          accepted = keys;
-          setSelected(keys);
+        value={[...selected]}
+        onValueChange={(keys) => {
+          accepted = new Set(keys);
+          setSelected(new Set(keys));
         }}
       >
         {rows()}
@@ -95,6 +101,7 @@ test("Keyboard reorder requests a move only on confirmation and cancels on blur 
     </List>,
   );
   const handle = host.querySelector<HTMLElement>('[aria-label="Move A"]')!;
+  await act(() => handle.focus());
   await key(handle, " ");
   await key(handle, "ArrowDown");
   expect(moves).toHaveLength(0);
@@ -170,7 +177,7 @@ test("Refresh pull claims only downward gestures at the top and never refreshes 
       </RefreshControl.Viewport>
     </RefreshControl>,
   );
-  const view = host.querySelector<HTMLElement>('[data-slot="refresh-control-viewport"]')!;
+  const view = host.querySelector<HTMLElement>('[data-lenso-slot="refresh-control-viewport"]')!;
   await act(() => {
     touch(view, "touchstart", 100, 100);
     expect(touch(view, "touchmove", 200, 110).defaultPrevented).toBe(false);
@@ -202,12 +209,7 @@ test("Refresh pull claims only downward gestures at the top and never refreshes 
 test("List.Section bounds keyboard sorting and controlled owners may reject selection", async () => {
   const moves: unknown[] = [];
   const host = await mount(
-    <List
-      editing
-      selectedKeys={new Set()}
-      onSelectionChange={() => {}}
-      onReorder={(details) => moves.push(details)}
-    >
+    <List editing value={[]} onValueChange={() => {}} onReorder={(details) => moves.push(details)}>
       <List.Section title="First">
         <List.Item itemKey="a" textValue="A">
           <List.Title>A</List.Title>

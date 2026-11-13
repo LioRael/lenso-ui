@@ -48,31 +48,26 @@ export function CustomTrigger() {
           <p {...stylex.props(styles.caption)}>Permanently remove this item</p>
         </div>
       </AlertDialog.Trigger>
-      <AlertDialog.Portal>
-        <AlertDialog.Backdrop />
-        <AlertDialog.Viewport>
-          <AlertDialog.Popup xstyle={styles.popup}>
-            <AlertDialog.Close aria-label="Close dialog" />
-            <AlertDialog.Header>
-              <AlertDialog.Icon variant="danger">
-                <TrashBin {...stylex.props(styles.glyph)} />
-              </AlertDialog.Icon>
-              <AlertDialog.Title>Delete this item?</AlertDialog.Title>
-            </AlertDialog.Header>
-            <AlertDialog.Body>
-              <AlertDialog.Description>
-                Use <code>AlertDialog.Trigger</code> to create custom trigger elements beyond
-                standard buttons. This example shows a card-style trigger with icons and descriptive
-                text.
-              </AlertDialog.Description>
-            </AlertDialog.Body>
-            <AlertDialog.Footer>
-              <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
-              <AlertDialog.Action variant="destructive">Delete Item</AlertDialog.Action>
-            </AlertDialog.Footer>
-          </AlertDialog.Popup>
-        </AlertDialog.Viewport>
-      </AlertDialog.Portal>
+      <AlertDialog.Backdrop />
+      <AlertDialog.Content xstyle={styles.popup}>
+        <AlertDialog.Close aria-label="Close dialog" />
+        <AlertDialog.Header>
+          <AlertDialog.Icon variant="danger">
+            <TrashBin {...stylex.props(styles.glyph)} />
+          </AlertDialog.Icon>
+          <AlertDialog.Title>Delete this item?</AlertDialog.Title>
+        </AlertDialog.Header>
+        <AlertDialog.Body>
+          <AlertDialog.Description>
+            Use <code>AlertDialog.Trigger</code>to create custom trigger elements beyond standard
+            buttons. This example shows a card-style trigger with icons and descriptive text.
+          </AlertDialog.Description>
+        </AlertDialog.Body>
+        <AlertDialog.Footer>
+          <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+          <AlertDialog.Action variant="destructive">Delete Item</AlertDialog.Action>
+        </AlertDialog.Footer>
+      </AlertDialog.Content>
     </AlertDialog>
   );
 }

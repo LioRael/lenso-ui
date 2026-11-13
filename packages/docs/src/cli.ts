@@ -2,7 +2,7 @@
 import process from "node:process";
 import { run } from "./runtime.ts";
 
-const help = `Usage: lenso-docs <dev|build|preview> [--port <number>] [--host <host>] [--turbopack]
+const help = `Usage: lenso-docs <dev|build|preview> [--port <number>] [--host <host>]
 
 Run from the directory containing docs.config.ts and content/.
 dev      Compile content and start a live documentation server (localhost:3000).
@@ -12,7 +12,6 @@ preview  Serve the built out/ directory (localhost:4173).
 Options:
   --port     Server port (1–65535).
   --host     Bind address; defaults to 127.0.0.1.
-  --turbopack  Use Turbopack for dev (requires matching consumer build rules).
   --help     Show this help.
   --version  Show the framework version.`;
 
@@ -21,19 +20,14 @@ try {
   if (args.includes("--help") || args.length === 0) {
     console.log(help);
   } else if (args.length === 1 && args[0] === "--version") {
-    console.log("0.1.0");
+    console.log("0.2.0");
   } else {
     const command = args.shift();
     if (command !== "dev" && command !== "build" && command !== "preview")
       throw new Error(`Unknown command "${command}". Use lenso-docs --help.`);
-    const options: { turbopack?: boolean; port?: number; host?: string } = {};
+    const options: { port?: number; host?: string } = {};
     while (args.length) {
       const flag = args.shift();
-      if (flag === "--turbopack") {
-        if (command !== "dev") throw new Error("--turbopack is only available for dev.");
-        options.turbopack = true;
-        continue;
-      }
       if ((flag !== "--port" && flag !== "--host") || !args.length)
         throw new Error(`Invalid option "${flag}". Use lenso-docs --help.`);
       const value = args.shift()!;

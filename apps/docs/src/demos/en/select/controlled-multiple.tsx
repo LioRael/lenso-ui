@@ -13,7 +13,7 @@ export function ControlledMultiple() {
         choices={controlledStates}
         placeholder="Select states"
         value={selected}
-        onValueChange={setSelected}
+        onValueChange={(next) => setSelected(Array.isArray(next) ? next : [])}
       />
       <p {...stylex.props(exampleStyles.note)}>
         Selected: {selected.length > 0 ? selected.join(", ") : "None"}

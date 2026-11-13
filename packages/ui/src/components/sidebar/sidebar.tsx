@@ -14,7 +14,7 @@ export function SidebarRoot({ xstyle, style, ...props }: SidebarRootProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="sidebar-root"
+      data-lenso-slot="sidebar-root"
     />
   );
 }
@@ -26,7 +26,7 @@ export function SidebarHeader({ xstyle, style, ...props }: SidebarHeaderProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="sidebar-header"
+      data-lenso-slot="sidebar-header"
     />
   );
 }
@@ -38,7 +38,7 @@ export function SidebarContent({ xstyle, style, ...props }: SidebarContentProps)
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="sidebar-content"
+      data-lenso-slot="sidebar-content"
     />
   );
 }
@@ -50,7 +50,7 @@ export function SidebarFooter({ xstyle, style, ...props }: SidebarFooterProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="sidebar-footer"
+      data-lenso-slot="sidebar-footer"
     />
   );
 }
@@ -62,7 +62,7 @@ export function SidebarGroup({ xstyle, style, ...props }: SidebarGroupProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="sidebar-group"
+      data-lenso-slot="sidebar-group"
     />
   );
 }
@@ -70,7 +70,12 @@ export type SidebarLabelProps = StyleXProps<ComponentProps<"h3">>;
 export function SidebarLabel({ children, xstyle, style, ...props }: SidebarLabelProps) {
   const compiled = stylex.props(sidebarStyles.label, xstyle);
   return (
-    <h3 {...props} {...compiled} style={{ ...compiled.style, ...style }} data-slot="sidebar-label">
+    <h3
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-lenso-slot="sidebar-label"
+    >
       {children}
     </h3>
   );
@@ -83,7 +88,7 @@ export function SidebarIcon({ xstyle, style, ...props }: SidebarIconProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="sidebar-icon"
+      data-lenso-slot="sidebar-icon"
     />
   );
 }
@@ -95,7 +100,7 @@ export function SidebarText({ xstyle, style, ...props }: SidebarTextProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="sidebar-text"
+      data-lenso-slot="sidebar-text"
     />
   );
 }
@@ -107,7 +112,7 @@ export function SidebarAccessory({ xstyle, style, ...props }: SidebarAccessoryPr
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="sidebar-accessory"
+      data-lenso-slot="sidebar-accessory"
     />
   );
 }
@@ -123,7 +128,7 @@ export function SidebarItem({ selected = false, indent = 0, xstyle, ...props }: 
         sidebarStyles.indent(indent),
         xstyle,
       ]}
-      data-slot="sidebar-item"
+      data-lenso-slot="sidebar-item"
     />
   );
 }
@@ -141,7 +146,7 @@ export function SidebarDisclosureTrigger({
       {...props}
       {...compiled}
       style={mergeStyle<Collapsible.CollapsibleTriggerState>(compiled.style, style)}
-      data-slot="sidebar-disclosure-trigger"
+      data-lenso-slot="sidebar-disclosure-trigger"
       render={slotRender("button", "sidebar-disclosure-trigger", props.render)}
     />
   );
@@ -161,11 +166,14 @@ export function SidebarDisclosurePanel({
       {...props}
       {...compiled}
       style={mergeStyle<Collapsible.CollapsiblePanelState>(compiled.style, style)}
-      data-slot="sidebar-disclosure-panel"
+      data-lenso-slot="sidebar-disclosure-panel"
       render={slotRender("div", "sidebar-disclosure-panel", props.render)}
     >
       {(state) => (
-        <div {...stylex.props(sidebarStyles.disclosureBody)} data-slot="sidebar-disclosure-body">
+        <div
+          {...stylex.props(sidebarStyles.disclosureBody)}
+          data-lenso-slot="sidebar-disclosure-body"
+        >
           {typeof children === "function" ? children(state) : children}
         </div>
       )}

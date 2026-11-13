@@ -67,7 +67,7 @@ and CSS own its adaptive transition. No new public material prop or Dialog alias
 is introduced.
 
 `AnchoredMaterial` owns the shared backdrop and silhouette for Popover/Tooltip;
-each retains its own arrow curve and native Base UI placement. Existing material
+each retains its own arrow curve and native UI SDK placement. Existing material
 engines own appearance, accessibility and glass preferences. Global Glass tint
 preferences affect Glass recipes; they do not turn solid content or ordinary
 Thick frost into refractive Glass.

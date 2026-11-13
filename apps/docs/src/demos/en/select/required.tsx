@@ -1,6 +1,6 @@
 "use client";
 // Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
-import { Form } from "@base-ui/react/form";
+import { Form } from "@lenso/ui/form";
 import * as stylex from "@stylexjs/stylex";
 import { countrySections, exampleStyles, SelectExample, states } from "./select-example";
 export function Required() {

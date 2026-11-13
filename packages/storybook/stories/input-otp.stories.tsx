@@ -1,4 +1,4 @@
-// Story-only controls retain upstream names; actual OTP slots use native Base UI props.
+// Story-only controls retain upstream names; actual OTP slots use native UI SDK props.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useId, useRef, useState, type ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -65,27 +65,27 @@ function Code({
       <InputOTP
         {...props}
         disabled={isDisabled ?? props.disabled}
-        length={length}
+        maxLength={length}
         aria-describedby={error ? errorId : props["aria-describedby"]}
       >
         <InputOTP.Group>
           {Array.from({ length: length === 4 ? 4 : 3 }, (_, index) => (
-            <InputOTP.Slot key={index} id={index === 0 ? id : undefined} />
+            <InputOTP.Slot key={index} id={index === 0 ? id : undefined} index={0} />
           ))}
         </InputOTP.Group>
         {length !== 4 && (
           <>
             <InputOTP.Separator />
             <InputOTP.Group>
-              <InputOTP.Slot />
-              <InputOTP.Slot />
-              <InputOTP.Slot />
+              <InputOTP.Slot index={1} />
+              <InputOTP.Slot index={2} />
+              <InputOTP.Slot index={3} />
             </InputOTP.Group>
           </>
         )}
       </InputOTP>
       {error && (
-        <span {...stylex.props(s.error)} data-slot="field-error" id={errorId}>
+        <span {...stylex.props(s.error)} data-lenso-slot="field-error" id={errorId}>
           {error}
         </span>
       )}
@@ -132,7 +132,7 @@ export const WithPattern: Story = {
         {...args}
         label="Enter code (letters only)"
         description="Only alphabetic characters are allowed"
-        validationType="alpha"
+        pattern="letters"
         inputMode="text"
       />
     </div>
@@ -247,7 +247,7 @@ function AsyncCode({ args, complete = false }: { args: Args; complete?: boolean 
           setError("");
           setComplete(false);
         }}
-        onValueComplete={(code) => {
+        onValueCommit={(code) => {
           setComplete(true);
           if (complete) console.log("Code complete:", code);
         }}

@@ -39,7 +39,7 @@ function Fixture() {
       const target = event.target instanceof Element ? event.target : null;
       const pointer = event instanceof PointerEvent ? event : null;
       records.push(
-        `${event.type} ${pointer ? `${pointer.clientX.toFixed(0)},${pointer.clientY.toFixed(0)} p=${pointer.isPrimary} b=${pointer.button}` : ""} ${target?.tagName} ${target?.getAttribute("data-slot") ?? ""}`,
+        `${event.type} ${pointer ? `${pointer.clientX.toFixed(0)},${pointer.clientY.toFixed(0)} p=${pointer.isPrimary} b=${pointer.button}` : ""} ${target?.tagName} ${target?.getAttribute("data-lenso-slot") ?? ""}`,
       );
       queueMicrotask(() => {
         if (diagnostics.current)
@@ -133,7 +133,9 @@ function Fixture() {
               aria-label="Minutes"
               options={options}
               value={value}
-              onValueChange={setValue}
+              onValueChange={(next) => {
+                if (next !== null) setValue(next);
+              }}
               xstyle={styles.wheel}
             />
             <output {...stylex.props(styles.status)}>Value {value}</output>

@@ -1,15 +1,14 @@
 "use client";
-
-import { NativeAutocomplete } from "../../en/autocomplete/_native";
-import { states } from "./default";
+import { TextSuggestions } from "../../en/autocomplete/text-suggestions";
+import { states } from "../../en/autocomplete/default";
 export function WithDescription() {
   return (
-    <NativeAutocomplete
-      items={states}
-      label="州"
-      searchLabel="Search states"
-      searchPlaceholder="Search states..."
-      description="请选择你的居住州"
-    />
+    <div>
+      <TextSuggestions
+        label="计划前往的州"
+        options={states.map((item) => item.name)}
+        description="Suggestions are optional; any text remains a valid value."
+      />
+    </div>
   );
 }

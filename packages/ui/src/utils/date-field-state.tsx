@@ -1,8 +1,17 @@
 "use client";
-import { createContext, use, useId, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  createContext,
+  use,
+  useId,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import type { DateFieldState, DateFieldProps, DateValue } from "react-stately/useDateFieldState";
-import type { Field } from "@base-ui/react/field";
-import type { useRender } from "@base-ui/react/use-render";
+import type { ModelControlHandle } from "./model-control.js";
+import type { PartProps } from "@ui-sdk/react/primitive";
 export type DateFieldRenderState = {
   isDisabled: boolean;
   isReadOnly: boolean;
@@ -11,7 +20,7 @@ export type DateFieldRenderState = {
   isFocusWithin: boolean;
 };
 export type DateFieldDOMProps<State extends DateFieldRenderState = DateFieldRenderState> = Omit<
-  useRender.ComponentProps<"div", State>,
+  PartProps<"div", State>,
   "children" | "style" | "onChange" | "defaultValue" | "onFocus" | "onBlur"
 > & {
   children?: ReactNode | ((state: State) => ReactNode);
@@ -44,7 +53,31 @@ export type DateFieldOptions = Pick<
   startName?: string;
   endName?: string;
 };
-export type DateFieldScope = ReturnType<typeof useDateFieldScope>;
+type NativeValidation = Record<string, { valid: boolean; message: string; details: ValidityState }>;
+type Models = { default: DateFieldState; start?: DateFieldState; end?: DateFieldState };
+type Validation = Pick<
+  DateFieldState,
+  "displayValidation" | "realtimeValidation" | "commitValidation"
+>;
+export type DateFieldScope = {
+  models: Models;
+  options: DateFieldOptions;
+  control: ModelControlHandle;
+  nativeValidation: NativeValidation;
+  setNativeValidation: Dispatch<SetStateAction<NativeValidation>>;
+  validation: Validation | undefined;
+  commitValidation(): void;
+  id: string;
+  labelId: string;
+  descriptionId: string;
+  errorId: string;
+  firstInputId: string;
+  setLabelId: Dispatch<SetStateAction<string>>;
+  setDescriptionId: Dispatch<SetStateAction<string>>;
+  setErrorId: Dispatch<SetStateAction<string>>;
+  setFocused: Dispatch<SetStateAction<boolean>>;
+  state: DateFieldRenderState;
+};
 export const DateFieldContext = createContext<DateFieldScope | null>(null);
 export function useDateFieldContext() {
   const context = use(DateFieldContext);
@@ -54,16 +87,15 @@ export function useDateFieldContext() {
 export function useDateFieldScope(
   models: { default: DateFieldState; start?: DateFieldState; end?: DateFieldState },
   options: DateFieldOptions,
-  validation?: Pick<
-    DateFieldState,
-    "displayValidation" | "realtimeValidation" | "commitValidation"
-  >,
-) {
+  validation:
+    | Pick<DateFieldState, "displayValidation" | "realtimeValidation" | "commitValidation">
+    | undefined,
+  control: ModelControlHandle,
+): DateFieldScope {
   const id = useId();
-  const [nativeValidation, setNativeValidation] = useState<Record<string, Field.Validity.State>>(
-    {},
-  );
-  const [nativeMessages, setNativeMessages] = useState<Record<string, string>>({});
+  const [nativeValidation, setNativeValidation] = useState<
+    Record<string, { valid: boolean; message: string; details: ValidityState }>
+  >({});
   const [labelId, setLabelId] = useState(`${id}-label`);
   const [descriptionId, setDescriptionId] = useState(`${id}-description`);
   const [errorId, setErrorId] = useState(`${id}-error`);
@@ -76,17 +108,16 @@ export function useDateFieldScope(
     isInvalid:
       !!options.isInvalid ||
       !!validation?.displayValidation.isInvalid ||
-      Object.values(nativeValidation).some((value) => value.validity.valid === false) ||
+      Object.values(nativeValidation).some((value) => !value.valid) ||
       Object.values(models).some((state) => state.displayValidation.isInvalid),
     isFocusWithin: focused,
   };
   return {
     models,
+    control,
     options,
     nativeValidation,
     setNativeValidation,
-    nativeMessages,
-    setNativeMessages,
     validation,
     commitValidation() {
       Object.values(models).forEach((model) => model.commitValidation());
@@ -111,6 +142,8 @@ export function dateDOMProps(props: object) {
     "readOnly",
     "required",
     "value",
+    "controller",
+    "onValueChange",
     "defaultValue",
     "onChange",
     "minValue",
@@ -140,6 +173,8 @@ export function dateDOMProps(props: object) {
     "defaultOpen",
     "open",
     "onOpenChange",
+    "onOpenChangeComplete",
+    "modal",
     "shouldCloseOnSelect",
     "pageBehavior",
     "firstDayOfWeek",

@@ -8,10 +8,10 @@ import {
   useState,
   type ComponentProps,
 } from "react";
-import { useMergedRefs } from "@base-ui/utils/useMergedRefs";
+import { assignRef } from "../../utils/interaction/ref.js";
 import * as stylex from "@stylexjs/stylex";
 import { refreshControlStyles as s } from "@lenso/tokens/refresh-control";
-import { NativeButton as BaseButton } from "../../utils/native-button.js";
+import { NativeButton as SdkButton } from "../../utils/native-button.js";
 import { Spinner } from "../spinner/index.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 
@@ -211,7 +211,7 @@ export function RefreshControlRoot({
         {...props}
         {...compiled}
         style={{ ...compiled.style, ...style }}
-        data-slot="refresh-control"
+        data-lenso-slot="refresh-control"
         data-state={visual.phase}
         aria-busy={visual.phase === "refreshing" || undefined}
       >
@@ -241,7 +241,17 @@ export function RefreshControlViewport({
 }: RefreshControlViewportProps) {
   const { phase, distance, progress, message, start, move, end, suppressClick } = useRefresh();
   const view = useRef<HTMLDivElement>(null);
-  const mergedRef = useMergedRefs(view, ref);
+  const mergedRef = useCallback(
+    (element: HTMLDivElement | null) => {
+      const ownCleanup = assignRef(view, element);
+      const callerCleanup = assignRef(ref, element);
+      return () => {
+        ownCleanup();
+        callerCleanup();
+      };
+    },
+    [ref],
+  );
   useEffect(() => {
     const node = view.current!;
     node.addEventListener("touchstart", start, { passive: true });
@@ -262,7 +272,7 @@ export function RefreshControlViewport({
       {...compiled}
       ref={mergedRef}
       style={{ ...compiled.style, ...style }}
-      data-slot="refresh-control-viewport"
+      data-lenso-slot="refresh-control-viewport"
       onClickCapture={(event) => {
         onClickCapture?.(event);
         if (suppressClick(event.timeStamp, event.detail)) {
@@ -291,7 +301,7 @@ export function RefreshControlViewport({
     </div>
   );
 }
-export type RefreshControlTriggerProps = StyleXProps<ComponentProps<typeof BaseButton>>;
+export type RefreshControlTriggerProps = StyleXProps<ComponentProps<typeof SdkButton>>;
 export function RefreshControlTrigger({
   children,
   onClick,
@@ -304,7 +314,7 @@ export function RefreshControlTrigger({
   const context = useRefresh();
   const compiled = stylex.props(!render && s.trigger, xstyle);
   return (
-    <BaseButton
+    <SdkButton
       {...props}
       {...compiled}
       render={render}
@@ -316,7 +326,7 @@ export function RefreshControlTrigger({
       }}
     >
       {children ?? context.label}
-    </BaseButton>
+    </SdkButton>
   );
 }
 export const RefreshControl = Object.assign(RefreshControlRoot, {

@@ -1,21 +1,19 @@
 "use client";
-import { NativeAutocomplete } from "./_native";
-const animals = [
-  { id: "dog", name: "Dog" },
-  { id: "cat", name: "Cat", disabled: true },
-  { id: "bird", name: "Bird" },
-  { id: "kangaroo", name: "Kangaroo", disabled: true },
-  { id: "elephant", name: "Elephant" },
-  { id: "tiger", name: "Tiger" },
-];
+import { Autocomplete } from "@lenso/ui";
 export function WithDisabledOptions() {
   return (
-    <NativeAutocomplete
-      items={animals}
-      label="Animal"
-      placeholder="Select an animal"
-      searchLabel="Search animals"
-      searchPlaceholder="Search animals..."
-    />
+    <Autocomplete>
+      <Autocomplete.Label>Destination</Autocomplete.Label>
+      <Autocomplete.Input />
+      <Autocomplete.Content>
+        <Autocomplete.List>
+          <Autocomplete.Item value="California">California</Autocomplete.Item>
+          <Autocomplete.Item disabled value="Texas">
+            Texas (unavailable)
+          </Autocomplete.Item>
+          <Autocomplete.Item value="New York">New York</Autocomplete.Item>
+        </Autocomplete.List>
+      </Autocomplete.Content>
+    </Autocomplete>
   );
 }

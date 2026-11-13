@@ -2,7 +2,7 @@
 import type { ComponentProps as StoryComponentProps } from "react";
 export interface ToggleButtonGroupStoryProps extends Pick<
   StoryComponentProps<typeof ToggleButtonGroup>,
-  "multiple" | "disabled" | "orientation" | "loopFocus" | "size" | "variant" | "fullWidth"
+  "multiple" | "disabled" | "orientation" | "loop" | "size" | "variant" | "fullWidth"
 > {
   glass?: boolean;
 }
@@ -10,7 +10,7 @@ export const initialArgs: ToggleButtonGroupStoryProps = /* story-args:start */ {
   multiple: true,
   disabled: false,
   orientation: "horizontal",
-  loopFocus: false,
+  loop: false,
   size: "md",
   variant: "bordered",
   fullWidth: false,

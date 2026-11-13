@@ -10,17 +10,13 @@ export function PopoverWithArrow() {
     <div {...stylex.props(styles.row)}>
       <Popover>
         <Popover.Trigger render={<Button />}>With Arrow</Popover.Trigger>
-        <Popover.Portal>
-          <Popover.Positioner sideOffset={16}>
-            <Popover.Popup xstyle={styles.popup}>
-              <Popover.Arrow />
-              <Popover.Title>Popover with Arrow</Popover.Title>
-              <Popover.Description xstyle={styles.description}>
-                The arrow shows which element triggered the popover.
-              </Popover.Description>
-            </Popover.Popup>
-          </Popover.Positioner>
-        </Popover.Portal>
+        <Popover.Content xstyle={styles.popup} sideOffset={16}>
+          <Popover.Arrow />
+          <Popover.Title>Popover with Arrow</Popover.Title>
+          <Popover.Description xstyle={styles.description}>
+            The arrow shows which element triggered the popover.
+          </Popover.Description>
+        </Popover.Content>
       </Popover>
       <Popover>
         <Popover.Trigger render={<Button isIconOnly aria-label="More options" />}>
@@ -28,17 +24,13 @@ export function PopoverWithArrow() {
             <Ellipsis />
           </Button.Icon>
         </Popover.Trigger>
-        <Popover.Portal>
-          <Popover.Positioner sideOffset={10}>
-            <Popover.Popup xstyle={styles.popup}>
-              <Popover.Arrow />
-              <Popover.Title>Popover with Arrow</Popover.Title>
-              <Popover.Description xstyle={styles.description}>
-                The arrow shows which element triggered the popover.
-              </Popover.Description>
-            </Popover.Popup>
-          </Popover.Positioner>
-        </Popover.Portal>
+        <Popover.Content xstyle={styles.popup} sideOffset={10}>
+          <Popover.Arrow />
+          <Popover.Title>Popover with Arrow</Popover.Title>
+          <Popover.Description xstyle={styles.description}>
+            The arrow shows which element triggered the popover.
+          </Popover.Description>
+        </Popover.Content>
       </Popover>
     </div>
   );

@@ -104,9 +104,9 @@ test("timeline preserves all channels when reversing and cancels pending frames"
 test("menu scrub activation keeps link modifiers and leaves touch scrolling native", () => {
   const card = document.createElement("div");
   card.setAttribute("data-open", "");
-  card.setAttribute("data-slot", "menu-popup");
+  card.setAttribute("data-lenso-slot", "menu-popup");
   card.innerHTML =
-    '<div data-slot="menu-content"><div data-slot="menu-plate"></div><a role="menuitem">Open</a></div>';
+    '<div data-lenso-slot="menu-content"><div data-lenso-slot="menu-plate"></div><a role="menuitem">Open</a></div>';
   document.body.append(card);
   const content = card.firstElementChild as HTMLElement;
   const row = card.querySelector("a")!;
@@ -145,5 +145,51 @@ test("menu scrub activation keeps link modifiers and leaves touch scrolling nati
     stop();
     card.remove();
     document.elementFromPoint = original;
+  }
+});
+
+test("submenu activation does not capture or move its parent popup", async () => {
+  const card = document.createElement("div");
+  card.dataset["lensoSlot"] = "menu-popup";
+  card.setAttribute("data-open", "");
+  card.innerHTML =
+    '<div data-lenso-slot="menu-content"><div data-lenso-slot="menu-plate"></div><div role="menuitem" aria-haspopup="menu">Sort</div><div role="menuitem">Open</div></div>';
+  document.body.append(card);
+  const row = card.querySelector<HTMLElement>('[aria-haspopup="menu"]')!;
+  const stop = presentMenuFeedback(card);
+  const down = (target: HTMLElement) =>
+    target.dispatchEvent(
+      new PointerEvent("pointerdown", {
+        bubbles: true,
+        isPrimary: true,
+        pointerId: 1,
+        button: 0,
+        pointerType: "mouse",
+      }),
+    );
+  try {
+    down(row);
+    expect(card.hasAttribute("data-pressed")).toBe(false);
+    down(row.nextElementSibling as HTMLElement);
+    expect(card.hasAttribute("data-pressed")).toBe(true);
+    card.setAttribute("data-menu-child-count", "1");
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(card.hasAttribute("data-pressed")).toBe(false);
+    expect(card.style.getPropertyValue("--lg-menu-scale")).toBe("1");
+    expect(card.style.getPropertyValue("--lg-menu-translate")).toBe("0px 0px");
+    card.dispatchEvent(
+      new PointerEvent("pointermove", {
+        bubbles: true,
+        pointerId: 1,
+        clientX: 80,
+        clientY: 90,
+        pointerType: "mouse",
+      }),
+    );
+    expect(card.style.getPropertyValue("--lg-menu-translate")).toBe("0px 0px");
+  } finally {
+    stop();
+    card.remove();
   }
 });

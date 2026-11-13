@@ -1,9 +1,9 @@
 # @lenso/primitives
 
-`@lenso/primitives` contains headless, style-free Product Primitives for Lenso UI. The public surface includes the composable Sidebar model and a layout-independent Resize Handle:
+`@lenso/primitives` contains headless, style-free Product Primitives for Lenso UI. Its public surface is the composable Sidebar model:
 
 ```bash
-pnpm add @lenso/primitives @base-ui/react react
+pnpm add @lenso/primitives @ui-sdk/react @ui-sdk/core react
 ```
 
 ```tsx
@@ -11,8 +11,8 @@ import { Sidebar } from "@lenso/primitives/sidebar";
 
 export function AppShell() {
   return (
-    <Sidebar.Root defaultOpen>
-      <Sidebar.Panel>
+    <Sidebar.Root aria-label="Workspace navigation" defaultOpen>
+      <Sidebar.Panel aria-label="Workspace destinations">
         <Sidebar.Content>Navigation</Sidebar.Content>
       </Sidebar.Panel>
     </Sidebar.Root>
@@ -20,15 +20,13 @@ export function AppShell() {
 }
 ```
 
-`Sidebar` supports controlled and uncontrolled state, independent left and right panels, nested Roots, stable targeting, keyboard dismissal, and focus restoration. Its public API exposes behavior and semantic DOM only; it does not impose StyleX, theme tokens, default CSS, an animation runtime, persistence, or routing.
+`Sidebar` supports controlled and uncontrolled state, independent left and right panels, nested roots, native controllers, cancelable state changes, keyboard dismissal, and focus recovery. Its public API exposes behavior and semantic DOM only; it does not impose StyleX, theme tokens, default CSS, an animation runtime, persistence, or routing.
 
-`ResizeHandle` provides bounded pointer and keyboard resizing, pointer capture, optional collapse toggling, and WAI-ARIA window-splitter semantics. Consumers keep ownership of pane layout and persistence.
+The framework-independent `sidebar` definition and controller are exported from
+`@lenso/primitives/sidebar/core`; React parts are generated with SDK `createParts`.
+Use `@lenso/ui/sidebar` for styled navigation inside a panel. The registry also includes an editable Sidebar Recipe for Consumers that need structural ownership.
 
-Use `@lenso/ui/sidebar` when you want the Lenso UI visual adapter. The registry also includes an editable Sidebar Recipe for Consumers that need structural ownership.
+Source and browser tests live under `packages/primitives/src/sidebar`. See the repository [component conventions](../../docs/design/component-conventions.md) for the dependency boundary and the [contributing guide](../../CONTRIBUTING.md) for changes and release verification.
 
-Source and browser tests live under `packages/primitives/src/sidebar`. See the repository [architecture guide](../../docs/architecture.md) for the dependency boundary and the [contributing guide](../../CONTRIBUTING.md) for changes and release verification.
-
-## Command
-
-`@lenso/primitives/command` provides unstyled command filtering, navigation and execution.
-Use `@lenso/ui/command` for the styled Lenso component.
+Unstyled Command parts are available directly from `@ui-sdk/react/command`.
+Use `@lenso/ui/command` for the Lenso presentation.

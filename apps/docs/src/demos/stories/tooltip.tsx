@@ -21,32 +21,22 @@ export function TooltipBasic(overrides: TooltipStoryProps) {
   const textId = useId();
   const informationId = useId();
   return (
-    <Tooltip.Provider delay={0}>
-      <div {...stylex.props(styles.row)}>
-        <Tooltip {...args}>
-          <Tooltip.Trigger aria-describedby={textId} render={<Button />}>
-            Hover me
-          </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Positioner>
-              <Tooltip.Popup id={textId}>This is a tooltip</Tooltip.Popup>
-            </Tooltip.Positioner>
-          </Tooltip.Portal>
-        </Tooltip>
-        <Tooltip>
-          <Tooltip.Trigger
-            aria-describedby={informationId}
-            render={<Button isIconOnly aria-label="More information" />}
-          >
-            <CircleInfo />
-          </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Positioner>
-              <Tooltip.Popup id={informationId}>More information</Tooltip.Popup>
-            </Tooltip.Positioner>
-          </Tooltip.Portal>
-        </Tooltip>
-      </div>
-    </Tooltip.Provider>
+    <div {...stylex.props(styles.row)}>
+      <Tooltip {...args} delay={0}>
+        <Tooltip.Trigger aria-describedby={textId} render={<Button />}>
+          Hover me
+        </Tooltip.Trigger>
+        <Tooltip.Content id={textId}>This is a tooltip</Tooltip.Content>
+      </Tooltip>
+      <Tooltip delay={0}>
+        <Tooltip.Trigger
+          aria-describedby={informationId}
+          render={<Button isIconOnly aria-label="More information" />}
+        >
+          <CircleInfo />
+        </Tooltip.Trigger>
+        <Tooltip.Content id={informationId}>More information</Tooltip.Content>
+      </Tooltip>
+    </div>
   );
 }

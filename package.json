@@ -5,11 +5,9 @@
   "workspaces": {
     "packages": [
       "apps/*",
-      "packages/*",
-      "experiments"
+      "packages/*"
     ],
     "catalog": {
-      "@base-ui/react": "1.9.0",
       "@stylexjs/stylex": "0.19.1",
       "@stylexjs/unplugin": "0.19.1",
       "@tanstack/react-table": "9.3.1",
@@ -36,13 +34,14 @@
     "source:check": "bun scripts/interaction-boundaries.ts",
     "dev": "turbo run dev",
     "dev:docs": "bun run --filter @lenso/ui-docs dev",
+    "docs:create": "bun scripts/create-docs.ts",
     "dev:docs-starter": "turbo run build:dev --filter=@lenso/tokens --filter=@lenso/docs --output-logs=errors-only && bun run --filter @lenso/docs-starter dev",
     "dev:storybook": "bun run --filter @lenso/storybook dev",
     "format": "bun --bun oxfmt --config .oxfmtrc.json --ignore-path .oxfmtignore .",
     "format:check": "bun --bun oxfmt --config .oxfmtrc.json --ignore-path .oxfmtignore --check .",
     "lint": "bun --bun oxlint --config .oxlintrc.json --ignore-path .oxlintignore --deny-warnings .",
     "test": "bun run test:repo && turbo run test --concurrency=1 --cache=",
-    "test:docs-framework": "turbo run build --filter=@lenso/docs-starter --filter=create-lenso-docs && bun run --filter @lenso/docs test && bun run --filter create-lenso-docs test",
+    "test:docs-framework": "turbo run build --filter=@lenso/docs-starter --filter=create-lenso-docs && bun run --filter @lenso/docs test && bun run --filter create-lenso-docs test && bun test --timeout 180000 tests/consumer/docs-consumer.test.ts",
     "test:production": "bun test --timeout 180000 tests/consumer/*.test.ts && bun run --filter @lenso/ui-docs test:stylex-artifacts && turbo run build --filter=@lenso/docs-starter",
     "typecheck": "bun run typecheck:repo && bun run typecheck:ci && turbo run typecheck",
     "typecheck:ci": "bun check --no-script -p .github/scripts/tsconfig.json",

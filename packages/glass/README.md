@@ -10,7 +10,7 @@ component props are unchanged.
 | `@lenso/glass/motion` | Analytic springs, elastic press, drag and velocity deformation   |
 | `@lenso/glass/react`  | Optional React refs binding the same runtime                     |
 
-The core and motion entries do not import React, React DOM or Base UI. Importing
+The core and motion entries do not import React, React DOM or UI SDK. Importing
 them is safe during server rendering; attaching optics and running motion require
 a browser. React 19.2–19.x is an optional peer for the React entry.
 
@@ -218,7 +218,7 @@ the same material is painted in place.
 
 The selected production direction is TypeScript resource management, shared GPU
 shaders for supported backdrop sources, DOM controls and native CSS/SVG fallback.
-`@lenso/glass` owns optics, resource lifetime and motion; Base UI retains input,
+`@lenso/glass` owns optics, resource lifetime and motion; UI SDK retains input,
 focus, keyboard and accessibility behavior. Material recipes remain versioned in
 `@lenso/tokens` and apply to every rendering path.
 

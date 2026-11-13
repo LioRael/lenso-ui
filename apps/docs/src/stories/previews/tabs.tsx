@@ -5,7 +5,7 @@ import { useState } from "react";
 export interface TabsStoryProps {
   value: "overview" | "activity" | "settings";
   orientation?: TabsRootProps["orientation"];
-  activateOnFocus?: boolean;
+  activation?: TabsRootProps["activation"];
   lift?: TabsRootProps["lift"];
   elastic?: boolean;
   glass?: boolean;
@@ -14,7 +14,7 @@ export interface TabsStoryProps {
 export function TabsStory({
   value,
   orientation,
-  activateOnFocus,
+  activation,
   elastic,
   lift,
   glass,
@@ -28,16 +28,18 @@ export function TabsStory({
     <Tabs
       value={selection.value}
       orientation={orientation}
+      activation={activation}
       lift={lift}
       elastic={elastic}
       glass={glass}
       size={size}
       onValueChange={(next) => {
+        if (next !== "overview" && next !== "activity" && next !== "settings") return;
         setSelection({ value: next, external: value });
         engine.update(["value"], next);
       }}
     >
-      <Tabs.List activateOnFocus={activateOnFocus} aria-label="Sections">
+      <Tabs.List aria-label="Sections">
         <Tabs.Tab value="overview">Overview</Tabs.Tab>
         <Tabs.Tab value="activity">Activity</Tabs.Tab>
         <Tabs.Tab value="settings">Settings</Tabs.Tab>

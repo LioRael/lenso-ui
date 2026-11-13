@@ -4,9 +4,9 @@ export function CustomFiltering() {
   return (
     <AnimalPicker
       label="Animal (custom filter)"
-      items={smallAnimals}
+      items={smallAnimals.map((value) => ({ value, label: value.name }))}
       filter={(animal, inputValue) =>
-        !inputValue || animal.name.toLowerCase().includes(inputValue.toLowerCase())
+        !inputValue || animal.value.name.toLowerCase().includes(inputValue.toLowerCase())
       }
     />
   );

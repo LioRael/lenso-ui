@@ -42,7 +42,7 @@ try {
         "The header needs a surface before hydration",
       );
       if (slug.endsWith("button")) {
-        assert.ok(html.includes('id="native-api-button"'));
+        assert.ok(!html.includes('id="native-api-button"'));
         assert.ok(
           html.includes('data-component-story="Button"'),
           "The playground must be rendered in the initial HTML",
@@ -59,7 +59,7 @@ try {
   for (const locale of ["en", "cn"])
     assert.equal((await fetch(`${base}/${locale}/theme-builder`)).status, 404);
   console.log(
-    "Start dev: bilingual SSR, API content, metadata, search assets, legacy redirect and removed builder routes passed.",
+    "Start dev: bilingual SSR, compact playground content, metadata, search assets, legacy redirect and removed builder routes passed.",
   );
 } finally {
   if (child.exitCode === null) {

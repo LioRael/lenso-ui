@@ -1,10 +1,10 @@
-// Modified: native Base UI focus/hover Trigger, Portal/Positioner/Popup/Arrow.
+// Modified: native UI SDK focus/hover Trigger, Portal/Positioner/Popup/Arrow.
+import { Card, GlassButton, Tooltip } from "@lenso/ui";
 import type { Meta } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
-import { GlassButton, Card, Tooltip } from "@lenso/ui";
-import { overlayStyles as s } from "./overlay.stylex";
-import { OverlayIcon } from "./overlay.fixtures";
 import { position, positionControls, type OverlayPositionArgs } from "./overlay-position.fixtures";
+import { OverlayIcon } from "./overlay.fixtures";
+import { overlayStyles as s } from "./overlay.stylex";
 type Args = OverlayPositionArgs & { showArrow?: boolean };
 export default {
   argTypes: positionControls,
@@ -17,21 +17,16 @@ const defaultArgs: Args = { showArrow: true };
 function Template(props: Args) {
   return (
     <div {...stylex.props(s.compactRow)}>
-      <Tooltip.Root>
+      <Tooltip.Root delay={0}>
         <Tooltip.Trigger
-          delay={0}
           render={<GlassButton isIconOnly aria-label="Information" variant="default" />}
         >
           <OverlayIcon name="circle-info" />
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner {...position({ placement: "top", ...props })}>
-            <Tooltip.Popup>
-              {props.showArrow && <Tooltip.Arrow />}
-              <p>Tooltip content</p>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content {...position(props)}>
+          {props.showArrow && <Tooltip.Arrow />}
+          <p>Tooltip content</p>
+        </Tooltip.Content>
       </Tooltip.Root>
     </div>
   );
@@ -39,20 +34,16 @@ function Template(props: Args) {
 function TemplateWithTrigger(props: Args) {
   return (
     <div {...stylex.props(s.compactRow)}>
-      <Tooltip.Root>
-        <Tooltip.Trigger delay={0} aria-label="Tooltip trigger">
+      <Tooltip.Root delay={0}>
+        <Tooltip.Trigger aria-label="Tooltip trigger">
           <div {...stylex.props(s.tooltipTrigger)}>
             <OverlayIcon name="circle-info" />
           </div>
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner {...position({ placement: "top", ...props })}>
-            <Tooltip.Popup>
-              {props.showArrow && <Tooltip.Arrow />}
-              <p>Tooltip content</p>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content {...position(props)}>
+          {props.showArrow && <Tooltip.Arrow />}
+          <p>Tooltip content</p>
+        </Tooltip.Content>
       </Tooltip.Root>
     </div>
   );
@@ -63,9 +54,8 @@ function CardWithTooltipTemplate(props: Args) {
   return (
     <Card xstyle={s.card200}>
       <Card.Content xstyle={s.cardTooltip}>
-        <Tooltip.Root>
+        <Tooltip.Root delay={0}>
           <Tooltip.Trigger
-            delay={0}
             aria-label="Attach a file"
             render={
               <GlassButton
@@ -79,14 +69,10 @@ function CardWithTooltipTemplate(props: Args) {
           >
             <OverlayIcon name="paperclip" />
           </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Positioner {...position({ placement: "top", ...props })}>
-              <Tooltip.Popup>
-                {props.showArrow && <Tooltip.Arrow />}
-                <p>Attach a file</p>
-              </Tooltip.Popup>
-            </Tooltip.Positioner>
-          </Tooltip.Portal>
+          <Tooltip.Content {...position(props)}>
+            {props.showArrow && <Tooltip.Arrow />}
+            <p>Attach a file</p>
+          </Tooltip.Content>
         </Tooltip.Root>
       </Card.Content>
     </Card>

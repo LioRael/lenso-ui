@@ -4,6 +4,7 @@ import { compile } from "@mdx-js/mdx";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
+import { rehypeHighlight } from "./rehype-highlight.ts";
 import { remarkStructure } from "fumadocs-core/mdx-plugins/remark-structure";
 import { buildContent, type DocsPage, type DocsTreeNode } from "./content.ts";
 import { createDocumentationSource, type DocumentationPageMetadata } from "./source.ts";
@@ -219,6 +220,7 @@ async function compilePage(input: HostPage): Promise<HostPage> {
     const result = await compile(body, {
       format: "md",
       outputFormat: "program",
+      rehypePlugins: [rehypeHighlight],
       remarkPlugins: [remarkGfm, collect, remarkStructure],
     });
     page.compiled = String(result);

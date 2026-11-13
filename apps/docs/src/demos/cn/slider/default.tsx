@@ -16,8 +16,8 @@ export function Default() {
       <Slider.Control>
         <Slider.Track>
           <Slider.Fill />
+          <Slider.Thumb aria-label="音量" />
         </Slider.Track>
-        <Slider.Thumb aria-label="音量" />
       </Slider.Control>
     </Slider>
   );

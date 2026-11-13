@@ -19,7 +19,7 @@ const s = stylex.create({
   },
 });
 export function NavigationToolbar(
-  props: Pick<ComponentProps<typeof Toolbar>, "disabled" | "elastic" | "loopFocus">,
+  props: Pick<ComponentProps<typeof Toolbar>, "disabled" | "elastic" | "loop">,
 ) {
   const [action, setAction] = useState("Album actions");
   return (

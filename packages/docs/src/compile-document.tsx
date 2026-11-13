@@ -1,7 +1,9 @@
 import type { MDXComponents } from "mdx/types";
 import type { ReactNode } from "react";
 import type { PluggableList } from "unified";
-import { compileMDX } from "next-mdx-remote/rsc";
+import { evaluate } from "@mdx-js/mdx";
+import * as runtime from "react/jsx-runtime";
+import { createElement } from "react";
 import matter from "gray-matter";
 import GithubSlugger from "github-slugger";
 import remarkGfm from "remark-gfm";
@@ -103,16 +105,10 @@ export async function compileDocument({
     }
     visit(tree);
   };
-  const { content } = await compileMDX({
-    source: parsed.content,
-    components,
-    options: {
-      blockJS: false,
-      blockDangerousJS: true,
-      mdxOptions: {
-        remarkPlugins: [remarkGfm, removeLeadingTitle, ...remarkPlugins, collectHeadings],
-      },
-    },
+  const { default: Body } = await evaluate(parsed.content, {
+    ...runtime,
+    remarkPlugins: [remarkGfm, removeLeadingTitle, ...remarkPlugins, collectHeadings],
   });
+  const content = createElement(Body, { components: components ?? {} });
   return { content, headings, markdown, frontmatter: parsed.data };
 }

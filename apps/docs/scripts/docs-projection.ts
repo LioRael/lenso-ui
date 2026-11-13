@@ -6,7 +6,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ApiReference, DocsIndexPage } from "@lenso/ui-devtools/contract/types";
 import type { LiveManifest } from "./generate-live-registry.ts";
-import { nativeApiMarkdown } from "../src/lib/native-api-section.ts";
 
 interface ExampleCatalog {
   examples: Record<string, Record<string, { source: string }>>;
@@ -70,6 +69,8 @@ const exampleTitles: Record<string, [string, string]> = {
 };
 
 export function examplePresentation(name: string, family: string, locale: Locale) {
+  if (name === "menu-default")
+    return { title: locale === "cn" ? "完整示例" : "Complete example", basic: false };
   const suffix = name.startsWith(`${family}-`) ? name.slice(family.length + 1) : name;
   const words = suffix.replaceAll("-", " ");
   return {
@@ -93,24 +94,24 @@ export function exampleGroup(name: string, family: string) {
     return "appearance";
   return "composition";
 }
-const exampleGroups = [
-  {
-    title: ["State and data", "状态与数据"],
-    matches: (name: string, family: string) => exampleGroup(name, family) === "state",
-  },
-  {
-    title: ["Forms and validation", "表单与验证"],
-    matches: (name: string, family: string) => exampleGroup(name, family) === "validation",
-  },
-  {
-    title: ["Composition and actions", "组合与操作"],
-    matches: (name: string, family: string) => exampleGroup(name, family) === "composition",
-  },
-  {
-    title: ["Appearance and basic states", "外观与基础状态示例"],
-    matches: (name: string, family: string) => exampleGroup(name, family) === "appearance",
-  },
-];
+export function playgroundExamples(examples: Example[], family: string) {
+  if (family === "button") return [];
+  if (family === "menu") return examples;
+  const meaningful = examples.filter(
+    ({ name }) =>
+      !examplePresentation(name, family, "en").basic && !/-(?:basic|default)$/.test(name),
+  );
+  const groups = ["state", "validation", "composition", "appearance"].map((group) =>
+    meaningful.filter(({ name }) => exampleGroup(name, family) === group),
+  );
+  const selected: Example[] = [];
+  while (selected.length < 8 && groups.some((group) => group.length)) {
+    for (const group of groups) {
+      if (group.length && selected.length < 8) selected.push(group.shift()!);
+    }
+  }
+  return selected;
+}
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 const categoryFamilies: Record<string, readonly string[]> = {
@@ -619,8 +620,8 @@ const descriptions: Record<string, [string, string]> = {
 
 const contracts: Record<string, [string, string]> = {
   command: [
-    "Command composes the unstyled @lenso/primitives/command interaction layer with Lenso styles from @lenso/ui/command. Use xstyle to override the defaults. Supply a flat items collection and render matching entries through List. Give Input an accessible name; Item onSelect handles pointer or Enter activation without replacing the query. Use filter=false for external results and itemToStringValue for object labels. Base UI owns navigation and active-descendant relationships. Group and GroupLabel expose related commands; disabled items cannot execute. Compose with Dialog for a palette: the application owns shortcuts, routing and dismissal. Style active items with data-highlighted. See the runnable preview and its source for the complete composition.",
-    "Command 由 @lenso/primitives/command 的无样式交互层与 @lenso/ui/command 的 Lenso 样式层组成，使用 xstyle 覆盖默认样式。传入扁平 items 集合，通过 List 渲染匹配项。为 Input 提供无障碍名称；Item 的 onSelect 响应点击与 Enter，执行时保留查询。外部检索使用 filter=false，对象标签由 itemToStringValue 提供。Base UI 管理导航和活动项关联。使用 Group 与 GroupLabel 分组，禁用项不能执行。命令面板可组合 Dialog，快捷键、路由与关闭由应用负责。使用 data-highlighted 设置活动项样式。交互预览及其源码提供完整组合。",
+    "Command combines native @ui-sdk/react/command interactions with Lenso presentation from @lenso/ui/command. Use query/onQueryChange for search and value/onValueChange for highlight. Compose Item children without root data, or supply native items and let a childless List render them. Give Input an accessible name; Item onSelect activates a command while preserving the query. Use filter=false for externally ranked results. SDK controllers own imperative actions; details.cancel() cancels changes. Compose with Dialog for a palette; the application owns shortcuts, routing and dismissal. Use data-highlighted for the active item. See the runnable preview for complete composition.",
+    "Command 使用 @ui-sdk/react/command 的原生交互，由 @lenso/ui/command 提供 Lenso 视觉。query/onQueryChange 管理搜索，value/onValueChange 管理高亮。手动组合 Item 时不传根级数据；使用原生 items 时让无子节点的 List 自动渲染。为 Input 提供无障碍名称；Item 的 onSelect 激活命令并保留查询。外部排序结果使用 filter=false，命令式操作使用 SDK controller，取消变更使用 details.cancel()。命令面板组合 Dialog，快捷键、路由和关闭由应用负责。使用 data-highlighted 设置活动项样式，完整组合见交互示例。",
   ],
   "glass-container": [
     "Wrap Glass, GlassButton or GlassToggleButton in GlassContainer. Custom shapes use GlassContainer.Item with native render composition. spacing is the approximate fusion distance, independent of layout gap; rendered bounds include elastic enlargement and spring return. Matching recipes share a surface behind their content, with edge optics and the neck following one combined distance field. Mixed recipes keep individual geometry-aware lenses and a bridge overlapping the contact rim by 2px. Separation restores independent rendering; tint changes only the bridge. GlassButton and GlassToggleButton include transient press lighting that fades into the neck. Mark data-lenso-backdrop content for consistent sampling. WebKit uses lighter material paints during motion for matching untinted Small Glass and restores full optics after 100ms of stable geometry; unmarked WebKit keeps the paint fallback. disabled, reduced motion, increased contrast and reduced transparency remove bridges. Use small groups of axis-aligned shapes with uniform corners and reserve padding for animation travel. This is a Web approximation of native merging.",
@@ -1143,12 +1144,6 @@ export function nativeContractNotes(reference: ApiReference, family: string, loc
   ].join("\n");
 }
 
-function menuGuide(locale: Locale) {
-  return locale === "cn"
-    ? '## 组合与键盘\n\n`Menu.Root` 管理展开状态；`Menu.Trigger` 打开菜单。将 `Menu.Popup` 放入 `Menu.Portal` 和 `Menu.Positioner` 中，定位器处理锚点与侧边偏移，弹出层负责菜单表面。\n\n菜单项必须位于 Menu 上下文内。箭头键在可用项目间移动，Enter 或 Space 激活命令，Escape 关闭并返回触发器。子菜单使用 `Menu.SubmenuRoot` 和 `Menu.SubmenuTrigger`，不要嵌套另一个普通按钮来模拟菜单项。`Menu.SubmenuRoot presentation="stacked"` 固定使用叠层模式，`presentation="cascade"` 固定使用侧展开模式，默认 `auto` 按可用宽度选择。叠层模式通过点击、返回标题或外部点击关闭，不因鼠标移出而关闭；侧展开模式支持悬停。\n\n受控展开采用 `open` 和 `onOpenChange`；回调签名以本地 API 为准。项目行为采用 Base UI 事件，不使用 React Aria 的 `onAction` 或 `onPress`。选项、分组、链接和子菜单的运行示例均列在下方。\n\n使用 `Menu.Bar`、独立的 `Menu.BarItem` 操作与 `Menu.ExpandTrigger` 箭头组合横版菜单。将操作栏与 Portal、Popup 放在同一个 `Menu.Root` 中；箭头会让整条操作栏变形为普通菜单，Escape 反向收回并恢复箭头焦点。\n\n公开名称只有 `Menu`。历史 Dropdown 的来源名称仅保留在内部示例引用中；旧文档地址可以重定向到本页，但不表示存在 Dropdown 导出。\n'
-    : '## Composition and keyboard\n\n`Menu.Root` owns open state; `Menu.Trigger` opens the menu. Place `Menu.Popup` inside `Menu.Portal` and `Menu.Positioner`: the positioner handles anchoring and side offsets, while the popup owns the menu surface.\n\nItems must participate in the Menu context. Arrow keys move between enabled items, Enter or Space activates a command, and Escape dismisses the popup and returns focus to its trigger. Submenus use `Menu.SubmenuRoot` and `Menu.SubmenuTrigger`; do not simulate an item by nesting another ordinary button. Set `Menu.SubmenuRoot presentation="stacked"` for a fixed stacked panel or `presentation="cascade"` for a fixed lateral panel. The default `auto` follows available width. Stacked panels stay open when the pointer leaves; dismiss with the heading or an outside press. Cascades support hover.\n\nControl visibility with `open` and `onOpenChange`, using the local callback signature below. Item activation uses Base UI events, not React Aria\'s `onAction` or `onPress`. Runnable examples below cover items, groups, links and submenus.\n\n`Menu.Bar` composes a horizontal Edit Menu with independent `Menu.BarItem` actions and a `Menu.ExpandTrigger` arrow. Place the bar inside `Menu.Root` alongside its portal and popup. The arrow morphs the whole bar into the regular menu; Escape reverses the transition and restores focus to the arrow.\n\nThe public name is `Menu` only. Historical Dropdown names remain internal example references; an old documentation URL may redirect here, but that does not imply a Dropdown export.\n';
-}
-
 async function authoredFiles(directory: string, prefix = "react"): Promise<string[]> {
   const files: string[] = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -1169,18 +1164,6 @@ async function authoredFiles(directory: string, prefix = "react"): Promise<strin
 }
 
 export async function generateDocsProjection(directory = root) {
-  let storyFiles: string[];
-  try {
-    storyFiles = await readdir(path.join(directory, "apps/docs/src/stories"));
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-    storyFiles = [];
-  }
-  const stories = new Set(
-    storyFiles
-      .filter((file) => file.endsWith(".story.tsx"))
-      .map((file) => file.slice(0, -".story.tsx".length)),
-  );
   const docs = path.join(path.resolve(directory), "apps/docs");
   const product = await json<{ version: string }>(path.join(directory, "packages/ui/package.json"));
   const reference = await json<ApiReference>(path.join(docs, "src/generated/api-reference.json"));
@@ -1308,99 +1291,17 @@ export async function generateDocsProjection(directory = root) {
       const title = titles[family];
       const examples = placements.get(family)!;
       const markdownFile = `content/lenso/${locale}/react/components/${family}.mdx`;
-      const contexts = families.filter(
-        (candidate) =>
-          candidate !== family &&
-          reference.families[candidate].parts.some((part) =>
-            part.members.some((member) =>
-              reference.families[family].parts.some(
-                (support) => support.name === `${part.name}${member}`,
-              ),
-            ),
-          ),
-      );
-      const noScenario = stories.has(family)
-        ? locale === "cn"
-          ? "本页 Story 提供交互预览；当前没有额外的独立场景示例。"
-          : "This page's Story provides the interactive preview; no additional standalone scenarios are maintained."
-        : locale === "cn"
-          ? `${title} 在当前维护的源场景清单中没有独立运行示例。公开导出与 API 表不代表独立示例覆盖。`
-          : `${title} has no standalone runnable scene in the maintained source-scenario inventory. Its export and API table do not count as dedicated demo coverage.`;
-      const catalogPage = catalog.pages.find(
-        (page) =>
-          page.locale === locale &&
-          page.slug.startsWith("react/components/") &&
-          canonicalFamily(page.slug.split("/").at(-1)!) === family,
-      );
-      const primaryName = canonicalExampleName(catalogPage?.previews?.[0] ?? "");
-      const primary =
-        examples.find((example) => example.name === primaryName) ??
-        examples.find((example) => /-(?:basic|default)$/.test(example.name)) ??
-        examples[0] ??
-        [...placements.values()].flat().find(
-          (example) =>
-            example.name ===
-            (
-              {
-                "calendar-year-picker": "calendar-year-picker",
-                "color-input-group": "color-field-basic",
-                "date-input-group": "date-field-basic",
-                radio: "radio-group-basic",
-                tag: "tag-group-basic",
-              } as Record<string, string>
-            )[family],
-        );
       const sections = [
         frontmatter(title, description),
-        locale === "cn" ? "## 交互预览\n" : "## Playground\n",
-        `<ComponentPlayground family=${JSON.stringify(family)} locale=${JSON.stringify(locale)} />`,
-        "",
-        locale === "cn" ? "## 用法\n" : "## Usage\n",
-        ...(primary
+        ...(family === "button"
           ? [
-              `<ComponentPreview name=${JSON.stringify(primary.name)} defaultView="source"${family === "form" ? ' sourceFile="shared/grouped-form.tsx"' : ""} />`,
-              "",
-            ]
-          : [
               locale === "cn"
-                ? "在上方交互预览的代码视图中查看完整组合；下面列出了此部件的组合上下文。"
-                : "Open Code in the playground for the complete composition. Related component pages below show the enclosing context.",
+                ? "点击按钮，或聚焦后按 Enter / Space，在 Console 中查看触发记录。"
+                : "Click the button, or focus it and press Enter or Space, to see each activation in the console.",
               "",
-            ]),
-        locale === "cn" ? "## 使用与交互\n" : "## Use and interaction\n",
-        family === "menu"
-          ? menuGuide(locale).replace(/^## [^\n]+\n/, "")
-          : nativeContractNotes(reference, family, locale),
-        locale === "cn" ? "## 示例\n" : "## Examples\n",
-        ...(!examples.length
-          ? [
-              noScenario,
-              ...contexts.map(
-                (context) =>
-                  `${locale === "cn" ? "组合上下文示例" : "Composed context examples"}: [${titles[context]}](/docs/react/components/${context}).`,
-              ),
             ]
           : []),
-        ...exampleGroups.flatMap(({ title, matches }) => {
-          const members = examples.filter(
-            (example) => example !== primary && matches(example.name, family),
-          );
-          if (!members.length) return [];
-          return [
-            "<details>",
-            `<DisclosureSummary>${title[locale === "cn" ? 1 : 0]} (${members.length})</DisclosureSummary>`,
-            "",
-            ...members.flatMap(({ name }) => [
-              `### ${examplePresentation(name, family, locale).title}`,
-              "",
-              `<ComponentPreview name=${JSON.stringify(name)} />`,
-              "",
-            ]),
-            "</details>",
-            "",
-          ];
-        }),
-        nativeApiMarkdown(reference, family, locale === "cn" ? "zh" : "en"),
+        `<ComponentPlayground family="${family}" locale="${locale}" />`,
       ];
       markdown.set(markdownFile, `${sections.join("\n")}\n`);
       pages.push({

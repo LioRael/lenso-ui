@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
-// Adapted: Base UI owns checked state; the source springs paint its visual state.
+// Adapted: UI SDK owns checked state; the source springs paint its visual state.
 import { useCallback, useEffect, useState, type Ref } from "react";
 import { createSpring, createVelocityDeformation } from "@lenso/glass/motion";
 import { held } from "./hold.js";
@@ -9,7 +9,7 @@ import { createKnobRefraction } from "../materials/control-lens.js";
 const unit = (value: number) => Math.min(1, Math.max(0, value));
 
 function present(root: HTMLElement) {
-  const control = () => root.querySelector<HTMLElement>('[data-slot="switch-control"]');
+  const control = () => root.querySelector<HTMLElement>('[data-lenso-slot="switch-control"]');
   const checked = () => root.getAttribute("aria-checked") === "true";
   const blocked = () => root.matches('[data-disabled], [data-readonly], [aria-disabled="true"]');
   const travel = () => ((control()?.getBoundingClientRect().width ?? 64) / 64) * 22;
@@ -17,7 +17,7 @@ function present(root: HTMLElement) {
   let stretch = 0;
   let raised = 0;
   const track = control();
-  const thumb = track?.querySelector<HTMLElement>('[data-slot="switch-thumb"]');
+  const thumb = track?.querySelector<HTMLElement>('[data-lenso-slot="switch-thumb"]');
   const refraction = track && thumb ? createKnobRefraction(track, thumb, "switch") : undefined;
   const paintShape = () => {
     root.style.setProperty(
@@ -77,7 +77,7 @@ function present(root: HTMLElement) {
     gesture = null;
     lift.set(0);
     if (old?.owner.hasPointerCapture(old.id)) old.owner.releasePointerCapture(old.id);
-    // Commit through Base UI's activation contract, including cancellation and forms.
+    // Commit through UI SDK's activation contract, including cancellation and forms.
     if (next !== undefined && next !== checked() && !blocked()) root.click();
     cancelAnimationFrame(rollback);
     rollback = requestAnimationFrame(sync);
@@ -150,9 +150,9 @@ function present(root: HTMLElement) {
     if (gesture && event.cancelable && held(gesture.at, gesture.moved)) event.preventDefault();
   };
   window.addEventListener("pointerdown", down);
-  window.addEventListener("pointermove", move);
-  window.addEventListener("pointerup", up);
-  window.addEventListener("pointercancel", cancel);
+  window.addEventListener("pointermove", move, true);
+  window.addEventListener("pointerup", up, true);
+  window.addEventListener("pointercancel", cancel, true);
   window.addEventListener("blur", cancel);
   root.addEventListener("lostpointercapture", cancel);
   root.addEventListener("click", click, true);
@@ -166,9 +166,9 @@ function present(root: HTMLElement) {
     deformation.stop();
     refraction?.destroy();
     window.removeEventListener("pointerdown", down);
-    window.removeEventListener("pointermove", move);
-    window.removeEventListener("pointerup", up);
-    window.removeEventListener("pointercancel", cancel);
+    window.removeEventListener("pointermove", move, true);
+    window.removeEventListener("pointerup", up, true);
+    window.removeEventListener("pointercancel", cancel, true);
     window.removeEventListener("blur", cancel);
     root.removeEventListener("lostpointercapture", cancel);
     root.removeEventListener("click", click, true);

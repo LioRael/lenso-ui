@@ -20,31 +20,27 @@ export function Placements() {
           <Modal.Trigger render={<Button />}>
             {placement.charAt(0).toUpperCase() + placement.slice(1)}
           </Modal.Trigger>
-          <Modal.Portal>
-            <Modal.Backdrop />
-            <Modal.Viewport>
-              <Modal.Popup placement={placement} xstyle={styles.popup}>
-                <Modal.Close aria-label="Close dialog" />
-                <Modal.Header>
-                  <Modal.Icon xstyle={styles.icon}>
-                    <Rocket {...stylex.props(styles.rocket)} />
-                  </Modal.Icon>
-                  <Modal.Title>
-                    Placement: {placement.charAt(0).toUpperCase() + placement.slice(1)}
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Modal.Description>
-                    This modal uses the <code>{placement}</code> placement option. Try different
-                    placements to see how the modal positions itself on the screen.
-                  </Modal.Description>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Modal.Close render={<Button xstyle={styles.action} />}>Continue</Modal.Close>
-                </Modal.Footer>
-              </Modal.Popup>
-            </Modal.Viewport>
-          </Modal.Portal>
+          <Modal.Backdrop />
+          <Modal.Content placement={placement} xstyle={styles.popup}>
+            <Modal.Close aria-label="Close dialog" />
+            <Modal.Header>
+              <Modal.Icon xstyle={styles.icon}>
+                <Rocket {...stylex.props(styles.rocket)} />
+              </Modal.Icon>
+              <Modal.Title>
+                Placement: {placement.charAt(0).toUpperCase() + placement.slice(1)}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Modal.Description>
+                This modal uses the <code>{placement}</code>placement option. Try different
+                placements to see how the modal positions itself on the screen.
+              </Modal.Description>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.Close render={<Button xstyle={styles.action} />}>Continue</Modal.Close>
+            </Modal.Footer>
+          </Modal.Content>
         </Modal>
       ))}
     </div>

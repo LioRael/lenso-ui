@@ -1,7 +1,7 @@
 "use client";
 
-import { NativeButton as BaseButton } from "../../utils/native-button.js";
-import { useRender } from "@base-ui/react/use-render";
+import { NativeButton as SdkButton } from "../../utils/native-button.js";
+import { renderElement, type PartProps } from "@ui-sdk/react/primitive";
 import { glassStyles } from "@lenso/tokens/glass";
 import { tabBarStyles } from "@lenso/tokens/tab-bar";
 import { tabsStyles } from "@lenso/tokens/tabs";
@@ -42,7 +42,7 @@ const MotionContext = createContext({
   setMinimized: (_value: boolean) => {},
 });
 
-export type TabBarRootProps = StyleXProps<useRender.ComponentProps<"nav">> & {
+export type TabBarRootProps = StyleXProps<PartProps<"nav">> & {
   layout?: TabBarLayout;
   /** Enable press enlargement, elastic dragging and spring return on each glass group. */
   elastic?: boolean;
@@ -111,19 +111,22 @@ export function TabBarRoot({
     tabBarStyles.lift(Number.isFinite(lift) ? Math.max(0, lift) : 20),
     xstyle,
   );
-  const nav = useRender({
-    defaultTagName: "nav",
-    render,
-    ref: mergedRef,
-    props: {
-      ...props,
-      ...compiled,
-      style: mergeStyle(compiled.style, style),
-      "data-slot": props["data-slot"] ?? "tab-bar",
-      "data-layout": layout,
-      "data-minimized": minimized ? "" : undefined,
+  const nav = renderElement(
+    "nav",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs; it does not read them.
+    {
+      ...{
+        ...props,
+        ...compiled,
+        style: mergeStyle(compiled.style, style),
+        "data-lenso-slot": props["data-lenso-slot"] ?? "tab-bar",
+        "data-layout": layout,
+        "data-minimized": minimized ? "" : undefined,
+      },
+      ref: mergedRef,
     },
-  });
+    render,
+  );
   return (
     <LayoutContext value={layout}>
       <MotionContext value={{ elastic, minimized, expandLabel, setMinimized }}>{nav}</MotionContext>
@@ -215,7 +218,7 @@ export function TabBarGroup({
       {...compiled}
       ref={elasticRef}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "tab-bar-group"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "tab-bar-group"}
       data-tab-bar-group=""
       data-layout={layout}
       data-separate={separate ? "" : undefined}
@@ -225,19 +228,18 @@ export function TabBarGroup({
         aria-hidden="true"
         variant="glass-small"
         liveGeometry
-        deferOptics
         data-material-resting=""
         xstyle={[tabBarStyles.material, layout === "tablet" && tabBarStyles.tabletMaterial]}
       />
       {!separate && (
         <span
-          data-slot="tab-bar-indicator"
+          data-lenso-slot="tab-bar-indicator"
           aria-hidden="true"
           inert
           {...stylex.props(glassStyles.hotspot, tabBarStyles.indicator)}
         >
           <span
-            data-slot="tab-bar-refraction"
+            data-lenso-slot="tab-bar-refraction"
             {...stylex.props(tabsStyles.refraction, tabBarStyles.indicatorRefraction)}
           >
             <KnobMaterial kind="toggle" controlEdge />
@@ -246,25 +248,31 @@ export function TabBarGroup({
       )}
       {!separate && (
         <span
-          data-slot="tab-bar-highlight"
+          data-lenso-slot="tab-bar-highlight"
           aria-hidden="true"
           inert
           {...stylex.props(tabBarStyles.highlight)}
         >
-          <span data-slot="tab-bar-highlight-ring" {...stylex.props(tabBarStyles.highlightClip)}>
+          <span
+            data-lenso-slot="tab-bar-highlight-ring"
+            {...stylex.props(tabBarStyles.highlightClip)}
+          >
             <span
-              data-slot="tab-bar-highlight-optics"
+              data-lenso-slot="tab-bar-highlight-optics"
               {...stylex.props(tabBarStyles.highlightOptics)}
             >
               <span
-                data-slot="tab-bar-highlight-row"
+                data-lenso-slot="tab-bar-highlight-row"
                 {...stylex.props(tabBarStyles.highlightRow)}
               />
             </span>
           </span>
-          <span data-slot="tab-bar-highlight-centre" {...stylex.props(tabBarStyles.highlightClip)}>
+          <span
+            data-lenso-slot="tab-bar-highlight-centre"
+            {...stylex.props(tabBarStyles.highlightClip)}
+          >
             <span
-              data-slot="tab-bar-highlight-centre-row"
+              data-lenso-slot="tab-bar-highlight-centre-row"
               {...stylex.props(tabBarStyles.highlightRow)}
             />
           </span>
@@ -284,7 +292,7 @@ export function TabBarGroup({
         <SeparateContext value={separate}>{children}</SeparateContext>
       </ul>
       {!separate && minimized && (
-        <BaseButton
+        <SdkButton
           ref={expandRef}
           aria-label={expandLabel}
           aria-expanded={false}
@@ -305,7 +313,7 @@ export function TabBarGroup({
           <span aria-hidden="true" {...stylex.props(tabBarStyles.expandFallback)}>
             ⋯
           </span>
-        </BaseButton>
+        </SdkButton>
       )}
     </div>
   );
@@ -390,7 +398,7 @@ export function TabBarLink({
         render={protectedRender}
         role={props.role ?? (disabled ? "link" : undefined)}
         aria-current={ariaCurrent ?? (current ? "page" : undefined)}
-        data-slot={props["data-slot"] ?? "tab-bar-link"}
+        data-lenso-slot={props["data-lenso-slot"] ?? "tab-bar-link"}
         data-tab-bar-item=""
         data-tab-bar-destination=""
         data-current={current || undefined}
@@ -421,7 +429,7 @@ export function TabBarLink({
   );
 }
 
-export type TabBarButtonProps = Omit<StyleXProps<ComponentProps<typeof BaseButton>>, "children"> &
+export type TabBarButtonProps = Omit<StyleXProps<ComponentProps<typeof SdkButton>>, "children"> &
   ContentProps;
 
 export function TabBarButton({
@@ -449,17 +457,17 @@ export function TabBarButton({
         separate && tabBarStyles.separateItemContainer,
       )}
     >
-      <BaseButton
+      <SdkButton
         {...props}
         {...compiled}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "tab-bar-button"}
+        data-lenso-slot={props["data-lenso-slot"] ?? "tab-bar-button"}
         data-tab-bar-item=""
       >
         <ItemContent icon={icon} iconOnly={iconOnly}>
           {children}
         </ItemContent>
-      </BaseButton>
+      </SdkButton>
     </li>
   );
 }

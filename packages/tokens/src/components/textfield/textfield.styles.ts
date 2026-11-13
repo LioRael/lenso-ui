@@ -16,10 +16,10 @@ export const textFieldStyles = stylex.create({
     columnGap: 12,
     gridTemplateColumns: {
       default: "minmax(0, 1fr)",
-      ":has(> [data-slot='label'])": "minmax(0, 1fr) minmax(0, 2fr)",
+      ":has(> [data-lenso-slot='label'])": "minmax(0, 1fr) minmax(0, 2fr)",
       "@container (max-width: 360px)": {
         default: "minmax(0, 1fr)",
-        ":has(> [data-slot='label'])": "minmax(0, 1fr)",
+        ":has(> [data-lenso-slot='label'])": "minmax(0, 1fr)",
       },
     },
     paddingBlock: { default: 0, "@container (max-width: 360px)": 8 },
@@ -28,23 +28,23 @@ export const textFieldStyles = stylex.create({
   rowLabel: {
     fontSize: {
       default: null,
-      ":is([data-field-layout='row'] > *, [data-slot='fieldset-row'] > *)": 17,
+      ":is([data-field-layout='row'] > *, [data-lenso-slot='fieldset-row'] > *)": 17,
     },
     lineHeight: {
       default: null,
-      ":is([data-field-layout='row'] > *, [data-slot='fieldset-row'] > *)": "22px",
+      ":is([data-field-layout='row'] > *, [data-lenso-slot='fieldset-row'] > *)": "22px",
     },
     fontWeight: {
       default: null,
-      ":is([data-field-layout='row'] > *, [data-slot='fieldset-row'] > *)": 400,
+      ":is([data-field-layout='row'] > *, [data-lenso-slot='fieldset-row'] > *)": 400,
     },
     overflowWrap: {
       default: null,
-      ":is([data-field-layout='row'] > *, [data-slot='fieldset-row'] > *)": "anywhere",
+      ":is([data-field-layout='row'] > *, [data-lenso-slot='fieldset-row'] > *)": "anywhere",
     },
     minWidth: {
       default: null,
-      ":is([data-field-layout='row'] > *, [data-slot='fieldset-row'] > *)": 0,
+      ":is([data-field-layout='row'] > *, [data-lenso-slot='fieldset-row'] > *)": 0,
     },
   },
   supporting: {

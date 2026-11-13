@@ -157,12 +157,14 @@ export function validatePackage(
         throw new Error(`@lenso/glass must include the attributed source ${file}`);
   } else if (item.kind === "primitives") {
     requireFile("package/LICENSE");
-    for (const family of ["command", "data-grid", "resize-handle", "sidebar"]) {
+    requireFile("package/dist/sidebar/sidebar.js");
+    requireFile("package/dist/sidebar/sidebar.d.ts");
+    for (const family of ["sidebar"]) {
       requireFile(`package/dist/${family}/index.js`);
       requireFile(`package/dist/${family}/index.d.ts`);
+      if (!/^["']use client["'];/.test(contents[`package/dist/${family}/index.js`] ?? ""))
+        throw new Error(`${family} entry must preserve its use client directive`);
     }
-    if (!/^["']use client["'];/.test(contents["package/dist/command/index.js"] ?? ""))
-      throw new Error("Command entry must preserve its use client directive");
   } else if (item.kind === "docs") {
     for (const path of [
       "package/LICENSE",
@@ -321,7 +323,7 @@ async function publish() {
           "package/dist/tokens.stylex.const.js",
           "package/dist/THIRD_PARTY_NOTICES.md",
           "package/dist/react/index.js",
-          "package/dist/command/index.js",
+          ...["sidebar"].map((family) => `package/dist/${family}/index.js`),
           "package/dist/source/src/gpu-blur.ts",
           "package/dist/source/src/gpu-optics.ts",
         ]

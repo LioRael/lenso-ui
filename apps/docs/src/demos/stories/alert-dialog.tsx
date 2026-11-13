@@ -19,41 +19,37 @@ export function Default(overrides: AlertDialogStoryProps) {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialog.Trigger render={<Button />}>Show alert</AlertDialog.Trigger>
-      <AlertDialog.Portal>
-        <AlertDialog.Backdrop forceRender />
-        <AlertDialog.Viewport>
-          <AlertDialog.Popup>
-            <AlertDialog.Header>
-              <AlertDialog.Title>
-                {destructive ? "Delete this project?" : "Save your changes?"}
-              </AlertDialog.Title>
-              <AlertDialog.Description>
-                {destructive
-                  ? "This project and its files will be permanently deleted."
-                  : "Your changes will be available the next time you open this project."}
-              </AlertDialog.Description>
-            </AlertDialog.Header>
-            {withFields && (
-              <AlertDialog.Fields>
-                <TextField.Group aria-label="Project details">
-                  <TextField>
-                    <TextField.Input aria-label="Project name" placeholder="Project name" />
-                  </TextField>
-                  <TextField>
-                    <TextField.Input aria-label="Description" placeholder="Description" />
-                  </TextField>
-                </TextField.Group>
-              </AlertDialog.Fields>
-            )}
-            <AlertDialog.Footer layout={layout}>
-              <AlertDialog.Close>Cancel</AlertDialog.Close>
-              <AlertDialog.Action variant={destructive ? "destructive" : "default"}>
-                {destructive ? "Delete" : "Save"}
-              </AlertDialog.Action>
-            </AlertDialog.Footer>
-          </AlertDialog.Popup>
-        </AlertDialog.Viewport>
-      </AlertDialog.Portal>
+      <AlertDialog.Backdrop />
+      <AlertDialog.Content>
+        <AlertDialog.Header>
+          <AlertDialog.Title>
+            {destructive ? "Delete this project?" : "Save your changes?"}
+          </AlertDialog.Title>
+          <AlertDialog.Description>
+            {destructive
+              ? "This project and its files will be permanently deleted."
+              : "Your changes will be available the next time you open this project."}
+          </AlertDialog.Description>
+        </AlertDialog.Header>
+        {withFields && (
+          <AlertDialog.Fields>
+            <TextField.Group aria-label="Project details">
+              <TextField>
+                <TextField.Input aria-label="Project name" placeholder="Project name" />
+              </TextField>
+              <TextField>
+                <TextField.Input aria-label="Description" placeholder="Description" />
+              </TextField>
+            </TextField.Group>
+          </AlertDialog.Fields>
+        )}
+        <AlertDialog.Footer layout={layout}>
+          <AlertDialog.Close>Cancel</AlertDialog.Close>
+          <AlertDialog.Action variant={destructive ? "destructive" : "default"}>
+            {destructive ? "Delete" : "Save"}
+          </AlertDialog.Action>
+        </AlertDialog.Footer>
+      </AlertDialog.Content>
     </AlertDialog>
   );
 }

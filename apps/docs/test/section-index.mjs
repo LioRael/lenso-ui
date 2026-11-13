@@ -15,7 +15,7 @@ async function backdropDetail(page, scene) {
       pointerEvents: "none",
       background: "repeating-linear-gradient(90deg, black 0px 4px, white 4px 8px)",
     });
-    root.querySelector('[data-slot="scroll-edge"]').before(pattern);
+    root.querySelector('[data-lenso-slot="scroll-edge"]').before(pattern);
     await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   });
   try {
@@ -62,7 +62,7 @@ async function backdropDetail(page, scene) {
           backdropFilter: "blur(4.2px)",
           background: "rgb(255 255 255 / .01)",
         });
-        root.querySelector('[data-slot="scroll-edge"]').after(reference);
+        root.querySelector('[data-lenso-slot="scroll-edge"]').after(reference);
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       });
       try {
@@ -103,18 +103,20 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         await nav.waitFor();
         await nav.scrollIntoViewIfNeeded();
         const scene = nav.locator("..");
-        const viewport = scene.locator('[data-slot="section-index-viewport"]');
-        await scene.locator('[data-slot="navigation-bar"]').waitFor();
+        const viewport = scene.locator('[data-lenso-slot="section-index-viewport"]');
+        await scene.locator('[data-lenso-slot="navigation-bar"]').waitFor();
         assert.equal(await nav.getByRole("link").count(), 27);
         assert.deepEqual(
           await scene.evaluate((root) => {
             const row = root.querySelector("li");
             const header = root.querySelector("h3");
-            const avatar = row.querySelector('[data-slot="avatar"]');
-            const title = row.querySelector('[data-slot="list-title"]');
+            const avatar = row.querySelector('[data-lenso-slot="avatar"]');
+            const title = row.querySelector('[data-lenso-slot="list-title"]');
             const rowRule = getComputedStyle(row, "::after");
             const headerRule = getComputedStyle(header, "::after");
-            const index = getComputedStyle(root.querySelector('[data-slot="section-index-item"]'));
+            const index = getComputedStyle(
+              root.querySelector('[data-lenso-slot="section-index-item"]'),
+            );
             return {
               rowHeight: row.getBoundingClientRect().height,
               avatarWidth: avatar.getBoundingClientRect().width,
@@ -147,7 +149,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
             headerRule: ["16px", "16px", "1px"],
           },
         );
-        assert.equal(await scene.locator('[data-slot="scroll-edge"]').count(), 1);
+        assert.equal(await scene.locator('[data-lenso-slot="scroll-edge"]').count(), 1);
         if (theme === "dark")
           assert.equal(
             await nav
@@ -162,12 +164,12 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         const end = nav.getByRole("link", { name: "#", exact: true });
         await m.click();
         await m.and(nav.locator('[aria-current="location"]')).waitFor();
-        await scene.locator('[data-slot="scroll-edge"][data-scroll-active]').waitFor();
+        await scene.locator('[data-lenso-slot="scroll-edge"][data-scroll-active]').waitFor();
         assert.equal(await page.evaluate(() => scrollY), outerScroll);
         assert.ok(
           await scene.evaluate((node) => {
-            const scroll = node.querySelector('[data-slot="section-index-viewport"]');
-            const heading = node.querySelector('[data-slot="section-index-sticky-heading"]');
+            const scroll = node.querySelector('[data-lenso-slot="section-index-viewport"]');
+            const heading = node.querySelector('[data-lenso-slot="section-index-sticky-heading"]');
             return (
               scroll.scrollTop > 1000 &&
               Math.abs(
@@ -178,7 +180,8 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
               Math.abs(
                 parseFloat(getComputedStyle(heading, "::after").height) - 1 / devicePixelRatio,
               ) < 0.02 &&
-              getComputedStyle(node.querySelector('[data-slot="scroll-edge"]')).height === "120px"
+              getComputedStyle(node.querySelector('[data-lenso-slot="scroll-edge"]')).height ===
+                "120px"
             );
           }),
         );
@@ -203,7 +206,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
           );
           node.scrollTop = next.parentElement.offsetTop - 60 - 18;
         });
-        const stickyTitle = scene.locator('[data-slot="section-index-sticky-heading"] > div');
+        const stickyTitle = scene.locator('[data-lenso-slot="section-index-sticky-heading"] > div');
         await page.waitForFunction(
           (node) => getComputedStyle(node).transform === "matrix(1, 0, 0, 1, 0, -18)",
           await stickyTitle.elementHandle(),

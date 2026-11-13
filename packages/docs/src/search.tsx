@@ -8,15 +8,16 @@ import {
   lazy,
   type ReactNode,
   type RefObject,
+  type MouseEvent,
 } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { GlassButton } from "@lenso/ui/glass-button";
 import { Magnifier } from "@gravity-ui/icons";
 import type { StaticOptions } from "fumadocs-core/search/client";
 import { SearchProvider, useSearchContext, type SearchLink } from "fumadocs-ui/contexts/search";
-import { notebook } from "@lenso/docs/presentation";
+import { notebook, headerControls } from "@lenso/docs/presentation";
 
-// Fumadocs owns static search; Command and Base UI own interactive behavior.
+// Fumadocs owns static search; Command and UI SDK own interactive behavior.
 export interface DocumentationSearchProps {
   from: string;
   initDB?: NonNullable<StaticOptions["initDB"]>;
@@ -49,6 +50,8 @@ export interface DocumentationSearchProps {
 export const SearchConfiguration = createContext<
   | (Pick<DocumentationSearchProps, "from" | "initDB" | "labels" | "allowEmpty" | "links"> & {
       triggers: RefObject<Set<HTMLElement>>;
+      rememberTrigger: (element: HTMLElement) => void;
+      takeTrigger: () => HTMLElement | null;
     })
   | null
 >(null);
@@ -81,7 +84,12 @@ function SearchTriggers({ compact }: { compact: boolean }) {
   const desktopRef = useSearchTriggerRef();
   const mobileRef = useSearchTriggerRef();
   const { setOpenSearch, hotKey } = useSearchContext();
-  const label = useContext(SearchConfiguration)?.labels?.trigger ?? "Search documentation";
+  const configuration = useContext(SearchConfiguration);
+  const label = configuration?.labels?.trigger ?? "Search documentation";
+  const openSearch = (event: MouseEvent<HTMLElement>) => {
+    configuration?.rememberTrigger(event.currentTarget);
+    setOpenSearch(true);
+  };
   if (compact) {
     return (
       <GlassButton
@@ -89,9 +97,10 @@ function SearchTriggers({ compact }: { compact: boolean }) {
         ref={desktopRef}
         type="button"
         aria-label={label}
+        aria-keyshortcuts="Meta+K Control+K"
         data-docs-search-trigger=""
-        onClick={() => setOpenSearch(true)}
-        xstyle={notebook.glassIconButton}
+        onClick={openSearch}
+        xstyle={[headerControls.control, headerControls.icon]}
       >
         <Magnifier width={16} height={16} aria-hidden="true" />
       </GlassButton>
@@ -105,7 +114,7 @@ function SearchTriggers({ compact }: { compact: boolean }) {
           type="button"
           aria-label={label}
           data-docs-search-trigger=""
-          onClick={() => setOpenSearch(true)}
+          onClick={openSearch}
           {...stylex.props(notebook.searchTrigger)}
         >
           <Magnifier width={16} height={16} aria-hidden="true" />
@@ -124,7 +133,7 @@ function SearchTriggers({ compact }: { compact: boolean }) {
           type="button"
           aria-label={label}
           data-docs-search-trigger=""
-          onClick={() => setOpenSearch(true)}
+          onClick={openSearch}
           xstyle={notebook.glassIconButton}
         >
           <Magnifier width={18} height={18} aria-hidden="true" />
@@ -153,16 +162,25 @@ export function DocumentationSearch({
     ? `${resource}${resource.includes("?") ? "&" : "?"}v=${encodeURIComponent(revision)}${fragment ? `#${fragment}` : ""}`
     : source;
   const triggers = useRef(new Set<HTMLElement>());
+  const returnFocus = useRef<HTMLElement | null>(null);
   const configuration = useMemo(
     () => ({
       from,
       triggers,
+      rememberTrigger: (element: HTMLElement) => {
+        returnFocus.current = element;
+      },
+      takeTrigger: () => {
+        const element = returnFocus.current;
+        returnFocus.current = null;
+        return element;
+      },
       allowEmpty,
       ...(links ? { links } : {}),
       ...(initDB !== undefined ? { initDB } : {}),
       ...(labels ? { labels } : {}),
     }),
-    [from, triggers, allowEmpty, initDB, labels, links],
+    [from, triggers, returnFocus, allowEmpty, initDB, labels, links],
   );
   return (
     <SearchConfiguration value={configuration}>

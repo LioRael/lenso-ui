@@ -9,19 +9,16 @@ export function RenderFunction() {
     <div {...stylex.props(styles.row)}>
       <Popover>
         <Popover.Trigger render={<Button />}>Click me</Popover.Trigger>
-        <Popover.Portal>
-          <Popover.Positioner sideOffset={16}>
-            <Popover.Popup
-              xstyle={styles.popup}
-              render={(props) => <div {...props} data-custom="foo" />}
-            >
-              <Popover.Title>Popover Title</Popover.Title>
-              <Popover.Description xstyle={styles.description}>
-                This is the popover content. You can put any content here.
-              </Popover.Description>
-            </Popover.Popup>
-          </Popover.Positioner>
-        </Popover.Portal>
+        <Popover.Content
+          xstyle={styles.popup}
+          render={(props) => <div {...props} data-custom="foo" />}
+          sideOffset={16}
+        >
+          <Popover.Title>Popover Title</Popover.Title>
+          <Popover.Description xstyle={styles.description}>
+            This is the popover content. You can put any content here.
+          </Popover.Description>
+        </Popover.Content>
       </Popover>
     </div>
   );

@@ -1,4 +1,4 @@
-// Native controls own defaultValue/type/required; Tooltip uses explicit Base UI composition.
+// Native controls own defaultValue/type/required; Tooltip uses explicit UI SDK composition.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useRef, useState, type ReactElement, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -363,18 +363,14 @@ function Hint({
   children,
   send = false,
 }: {
-  button: ReactElement;
+  button: ReactElement<Record<string, unknown>>;
   children: ReactNode;
   send?: boolean;
 }) {
   return (
-    <Tooltip.Root>
-      <Tooltip.Trigger delay={0} render={button} />
-      <Tooltip.Portal>
-        <Tooltip.Positioner>
-          <Tooltip.Popup xstyle={send && styles.sendTooltip}>{children}</Tooltip.Popup>
-        </Tooltip.Positioner>
-      </Tooltip.Portal>
+    <Tooltip.Root delay={0}>
+      <Tooltip.Trigger render={button} />
+      <Tooltip.Content xstyle={send && styles.sendTooltip}>{children}</Tooltip.Content>
     </Tooltip.Root>
   );
 }
@@ -397,80 +393,78 @@ function Composer() {
     }, 1000);
   }
   return (
-    <Tooltip.Provider>
-      <TextField fullWidth name="prompt" xstyle={styles.composer}>
-        <InputGroup fullWidth xstyle={styles.composerGroup}>
-          <InputGroup.Prefix xstyle={styles.composerPrefix}>
-            <Button aria-label="Add context" size="sm" variant="borderless">
-              <SourceIcon name="at" />
-              Add Context
-            </Button>
-          </InputGroup.Prefix>
-          <InputGroup.TextArea
-            aria-label="Prompt input"
-            xstyle={styles.textarea}
-            placeholder="Assign tasks or ask anything..."
-            rows={5}
-            value={value}
-            onValueChange={setValue}
-          />
-          <InputGroup.Suffix xstyle={styles.composerSuffix}>
+    <TextField fullWidth name="prompt" xstyle={styles.composer}>
+      <InputGroup fullWidth xstyle={styles.composerGroup}>
+        <InputGroup.Prefix xstyle={styles.composerPrefix}>
+          <Button aria-label="Add context" size="sm" variant="borderless">
+            <SourceIcon name="at" />
+            Add Context
+          </Button>
+        </InputGroup.Prefix>
+        <InputGroup.TextArea
+          aria-label="Prompt input"
+          xstyle={styles.textarea}
+          placeholder="Assign tasks or ask anything..."
+          rows={5}
+          value={value}
+          onValueChange={setValue}
+        />
+        <InputGroup.Suffix xstyle={styles.composerSuffix}>
+          <Hint
+            button={
+              <GlassButton isIconOnly aria-label="Attach file" size="sm" variant="default">
+                <SourceIcon name="plus" />
+              </GlassButton>
+            }
+          >
+            <p {...stylex.props(styles.tooltipText)}>Add a files and more</p>
+          </Hint>
+          <Hint
+            button={
+              <GlassButton isIconOnly aria-label="Connect Apps" size="sm" variant="default">
+                <SourceIcon name="plug-connection" />
+              </GlassButton>
+            }
+          >
+            <p {...stylex.props(styles.tooltipText)}>Connect apps</p>
+          </Hint>
+          <div {...stylex.props(styles.sendControls)}>
             <Hint
               button={
-                <GlassButton isIconOnly aria-label="Attach file" size="sm" variant="default">
-                  <SourceIcon name="plus" />
-                </GlassButton>
+                <Button isIconOnly aria-label="Voice input" size="sm" variant="borderless">
+                  <SourceIcon name="microphone" />
+                </Button>
               }
             >
-              <p {...stylex.props(styles.tooltipText)}>Add a files and more</p>
+              <p {...stylex.props(styles.tooltipText)}>Voice input</p>
             </Hint>
             <Hint
+              send
               button={
-                <GlassButton isIconOnly aria-label="Connect Apps" size="sm" variant="default">
-                  <SourceIcon name="plug-connection" />
-                </GlassButton>
+                <Button
+                  isIconOnly
+                  aria-label="Send prompt"
+                  disabled={!value.trim()}
+                  isLoading={submitting}
+                  onClick={submit}
+                >
+                  {submitting ? (
+                    <Spinner color="current" size="sm" />
+                  ) : (
+                    <SourceIcon name="arrow-up" />
+                  )}
+                </Button>
               }
             >
-              <p {...stylex.props(styles.tooltipText)}>Connect apps</p>
+              <p {...stylex.props(styles.tooltipText)}>Send</p>
+              <Kbd xstyle={styles.enter}>
+                <Kbd.Abbr keyValue="enter" />
+              </Kbd>
             </Hint>
-            <div {...stylex.props(styles.sendControls)}>
-              <Hint
-                button={
-                  <Button isIconOnly aria-label="Voice input" size="sm" variant="borderless">
-                    <SourceIcon name="microphone" />
-                  </Button>
-                }
-              >
-                <p {...stylex.props(styles.tooltipText)}>Voice input</p>
-              </Hint>
-              <Hint
-                send
-                button={
-                  <Button
-                    isIconOnly
-                    aria-label="Send prompt"
-                    disabled={!value.trim()}
-                    isLoading={submitting}
-                    onClick={submit}
-                  >
-                    {submitting ? (
-                      <Spinner color="current" size="sm" />
-                    ) : (
-                      <SourceIcon name="arrow-up" />
-                    )}
-                  </Button>
-                }
-              >
-                <p {...stylex.props(styles.tooltipText)}>Send</p>
-                <Kbd xstyle={styles.enter}>
-                  <Kbd.Abbr keyValue="enter" />
-                </Kbd>
-              </Hint>
-            </div>
-          </InputGroup.Suffix>
-        </InputGroup>
-      </TextField>
-    </Tooltip.Provider>
+          </div>
+        </InputGroup.Suffix>
+      </InputGroup>
+    </TextField>
   );
 }
 export const WithTextArea: Story = { render: () => <Composer /> };

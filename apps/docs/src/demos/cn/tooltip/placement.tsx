@@ -26,18 +26,14 @@ const styles = stylex.create({
 function Placement({ side, label }: { side: "top" | "left" | "right" | "bottom"; label: string }) {
   const id = useId();
   return (
-    <Tooltip>
-      <Tooltip.Trigger delay={0} aria-describedby={id} render={<Button xstyle={styles.button} />}>
+    <Tooltip delay={0}>
+      <Tooltip.Trigger aria-describedby={id} render={<Button xstyle={styles.button} />}>
         {label}
       </Tooltip.Trigger>
-      <Tooltip.Portal>
-        <Tooltip.Positioner side={side} sideOffset={7}>
-          <Tooltip.Popup id={id}>
-            <Tooltip.Arrow />
-            <p>{label} placement</p>
-          </Tooltip.Popup>
-        </Tooltip.Positioner>
-      </Tooltip.Portal>
+      <Tooltip.Content id={id} side={side} sideOffset={7}>
+        <Tooltip.Arrow />
+        <p>{label}placement</p>
+      </Tooltip.Content>
     </Tooltip>
   );
 }

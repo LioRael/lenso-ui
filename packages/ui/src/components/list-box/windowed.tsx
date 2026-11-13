@@ -51,7 +51,7 @@ export function useCollectionWindow(
   React.useLayoutEffect(() => {
     if (pending.current === null) return;
     const target = node.current?.querySelector<HTMLElement>(
-      `[data-window-index="${pending.current}"] [data-slot="list-box-item"],[data-window-index="${pending.current}"][data-slot="table-row"] td`,
+      `[data-window-index="${pending.current}"] [data-lenso-slot="list-box-item"],[data-window-index="${pending.current}"][data-lenso-slot="table-row"] td`,
     );
     if (target) {
       target.focus();

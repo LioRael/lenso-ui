@@ -59,7 +59,7 @@ for (const [engine, type] of [
         await page.clock.pauseAt(await page.evaluate(() => new Date(Date.now() + 1500)));
         await trigger.click({ force: true });
         let popup = page.locator(
-          `[data-slot=${select ? "select-popover" : "menu-popup"}][data-open]`,
+          `[data-lenso-slot=${select ? "select-popover" : "menu-popup"}][data-open]`,
         );
         await page.clock.runFor(16);
         await popup.waitFor();
@@ -95,7 +95,7 @@ for (const [engine, type] of [
             previous = t;
             const sample = await handle.evaluate(async (e) => {
               const surface = e.querySelector(
-                '[data-slot="menu-surface"], [data-slot="select-surface"]',
+                '[data-lenso-slot="menu-surface"], [data-lenso-slot="select-surface"]',
               );
               const lens = surface.querySelector("[data-material-lens]");
               if (Number(surface.style.getPropertyValue("--lg-menu-surface-opacity") || 1) <= 0.01)

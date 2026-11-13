@@ -48,22 +48,18 @@ export function ColorDemoSelect<Value extends string>({
           <Select.Value xstyle={uppercase ? styles.uppercase : styles.capitalize} />
           <Select.Indicator />
         </Select.Trigger>
-        <Select.Portal container={container}>
-          <Select.Positioner xstyle={styles.selectPositioner}>
-            <Select.Popover>
-              <Select.List>
-                {options.map((option) => (
-                  <Select.Item key={option} value={option}>
-                    <Select.ItemText xstyle={uppercase ? styles.uppercase : styles.capitalize}>
-                      {option}
-                    </Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.List>
-            </Select.Popover>
-          </Select.Positioner>
-        </Select.Portal>
+        <Select.Content container={container} xstyle={styles.selectPositioner}>
+          <Select.List>
+            {options.map((option) => (
+              <Select.Item key={option} value={option}>
+                <Select.ItemText xstyle={uppercase ? styles.uppercase : styles.capitalize}>
+                  {option}
+                </Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.List>
+        </Select.Content>
       </Select>
     </div>
   );

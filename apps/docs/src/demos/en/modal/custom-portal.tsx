@@ -34,38 +34,33 @@ export function CustomPortal() {
           Render modals inside a custom container instead of <code>document.body</code>
         </p>
         <p {...stylex.props(styles.caption)}>
-          Apply <code {...stylex.props(styles.code)}>transform: translateZ(0)</code> to the
-          container to create a new stacking context.
+          Apply <code {...stylex.props(styles.code)}>transform: translateZ(0)</code>to the container
+          to create a new stacking context.
         </p>
       </div>
       <div ref={setPortalRef} {...stylex.props(styles.container)}>
         {!!portalContainer && (
           <Modal>
             <Modal.Trigger render={<Button />}>Open Modal</Modal.Trigger>
-            <Modal.Portal container={portalContainer}>
-              <Modal.Backdrop xstyle={styles.backdrop} />
-              <Modal.Viewport xstyle={styles.viewport}>
-                <Modal.Popup xstyle={styles.popup}>
-                  <Modal.Close aria-label="Close dialog" />
-                  <Modal.Header>
-                    <Modal.Title>Custom Portal</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    {Array.from({ length: 3 }, (_, index) => (
-                      <p key={index} {...stylex.props(styles.caption)}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                      </p>
-                    ))}
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Modal.Close render={<Button variant="bordered" />}>Close</Modal.Close>
-                  </Modal.Footer>
-                </Modal.Popup>
-              </Modal.Viewport>
-            </Modal.Portal>
+            <Modal.Backdrop xstyle={styles.backdrop} />
+            <Modal.Content xstyle={styles.popup} container={portalContainer}>
+              <Modal.Close aria-label="Close dialog" />
+              <Modal.Header>
+                <Modal.Title>Custom Portal</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {Array.from({ length: 3 }, (_, index) => (
+                  <p key={index} {...stylex.props(styles.caption)}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                ))}
+              </Modal.Body>
+              <Modal.Footer>
+                <Modal.Close render={<Button variant="bordered" />}>Close</Modal.Close>
+              </Modal.Footer>
+            </Modal.Content>
           </Modal>
         )}
       </div>

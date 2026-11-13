@@ -27,14 +27,19 @@ export function Basic() {
         <Fieldset.Legend>个人资料设置</Fieldset.Legend>
         <Description id={descriptionId}>更新你的个人资料信息。</Description>
         <Fieldset.Group>
-          <TextField
-            name="name"
-            validate={(value) =>
-              String(value).length < 3 ? "Name must be at least 3 characters" : null
-            }
-          >
+          <TextField name="name">
             <Label required>姓名</Label>
-            <Input required placeholder="John Doe" />
+            <Input
+              required
+              placeholder="John Doe"
+              onInput={(event) => {
+                const message = ((value: string) =>
+                  String(value).length < 3 ? "Name must be at least 3 characters" : null)(
+                  event.currentTarget.value,
+                );
+                event.currentTarget.setCustomValidity(message ?? "");
+              }}
+            />
             <FieldError />
           </TextField>
           <TextField name="email">
@@ -42,15 +47,19 @@ export function Basic() {
             <Input required type="email" placeholder="john@example.com" />
             <FieldError />
           </TextField>
-          <TextField
-            name="bio"
-            layout="stacked"
-            validate={(value) =>
-              String(value).length < 10 ? "Bio must be at least 10 characters" : null
-            }
-          >
+          <TextField name="bio" layout="stacked">
             <Label required>简介</Label>
-            <TextArea required placeholder="介绍一下你自己…" />
+            <TextArea
+              required
+              placeholder="介绍一下你自己…"
+              onInput={(event) => {
+                const message = ((value: string) =>
+                  String(value).length < 10 ? "Bio must be at least 10 characters" : null)(
+                  event.currentTarget.value,
+                );
+                event.currentTarget.setCustomValidity(message ?? "");
+              }}
+            />
             <Description>至少 10 个字符</Description>
             <FieldError />
           </TextField>

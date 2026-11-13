@@ -7,18 +7,21 @@ export const colorSliderStyles = stylex.create({
     width: "100%",
     gap: {
       default: 4,
-      ":not(:has([data-slot='label'])):not(:has([data-slot='color-slider-output']))": 0,
+      ":not(:has([data-lenso-slot='label'])):not(:has([data-lenso-slot='color-slider-output']))": 0,
     },
     gridTemplateAreas: {
       default: '"label output" "track track"',
-      ":has([data-slot='label']):not(:has([data-slot='color-slider-output']))": '"label" "track"',
-      ":not(:has([data-slot='label'])):has([data-slot='color-slider-output'])": '"output" "track"',
-      ":not(:has([data-slot='label'])):not(:has([data-slot='color-slider-output']))": '"track"',
+      ":has([data-lenso-slot='label']):not(:has([data-lenso-slot='color-slider-output']))":
+        '"label" "track"',
+      ":not(:has([data-lenso-slot='label'])):has([data-lenso-slot='color-slider-output'])":
+        '"output" "track"',
+      ":not(:has([data-lenso-slot='label'])):not(:has([data-lenso-slot='color-slider-output']))":
+        '"track"',
     },
     gridTemplateColumns: {
       default: "1fr auto",
-      ":not(:has([data-slot='label']))": "1fr",
-      ":not(:has([data-slot='color-slider-output']))": "1fr",
+      ":not(:has([data-lenso-slot='label']))": "1fr",
+      ":not(:has([data-lenso-slot='color-slider-output']))": "1fr",
     },
   },
   vertical: {
@@ -26,22 +29,25 @@ export const colorSliderStyles = stylex.create({
     width: "fit-content",
     gap: {
       default: 8,
-      ":not(:has([data-slot='label'])):not(:has([data-slot='color-slider-output']))": 0,
+      ":not(:has([data-lenso-slot='label'])):not(:has([data-lenso-slot='color-slider-output']))": 0,
     },
     gridTemplateAreas: {
       default: '"output" "track" "label"',
-      ":has([data-slot='label']):not(:has([data-slot='color-slider-output']))": '"track" "label"',
-      ":not(:has([data-slot='label'])):has([data-slot='color-slider-output'])": '"output" "track"',
-      ":not(:has([data-slot='label'])):not(:has([data-slot='color-slider-output']))": '"track"',
+      ":has([data-lenso-slot='label']):not(:has([data-lenso-slot='color-slider-output']))":
+        '"track" "label"',
+      ":not(:has([data-lenso-slot='label'])):has([data-lenso-slot='color-slider-output'])":
+        '"output" "track"',
+      ":not(:has([data-lenso-slot='label'])):not(:has([data-lenso-slot='color-slider-output']))":
+        '"track"',
     },
     gridTemplateColumns: "1fr",
     gridTemplateRows: {
       default: "auto minmax(0, 1fr) auto",
-      ":has([data-slot='label']):not(:has([data-slot='color-slider-output']))":
+      ":has([data-lenso-slot='label']):not(:has([data-lenso-slot='color-slider-output']))":
         "minmax(0, 1fr) auto",
-      ":not(:has([data-slot='label'])):has([data-slot='color-slider-output'])":
+      ":not(:has([data-lenso-slot='label'])):has([data-lenso-slot='color-slider-output'])":
         "auto minmax(0, 1fr)",
-      ":not(:has([data-slot='label'])):not(:has([data-slot='color-slider-output']))":
+      ":not(:has([data-lenso-slot='label'])):not(:has([data-lenso-slot='color-slider-output']))":
         "minmax(0, 1fr)",
     },
     alignItems: "center",

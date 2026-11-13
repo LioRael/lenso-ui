@@ -1,13 +1,9 @@
 "use client";
-
-import { NativeAutocomplete } from "../../en/autocomplete/_native";
+import { TextSuggestions } from "../../en/autocomplete/text-suggestions";
 export function AllowsEmptyCollection() {
   return (
-    <NativeAutocomplete
-      items={[]}
-      label="州"
-      searchLabel="Search states"
-      searchPlaceholder="Search states..."
-    />
+    <div>
+      <TextSuggestions label="计划前往的州" options={[]} />
+    </div>
   );
 }

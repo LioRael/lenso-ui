@@ -1,6 +1,6 @@
 import { renderElement, type RenderProp } from "@ui-sdk/react/primitive";
 
-// UI SDK owns data-slot on parts; Lenso's material hooks need their public slot names.
+// Keep SDK-managed slots intact; material hooks use a separate presentation marker.
 export function slotRender<State>(
   tag: string,
   slot: unknown,
@@ -8,5 +8,5 @@ export function slotRender<State>(
   attributes?: Record<string, unknown>,
 ): RenderProp<State> {
   return (props, state) =>
-    renderElement(tag, { ...props, "data-slot": slot, ...attributes }, render, state);
+    renderElement(tag, { ...props, "data-lenso-slot": slot, ...attributes }, render, state);
 }

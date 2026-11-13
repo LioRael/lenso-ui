@@ -1,4 +1,4 @@
-// Use the native Base UI label and min/max bounds.
+// Use the native UI SDK label and min/max bounds.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ComponentProps } from "react";
 import * as stylex from "@stylexjs/stylex";

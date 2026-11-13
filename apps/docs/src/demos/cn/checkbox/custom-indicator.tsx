@@ -60,7 +60,7 @@ export function CustomIndicator() {
           加号
         </Checkbox.Content>
       </Checkbox>
-      <Checkbox indeterminate name="indeterminate">
+      <Checkbox checked="indeterminate" name="indeterminate">
         <Checkbox.Content>
           <Checkbox.Control>
             <Checkbox.Indicator

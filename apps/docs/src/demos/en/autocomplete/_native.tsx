@@ -4,13 +4,9 @@
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0.
  * Modified: native Base UI selection, popup search and removable chips.
  */
-import { Autocomplete, Avatar, Spinner } from "@lenso/ui";
-import { autocompleteSharedStyles } from "@lenso/tokens/autocomplete";
-import { searchFieldStyles, searchFieldGroupStyles } from "@lenso/tokens/search-field";
-import { tagStyles } from "@lenso/tokens/tag";
-import { Magnifier, Xmark } from "@gravity-ui/icons";
+import { ComboBox, Avatar } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { useId, useRef, useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 
 export interface Option {
   id: string;
@@ -165,8 +161,8 @@ interface DemoProps {
   onValueChange?: (value: Option | Option[] | null) => void;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  inputValue?: string;
-  onInputValueChange?: (value: string) => void;
+  query?: string;
+  onQueryChange?: (value: string) => void;
   filteredItems?: Option[];
   emptyText?: string;
   loading?: boolean;
@@ -184,17 +180,13 @@ interface DemoProps {
   list?: ReactNode;
   xstyle?: stylex.StyleXStyles;
 }
-
-export function NativeAutocomplete({
+export function OptionPicker({
   items,
   label,
-  placeholder = "Select one",
-  searchLabel = "Search options",
-  searchPlaceholder = "Search...",
+  placeholder,
   description,
   multiple = false,
-  chips = false,
-  hideClear = false,
+  hideClear,
   chipText = (item) => item.name,
   renderValue,
   renderItem = (item) => <OptionContent item={item} />,
@@ -203,11 +195,11 @@ export function NativeAutocomplete({
   onValueChange,
   open,
   onOpenChange,
-  inputValue,
-  onInputValueChange,
+  query,
+  onQueryChange,
   filteredItems,
   emptyText = "No results found",
-  loading = false,
+  loading,
   disabled,
   required,
   invalid,
@@ -217,27 +209,16 @@ export function NativeAutocomplete({
   fullWidth,
   custom,
   indicator,
-  virtualized,
   onItemHighlighted,
   list,
   xstyle,
 }: DemoProps) {
   const id = useId();
-  const { contains } = Autocomplete.useFilter({ sensitivity: "base" });
-  const fieldRef = useRef<HTMLDivElement>(null);
-  const searchRef = useRef<HTMLInputElement>(null);
   const [localValue, setLocalValue] = useState<Option | Option[] | null>(
     defaultValue ?? (multiple ? [] : null),
   );
-  const [localQuery, setLocalQuery] = useState("");
-  const query = inputValue ?? localQuery;
-  const changeQuery = (next: string) => {
-    setLocalQuery(next);
-    onInputValueChange?.(next);
-  };
   const selected = value === undefined ? localValue : value;
   const selectedItems = Array.isArray(selected) ? selected : selected ? [selected] : [];
-  const showChips = chips && selectedItems.length > 0;
   return (
     <div
       {...stylex.props(
@@ -247,160 +228,67 @@ export function NativeAutocomplete({
         xstyle,
       )}
     >
-      <Autocomplete<Option, boolean>
-        items={items}
+      <ComboBox<Option, boolean>
         multiple={multiple}
         value={selected}
         onValueChange={(next) => {
           setLocalValue(next);
           onValueChange?.(next);
         }}
-        itemToStringLabel={(item) => item.name}
-        itemToStringValue={(item) => item.id}
+        itemToLabel={(item) => item.name}
+        itemToValue={(item) => item.id}
         isItemEqualToValue={(a, b) => a.id === b.id}
-        filter={(item, inputQuery) =>
-          contains(
-            item.searchText ?? `${item.name} ${item.email ?? ""} ${item.role ?? ""}`,
-            inputQuery,
-          )
-        }
-        filteredItems={filteredItems}
+        query={query}
+        onQueryChange={onQueryChange}
+        filter={filteredItems ? false : undefined}
         open={open}
         onOpenChange={onOpenChange}
-        inputValue={query}
-        onInputValueChange={changeQuery}
+        onHighlight={(item) => onItemHighlighted?.(item ?? undefined)}
         disabled={disabled}
         required={required}
         name={name}
         variant={variant}
         fullWidth={fullWidth}
-        virtualized={virtualized}
-        onItemHighlighted={onItemHighlighted}
       >
-        <Autocomplete.Label>
-          <span id={`${id}-label`}>
-            {label}
-            {required && " *"}
-          </span>
-        </Autocomplete.Label>
-        <Autocomplete.InputGroup
-          ref={fieldRef}
-          aria-labelledby={`${id}-label`}
-          xstyle={[
-            styles.fieldGroup,
-            showChips && autocompleteSharedStyles.trigger,
-            showChips && variant === "secondary" && autocompleteSharedStyles.secondary,
-            showChips && styles.chipShell,
-            showChips && custom && styles.customTrigger,
-          ]}
-        >
-          {showChips && (
-            <Autocomplete.Chips xstyle={styles.chips}>
-              {selectedItems.map((item) => (
-                <Autocomplete.Chip
-                  key={item.id}
-                  xstyle={[
-                    tagStyles.root,
-                    tagStyles.sm,
-                    tagStyles.default,
-                    styles.chip,
-                    custom && styles.customChip,
-                  ]}
-                >
-                  {item.avatarUrl && <OptionAvatar item={item} small />}
-                  {chipText(item)}
-                  <Autocomplete.ChipRemove aria-label={`Remove ${item.name}`}>
-                    <Xmark width={12} height={12} aria-hidden="true" />
-                  </Autocomplete.ChipRemove>
-                </Autocomplete.Chip>
-              ))}
-            </Autocomplete.Chips>
-          )}
-          {showChips && !hideClear && <Autocomplete.Clear aria-label={`Clear ${label}`} />}
-          <Autocomplete.Trigger
-            aria-labelledby={`${id}-label`}
-            aria-describedby={description || error ? `${id}-description` : undefined}
-            aria-invalid={invalid || undefined}
-            xstyle={[
-              styles.trigger,
-              !showChips && !hideClear && styles.triggerWithClear,
-              custom && styles.customTrigger,
-              showChips && styles.toggle,
-            ]}
-          >
-            <Autocomplete.Value placeholder={placeholder}>
-              {showChips
-                ? () => null
-                : renderValue
-                  ? (current: Option | null) => (current ? renderValue(current) : placeholder)
-                  : undefined}
-            </Autocomplete.Value>
-            <Autocomplete.Indicator>{indicator}</Autocomplete.Indicator>
-          </Autocomplete.Trigger>
-          {!showChips && !hideClear && (
-            <Autocomplete.Clear aria-label={`Clear ${label}`} xstyle={styles.clear} />
-          )}
-        </Autocomplete.InputGroup>
-        <Autocomplete.Portal>
-          <Autocomplete.Positioner anchor={fieldRef}>
-            <Autocomplete.Popover xstyle={custom && styles.customPopup}>
-              <div {...stylex.props(searchFieldStyles.root, styles.search)}>
-                <div
-                  {...stylex.props(
-                    searchFieldGroupStyles.root,
-                    searchFieldGroupStyles.secondary,
-                    styles.searchGroup,
-                  )}
-                >
-                  <Magnifier {...stylex.props(searchFieldStyles.icon)} aria-hidden="true" />
-                  <Autocomplete.Input
-                    ref={searchRef}
-                    aria-label={searchLabel}
-                    placeholder={searchPlaceholder}
-                    xstyle={styles.input}
-                  />
-                  {loading && <Spinner size="sm" aria-label="Searching" />}
-                  {!loading && (
-                    <button
-                      type="button"
-                      aria-label="Clear search"
-                      disabled={!query}
-                      {...stylex.props(searchFieldStyles.clear, styles.searchClear)}
-                      onClick={() => {
-                        changeQuery("");
-                        searchRef.current?.focus();
-                      }}
-                    >
-                      <Xmark width={12} height={12} aria-hidden="true" />
-                    </button>
-                  )}
-                </div>
-              </div>
-              <Autocomplete.Empty>{loading ? "Searching..." : emptyText}</Autocomplete.Empty>
-              {list ?? (
-                <Autocomplete.List xstyle={styles.list}>
-                  {(item: Option) => (
-                    <Autocomplete.Item
-                      key={item.id}
-                      value={item}
-                      disabled={item.disabled}
-                      xstyle={custom && styles.customItem}
-                    >
-                      {renderItem(item)}
-                      <Autocomplete.ItemIndicator />
-                    </Autocomplete.Item>
-                  )}
-                </Autocomplete.List>
-              )}
-            </Autocomplete.Popover>
-          </Autocomplete.Positioner>
-        </Autocomplete.Portal>
-        {(description || error) && (
-          <span id={`${id}-description`} {...stylex.props(styles.muted)}>
-            {error || description}
-          </span>
+        <ComboBox.Label htmlFor={id}>{label}</ComboBox.Label>
+        <ComboBox.InputGroup>
+          <ComboBox.Input id={id} placeholder={placeholder} aria-invalid={invalid || undefined} />
+          {!hideClear && <ComboBox.Clear aria-label={`Clear ${label}`} />}
+          <ComboBox.Trigger aria-label={`Show ${label} options`}>
+            <ComboBox.Indicator>{indicator}</ComboBox.Indicator>
+          </ComboBox.Trigger>
+        </ComboBox.InputGroup>
+        {multiple && (
+          <ComboBox.Chips>
+            {selectedItems.map((item) => (
+              <ComboBox.Chip key={item.id} value={item}>
+                {chipText(item)}
+                <ComboBox.ChipRemove aria-label={`Remove ${item.name}`} />
+              </ComboBox.Chip>
+            ))}
+          </ComboBox.Chips>
         )}
-      </Autocomplete>
+        <ComboBox.Content>
+          <ComboBox.Empty>{loading ? "Searching..." : emptyText}</ComboBox.Empty>
+          {list ?? (
+            <ComboBox.List>
+              {(filteredItems ?? items).map((item) => (
+                <ComboBox.Item
+                  key={item.id}
+                  value={item}
+                  label={item.name}
+                  disabled={item.disabled}
+                >
+                  {renderItem(item)}
+                  <ComboBox.ItemIndicator />
+                </ComboBox.Item>
+              ))}
+            </ComboBox.List>
+          )}
+        </ComboBox.Content>
+      </ComboBox>
+      {renderValue && selectedItems[0] && <output>{renderValue(selectedItems[0])}</output>}
+      {(description || error) && <p {...stylex.props(styles.muted)}>{error ?? description}</p>}
     </div>
   );
 }

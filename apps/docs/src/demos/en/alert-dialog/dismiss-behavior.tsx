@@ -31,38 +31,34 @@ export function DismissBehavior() {
             }}
           >
             <AlertDialog.Trigger render={<Button />}>Open Alert Dialog</AlertDialog.Trigger>
-            <AlertDialog.Portal>
-              <AlertDialog.Backdrop />
-              <AlertDialog.Viewport>
-                <AlertDialog.Popup xstyle={styles.popup}>
-                  <AlertDialog.Close aria-label="Close dialog" />
-                  <AlertDialog.Header>
-                    <AlertDialog.Icon variant={blockEscape ? "accent" : "danger"}>
-                      <CircleInfo {...stylex.props(styles.circle)} />
-                    </AlertDialog.Icon>
-                    <AlertDialog.Title>
-                      {blockEscape ? "Keyboard dismissal disabled" : "Backdrop dismissal disabled"}
-                    </AlertDialog.Title>
-                    <AlertDialog.Description xstyle={styles.caption}>
-                      {blockEscape
-                        ? "ESC key is disabled"
-                        : "Clicking the backdrop won't close this alert dialog"}
-                    </AlertDialog.Description>
-                  </AlertDialog.Header>
-                  <AlertDialog.Body>
-                    <p>
-                      {blockEscape
-                        ? "Press ESC - nothing happens. You must use the action buttons to dismiss this alert dialog."
-                        : "Try clicking outside this alert dialog on the overlay - it won't close. You must use the action buttons to dismiss it."}
-                    </p>
-                  </AlertDialog.Body>
-                  <AlertDialog.Footer>
-                    <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
-                    <AlertDialog.Action>Confirm</AlertDialog.Action>
-                  </AlertDialog.Footer>
-                </AlertDialog.Popup>
-              </AlertDialog.Viewport>
-            </AlertDialog.Portal>
+            <AlertDialog.Backdrop />
+            <AlertDialog.Content xstyle={styles.popup}>
+              <AlertDialog.Close aria-label="Close dialog" />
+              <AlertDialog.Header>
+                <AlertDialog.Icon variant={blockEscape ? "accent" : "danger"}>
+                  <CircleInfo {...stylex.props(styles.circle)} />
+                </AlertDialog.Icon>
+                <AlertDialog.Title>
+                  {blockEscape ? "Keyboard dismissal disabled" : "Backdrop dismissal disabled"}
+                </AlertDialog.Title>
+                <AlertDialog.Description xstyle={styles.caption}>
+                  {blockEscape
+                    ? "ESC key is disabled"
+                    : "Clicking the backdrop won't close this alert dialog"}
+                </AlertDialog.Description>
+              </AlertDialog.Header>
+              <AlertDialog.Body>
+                <p>
+                  {blockEscape
+                    ? "Press ESC - nothing happens. You must use the action buttons to dismiss this alert dialog."
+                    : "Try clicking outside this alert dialog on the overlay - it won't close. You must use the action buttons to dismiss it."}
+                </p>
+              </AlertDialog.Body>
+              <AlertDialog.Footer>
+                <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+                <AlertDialog.Action>Confirm</AlertDialog.Action>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
           </AlertDialog>
         </div>
       ))}

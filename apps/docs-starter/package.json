@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "lenso-docs dev --turbopack",
+    "dev": "lenso-docs dev",
     "build": "lenso-docs build",
     "preview": "lenso-docs preview"
   },
@@ -26,6 +26,6 @@
   ],
   "engines": {
     "bun": ">=1.4.4",
-    "node": ">=20.9.0"
+    "node": ">=22.12.0"
   }
 }

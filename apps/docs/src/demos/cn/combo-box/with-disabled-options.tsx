@@ -28,5 +28,11 @@ const animals = [
   },
 ];
 export function WithDisabledOptions() {
-  return <AnimalPicker label="动物" items={animals} disabledIds={["cat", "kangaroo"]} />;
+  return (
+    <AnimalPicker
+      label="动物"
+      items={animals.map((value) => ({ value, label: value.name }))}
+      disabledIds={["cat", "kangaroo"]}
+    />
+  );
 }

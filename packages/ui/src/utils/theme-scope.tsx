@@ -52,7 +52,7 @@ export function ThemeScope({
 
   React.useLayoutEffect(() => {
     const portal = document.createElement("div");
-    portal.dataset["slot"] = "theme-portal-host";
+    portal.dataset["lensoSlot"] = "theme-portal-host";
     document.body.append(portal);
     // oxlint-disable-next-line react/set-state-in-effect -- Publish the committed external DOM host; creating browser nodes during render is unsafe.
     setHost(portal);

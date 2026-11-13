@@ -9,7 +9,7 @@ export const descriptionStyles = stylex.create({
     overflowWrap: "break-word",
     display: {
       default: "block",
-      ":is([data-slot='text-field'][data-invalid] *, [data-slot='search-field'][data-invalid] *, [data-slot='number-field'][data-invalid] *)":
+      ":is([data-lenso-slot='text-field'][data-invalid] *, [data-lenso-slot='search-field'][data-invalid] *, [data-lenso-slot='number-field'][data-invalid] *)":
         "none",
     },
   },

@@ -99,8 +99,8 @@ export const listStyles = stylex.create({
     gap: 12,
     paddingInline: {
       default: 16,
-      ":has(> [data-slot='list-action']:only-child)": 0,
-      ":has(> [data-slot='list-body'] > [data-slot='list-action']:only-child):not(:has(> [data-list-selection]))": 0,
+      ":has(> [data-lenso-slot='list-action']:only-child)": 0,
+      ":has(> [data-lenso-slot='list-body'] > [data-lenso-slot='list-action']:only-child):not(:has(> [data-list-selection]))": 0,
     },
   },
   tall: { minHeight: 68 },

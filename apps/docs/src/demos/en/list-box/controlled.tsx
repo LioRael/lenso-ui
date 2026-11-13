@@ -3,19 +3,21 @@ import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { UsersList, styles } from "./users";
 export function Controlled() {
-  const [selected, setSelected] = useState<Set<React.Key>>(new Set(["1"]));
+  const [selected, setSelected] = useState<string[]>(["1"]);
   return (
     <div {...stylex.props(styles.stack)}>
       <div {...stylex.props(styles.surface)}>
         <UsersList
-          selectionMode="multiple"
-          selectedKeys={selected}
-          onSelectionChange={setSelected}
+          multiple
+          value={selected}
+          onValueChange={(value) =>
+            setSelected(Array.isArray(value) ? value : value === null ? [] : [value])
+          }
           customCheck
         />
       </div>
       <p {...stylex.props(styles.muted)}>
-        Selected: {selected.size ? [...selected].join(", ") : "None"}
+        Selected: {selected.length ? [...selected].join(", ") : "None"}
       </p>
     </div>
   );

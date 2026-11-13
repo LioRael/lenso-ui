@@ -44,10 +44,10 @@ for (const [engine, type] of [
           const start = performance.now();
           const sample = () => {
             const popup = document.querySelector(
-              `[data-slot="${family === "menu" ? "menu-popup" : "select-popover"}"][data-open]`,
+              `[data-lenso-slot="${family === "menu" ? "menu-popup" : "select-popover"}"][data-open]`,
             );
             const content = popup?.querySelector(
-              family === "menu" ? '[data-slot="menu-content"]' : "[data-select-content]",
+              family === "menu" ? '[data-lenso-slot="menu-content"]' : "[data-select-content]",
             );
             if (popup)
               window.inkFrames.push({
@@ -91,7 +91,7 @@ for (const [engine, type] of [
           "non-morph trigger moved",
         );
         const content = popup.locator(
-          family === "menu" ? '[data-slot="menu-content"]' : "[data-select-content]",
+          family === "menu" ? '[data-lenso-slot="menu-content"]' : "[data-select-content]",
         );
         assert.equal(await content.evaluate((e) => e.style.filter), "");
         if (family === "menu") {
@@ -124,7 +124,7 @@ for (const [engine, type] of [
       await page.getByRole("button", { name: "Plain actions", exact: true }).click();
       await page.waitForTimeout(100);
       assert.equal(
-        await page.locator('[data-slot="menu-popup"]').getAttribute("data-menu-morphing"),
+        await page.locator('[data-lenso-slot="menu-popup"]').getAttribute("data-menu-morphing"),
         null,
       );
       await page.keyboard.press("Escape");

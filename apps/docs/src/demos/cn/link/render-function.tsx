@@ -1,6 +1,6 @@
 "use client";
 
-// Native anchor retained through Base UI render composition.
+// Native anchor retained through UI SDK render composition.
 import { Link } from "@lenso/ui";
 export function RenderFunction() {
   return (
@@ -8,7 +8,7 @@ export function RenderFunction() {
       href="#"
       render={(props) => (
         <a {...props} data-custom="foo">
-          {props.children}
+          {props["children"]}
         </a>
       )}
     >

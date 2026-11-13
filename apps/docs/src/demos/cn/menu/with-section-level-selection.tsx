@@ -25,7 +25,7 @@ export function WithSectionLevelSelection() {
               key={value}
               checked={textStyles.has(value)}
               aria-label={value.charAt(0).toUpperCase() + value.slice(1)}
-              closeOnClick={false}
+              closeOnSelect={false}
               onKeyDown={(event) => {
                 if (event.key === "Enter") setOpen(false);
               }}
@@ -37,10 +37,11 @@ export function WithSectionLevelSelection() {
                   return next;
                 })
               }
+              value={value}
             >
-              <Menu.CheckboxItemIndicator keepMounted xstyle={styles.selectionIndicator}>
+              <Menu.ItemIndicator keepMounted xstyle={styles.selectionIndicator}>
                 <Checkmark />
-              </Menu.CheckboxItemIndicator>
+              </Menu.ItemIndicator>
               <Menu.Item.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</Menu.Item.Label>
               <Shortcut letter={value === "underline" ? "U" : value.charAt(0).toUpperCase()} />
             </Menu.CheckboxItem>
@@ -55,11 +56,11 @@ export function WithSectionLevelSelection() {
                 key={value}
                 value={value}
                 aria-label={value.charAt(0).toUpperCase() + value.slice(1)}
-                closeOnClick
+                closeOnSelect
               >
-                <Menu.RadioItemIndicator keepMounted xstyle={styles.selectionIndicator}>
+                <Menu.ItemIndicator keepMounted xstyle={styles.selectionIndicator}>
                   <Dotmark />
-                </Menu.RadioItemIndicator>
+                </Menu.ItemIndicator>
                 <Menu.Item.Label>{value.charAt(0).toUpperCase() + value.slice(1)}</Menu.Item.Label>
                 <Shortcut
                   modifier="alt"

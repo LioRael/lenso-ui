@@ -1,76 +1,63 @@
 ---
 title: "Sidebar"
-description: "Compose unstyled navigation panels with independent open state."
+description: "Compose a non-modal navigation panel from UI SDK core behaviors."
 navigationOrder: 1
 ---
 
-## Usage
+## Composition
 
 ```tsx
-import { Sidebar } from "@lenso/primitives/sidebar";
+import { Sidebar, createSidebarController } from "@lenso/primitives/sidebar";
+import { useState } from "react";
 
 export function Navigation() {
+  const [controller] = useState(createSidebarController);
   return (
-    <Sidebar.Root defaultOpen>
-      <Sidebar.Trigger>Toggle navigation</Sidebar.Trigger>
-      <Sidebar.Panel aria-label="Primary navigation">
-        <Sidebar.Header>Workspace</Sidebar.Header>
-        <Sidebar.Content>
-          <nav aria-label="Workspace">
-            <a href="/">Home</a>
-          </nav>
-        </Sidebar.Content>
-        <Sidebar.Footer>Account settings</Sidebar.Footer>
-      </Sidebar.Panel>
-    </Sidebar.Root>
+    <>
+      <button type="button" onClick={() => controller.setOpen(true)}>Open navigation</button>
+      <Sidebar.Root aria-label="Workspace navigation" controller={controller} defaultOpen>
+        <Sidebar.Trigger>Toggle navigation</Sidebar.Trigger>
+        <Sidebar.Panel aria-label="Workspace destinations">
+          <Sidebar.Header>Workspace</Sidebar.Header>
+          <Sidebar.Content>
+            <Sidebar.Menu><Sidebar.MenuItem>
+              <Sidebar.Item href="/" selected>Home</Sidebar.Item>
+            </Sidebar.MenuItem></Sidebar.Menu>
+          </Sidebar.Content>
+          <Sidebar.Footer>Account settings</Sidebar.Footer>
+        </Sidebar.Panel>
+      </Sidebar.Root>
+    </>
   );
 }
 ```
 
-Use `open` and `onOpenChange` together for controlled state. Uncontrolled roots use `defaultOpen`. Each root owns its panel; nested roots keep independent state. Layout, panel width, responsive changes and animation are application choices.
+The framework-independent definition lives in `@lenso/primitives/sidebar/core`.
+It uses `definePrimitive`, `createChange`, `bindPanel` and `createFocusRecovery`.
+The React entry only maps its slots to native elements with `createParts`.
 
-## Root API
+`open`, `defaultOpen` (true by default) and `onOpenChange(open, details)` follow
+native SDK controlled-state and cancellation contracts. `details` exposes
+`reason`, `event`, `source` and `cancel()`. Reasons are `trigger-press`,
+`escape-key` and `controller`. A controlled owner must commit the requested state.
 
-| Prop | Type | Default | Purpose |
-| --- | --- | --- | --- |
-| `open` | `boolean` | Uncontrolled | Current visibility |
-| `defaultOpen` | `boolean` | `true` | Initial uncontrolled visibility |
-| `onOpenChange` | `(open: boolean) => void` | | Visibility callback |
-| `side` | `"left" \| "right"` | `"left"` | Physical panel side |
-| `dir` | `"ltr" \| "rtl"` | `"ltr"` | Text direction |
-| `id` | `string` | Generated | Root ID used by targeted controls |
-| `render` | Base UI render prop | `div` | Replace the root element |
+Each root has an independent controller. Use `createSidebarController()` for
+external operations: `isOpen()`, `setOpen(open)` and `toggle()`. Group roots with
+native HTML. The former Group registry, Provider, targetId and separate direction
+model are removed. `dir` inherits through the DOM.
 
-Root exposes `data-state="open|closed"` and `data-side="left|right"`. Render state contains `open`, `side` and `dir`. Parts accept their native props, refs and Base UI render composition; they do not accept the styled adapter's visual variants.
+Root, Trigger, Rail and Panel expose `data-open`, `data-closed`, `data-side`,
+and render state `{ open, side }`. Root's native slot is `sidebar`; structural
+slots are prefixed `sidebar-`. Item renders an anchor, accepts `selected` and
+`nested`, and exposes `aria-current`, `data-selected` and `data-nested`. Name a
+Rail through its children or `aria-label`; it has no built-in English labels.
 
-## Parts
+Toggle buttons use native Enter/Space activation. Opening retains focus; Tab
+uses browser navigation order. Escape inside a panel requests closing unless a
+descendant prevented it. SDK panel binding restores focus on a committed close;
+SDK focus recovery handles removal of a focused panel. Cancellation or a rejected
+controlled request leaves focus and visibility intact. There is no modal trap,
+outside-press dismissal or mobile drawer. Compose SDK Drawer for a modal surface.
 
-| Part | Default element | Contract |
-| --- | --- | --- |
-| `Group` | `div` | Registers roots for controls using `targetId` |
-| `Root` | `div` | Provides panel state and actions |
-| `Trigger` | Base UI Button | Toggles the nearest root or `targetId` |
-| `Rail` | Base UI Button | Toggle with `openLabel` / `closeLabel` |
-| `Panel` | `aside` | Hidden when closed; owns panel ID and dismissal |
-| `Header`, `Content`, `Footer` | `div` | Structural regions |
-| `Menu`, `Submenu` | `ul` | List containers |
-| `MenuItem` | `li` | List item container |
-| `Item` | `button` | `selected` and `nested` state, both default `false` |
-| `Inset` | `main` | Main content region |
-| `Provider` | Context only | Explicit `state`, `actions`, `meta` integration |
-
-`Item` exposes `data-state="selected|default"`, `data-level="nested|root"` and `aria-current="page"` when selected. Give button items `type="button"` inside forms. For navigation links, use native anchors or render an anchor and preserve its navigation semantics.
-
-`Rail` defaults to “Open sidebar” / “Close sidebar”; pass localized labels as needed. `Provider` requires `state: { open }`, `actions: { setOpen, toggle }` and `meta: { dir, panelId, rootId, side, triggerRef }`.
-
-## Multiple panels
-
-Wrap independent roots and external triggers in the same `Sidebar.Group`. Set a stable root `id`, then pass that ID as `targetId` to `Trigger` or `Rail`. Without `targetId`, controls use their nearest root. Target IDs must be unique inside the group.
-
-## Keyboard and focus
-
-Triggers expose `aria-controls` and `aria-expanded`. The closed panel has `hidden` and `aria-hidden`. Escape from an interactive descendant closes the panel and returns focus to its trigger unless the event was already prevented. This is a navigation panel, with no built-in modal focus trap or mobile drawer overlay.
-
-## Source and styled adapter
-
-[Full source and exported types](https://github.com/LioRael/lenso-ui/blob/main/packages/primitives/src/sidebar/index.tsx). Use [Sidebar component](/docs/react/components/sidebar) for Lenso's styled adapter.
+The styled `@lenso/ui/sidebar` is navigation presentation for use inside a panel;
+it has its own composition and is not a visual alias for this panel primitive.

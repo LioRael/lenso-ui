@@ -24,7 +24,7 @@ function ProjectTabs({
   return (
     <Tabs defaultValue="overview" xstyle={styles.root} {...props}>
       <Tabs.ListContainer>
-        <Tabs.List activateOnFocus aria-label="Options">
+        <Tabs.List aria-label="Options">
           {sections.map((item, index) => (
             <Tabs.Tab key={item.value} value={item.value}>
               {separators && index > 0 && <Tabs.Separator />}
@@ -72,7 +72,7 @@ function SettingsTabs(props: ComponentProps<typeof Tabs>) {
   return (
     <Tabs defaultValue="account" orientation="vertical" xstyle={styles.vertical} {...props}>
       <Tabs.ListContainer>
-        <Tabs.List activateOnFocus aria-label="Vertical tabs">
+        <Tabs.List aria-label="Vertical tabs">
           {settings.map((item) => (
             <Tabs.Tab key={item.value} value={item.value}>
               {item.label}
@@ -127,7 +127,7 @@ export function VerticalAlignment() {
   return (
     <Tabs defaultValue="general" align="start" orientation="vertical" xstyle={styles.vertical}>
       <Tabs.ListContainer>
-        <Tabs.List activateOnFocus aria-label="Settings">
+        <Tabs.List aria-label="Settings">
           {items.map((item) => (
             <Tabs.Tab key={item.value} value={item.value}>
               {item.label}
@@ -161,7 +161,7 @@ export function Overflow() {
     <div {...stylex.props(styles.overflow)}>
       <Tabs defaultValue="overview">
         <Tabs.ListContainer>
-          <Tabs.List activateOnFocus aria-label="Overflow options">
+          <Tabs.List aria-label="Overflow options">
             {items.map((label) => (
               <Tabs.Tab key={label} value={label.toLowerCase()}>
                 {label}
@@ -192,7 +192,7 @@ export function Disabled() {
   return (
     <Tabs defaultValue="active" xstyle={styles.root}>
       <Tabs.ListContainer>
-        <Tabs.List activateOnFocus aria-label="Tabs with disabled">
+        <Tabs.List aria-label="Tabs with disabled">
           {items.map((item) => (
             <Tabs.Tab key={item.value} value={item.value} disabled={item.value === "disabled"}>
               {item.label}
@@ -213,7 +213,7 @@ export function CustomStyles() {
   return (
     <Tabs defaultValue="monthly" xstyle={styles.customRoot}>
       <Tabs.ListContainer xstyle={styles.customContainer}>
-        <Tabs.List activateOnFocus aria-label="Billing cycle" xstyle={styles.customList}>
+        <Tabs.List aria-label="Billing cycle" xstyle={styles.customList}>
           <Tabs.Tab value="monthly" xstyle={styles.customTab}>
             Monthly
           </Tabs.Tab>

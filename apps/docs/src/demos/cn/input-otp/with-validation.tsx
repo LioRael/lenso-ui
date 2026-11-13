@@ -23,7 +23,7 @@ export function WithValidation() {
         <Label>验证账户</Label>
         <Description>提示：验证码为 123456</Description>
         <InputOTP
-          length={6}
+          maxLength={6}
           name="code"
           value={value}
           onValueChange={(next) => {

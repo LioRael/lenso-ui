@@ -4,7 +4,7 @@
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
  * Modified: native Base UI value, collection, portal and validation contracts.
  */
-import { Field } from "@base-ui/react/field";
+import * as Field from "@ui-sdk/react/field";
 import { Xmark } from "@gravity-ui/icons";
 import { Select } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
@@ -315,8 +315,8 @@ export const countrySections: ChoiceSection[] = [
     ],
   },
 ];
-type FieldProps<Multiple extends boolean | undefined> = Omit<
-  ComponentProps<typeof Select.Root<string, Multiple>>,
+type FieldProps = Omit<
+  ComponentProps<typeof Select.Root<string, boolean>>,
   "items" | "children"
 > & {
   label: string;
@@ -334,7 +334,7 @@ type FieldProps<Multiple extends boolean | undefined> = Omit<
   onListScroll?: ComponentProps<typeof Select.List>["onScroll"];
   customRender?: boolean;
 };
-export function SelectExample<Multiple extends boolean | undefined = false>({
+export function SelectExample({
   label,
   choices,
   sections,
@@ -350,7 +350,7 @@ export function SelectExample<Multiple extends boolean | undefined = false>({
   onListScroll,
   customRender = false,
   ...props
-}: FieldProps<Multiple>) {
+}: FieldProps) {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const renderItem = (choice: Choice) => (
     <Select.Item
@@ -364,7 +364,7 @@ export function SelectExample<Multiple extends boolean | undefined = false>({
     </Select.Item>
   );
   return (
-    <Field.Root
+    <Field.Field
       name={props.name}
       {...stylex.props(
         exampleStyles.field,
@@ -373,7 +373,7 @@ export function SelectExample<Multiple extends boolean | undefined = false>({
       )}
       render={customRender ? <div data-custom="foo" /> : undefined}
     >
-      <Select.Root
+      <Select.Root<string, boolean>
         {...props}
         items={choices.map(({ value, label: text }) => ({
           value,
@@ -406,31 +406,29 @@ export function SelectExample<Multiple extends boolean | undefined = false>({
             </button>
           )}
         </div>
-        <Select.Portal>
-          <Select.Positioner alignItemWithTrigger={false} sideOffset={4}>
-            <Select.Popover xstyle={custom && exampleStyles.customPopover}>
-              <Select.List ref={listRef} onScroll={onListScroll}>
-                {sections
-                  ? sections.map((section, index) => (
-                      <div key={section.label}>
-                        {index > 0 && <Select.Separator />}
-                        <Select.Group>
-                          <Select.GroupLabel>{section.label}</Select.GroupLabel>
-                          {section.items.map(renderItem)}
-                        </Select.Group>
-                      </div>
-                    ))
-                  : choices.map(renderItem)}
-                {footer}
-              </Select.List>
-            </Select.Popover>
-          </Select.Positioner>
-        </Select.Portal>
+        <Select.Content xstyle={custom && exampleStyles.customPopover} sideOffset={4}>
+          <Select.List ref={listRef} onScroll={onListScroll}>
+            {sections
+              ? sections.map((section, index) => (
+                  <div key={section.label}>
+                    {index > 0 && <Select.Separator />}
+                    <Select.Group>
+                      <Select.GroupLabel>{section.label}</Select.GroupLabel>
+                      {section.items.map(renderItem)}
+                    </Select.Group>
+                  </div>
+                ))
+              : choices.map(renderItem)}
+            {footer}
+          </Select.List>
+        </Select.Content>
       </Select.Root>
       {description && (
-        <Field.Description {...stylex.props(exampleStyles.note)}>{description}</Field.Description>
+        <Field.FieldDescription {...stylex.props(exampleStyles.note)}>
+          {description}
+        </Field.FieldDescription>
       )}
-      {props.required && <Field.Error {...stylex.props(exampleStyles.error)} />}
-    </Field.Root>
+      {props.required && <Field.FieldError {...stylex.props(exampleStyles.error)} />}
+    </Field.Field>
   );
 }

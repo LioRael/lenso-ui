@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useRef, type RefObject } from "react";
 
 const sourceGroup = (trigger: HTMLButtonElement | null) =>
-  trigger?.closest<HTMLElement>('[data-slot="tab-bar-group"]') ?? trigger;
+  trigger?.closest<HTMLElement>('[data-lenso-slot="tab-bar-group"]') ?? trigger;
 
 export function usePhotosSearchTransition(
   active: boolean,
@@ -25,7 +25,7 @@ export function usePhotosSearchTransition(
     const from = previous.current;
     previous.current = null;
     const target = active
-      ? fieldRef.current?.querySelector<HTMLElement>('[data-slot="search-field-group"]')
+      ? fieldRef.current?.querySelector<HTMLElement>('[data-lenso-slot="search-field-group"]')
       : sourceGroup(trigger.current);
     if (!from?.width || !target || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const to = target.getBoundingClientRect();
@@ -63,7 +63,7 @@ export function usePhotosSearchTransition(
     if (active) {
       target
         .querySelectorAll(
-          '[data-slot="search-field-input"], [data-slot="search-field-search-icon"]',
+          '[data-lenso-slot="search-field-input"], [data-lenso-slot="search-field-search-icon"]',
         )
         .forEach((content) => {
           play(content, [{ opacity: 0 }, { opacity: 1 }], 180);

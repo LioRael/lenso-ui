@@ -1,7 +1,7 @@
 /**
  * Copyright NextUI Inc. Apache-2.0.
  * Source: e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e, calendar and range-calendar stories.
- * Native Base UI buttons/select replace upstream ordinary interaction props.
+ * Native UI SDK buttons/select replace upstream ordinary interaction props.
  */
 import type { ComponentProps } from "react";
 import type { DateValue } from "@internationalized/date";
@@ -53,22 +53,19 @@ export function ViewSelect({
           <Select.Value />
           <Select.Indicator />
         </Select.Trigger>
-        <Select.Portal>
-          <Select.Positioner>
-            <Select.Popover>
-              <Select.List>
-                {values.map((n) => (
-                  <Select.Item key={n} value={String(n)}>
-                    <Select.ItemText>
-                      {n} {n === 1 ? singular : unit}
-                    </Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.List>
-            </Select.Popover>
-          </Select.Positioner>
-        </Select.Portal>
+        <Select.Content>
+          <Select.List>
+            {values.map((n) => (
+              <Select.Item key={n} value={String(n)}>
+                <Select.ItemText>
+                  {n}
+                  {n === 1 ? singular : unit}
+                </Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.List>
+        </Select.Content>
       </Select>
     </div>
   );
@@ -326,10 +323,12 @@ export function BookingLegend({ range }: { range?: boolean }) {
   return (
     <div {...stylex.props(s.legend)}>
       <span {...stylex.props(s.inline)}>
-        <span {...stylex.props(s.dotMuted)} /> {range ? "Blocked dates" : "Has bookings"}
+        <span {...stylex.props(s.dotMuted)} />
+        {range ? "Blocked dates" : "Has bookings"}
       </span>
       <span {...stylex.props(s.inline)}>
-        <span {...stylex.props(s.dotDefault)} /> Weekend/Unavailable
+        <span {...stylex.props(s.dotDefault)} />
+        Weekend/Unavailable
       </span>
     </div>
   );

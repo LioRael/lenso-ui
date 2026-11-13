@@ -93,10 +93,10 @@ test("NavigationBar preserves native toolbar controls, the forwarded ref and a s
       }
     />,
   );
-  expect(ref.current).toBe(host.querySelector('[data-slot="navigation-bar"]'));
+  expect(ref.current).toBe(host.querySelector('[data-lenso-slot="navigation-bar"]'));
   expect(host.querySelectorAll("h1").length).toBe(1);
   expect(
-    host.querySelector('[data-slot="navigation-bar-title"]')?.getAttribute("aria-hidden"),
+    host.querySelector('[data-lenso-slot="navigation-bar-title"]')?.getAttribute("aria-hidden"),
   ).toBe("true");
   await act(() => host.querySelector<HTMLButtonElement>('button[aria-label="Back"]')!.click());
   expect(backs).toBe(1);
@@ -113,7 +113,7 @@ test("NavigationBar preserves native toolbar controls, the forwarded ref and a s
     ),
   );
   expect(host.querySelectorAll("h2").length).toBe(1);
-  expect(host.querySelector('[data-slot="navigation-bar-large-title"]')).toBeNull();
+  expect(host.querySelector('[data-lenso-slot="navigation-bar-large-title"]')).toBeNull();
   await act(() => host.querySelector<HTMLButtonElement>('button[aria-label="Back"]')!.click());
   expect(backs).toBe(1);
   await act(() => root.unmount());

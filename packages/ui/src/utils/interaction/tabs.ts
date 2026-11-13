@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
-// Adapted: springs decorate native Base UI selection; Base UI retains keyboard and focus ownership.
+// Adapted: springs decorate native UI SDK selection; UI SDK retains keyboard and focus ownership.
 import { useCallback, useEffect, useState, type Ref } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { tabsStyles } from "@lenso/tokens/tabs";
@@ -41,7 +41,8 @@ function copyTab(tab: HTMLElement, className: string) {
   const copy = document.createElement("span");
   copy.className = className;
   for (const node of tab.childNodes) copy.append(node.cloneNode(true));
-  for (const separator of copy.querySelectorAll("[data-slot='tabs-separator']")) separator.remove();
+  for (const separator of copy.querySelectorAll("[data-lenso-slot='tabs-separator']"))
+    separator.remove();
   const nodes = [...copy.querySelectorAll<HTMLElement | SVGElement>("*")];
   const ids = new Map<string, string>();
   const prefix = `lenso-tabs-copy-${++nextCopyId}-`;
@@ -94,8 +95,8 @@ function attach({
 }: Parts): Controller {
   const itemSelector =
     kind === "tabs"
-      ? "[data-slot='tabs-tab']:not([data-tabs-overflow])"
-      : "[data-slot='segmented-control-item']";
+      ? "[data-lenso-slot='tabs-tab']:not([data-tabs-overflow])"
+      : "[data-lenso-slot='segmented-control-item']";
   const selectedAttribute = kind === "tabs" ? "aria-selected" : "aria-checked";
   const tabs = [...bar.querySelectorAll<HTMLElement>(itemSelector)];
   const vertical = bar.getAttribute("data-orientation") === "vertical";
@@ -472,8 +473,8 @@ function attach({
   bar.addEventListener("pointerdown", onPointerDown);
   // A mouse isn't captured until it has moved, so follow it past the bar.
   window.addEventListener("pointermove", onPointerMove);
-  window.addEventListener("pointerup", onPointerEnd);
-  window.addEventListener("pointercancel", onPointerEnd);
+  window.addEventListener("pointerup", onPointerEnd, true);
+  window.addEventListener("pointercancel", onPointerEnd, true);
   bar.addEventListener("lostpointercapture", onPointerEnd);
   bar.addEventListener("touchmove", onTouchMove, { passive: false });
   bar.addEventListener("click", onClick, true);
@@ -522,8 +523,8 @@ function attach({
         delete bar.dataset[key];
       bar.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", onPointerEnd);
-      window.removeEventListener("pointercancel", onPointerEnd);
+      window.removeEventListener("pointerup", onPointerEnd, true);
+      window.removeEventListener("pointercancel", onPointerEnd, true);
       bar.removeEventListener("lostpointercapture", onPointerEnd);
       bar.removeEventListener("touchmove", onTouchMove);
       bar.removeEventListener("click", onClick, true);
@@ -537,24 +538,24 @@ function attach({
 function present(bar: HTMLElement, kind: SegmentedPresentationKind) {
   const itemSelector =
     kind === "tabs"
-      ? "[data-slot='tabs-tab']:not([data-tabs-overflow])"
-      : "[data-slot='segmented-control-item']";
+      ? "[data-lenso-slot='tabs-tab']:not([data-tabs-overflow])"
+      : "[data-lenso-slot='segmented-control-item']";
   const selectedAttribute = kind === "tabs" ? "aria-selected" : "aria-checked";
   let current: Controller | undefined;
   let signature = "";
   let currentLens: HTMLElement | undefined;
   const sync = () => {
     const tabs = [...bar.querySelectorAll<HTMLElement>(itemSelector)];
-    const glass = bar.querySelector<HTMLElement>(`[data-slot='${kind}-glass']`);
+    const glass = bar.querySelector<HTMLElement>(`[data-lenso-slot='${kind}-glass']`);
     const lens = [...bar.querySelectorAll<HTMLElement>("[data-lg-tabs-lens]")].find(
       (node) => node.offsetHeight > 0,
     );
-    const tint = bar.querySelector<HTMLElement>(`[data-slot='${kind}-tint']`);
-    const row = bar.querySelector<HTMLElement>(`[data-slot='${kind}-row']`);
-    const centreRow = bar.querySelector<HTMLElement>(`[data-slot='${kind}-centre-row']`);
-    const ring = bar.querySelector<HTMLElement>(`[data-slot='${kind}-highlight-ring']`);
-    const centre = bar.querySelector<HTMLElement>(`[data-slot='${kind}-highlight-centre']`);
-    const optics = bar.querySelector<HTMLElement>(`[data-slot='${kind}-highlight-optics']`);
+    const tint = bar.querySelector<HTMLElement>(`[data-lenso-slot='${kind}-tint']`);
+    const row = bar.querySelector<HTMLElement>(`[data-lenso-slot='${kind}-row']`);
+    const centreRow = bar.querySelector<HTMLElement>(`[data-lenso-slot='${kind}-centre-row']`);
+    const ring = bar.querySelector<HTMLElement>(`[data-lenso-slot='${kind}-highlight-ring']`);
+    const centre = bar.querySelector<HTMLElement>(`[data-lenso-slot='${kind}-highlight-centre']`);
+    const optics = bar.querySelector<HTMLElement>(`[data-lenso-slot='${kind}-highlight-optics']`);
     if (!tabs.length) {
       current?.destroy();
       current = undefined;
@@ -595,7 +596,7 @@ function present(bar: HTMLElement, kind: SegmentedPresentationKind) {
     if (
       records.every((record) =>
         (record.target instanceof Element ? record.target : record.target.parentElement)?.closest(
-          `[data-slot='${kind}-row'], [data-slot='${kind}-centre-row']`,
+          `[data-lenso-slot='${kind}-row'], [data-lenso-slot='${kind}-centre-row']`,
         ),
       )
     )
@@ -612,7 +613,6 @@ function present(bar: HTMLElement, kind: SegmentedPresentationKind) {
       "aria-checked",
       "aria-disabled",
       "aria-readonly",
-      "data-active",
       "disabled",
       "hidden",
       "data-tabs-overflow",

@@ -12,25 +12,13 @@ export function RenderFunction() {
     >
       <Tabs.ListContainer>
         <Tabs.List aria-label="Options">
-          <Tabs.Tab
-            value="getting-started"
-            nativeButton={false}
-            render={<Link href="/docs/react/getting-started" />}
-          >
+          <Tabs.Tab value="getting-started" render={<Link href="/docs/react/getting-started" />}>
             Getting Started
           </Tabs.Tab>
-          <Tabs.Tab
-            value="components"
-            nativeButton={false}
-            render={<Link href="/docs/react/components" />}
-          >
+          <Tabs.Tab value="components" render={<Link href="/docs/react/components" />}>
             Components
           </Tabs.Tab>
-          <Tabs.Tab
-            value="releases"
-            nativeButton={false}
-            render={<Link href="/docs/react/releases" />}
-          >
+          <Tabs.Tab value="releases" render={<Link href="/docs/react/releases" />}>
             Releases
           </Tabs.Tab>
           <Tabs.Indicator />

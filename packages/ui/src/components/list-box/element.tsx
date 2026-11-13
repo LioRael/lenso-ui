@@ -1,13 +1,13 @@
 "use client";
 import * as React from "react";
-import { useRender } from "@base-ui/react/use-render";
+import { renderElement, type RenderProp } from "@ui-sdk/react/primitive";
 
-export type CollectionRender = useRender.RenderProp;
+export type CollectionRender = RenderProp;
 
 export function CollectionElement({
   render,
   ref,
   ...props
 }: React.ComponentPropsWithRef<"div"> & { render?: CollectionRender }) {
-  return useRender({ defaultTagName: "div", render, ref, props });
+  return renderElement("div", { ...props, ref: ref }, render);
 }

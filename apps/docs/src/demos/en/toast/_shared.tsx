@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentProps, ReactNode } from "react";
+import { isValidElement, type ComponentProps, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Toast } from "@lenso/ui";
 
@@ -161,41 +161,29 @@ export const styles = stylex.create({
   styledDescription: { fontSize: 14, color: "var(--lenso-label-secondary)" },
 });
 
-export function Notifications({
-  placement = "bottom",
-  expanded = false,
-  ...props
-}: ComponentProps<typeof Toast.Viewport> & { expanded?: boolean }) {
-  const { toasts } = Toast.useToastManager<ToastData>();
+export function Notifications(props: ComponentProps<typeof Toast.Region>) {
   return (
-    <Toast.Portal>
-      <Toast.Viewport placement={placement} alwaysExpanded={expanded} {...props}>
-        {toasts.map((item) => (
-          <Toast key={item.id} toast={item} variant={item.data?.variant}>
-            <Toast.Indicator>{item.data?.indicator}</Toast.Indicator>
+    <Toast.Region {...props}>
+      {(item) => {
+        const data = item.data && typeof item.data === "object" ? item.data : {};
+        const indicator =
+          "indicator" in data && isValidElement(data.indicator) ? data.indicator : undefined;
+        const variant =
+          "variant" in data && (data.variant === "glass" || data.variant === "pill")
+            ? data.variant
+            : undefined;
+        return (
+          <Toast variant={variant}>
+            <Toast.Indicator>{indicator}</Toast.Indicator>
             <Toast.Content>
               <Toast.Title />
               <Toast.Description />
             </Toast.Content>
-            {item.actionProps && (
-              <Toast.Action
-                {...item.actionProps}
-                render={
-                  <Button
-                    size="sm"
-                    variant={item.data?.actionStyle === "tertiary" ? "borderless" : "prominent"}
-                    destructive={item.data?.actionStyle === "danger"}
-                  />
-                }
-                xstyle={
-                  item.data?.actionStyle ? styles[`${item.data.actionStyle}Action`] : undefined
-                }
-              />
-            )}
+            {item.action && <Toast.Action render={<Button size="sm" />} />}
             <Toast.Close aria-label="Close notification" />
           </Toast>
-        ))}
-      </Toast.Viewport>
-    </Toast.Portal>
+        );
+      }}
+    </Toast.Region>
   );
 }

@@ -2,14 +2,13 @@
 import type { ComponentProps as StoryComponentProps } from "react";
 export interface ColorAreaStoryProps extends Pick<
   StoryComponentProps<typeof ColorArea>,
-  "disabled" | "orientation"
+  "disabled"
 > {
   initialColor: string;
 }
 export const initialArgs: ColorAreaStoryProps = /* story-args:start */ {
   initialColor: "#7434ff",
   disabled: false,
-  orientation: "horizontal",
 }; /* story-args:end */
 
 import { ColorArea } from "@lenso/ui";

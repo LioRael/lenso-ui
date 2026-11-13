@@ -1,7 +1,9 @@
+import { holdPopupExit, finishPopupExit, cancelPopupExit } from "./popup-exit.js";
 import { presentMenuFeedback } from "./menu-feedback.js";
 import { afterMenuPlacement, retainMenuChild } from "./menu-placement.js";
 import { menuDurations, sampleMenu } from "./menu-shape.js";
 import { createMenuTimeline } from "./menu-timeline.js";
+import { createGlassContour } from "@lenso/glass";
 
 // iPad cascade captures settle sooner than a root Menu. Keep its shape and ink
 // channels on the shared timeline, with no source-button rebound in the parent.
@@ -18,8 +20,9 @@ export function presentCascadingSubmenu(
   parent: HTMLElement,
   unmount: () => void,
 ) {
-  const surface = element.querySelector<HTMLElement>('[data-slot="menu-surface"]')!;
-  const content = element.querySelector<HTMLElement>('[data-slot="menu-content"]')!;
+  const surface = element.querySelector<HTMLElement>('[data-lenso-slot="menu-surface"]')!;
+  const content = element.querySelector<HTMLElement>('[data-lenso-slot="menu-content"]')!;
+  const contour = createGlassContour(surface);
   let release = retainMenuChild(parent);
   let retained = true;
   const feedback = presentMenuFeedback(element);
@@ -95,6 +98,7 @@ export function presentCascadingSubmenu(
         content.style.filter = finished || pose.items <= 0 ? "" : `blur(${pose.blur}px)`;
         surface.toggleAttribute("data-material-hidden", !open && pose.opacity === 0);
         surface.toggleAttribute("data-material-resting", settled);
+        contour.paint(w, h, corner, { width, height });
         content.style.clipPath = settled
           ? ""
           : `inset(${clip.y}px ${width - clip.x - clip.width}px ${height - clip.y - clip.height}px ${clip.x}px round ${corner / scale}px)`;
@@ -102,6 +106,7 @@ export function presentCascadingSubmenu(
         if (finished && !open && retained) {
           release();
           retained = false;
+          finishPopupExit(element);
           unmount();
         }
       },
@@ -115,6 +120,8 @@ export function presentCascadingSubmenu(
         parent.hasAttribute("data-open");
       if (!next && element.hasAttribute("data-menu-child-count")) return;
       if (next === opened) return;
+      if (next) cancelPopupExit(element);
+      else holdPopupExit(element);
       opened = next;
       if (next && !retained) {
         release = retainMenuChild(parent);
@@ -134,6 +141,8 @@ export function presentCascadingSubmenu(
     cancelPlacement();
     observer?.disconnect();
     timeline?.stop();
+    contour.destroy();
+    cancelPopupExit(element);
     surface.setAttribute("data-material-hidden", "");
     surface.removeAttribute("data-material-resting");
     element.removeAttribute("data-menu-morphing");

@@ -8,7 +8,7 @@ export function Basic() {
   return (
     <Tabs defaultValue="overview" xstyle={styles.root}>
       <Tabs.ListContainer>
-        <Tabs.List activateOnFocus aria-label="Options">
+        <Tabs.List aria-label="Options">
           <Tabs.Tab value="overview">Overview</Tabs.Tab>
           <Tabs.Tab value="analytics">Analytics</Tabs.Tab>
           <Tabs.Tab value="reports">Reports</Tabs.Tab>

@@ -1,4 +1,4 @@
-// Modified: Base UI swipeDirection, Root/Portal/Viewport/Popup/Content/Close.
+// Modified: UI SDK swipeDirection, Root/Portal/Viewport/Popup/Content/Close.
 import type { Meta } from "@storybook/react-vite";
 import React from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -35,36 +35,30 @@ function Example({
   close?: boolean;
 }) {
   return (
-    <Drawer.Root
-      swipeDirection={placement === "bottom" ? "down" : placement === "top" ? "up" : placement}
-    >
+    <Drawer.Root side={placement}>
       <Drawer.Trigger render={<GlassButton variant="default" />}>{trigger}</Drawer.Trigger>
-      <Drawer.Portal>
-        <Drawer.Backdrop variant={backdrop} />
-        <Drawer.Viewport>
-          <Drawer.Popup>
-            <Drawer.Content>
-              {handle && placement === "bottom" && <Drawer.Handle />}
-              {close && <Drawer.Close />}
-              <Drawer.Header>
-                <Drawer.Title>{title}</Drawer.Title>
-              </Drawer.Header>
-              <Drawer.Body>{children}</Drawer.Body>
-              {(cancel || confirm) && (
-                <Drawer.Footer>
-                  {cancel && (
-                    <Drawer.Close render={<GlassButton variant="default" />}>{cancel}</Drawer.Close>
-                  )}
-                  {confirm && (
-                    <Drawer.Close render={<Button fullWidth={!cancel} />}>{confirm}</Drawer.Close>
-                  )}
-                </Drawer.Footer>
+      <Drawer.Backdrop variant={backdrop} />
+      <Drawer.Content>
+        <Drawer.Layout>
+          {handle && placement === "bottom" && <Drawer.Handle />}
+          {close && <Drawer.Close />}
+          <Drawer.Header>
+            <Drawer.Title>{title}</Drawer.Title>
+          </Drawer.Header>
+          <Drawer.Body>{children}</Drawer.Body>
+          {(cancel || confirm) && (
+            <Drawer.Footer>
+              {cancel && (
+                <Drawer.Close render={<GlassButton variant="default" />}>{cancel}</Drawer.Close>
               )}
-              {handle && placement === "top" && <Drawer.Handle />}
-            </Drawer.Content>
-          </Drawer.Popup>
-        </Drawer.Viewport>
-      </Drawer.Portal>
+              {confirm && (
+                <Drawer.Close render={<Button fullWidth={!cancel} />}>{confirm}</Drawer.Close>
+              )}
+            </Drawer.Footer>
+          )}
+          {handle && placement === "top" && <Drawer.Handle />}
+        </Drawer.Layout>
+      </Drawer.Content>
     </Drawer.Root>
   );
 }
@@ -88,7 +82,7 @@ export const Placements = () => (
         confirm="Done"
       >
         <p>
-          This drawer slides in from the <strong>{placement}</strong> edge of the screen.
+          This drawer slides in from the <strong>{placement}</strong>edge of the screen.
         </p>
       </Example>
     ))}
@@ -107,7 +101,7 @@ export const BackdropVariants = () => (
         confirm="Close"
       >
         <p>
-          This drawer uses the <code>{backdrop}</code> backdrop variant.
+          This drawer uses the <code>{backdrop}</code>backdrop variant.
         </p>
       </Example>
     ))}
@@ -182,60 +176,52 @@ export const NonDismissable = () => (
     }}
   >
     <Drawer.Trigger render={<GlassButton variant="default" />}>Important Action</Drawer.Trigger>
-    <Drawer.Portal>
-      <Drawer.Backdrop />
-      <Drawer.Viewport>
-        <Drawer.Popup>
-          <Drawer.Content>
-            <Drawer.Header>
-              <Drawer.Title>Confirm Action</Drawer.Title>
-            </Drawer.Header>
-            <Drawer.Body>
-              <p>
-                This drawer cannot be dismissed by clicking outside. You must use one of the buttons
-                below.
-              </p>
-            </Drawer.Body>
-            <Drawer.Footer>
-              <Drawer.Close render={<GlassButton variant="default" />}>Cancel</Drawer.Close>
-              <Drawer.Close render={<Button />}>Confirm</Drawer.Close>
-            </Drawer.Footer>
-          </Drawer.Content>
-        </Drawer.Popup>
-      </Drawer.Viewport>
-    </Drawer.Portal>
+    <Drawer.Backdrop />
+    <Drawer.Content>
+      <Drawer.Layout>
+        <Drawer.Header>
+          <Drawer.Title>Confirm Action</Drawer.Title>
+        </Drawer.Header>
+        <Drawer.Body>
+          <p>
+            This drawer cannot be dismissed by clicking outside. You must use one of the buttons
+            below.
+          </p>
+        </Drawer.Body>
+        <Drawer.Footer>
+          <Drawer.Close render={<GlassButton variant="default" />}>Cancel</Drawer.Close>
+          <Drawer.Close render={<Button />}>Confirm</Drawer.Close>
+        </Drawer.Footer>
+      </Drawer.Layout>
+    </Drawer.Content>
   </Drawer.Root>
 );
 export const Controlled = () => {
   const [open, setOpen] = React.useState(false);
   return (
     <div {...stylex.props(s.column)}>
-      <Drawer.Root open={open} onOpenChange={setOpen} swipeDirection="right">
+      <Drawer.Root open={open} onOpenChange={setOpen} side="right">
         <div {...stylex.props(s.compactRow)}>
           <Drawer.Trigger render={<GlassButton variant="default" />}>Open Drawer</Drawer.Trigger>
           <p {...stylex.props(s.muted)}>
             Status: <span>{open ? "open" : "closed"}</span>
           </p>
         </div>
-        <Drawer.Portal>
-          <Drawer.Backdrop />
-          <Drawer.Viewport>
-            <Drawer.Popup>
-              <Drawer.Content>
-                <Drawer.Close />
-                <Drawer.Header>
-                  <Drawer.Title>Controlled Drawer</Drawer.Title>
-                </Drawer.Header>
-                <Drawer.Body>
-                  <p>This drawer is controlled externally via React state.</p>
-                </Drawer.Body>
-                <Drawer.Footer>
-                  <Drawer.Close render={<GlassButton variant="default" />}>Close</Drawer.Close>
-                </Drawer.Footer>
-              </Drawer.Content>
-            </Drawer.Popup>
-          </Drawer.Viewport>
-        </Drawer.Portal>
+        <Drawer.Backdrop />
+        <Drawer.Content>
+          <Drawer.Layout>
+            <Drawer.Close />
+            <Drawer.Header>
+              <Drawer.Title>Controlled Drawer</Drawer.Title>
+            </Drawer.Header>
+            <Drawer.Body>
+              <p>This drawer is controlled externally via React state.</p>
+            </Drawer.Body>
+            <Drawer.Footer>
+              <Drawer.Close render={<GlassButton variant="default" />}>Close</Drawer.Close>
+            </Drawer.Footer>
+          </Drawer.Layout>
+        </Drawer.Content>
       </Drawer.Root>
     </div>
   );

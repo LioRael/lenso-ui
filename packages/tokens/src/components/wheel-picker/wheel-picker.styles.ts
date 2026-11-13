@@ -56,6 +56,13 @@ export const wheelPickerStyles = stylex.create({
     overflow: "hidden",
     textOverflow: "ellipsis",
     transformOrigin: "center",
+    transform:
+      "translateY(calc((2.8125 * sin(var(--picker-offset, 0) / 2.8125) - var(--picker-offset, 0)) * 2rem)) rotateX(calc(var(--picker-offset, 0) / -2.8125 * 1rad)) scale(calc(1 + 0.15 * max(0, 1 - abs(var(--picker-offset, 0)))))",
+    // The 90pt drum has a front hemisphere of pi * 2.8125 / 2 rows.
+    // Keep distant options from wrapping back into the visible scroll viewport.
+    opacity:
+      "min(clamp(0, (4.417864669 - abs(var(--picker-offset, 0))) * 1000, 1), 0.4 + 0.6 * max(0, 1 - abs(var(--picker-offset, 0))))",
+    backfaceVisibility: "hidden",
   },
   disabled: { opacity: 0.4 },
   disabledViewport: { overflowY: "hidden" },

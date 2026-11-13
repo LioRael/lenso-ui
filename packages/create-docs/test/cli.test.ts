@@ -69,7 +69,7 @@ test("initializer creates a content-only project without installing dependencies
   assert.equal(manifest.name, "my-notes");
   assert.equal(manifest.dependencies["@lenso/docs"], "0.2.0");
   assert.deepEqual(manifest.scripts, {
-    dev: "lenso-docs dev --turbopack",
+    dev: "lenso-docs dev",
     build: "lenso-docs build",
     preview: "lenso-docs preview",
   });

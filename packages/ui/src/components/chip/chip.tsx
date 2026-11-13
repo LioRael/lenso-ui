@@ -36,7 +36,7 @@ export function ChipRoot({
   return (
     <span
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "chip"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "chip"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -47,7 +47,7 @@ export function ChipLabel({ xstyle, style, ...props }: StyleXProps<ComponentProp
   return (
     <span
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "chip-label"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "chip-label"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />

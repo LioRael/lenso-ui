@@ -37,36 +37,30 @@ export function Basic() {
                 <ChevronDown />
               </Button.Icon>
             </Menu.Trigger>
-            <Menu.Portal>
-              <Menu.Positioner side="bottom" align="end">
-                <Menu.Popup xstyle={styles.popup}>
-                  {[
-                    {
-                      id: "merge",
-                      label: "创建合并提交",
-                      description: "此分支上的所有提交都将加入基础分支",
-                    },
-                    {
-                      id: "squash",
-                      label: "压缩并合并",
-                      description: "此分支上的 14 个提交将合并为一次提交并加入基础分支",
-                    },
-                    {
-                      id: "rebase",
-                      label: "变基并合并",
-                      description: "此分支上的 14 个提交将变基后加入基础分支",
-                    },
-                  ].map((item) => (
-                    <Menu.Item key={item.id} xstyle={styles.item}>
-                      <span {...stylex.props(sourceStyles.menuLabel)}>{item.label}</span>
-                      <span {...stylex.props(sourceStyles.menuDescription)}>
-                        {item.description}
-                      </span>
-                    </Menu.Item>
-                  ))}
-                </Menu.Popup>
-              </Menu.Positioner>
-            </Menu.Portal>
+            <Menu.Content xstyle={styles.popup} side="bottom" align="end">
+              {[
+                {
+                  id: "merge",
+                  label: "创建合并提交",
+                  description: "此分支上的所有提交都将加入基础分支",
+                },
+                {
+                  id: "squash",
+                  label: "压缩并合并",
+                  description: "此分支上的 14 个提交将合并为一次提交并加入基础分支",
+                },
+                {
+                  id: "rebase",
+                  label: "变基并合并",
+                  description: "此分支上的 14 个提交将变基后加入基础分支",
+                },
+              ].map((item) => (
+                <Menu.Item key={item.id} xstyle={styles.item}>
+                  <span {...stylex.props(sourceStyles.menuLabel)}>{item.label}</span>
+                  <span {...stylex.props(sourceStyles.menuDescription)}>{item.description}</span>
+                </Menu.Item>
+              ))}
+            </Menu.Content>
           </Menu>
         </ButtonGroup>
       </div>

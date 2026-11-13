@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0. Ordinary interactions use native Base UI.
+// SPDX-License-Identifier: Apache-2.0. Ordinary interactions use native UI SDK.
 import React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { GlassButton, AlertDialog, Modal, Button, Input, Label, TextField } from "@lenso/ui";
@@ -62,31 +62,23 @@ export function AlertExample({
       >
         {trigger}
       </AlertDialog.Trigger>
-      <AlertDialog.Portal>
-        <AlertDialog.Backdrop variant={backdrop} />
-        <AlertDialog.Viewport>
-          <AlertDialog.Popup placement={placement} size={size} xstyle={!noWidth && s.alertWidth}>
-            <AlertDialog.Close />
-            <AlertDialog.Header>
-              {headerIcon ?? <AlertDialog.Icon variant={danger ? "danger" : "accent"} />}
-              <AlertDialog.Title>{title}</AlertDialog.Title>
-            </AlertDialog.Header>
-            <AlertDialog.Body>{children}</AlertDialog.Body>
-            <AlertDialog.Footer>
-              <AlertDialog.Close render={<GlassButton variant="default" />}>
-                {cancel}
-              </AlertDialog.Close>
-              <AlertDialog.Close
-                render={
-                  <Button destructive={danger} variant={danger ? "prominent" : "prominent"} />
-                }
-              >
-                {confirm}
-              </AlertDialog.Close>
-            </AlertDialog.Footer>
-          </AlertDialog.Popup>
-        </AlertDialog.Viewport>
-      </AlertDialog.Portal>
+      <AlertDialog.Backdrop variant={backdrop} />
+      <AlertDialog.Content placement={placement} size={size} xstyle={!noWidth && s.alertWidth}>
+        <AlertDialog.Close />
+        <AlertDialog.Header>
+          {headerIcon ?? <AlertDialog.Icon variant={danger ? "danger" : "accent"} />}
+          <AlertDialog.Title>{title}</AlertDialog.Title>
+        </AlertDialog.Header>
+        <AlertDialog.Body>{children}</AlertDialog.Body>
+        <AlertDialog.Footer>
+          <AlertDialog.Close render={<GlassButton variant="default" />}>{cancel}</AlertDialog.Close>
+          <AlertDialog.Close
+            render={<Button destructive={danger} variant={danger ? "prominent" : "prominent"} />}
+          >
+            {confirm}
+          </AlertDialog.Close>
+        </AlertDialog.Footer>
+      </AlertDialog.Content>
     </AlertDialog.Root>
   );
 }
@@ -104,27 +96,21 @@ export function ModalExample({
   return (
     <Modal.Root>
       <Modal.Trigger render={<GlassButton variant="default" />}>{trigger}</Modal.Trigger>
-      <Modal.Portal>
-        <Modal.Backdrop variant={backdrop} />
-        <Modal.Viewport>
-          <Modal.Popup placement={placement} size={size} xstyle={!noWidth && s.modalWidth}>
-            <Modal.Close />
-            <Modal.Header>
-              <Modal.Icon xstyle={s.neutralIcon}>
-                <OverlayIcon name="rocket" />
-              </Modal.Icon>
-              <Modal.Title>{title}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>{children}</Modal.Body>
-            <Modal.Footer>
-              {cancel && (
-                <Modal.Close render={<GlassButton variant="default" />}>{cancel}</Modal.Close>
-              )}
-              <Modal.Close render={<Button xstyle={!cancel && s.full} />}>{confirm}</Modal.Close>
-            </Modal.Footer>
-          </Modal.Popup>
-        </Modal.Viewport>
-      </Modal.Portal>
+      <Modal.Backdrop variant={backdrop} />
+      <Modal.Content placement={placement} size={size} xstyle={!noWidth && s.modalWidth}>
+        <Modal.Close />
+        <Modal.Header>
+          <Modal.Icon xstyle={s.neutralIcon}>
+            <OverlayIcon name="rocket" />
+          </Modal.Icon>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{children}</Modal.Body>
+        <Modal.Footer>
+          {cancel && <Modal.Close render={<GlassButton variant="default" />}>{cancel}</Modal.Close>}
+          <Modal.Close render={<Button xstyle={!cancel && s.full} />}>{confirm}</Modal.Close>
+        </Modal.Footer>
+      </Modal.Content>
     </Modal.Root>
   );
 }
@@ -217,48 +203,44 @@ function ControlledExample({
             </GlassButton>
           </div>
         </div>
-        <O.Portal>
-          <O.Backdrop />
-          <O.Viewport>
-            <O.Popup xstyle={alert ? s.alertWidth : s.modalWidth}>
-              <O.Close />
-              <O.Header>
-                {alert ? (
-                  <AlertDialog.Icon variant={method === "useState()" ? "accent" : "success"} />
-                ) : (
-                  <Modal.Icon xstyle={method === "useState()" ? s.accent : s.success}>
-                    <OverlayIcon name="circle-check" />
-                  </Modal.Icon>
-                )}
-                <O.Title>Controlled with {method}</O.Title>
-              </O.Header>
-              <O.Body>
-                <p>
-                  {method === "useState()" ? (
-                    <>
-                      This {family} is controlled by React's <code>useState</code> hook. Pass{" "}
-                      <code>isOpen</code> and <code>onOpenChange</code> props to manage the{" "}
-                      {alert ? "dialog" : "modal"} state externally.
-                    </>
-                  ) : (
-                    <>
-                      The <code>useOverlayState</code> hook provides dedicated methods for common
-                      operations. No need to manually create callbacks—just use{" "}
-                      <code>state.open()</code>, <code>state.close()</code>, or{" "}
-                      <code>state.toggle()</code>.
-                    </>
-                  )}
-                </p>
-              </O.Body>
-              <O.Footer>
-                <O.Close render={<Button variant={alert ? "borderless" : "bordered"} />}>
-                  Cancel
-                </O.Close>
-                <O.Close render={<Button />}>Confirm</O.Close>
-              </O.Footer>
-            </O.Popup>
-          </O.Viewport>
-        </O.Portal>
+        <O.Backdrop />
+        <O.Content xstyle={alert ? s.alertWidth : s.modalWidth}>
+          <O.Close />
+          <O.Header>
+            {alert ? (
+              <AlertDialog.Icon variant={method === "useState()" ? "accent" : "success"} />
+            ) : (
+              <Modal.Icon xstyle={method === "useState()" ? s.accent : s.success}>
+                <OverlayIcon name="circle-check" />
+              </Modal.Icon>
+            )}
+            <O.Title>Controlled with {method}</O.Title>
+          </O.Header>
+          <O.Body>
+            <p>
+              {method === "useState()" ? (
+                <>
+                  This {family} is controlled by React's <code>useState</code> hook. Pass{" "}
+                  <code>isOpen</code> and <code>onOpenChange</code> props to manage the{" "}
+                  {alert ? "dialog" : "modal"} state externally.
+                </>
+              ) : (
+                <>
+                  The <code>useOverlayState</code> hook provides dedicated methods for common
+                  operations. No need to manually create callbacks—just use{" "}
+                  <code>state.open()</code>, <code>state.close()</code>, or{" "}
+                  <code>state.toggle()</code>.
+                </>
+              )}
+            </p>
+          </O.Body>
+          <O.Footer>
+            <O.Close render={<Button variant={alert ? "borderless" : "bordered"} />}>
+              Cancel
+            </O.Close>
+            <O.Close render={<Button />}>Confirm</O.Close>
+          </O.Footer>
+        </O.Content>
       </O.Root>
     </div>
   );
@@ -308,58 +290,51 @@ function CloseExample({
         <O.Trigger render={<GlassButton variant="default" />}>
           Open {alert ? "Dialog" : "Modal"}
         </O.Trigger>
-        <O.Portal>
-          <O.Backdrop />
-          <O.Viewport>
-            <O.Popup xstyle={alert ? s.alertWidth : s.modalWidth}>
-              <O.Header>
-                {alert ? (
-                  <AlertDialog.Icon variant={controlled ? "success" : "accent"} />
-                ) : (
-                  <Modal.Icon xstyle={controlled ? s.success : s.accent}>
-                    <OverlayIcon name={controlled ? "circle-check" : "circle-info"} />
-                  </Modal.Icon>
-                )}
-                <O.Title>{method}</O.Title>
-              </O.Header>
-              <O.Body>
-                <p>
-                  {controlled ? (
-                    <>
-                      The buttons below use the <code>close</code> method from render props. You can
-                      add validation or other logic before calling <code>renderProps.close()</code>.
-                    </>
-                  ) : (
-                    <>
-                      Click either button below - both have <code>slot="close"</code> and will close
-                      the {alert ? "dialog" : "modal"} automatically.
-                    </>
-                  )}
-                </p>
-              </O.Body>
-              <O.Footer>
-                {controlled ? (
-                  <>
-                    <Button
-                      variant={alert ? "borderless" : "bordered"}
-                      onClick={() => setOpen(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button onClick={() => setOpen(false)}>Confirm</Button>
-                  </>
-                ) : (
-                  <>
-                    <O.Close render={<Button variant={alert ? "borderless" : "bordered"} />}>
-                      Cancel
-                    </O.Close>
-                    <O.Close render={<Button />}>Confirm</O.Close>
-                  </>
-                )}
-              </O.Footer>
-            </O.Popup>
-          </O.Viewport>
-        </O.Portal>
+        <O.Backdrop />
+        <O.Content xstyle={alert ? s.alertWidth : s.modalWidth}>
+          <O.Header>
+            {alert ? (
+              <AlertDialog.Icon variant={controlled ? "success" : "accent"} />
+            ) : (
+              <Modal.Icon xstyle={controlled ? s.success : s.accent}>
+                <OverlayIcon name={controlled ? "circle-check" : "circle-info"} />
+              </Modal.Icon>
+            )}
+            <O.Title>{method}</O.Title>
+          </O.Header>
+          <O.Body>
+            <p>
+              {controlled ? (
+                <>
+                  The buttons below use the <code>close</code> method from render props. You can add
+                  validation or other logic before calling <code>renderProps.close()</code>.
+                </>
+              ) : (
+                <>
+                  Click either button below - both have <code>slot="close"</code> and will close the{" "}
+                  {alert ? "dialog" : "modal"} automatically.
+                </>
+              )}
+            </p>
+          </O.Body>
+          <O.Footer>
+            {controlled ? (
+              <>
+                <Button variant={alert ? "borderless" : "bordered"} onClick={() => setOpen(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={() => setOpen(false)}>Confirm</Button>
+              </>
+            ) : (
+              <>
+                <O.Close render={<Button variant={alert ? "borderless" : "bordered"} />}>
+                  Cancel
+                </O.Close>
+                <O.Close render={<Button />}>Confirm</O.Close>
+              </>
+            )}
+          </O.Footer>
+        </O.Content>
       </O.Root>
     </div>
   );
@@ -416,46 +391,42 @@ export function DismissExamples({ alert = false }: { alert?: boolean }) {
             <O.Trigger render={<GlassButton variant="default" />}>
               Open {alert ? "Alert Dialog" : "Modal"}
             </O.Trigger>
-            <O.Portal>
-              <O.Backdrop />
-              <O.Viewport>
-                <O.Popup xstyle={alert ? s.alertWidth : s.modalWidth}>
-                  <O.Close />
-                  <O.Header>
-                    {alert ? (
-                      <AlertDialog.Icon variant={keyboard ? "accent" : "danger"}>
-                        <OverlayIcon name="circle-info" />
-                      </AlertDialog.Icon>
-                    ) : (
-                      <Modal.Icon xstyle={s.neutralIcon}>
-                        <OverlayIcon name="circle-info" />
-                      </Modal.Icon>
-                    )}
-                    <O.Title>
-                      {keyboard ? "isKeyboardDismissDisabled = true" : "isDismissable = false"}
-                    </O.Title>
-                    <p {...stylex.props(s.muted)}>
-                      {keyboard
-                        ? "ESC key is disabled"
-                        : `Clicking the backdrop won't close this ${family}`}
-                    </p>
-                  </O.Header>
-                  <O.Body>
-                    <p>
-                      {keyboard
-                        ? `Press ESC - nothing happens. You must use ${alert ? "the action buttons to dismiss this alert dialog." : "the close button or click the overlay backdrop to dismiss this modal."}`
-                        : `Try clicking outside this ${family} on the overlay - it won't close. You must use ${alert ? "the action buttons to dismiss it." : "the close button or press ESC to dismiss it."}`}
-                    </p>
-                  </O.Body>
-                  <O.Footer>
-                    {alert && <O.Close render={<GlassButton variant="default" />}>Cancel</O.Close>}
-                    <O.Close render={<Button xstyle={!alert && s.full} />}>
-                      {alert ? "Confirm" : "Close"}
-                    </O.Close>
-                  </O.Footer>
-                </O.Popup>
-              </O.Viewport>
-            </O.Portal>
+            <O.Backdrop />
+            <O.Content xstyle={alert ? s.alertWidth : s.modalWidth}>
+              <O.Close />
+              <O.Header>
+                {alert ? (
+                  <AlertDialog.Icon variant={keyboard ? "accent" : "danger"}>
+                    <OverlayIcon name="circle-info" />
+                  </AlertDialog.Icon>
+                ) : (
+                  <Modal.Icon xstyle={s.neutralIcon}>
+                    <OverlayIcon name="circle-info" />
+                  </Modal.Icon>
+                )}
+                <O.Title>
+                  {keyboard ? "isKeyboardDismissDisabled = true" : "isDismissable = false"}
+                </O.Title>
+                <p {...stylex.props(s.muted)}>
+                  {keyboard
+                    ? "ESC key is disabled"
+                    : `Clicking the backdrop won't close this ${family}`}
+                </p>
+              </O.Header>
+              <O.Body>
+                <p>
+                  {keyboard
+                    ? `Press ESC - nothing happens. You must use ${alert ? "the action buttons to dismiss this alert dialog." : "the close button or click the overlay backdrop to dismiss this modal."}`
+                    : `Try clicking outside this ${family} on the overlay - it won't close. You must use ${alert ? "the action buttons to dismiss it." : "the close button or press ESC to dismiss it."}`}
+                </p>
+              </O.Body>
+              <O.Footer>
+                {alert && <O.Close render={<GlassButton variant="default" />}>Cancel</O.Close>}
+                <O.Close render={<Button xstyle={!alert && s.full} />}>
+                  {alert ? "Confirm" : "Close"}
+                </O.Close>
+              </O.Footer>
+            </O.Content>
           </O.Root>
         </div>
       ))}
@@ -486,33 +457,29 @@ export function AnimationExamples({ alert = false }: { alert?: boolean }) {
       {animations.map(({ name, description, icon, motion, backdropMotion }) => (
         <O.Root key={name}>
           <O.Trigger render={<GlassButton variant="default" />}>{name}</O.Trigger>
-          <O.Portal>
-            <O.Backdrop xstyle={backdropMotion} />
-            <O.Viewport>
-              <O.Popup xstyle={[alert ? s.alertWidth : s.modalWidth, motion]}>
-                <O.Close />
-                <O.Header>
-                  {alert ? (
-                    <AlertDialog.Icon variant="accent">
-                      <OverlayIcon name={icon} />
-                    </AlertDialog.Icon>
-                  ) : (
-                    <Modal.Icon xstyle={s.neutralIcon}>
-                      <OverlayIcon name={icon} />
-                    </Modal.Icon>
-                  )}
-                  <O.Title>{name} Animation</O.Title>
-                </O.Header>
-                <O.Body>
-                  <p>{description}</p>
-                </O.Body>
-                <O.Footer>
-                  <O.Close render={<GlassButton variant="default" />}>Close</O.Close>
-                  <O.Close render={<Button />}>Try Again</O.Close>
-                </O.Footer>
-              </O.Popup>
-            </O.Viewport>
-          </O.Portal>
+          <O.Backdrop xstyle={backdropMotion} />
+          <O.Content xstyle={[alert ? s.alertWidth : s.modalWidth, motion]}>
+            <O.Close />
+            <O.Header>
+              {alert ? (
+                <AlertDialog.Icon variant="accent">
+                  <OverlayIcon name={icon} />
+                </AlertDialog.Icon>
+              ) : (
+                <Modal.Icon xstyle={s.neutralIcon}>
+                  <OverlayIcon name={icon} />
+                </Modal.Icon>
+              )}
+              <O.Title>{name}Animation</O.Title>
+            </O.Header>
+            <O.Body>
+              <p>{description}</p>
+            </O.Body>
+            <O.Footer>
+              <O.Close render={<GlassButton variant="default" />}>Close</O.Close>
+              <O.Close render={<Button />}>Try Again</O.Close>
+            </O.Footer>
+          </O.Content>
         </O.Root>
       ))}
     </div>
@@ -525,43 +492,39 @@ export function PortalExample({ alert = false }: { alert?: boolean }) {
     <div {...stylex.props(s.column)}>
       <div>
         <p>
-          Render {alert ? "alert dialogs" : "modals"} inside a custom container instead of{" "}
+          Render {alert ? "alert dialogs" : "modals"}inside a custom container instead of{" "}
           <code>document.body</code>
         </p>
         <p {...stylex.props(s.muted)}>
-          Apply <code>transform: translateZ(0)</code> to the container to create a new stacking
+          Apply <code>transform: translateZ(0)</code>to the container to create a new stacking
           context.
         </p>
       </div>
       <div ref={setContainer} data-overlay-portal-host="" {...stylex.props(s.portalHost)}>
         {container && (
-          <O.Root>
+          <O.Root container={container}>
             <O.Trigger render={<Button />}>Open {alert ? "Alert Dialog" : "Modal"}</O.Trigger>
-            <O.Portal container={container}>
-              <O.Backdrop xstyle={s.portalFill} />
-              <O.Viewport xstyle={s.portalFill}>
-                <O.Popup xstyle={s.portalPopup}>
-                  <O.Close />
-                  <O.Header>
-                    {alert && <AlertDialog.Icon variant="accent" />}
-                    <O.Title>Custom Portal</O.Title>
-                  </O.Header>
-                  <O.Body>
-                    {[0, 1, 2].map((i) => (
-                      <p key={i} {...stylex.props(s.muted)}>
-                        {portalLorem}
-                      </p>
-                    ))}
-                  </O.Body>
-                  <O.Footer>
-                    {alert && <O.Close render={<GlassButton variant="default" />}>Cancel</O.Close>}
-                    <O.Close render={<Button variant={alert ? "prominent" : "bordered"} />}>
-                      {alert ? "Confirm" : "Close"}
-                    </O.Close>
-                  </O.Footer>
-                </O.Popup>
-              </O.Viewport>
-            </O.Portal>
+            <O.Backdrop xstyle={s.portalFill} />
+            <O.Content xstyle={s.portalPopup}>
+              <O.Close />
+              <O.Header>
+                {alert && <AlertDialog.Icon variant="accent" />}
+                <O.Title>Custom Portal</O.Title>
+              </O.Header>
+              <O.Body>
+                {[0, 1, 2].map((i) => (
+                  <p key={i} {...stylex.props(s.muted)}>
+                    {portalLorem}
+                  </p>
+                ))}
+              </O.Body>
+              <O.Footer>
+                {alert && <O.Close render={<GlassButton variant="default" />}>Cancel</O.Close>}
+                <O.Close render={<Button variant={alert ? "prominent" : "bordered"} />}>
+                  {alert ? "Confirm" : "Close"}
+                </O.Close>
+              </O.Footer>
+            </O.Content>
           </O.Root>
         )}
       </div>

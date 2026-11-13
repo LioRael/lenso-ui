@@ -17,15 +17,8 @@ export function Validation() {
         alert(`Selected preferences: ${values.join(", ")}`);
       }}
     >
-      <TextField
-        name="preferences"
-        validate={(value) =>
-          Array.isArray(value) && value.length > 0
-            ? null
-            : "Please select at least one notification method."
-        }
-      >
-        <CheckboxGroup aria-labelledby={labelId}>
+      <TextField name="preferences">
+        <CheckboxGroup required aria-labelledby={labelId}>
           <span id={labelId} {...stylex.props(labelStyles.label)}>
             Preferences
           </span>

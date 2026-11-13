@@ -1,24 +1,24 @@
 "use client";
 
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
 import { Notifications, styles } from "./_shared";
 
-const queue = Toast.createToastManager();
+const queue = createToaster();
 
 export function Expanded() {
   return (
     <div {...stylex.props(styles.frame)}>
-      <Toast.Provider toastManager={queue}>
-        <Notifications expanded aria-label="Expanded notifications" />
-      </Toast.Provider>
+      <>
+        <Notifications expanded aria-label="Expanded notifications" toaster={queue} />
+      </>
       <Button
         size="sm"
         variant="bordered"
         onClick={() => {
-          queue.add({ title: "Simple message", type: "default" });
-          setTimeout(() => queue.add({ title: "Operation completed", type: "success" }), 400);
-          setTimeout(() => queue.add({ title: "New update available", type: "accent" }), 800);
+          queue({ title: "Simple message", type: "default" });
+          setTimeout(() => queue({ title: "Operation completed", type: "success" }), 400);
+          setTimeout(() => queue({ title: "New update available", type: "info" }), 800);
         }}
       >
         Show 3 toasts

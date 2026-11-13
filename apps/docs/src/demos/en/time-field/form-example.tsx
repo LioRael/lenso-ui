@@ -1,4 +1,5 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 // Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
 import type { Time } from "@internationalized/date";
 import { Clock } from "@gravity-ui/icons";
@@ -10,6 +11,7 @@ import * as stylex from "@stylexjs/stylex";
 import { styles } from "../date-field/demo-styles";
 
 export function FormExample() {
+  const log = usePlaygroundLog();
   const [value, setValue] = useState<Time | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const minTime = parseTime("09:00");
@@ -20,7 +22,7 @@ export function FormExample() {
     if (!value || isInvalid || isSubmitting) return;
     setIsSubmitting(true);
     setTimeout(() => {
-      console.log("Time submitted:", { time: value });
+      log("Time submitted:", { time: value });
       setValue(null);
       setIsSubmitting(false);
     }, 1500);

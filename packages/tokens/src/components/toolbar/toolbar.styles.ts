@@ -113,8 +113,8 @@ export const toolbarStyles = stylex.create({
   button: {
     height: {
       default: 44,
-      ":is([data-slot='toolbar-group'] *)": "var(--toolbar-group-button-height, 36px)",
-      ":is([data-slot='toolbar'][data-attached] *)": 36,
+      ":is([data-lenso-slot='toolbar-group'] *)": "var(--toolbar-group-button-height, 36px)",
+      ":is([data-lenso-slot='toolbar'][data-attached] *)": 36,
     },
     minWidth: 36,
     paddingInline: 16,
@@ -125,8 +125,8 @@ export const toolbarStyles = stylex.create({
   iconButton: {
     width: {
       default: 44,
-      ":is([data-slot='toolbar-group'] *)": "var(--toolbar-group-button-height, 36px)",
-      ":is([data-slot='toolbar'][data-attached] *)": 36,
+      ":is([data-lenso-slot='toolbar-group'] *)": "var(--toolbar-group-button-height, 36px)",
+      ":is([data-lenso-slot='toolbar'][data-attached] *)": 36,
     },
     paddingInline: 0,
   },

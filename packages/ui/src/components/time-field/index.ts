@@ -27,3 +27,9 @@ export const TimeField = Object.assign(TimeFieldRoot, {
 });
 
 export type { TimeValue } from "react-stately/useTimeFieldState";
+
+export { createModelController as createTimeFieldController } from "@lenso/primitives/model-control";
+export type {
+  ModelController as TimeFieldController,
+  ModelChangeReason as TimeFieldChangeReason,
+} from "@lenso/primitives/model-control";

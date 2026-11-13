@@ -5,7 +5,7 @@ import { UsersList, styles } from "./multi-select--users";
 export function MultiSelect() {
   return (
     <div {...stylex.props(styles.surface)}>
-      <UsersList selectionMode="multiple" />
+      <UsersList multiple />
     </div>
   );
 }

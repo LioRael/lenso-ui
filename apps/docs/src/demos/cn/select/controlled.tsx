@@ -13,7 +13,9 @@ export function Controlled() {
         choices={controlledStates}
         placeholder="请选择州"
         value={state}
-        onValueChange={setState}
+        onValueChange={(next) => {
+          if (!Array.isArray(next)) setState(next);
+        }}
       />
       <p {...stylex.props(exampleStyles.note)}>
         已选：{controlledStates.find((item) => item.value === state)?.label || "无"}

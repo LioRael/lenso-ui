@@ -1,6 +1,6 @@
 "use client";
 import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, styles } from "./_native";
+import { OptionPicker, styles } from "./_native";
 
 const currencies = [
   { code: "USD", id: "usd", name: "US Dollar", symbol: "$" },
@@ -11,7 +11,7 @@ const currencies = [
 ].map((currency) => ({ ...currency, searchText: `${currency.code} ${currency.name}` }));
 export function CustomValue() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={currencies}
       label="Currency"
       placeholder="Select a currency"

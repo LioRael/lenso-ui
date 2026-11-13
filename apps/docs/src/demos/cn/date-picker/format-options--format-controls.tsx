@@ -174,20 +174,16 @@ function OptionSelect<T extends string | number>({
           <Select.Value />
           <Select.Indicator />
         </Select.Trigger>
-        <Select.Portal>
-          <Select.Positioner>
-            <Select.Popover>
-              <Select.List>
-                {options.map((option) => (
-                  <Select.Item key={option.value} value={option.value}>
-                    <Select.ItemText>{option.label}</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
-              </Select.List>
-            </Select.Popover>
-          </Select.Positioner>
-        </Select.Portal>
+        <Select.Content>
+          <Select.List>
+            {options.map((option) => (
+              <Select.Item key={option.value} value={option.value}>
+                <Select.ItemText>{option.label}</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.List>
+        </Select.Content>
       </Select>
     </div>
   );

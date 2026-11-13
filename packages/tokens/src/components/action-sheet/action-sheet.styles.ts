@@ -46,7 +46,47 @@ export const actionSheetStyles = stylex.create({
     boxSizing: "border-box",
     overflowY: "auto",
   },
+  nativeContent: {
+    "--action-sheet-travel": {
+      default: "0px",
+      ':is([data-placement="bottom"])': "16px",
+      "@media (max-width: 767px)": { default: "16px", ':is([data-placement="center"])': "0px" },
+    },
+    "--action-sheet-origin": {
+      default: "center",
+      ':is([data-placement="bottom"])': "center bottom",
+      "@media (max-width: 767px)": {
+        default: "center bottom",
+        ':is([data-placement="center"])': "center",
+      },
+    },
+
+    visibility: {
+      default: null,
+      ":is([popover]:not(:popover-open),[data-closed]:not([data-ending-style]))": "hidden",
+    },
+    position: "fixed",
+    inset: 16,
+    margin: "auto",
+    height: "max-content",
+    width: 300,
+    maxWidth: "calc(100% - 32px)",
+    maxHeight: "calc(100dvh - 32px)",
+    overflowY: "auto",
+    zIndex: tokens.zIndexOverlay,
+  },
+  placement: (placement: "auto" | "bottom" | "center") => ({
+    marginTop: {
+      default: placement === "bottom" ? "auto" : "auto",
+      "@media (max-width: 767px)": "auto",
+    },
+    marginBottom: {
+      default: placement === "bottom" ? 0 : "auto",
+      "@media (max-width: 767px)": placement === "center" ? "auto" : 0,
+    },
+  }),
   popup: {
+    borderWidth: 0,
     width: 300,
     maxWidth: "100%",
     flexShrink: 0,

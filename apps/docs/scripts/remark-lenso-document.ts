@@ -21,7 +21,13 @@ export function remarkLensoDocument() {
     const page = index.pages.find((page) => page.markdownFile === "content/lenso/" + relative);
     if (!page) throw new Error(`Missing document metadata: ${relative}`);
     const family = nativeApiFamily(page.slug);
-    if (family) replaceNativeApiSection(tree, family, page.locale === "cn" ? "zh" : "en");
+    if (
+      family &&
+      tree.children.some(
+        (node) => node.type === "heading" && /^(API Reference|API 参考)$/.test(headingText(node)),
+      )
+    )
+      replaceNativeApiSection(tree, family, page.locale === "cn" ? "zh" : "en");
     const headings: { title: string; id: string; depth: number }[] = [];
     const visit = (node: RootContent) => {
       if (node.type === "heading") {

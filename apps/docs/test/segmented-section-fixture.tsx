@@ -89,7 +89,13 @@ function Fixture() {
               </Tabs.Panel>
             ))}
           </Tabs>
-          <SegmentedControl aria-label="Rejected" items={choices} value="all" xstyle={s.group} />
+          <SegmentedControl
+            aria-label="Rejected"
+            items={choices}
+            value="all"
+            onValueChange={(_value, details) => details.cancel()}
+            xstyle={s.group}
+          />
           <SegmentedControl
             aria-label="Read only"
             items={choices}
@@ -112,6 +118,7 @@ function Fixture() {
               items={entries}
               value={active}
               onValueChange={(value) => {
+                if (value === null) return;
                 setActive(value);
                 setCount((count) => count + 1);
               }}

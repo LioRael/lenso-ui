@@ -1,23 +1,19 @@
 "use client";
-
-import { Button } from "@lenso/ui";
 import { useState } from "react";
-import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, styles } from "../../en/autocomplete/_native";
-import { states } from "./default";
+import { Button } from "@lenso/ui";
+import { TextSuggestions } from "../../en/autocomplete/text-suggestions";
+import { states } from "../../en/autocomplete/default";
 export function ControlledOpenState() {
   const [open, setOpen] = useState(false);
   return (
-    <div {...stylex.props(styles.stack)}>
-      <NativeAutocomplete
-        items={states}
-        label="州"
-        searchLabel="Search states"
+    <div>
+      <TextSuggestions
+        label="计划前往的州"
+        options={states.map((item) => item.name)}
         open={open}
         onOpenChange={setOpen}
       />
-      <Button onClick={() => setOpen(!open)}>{open ? "关闭" : "打开"}自动完成</Button>
-      <p {...stylex.props(styles.muted)}>Autocomplete is {open ? "打开" : "关闭"}</p>
+      <Button onClick={() => setOpen(!open)}>{open ? "Close" : "Open"} suggestions</Button>
     </div>
   );
 }

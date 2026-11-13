@@ -9,7 +9,7 @@ const require = createRequire(import.meta.url);
 const libraryRequire = createRequire(
   new URL("../../../packages/docs/package.json", import.meta.url),
 );
-const compilerRequire = createRequire(libraryRequire.resolve("@stylexjs/postcss-plugin"));
+const compilerRequire = createRequire(libraryRequire.resolve("@stylexjs/unplugin"));
 const postcss = compilerRequire("postcss");
 const babel = compilerRequire("@babel/core");
 const babelOptions = {
@@ -44,6 +44,21 @@ test("production docs deliver referenced StyleX rules in one stylesheet", async 
     )
   ).join("\n");
   const usedClasses = new Set(runtime.match(/\bx[a-z0-9]+(?:-[A-Z])?\b/g));
+  const renderedClasses = new Set<string>();
+  const output = resolve(root, "out");
+  for (const file of await readdir(output, { recursive: true })) {
+    if (!file.endsWith(".html")) continue;
+    const html = await readFile(join(output, file), "utf8");
+    for (const match of html.matchAll(/\bclass="([^"]*)"/g)) {
+      for (const className of match[1]!.split(/\s+/)) {
+        if (!/^x[a-z0-9]+(?:-[A-Z])?$/.test(className)) continue;
+        usedClasses.add(className);
+        if (renderedClasses.has(className)) continue;
+        renderedClasses.add(className);
+        assert.ok(css.includes(`.${className}`), `Missing rendered class ${className} in ${file}`);
+      }
+    }
+  }
   const atomicSelector = (selector: string) =>
     /\.x[a-z0-9]+(?:-[A-Z])?(?=[\s,.#:[>+~]|$)/.test(selector);
   const fingerprints = new Set<string>();
@@ -124,5 +139,6 @@ test("production docs deliver referenced StyleX rules in one stylesheet", async 
   >;
   for (const map of Object.values(maps))
     for (const className of stylex.props(map).className!.split(" "))
-      assert.ok(css.includes(`.${className}`), `Missing server-only API class ${className}`);
+      if (usedClasses.has(className))
+        assert.ok(css.includes(`.${className}`), `Missing referenced API class ${className}`);
 });

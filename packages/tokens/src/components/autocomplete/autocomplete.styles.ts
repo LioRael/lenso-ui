@@ -1,7 +1,7 @@
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: Base UI popup-search selection, native states and StyleX composition.
+ * Modified: UI SDK popup-search selection, native states and StyleX composition.
  */
 import * as stylex from "@stylexjs/stylex";
 import { focusRing } from "../../focus-ring.stylex.const.js";
@@ -31,18 +31,23 @@ export const autocompleteStyles = stylex.create({
     "::placeholder": { color: tokens.labelPlaceholder },
   },
   popover: {
+    borderWidth: 0,
+    margin: 0,
+    padding: 0,
+    visibility: {
+      default: null,
+      ":is([popover]:not(:popover-open),[data-closed]:not([data-ending-style]))": "hidden",
+    },
     display: "flex",
     flexDirection: "column",
     width: "var(--anchor-width)",
     maxWidth: "var(--available-width)",
     maxHeight: "var(--available-height)",
-    overflow: "hidden",
+    overflow: "visible",
     paddingTop: ".5rem",
     borderRadius: tokens.shapeContent,
-    backdropFilter: "blur(22px) saturate(1.9)",
-    backgroundColor: tokens.presentationBackground,
+    backgroundColor: "transparent",
     color: tokens.labelPrimary,
-    boxShadow: tokens.overlayShadow,
     fontSize: ".875rem",
     lineHeight: "1.25rem",
     overscrollBehavior: "contain",
@@ -83,11 +88,11 @@ const sharedStyles = stylex.create({
   trigger: {
     cursor: { default: tokens.cursorInteractive, ":is([data-disabled])": tokens.cursorDisabled },
     paddingInlineEnd: ".75rem",
-    ":has([data-slot='autocomplete-indicator'])": { paddingInlineEnd: "1.75rem" },
+    ":has([data-lenso-slot='autocomplete-indicator'])": { paddingInlineEnd: "1.75rem" },
     borderColor: {
       default: tokens.controlFieldBorder,
       "@media (hover: hover)": {
-        ":hover:not([data-invalid], [aria-invalid='true'], :focus-visible, :has([data-slot='autocomplete-clear-button']:hover))":
+        ":hover:not([data-invalid], [aria-invalid='true'], :focus-visible, :has([data-lenso-slot='autocomplete-clear-button']:hover))":
           tokens.controlBorder,
       },
       ":focus-visible:not([data-invalid], [aria-invalid='true']):not(:is([data-lenso-focus-method='pointer'] *))":
@@ -97,7 +102,7 @@ const sharedStyles = stylex.create({
     backgroundColor: {
       default: tokens.controlFieldFill,
       "@media (hover: hover)": {
-        ":hover:not([data-invalid], [aria-invalid='true'], :focus-visible, :has([data-slot='autocomplete-clear-button']:hover))":
+        ":hover:not([data-invalid], [aria-invalid='true'], :focus-visible, :has([data-lenso-slot='autocomplete-clear-button']:hover))":
           tokens.controlFieldHoverFill,
       },
       ":focus-visible:not([data-invalid], [aria-invalid='true']):not(:is([data-lenso-focus-method='pointer'] *))":
@@ -127,7 +132,7 @@ const sharedStyles = stylex.create({
     backgroundColor: {
       default: tokens.controlFill,
       "@media (hover: hover)": {
-        ":hover:not([data-invalid], [aria-invalid='true'], :focus-visible, :has([data-slot='autocomplete-clear-button']:hover))":
+        ":hover:not([data-invalid], [aria-invalid='true'], :focus-visible, :has([data-lenso-slot='autocomplete-clear-button']:hover))":
           tokens.controlHoverFill,
       },
       ":focus-visible:not([data-invalid], [aria-invalid='true'])": tokens.controlFill,
@@ -143,7 +148,7 @@ const sharedStyles = stylex.create({
     color: { default: "inherit", ":is([data-placeholder] *)": tokens.labelPlaceholder },
     fontSize: { default: "1rem", "@media (min-width: 640px)": ".875rem" },
     lineHeight: { default: "1.5rem", "@media (min-width: 640px)": "1.25rem" },
-    "[data-slot='autocomplete-item-indicator']": { display: "none" },
+    "[data-lenso-slot='autocomplete-item-indicator']": { display: "none" },
   },
   item: {
     boxSizing: "border-box",
@@ -152,7 +157,7 @@ const sharedStyles = stylex.create({
       ":is([data-highlighted][data-keyboard-highlight]):not([data-disabled])": focusRing.outer,
     },
     paddingInlineEnd: ".625rem",
-    ":has([data-slot='autocomplete-item-indicator'])": { paddingInlineEnd: "1.75rem" },
+    ":has([data-lenso-slot='autocomplete-item-indicator'])": { paddingInlineEnd: "1.75rem" },
     cursor: { default: tokens.cursorInteractive, ":is([data-disabled])": tokens.cursorDisabled },
     backgroundColor: {
       default: "transparent",

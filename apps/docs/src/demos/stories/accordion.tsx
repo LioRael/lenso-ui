@@ -2,13 +2,11 @@
 import type { ComponentProps as StoryComponentProps } from "react";
 export interface AccordionStoryProps extends Pick<
   StoryComponentProps<typeof Accordion>,
-  "multiple" | "disabled" | "orientation" | "loopFocus" | "variant" | "hideSeparator"
+  "multiple" | "disabled" | "variant" | "hideSeparator"
 > {}
 export const initialArgs: AccordionStoryProps = /* story-args:start */ {
   multiple: false,
   disabled: false,
-  orientation: "vertical",
-  loopFocus: true,
   variant: "default",
   hideSeparator: false,
 }; /* story-args:end */

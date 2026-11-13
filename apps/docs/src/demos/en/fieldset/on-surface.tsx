@@ -44,14 +44,20 @@ export function OnSurface() {
             <Fieldset.Legend>Profile Settings</Fieldset.Legend>
             <Description id={descriptionId}>Update your profile information.</Description>
             <Fieldset.Group>
-              <TextField
-                name="name"
-                validate={(value) =>
-                  String(value).length < 3 ? "Name must be at least 3 characters" : null
-                }
-              >
+              <TextField name="name">
                 <Label required>Name</Label>
-                <Input required placeholder="John Doe" variant="secondary" />
+                <Input
+                  required
+                  placeholder="John Doe"
+                  variant="secondary"
+                  onInput={(event) => {
+                    const message = ((value: string) =>
+                      String(value).length < 3 ? "Name must be at least 3 characters" : null)(
+                      event.currentTarget.value,
+                    );
+                    event.currentTarget.setCustomValidity(message ?? "");
+                  }}
+                />
                 <FieldError />
               </TextField>
               <TextField name="email">
@@ -59,14 +65,20 @@ export function OnSurface() {
                 <Input required type="email" placeholder="john@example.com" variant="secondary" />
                 <FieldError />
               </TextField>
-              <TextField
-                name="bio"
-                validate={(value) =>
-                  String(value).length < 10 ? "Bio must be at least 10 characters" : null
-                }
-              >
+              <TextField name="bio">
                 <Label required>Bio</Label>
-                <TextArea required placeholder="Tell us about yourself..." variant="secondary" />
+                <TextArea
+                  required
+                  placeholder="Tell us about yourself..."
+                  variant="secondary"
+                  onInput={(event) => {
+                    const message = ((value: string) =>
+                      String(value).length < 10 ? "Bio must be at least 10 characters" : null)(
+                      event.currentTarget.value,
+                    );
+                    event.currentTarget.setCustomValidity(message ?? "");
+                  }}
+                />
                 <Description>Minimum 10 characters</Description>
                 <FieldError />
               </TextField>

@@ -98,29 +98,25 @@ export function CustomAnimations() {
       {animations.map(({ name, Icon, popup, backdrop, description }) => (
         <AlertDialog key={name}>
           <AlertDialog.Trigger render={<Button />}>{name}</AlertDialog.Trigger>
-          <AlertDialog.Portal>
-            <AlertDialog.Backdrop xstyle={backdrop} />
-            <AlertDialog.Viewport>
-              <AlertDialog.Popup xstyle={[styles.popup, popup]}>
-                <AlertDialog.Close aria-label="Close dialog" />
-                <AlertDialog.Header>
-                  <AlertDialog.Icon variant="accent">
-                    <Icon {...stylex.props(styles.glyph)} />
-                  </AlertDialog.Icon>
-                  <AlertDialog.Title>{name} Animation</AlertDialog.Title>
-                </AlertDialog.Header>
-                <AlertDialog.Body>
-                  <AlertDialog.Description xstyle={styles.description}>
-                    {description}
-                  </AlertDialog.Description>
-                </AlertDialog.Body>
-                <AlertDialog.Footer>
-                  <AlertDialog.Action variant="cancel">Close</AlertDialog.Action>
-                  <AlertDialog.Action>Try Again</AlertDialog.Action>
-                </AlertDialog.Footer>
-              </AlertDialog.Popup>
-            </AlertDialog.Viewport>
-          </AlertDialog.Portal>
+          <AlertDialog.Backdrop xstyle={backdrop} />
+          <AlertDialog.Content xstyle={[styles.popup, popup]}>
+            <AlertDialog.Close aria-label="Close dialog" />
+            <AlertDialog.Header>
+              <AlertDialog.Icon variant="accent">
+                <Icon {...stylex.props(styles.glyph)} />
+              </AlertDialog.Icon>
+              <AlertDialog.Title>{name}Animation</AlertDialog.Title>
+            </AlertDialog.Header>
+            <AlertDialog.Body>
+              <AlertDialog.Description xstyle={styles.description}>
+                {description}
+              </AlertDialog.Description>
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <AlertDialog.Action variant="cancel">Close</AlertDialog.Action>
+              <AlertDialog.Action>Try Again</AlertDialog.Action>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
         </AlertDialog>
       ))}
     </div>

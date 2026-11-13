@@ -2,14 +2,40 @@ import { afterEach, expect, test } from "bun:test";
 import { act, createRef, useState } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { GlassContainer } from "../src/components/glass-container/index.js";
+import { ButtonGroup } from "../src/components/button-group/index.js";
+import { GlassToggleButton } from "../src/components/glass-toggle-button/index.js";
 import { GlassButton } from "../src/components/glass-button/index.js";
-import { attachFusion, type FusionGroup } from "../../glass/dist/react/index.js";
+import {
+  attachFusion,
+  GlassFusionContext,
+  type FusionGroup,
+} from "../../glass/dist/react/index.js";
+import { MaterialBackground } from "../src/utils/materials/render.js";
 import { press } from "../../glass/dist/motion/index.js";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
   true;
 if (!document.fonts) Object.defineProperty(document, "fonts", { value: new EventTarget() });
 let root: Root | undefined;
+
+test("popup material decoration stays outside the enclosing interactive fusion group", async () => {
+  const group: FusionGroup = { members: new Set(), update: () => {} };
+  const host = document.createElement("div");
+  document.body.append(host);
+  root = createRoot(host);
+  await act(() =>
+    root!.render(
+      <GlassFusionContext value={group}>
+        <GlassButton>Action</GlassButton>
+        <div data-case="popup">
+          <MaterialBackground variant="glass-medium" />
+        </div>
+      </GlassFusionContext>,
+    ),
+  );
+  expect([...group.members]).toEqual([host.querySelector("button")!]);
+  expect(host.querySelector('[data-case="popup"] [data-material-lens]')).not.toBe(null);
+});
 const frames = new Map<number, FrameRequestCallback>();
 let nextFrame = 0;
 let time = 0;
@@ -122,7 +148,7 @@ test("fusion preserves native classes, activation and refs through proximity and
   await act(() => root!.render(<Example />));
   const button = host.querySelector("button")!;
   const originalClass = button.className;
-  geometry(host.querySelector('[data-slot="glass-container"]')!, 0, () => 300, 100);
+  geometry(host.querySelector('[data-lenso-slot="glass-container"]')!, 0, () => 300, 100);
   geometry(button, 20, () => 90, 50);
   geometry(host.querySelectorAll("button")[1]!, 118, () => 90, 50);
   await act(() => advance());
@@ -300,3 +326,49 @@ for (const pointerType of ["mouse", "touch"])
       stop();
     }
   });
+
+// Testing press() directly missed the component disabling it for joined groups.
+test("joined glass actions retain elastic press, light and cancellation", async () => {
+  useFrames();
+  const host = document.createElement("div");
+  document.body.append(host);
+  root = createRoot(host);
+  await act(() =>
+    root!.render(
+      <ButtonGroup>
+        <GlassButton>Action</GlassButton>
+        <GlassToggleButton>Toggle</GlassToggleButton>
+        <GlassButton elastic={false}>Stationary</GlassButton>
+        <GlassButton disabled>Unavailable</GlassButton>
+      </ButtonGroup>,
+    ),
+  );
+  const buttons = [...host.querySelectorAll("button")];
+  for (const [index, button] of buttons.entries()) {
+    geometry(button, index * 50, () => 50, 50);
+    button.dispatchEvent(
+      new PointerEvent("pointerdown", {
+        bubbles: true,
+        isPrimary: true,
+        button: 0,
+        buttons: 1,
+        pointerId: 7,
+        pointerType: "mouse",
+        clientX: index * 50 + 25,
+        clientY: 25,
+      }),
+    );
+    for (let i = 0; i < 60; i++) advance();
+    expect(button.hasAttribute("data-lenso-pressed")).toBe(index < 2);
+    expect(button.hasAttribute("data-lenso-light-pressed")).toBe(index < 3);
+    if (index < 2)
+      expect(
+        Number(button.style.getPropertyValue("--lg-press-scale").split(" ")[0]),
+      ).toBeGreaterThan(1);
+    window.dispatchEvent(new PointerEvent("pointercancel", { pointerId: 7 }));
+    for (let i = 0; i < 120; i++) advance();
+    expect(button.hasAttribute("data-lenso-pressed")).toBe(false);
+    expect(button.hasAttribute("data-lenso-light-pressed")).toBe(false);
+    if (index < 2) expect(button.style.getPropertyValue("--lg-press-scale")).toBe("1 1");
+  }
+});

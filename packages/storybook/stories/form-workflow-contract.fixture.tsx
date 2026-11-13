@@ -16,7 +16,8 @@ export function FormWorkflowContract() {
     <div {...stylex.props(s.stack)}>
       <Form
         ref={form}
-        onFormSubmit={() => {
+        onSubmit={(event) => {
+          event.preventDefault();
           if (form.current)
             setOutput(JSON.stringify(Object.fromEntries(new FormData(form.current))));
         }}
@@ -46,18 +47,12 @@ export function FormWorkflowContract() {
         </TextField>
         <TextField name="code">
           <Label>Normalized letters</Label>
-          <InputOTP
-            length={4}
-            name="code"
-            required
-            validationType="alpha"
-            normalizeValue={(value) => value.toUpperCase()}
-          >
+          <InputOTP maxLength={4} name="code" required pattern="letters">
             <InputOTP.Group>
-              <InputOTP.Slot />
-              <InputOTP.Slot />
-              <InputOTP.Slot />
-              <InputOTP.Slot />
+              <InputOTP.Slot index={0} />
+              <InputOTP.Slot index={1} />
+              <InputOTP.Slot index={2} />
+              <InputOTP.Slot index={3} />
             </InputOTP.Group>
           </InputOTP>
           <FieldError match="valueMissing">Code is required</FieldError>

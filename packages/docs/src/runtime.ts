@@ -49,7 +49,6 @@ interface Prepared {
   sourceWatchKey: string | undefined;
 }
 interface RunOptions {
-  turbopack?: boolean;
   port?: number;
   host?: string;
 }
@@ -59,7 +58,6 @@ interface PrepareOptions {
   previous?: Prepared;
   changedPaths?: string[];
   background?: boolean;
-  turbopack?: boolean | undefined;
 }
 
 const require = createRequire(import.meta.url);
@@ -67,7 +65,17 @@ const source = path.dirname(fileURLToPath(import.meta.url));
 const marker = ".lenso-owned";
 const runtimePackages = [
   "@lenso/docs",
-  "next",
+  "vite",
+  "@vitejs/plugin-react",
+  "@tanstack/react-router",
+  "@tanstack/react-start",
+  "@stylexjs/unplugin",
+  "@stylexjs/stylex",
+  "@ui-sdk/core",
+  "@ui-sdk/react",
+  "@gravity-ui/icons",
+  "@fuma-translate/react",
+  "culori",
   "react",
   "react-dom",
   "fumadocs-ui",
@@ -77,24 +85,6 @@ const runtimePackages = [
   "@types/react",
   "@types/react-dom",
 ];
-
-async function turbopackWorkspaceRoot(root: string): Promise<string> {
-  // Workspace links resolve into the shared dependency store above a starter.
-  // Installed consumers keep their own project root and node_modules boundary.
-  let directory = source;
-  while (path.dirname(directory) !== directory) {
-    const relative = path.relative(directory, root);
-    if (
-      !relative.startsWith(`..${path.sep}`) &&
-      relative !== ".." &&
-      !path.isAbsolute(relative) &&
-      (await exists(path.join(directory, "bun.lock")))
-    )
-      return directory;
-    directory = path.dirname(directory);
-  }
-  return root;
-}
 
 async function ownedDirectory(directory: string): Promise<void> {
   const info = await exists(directory);
@@ -201,7 +191,6 @@ export async function prepare(
     previous,
     changedPaths = [],
     background = true,
-    turbopack = false,
   }: PrepareOptions = {},
 ): Promise<Prepared> {
   root = path.resolve(root);
@@ -211,7 +200,8 @@ export async function prepare(
     changedPaths,
     background,
   })) as LoadedHost;
-  const directory = path.join(root, ".lenso");
+  await ownedDirectory(path.join(root, ".lenso"));
+  const directory = path.join(root, ".lenso", development ? "dev" : "build");
   await ownedDirectory(directory);
   await linkPackages(directory);
   await writeChanged(
@@ -241,7 +231,6 @@ export async function prepare(
   await generateHost(root, directory, config, host, {
     development,
     source,
-    turbopackRoot: turbopack ? await turbopackWorkspaceRoot(root) : root,
     write: async (file, content) => {
       emitted.add(path.relative(directory, file));
       modules.set(file, content);
@@ -255,63 +244,6 @@ export async function prepare(
     }
   }
   for (const relative of config.styles ?? []) watchPaths.add(relative);
-  for (const name of ["babel.config.json", "postcss.config.cjs"]) {
-    const original = path.join(root, name);
-    const staged = path.join(directory, name);
-    if (await exists(original)) {
-      await localPath(root, name);
-      watchPaths.add(name);
-      await writeChanged(
-        staged,
-        name === "postcss.config.cjs"
-          ? // Bundled __dirname/require.resolve are virtual Turbopack paths.
-            // Keep authored PostCSS config evaluation native for real FS inputs.
-            `module.exports = require("node:module").createRequire(${scriptJson(original)})(${scriptJson(original)});\n`
-          : await readFile(original, "utf8"),
-      );
-    } else {
-      const require = createRequire(import.meta.url);
-      const plugins = [
-        [
-          require.resolve("@stylexjs/babel-plugin"),
-          {
-            dev: false,
-            runtimeInjection: false,
-            unstable_moduleResolution: { type: "commonJS" },
-          },
-        ],
-      ];
-      await writeChanged(
-        staged,
-        name === "babel.config.json"
-          ? JSON.stringify({ presets: [require.resolve("next/babel")], plugins })
-          : `module.exports = { plugins: { ${JSON.stringify(require.resolve("@stylexjs/postcss-plugin"))}: ${JSON.stringify(
-              {
-                cwd: root,
-                include: [
-                  ...[
-                    "*.{js,jsx,ts,tsx}",
-                    "src/**/*.{js,jsx,ts,tsx}",
-                    "app/**/*.{js,jsx,ts,tsx}",
-                    "components/**/*.{js,jsx,ts,tsx}",
-                  ].map((pattern) => path.join(root, pattern)),
-                  path.join(
-                    path.dirname(require.resolve("@lenso/tokens/package.json")),
-                    "dist/**/*.js",
-                  ),
-                  path.resolve(import.meta.dirname, "../dist/presentation/**/*.js"),
-                ],
-                babelConfig: {
-                  babelrc: false,
-                  configFile: false,
-                  parserOpts: { plugins: ["typescript", "jsx"] },
-                  plugins,
-                },
-              },
-            )} } };\n`,
-      );
-    }
-  }
   const publicRoot = path.join(directory, "public");
   if (await exists(publicRoot)) {
     if ((await fs.promises.lstat(publicRoot)).isSymbolicLink())
@@ -329,7 +261,7 @@ export async function prepare(
   const publicSource = path.join(root, "public");
   if (await exists(publicSource)) {
     await localPath(root, "public", { directory: true });
-    for (const reserved of ["_lenso", "_next", marker, "_redirects"])
+    for (const reserved of ["_lenso", "_next", "assets", marker, "_redirects"])
       if (await exists(path.join(publicSource, reserved)))
         throw new Error(`public/${reserved} is reserved by lenso-docs.`);
     await validatePublic(publicSource);
@@ -455,10 +387,17 @@ export async function prepare(
   } else
     for (const file of ["sitemap.xml", "robots.txt"])
       if (!publicFiles.includes(file)) await rm(path.join(publicRoot, file), { force: true });
-  // Markdown and public assets must be complete before route modules invalidate Next.
+  // Markdown and public assets must be complete before route modules invalidate Vite.
   for (const [file, content] of modules) await writeChanged(file, content);
   // Retired root modules otherwise coexist with and can shadow the TypeScript config.
-  for (const name of ["next.config.mjs", "model.mjs", "render.jsx"]) {
+  for (const name of [
+    "next.config.ts",
+    "next.config.mjs",
+    "babel.config.json",
+    "postcss.config.cjs",
+    "model.mjs",
+    "render.jsx",
+  ]) {
     const file = path.join(directory, name);
     const info = await exists(file);
     if (info) {
@@ -468,7 +407,7 @@ export async function prepare(
     }
   }
   // Prune removed exact routes, while retaining unchanged modules for Next HMR.
-  for (const folder of ["app", "documents", "pages"]) {
+  for (const folder of ["app", "documents", "pages", "src/routes"]) {
     const target = path.join(directory, folder);
     const info = await exists(target);
     if (info) {
@@ -477,14 +416,10 @@ export async function prepare(
       for (const relative of await generatedFiles(target)) {
         if (!emitted.has(path.join(folder, relative))) await rm(path.join(target, relative));
       }
-      // Next treats a root pages directory as routes, so remove the retired layout entirely.
-      if (folder === "pages") await rm(target, { recursive: true });
     }
   }
   const buildInputs: [string, string][] = [];
-  for (const relative of [config.build, "babel.config.json", "postcss.config.cjs"].filter(
-    (value): value is string => Boolean(value),
-  )) {
+  for (const relative of [config.build].filter((value): value is string => Boolean(value))) {
     const file = path.join(root, relative);
     if (await exists(file)) buildInputs.push([relative, await readFile(file, "utf8")]);
   }
@@ -493,7 +428,7 @@ export async function prepare(
     host,
     publicFiles,
     directory,
-    configurationKey: scriptJson([config, buildInputs, development && turbopack]),
+    configurationKey: scriptJson([config, buildInputs]),
     pages: host.pages,
     routes: host.routes,
     redirects: host.redirects,
@@ -507,23 +442,24 @@ export async function prepare(
   };
 }
 
-function nextProcess(
+function viteProcess(
   command: "dev" | "build",
   directory: string,
   options: RunOptions,
 ): ChildProcess {
+  const viteRoot = path.dirname(require.resolve("vite/package.json"));
   const args = [
-    require.resolve("next/dist/bin/next"),
-    command,
-    directory,
-    command === "dev" && options.turbopack ? "--turbopack" : "--webpack",
+    path.join(viteRoot, "bin/vite.js"),
+    ...(command === "build" ? ["build"] : []),
+    "--configLoader",
+    "runner",
   ];
   if (command === "dev")
-    args.push("--port", String(options.port ?? 3000), "--hostname", options.host ?? "127.0.0.1");
+    args.push("--port", String(options.port ?? 3000), "--host", options.host ?? "127.0.0.1");
   return spawn("node", args, {
     cwd: directory,
     stdio: "inherit",
-    env: { ...process.env, NEXT_TELEMETRY_DISABLED: "1" },
+    env: { ...process.env, NODE_ENV: command === "build" ? "production" : "development" },
   });
 }
 
@@ -539,7 +475,7 @@ async function waitForChild(child: ChildProcess): Promise<void> {
         if (code === 0) resolve();
         else
           reject(
-            new Error(`Next.js exited ${signal ? `with signal ${signal}` : `with code ${code}`}.`),
+            new Error(`Vite exited ${signal ? `with signal ${signal}` : `with code ${code}`}.`),
           );
       });
     });
@@ -554,8 +490,6 @@ export async function run(
   root: string,
   options: RunOptions = {},
 ): Promise<void> {
-  if (options.turbopack && command !== "dev")
-    throw new Error("Turbopack is only available for development.");
   if (command === "preview") {
     let config;
     try {
@@ -578,13 +512,12 @@ export async function run(
   let prepared = await prepare(root, {
     development: command === "dev",
     command,
-    turbopack: options.turbopack,
   });
   if (command === "build") {
     const output = path.join(root, "out");
     await ownedDirectory(output);
-    await waitForChild(nextProcess("build", prepared.directory, options));
-    const staging = path.join(prepared.directory, "export-next");
+    await waitForChild(viteProcess("build", prepared.directory, options));
+    const staging = path.join(prepared.directory, "export-vite");
     const backup = path.join(prepared.directory, "export-previous");
     await rm(staging, { recursive: true, force: true });
     await cp(path.join(prepared.directory, "out"), staging, { recursive: true });
@@ -593,9 +526,7 @@ export async function run(
       path.join(staging, "_lenso", "build.json"),
       scriptJson({
         config: prepared.config,
-        buildId: (
-          await readFile(path.join(prepared.directory, ".next", "BUILD_ID"), "utf8")
-        ).trim(),
+        buildId: randomUUID(),
       }),
     );
     await ownedDirectory(output);
@@ -625,7 +556,7 @@ export async function run(
     rejectDone = reject;
   });
   const launch = () => {
-    const current = nextProcess("dev", prepared.directory, options);
+    const current = viteProcess("dev", prepared.directory, options);
     current.once("error", (error) => {
       stopping = true;
       closeWatchers();
@@ -649,7 +580,6 @@ export async function run(
       if (stopping) return;
       const next = await prepare(root, {
         development: true,
-        turbopack: options.turbopack,
         command: "dev",
         previous: prepared,
         changedPaths,

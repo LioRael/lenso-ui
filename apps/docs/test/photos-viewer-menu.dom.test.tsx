@@ -40,8 +40,8 @@ test("photo options uses the morphing menu contract and dispatches each selected
     await step(() => root.render(<Example />));
     await step(() => trigger().click());
     expect(trigger().getAttribute("aria-expanded")).toBe("true");
-    expect(document.querySelector('[role="menu"] [data-slot="menu-glyph"]')).not.toBeNull();
-    expect(document.querySelectorAll('[data-slot="menu-action"]').length).toBe(3);
+    expect(document.querySelector('[role="menu"] [data-lenso-slot="menu-glyph"]')).not.toBeNull();
+    expect(document.querySelectorAll('[data-lenso-slot="menu-action"]').length).toBe(3);
     const duplicate = [...document.querySelectorAll<HTMLElement>('[role="menuitem"]')].find(
       (node) => node.textContent === "Duplicate",
     )!;

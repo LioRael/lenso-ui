@@ -1,8 +1,10 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 import { Button, Form, InputOTP, Label, Spinner, TextField } from "@lenso/ui";
 import { useState, type FormEvent } from "react";
 import { Slots, styles } from "./parts";
 export function OnComplete() {
+  const log = usePlaygroundLog();
   const [value, setValue] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,12 +23,12 @@ export function OnComplete() {
       <TextField name="code">
         <Label>Verify account</Label>
         <InputOTP
-          length={6}
+          maxLength={6}
           name="code"
           value={value}
-          onValueComplete={(code) => {
+          onValueCommit={(code) => {
             setIsComplete(true);
-            console.log("Code complete:", code);
+            log("Code complete:", code);
           }}
           onValueChange={(next) => {
             setValue(next);

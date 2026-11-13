@@ -27,3 +27,9 @@ export const DateField = Object.assign(DateFieldRoot, {
 });
 
 export type { DateValue } from "@internationalized/date";
+
+export { createModelController as createDateFieldController } from "@lenso/primitives/model-control";
+export type {
+  ModelController as DateFieldController,
+  ModelChangeReason as DateFieldChangeReason,
+} from "@lenso/primitives/model-control";

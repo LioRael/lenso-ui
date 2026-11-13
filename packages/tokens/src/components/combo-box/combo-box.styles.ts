@@ -57,7 +57,7 @@ export const comboBoxStyles = stylex.create({
       default: "none",
       ":is(input:focus-visible, :has(input:focus-visible)):not(:is([data-lenso-focus-method='pointer'] *))":
         "1.5px solid var(--lenso-focus-ring)",
-      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *):is(input:focus-visible, :has(input:focus-visible)):not(:is([data-lenso-focus-method='pointer'] *))":
+      ":is([data-field-grouped] *, [data-lenso-slot='fieldset-row'] *):is(input:focus-visible, :has(input:focus-visible)):not(:is([data-lenso-focus-method='pointer'] *))":
         "none",
     },
     outlineOffset: 2,
@@ -133,7 +133,7 @@ export const comboBoxStyles = stylex.create({
     width: "1rem",
     height: "1rem",
     display: "flex",
-    transform: { default: "rotate(0deg)", ":is([data-popup-open])": "rotate(180deg)" },
+    transform: { default: "rotate(0deg)", ":is([data-open])": "rotate(180deg)" },
     transition: {
       default: `transform 150ms ${tokens.motionEaseSmooth}`,
       "@media (prefers-reduced-motion: reduce)": "none",

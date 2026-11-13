@@ -30,7 +30,6 @@ type Supporting = {
   description?: ChoiceLabel;
   error?: string;
   invalid?: boolean;
-  validate?: React.ComponentProps<typeof TextField>["validate"];
   card?: "addon" | "delivery" | "payment";
   icon?: React.ReactNode;
   price?: string;
@@ -76,7 +75,6 @@ export function CheckboxItem({
   description,
   error,
   invalid,
-  validate,
   indicator,
   roundedSize,
   card,
@@ -114,10 +112,10 @@ export function CheckboxItem({
             </Checkbox.Control>
             {icon}
             <span {...stylex.props(card && s.cardText)}>
-              <span id={`${id}-label`}>{resolve(label, state.checked)}</span>
+              <span id={`${id}-label`}>{resolve(label, state.checked === true)}</span>
               {card && description && (
                 <span id={`${id}-help`} {...stylex.props(descriptionStyles.description)}>
-                  {resolve(description, state.checked)}
+                  {resolve(description, state.checked === true)}
                 </span>
               )}
             </span>
@@ -127,23 +125,17 @@ export function CheckboxItem({
               id={`${id}-help`}
               {...stylex.props(descriptionStyles.description, checkboxSupportingStyles.direct)}
             >
-              {resolve(description, state.checked)}
+              {resolve(description, state.checked === true)}
             </span>
           )}
-          {(invalid || validate) && (
+          {(invalid || error) && (
             <FieldError match={invalid ? true : undefined}>{error}</FieldError>
           )}
         </span>
       )}
     />
   );
-  return invalid || validate ? (
-    <TextField invalid={invalid} validate={validate} validationMode="onBlur">
-      {control}
-    </TextField>
-  ) : (
-    control
-  );
+  return invalid || error ? <TextField invalid={invalid}>{control}</TextField> : control;
 }
 
 export function RadioItem({
@@ -220,7 +212,6 @@ export function SwitchItem({
   description,
   error,
   invalid,
-  validate,
   before,
   thumb,
   controlStyle,
@@ -260,20 +251,14 @@ export function SwitchItem({
               {resolve(description, checked)}
             </span>
           )}
-          {(invalid || validate) && (
+          {(invalid || error) && (
             <FieldError match={invalid ? true : undefined}>{error}</FieldError>
           )}
         </span>
       )}
     />
   );
-  return invalid || validate ? (
-    <TextField invalid={invalid} validate={validate} validationMode="onBlur">
-      {control}
-    </TextField>
-  ) : (
-    control
-  );
+  return invalid || error ? <TextField invalid={invalid}>{control}</TextField> : control;
 }
 
 export function ChoiceHeading({ id, children }: { id: string; children: React.ReactNode }) {

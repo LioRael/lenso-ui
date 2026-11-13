@@ -13,25 +13,13 @@ export function RenderFunction() {
     >
       <Tabs.ListContainer>
         <Tabs.List aria-label="选项">
-          <Tabs.Tab
-            value="getting-started"
-            nativeButton={false}
-            render={<Link href="/docs/react/getting-started" />}
-          >
+          <Tabs.Tab value="getting-started" render={<Link href="/docs/react/getting-started" />}>
             快速入门
           </Tabs.Tab>
-          <Tabs.Tab
-            value="components"
-            nativeButton={false}
-            render={<Link href="/docs/react/components" />}
-          >
+          <Tabs.Tab value="components" render={<Link href="/docs/react/components" />}>
             组件
           </Tabs.Tab>
-          <Tabs.Tab
-            value="releases"
-            nativeButton={false}
-            render={<Link href="/docs/react/releases" />}
-          >
+          <Tabs.Tab value="releases" render={<Link href="/docs/react/releases" />}>
             发布说明
           </Tabs.Tab>
           <Tabs.Indicator />

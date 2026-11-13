@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
-// Adapted: native Base UI owns range values and pointer/keyboard operation.
+// Adapted: native UI SDK owns range values and pointer/keyboard operation.
 import { useCallback, useEffect, useState, type Ref } from "react";
 import { createSpring, createVelocityDeformation } from "@lenso/glass/motion";
 import { assignRef } from "./ref.js";
@@ -10,7 +10,7 @@ function liftThumb(thumb: HTMLElement) {
   if (!control) return;
   let stretch = 0;
   let raised = 0;
-  const glass = thumb.querySelector<HTMLElement>('[data-slot="slider-optical"]');
+  const glass = thumb.querySelector<HTMLElement>('[data-lenso-slot="slider-optical"]');
   const refraction = glass ? createKnobRefraction(control, glass, "slider") : undefined;
   const paintShape = () => {
     thumb.style.setProperty(
@@ -28,23 +28,25 @@ function liftThumb(thumb: HTMLElement) {
     paintShape();
   });
   let length = 0;
+  let previousPosition = NaN;
+  const sample = () => {
+    const progress = parseFloat(thumb.style.getPropertyValue("--slider-thumb-position")) || 0;
+    const position = (progress * length) / 100;
+    if (position === previousPosition) return;
+    previousPosition = position;
+    deformation.sample(position);
+    refraction?.update(raised);
+  };
   const resize = new ResizeObserver(() => {
     length =
       thumb.getAttribute("data-orientation") === "vertical"
         ? control.clientHeight
         : control.clientWidth;
+    sample();
   });
   resize.observe(control);
-  const sample = () => {
-    const input = thumb.querySelector("[aria-valuenow]") ?? thumb;
-    const min = Number(input.getAttribute("aria-valuemin") ?? 0);
-    const max = Number(input.getAttribute("aria-valuemax") ?? 100);
-    const value = Number(input.getAttribute("aria-valuenow") ?? min);
-    deformation.sample(((value - min) / (max - min || 1)) * length);
-    refraction?.update(raised);
-  };
   const values = new MutationObserver(sample);
-  values.observe(thumb, { subtree: true, attributes: true, attributeFilter: ["aria-valuenow"] });
+  values.observe(thumb, { attributes: true, attributeFilter: ["style"] });
   sample();
   const spring = createSpring(0, 2000, 80, (amount) => {
     raised = amount;
@@ -54,28 +56,23 @@ function liftThumb(thumb: HTMLElement) {
       String(1 - 0.91 * Math.min(1, Math.max(0, amount))),
     );
   });
-  const hold = () => {
-    if (!thumb.hasAttribute("data-disabled")) spring.set(1);
-  };
-  const release = () => spring.set(0);
-  control.addEventListener("pointerdown", hold);
-  for (const event of ["pointerup", "pointercancel", "lostpointercapture", "focusout"])
-    control.addEventListener(event, release);
-  window.addEventListener("pointerup", release);
-  window.addEventListener("pointercancel", release);
-  window.addEventListener("blur", release);
+  // Lift only the focused native range during a drag.
+  const syncDragging = () =>
+    spring.set(
+      thumb.hasAttribute("data-dragging") && thumb.contains(document.activeElement) ? 1 : 0,
+    );
+  const dragging = new MutationObserver(syncDragging);
+  dragging.observe(thumb, { attributes: true, attributeFilter: ["data-dragging"] });
+  control.addEventListener("focusin", syncDragging, true);
+  syncDragging();
   return () => {
     spring.stop();
     deformation.stop();
     refraction?.destroy();
     values.disconnect();
+    dragging.disconnect();
+    control.removeEventListener("focusin", syncDragging, true);
     resize.disconnect();
-    control.removeEventListener("pointerdown", hold);
-    for (const event of ["pointerup", "pointercancel", "lostpointercapture", "focusout"])
-      control.removeEventListener(event, release);
-    window.removeEventListener("pointerup", release);
-    window.removeEventListener("pointercancel", release);
-    window.removeEventListener("blur", release);
     thumb.style.removeProperty("--lg-slider-lift-x");
     thumb.style.removeProperty("--lg-slider-lift-y");
     thumb.style.removeProperty("--lg-slider-face");

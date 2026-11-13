@@ -137,7 +137,7 @@ export const notebook = stylex.create({
       backgroundColor: "var(--lenso-control-hover-fill)",
     },
     ":active": { backgroundColor: "var(--lenso-control-hover-fill)" },
-    ":is([data-popup-open])": { backgroundColor: "var(--lenso-control-hover-fill)" },
+    ":is([data-open])": { backgroundColor: "var(--lenso-control-hover-fill)" },
     ":focus-visible": { outline: "2px solid var(--lenso-focus-ring)", outlineOffset: 2 },
   },
   framework: {
@@ -224,6 +224,7 @@ export const notebook = stylex.create({
     borderWidth: 0,
   },
   drawer: {
+    margin: 0,
     position: "fixed",
     insetBlock: 12,
     insetInlineEnd: 12,
@@ -454,7 +455,7 @@ export const notebook = stylex.create({
     },
     ":hover": { backgroundColor: "var(--lenso-control-hover-fill)" },
     ":active": { backgroundColor: "var(--lenso-control-hover-fill)", transform: "none" },
-    ":is([data-popup-open])": { backgroundColor: "var(--lenso-control-hover-fill)" },
+    ":is([data-open])": { backgroundColor: "var(--lenso-control-hover-fill)" },
     ":focus-visible": { outline: "2px solid var(--lenso-focus-ring)", outlineOffset: 2, zIndex: 1 },
   },
   sourceLinks: {

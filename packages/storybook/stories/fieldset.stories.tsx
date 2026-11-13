@@ -34,16 +34,19 @@ export const Default: Story = {
         <Fieldset.Legend>Profile Settings</Fieldset.Legend>
         <Description>Update your profile information.</Description>
         <Fieldset.Group>
-          <TextField
-            name="name"
-            validate={(value) =>
-              typeof value === "string" && value.length < 3
-                ? "Name must be at least 3 characters"
-                : null
-            }
-          >
+          <TextField name="name">
             <Label required>Name</Label>
-            <Input required placeholder="John Doe" />
+            <Input
+              required
+              placeholder="John Doe"
+              onInput={(event) => {
+                const message = ((value: string) =>
+                  typeof value === "string" && value.length < 3
+                    ? "Name must be at least 3 characters"
+                    : null)(event.currentTarget.value);
+                event.currentTarget.setCustomValidity(message ?? "");
+              }}
+            />
             <FieldError />
           </TextField>
           <TextField name="email">
@@ -51,16 +54,19 @@ export const Default: Story = {
             <Input required type="email" placeholder="john@example.com" />
             <FieldError />
           </TextField>
-          <TextField
-            name="bio"
-            validate={(value) =>
-              typeof value === "string" && value.length < 10
-                ? "Bio must be at least 10 characters"
-                : null
-            }
-          >
+          <TextField name="bio">
             <Label required>Bio</Label>
-            <TextArea required placeholder="Tell us about yourself..." />
+            <TextArea
+              required
+              placeholder="Tell us about yourself..."
+              onInput={(event) => {
+                const message = ((value: string) =>
+                  typeof value === "string" && value.length < 10
+                    ? "Bio must be at least 10 characters"
+                    : null)(event.currentTarget.value);
+                event.currentTarget.setCustomValidity(message ?? "");
+              }}
+            />
             <Description>Minimum 10 characters</Description>
             <FieldError />
           </TextField>

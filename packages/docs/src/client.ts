@@ -11,3 +11,6 @@ export {
   DocumentationCompactSearchTrigger,
   type DocumentationSearchProps,
 } from "./search";
+
+export { DocsHeaderBackdrop } from "./header-backdrop";
+export { DocumentationPageActions } from "./page-actions";

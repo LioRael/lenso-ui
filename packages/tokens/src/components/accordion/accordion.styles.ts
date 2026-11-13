@@ -70,19 +70,19 @@ export const accordionStyles = stylex.create({
     },
     borderStartStartRadius: {
       default: 0,
-      ':is([data-slot="accordion-item"]:first-child *)': 26,
+      ':is([data-lenso-slot="accordion-item"]:first-child *)': 26,
     },
     borderStartEndRadius: {
       default: 0,
-      ':is([data-slot="accordion-item"]:first-child *)': 26,
+      ':is([data-lenso-slot="accordion-item"]:first-child *)': 26,
     },
     borderEndStartRadius: {
       default: 0,
-      ':is([data-slot="accordion-item"]:last-child *):not([aria-expanded="true"])': 26,
+      ':is([data-lenso-slot="accordion-item"]:last-child *):not([aria-expanded="true"])': 26,
     },
     borderEndEndRadius: {
       default: 0,
-      ':is([data-slot="accordion-item"]:last-child *):not([aria-expanded="true"])': 26,
+      ':is([data-lenso-slot="accordion-item"]:last-child *):not([aria-expanded="true"])': 26,
     },
   },
   formTrigger: {

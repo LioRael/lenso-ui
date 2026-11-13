@@ -93,7 +93,7 @@ export function isBackdropTextField(node: EventTarget | null): node is TextField
 interface Client {
   element: HTMLElement;
   source: HTMLElement;
-  layer: HTMLElement;
+  layer?: HTMLElement;
   active: boolean;
   dirty: boolean;
   geometry: boolean;
@@ -482,7 +482,7 @@ export function observeBackdrop(
   stop(): void;
 } {
   if (!clients.size) start();
-  copies.add(entry.layer);
+  if (entry.layer) copies.add(entry.layer);
   const client: Client = {
     ...entry,
     active: true,

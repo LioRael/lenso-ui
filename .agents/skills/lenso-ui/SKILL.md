@@ -1,12 +1,12 @@
 ---
 name: lenso-ui
-description: Build, fix or integrate @lenso/ui components with StyleX, semantic themes and Base UI interactions. Use for Lenso component selection, forms, overlays, theming, Vite/Next setup and missing-style debugging in consumer apps or the Lenso UI checkout.
+description: Build, fix or integrate @lenso/ui components with StyleX, semantic themes and UI SDK interactions. Use for Lenso component selection, forms, overlays, theming, Vite/Next setup and missing-style debugging in consumer apps or the Lenso UI checkout.
 ---
 
 # Lenso UI
 
 Lenso supplies React components as packages. Application styles use StyleX;
-Base UI owns native Web interactions. Start with the project's installed API,
+UI SDK owns native Web interactions. Start with the project's installed API,
 not a similarly named shadcn, Radix, HeroUI or React Aria component.
 
 ## Establish project context
@@ -18,8 +18,8 @@ from the application that imports them. Use [query.md](references/query.md) to
 locate public exports, native props, implementation and examples directly.
 
 For this checkout, read `DESIGN.md` and the relevant sections of
-`docs/design/component-conventions.md`. Preserve `packages/primitives` source
-and public API; the owner-authorized Command family is the additive exception.
+`docs/design/component-conventions.md`. Use native SDK contracts in `packages/primitives` and update callers with them;
+do not introduce Base UI compatibility layers or dependency patches.
 Consumer applications follow their own design direction and installed versions.
 
 ## Select and compose

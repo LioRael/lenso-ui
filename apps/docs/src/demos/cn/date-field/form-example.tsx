@@ -1,4 +1,5 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 
 // Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0.
 import type { DateValue } from "@internationalized/date";
@@ -10,6 +11,7 @@ import { useState, type FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { styles } from "../../en/date-field/demo-styles";
 export function FormExample() {
+  const log = usePlaygroundLog();
   const [value, setValue] = useState<DateValue | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const todayDate = today(getLocalTimeZone());
@@ -19,7 +21,7 @@ export function FormExample() {
     if (!value || isInvalid || isSubmitting) return;
     setIsSubmitting(true);
     setTimeout(() => {
-      console.log("Date submitted:", {
+      log("Date submitted:", {
         date: value,
       });
       setValue(null);

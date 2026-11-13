@@ -26,37 +26,33 @@ export function CustomBackdrop() {
       <AlertDialog.Trigger render={<Button destructive variant="prominent" />}>
         Delete Account
       </AlertDialog.Trigger>
-      <AlertDialog.Portal>
-        <AlertDialog.Backdrop variant="blur" xstyle={styles.backdrop} />
-        <AlertDialog.Viewport>
-          <AlertDialog.Popup xstyle={styles.popup}>
-            <AlertDialog.Close aria-label="Close dialog" />
-            <AlertDialog.Header xstyle={styles.header}>
-              <AlertDialog.Icon variant="danger">
-                <TriangleExclamation {...stylex.props(styles.glyph)} />
-              </AlertDialog.Icon>
-              <AlertDialog.Title>Permanently delete your account?</AlertDialog.Title>
-            </AlertDialog.Header>
-            <AlertDialog.Body>
-              <AlertDialog.Description>
-                This action cannot be undone. All your data, settings, and content will be
-                permanently removed from our servers. The dramatic red backdrop emphasizes the
-                severity and irreversibility of this decision.
-              </AlertDialog.Description>
-            </AlertDialog.Body>
-            <AlertDialog.Footer xstyle={styles.footer}>
-              <AlertDialog.Close render={<Button xstyle={styles.action} />}>
-                Keep Account
-              </AlertDialog.Close>
-              <AlertDialog.Close
-                render={<Button destructive variant="prominent" xstyle={styles.action} />}
-              >
-                Delete Forever
-              </AlertDialog.Close>
-            </AlertDialog.Footer>
-          </AlertDialog.Popup>
-        </AlertDialog.Viewport>
-      </AlertDialog.Portal>
+      <AlertDialog.Backdrop variant="blur" xstyle={styles.backdrop} />
+      <AlertDialog.Content xstyle={styles.popup}>
+        <AlertDialog.Close aria-label="Close dialog" />
+        <AlertDialog.Header xstyle={styles.header}>
+          <AlertDialog.Icon variant="danger">
+            <TriangleExclamation {...stylex.props(styles.glyph)} />
+          </AlertDialog.Icon>
+          <AlertDialog.Title>Permanently delete your account?</AlertDialog.Title>
+        </AlertDialog.Header>
+        <AlertDialog.Body>
+          <AlertDialog.Description>
+            This action cannot be undone. All your data, settings, and content will be permanently
+            removed from our servers. The dramatic red backdrop emphasizes the severity and
+            irreversibility of this decision.
+          </AlertDialog.Description>
+        </AlertDialog.Body>
+        <AlertDialog.Footer xstyle={styles.footer}>
+          <AlertDialog.Close render={<Button xstyle={styles.action} />}>
+            Keep Account
+          </AlertDialog.Close>
+          <AlertDialog.Close
+            render={<Button destructive variant="prominent" xstyle={styles.action} />}
+          >
+            Delete Forever
+          </AlertDialog.Close>
+        </AlertDialog.Footer>
+      </AlertDialog.Content>
     </AlertDialog>
   );
 }

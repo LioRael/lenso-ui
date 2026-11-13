@@ -11,8 +11,8 @@ export function ControlledInputValue() {
       <AnimalPicker
         label="搜索（受控输入）"
         placeholder="输入以搜索…"
-        inputValue={inputValue}
-        onInputValueChange={setInputValue}
+        query={inputValue}
+        onQueryChange={setInputValue}
       />
       <p {...stylex.props(styles.muted)}>输入值：{inputValue || "（空）"}</p>
     </div>

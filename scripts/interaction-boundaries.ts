@@ -19,6 +19,10 @@ const failures: string[] = [];
 for (const directory of [
   "packages/glass/src",
   "packages/ui/src",
+  "packages/tokens/src",
+  "packages/primitives/src",
+  "packages/docs/src",
+  "packages/docs/presentation",
   "apps/docs/src",
   "packages/storybook/stories",
 ]) {
@@ -28,14 +32,19 @@ for (const directory of [
       /\/(?:components|demos\/(?:en|cn))\/(?:calendar|range-calendar|calendar-year-picker|date-|time-|color-)/.test(
         relative,
       );
-    const colorStateHelper = relative === "packages/ui/src/utils/color-state.tsx";
-    for (const module of runtimeModuleReferences(await readFile(file, "utf8"), relative)) {
+    const source = await readFile(file, "utf8");
+    if (
+      /@base-ui\/|data-base-ui-|data-popup-open|baseUIHandlerPrevented|preventBaseUIHandler|\bnativeButton\b/.test(
+        source,
+      )
+    )
+      failures.push(`Base UI dependency or contract: ${relative}`);
+    for (const module of runtimeModuleReferences(source, relative)) {
       if (/^(?:react-aria(?:-components)?|@react-aria\/)/.test(module))
-        failures.push(`React Aria interaction in Base UI reconstruction: ${relative}`);
+        failures.push(`React Aria interaction in UI SDK components: ${relative}`);
       if (
         !specialized &&
         module !== "react-stately/Color" &&
-        !(colorStateHelper && module === "react-stately/useColorPickerState") &&
         /^(?:react-stately|@react-stately\/)/.test(module)
       )
         failures.push(`Specialized state model outside its boundary: ${relative}`);

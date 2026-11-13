@@ -1,49 +1,21 @@
 "use client";
-
 import { useState } from "react";
-import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, styles, type Option } from "../../en/autocomplete/_native";
+import { TextSuggestions } from "../../en/autocomplete/text-suggestions";
 export const controlledStates = [
-  {
-    id: "california",
-    name: "California",
-  },
-  {
-    id: "texas",
-    name: "Texas",
-  },
-  {
-    id: "florida",
-    name: "Florida",
-  },
-  {
-    id: "new-york",
-    name: "New York",
-  },
-  {
-    id: "illinois",
-    name: "Illinois",
-  },
-  {
-    id: "pennsylvania",
-    name: "Pennsylvania",
-  },
+  { id: "california", name: "California" },
+  { id: "texas", name: "Texas" },
 ];
 export function Controlled() {
-  const [state, setState] = useState<Option | Option[] | null>(controlledStates[0] ?? null);
+  const [value, setValue] = useState("California");
   return (
-    <div {...stylex.props(styles.stack)}>
-      <NativeAutocomplete
-        items={controlledStates}
-        label="州（受控）"
-        placeholder="选择一个州"
-        searchLabel="Search states"
-        value={state}
-        onValueChange={setState}
+    <div>
+      <TextSuggestions
+        label="计划前往的州"
+        options={controlledStates.map((item) => item.name)}
+        value={value}
+        onValueChange={setValue}
       />
-      <p {...stylex.props(styles.muted)}>
-        已选：{state && !Array.isArray(state) ? state.name : "无"}
-      </p>
+      <output>{value}</output>
     </div>
   );
 }

@@ -1,48 +1,50 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 
 import * as stylex from "@stylexjs/stylex";
 import { GlassButton, Menu, IconChevronRight } from "@lenso/ui";
 import { ActionItem, Popup, styles } from "./_shared";
 
 export function WithSubmenus() {
+  const log = usePlaygroundLog();
   return (
     <Menu>
       <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
         Share
       </Menu.Trigger>
       <Popup>
-        <ActionItem label="Copy Link" onClick={() => console.log("Selected: copy-link")} />
-        <ActionItem label="Facebook" onClick={() => console.log("Selected: facebook")} />
+        <ActionItem label="Copy Link" onClick={() => log("Selected: copy-link")} />
+        <ActionItem label="Facebook" onClick={() => log("Selected: facebook")} />
         <ActionItem
           label="X / Twitter"
           navigationLabel="Twitter"
-          onClick={() => console.log("Selected: twitter")}
+          onClick={() => log("Selected: twitter")}
         />
-        <Menu.SubmenuRoot>
-          <Menu.SubmenuTrigger label="Share">
+        <Menu.Sub>
+          <Menu.SubTrigger aria-label="Share">
             <Menu.Item.Label>Other</Menu.Item.Label>
             <Menu.Item.SubmenuIndicator>
               <IconChevronRight {...stylex.props(styles.smallIcon)} />
             </Menu.Item.SubmenuIndicator>
-          </Menu.SubmenuTrigger>
-          <Popup>
+          </Menu.SubTrigger>
+          <Menu.SubContent>
             <ActionItem label="WhatsApp" />
             <ActionItem label="Telegram" />
             <ActionItem label="Discord" />
-            <Menu.SubmenuRoot>
-              <Menu.SubmenuTrigger>
+            <Menu.Sub>
+              <Menu.SubTrigger>
                 <Menu.Item.Label>Email</Menu.Item.Label>
                 <Menu.Item.SubmenuIndicator>
                   <IconChevronRight {...stylex.props(styles.smallIcon)} />
                 </Menu.Item.SubmenuIndicator>
-              </Menu.SubmenuTrigger>
-              <Popup>
+              </Menu.SubTrigger>
+              <Menu.SubContent>
                 <ActionItem label="Work email" />
                 <ActionItem label="Personal email" />
-              </Popup>
-            </Menu.SubmenuRoot>
-          </Popup>
-        </Menu.SubmenuRoot>
+              </Menu.SubContent>
+            </Menu.Sub>
+          </Menu.SubContent>
+        </Menu.Sub>
       </Popup>
     </Menu>
   );

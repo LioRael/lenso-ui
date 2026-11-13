@@ -1,10 +1,24 @@
 "use client";
 // Copyright NextUI Inc. Apache-2.0. Modified for Lenso.
-import { createContext, use, useRef, useState, type ReactNode, type RefObject } from "react";
+import {
+  createContext,
+  use,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+  type ComponentProps,
+} from "react";
+import {
+  Collapsible,
+  createCollapsibleController,
+  type CollapsibleController,
+} from "@ui-sdk/react/collapsible";
 import { useNativeCalendarState } from "../../utils/calendar-state.js";
 export interface YearPickerContextValue {
   isYearPickerOpen: boolean;
-  setIsYearPickerOpen: (open: boolean) => void;
+  setIsYearPickerOpen: CollapsibleController["setOpen"];
+  controller: CollapsibleController;
   calendarRef: RefObject<HTMLDivElement | null>;
   calendarGridSlot: "calendar-grid" | "range-calendar-grid";
 }
@@ -18,7 +32,7 @@ export const useCalendarOrRangeState = useNativeCalendarState;
 export type YearPickerOptions = {
   isYearPickerOpen?: boolean | undefined;
   defaultYearPickerOpen?: boolean | undefined;
-  onYearPickerOpenChange?: ((open: boolean) => void) | undefined;
+  onYearPickerOpenChange?: ComponentProps<typeof Collapsible>["onOpenChange"];
 };
 export function YearPickerProvider({
   children,
@@ -26,22 +40,39 @@ export function YearPickerProvider({
   defaultYearPickerOpen = false,
   onYearPickerOpenChange,
   range = false,
-}: YearPickerOptions & { children: ReactNode; range?: boolean }) {
-  const [open, setOpen] = useState(defaultYearPickerOpen);
+  disabled = false,
+  label = "Calendar",
+}: YearPickerOptions & {
+  children: ReactNode;
+  range?: boolean;
+  disabled?: boolean;
+  label?: string;
+}) {
+  const [controller] = useState(createCollapsibleController);
   const calendarRef = useRef<HTMLDivElement | null>(null);
   return (
-    <YearPickerContext
-      value={{
-        calendarRef,
-        calendarGridSlot: range ? "range-calendar-grid" : "calendar-grid",
-        isYearPickerOpen: isYearPickerOpen ?? open,
-        setIsYearPickerOpen: (next) => {
-          if (isYearPickerOpen === undefined) setOpen(next);
-          onYearPickerOpenChange?.(next);
-        },
-      }}
+    <Collapsible
+      aria-label={`${label} year picker`}
+      disabled={disabled}
+      open={isYearPickerOpen}
+      defaultOpen={isYearPickerOpen === undefined ? defaultYearPickerOpen : undefined}
+      onOpenChange={onYearPickerOpenChange}
+      controller={controller}
+      style={{ display: "contents" }}
     >
-      {children}
-    </YearPickerContext>
+      {(state) => (
+        <YearPickerContext
+          value={{
+            calendarRef,
+            controller,
+            calendarGridSlot: range ? "range-calendar-grid" : "calendar-grid",
+            isYearPickerOpen: state.open,
+            setIsYearPickerOpen: controller.setOpen,
+          }}
+        >
+          {children}
+        </YearPickerContext>
+      )}
+    </Collapsible>
   );
 }

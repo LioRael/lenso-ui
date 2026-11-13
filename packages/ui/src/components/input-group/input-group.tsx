@@ -1,5 +1,5 @@
 "use client";
-import { Input as BaseInput } from "@base-ui/react/input";
+import { Input as SdkInput } from "@ui-sdk/react/input";
 import { inputGroupMaterialStyles } from "@lenso/tokens/input-group";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import { inputStyles } from "@lenso/tokens/input";
@@ -19,7 +19,7 @@ export type InputGroupRootProps = StyleXProps<React.ComponentPropsWithRef<"div">
   glass?: boolean;
   /** Enable press/release feedback on the whole input shell. */
   elastic?: boolean;
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 export function InputGroupRoot({
   variant = "primary",
@@ -28,7 +28,7 @@ export function InputGroupRoot({
   elastic = false,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   onClick,
   onPointerDown,
   ref,
@@ -70,7 +70,7 @@ export function InputGroupRoot({
               ?.focus();
         }}
         style={{ ...compiled.style, ...style }}
-        data-slot={slot ?? "input-group"}
+        data-lenso-slot={slot ?? "input-group"}
         onClick={(event) => {
           onClick?.(event);
           if (event.defaultPrevented || !(event.target instanceof Element)) return;
@@ -99,17 +99,19 @@ export function InputGroupRoot({
 export function InputGroupInput({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<Omit<BaseInput.Props, "ref"> & React.RefAttributes<HTMLElement>> & {
-  "data-slot"?: unknown;
+}: StyleXProps<
+  Omit<React.ComponentProps<typeof SdkInput>, "ref"> & React.RefAttributes<HTMLElement>
+> & {
+  "data-lenso-slot"?: unknown;
 }) {
   return (
     <Input
       {...props}
       xstyle={[inputStyles.groupedControl, xstyle]}
       style={style}
-      data-slot={slot ?? "input-group-input"}
+      data-lenso-slot={slot ?? "input-group-input"}
     />
   );
 }
@@ -122,7 +124,7 @@ export function InputGroupTextArea({
       {...props}
       glass={false}
       elastic={false}
-      data-slot="input-group-textarea"
+      data-lenso-slot="input-group-textarea"
       xstyle={[
         inputStyles.groupedControl,
         inputStyles.groupedTextArea,
@@ -135,32 +137,32 @@ export function InputGroupTextArea({
 export function InputGroupPrefix({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(inputGroupMaterialStyles.adornment, xstyle);
   return (
     <div
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={slot ?? "input-group-prefix"}
+      data-lenso-slot={slot ?? "input-group-prefix"}
     />
   );
 }
 export function InputGroupSuffix({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(inputGroupMaterialStyles.adornment, xstyle);
   return (
     <div
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={slot ?? "input-group-suffix"}
+      data-lenso-slot={slot ?? "input-group-suffix"}
     />
   );
 }

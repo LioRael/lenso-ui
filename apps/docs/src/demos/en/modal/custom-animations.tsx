@@ -99,27 +99,23 @@ export function CustomAnimations() {
       {animations.map(({ name, Icon, popup, backdrop, description }) => (
         <Modal key={name}>
           <Modal.Trigger render={<Button />}>{name}</Modal.Trigger>
-          <Modal.Portal>
-            <Modal.Backdrop xstyle={backdrop} />
-            <Modal.Viewport>
-              <Modal.Popup xstyle={[styles.popup, popup]}>
-                <Modal.Close aria-label="Close dialog" />
-                <Modal.Header>
-                  <Modal.Icon xstyle={styles.icon}>
-                    <Icon {...stylex.props(styles.glyph)} />
-                  </Modal.Icon>
-                  <Modal.Title>{name} Animation</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Modal.Description xstyle={styles.description}>{description}</Modal.Description>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Modal.Close render={<Button variant="bordered" />}>Close</Modal.Close>
-                  <Modal.Close render={<Button />}>Try Again</Modal.Close>
-                </Modal.Footer>
-              </Modal.Popup>
-            </Modal.Viewport>
-          </Modal.Portal>
+          <Modal.Backdrop xstyle={backdrop} />
+          <Modal.Content xstyle={[styles.popup, popup]}>
+            <Modal.Close aria-label="Close dialog" />
+            <Modal.Header>
+              <Modal.Icon xstyle={styles.icon}>
+                <Icon {...stylex.props(styles.glyph)} />
+              </Modal.Icon>
+              <Modal.Title>{name}Animation</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Modal.Description xstyle={styles.description}>{description}</Modal.Description>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.Close render={<Button variant="bordered" />}>Close</Modal.Close>
+              <Modal.Close render={<Button />}>Try Again</Modal.Close>
+            </Modal.Footer>
+          </Modal.Content>
         </Modal>
       ))}
     </div>

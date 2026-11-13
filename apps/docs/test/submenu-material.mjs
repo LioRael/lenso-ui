@@ -45,7 +45,7 @@ for (const [engine, type] of [
         }, tint);
         await trigger.focus();
         await page.keyboard.press("Enter");
-        let parent = page.locator('[data-slot="menu-popup"][data-open]').first();
+        let parent = page.locator('[data-lenso-slot="menu-popup"][data-open]').first();
         await parent.waitFor();
         parent = page.locator(`[id=${JSON.stringify(await parent.getAttribute("id"))}]`);
         await parent
@@ -57,7 +57,7 @@ for (const [engine, type] of [
           .waitFor({ timeout: 20000 });
         await page.getByRole("menuitem", { name: "Sort by", exact: true }).focus();
         await page.keyboard.press("ArrowRight");
-        let child = page.locator('[data-slot="menu-popup"][data-open]').last();
+        let child = page.locator('[data-lenso-slot="menu-popup"][data-open]').last();
         await child.waitFor();
         child = page.locator(`[id=${JSON.stringify(await child.getAttribute("id"))}]`);
         await child

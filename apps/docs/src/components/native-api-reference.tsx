@@ -377,9 +377,11 @@ export function NativeApiReference({
                     <a
                       key={specifier}
                       href={
-                        specifier.startsWith("@base-ui")
-                          ? `https://base-ui.com/react/components/${specifier.split("/")[2] ?? family}`
-                          : `https://react-spectrum.adobe.com/react-aria/${specifier.split("/")[1] ?? "components"}.html`
+                        specifier === "@ui-sdk/react/primitive"
+                          ? "https://ui-sdk.dev/docs/rendering"
+                          : specifier.startsWith("@ui-sdk")
+                            ? `https://ui-sdk.dev/docs/components/${specifier.split("/")[2] ?? family}`
+                            : `https://react-spectrum.adobe.com/react-aria/${specifier.split("/")[1] ?? "components"}.html`
                       }
                     >
                       {specifier}

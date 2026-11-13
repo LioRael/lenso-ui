@@ -3,7 +3,7 @@
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0.
  * Adapted for Base UI field/value/render contracts and StyleX.
  */
-import { Field } from "@base-ui/react/field";
+import * as Field from "@ui-sdk/react/field";
 import { Icon } from "@iconify/react";
 import {
   Button,
@@ -81,17 +81,21 @@ function PlanGroup({
   subscription?: boolean;
 }) {
   return (
-    <Field.Root {...stylex.props(styles.field)}>
+    <Field.Field {...stylex.props(styles.field)}>
       <RadioGroup {...props}>
-        <Label>{subscription ? "Subscription plan" : "Plan selection"}</Label>
-        {!subscription && <Description>Choose the plan that suits you best</Description>}
-        <PlanOptions
-          options={options ?? (subscription ? subscriptions : plans)}
-          customIndicator={customIndicator}
-        />
-        {children}
+        {(state) => (
+          <>
+            <Label>{subscription ? "Subscription plan" : "Plan selection"}</Label>
+            {!subscription && <Description>Choose the plan that suits you best</Description>}
+            <PlanOptions
+              options={options ?? (subscription ? subscriptions : plans)}
+              customIndicator={customIndicator}
+            />
+            {typeof children === "function" ? children(state) : children}
+          </>
+        )}
       </RadioGroup>
-    </Field.Root>
+    </Field.Field>
   );
 }
 export function Basic() {
@@ -131,19 +135,19 @@ export function Uncontrolled() {
 }
 export function Disabled() {
   return (
-    <Field.Root disabled {...stylex.props(styles.field)}>
+    <Field.Field disabled {...stylex.props(styles.field)}>
       <RadioGroup disabled defaultValue="pro" name="plan-disabled">
         <Label>Subscription plan</Label>
         <Description>Plan changes are temporarily paused while we roll out updates.</Description>
         <PlanOptions options={subscriptions} />
       </RadioGroup>
-    </Field.Root>
+    </Field.Field>
   );
 }
 export function Horizontal() {
   const id = useId();
   return (
-    <Field.Root {...stylex.props(styles.column)}>
+    <Field.Field {...stylex.props(styles.column)}>
       <Label id={id}>Subscription plan</Label>
       <RadioGroup
         defaultValue="pro"
@@ -160,7 +164,7 @@ export function Horizontal() {
           ]}
         />
       </RadioGroup>
-    </Field.Root>
+    </Field.Field>
   );
 }
 export function CustomIndicator() {
@@ -244,7 +248,7 @@ export function Validation() {
 export function CustomStyles() {
   const id = useId();
   return (
-    <Field.Root {...stylex.props(styles.field)}>
+    <Field.Field {...stylex.props(styles.field)}>
       <RadioGroup xstyle={styles.billing} defaultValue="yearly" name="billing" variant="secondary">
         <Label xstyle={styles.billingLabel}>Billing cycle</Label>
         <Description>Choose how often you are charged.</Description>
@@ -285,7 +289,7 @@ export function CustomStyles() {
           </Radio>
         ))}
       </RadioGroup>
-    </Field.Root>
+    </Field.Field>
   );
 }
 export function DeliveryAndPayment() {
@@ -303,7 +307,7 @@ export function DeliveryAndPayment() {
   return (
     <div {...stylex.props(styles.checkout)}>
       <section {...stylex.props(styles.section)}>
-        <Field.Root {...stylex.props(styles.field)}>
+        <Field.Field {...stylex.props(styles.field)}>
           <RadioGroup defaultValue="express" name="delivery" variant="secondary">
             <Label>Delivery method</Label>
             <div {...stylex.props(styles.deliveryGrid)}>
@@ -330,10 +334,10 @@ export function DeliveryAndPayment() {
               ))}
             </div>
           </RadioGroup>
-        </Field.Root>
+        </Field.Field>
       </section>
       <section {...stylex.props(styles.section)}>
-        <Field.Root {...stylex.props(styles.field)}>
+        <Field.Field {...stylex.props(styles.field)}>
           <RadioGroup defaultValue="visa" name="payment" variant="secondary">
             <div {...stylex.props(styles.paymentHeading)}>
               <Label>Payment method</Label>
@@ -362,7 +366,7 @@ export function DeliveryAndPayment() {
               ))}
             </div>
           </RadioGroup>
-        </Field.Root>
+        </Field.Field>
       </section>
     </div>
   );

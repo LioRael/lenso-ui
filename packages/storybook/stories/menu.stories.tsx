@@ -1,9 +1,9 @@
+import { Avatar, ContextMenu, Description, GlassButton, Kbd, Label, Menu } from "@lenso/ui";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { GlassButton, Avatar, Description, Menu, Kbd, Label } from "@lenso/ui";
-import { useEffect, useRef, useState, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { menuToast as s } from "./menu-toast.stylex";
+import { useState, type ReactNode } from "react";
 import { MenuToastIcon } from "./menu-toast-icons.fixtures";
+import { menuToast as s } from "./menu-toast.stylex";
 
 const meta: Meta<typeof Menu> = {
   component: Menu,
@@ -23,13 +23,14 @@ function Popup({
   submenu?: boolean;
 }) {
   return (
-    <Menu.Portal>
-      <Menu.Positioner side={submenu ? "right" : "bottom"} align="start" sideOffset={4}>
-        <Menu.Popup xstyle={wide === 256 ? s.popup256 : wide === 220 ? s.popup220 : undefined}>
-          {children}
-        </Menu.Popup>
-      </Menu.Positioner>
-    </Menu.Portal>
+    <Menu.Content
+      xstyle={wide === 256 ? s.popup256 : wide === 220 ? s.popup220 : undefined}
+      side={submenu ? "right" : "bottom"}
+      align="start"
+      sideOffset={4}
+    >
+      {children}
+    </Menu.Content>
   );
 }
 function Trigger({ children, iconOnly = false }: { children: ReactNode; iconOnly?: boolean }) {
@@ -197,7 +198,7 @@ function FruitSelection({
     if (!multiple)
       return (
         <Menu.RadioItem key={value} value={value} label={fruit}>
-          <Menu.RadioItemIndicator>{custom ? <CustomCheck /> : undefined}</Menu.RadioItemIndicator>
+          <Menu.ItemIndicator>{custom ? <CustomCheck /> : undefined}</Menu.ItemIndicator>
           <Label>{fruit}</Label>
         </Menu.RadioItem>
       );
@@ -214,8 +215,9 @@ function FruitSelection({
             return copy;
           })
         }
+        value={value}
       >
-        <Menu.CheckboxItemIndicator />
+        <Menu.ItemIndicator />
         <Label>{fruit}</Label>
       </Menu.CheckboxItem>
     );
@@ -265,10 +267,11 @@ function TextStyles({ controlled = false }: { controlled?: boolean }) {
             return copy;
           })
         }
+        value={value}
       >
-        {!controlled && <Menu.CheckboxItemIndicator />}
+        {!controlled && <Menu.ItemIndicator />}
         <Label>{label}</Label>
-        {controlled ? <Menu.CheckboxItemIndicator /> : <Shortcut letter={label[0]!} />}
+        {controlled ? <Menu.ItemIndicator /> : <Shortcut letter={label[0]!} />}
       </Menu.CheckboxItem>
     );
   });
@@ -304,7 +307,7 @@ function TextStyles({ controlled = false }: { controlled?: boolean }) {
                 >
                   {["Left", "Center", "Right"].map((label, index) => (
                     <Menu.RadioItem key={label} value={label.toLowerCase()} label={label}>
-                      <Menu.RadioItemIndicator />
+                      <Menu.ItemIndicator />
                       <Label>{label}</Label>
                       <Shortcut alt letter={["A", "H", "D"][index]!} />
                     </Menu.RadioItem>
@@ -357,90 +360,19 @@ export const WithIcons: Story = {
     </Menu>
   ),
 };
-function LongPress({ disabled = false }: { disabled?: boolean }) {
-  const [open, setOpen] = useState(false);
-  const hold = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const origin = useRef<{ x: number; y: number } | undefined>(undefined);
-  function cancel() {
-    clearTimeout(hold.current);
-    hold.current = undefined;
-    origin.current = undefined;
-  }
-  useEffect(() => cancel, []);
-  useEffect(() => {
-    if (disabled) {
-      cancel();
-      // oxlint-disable-next-line react/set-state-in-effect -- Disabling cancels the native hold timer and discards open state so reenabling never restores the popup.
-      setOpen(false);
-    }
-  }, [disabled]);
+function LongPress() {
   return (
-    <Menu
-      disabled={disabled}
-      open={open}
-      onOpenChange={(next, details) => {
-        const keyboardClick =
-          details.event.type === "click" && "detail" in details.event && details.event.detail === 0;
-        if (
-          details.reason === "trigger-press" &&
-          details.event.type !== "keydown" &&
-          !keyboardClick
-        ) {
-          details.cancel();
-          return;
-        }
-        setOpen(next);
-      }}
-    >
-      <Menu.Trigger
-        disabled={disabled}
-        render={<GlassButton aria-label="Menu" variant="default" />}
-        onMouseDown={(event) => event.preventBaseUIHandler()}
-        onPointerDown={(event) => {
-          if (disabled || event.button !== 0) return;
-          event.preventBaseUIHandler();
-          cancel();
-          origin.current = { x: event.clientX, y: event.clientY };
-          event.currentTarget.setPointerCapture(event.pointerId);
-          hold.current = setTimeout(() => {
-            setOpen(true);
-            hold.current = undefined;
-          }, 500);
-        }}
-        onPointerUp={(event) => {
-          event.preventBaseUIHandler();
-          cancel();
-        }}
-        onPointerCancel={cancel}
-        onLostPointerCapture={cancel}
-        onPointerMove={(event) => {
-          if (
-            origin.current &&
-            Math.hypot(event.clientX - origin.current.x, event.clientY - origin.current.y) > 8
-          )
-            cancel();
-        }}
-        onClick={(event) => {
-          if (event.detail !== 0) {
-            event.preventBaseUIHandler();
-            event.preventDefault();
-          }
-        }}
-      >
-        Long Press
-      </Menu.Trigger>
-      <Popup>
+    <ContextMenu>
+      <ContextMenu.Trigger render={<GlassButton />}>Long press or right click</ContextMenu.Trigger>
+      <ContextMenu.Content>
         {files.map((item) => (
-          <File key={item.id} item={item} action={false} />
+          <ContextMenu.Item key={item.id}>{item.label}</ContextMenu.Item>
         ))}
-      </Popup>
-    </Menu>
+      </ContextMenu.Content>
+    </ContextMenu>
   );
 }
-export const LongPressTrigger: Story = {
-  args: { disabled: false },
-  render: (args) => <LongPress disabled={args.disabled} />,
-};
+export const LongPressTrigger: Story = { render: () => <LongPress /> };
 export const WithDescriptions: Story = {
   render: () => (
     <Menu>
@@ -498,40 +430,40 @@ function Submenus({ custom = false }: { custom?: boolean }) {
         <File item={{ id: "copy-link", label: "Copy Link" }} />
         <File item={{ id: "facebook", label: "Facebook" }} />
         {!custom && <File item={{ id: "twitter", label: "X / Twitter", textValue: "Twitter" }} />}
-        <Menu.SubmenuRoot>
-          <Menu.SubmenuTrigger label="Share">
+        <Menu.Sub>
+          <Menu.SubTrigger aria-label="Share">
             <Label>{custom ? "More options" : "Other"}</Label>
             <span {...stylex.props(s.shortcut)}>
               {custom ? <MenuToastIcon name="arrow-right" small /> : chevron}
             </span>
-          </Menu.SubmenuTrigger>
+          </Menu.SubTrigger>
           <Popup submenu>
             <File item={{ id: "whatsapp", label: "WhatsApp" }} action={false} />
             <File item={{ id: "telegram", label: "Telegram" }} action={false} />
             {!custom && <File item={{ id: "discord", label: "Discord" }} action={false} />}
-            <Menu.SubmenuRoot>
-              <Menu.SubmenuTrigger label="Email">
+            <Menu.Sub>
+              <Menu.SubTrigger aria-label="Email">
                 <Label>Email</Label>
                 <span {...stylex.props(s.shortcut)}>{chevron}</span>
-              </Menu.SubmenuTrigger>
+              </Menu.SubTrigger>
               <Popup submenu>
                 <File item={{ id: "work", label: "Work email" }} action={false} />
                 <File item={{ id: "personal", label: "Personal email" }} action={false} />
               </Popup>
-            </Menu.SubmenuRoot>
+            </Menu.Sub>
             {custom && <File item={{ id: "discord", label: "Discord" }} action={false} />}
           </Popup>
-        </Menu.SubmenuRoot>
+        </Menu.Sub>
         {custom && (
-          <Menu.SubmenuRoot>
-            <Menu.SubmenuTrigger label="Other">
+          <Menu.Sub>
+            <Menu.SubTrigger aria-label="Other">
               <Label>Other (default indicator)</Label>
               <span {...stylex.props(s.shortcut)}>{chevron}</span>
-            </Menu.SubmenuTrigger>
+            </Menu.SubTrigger>
             <Popup submenu>
               <File item={{ id: "sms", label: "SMS" }} action={false} />
             </Popup>
-          </Menu.SubmenuRoot>
+          </Menu.Sub>
         )}
       </Popup>
     </Menu>

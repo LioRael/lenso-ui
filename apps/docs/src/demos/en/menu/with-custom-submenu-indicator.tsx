@@ -1,4 +1,5 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 
 import { ArrowRight } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
@@ -6,26 +7,27 @@ import { GlassButton, Menu, IconChevronRight } from "@lenso/ui";
 import { ActionItem, Popup, styles } from "./_shared";
 
 export function WithCustomSubmenuIndicator() {
+  const log = usePlaygroundLog();
   return (
     <Menu>
       <Menu.Trigger render={<GlassButton aria-label="Menu" variant="default" />}>
         Share
       </Menu.Trigger>
       <Popup>
-        <ActionItem label="Copy Link" onClick={() => console.log("Selected: copy-link")} />
-        <ActionItem label="Facebook" onClick={() => console.log("Selected: facebook")} />
-        <Menu.SubmenuRoot>
-          <Menu.SubmenuTrigger label="Share">
+        <ActionItem label="Copy Link" onClick={() => log("Selected: copy-link")} />
+        <ActionItem label="Facebook" onClick={() => log("Selected: facebook")} />
+        <Menu.Sub>
+          <Menu.SubTrigger aria-label="Share">
             <Menu.Item.Label>More options</Menu.Item.Label>
             <Menu.Item.SubmenuIndicator>
               <ArrowRight {...stylex.props(styles.smallIcon)} />
             </Menu.Item.SubmenuIndicator>
-          </Menu.SubmenuTrigger>
-          <Popup>
+          </Menu.SubTrigger>
+          <Menu.SubContent>
             <ActionItem label="WhatsApp" />
             <ActionItem label="Telegram" />
-            <Menu.SubmenuRoot>
-              <Menu.SubmenuTrigger>
+            <Menu.Sub>
+              <Menu.SubTrigger>
                 <Menu.Item.Label>Email</Menu.Item.Label>
                 <Menu.Item.SubmenuIndicator>
                   <svg
@@ -41,26 +43,26 @@ export function WithCustomSubmenuIndicator() {
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </Menu.Item.SubmenuIndicator>
-              </Menu.SubmenuTrigger>
-              <Popup>
+              </Menu.SubTrigger>
+              <Menu.SubContent>
                 <ActionItem label="Work email" />
                 <ActionItem label="Personal email" />
-              </Popup>
-            </Menu.SubmenuRoot>
+              </Menu.SubContent>
+            </Menu.Sub>
             <ActionItem label="Discord" />
-          </Popup>
-        </Menu.SubmenuRoot>
-        <Menu.SubmenuRoot>
-          <Menu.SubmenuTrigger label="Other">
+          </Menu.SubContent>
+        </Menu.Sub>
+        <Menu.Sub>
+          <Menu.SubTrigger aria-label="Other">
             <Menu.Item.Label>Other (default indicator)</Menu.Item.Label>
             <Menu.Item.SubmenuIndicator>
               <IconChevronRight {...stylex.props(styles.smallIcon)} />
             </Menu.Item.SubmenuIndicator>
-          </Menu.SubmenuTrigger>
-          <Popup>
+          </Menu.SubTrigger>
+          <Menu.SubContent>
             <ActionItem label="SMS" />
-          </Popup>
-        </Menu.SubmenuRoot>
+          </Menu.SubContent>
+        </Menu.Sub>
       </Popup>
     </Menu>
   );

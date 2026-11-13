@@ -1,34 +1,15 @@
 "use client";
-import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, styles } from "./_native";
-const items = [1, 2, 3, 4].map((number) => ({ id: `option${number}`, name: `Option ${number}` }));
+import { TextSuggestions } from "./text-suggestions";
+import { states } from "./default";
 export function Variants() {
   return (
-    <div {...stylex.props(styles.section)}>
-      <section {...stylex.props(styles.stack)}>
-        <h3>Single Select Variants</h3>
-        <NativeAutocomplete items={items} label="Primary variant" variant="primary" />
-        <NativeAutocomplete items={items} label="Secondary variant" variant="secondary" />
-      </section>
-      <section {...stylex.props(styles.stack)}>
-        <h3>Multiple Select Variants</h3>
-        <NativeAutocomplete
-          items={items}
-          label="Primary variant"
-          variant="primary"
-          placeholder="Select multiple"
-          multiple
-          chips
-        />
-        <NativeAutocomplete
-          items={items}
-          label="Secondary variant"
-          variant="secondary"
-          placeholder="Select multiple"
-          multiple
-          chips
-        />
-      </section>
+    <div style={{ display: "grid", gap: 24 }}>
+      <TextSuggestions label="Primary" options={states.map((item) => item.name)} />
+      <TextSuggestions
+        label="Secondary"
+        variant="secondary"
+        options={states.map((item) => item.name)}
+      />
     </div>
   );
 }

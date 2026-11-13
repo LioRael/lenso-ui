@@ -3,7 +3,6 @@
 import { ThemeProvider } from "next-themes";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 import { I18nProvider } from "@lenso/ui";
-import { DirectionProvider } from "@base-ui/react/direction-provider";
 import { useSyncExternalStore, type ReactNode } from "react";
 import { DocsDesignThemeProvider } from "./docs-design-theme";
 export { ThemeToggle as ThemeSelector } from "./fumadocs/ui/theme-toggle";
@@ -35,9 +34,9 @@ export function Providers({ children, locale }: { children: ReactNode; locale: "
         }}
       >
         <I18nProvider locale={locale === "cn" ? "zh-CN" : "en-US"}>
-          <DirectionProvider direction={direction}>
+          <div dir={direction} style={{ display: "contents" }}>
             <DocsDesignThemeProvider>{children}</DocsDesignThemeProvider>
-          </DirectionProvider>
+          </div>
         </I18nProvider>
       </RootProvider>
     </ThemeProvider>

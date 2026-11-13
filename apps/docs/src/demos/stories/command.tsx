@@ -1,33 +1,42 @@
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Command } from "@lenso/ui/command";
+import { createCommandController } from "@ui-sdk/react/command";
 import { Kbd } from "@lenso/ui/kbd";
 
 const commands = ["Open file", "Create project", "Settings"];
 export function CommandStory({ disabled = false }: { disabled?: boolean }) {
   const [lastCommand, setLastCommand] = useState("");
-  const [active, setActive] = useState<string>();
+  const [active, setActive] = useState<string | null>(null);
+  const [controller] = useState(createCommandController);
   return (
     <div {...stylex.props(styles.root)}>
-      <Command items={commands} disabled={disabled} onItemHighlighted={(item) => setActive(item)}>
+      <Command controller={controller} value={active} onValueChange={setActive}>
         <Command.Header>
           <Command.InputGroup>
             <Command.SearchIcon />
             <Command.Input aria-label="Find a command" placeholder="Find a command…" />
-            <Command.Clear />
+            <button type="button" onClick={() => controller.setQuery("")}>
+              Clear
+            </button>
           </Command.InputGroup>
         </Command.Header>
         <Command.SectionLabel>Workspace</Command.SectionLabel>
         <Command.Viewport>
           <Command.Empty>No matching commands.</Command.Empty>
           <Command.List>
-            {(command: string) => (
-              <Command.Item key={command} value={command} onSelect={setLastCommand}>
+            {commands.map((command) => (
+              <Command.Item
+                key={command}
+                value={command}
+                disabled={disabled}
+                onSelect={() => setLastCommand(command)}
+              >
                 <Command.ItemContent>
                   <Command.ItemText>{command}</Command.ItemText>
                 </Command.ItemContent>
               </Command.Item>
-            )}
+            ))}
           </Command.List>
         </Command.Viewport>
         <Command.Footer>

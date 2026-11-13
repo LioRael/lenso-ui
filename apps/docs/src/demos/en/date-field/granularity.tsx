@@ -38,20 +38,16 @@ export function Granularity() {
       <div {...stylex.props(styles.selector)}>
         <div {...stylex.props(styles.selectorLabel)}>
           <span id={labelId}>Granularity</span>
-          <Tooltip>
-            <Tooltip.Trigger delay={0} aria-label="Granularity information">
+          <Tooltip delay={0}>
+            <Tooltip.Trigger aria-label="Granularity information">
               <CircleQuestion {...stylex.props(styles.icon)} aria-hidden="true" />
             </Tooltip.Trigger>
-            <Tooltip.Portal>
-              <Tooltip.Positioner side="bottom" align="start">
-                <Tooltip.Popup>
-                  <p>
-                    Determines the smallest unit displayed in the date picker. By default, this is
-                    "day" for dates, and "minute" for times.
-                  </p>
-                </Tooltip.Popup>
-              </Tooltip.Positioner>
-            </Tooltip.Portal>
+            <Tooltip.Content side="bottom" align="start">
+              <p>
+                Determines the smallest unit displayed in the date picker. By default, this is "day"
+                for dates, and "minute" for times.
+              </p>
+            </Tooltip.Content>
           </Tooltip>
         </div>
         <Select
@@ -63,27 +59,23 @@ export function Granularity() {
         >
           <Select.Trigger xstyle={styles.select} aria-labelledby={labelId}>
             <Select.Value>
-              {(value) =>
+              {({ value }) =>
                 granularityOptions.find((option) => option.id === value)?.label ??
                 "Select granularity"
               }
             </Select.Value>
             <Select.Indicator />
           </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner>
-              <Select.Popover>
-                <Select.List>
-                  {granularityOptions.map((option) => (
-                    <Select.Item key={option.id} value={option.id}>
-                      <Select.ItemText>{option.label}</Select.ItemText>
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.List>
-              </Select.Popover>
-            </Select.Positioner>
-          </Select.Portal>
+          <Select.Content>
+            <Select.List>
+              {granularityOptions.map((option) => (
+                <Select.Item key={option.id} value={option.id}>
+                  <Select.ItemText>{option.label}</Select.ItemText>
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
+            </Select.List>
+          </Select.Content>
         </Select>
       </div>
     </div>

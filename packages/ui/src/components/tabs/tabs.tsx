@@ -1,7 +1,8 @@
 "use client";
 
 import { useElasticRef } from "@lenso/glass/react";
-import { Tabs as BaseTabs } from "@base-ui/react/tabs";
+import { Tabs as SdkTabs, TabsList, TabsTab, TabsPanel, TabsIndicator } from "@ui-sdk/react/tabs";
+import { slotRender } from "../../utils/sdk-render.js";
 import { createContext, useCallback, useContext, useRef, type ComponentProps } from "react";
 import { tabsStyles } from "@lenso/tokens/tabs";
 import {
@@ -31,14 +32,14 @@ function Container({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(tabsStyles.listContainer, xstyle);
   return (
     <div
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "tabs-list-container"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "tabs-list-container"}
     />
   );
 }
@@ -49,15 +50,15 @@ function TabGlass() {
 function List({
   xstyle,
   style,
-  activateOnFocus = true,
+  render,
   ref,
   children,
   ...props
 }: StyleXProps<
-  Omit<BaseTabs.List.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseTabs.List>["ref"];
+  Omit<ComponentProps<typeof TabsList>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof TabsList>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const { lift, size, elastic, glass } = useContext(Context);
   const presentationRef = useTabsListRef(ref, true);
   const shouldStart = useCallback((event: PointerEvent) => {
@@ -74,69 +75,74 @@ function List({
     xstyle,
   );
   return (
-    <BaseTabs.List
+    <TabsList
       {...props}
       {...compiled}
-      activateOnFocus={activateOnFocus}
       ref={elasticRef}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "tabs-list"}
+      render={slotRender("div", props["data-lenso-slot"] ?? "tabs-list", render)}
     >
-      <TabGlass />
-      {children}
-    </BaseTabs.List>
+      {(state) => (
+        <>
+          <TabGlass />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </TabsList>
   );
 }
 function Tab({
   xstyle,
   style,
+  render,
   ...props
 }: StyleXProps<
-  Omit<BaseTabs.Tab.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseTabs.Tab>["ref"];
+  Omit<ComponentProps<typeof TabsTab>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof TabsTab>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(tabsStyles.tab, tabsStyles.initialTab, xstyle);
   return (
-    <BaseTabs.Tab
+    <TabsTab
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "tabs-tab"}
+      render={slotRender("button", props["data-lenso-slot"] ?? "tabs-tab", render)}
     />
   );
 }
 function Panel({
   xstyle,
   style,
+  render,
   ...props
 }: StyleXProps<
-  Omit<BaseTabs.Panel.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseTabs.Panel>["ref"];
+  Omit<ComponentProps<typeof TabsPanel>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof TabsPanel>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(tabsStyles.panel, xstyle);
   return (
-    <BaseTabs.Panel
+    <TabsPanel
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "tabs-panel"}
+      render={slotRender("div", props["data-lenso-slot"] ?? "tabs-panel", render)}
     />
   );
 }
 function Indicator({
   xstyle,
   style,
+  render,
   children,
   ref,
-  renderBeforeHydration = true,
   ...props
 }: StyleXProps<
-  Omit<BaseTabs.Indicator.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseTabs.Indicator>["ref"];
+  Omit<ComponentProps<typeof TabsIndicator>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof TabsIndicator>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const { orientation } = useContext(Context);
   const compiled = stylex.props(
     tabsStyles.indicator,
@@ -148,18 +154,21 @@ function Indicator({
   return (
     <>
       <SelectionHighlight kind="tabs" vertical={orientation === "vertical"} />
-      <BaseTabs.Indicator
+      <TabsIndicator
         {...props}
         {...compiled}
         ref={ref}
-        renderBeforeHydration={renderBeforeHydration}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "tabs-indicator"}
+        render={slotRender("span", props["data-lenso-slot"] ?? "tabs-indicator", render)}
         data-lg-tabs-lens="native"
       >
-        <SelectionLensPaint kind="tabs" />
-        {children}
-      </BaseTabs.Indicator>
+        {(state) => (
+          <>
+            <SelectionLensPaint kind="tabs" />
+            {typeof children === "function" ? children(state) : children}
+          </>
+        )}
+      </TabsIndicator>
       <SelectionFallback kind="tabs" />
     </>
   );
@@ -168,14 +177,14 @@ function Separator({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(tabsStyles.separator, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "tabs-separator"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "tabs-separator"}
     />
   );
 }
@@ -183,19 +192,19 @@ function ScrollButton({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"button">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"button">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(tabsStyles.scrollButton, xstyle);
   return (
     <button
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "tabs-scroll-button"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "tabs-scroll-button"}
     />
   );
 }
-export type TabsRootProps = StyleXProps<ComponentProps<typeof BaseTabs.Root>> & {
-  "data-slot"?: unknown;
+export type TabsRootProps = StyleXProps<ComponentProps<typeof SdkTabs>> & {
+  "data-lenso-slot"?: unknown;
   align?: "start" | "center" | "end";
   lift?: number;
   /** Elastic press and drag feedback on the primary tab list, independent of indicator lift. */
@@ -213,16 +222,17 @@ export function TabsRoot({
   size = "sm",
   xstyle,
   style,
+  render,
   ...props
 }: TabsRootProps) {
   const compiled = stylex.props(tabsStyles.root, tabsStyles[orientation], xstyle);
   return (
     <Context value={{ orientation, align, lift, elastic, glass, size }}>
-      <BaseTabs.Root
+      <SdkTabs
         {...props}
         {...compiled}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "tabs"}
+        render={slotRender("div", props["data-lenso-slot"] ?? "tabs", render)}
         orientation={orientation}
       />
     </Context>
@@ -273,7 +283,7 @@ export function TabListContainer({
       ]}
     >
       {orientation === "horizontal" ? (
-        <div {...stylex.props(tabsStyles.overflowRow)} data-slot="tabs-overflow-row">
+        <div {...stylex.props(tabsStyles.overflowRow)} data-lenso-slot="tabs-overflow-row">
           {children}
           {overflow.length > 0 && (
             <Menu
@@ -282,33 +292,31 @@ export function TabListContainer({
               }}
             >
               <Menu.ExpandTrigger aria-label={overflowLabel} xstyle={tabsStyles.overflowTrigger} />
-              <Menu.Portal>
-                <Menu.Positioner align="end" sideOffset={8}>
-                  <Menu.Popup
-                    aria-label={overflowLabel}
-                    finalFocus={() =>
-                      selectedFromMenu.current
-                        ? host.current?.querySelector<HTMLElement>(
-                            '[data-slot="tabs-tab"][aria-selected="true"]',
-                          )
-                        : true
-                    }
+              <Menu.Content
+                aria-label={overflowLabel}
+                finalFocus={() =>
+                  selectedFromMenu.current
+                    ? host.current?.querySelector<HTMLElement>(
+                        '[data-lenso-slot="tabs-tab"][aria-selected="true"]',
+                      )
+                    : undefined
+                }
+                align="end"
+                sideOffset={8}
+              >
+                {overflow.map(({ node, label, disabled }) => (
+                  <Menu.Item
+                    key={node.id}
+                    disabled={disabled}
+                    onClick={() => {
+                      selectedFromMenu.current = true;
+                      node.click();
+                    }}
                   >
-                    {overflow.map(({ node, label, disabled }) => (
-                      <Menu.Item
-                        key={node.id}
-                        disabled={disabled}
-                        onClick={() => {
-                          selectedFromMenu.current = true;
-                          node.click();
-                        }}
-                      >
-                        {label}
-                      </Menu.Item>
-                    ))}
-                  </Menu.Popup>
-                </Menu.Positioner>
-              </Menu.Portal>
+                    {label}
+                  </Menu.Item>
+                ))}
+              </Menu.Content>
             </Menu>
           )}
         </div>
@@ -323,7 +331,7 @@ export function TabListContainer({
               tabsStyles.scroller,
               tabsStyles.bleed(Math.ceil((Math.max(0, lift) * 2) / 3) + 10),
             ]}
-            data-slot="tabs-list-scroller"
+            data-lenso-slot="tabs-list-scroller"
           >
             {children}
           </ScrollShadow>

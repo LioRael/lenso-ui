@@ -10,10 +10,9 @@ export function Indeterminate() {
     <TextField>
       <Checkbox
         id="select-all"
-        indeterminate={isIndeterminate}
-        checked={isSelected}
+        checked={isIndeterminate ? "indeterminate" : isSelected}
         onCheckedChange={(selected) => {
-          setIsSelected(selected);
+          setIsSelected(selected === true);
           setIsIndeterminate(false);
         }}
       >

@@ -72,6 +72,30 @@
           "copyrights": ["Copyright 2019 Adobe"]
         }
       ]
+    },
+    {
+      "name": "@ui-sdk/core",
+      "version": "0.1.0-beta.1",
+      "license": "Apache-2.0",
+      "assets": [
+        {
+          "file": "ui-sdk-core-LICENSE",
+          "sha256": "85dc930b9f77edd477ceddd7658dd3a4bb4411186718d19e137a7a5724ee7007",
+          "copyrights": ["Copyright 2026 Vercel, Inc."]
+        }
+      ]
+    },
+    {
+      "name": "@ui-sdk/react",
+      "version": "0.1.0-beta.1",
+      "license": "Apache-2.0",
+      "assets": [
+        {
+          "file": "ui-sdk-react-LICENSE",
+          "sha256": "85dc930b9f77edd477ceddd7658dd3a4bb4411186718d19e137a7a5724ee7007",
+          "copyrights": ["Copyright 2026 Vercel, Inc."]
+        }
+      ]
     }
   ]
 }

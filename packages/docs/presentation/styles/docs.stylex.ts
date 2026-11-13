@@ -89,6 +89,7 @@ export const styles = stylex.create({
     textDecoration: "none",
     letterSpacing: "-0.04em",
   },
+  simpleShell: { "--docs-header-height": { default: "64px", "@media (max-width: 767px)": "56px" } },
   headerNavigationShell: {
     paddingBottom: {
       default: "calc(94px + env(safe-area-inset-bottom, 0px))",
@@ -156,7 +157,7 @@ export const styles = stylex.create({
       "@media (max-width: 767px)": "minmax(0, 1fr)",
     },
     width: "100%",
-    maxWidth: "none",
+    maxWidth: 1920,
     marginInline: "auto",
     minHeight: "calc(100dvh - 32px)",
   },
@@ -229,7 +230,10 @@ export const styles = stylex.create({
     },
     minWidth: 0,
   },
-  article: { minWidth: 0, overflowWrap: "anywhere" },
+  article: { minWidth: 0, maxWidth: 800, marginInline: "auto", overflowWrap: "anywhere" },
+  componentContent: { gridColumn: { default: "2 / -1", "@media (max-width: 767px)": "1 / -1" } },
+  componentArticle: { maxWidth: 1180 },
+  fullArticle: { maxWidth: "none" },
   title: {
     fontSize: 28,
     fontWeight: 600,

@@ -1,29 +1,40 @@
 "use client";
-// Modified: native Base UI range, multi-thumb and keyboard contracts.
-import { Slider as BaseSlider } from "@base-ui/react/slider";
+import { Field as SdkField, FieldLabel as SdkFieldLabel } from "@ui-sdk/react/field";
+// Modified: native UI SDK range, multi-thumb and keyboard contracts.
+import {
+  Slider as SdkSlider,
+  SliderValue as SdkSliderValue,
+  SliderControl as SdkSliderControl,
+  SliderTrack as SdkSliderTrack,
+  SliderIndicator as SdkSliderIndicator,
+  SliderThumb as SdkSliderThumb,
+} from "@ui-sdk/react/slider";
+import { slotRender } from "../../utils/sdk-render.js";
 import { KnobMaterial } from "../../utils/materials/knob.js";
 import { sliderStyles } from "@lenso/tokens/slider";
 import { useSliderThumbRef } from "../../utils/interaction/slider.js";
+import { useFocusMethodRef } from "../../utils/interaction/focus-method.js";
 import type { ComponentPropsWithRef } from "react";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import type * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 
 export type SliderRootProps = StyleXProps<
-  Omit<BaseSlider.Root.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSlider.Root>["ref"];
+  Omit<React.ComponentProps<typeof SdkSlider>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkSlider>["ref"];
   }
-> & { "data-slot"?: unknown };
-export function SliderRoot({ thumbAlignment = "edge", xstyle, style, ...props }: SliderRootProps) {
+> & { "data-lenso-slot"?: unknown };
+export function SliderRoot({ xstyle, style, ...props }: SliderRootProps) {
   const compiled = stylex.props(sliderStyles.root, xstyle);
   return (
-    <BaseSlider.Root
-      {...props}
-      {...compiled}
-      style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "slider"}
-      thumbAlignment={thumbAlignment}
-    />
+    <SdkField {...stylex.props(sliderStyles.field)}>
+      <SdkSlider
+        {...props}
+        {...compiled}
+        style={mergeStyle(compiled.style, style)}
+        render={slotRender("div", props["data-lenso-slot"] ?? "slider", props.render)}
+      />
+    </SdkField>
   );
 }
 export function SliderLabel({
@@ -31,17 +42,17 @@ export function SliderLabel({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseSlider.Label.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSlider.Label>["ref"];
+  Omit<React.ComponentProps<typeof SdkFieldLabel>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkFieldLabel>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(sliderStyles.label, xstyle);
   return (
-    <BaseSlider.Label
+    <SdkFieldLabel
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "slider-label"}
+      render={slotRender("label", props["data-lenso-slot"] ?? "slider-label", props.render)}
     />
   );
 }
@@ -50,17 +61,17 @@ export function SliderOutput({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseSlider.Value.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSlider.Value>["ref"];
+  Omit<React.ComponentProps<typeof SdkSliderValue>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkSliderValue>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(sliderStyles.output, xstyle);
   return (
-    <BaseSlider.Value
+    <SdkSliderValue
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "slider-output"}
+      render={slotRender("output", props["data-lenso-slot"] ?? "slider-output", props.render)}
     />
   );
 }
@@ -69,18 +80,18 @@ export function SliderControl({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseSlider.Control.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSlider.Control>["ref"];
+  Omit<React.ComponentProps<typeof SdkSliderControl>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkSliderControl>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(sliderStyles.control, xstyle);
   return (
-    <BaseSlider.Control
+    <SdkSliderControl
       data-lg-slider-control=""
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "slider-control"}
+      render={slotRender("div", props["data-lenso-slot"] ?? "slider-control", props.render)}
     />
   );
 }
@@ -90,25 +101,29 @@ export function SliderTrack({
   children,
   ...props
 }: StyleXProps<
-  Omit<BaseSlider.Track.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSlider.Track>["ref"];
+  Omit<React.ComponentProps<typeof SdkSliderTrack>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkSliderTrack>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(sliderStyles.track, xstyle);
   return (
-    <BaseSlider.Track
+    <SdkSliderTrack
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "slider-track"}
+      render={slotRender("div", props["data-lenso-slot"] ?? "slider-track", props.render)}
     >
-      <span
-        aria-hidden="true"
-        data-slot="slider-track-paint"
-        {...stylex.props(sliderStyles.trackPaint)}
-      />
-      {children}
-    </BaseSlider.Track>
+      {(state) => (
+        <>
+          <span
+            aria-hidden="true"
+            data-lenso-slot="slider-track-paint"
+            {...stylex.props(sliderStyles.trackPaint)}
+          />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </SdkSliderTrack>
   );
 }
 export function SliderFill({
@@ -116,33 +131,17 @@ export function SliderFill({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseSlider.Indicator.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSlider.Indicator>["ref"];
+  Omit<React.ComponentProps<typeof SdkSliderIndicator>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkSliderIndicator>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(sliderStyles.fill, xstyle);
   return (
-    <BaseSlider.Indicator
+    <SdkSliderIndicator
       {...props}
       {...compiled}
-      style={(state) => {
-        const percent = (value: number) =>
-          `${state.max > state.min ? Math.min(1, Math.max(0, (value - state.min) / (state.max - state.min))) * 100 : 0}%`;
-        const first = state.values[0] ?? state.min;
-        const last = state.values[state.values.length - 1] ?? first;
-        return {
-          ...compiled.style,
-          width: "100%",
-          height: "100%",
-          insetInlineStart: 0,
-          bottom: 0,
-          "--lg-slider-start": state.values.length > 1 ? percent(first) : "0%",
-          "--lg-slider-end": percent(last),
-          "--lg-slider-direction": state.orientation === "vertical" ? "to top" : "to right",
-          ...(typeof style === "function" ? style(state) : style),
-        } as React.CSSProperties;
-      }}
-      data-slot={props["data-slot"] ?? "slider-fill"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", props["data-lenso-slot"] ?? "slider-fill", props.render)}
     />
   );
 }
@@ -153,44 +152,48 @@ export function SliderThumb({
   children,
   ...props
 }: StyleXProps<
-  Omit<BaseSlider.Thumb.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSlider.Thumb>["ref"];
+  Omit<React.ComponentProps<typeof SdkSliderThumb>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkSliderThumb>["ref"];
   }
-> & { "data-slot"?: unknown }) {
-  const presentationRef = useSliderThumbRef(ref);
+> & { "data-lenso-slot"?: unknown }) {
+  const presentationRef = useFocusMethodRef(useSliderThumbRef(ref));
   const compiled = stylex.props(sliderStyles.thumb, xstyle);
   return (
-    <BaseSlider.Thumb
+    <SdkSliderThumb
       data-lg-slider-thumb=""
       {...props}
       {...compiled}
       ref={presentationRef}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "slider-thumb"}
+      render={slotRender("div", props["data-lenso-slot"] ?? "slider-thumb", props.render)}
     >
-      <span
-        aria-hidden="true"
-        data-slot="slider-optical"
-        {...stylex.props(sliderStyles.optical, sliderStyles.knobMaterial)}
-      >
-        <KnobMaterial kind="slider" controlEdge />
-      </span>
-      {children}
-    </BaseSlider.Thumb>
+      {(state) => (
+        <>
+          <span
+            aria-hidden="true"
+            data-lenso-slot="slider-optical"
+            {...stylex.props(sliderStyles.optical, sliderStyles.knobMaterial)}
+          >
+            <KnobMaterial kind="slider" controlEdge />
+          </span>
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </SdkSliderThumb>
   );
 }
 export function SliderMarks({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(sliderStyles.marks, xstyle);
   return (
     <div
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "slider-marks"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "slider-marks"}
     />
   );
 }

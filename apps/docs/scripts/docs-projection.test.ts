@@ -18,6 +18,7 @@ import {
   canonicalExampleName,
   examplePresentation,
   exampleGroup,
+  playgroundExamples,
 } from "./docs-projection.ts";
 import { createExamplePlan } from "./example-proof-plan.ts";
 
@@ -137,19 +138,14 @@ test("discovers local stories in both locales without changing the source scenar
       "utf8",
     );
     assert.ok(markdown.includes(`<ComponentPlayground family="menu" locale="${locale}" />`));
-    assert.ok(
-      markdown.indexOf("<ComponentPlayground") <
-        markdown.indexOf('<ComponentPreview name="menu-basic"'),
-    );
+    assert.doesNotMatch(markdown, /<ComponentPreview|^## |API Reference|API 参考/m);
     assert.equal(createExamplePlan(archive, index, manifests, { locale }).requested, 2);
     const chip = await readFile(
       path.join(directory, `apps/docs/content/lenso/${locale}/react/components/chip.mdx`),
       "utf8",
     );
     assert.ok(chip.includes("<ComponentPlayground"));
-    assert.ok(
-      chip.indexOf("<ComponentPlayground") < chip.indexOf(locale === "cn" ? "## 用法" : "## Usage"),
-    );
+    assert.doesNotMatch(chip, /<ComponentPreview|^## |API Reference|API 参考/m);
   }
 });
 
@@ -181,23 +177,9 @@ test("projects current version, canonical family placement, local API and all lo
     assert.equal(menu.componentCategory, "collections");
     assert.equal("componentThumbnail" in menu, false);
     const markdown = await readFile(path.join(directory, "apps/docs", menu.markdownFile), "utf8");
-    assert.ok(markdown.includes('<ComponentPreview name="menu-basic" defaultView="source" />'));
-    assert.ok(
-      markdown.indexOf(locale === "cn" ? "## 使用与交互" : "## Use and interaction") <
-        markdown.indexOf(locale === "cn" ? "## 示例" : "## Examples"),
-    );
-    assert.ok(!markdown.includes('<ComponentPreview name="dropdown-'));
-    assert.ok(!markdown.includes('import { Menu } from "@lenso/ui";'));
-    const usage = markdown.indexOf(locale === "cn" ? "## 用法" : "## Usage");
-    const examples = markdown.indexOf(locale === "cn" ? "## 示例" : "## Examples");
-    const basic = markdown.indexOf('<ComponentPreview name="menu-basic" defaultView="source" />');
-    assert.ok(usage >= 0 && usage < basic && basic < examples);
-    assert.equal(
-      markdown.match(/<ComponentPreview name="menu-basic" defaultView="source" \/>/g)?.length,
-      1,
-    );
-    assert.ok(!/^## (?:Local contract|本地契约|Runnable examples|运行示例)$/m.test(markdown));
-    assert.ok(markdown.includes("(open: boolean, details: NativeDetails) => void"));
+    assert.equal(markdown.match(/<ComponentPlayground /g)?.length, 1);
+    assert.doesNotMatch(markdown, /<ComponentPreview|<details>|^## |API Reference|API 参考/m);
+    assert.ok(menu.examples.some(({ name }) => name === "menu-basic"));
     assert.ok(
       !index.pages.some((page) => /releases|migration|components\/dropdown/.test(page.slug)),
     );
@@ -370,4 +352,79 @@ test("fails closed for missing references, stale native inventory and a public D
   assert.equal(canonicalDemoFile("en/chip/palette.tsx"), "en/chip/palette.tsx");
   assert.equal(canonicalExampleName("dropdown-basic"), "menu-basic");
   assert.equal(canonicalExampleName("menu-item-basic"), "menu-item-basic");
+});
+
+test("Button keeps one playground without regenerating expanded examples or API tables", async () => {
+  const { directory, write } = await fixture();
+  const reference = JSON.parse(
+    await readFile(path.join(directory, "apps/docs/src/generated/api-reference.json"), "utf8"),
+  );
+  reference.families.button = { parts: [{ ...reference.families.chip.parts[0], name: "Button" }] };
+  await write("apps/docs/src/generated/api-reference.json", reference);
+  await write(
+    "packages/ui/src/components/index.ts",
+    'export * from "./menu/index.js";\nexport * from "./chip/index.js";\nexport * from "./button/index.js";',
+  );
+  await write("apps/docs/src/stories/button.story.tsx", "export const story = {};");
+  const { markdown } = await generateDocsProjection(directory);
+  for (const locale of ["en", "cn"]) {
+    const content = markdown.get(`content/lenso/${locale}/react/components/button.mdx`)!;
+    assert.equal(content.match(/<ComponentPlayground /g)?.length, 1);
+    assert.doesNotMatch(content, /<ComponentPreview|API Reference|API 参考|<details>|^## /m);
+    assert.match(content, /Enter/);
+    assert.ok(content.trimEnd().endsWith(`locale="${locale}" />`));
+  }
+});
+
+test("playground scenarios cover distinct uses without repeating basic property controls", () => {
+  const names = [
+    "basic",
+    "variants",
+    "sizes",
+    "disabled",
+    "full-width",
+    "controlled",
+    "form-example",
+    "with-icons",
+    "format-options",
+    "async-loading",
+    "with-sections",
+    "render-function",
+    "multiple-select",
+    "virtualization",
+  ];
+  const examples = names.map((name) => ({ name: `select-${name}`, file: `en/select/${name}.tsx` }));
+  const selected = playgroundExamples(examples, "select");
+  assert.equal(selected.length, 8);
+  for (const name of ["controlled", "form-example", "with-icons", "format-options"])
+    assert.ok(selected.some((entry) => entry.name === `select-${name}`));
+  assert.ok(
+    !selected.some((entry) => /-(basic|variants|sizes|disabled|full-width)$/.test(entry.name)),
+  );
+  assert.deepEqual(playgroundExamples(examples, "button"), []);
+});
+
+test("Menu keeps the complete demo and every maintained scenario", () => {
+  const names = [
+    "default",
+    "with-icons",
+    "with-descriptions",
+    "with-disabled-items",
+    "with-sections",
+    "with-multiple-selection",
+    "controlled",
+    "controlled-open-state",
+    "with-single-selection",
+    "single-with-custom-indicator",
+    "with-section-level-selection",
+    "with-keyboard-shortcuts",
+    "with-submenus",
+    "with-custom-submenu-indicator",
+    "custom-trigger",
+    "long-press-trigger",
+  ];
+  const examples = names.map((name) => ({ name: `menu-${name}`, file: `en/menu/${name}.tsx` }));
+  assert.deepEqual(playgroundExamples(examples, "menu"), examples);
+  assert.equal(examplePresentation("menu-default", "menu", "cn").title, "完整示例");
+  assert.equal(examplePresentation("menu-default", "menu", "en").title, "Complete example");
 });

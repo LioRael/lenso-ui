@@ -44,7 +44,7 @@ export function trackPressHighlight(element: HTMLElement) {
   const paintLabels = (x: number, y: number) => {
     if (
       element.hasAttribute("data-lenso-glass-fused") ||
-      !element.querySelector(':scope > [data-slot="glass-press-highlight"]')
+      !element.querySelector(':scope > [data-lenso-slot="glass-press-highlight"]')
     )
       return;
     const radius = 240;
@@ -89,9 +89,9 @@ export function trackPressHighlight(element: HTMLElement) {
     frame = 0;
     element.removeAttribute("data-lenso-light-pressed");
     clearLabels();
-    window.removeEventListener("pointermove", move);
-    window.removeEventListener("pointerup", end);
-    window.removeEventListener("pointercancel", end);
+    window.removeEventListener("pointermove", move, true);
+    window.removeEventListener("pointerup", end, true);
+    window.removeEventListener("pointercancel", end, true);
     window.removeEventListener("blur", end);
   };
   // A nested optical surface owns its light; an enclosing bar must not add another.
@@ -104,7 +104,7 @@ export function trackPressHighlight(element: HTMLElement) {
       owner &&
       owner !== element &&
       element.contains(owner) &&
-      owner.querySelector(':scope > [data-slot="glass-press-highlight"]'),
+      owner.querySelector(':scope > [data-lenso-slot="glass-press-highlight"]'),
     );
   };
   const pointer = (event: PointerEvent) => {
@@ -117,9 +117,9 @@ export function trackPressHighlight(element: HTMLElement) {
     paintLabels(point.x, point.y);
     frame = requestAnimationFrame(follow);
     element.setAttribute("data-lenso-light-pressed", "");
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", end);
-    window.addEventListener("pointercancel", end);
+    window.addEventListener("pointermove", move, true);
+    window.addEventListener("pointerup", end, true);
+    window.addEventListener("pointercancel", end, true);
     window.addEventListener("blur", end);
   };
   const keyboard = (event: KeyboardEvent) => {
@@ -137,7 +137,7 @@ export function trackPressHighlight(element: HTMLElement) {
     paintLabels(box.left + box.width / 2, box.top + box.height / 2);
     heldKey = event.key;
     element.setAttribute("data-lenso-key-pressed", "");
-    window.addEventListener("keyup", release);
+    window.addEventListener("keyup", release, true);
     window.addEventListener("blur", release);
   };
   const release = (event?: Event) => {
@@ -145,7 +145,7 @@ export function trackPressHighlight(element: HTMLElement) {
     heldKey = undefined;
     element.removeAttribute("data-lenso-key-pressed");
     clearLabels();
-    window.removeEventListener("keyup", release);
+    window.removeEventListener("keyup", release, true);
     window.removeEventListener("blur", release);
   };
   element.addEventListener("pointerdown", pointer);

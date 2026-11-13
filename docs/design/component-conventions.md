@@ -7,7 +7,7 @@ exports and owning StyleX maps to resolve an API or exact value.
 
 ## Components and interaction
 
-Use Base UI for interactive controls and native HTML for appropriate static
+Use UI SDK for interactive controls and native HTML for appropriate static
 parts. Date, time and color controls compose native parts around shared value
 models. The Lenso documentation shell composes navigation and article layout with
 Fumadocs document primitives and static search, with Command for result interaction. Preserve native props, refs, render
@@ -24,32 +24,25 @@ transition their native measured height over 250ms, clipping an unscaled,
 bottom-aligned body beneath the stable heading while following groups reflow.
 The shared downward chevron points toward the inline end when collapsed and
 turns down when expanded, including RTL. Reduced motion settles immediately.
-Base UI owns disclosure state, presence, native refs and keyboard behavior;
+UI SDK owns disclosure state, presence, native refs and keyboard behavior;
 caller StyleX and state-dependent styles remain composable. The panel's inner
 body is a layout owner, so direct-child consumer selectors must account for it.
 
 ## Command
 
-Command exposes unstyled interaction through `@lenso/primitives/command` and
+Command uses unstyled interaction directly from `@ui-sdk/react/command` and
 Lenso presentation through `@lenso/ui/command`. The UI parts own their semantic
 StyleX defaults with caller `xstyle` last; the primitive has no styles dependency.
-Base UI Autocomplete owns filtering, keyboard navigation, item registration and
-active-descendant semantics. Supply a flat `items` collection and render its
-filtered entries through List or Collection. The query remains text; executing
-an item invokes `onSelect` without replacing the query. IME confirmation does
-not execute a command. Disabled and read-only controls cannot execute items.
-`data-highlighted` identifies the active item; it is not persistent selection.
+UI SDK Command owns filtering, keyboard navigation, registration and active-descendant
+semantics. Compose Item children without a root data source, or provide native
+CommandData and let List render it. `query` is search text, `value` is the
+highlighted command, and Item `onSelect` receives the activation event.
 
-Compose with Base UI Dialog when a palette is needed. Dialog owns modal focus,
-scroll locking and focus restoration. Applications own shortcuts, asynchronous
-search, ranking, route navigation and dismissal. The docs adapter keeps
-Fumadocs static index loading and highlighting and uses `filter={false}` to
-preserve its external result order. Keep the existing search material, spacing
-and responsive geometry as the default Command presentation. The UI package
-owns the glass surface, header, results, scrolling viewport and footer; its
-Popup and Backdrop compose native Dialog placement and dismissal. Documentation
-search uses those parts without a private style map. Command is an owner-authorized additive primitive;
-existing primitive families remain unchanged.
+Compose with Modal/SDK Dialog when a palette is needed. Dialog owns focus,
+scroll locking and focus restoration. The docs adapter retains Fumadocs search
+and `filter={false}` for externally ranked results. Command.Content and
+Command.Backdrop compose the native dialog; no Portal/Positioner/Popup shim is
+provided.
 
 ## Grouped forms
 
@@ -95,6 +88,11 @@ corners as it grows. Field editing is stationary by default; glass and elastic
 motion are separate choices. Elastic text controls provide press/release feedback;
 native editing owns drag selection, scrolling and resizing. `Tabs.glass` likewise selects its outer material,
 while `GlassButton` retains its separate action variants and motion contract.
+Glass Input and TextArea keep their native editing element and layout. A
+noninteractive, accessibility-hidden sibling paints the same live foreground
+as TabBar; it follows the editor's size, corners, scale and scroll position
+through the shared backdrop scheduler. Never append a canvas inside a native
+editor or let decoration intercept text selection or the textarea resize handle.
 
 Floating TabBar groups and glass Tabs tracks use the same `glass-small` action
 material as GlassButton, with its existing blur, transfer and refraction recipe.
@@ -146,8 +144,10 @@ animation frames only write the spring's interpolated values. Root height
 changes caused by contraction must not trigger expanded-width measurement.
 While resizing, keep the selected icon mounted, hide the indicator and suspend
 its copied-label measurement and springs. Refit it after expansion. The group
-uses its normal native blur and CSS contour during motion, restoring fitted
-optics only when its size settles; preserve the action material recipe.
+keeps its native blur and live foreground rim mounted during motion, updating
+the contour with each layout change. Restore fitted optics only when its size
+settles; preserve the action material recipe and the same rim at the endpoint
+so the dark hairline cannot switch between CSS and bitmap recipes.
 
 While the TabBar lens is lifted or moving between destinations, the original
 current link uses the ordinary secondary label color. Only content inside the
@@ -180,6 +180,9 @@ corner tiles and constant edge strips, cropping overlapping tiles to the current
 half-size; update the tile recipe when radius or lighting changes. Keep this
 foreground mounted at rest as well, so finishing optical work never substitutes
 a different hairline. CSS contours remain the fallback for other recipes.
+Ordinary eligible glass also retains a live foreground after its first layout
+or corner change. A radius transition updates the foreground during the
+transition, including cancellation, instead of waiting for its final bitmap.
 Scaling an old displacement map
 can preserve a visible ellipse even with a correctly sized filter region.
 Appearance changes during the morph must also keep the old rim suppressed.
@@ -193,7 +196,19 @@ the foreground reflection rather than over it. They retain their color transitio
 without recoloring the white crest. Light medium surfaces use the Rex reference's
 1px white crest and bright inward decay instead of the small-control upper dark
 band. This is a measured Lenso Web calibration; dark and small-control rim
-recipes retain their existing light distribution.
+recipes retain their existing light distribution. Compact AlertDialog and
+ActionSheet panels retain the classic Glass dark hairline alongside the medium
+material's white crest and bright inward decay. Their scrollable native popup clips
+outside pixels, so Glass paints that hairline just inside the host boundary.
+
+ContextMenu keeps its inert content preview separate from the glass action panel.
+The native SDK Content positions and dismisses the entire composition; preview,
+vertical/horizontal layout and dimming belong to Lenso presentation. `compact`
+on Root selects the initial action bar; Content's `bar` expands into its complete
+children without closing the native menu. Reserve SDK `presentation` for its
+native popup/sheet contract. Constrain the action panel to the remaining height
+when a preview is present, and return the preview to its source before releasing
+native exit presence.
 
 An owning glass Toolbar or Toolbar.Group also supplies the visual source for
 nested morphing Menus. Menu keeps its actual trigger for activation and focus,
@@ -217,7 +232,7 @@ surfaces retain their shared contour and lighting owner.
 The generic touch response is faster than the mouse response. Disabled members can deform an
 enabled shared surface without becoming actionable. Menu pointer activation
 waits for release and rejects a drag, while keyboard/assistive activation stays
-with Base UI.
+with UI SDK.
 
 Stacked Menu navigation moves the real child heading between the source row and
 its final layout. Interpolate its source weight to the shared semibold heading
@@ -225,7 +240,7 @@ weight with the same progress as its position, and reverse both on return.
 Preserve glyph proportions when parent and child menu widths differ. Returning
 navigation and released menu feedback use critically damped springs. Overlapping
 sibling submenus share ownership of parent dimming, scale and interaction;
-restore the parent only after its last child returns. Base UI retains focus,
+restore the parent only after its last child returns. UI SDK retains focus,
 activation and dismissal ownership throughout.
 
 Cascading submenus share Menu's reversible timeline, continuous shape progress
@@ -237,7 +252,7 @@ states clear transient ink effects; release the parent once after the child's
 return, including interrupted or nested dismissal.
 
 Select shares the root Menu morph timeline for both selected-item alignment and
-ordinary anchored placement. Base UI still chooses the final placement and owns
+ordinary anchored placement. UI SDK still chooses the final placement and owns
 selection, scrolling, keyboard operation and focus restoration. Refresh the
 returning label from the live trigger when selection changes. Trigger glyphs
 stay anchored at their measured size and fade/soften without an additional
@@ -261,11 +276,14 @@ stationary sources finish at the handoff without that rebound. These are sampled
 Menu and Select retain their time-based ink softness, clipping and shape
 trajectories while using a lighter glass treatment during motion. Moving panels
 use native backdrop blur, the material fill and simple inset/outer shadows;
-they do not refract foreground content, paint a live rim or fit panel optics.
+their live foreground follows the timeline's visible width, height and radius,
+counter-scaled against the fixed optical input. They do not refract foreground
+content or fit panel optics during motion.
 Install the existing fitted material after opening settles, and suspend it
-again before the closing or reversed morph. Reduced motion reaches the resting
+again before the closing or reversed morph. Keep the same foreground through
+that handoff so fitting never replaces its hairline. Reduced motion reaches the resting
 material directly. Cascading submenus use the same policy. This adopts the
-upstream Menu's motion-time rendering strategy without changing Base UI
+upstream Menu's motion-time rendering strategy without changing UI SDK
 interaction ownership or Lenso's motion profiles.
 Once the glass becomes invisible during closing, stop its background painter and
 leave only the source's remaining rebound. Closed Select items may stay mounted
@@ -276,7 +294,7 @@ With `morphTrigger={false}`, Menu and Select keep their trigger visible and
 stationary. Their popups unfold from a compact source near that trigger with
 the same lightweight glass and ink softness, without masking or rebounding the source.
 Text Menu sources retain their early opening neck, while their content follows
-the shared contour. Closing uses the same whole-panel contraction. Base UI retains placement,
+the shared contour. Closing uses the same whole-panel contraction. UI SDK retains placement,
 selection, keyboard operation and focus restoration in both modes.
 
 Menu panels have a 250px minimum width, 10px block/8px inline outer padding and
@@ -308,7 +326,7 @@ for group-local reorder boundaries. RefreshControl.Viewport owns vertical
 scrolling; disable refresh during list editing. See
 [list composition](list-composition.md) for ownership and the integrated example.
 
-SwipeActions is an inline row, not a modal Drawer. Base UI buttons own action
+SwipeActions is an inline row, not a modal Drawer. UI SDK buttons own action
 activation; the public useRender contract owns root composition. Horizontal
 pointer intent reveals logical leading/trailing actions, while native vertical
 scrolling retains ownership. Canceled gestures restore the accepted open side.
@@ -335,7 +353,9 @@ Do not write scroll position when the accepted option is already centered.
 Keep wheel content on an ordinary surface, without a glass material layer.
 The physical-device pass uses a 216px viewport, 32px slots and a 34px band with
 9px inline insets at the default 16px root font. The measured band uses quaternary
-fill. Project only decorative labels into the wheel; preserve linear scroll and
+fill. Cull labels beyond the front hemisphere before the sine projection can wrap
+them back into the viewport, and initialize SDK offsets before the first paint.
+Project only decorative labels into the wheel; preserve linear scroll and
 option semantics and explicit accessible labels. Center emphasis reaches 23px
 from a 20px base. The cylinder projection is a Web approximation calibrated to
 the observed glyph centers/heights, not Apple's rendering algorithm. Prefer
@@ -343,7 +363,7 @@ the observed glyph centers/heights, not Apple's rendering algorithm. Prefer
 fallback and allow passing intermediate snap positions. Non-editable wheel text
 cannot start selection or callout. Reduced motion adds no timed visual animation.
 
-SegmentedControl is a single-value RadioGroup, not a TabList. Base UI owns radio
+SegmentedControl is a single-value RadioGroup, not a TabList. UI SDK owns radio
 semantics, directional keyboard selection, disabled/read-only state, native inputs
 and validation. Native form reset restores the uncontrolled default after reset
 cancellation is resolved. Preserve native change details and cancellation.
@@ -352,7 +372,7 @@ controller. `size="sm"` uses 28px segments and `lg` uses 46px segments; `glass`,
 `elastic` and `lift` have the same defaults and rendering as Tabs. Short labels
 truncate in constrained segments without changing accessible names. Held lens
 lift, label refraction, drag release, cancellation and reduced-motion behavior
-share one implementation. Radio state and native inputs remain Base UI-owned;
+share one implementation. Radio state and native inputs remain UI SDK-owned;
 decorative copies are inert, hidden from assistive technology and carry no form
 names. Empty options clear decorative copies and display the localizable
 emptyLabel. Tabs retain their own tab/panel associations and overflow navigation.
@@ -440,7 +460,7 @@ dragging and detents. ActionSheet presents a focused choice of operations, while
 ShareSheet composes Sheet for sharing targets and grouped actions. Keep those
 semantic roles distinct; there is no separate public Dialog alias.
 
-Sheet delegates drag and scroll arbitration to Base UI. A scrollable body can
+Sheet delegates drag and scroll arbitration to UI SDK. A scrollable body can
 scroll upward at a partial detent; it does not expand the sheet before scrolling.
 At full height, downward drags scroll existing content toward its top before the
 sheet can move from the scroll edge. Keep horizontal scrollers and Slider/text
@@ -689,7 +709,7 @@ process CPU.
 Menus sample independent width, height, center, content zoom and roundness
 channels on separate time-based opening and closing paths, including the closing
 drop and trigger return. Interrupted motion carries the current pose and velocity
-into the new trajectory. Base UI still owns interaction and placement; touch
+into the new trajectory. UI SDK still owns interaction and placement; touch
 scrolling in constrained menus and modifier keys on scrub activation stay native.
 
 GlassButton uses a white .34/.30 light/dark active wash and a .035 local

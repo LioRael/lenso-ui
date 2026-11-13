@@ -1,18 +1,19 @@
 # Contributing to Lenso UI
 
 Read `AGENTS.md` and `DESIGN.md` before changing source. `DESIGN.md` records the design direction and component contracts.
-Existing `packages/primitives` component source and public API remain unchanged; its tests and development tooling may evolve. The owner-authorized Command family is an additive exception.
+Lenso product primitives live in `packages/primitives`. Consume SDK-provided
+components directly; document public API changes and update their callers.
 
 ## Implementation and evidence
 
-Use compiled StyleX for component styling and native Base UI contracts for
-all interactions. Date, time and color families compose native Base UI parts
+Use compiled StyleX for component styling and native UI SDK contracts for
+all interactions. Date, time and color families compose native UI SDK parts
 around pure internationalized value/state models; do not restore React Aria
 interaction imports. Use oxlint and oxfmt.
 
 Preserve applicable copyright, license and modification notices for retained
 adaptations; see `THIRD_PARTY_NOTICES.md`. Preserve the MIT terms of the
-unchanged primitives. Treat imported snippets as reference material, not proof
+retained primitives. Treat imported snippets as reference material, not proof
 of a runnable local example.
 
 For changed behavior, identify the concrete failure and exercise the relevant
@@ -52,6 +53,22 @@ URL. It generates metadata once and starts TanStack Start/Vite against workspace
 sources; invoking bare Vite in `apps/docs` skips generation. Reuse a
 healthy existing dev server. If it fails, inspect its output and fix the dev
 failure before continuing the hot-reloading workflow.
+
+Agents share one development server and one browser tab per checkout, including
+parallel tasks. The default docs port is 4310. Before starting a process, inspect
+existing listeners and their working directories; reuse a healthy server serving
+this checkout. Reuse its browser tab when showing another component. If the port
+belongs to another project or checkout, leave that process alone and choose an
+explicit port for this checkout. A failed shared dev server should be diagnosed
+before starting a replacement.
+
+Use dev for component, theme, animation and documentation iteration. A successful
+production build alone is not a reason to start a static preview. Start one only
+when verifying a production-specific property such as emitted CSS, SSR/hydration,
+static routing or installed-package integration, or when the user requests it.
+Keep isolated test servers and tabs temporary: close them when their check ends.
+Leave only the requested dev entry open for the user. Stop only owned processes;
+preserve a shared dev server while other tasks or the user still use it.
 
 The last two commands are a normal component iteration, after the initial
 package build. They do not build the docs site. Docs development resolves UI,
@@ -111,6 +128,12 @@ for Menu, Select and cascading-menu transparency/tint during motion in Chromium
 and WebKit. It covers dynamic settings, closing, focus restoration and root
 popup reversal/reduced motion. Glass package tests also run the native-paint DOM
 regressions; these do not replace the rendered browser check.
+Run `DOCS_URL=<dev-url> bun run --filter @lenso/ui-docs test:glass-contour`
+for painted foreground continuity during control and pill Toast resizing, corner
+changes, AlertDialog/ActionSheet entry and Sheet detent changes in Chromium and WebKit,
+in both themes. Run `DOCS_URL=<dev-url> bun run --filter @lenso/ui-docs test:native-editor-rim`
+for Input/TextArea sibling contours, native typing, text selection, textarea
+resizing, refs, scrolling, read-only state, form submission and cleanup in both engines and themes.
 Run `bun run --filter @lenso/ui-docs test:first-paint` for Tabs and glass control
 geometry before and during hydration in Chromium and WebKit, in both themes.
 It serves an isolated fixture through the docs development pipeline.
@@ -126,7 +149,7 @@ for the docs composition at 390px and 4× Chromium CPU slowdown. It checks six
 transition endpoints and a geometry-read budget, and reports layout/style work
 and frame intervals. These timings are a local simulation, not iPhone FPS.
 Run `test:upstream-glass` against docs dev for TabBar tap rebound, pressed
-foreground rims and retained Base UI Sheet scroll/gesture ownership. It checks
+foreground rims and retained UI SDK Sheet scroll/gesture ownership. It checks
 Chromium/WebKit light/dark, keyboard and reduced motion, desktop RTL, and
 Chromium native touch arbitration. It does not establish physical-device parity.
 Run `bun run --filter @lenso/ui-docs test:document-loading` against docs dev for
@@ -219,14 +242,14 @@ fixed-group automatic release process.
 
 On a fresh checkout, first run `bun run build:packages` and `bun run --filter @lenso/ui-docs generate`; repeat the appropriate build or generation step after changing its inputs.
 
-The production suite also builds `apps/docs-starter` through its real Next host.
+The production suite also builds `apps/docs-starter` through its real Vite / TanStack Start host.
 This checks the independent documentation framework alongside the product docs;
 unit tests of generated source alone do not verify that host's prerendering.
 
 ### Preserved primitive React interop
 
 The two exact-file `react/refs` overrides in `.oxlintrc.json` cover preserved
-Base UI `mergeProps` event callbacks and `composeRefs` commit callbacks. Neither
+UI SDK `mergeProps` event callbacks and `composeRefs` commit callbacks. Neither
 reads `ref.current` during render. They do not exempt other files or permit ref
 reads in JSX. Other exceptions keep their concrete integration reason beside
 the affected statement.

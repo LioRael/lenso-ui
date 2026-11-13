@@ -1,5 +1,6 @@
 "use client";
-import { Input as BaseInput } from "@base-ui/react/input";
+import { Input as SdkInput, type InputState } from "@ui-sdk/react/input";
+import { slotRender } from "../../utils/sdk-render.js";
 import { inputStyles } from "@lenso/tokens/input";
 import { useElasticRef, useGlassRef } from "@lenso/glass/react";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
@@ -10,7 +11,7 @@ import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 
 export type InputProps = StyleXProps<
-  Omit<BaseInput.Props, "ref"> & React.RefAttributes<HTMLElement>
+  Omit<React.ComponentProps<typeof SdkInput>, "ref"> & React.RefAttributes<HTMLElement>
 > & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
@@ -18,7 +19,7 @@ export type InputProps = StyleXProps<
   glass?: boolean;
   /** Opt into elastic press/release feedback; native editing owns dragging. */
   elastic?: boolean;
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 export function InputRoot({
   variant = "primary",
@@ -27,7 +28,7 @@ export function InputRoot({
   elastic = false,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ref,
   ...props
 }: InputProps) {
@@ -46,12 +47,12 @@ export function InputRoot({
     xstyle,
   );
   return (
-    <BaseInput
+    <SdkInput
       {...props}
       {...compiled}
       ref={inputRef}
-      style={mergeStyle<BaseInput.State>(compiled.style, style)}
-      data-slot={slot ?? "input"}
+      style={mergeStyle<InputState>(compiled.style, style)}
+      render={slotRender("input", slot ?? "input", props.render)}
     />
   );
 }

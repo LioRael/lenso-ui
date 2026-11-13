@@ -9,16 +9,6 @@ export const sheetStyles = stylex.create({
     inset: 0,
     zIndex: tokens.zIndexOverlay,
     backgroundColor: "rgb(0 0 0 / .2)",
-    opacity: {
-      default: 1,
-      ":is([data-starting-style], [data-ending-style])": 0,
-    },
-    transitionProperty: "opacity",
-    transitionDuration: {
-      default: "250ms",
-      ":is([data-swiping])": "0ms",
-      "@media (prefers-reduced-motion: reduce)": "0ms",
-    },
   },
   undimmed: { backgroundColor: "transparent" },
   viewport: {
@@ -31,48 +21,29 @@ export const sheetStyles = stylex.create({
     height: "var(--visual-viewport-height, 100dvh)",
     overflow: "clip",
   },
+  nativeContent: {
+    visibility: {
+      default: null,
+      ":is([popover]:not(:popover-open),[data-closed]:not([data-ending-style]))": "hidden",
+    },
+    zIndex: tokens.zIndexOverlay,
+  },
   popup: {
-    "--lenso-sheet-position": {
-      default: "calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px))",
-      ":is([data-starting-style], [data-ending-style])": "var(--sheet-popup-height, 100dvh)",
-    },
-    "--sheet-shared-position": {
-      default: "initial",
-      ":is([data-sheet-clock]:not([data-sheet-entering], [data-ending-style]))":
-        "var(--lenso-sheet-position)",
-    },
-    "--sheet-snap-offset": "var(--drawer-snap-point-offset, 0px)",
+    borderWidth: 0,
+    marginInline: "auto",
+    "--sheet-stack": "var(--drawer-stack, 0)",
+    "--sheet-snap-offset": "calc((1 - var(--drawer-progress, 1)) * 100%)",
     "--sheet-nesting-offset": { default: "0px", ":is([data-sheet-nested])": "10px" },
     position: "relative",
     boxSizing: "border-box",
     width: { default: "100%", "@media (min-width: 768px)": "min(936px, calc(100% - 48px))" },
     height: {
-      default: "calc(100% - 62px)",
-      "@media (min-width: 768px)": "min(852px, calc(100% - 48px))",
+      default: "calc(100dvh - 62px)",
+      "@media (min-width: 768px)": "min(852px, calc(100dvh - 48px))",
     },
     marginBottom: { default: 0, "@media (min-width: 768px)": 24 },
     minHeight: 0,
     outline: "none",
-    transform: {
-      default:
-        "translateY(calc(var(--drawer-swipe-movement-y, 0px) + var(--drawer-snap-point-offset, 0px) + var(--sheet-nesting-offset, 0px)))",
-      ":is([data-starting-style], [data-ending-style])": "translateY(100%)",
-      ":is([data-sheet-clock])":
-        "translateY(calc(var(--lenso-sheet-position) + var(--sheet-nesting-offset, 0px)))",
-      ":is([data-sheet-clock][data-starting-style], [data-sheet-clock][data-ending-style])":
-        "translateY(var(--lenso-sheet-position))",
-    },
-    transitionProperty: {
-      default: "transform",
-      ":is([data-sheet-clock])": "--lenso-sheet-position",
-    },
-    transitionDuration: {
-      default: "calc(var(--sheet-motion-duration, 250ms) * var(--drawer-swipe-strength, 1))",
-      ":is([data-ending-style])": "calc(200ms * var(--drawer-swipe-strength, 1))",
-      ":is([data-swiping])": "0ms",
-      "@media (prefers-reduced-motion: reduce)": "0ms",
-    },
-    transitionTimingFunction: tokens.motionEaseOutFluid,
   },
   adaptivePopup: {
     "--sheet-motion-duration": "500ms",
@@ -106,9 +77,9 @@ export const sheetStyles = stylex.create({
     flexDirection: "column",
     overflow: "hidden",
     width: {
-      default: "calc(100% - var(--sheet-edge-inset, 6px) * 2)",
-      ":is([data-expanded] > *)": "calc(100% - var(--sheet-edge-inset, 0px) * 2)",
-      ":is([data-nested-drawer-open] > *)": "92%",
+      default: "calc(100% - var(--sheet-edge-inset, 6px) * 2 - min(var(--sheet-stack, 0), 1) * 8%)",
+      ":is([data-expanded] > *)":
+        "calc(100% - var(--sheet-edge-inset, 0px) * 2 - min(var(--sheet-stack, 0), 1) * 8%)",
       "@media (min-width: 768px)": "100%",
     },
     height: {
@@ -148,7 +119,7 @@ export const sheetStyles = stylex.create({
     transitionDuration: {
       default: "250ms",
       ":is([data-sheet-adaptive] > *)": "0ms",
-      ":is([data-swiping] > *)": "0ms",
+      ":is([data-dragging] > *)": "0ms",
       "@media (prefers-reduced-motion: reduce)": "0ms",
     },
     transitionTimingFunction: "cubic-bezier(.32,.72,0,1)",
@@ -182,7 +153,7 @@ export const sheetStyles = stylex.create({
     transitionDuration: {
       default: "250ms",
       ":is([data-sheet-adaptive] > * > *)": "0ms",
-      ":is([data-swiping] > * > *)": "0ms",
+      ":is([data-dragging] > * > *)": "0ms",
       "@media (prefers-reduced-motion: reduce)": "0ms",
     },
     transitionTimingFunction: "cubic-bezier(.32,.72,0,1)",
@@ -195,7 +166,10 @@ export const sheetStyles = stylex.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-end",
-    pointerEvents: "none",
+    pointerEvents: "auto",
+    borderWidth: 0,
+    padding: 0,
+    backgroundColor: "transparent",
   },
   handleBar: {
     width: 60,

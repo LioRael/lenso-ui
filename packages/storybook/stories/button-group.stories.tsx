@@ -159,46 +159,42 @@ export const Examples: Story = {
               <ButtonGroup.Separator />
               <ActionIcon icon="gravity-ui:chevron-down" />
             </Menu.Trigger>
-            <Menu.Portal>
-              <Menu.Positioner side="bottom" align="end">
-                <Menu.Popup xstyle={s.popup}>
-                  <Menu.Item
-                    xstyle={s.menuItem}
-                    id="merge"
-                    label="Create a merge commit"
-                    onClick={() => alert("Selected: merge")}
-                  >
-                    <Label>Create a merge commit</Label>
-                    <Description>
-                      All commits from this branch will be added to the base branch
-                    </Description>
-                  </Menu.Item>
-                  <Menu.Item
-                    xstyle={s.menuItem}
-                    id="squash-and-merge"
-                    label="Squash and merge"
-                    onClick={() => alert("Selected: squash-and-merge")}
-                  >
-                    <Label>Squash and merge</Label>
-                    <Description>
-                      The 14 commits from this branch will be combined into one commit in the base
-                      branch
-                    </Description>
-                  </Menu.Item>
-                  <Menu.Item
-                    xstyle={s.menuItem}
-                    id="rebase-and-merge"
-                    label="Rebase and merge"
-                    onClick={() => alert("Selected: rebase-and-merge")}
-                  >
-                    <Label>Rebase and merge</Label>
-                    <Description>
-                      The 14 commits from this branch will be rebased and added to the base branch
-                    </Description>
-                  </Menu.Item>
-                </Menu.Popup>
-              </Menu.Positioner>
-            </Menu.Portal>
+            <Menu.Content xstyle={s.popup} side="bottom" align="end">
+              <Menu.Item
+                xstyle={s.menuItem}
+                id="merge"
+                label="Create a merge commit"
+                onClick={() => alert("Selected: merge")}
+              >
+                <Label>Create a merge commit</Label>
+                <Description>
+                  All commits from this branch will be added to the base branch
+                </Description>
+              </Menu.Item>
+              <Menu.Item
+                xstyle={s.menuItem}
+                id="squash-and-merge"
+                label="Squash and merge"
+                onClick={() => alert("Selected: squash-and-merge")}
+              >
+                <Label>Squash and merge</Label>
+                <Description>
+                  The 14 commits from this branch will be combined into one commit in the base
+                  branch
+                </Description>
+              </Menu.Item>
+              <Menu.Item
+                xstyle={s.menuItem}
+                id="rebase-and-merge"
+                label="Rebase and merge"
+                onClick={() => alert("Selected: rebase-and-merge")}
+              >
+                <Label>Rebase and merge</Label>
+                <Description>
+                  The 14 commits from this branch will be rebased and added to the base branch
+                </Description>
+              </Menu.Item>
+            </Menu.Content>
           </Menu>
         </ButtonGroup>
       </div>

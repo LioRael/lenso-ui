@@ -55,7 +55,7 @@ export default defineConfig({
 });
 ```
 
-The named `unplugin` export also typechecks with the template's NodeNext configuration. `optimizeDeps.exclude` keeps Lenso declarations in StyleX compilation during development. The `optimizeDeps.include` entries pre-bundle Base UI's CommonJS dependencies while Lenso remains unbundled for style compilation; see [Vite dependency optimization](https://vite.dev/config/dep-optimization-options#optimizedeps-exclude).
+The named `unplugin` export also typechecks with the template's NodeNext configuration. `optimizeDeps.exclude` keeps Lenso declarations in StyleX compilation during development. The `optimizeDeps.include` entries pre-bundle UI SDK's CommonJS dependencies while Lenso remains unbundled for style compilation; see [Vite dependency optimization](https://vite.dev/config/dep-optimization-options#optimizedeps-exclude).
 
 ### Vite entry and example
 
@@ -102,11 +102,11 @@ export default function App() {
       </Button>
       <Menu.Root morphTrigger={false}>
         <Menu.Trigger render={<GlassButton />}>Actions</Menu.Trigger>
-        <Menu.Portal>
-          <Menu.Positioner>
-            <Menu.Popup><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Popup>
-          </Menu.Positioner>
-        </Menu.Portal>
+
+
+            <Menu.Content><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Content>
+
+
       </Menu.Root>
     </main>
   );
@@ -257,11 +257,11 @@ export default function Page() {
         </Button>
         <Menu.Root morphTrigger={false}>
           <Menu.Trigger render={<GlassButton />}>Actions</Menu.Trigger>
-          <Menu.Portal>
-            <Menu.Positioner>
-              <Menu.Popup><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Popup>
-            </Menu.Positioner>
-          </Menu.Portal>
+
+
+              <Menu.Content><Menu.Item onClick={() => setCount(0)}>Reset count</Menu.Item></Menu.Content>
+
+
         </Menu.Root>
       </main>
     </ThemeScope>

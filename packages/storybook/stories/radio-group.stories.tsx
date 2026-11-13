@@ -189,7 +189,9 @@ export const Controlled: Story = {
         <RadioGroup
           name="plan-controlled"
           value={value}
-          onValueChange={setValue}
+          onValueChange={(next) => {
+            if (next !== null) setValue(next);
+          }}
           aria-labelledby={id}
         >
           <ChoiceHeading id={id}>Subscription plan</ChoiceHeading>

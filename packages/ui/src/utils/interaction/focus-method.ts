@@ -16,7 +16,9 @@ function observe(document: Document) {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       const editing =
         event.target instanceof Element &&
-        event.target.matches("input, textarea, [contenteditable], [role='spinbutton']");
+        event.target.matches(
+          "input:not([type='range']), textarea, [contenteditable], [role='spinbutton']",
+        );
       if (
         event.key === "Tab" ||
         (!editing && !["Shift", "Control", "Alt", "Meta"].includes(event.key))

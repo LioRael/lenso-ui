@@ -151,7 +151,7 @@ export function SectionIndexStory({ disabled }: SectionIndexStoryProps) {
     <div {...stylex.props(s.root)}>
       <div
         ref={scroll}
-        data-slot="section-index-viewport"
+        data-lenso-slot="section-index-viewport"
         {...stylex.props(s.scroll)}
         onScroll={(event) => {
           const viewport = event.currentTarget;
@@ -217,7 +217,7 @@ export function SectionIndexStory({ disabled }: SectionIndexStoryProps) {
       {location.pinned && (
         <div
           aria-hidden="true"
-          data-slot="section-index-sticky-heading"
+          data-lenso-slot="section-index-sticky-heading"
           {...stylex.props(s.pinned)}
         >
           <div {...stylex.props(s.heading, s.noDivider, s.pinnedTitle(location.offset))}>
@@ -239,7 +239,7 @@ export function SectionIndexStory({ disabled }: SectionIndexStoryProps) {
             event.preventDefault();
         }}
         onValueChange={(next) => {
-          const section = headings.current.get(next)?.parentElement;
+          const section = next === null ? undefined : headings.current.get(next)?.parentElement;
           if (scroll.current && section)
             scroll.current.scrollTo({ top: section.offsetTop - barHeight, behavior: "instant" });
         }}

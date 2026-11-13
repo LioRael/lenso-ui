@@ -1,7 +1,5 @@
 "use client";
 import { createContext, use, type ReactNode } from "react";
-import { useDirection } from "@base-ui/react/direction-provider";
-import { DirectionProvider } from "@base-ui/react/direction-provider";
 export function isRTL(locale: string) {
   return /^(Arab|Hebr|Thaa|Nkoo|Adlm|Rohg|Syrc|Samr|Mand)$/.test(
     new Intl.Locale(locale).maximize().script ?? "",
@@ -12,7 +10,9 @@ export function I18nProvider({ locale, children }: { locale: string; children?: 
   const direction = isRTL(locale) ? "rtl" : "ltr";
   return (
     <LocaleContext value={locale}>
-      <DirectionProvider direction={direction}>{children}</DirectionProvider>
+      <div lang={locale} dir={direction} style={{ display: "contents" }}>
+        {children}
+      </div>
     </LocaleContext>
   );
 }
@@ -20,6 +20,6 @@ export function useLocale() {
   const locale = use(LocaleContext);
   return {
     locale,
-    direction: useDirection(),
+    direction: isRTL(locale) ? ("rtl" as const) : ("ltr" as const),
   };
 }

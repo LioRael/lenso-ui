@@ -39,7 +39,7 @@ test("editor and its confirmation inherit live appearance changes without droppi
     );
   const appearance = (slot: string) =>
     document
-      .querySelector(`[data-slot="${slot}"]`)
+      .querySelector(`[data-lenso-slot="${slot}"]`)
       ?.closest("[data-theme]")
       ?.getAttribute("data-theme");
   try {
@@ -56,7 +56,7 @@ test("editor and its confirmation inherit live appearance changes without droppi
     expect(appearance("action-sheet-popup")).toBe("light");
     await step(() =>
       document
-        .querySelector('[data-slot="action-sheet-popup"]')!
+        .querySelector('[data-lenso-slot="action-sheet-popup"]')!
         .dispatchEvent(
           new KeyboardEvent("keydown", { key: "Escape", code: "Escape", bubbles: true }),
         ),
@@ -105,14 +105,15 @@ test("unchanged edits cannot save and dirty cancellation preserves or discards t
     await step(() => button("Vivid").click());
     expect(button("Done").disabled).toBe(false);
     await step(() => button("Cancel").click());
-    expect(document.querySelector('[data-slot="action-sheet-popup"]')).not.toBeNull();
+    expect(document.querySelector('[data-lenso-slot="action-sheet-popup"]')).not.toBeNull();
     expect(
-      document.querySelector('[data-slot="action-sheet-popup"]')!.querySelectorAll("button").length,
+      document.querySelector('[data-lenso-slot="action-sheet-popup"]')!.querySelectorAll("button")
+        .length,
     ).toBe(1);
     expect(closed).toBe(0);
     await step(() =>
       document
-        .querySelector('[data-slot="action-sheet-popup"]')!
+        .querySelector('[data-lenso-slot="action-sheet-popup"]')!
         .dispatchEvent(
           new KeyboardEvent("keydown", { key: "Escape", code: "Escape", bubbles: true }),
         ),

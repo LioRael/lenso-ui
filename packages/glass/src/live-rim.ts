@@ -5,7 +5,7 @@ import { paintLiveRim, releaseLiveRim } from "./live-rim-gpu.js";
 import type { Shape } from "./optical-fields.js";
 
 /** The foreground does not wait for optical-map encoding or image decoding. */
-export function createLiveRim(element: HTMLElement) {
+export function createLiveRim(element: HTMLElement, output: HTMLElement = element) {
   const owner = {};
   let canvas: HTMLCanvasElement | undefined;
   let tiles: ReturnType<typeof foregroundRimTiles> | undefined;
@@ -13,6 +13,8 @@ export function createLiveRim(element: HTMLElement) {
   let geometry = "";
   const shadow = element.style.getPropertyValue("--lg-foreground-shadow");
   const clear = () => {
+    // Deferred optics may share the host with a contour owned by its animation.
+    if (!canvas) return;
     releaseLiveRim(owner);
     canvas?.remove();
     canvas = undefined;
@@ -50,7 +52,9 @@ export function createLiveRim(element: HTMLElement) {
         recipe = next;
         geometry = "";
       }
-      element.style.setProperty("--lg-foreground-shadow", foregroundRimShadow(shape.materialSize));
+      const shadow = foregroundRimShadow(shape.materialSize);
+      if (element.style.getPropertyValue("--lg-foreground-shadow") !== shadow)
+        element.style.setProperty("--lg-foreground-shadow", shadow);
       if (`${width}:${height}:${box.width}:${box.height}` === geometry) return;
       const gpu = layout ? paintLiveRim(width, height, radius, shape, layout, owner) : undefined;
       if (!gpu) tiles ??= foregroundRimTiles(radius, shape);
@@ -60,7 +64,7 @@ export function createLiveRim(element: HTMLElement) {
         canvas.className = stylex.props(materialStyles.liveRim).className!;
         canvas.setAttribute("data-lenso-live-rim", "");
         canvas.setAttribute("aria-hidden", "true");
-        element.append(canvas);
+        output.append(canvas);
       }
       // Pixels describe the visible contour; CSS counter-scales the fixed optical input.
       const scaleX = box.width / width,

@@ -106,10 +106,10 @@ export function PhotosLibraryMenu({
       screenshots: CopyPicture,
     }[value];
     return (
-      <Menu.RadioItem key={value} value={value} closeOnClick>
-        <Menu.RadioItemIndicator>
+      <Menu.RadioItem key={value} value={value} closeOnSelect>
+        <Menu.ItemIndicator>
           <Check />
-        </Menu.RadioItemIndicator>
+        </Menu.ItemIndicator>
         <Menu.Item.Icon>
           <Icon width={20} height={20} />
         </Menu.Item.Icon>
@@ -126,112 +126,95 @@ export function PhotosLibraryMenu({
           <BarsDescendingAlignCenter width={22} height={22} />
         </span>
       </Menu.Trigger>
-      <Menu.Portal>
-        <Menu.Positioner side="bottom" align="end">
-          <Menu.Popup aria-label="Sort and filter" xstyle={s.popup}>
-            {library && (
-              <>
-                <Menu.RadioGroup value="added" {...stylex.props(s.sort)} aria-label="Sort by">
-                  <Menu.RadioItem
-                    value="added"
-                    aria-label="Date Added"
-                    xstyle={[s.sortItem, s.active]}
-                  >
-                    <Clock width={20} height={20} />
-                    Added
-                  </Menu.RadioItem>
-                  <Menu.RadioItem
-                    value="captured"
-                    aria-label="Date Captured"
-                    disabled
-                    title="Capture dates are unavailable for these samples"
-                    xstyle={s.sortItem}
-                  >
-                    <Camera width={20} height={20} />
-                    Captured
-                    <span {...stylex.props(s.unavailable)}>Unavailable</span>
-                  </Menu.RadioItem>
-                </Menu.RadioGroup>
-                <Menu.Separator />
-                <Menu.Group>
-                  <Menu.Group.Label xstyle={s.sectionLabel}>Filter</Menu.Group.Label>
+      <Menu.Content aria-label="Sort and filter" xstyle={s.popup} side="bottom" align="end">
+        {library && (
+          <>
+            <Menu.RadioGroup value="added" {...stylex.props(s.sort)} aria-label="Sort by">
+              <Menu.RadioItem value="added" aria-label="Date Added" xstyle={[s.sortItem, s.active]}>
+                <Clock width={20} height={20} />
+                Added
+              </Menu.RadioItem>
+              <Menu.RadioItem
+                value="captured"
+                aria-label="Date Captured"
+                disabled
+                title="Capture dates are unavailable for these samples"
+                xstyle={s.sortItem}
+              >
+                <Camera width={20} height={20} />
+                Captured
+                <span {...stylex.props(s.unavailable)}>Unavailable</span>
+              </Menu.RadioItem>
+            </Menu.RadioGroup>
+            <Menu.Separator />
+            <Menu.Group>
+              <Menu.Group.Label xstyle={s.sectionLabel}>Filter</Menu.Group.Label>
+              <Menu.RadioGroup
+                value={filter}
+                onValueChange={(value) => onFilter(value as PhotoFilter)}
+              >
+                {(["all", "favorites", "edited", "shared", "mine", "unfiled"] as const).map(item)}
+              </Menu.RadioGroup>
+              <Menu.Sub>
+                <Menu.SubTrigger>
+                  <Menu.Item.Icon>
+                    <CopyPicture width={20} height={20} />
+                  </Menu.Item.Icon>
+                  <Menu.Item.Label>Media Types</Menu.Item.Label>
+                  <Menu.Item.SubmenuIndicator>
+                    <ChevronRight />
+                  </Menu.Item.SubmenuIndicator>
+                </Menu.SubTrigger>
+                <Menu.SubContent aria-label="Media types" side="bottom" align="end">
                   <Menu.RadioGroup
                     value={filter}
                     onValueChange={(value) => onFilter(value as PhotoFilter)}
                   >
-                    {(["all", "favorites", "edited", "shared", "mine", "unfiled"] as const).map(
-                      item,
-                    )}
+                    {(["photos", "videos", "screenshots"] as const).map(item)}
                   </Menu.RadioGroup>
-                  <Menu.SubmenuRoot>
-                    <Menu.SubmenuTrigger>
-                      <Menu.Item.Icon>
-                        <CopyPicture width={20} height={20} />
-                      </Menu.Item.Icon>
-                      <Menu.Item.Label>Media Types</Menu.Item.Label>
-                      <Menu.Item.SubmenuIndicator>
-                        <ChevronRight />
-                      </Menu.Item.SubmenuIndicator>
-                    </Menu.SubmenuTrigger>
-                    <Menu.Portal>
-                      <Menu.Positioner>
-                        <Menu.Popup aria-label="Media types">
-                          <Menu.RadioGroup
-                            value={filter}
-                            onValueChange={(value) => onFilter(value as PhotoFilter)}
-                          >
-                            {(["photos", "videos", "screenshots"] as const).map(item)}
-                          </Menu.RadioGroup>
-                        </Menu.Popup>
-                      </Menu.Positioner>
-                    </Menu.Portal>
-                  </Menu.SubmenuRoot>
-                </Menu.Group>
+                </Menu.SubContent>
+              </Menu.Sub>
+            </Menu.Group>
+            <Menu.Separator />
+          </>
+        )}
+        <Menu.Sub>
+          <Menu.SubTrigger>
+            View Options
+            <Menu.Item.SubmenuIndicator>
+              <ChevronRight />
+            </Menu.Item.SubmenuIndicator>
+          </Menu.SubTrigger>
+          <Menu.SubContent aria-label="View options" side="bottom" align="end">
+            {grid && (
+              <>
+                <Menu.Item disabled={!dense} onClick={() => onDense(false)}>
+                  Zoom In
+                </Menu.Item>
+                <Menu.Item disabled={dense} onClick={() => onDense(true)}>
+                  Zoom Out
+                </Menu.Item>
+                <Menu.CheckboxItem
+                  checked={!cropped}
+                  onCheckedChange={(value) => onCropped(!value)}
+                  closeOnSelect={false}
+                  value="photos-library-menu"
+                >
+                  <Menu.ItemIndicator>
+                    <Check />
+                  </Menu.ItemIndicator>
+                  Aspect Ratio Grid
+                </Menu.CheckboxItem>
                 <Menu.Separator />
               </>
             )}
-            <Menu.SubmenuRoot>
-              <Menu.SubmenuTrigger>
-                View Options
-                <Menu.Item.SubmenuIndicator>
-                  <ChevronRight />
-                </Menu.Item.SubmenuIndicator>
-              </Menu.SubmenuTrigger>
-              <Menu.Portal>
-                <Menu.Positioner>
-                  <Menu.Popup aria-label="View options">
-                    {grid && (
-                      <>
-                        <Menu.Item disabled={!dense} onClick={() => onDense(false)}>
-                          Zoom In
-                        </Menu.Item>
-                        <Menu.Item disabled={dense} onClick={() => onDense(true)}>
-                          Zoom Out
-                        </Menu.Item>
-                        <Menu.CheckboxItem
-                          checked={!cropped}
-                          onCheckedChange={(value) => onCropped(!value)}
-                          closeOnClick={false}
-                        >
-                          <Menu.CheckboxItemIndicator>
-                            <Check />
-                          </Menu.CheckboxItemIndicator>
-                          Aspect Ratio Grid
-                        </Menu.CheckboxItem>
-                        <Menu.Separator />
-                      </>
-                    )}
-                    <Menu.Item onClick={() => onDark(!dark)}>
-                      <Menu.Item.Icon>{dark ? <Sun /> : <Moon />}</Menu.Item.Icon>
-                      {dark ? "Light appearance" : "Dark appearance"}
-                    </Menu.Item>
-                  </Menu.Popup>
-                </Menu.Positioner>
-              </Menu.Portal>
-            </Menu.SubmenuRoot>
-          </Menu.Popup>
-        </Menu.Positioner>
-      </Menu.Portal>
+            <Menu.Item onClick={() => onDark(!dark)}>
+              <Menu.Item.Icon>{dark ? <Sun /> : <Moon />}</Menu.Item.Icon>
+              {dark ? "Light appearance" : "Dark appearance"}
+            </Menu.Item>
+          </Menu.SubContent>
+        </Menu.Sub>
+      </Menu.Content>
     </Menu>
   );
 }

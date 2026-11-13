@@ -24,7 +24,6 @@ export default defineConfig({
   },
   deps: {
     neverBundle: [
-      "@base-ui/react",
       "@ui-sdk/core",
       "@ui-sdk/react",
       "@lenso/glass",

@@ -67,31 +67,26 @@ export function CustomTrigger() {
           <p {...stylex.props(styles.caption)}>永久移除此条目</p>
         </div>
       </AlertDialog.Trigger>
-      <AlertDialog.Portal>
-        <AlertDialog.Backdrop />
-        <AlertDialog.Viewport>
-          <AlertDialog.Popup xstyle={styles.popup}>
-            <AlertDialog.Close aria-label="Close dialog" />
-            <AlertDialog.Header>
-              <AlertDialog.Icon variant="danger">
-                <TrashBin {...stylex.props(styles.glyph)} />
-              </AlertDialog.Icon>
-              <AlertDialog.Title>要删除此条目吗？</AlertDialog.Title>
-            </AlertDialog.Header>
-            <AlertDialog.Body>
-              <AlertDialog.Description>
-                Use <code>AlertDialog.Trigger</code> to create custom trigger elements beyond
-                standard buttons. This example shows a card-style trigger with icons and descriptive
-                text.
-              </AlertDialog.Description>
-            </AlertDialog.Body>
-            <AlertDialog.Footer>
-              <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
-              <AlertDialog.Action variant="destructive">删除条目</AlertDialog.Action>
-            </AlertDialog.Footer>
-          </AlertDialog.Popup>
-        </AlertDialog.Viewport>
-      </AlertDialog.Portal>
+      <AlertDialog.Backdrop />
+      <AlertDialog.Content xstyle={styles.popup}>
+        <AlertDialog.Close aria-label="Close dialog" />
+        <AlertDialog.Header>
+          <AlertDialog.Icon variant="danger">
+            <TrashBin {...stylex.props(styles.glyph)} />
+          </AlertDialog.Icon>
+          <AlertDialog.Title>要删除此条目吗？</AlertDialog.Title>
+        </AlertDialog.Header>
+        <AlertDialog.Body>
+          <AlertDialog.Description>
+            Use <code>AlertDialog.Trigger</code>to create custom trigger elements beyond standard
+            buttons. This example shows a card-style trigger with icons and descriptive text.
+          </AlertDialog.Description>
+        </AlertDialog.Body>
+        <AlertDialog.Footer>
+          <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
+          <AlertDialog.Action variant="destructive">删除条目</AlertDialog.Action>
+        </AlertDialog.Footer>
+      </AlertDialog.Content>
     </AlertDialog>
   );
 }

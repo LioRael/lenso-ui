@@ -24,7 +24,7 @@ for (const [name, type] of [
         mount(host, 1, theme, 0.5);
       }, theme);
       const card = page
-        .locator("#opacity-appearance [data-slot=glass]")
+        .locator("#opacity-appearance [data-lenso-slot=glass]")
         .filter({ hasText: "清晰文字" });
       await card.scrollIntoViewIfNeeded();
       await page.getByRole("button", { name: "Menu", exact: true }).click();

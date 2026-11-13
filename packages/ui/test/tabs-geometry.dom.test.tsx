@@ -32,7 +32,7 @@ test.each([
           node.getBoundingClientRect = () => new DOMRect(10 + left, 20, width, height);
         };
         geometry(bar, 0, 304, 48);
-        const tabs = bar.querySelectorAll<HTMLElement>('[data-slot="tabs-tab"]');
+        const tabs = bar.querySelectorAll<HTMLElement>('[data-lenso-slot="tabs-tab"]');
         tabs.forEach((tab, index) => {
           const position = direction === "rtl" ? 2 - index : index;
           geometry(tab, 2 + position * (itemWidth + 4), itemWidth, 44);
@@ -44,7 +44,7 @@ test.each([
         <div
           ref={ref}
           role="tablist"
-          data-slot="tabs-list"
+          data-lenso-slot="tabs-list"
           style={{
             direction,
             gap: 4,
@@ -52,13 +52,13 @@ test.each([
             ...{ "--lg-tabs-indicator-inset": `${inset}px` },
           }}
         >
-          <span data-slot="tabs-glass" />
+          <span data-lenso-slot="tabs-glass" />
           {[0, 1, 2].map((index) => (
             <button
               key={index}
               role="tab"
               id={`tab-${index}`}
-              data-slot="tabs-tab"
+              data-lenso-slot="tabs-tab"
               aria-selected={index === 2}
               onClick={() => {
                 activations.push(index);
@@ -69,19 +69,19 @@ test.each([
             </button>
           ))}
           <span data-lg-tabs-lens="native" />
-          <span data-slot="tabs-tint" />
-          <span data-slot="tabs-row" />
-          <span data-slot="tabs-centre-row" />
-          <span data-slot="tabs-highlight-ring" />
-          <span data-slot="tabs-highlight-centre" />
-          <span data-slot="tabs-highlight-optics" />
+          <span data-lenso-slot="tabs-tint" />
+          <span data-lenso-slot="tabs-row" />
+          <span data-lenso-slot="tabs-centre-row" />
+          <span data-lenso-slot="tabs-highlight-ring" />
+          <span data-lenso-slot="tabs-highlight-centre" />
+          <span data-lenso-slot="tabs-highlight-optics" />
         </div>
       );
     }
     try {
       await act(() => root.render(<Example />));
-      const bar = host.querySelector<HTMLElement>('[data-slot="tabs-list"]')!;
-      const tint = host.querySelector<HTMLElement>('[data-slot="tabs-tint"]')!;
+      const bar = host.querySelector<HTMLElement>('[data-lenso-slot="tabs-list"]')!;
+      const tint = host.querySelector<HTMLElement>('[data-lenso-slot="tabs-tint"]')!;
       expect(bar.hasAttribute("data-ready")).toBe(true);
       expect(tint.style.width).toBe(`${itemWidth}px`);
       expect(tint.style.left).toBe(direction === "rtl" ? "202.25px" : "2px");

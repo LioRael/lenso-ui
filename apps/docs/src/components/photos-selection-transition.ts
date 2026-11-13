@@ -75,7 +75,7 @@ export function usePhotosSelectionTransition(selecting: boolean) {
     });
     const footer = host
       .closest("main")
-      ?.querySelector(selecting ? "[data-photo-selection-footer]" : '[data-slot="tab-bar"]');
+      ?.querySelector(selecting ? "[data-photo-selection-footer]" : '[data-lenso-slot="tab-bar"]');
     if (footer) play(footer, [{ transform: "translateY(10px)" }, { transform: "none" }], 180);
   }, [selecting]);
   useLayoutEffect(

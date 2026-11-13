@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useRender } from "@base-ui/react/use-render";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { renderElement, type PartProps } from "@ui-sdk/react/primitive";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import {
   GlassFusionContext,
   attachFusion,
@@ -15,7 +15,7 @@ import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { Glass } from "../glass/glass.js";
 
-export type GlassContainerProps = StyleXProps<useRender.ComponentProps<"div">> & {
+export type GlassContainerProps = StyleXProps<PartProps<"div">> & {
   /** Smooth-union blend radius in CSS px. Default: 20. */
   spacing?: number;
   /** Disable the connecting bridges. */
@@ -73,29 +73,32 @@ function Container({
     tint !== undefined && glassContainerStyles.tint(tint),
     xstyle,
   );
-  const result = useRender({
-    defaultTagName: "div",
+  const result = renderElement(
+    "div",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, props, {
+        style: mergeStyle(compiled.style, style),
+        "data-lenso-slot": props["data-lenso-slot"] ?? "glass-container",
+        children: (
+          <>
+            {children}
+            <div
+              {...stylex.props(glassContainerStyles.surface)}
+              ref={setSurface}
+              aria-hidden="true"
+              data-lenso-glass-fusion=""
+              hidden
+            >
+              <div {...stylex.props(glassContainerStyles.rim)} />
+            </div>
+          </>
+        ),
+      }),
+      ref: containerRef,
+    },
     render,
-    ref: containerRef,
-    props: mergeProps(compiled, props, {
-      style: mergeStyle(compiled.style, style),
-      "data-slot": props["data-slot"] ?? "glass-container",
-      children: (
-        <>
-          {children}
-          <div
-            {...stylex.props(glassContainerStyles.surface)}
-            ref={setSurface}
-            aria-hidden="true"
-            data-lenso-glass-fusion=""
-            hidden
-          >
-            <div {...stylex.props(glassContainerStyles.rim)} />
-          </div>
-        </>
-      ),
-    }),
-  });
+  );
   return (
     <GlassFusionContext value={disabled || opaque ? null : group}>{result}</GlassFusionContext>
   );

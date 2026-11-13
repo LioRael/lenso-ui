@@ -7,8 +7,8 @@ import { navigation as s } from "./navigation.stylex";
 export function NavigationContractFixture() {
   const anchor = useRef<HTMLAnchorElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
-  const renderedButton = useRef<HTMLElement>(null);
-  const tab = useRef<HTMLElement>(null);
+  const renderedButton = useRef<HTMLButtonElement>(null);
+  const tab = useRef<HTMLButtonElement>(null);
   const [proof, setProof] = useState("Not checked");
   const [clicks, setClicks] = useState(0);
   return (
@@ -51,9 +51,9 @@ export function NavigationContractFixture() {
           <Disclosure.Body>Dynamic StyleX content</Disclosure.Body>
         </Disclosure.Content>
       </Disclosure>
-      <Tabs dir="rtl" defaultValue="one">
+      <Tabs activation="manual" dir="rtl" defaultValue="one">
         <Tabs.ListContainer>
-          <Tabs.List aria-label="Native manual RTL tabs" activateOnFocus={false}>
+          <Tabs.List aria-label="Native manual RTL tabs">
             <Tabs.Tab value="one" ref={tab}>
               One
             </Tabs.Tab>

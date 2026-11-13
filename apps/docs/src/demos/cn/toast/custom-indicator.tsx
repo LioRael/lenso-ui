@@ -1,11 +1,14 @@
 "use client";
+import type { ReactNode } from "react";
 
 import { Star } from "@gravity-ui/icons";
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
-import { Notifications, styles, type ToastData } from "../../en/toast/_shared";
+import { Notifications, styles } from "../../en/toast/_shared";
+const toaster = createToaster<ReactNode>();
+
 function Message() {
-  const manager = Toast.useToastManager<ToastData>();
+  const manager = toaster;
   return (
     <>
       <div {...stylex.props(styles.frame)}>
@@ -13,7 +16,7 @@ function Message() {
           size="sm"
           variant="bordered"
           onClick={() =>
-            manager.add({
+            manager({
               title: "Custom icon indicator",
               data: {
                 indicator: <Star />,
@@ -24,14 +27,14 @@ function Message() {
           自定义指示器
         </Button>
       </div>
-      <Notifications />
+      <Notifications toaster={toaster} />
     </>
   );
 }
 export function CustomIndicator() {
   return (
-    <Toast.Provider>
+    <>
       <Message />
-    </Toast.Provider>
+    </>
   );
 }

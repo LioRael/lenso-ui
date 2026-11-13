@@ -7,9 +7,9 @@ export function RenderFunction() {
     <ColorSwatchPicker aria-label="Color" data-custom="foo">
       {colors.map((color) => (
         <ColorSwatchPicker.Item key={color} color={color}>
-          {({ isSelected }) => (
+          {({ selected }) => (
             <>
-              <ColorSwatchPicker.Swatch data-selected={isSelected || undefined} />
+              <ColorSwatchPicker.Swatch data-selected={selected || undefined} />
               <ColorSwatchPicker.Indicator />
             </>
           )}

@@ -1,10 +1,10 @@
 "use client";
 import { ChevronsExpandVertical } from "@gravity-ui/icons";
-import { NativeAutocomplete } from "./_native";
+import { OptionPicker } from "./_native";
 import { states } from "./default";
 export function CustomIndicator() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={states}
       label="State"
       searchLabel="Search states"

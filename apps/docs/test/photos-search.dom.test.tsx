@@ -26,7 +26,7 @@ test.each([390, 834])(
       const main = host.querySelector("main")!;
       main.scrollTop = 240;
       const triggerSelector =
-        width < 768 ? '[data-slot="tab-bar-button"]' : 'button[aria-label="Search"]';
+        width < 768 ? '[data-lenso-slot="tab-bar-button"]' : 'button[aria-label="Search"]';
       expect(host.querySelector("nav")?.dataset.layout).toBe(width < 768 ? "phone" : "tablet");
       await act(() => host.querySelector<HTMLButtonElement>(triggerSelector)!.click());
       const input = host.querySelector<HTMLInputElement>('input[name="photos-search"]')!;

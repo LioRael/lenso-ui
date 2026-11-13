@@ -16,33 +16,29 @@ export function BackdropVariants() {
           <AlertDialog.Trigger render={<Button />}>
             {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </AlertDialog.Trigger>
-          <AlertDialog.Portal>
-            <AlertDialog.Backdrop variant={variant} />
-            <AlertDialog.Viewport>
-              <AlertDialog.Popup xstyle={styles.popup}>
-                <AlertDialog.Close aria-label="Close dialog" />
-                <AlertDialog.Header>
-                  <AlertDialog.Icon variant="accent" />
-                  <AlertDialog.Title>
-                    Backdrop: {variant.charAt(0).toUpperCase() + variant.slice(1)}
-                  </AlertDialog.Title>
-                </AlertDialog.Header>
-                <AlertDialog.Body>
-                  <AlertDialog.Description>
-                    {variant === "opaque"
-                      ? "An opaque dark backdrop that completely obscures the background, providing maximum focus on the dialog."
-                      : variant === "blur"
-                        ? "A blurred backdrop that softly obscures the background while maintaining visual context."
-                        : "A transparent backdrop that keeps the background fully visible, useful for less critical confirmations."}
-                  </AlertDialog.Description>
-                </AlertDialog.Body>
-                <AlertDialog.Footer>
-                  <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
-                  <AlertDialog.Action>Confirm</AlertDialog.Action>
-                </AlertDialog.Footer>
-              </AlertDialog.Popup>
-            </AlertDialog.Viewport>
-          </AlertDialog.Portal>
+          <AlertDialog.Backdrop variant={variant} />
+          <AlertDialog.Content xstyle={styles.popup}>
+            <AlertDialog.Close aria-label="Close dialog" />
+            <AlertDialog.Header>
+              <AlertDialog.Icon variant="accent" />
+              <AlertDialog.Title>
+                Backdrop: {variant.charAt(0).toUpperCase() + variant.slice(1)}
+              </AlertDialog.Title>
+            </AlertDialog.Header>
+            <AlertDialog.Body>
+              <AlertDialog.Description>
+                {variant === "opaque"
+                  ? "An opaque dark backdrop that completely obscures the background, providing maximum focus on the dialog."
+                  : variant === "blur"
+                    ? "A blurred backdrop that softly obscures the background while maintaining visual context."
+                    : "A transparent backdrop that keeps the background fully visible, useful for less critical confirmations."}
+              </AlertDialog.Description>
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+              <AlertDialog.Action>Confirm</AlertDialog.Action>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
         </AlertDialog>
       ))}
     </div>

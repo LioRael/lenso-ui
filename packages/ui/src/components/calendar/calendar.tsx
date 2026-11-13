@@ -1,11 +1,15 @@
 "use client";
-// Modified: Base UI buttons/render contracts and internationalized calendar state.
+// Modified: UI SDK buttons/render contracts and internationalized calendar state.
 import type * as React from "react";
+import type { ButtonActionDetails } from "@ui-sdk/react/button";
+import { withSource } from "@ui-sdk/core/observe";
 import {
   createContext,
+  useCallback,
   use,
   useMemo,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   cloneElement,
@@ -13,12 +17,11 @@ import {
   type ReactElement,
   type ReactNode,
   type CSSProperties,
-  type KeyboardEvent,
   type PointerEvent,
 } from "react";
 import { NativeButton as Button } from "../../utils/native-button.js";
-import { useRender } from "@base-ui/react/use-render";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { usePart, renderElement, type PartProps } from "@ui-sdk/react/primitive";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import {
   useCalendarState,
   type DateValue,
@@ -27,17 +30,26 @@ import {
 } from "react-stately/useCalendarState";
 import {
   CalendarDate,
+  toCalendarDate,
   DateFormatter,
   createCalendar,
   getLocalTimeZone,
-  startOfWeek,
-  endOfWeek,
   today,
   isSameDay,
   isSameMonth,
+  startOfWeek,
   type CalendarIdentifier,
   type DateDuration,
 } from "@internationalized/date";
+import { bindDrag, dragThreshold } from "@ui-sdk/core";
+import { calendar as calendarPrimitive } from "@lenso/primitives/model-control";
+import {
+  useModelControl,
+  type ModelValueOptions,
+  type ModelControlHandle,
+} from "../../utils/model-control.js";
+import { encodeDate, decodeDate } from "../../utils/date-values.js";
+import { moveCalendarFocus } from "../../utils/calendar-control.js";
 import * as stylex from "@stylexjs/stylex";
 import { calendarStyles as styles } from "@lenso/tokens/calendar";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
@@ -57,6 +69,7 @@ import {
   useYearPicker,
   type YearPickerOptions,
 } from "../calendar-year-picker/year-picker-context.js";
+export const CalendarControlContext = createContext<ModelControlHandle | null>(null);
 export const CalendarView = createContext<{
   days?: number;
   firstDayOfWeek?: CalendarProps<DateValue>["firstDayOfWeek"];
@@ -97,17 +110,24 @@ export type CalendarRenderState = {
   state: NativeCalendarState;
 };
 export type CalendarDOMProps = Omit<
-  useRender.ComponentProps<"div", CalendarRenderState>,
+  PartProps<"div", CalendarRenderState>,
   "children" | "style" | "onChange" | "defaultValue" | "onFocusChange"
 > & {
   children?: ReactNode | ((state: CalendarRenderState) => ReactNode);
   style?: CSSProperties | ((state: CalendarRenderState) => CSSProperties | undefined);
   visibleDuration?: DateDuration;
 };
+type CalendarControlOptions<T extends DateValue, M extends CalendarSelectionMode> = Pick<
+  ModelValueOptions<Exclude<CalendarProps<T, M>["value"], undefined | null>>,
+  "onValueChange" | "controller"
+>;
 export type CalendarRootProps<
   T extends DateValue = DateValue,
   M extends CalendarSelectionMode = "single",
-> = StyleXProps<CalendarDOMProps> & CalendarProps<T, M> & YearPickerOptions;
+> = StyleXProps<CalendarDOMProps> &
+  CalendarProps<T, M> &
+  CalendarControlOptions<T, M> &
+  YearPickerOptions;
 export function CalendarRoot<
   T extends DateValue = DateValue,
   M extends CalendarSelectionMode = "single",
@@ -117,14 +137,19 @@ export function CalendarRoot<
   onYearPickerOpenChange,
   ...props
 }: CalendarRootProps<T, M>) {
+  const picker = use(PickerDateContext);
   return (
-    <YearPickerProvider {...{ isYearPickerOpen, defaultYearPickerOpen, onYearPickerOpenChange }}>
+    <YearPickerProvider
+      disabled={props.isDisabled ?? picker?.calendarProps.isDisabled}
+      label={props["aria-label"]}
+      {...{ isYearPickerOpen, defaultYearPickerOpen, onYearPickerOpenChange }}
+    >
       <CalendarInner {...props} />
     </YearPickerProvider>
   );
 }
 function CalendarInner<T extends DateValue, M extends CalendarSelectionMode>(
-  props: StyleXProps<CalendarDOMProps> & CalendarProps<T, M>,
+  props: StyleXProps<CalendarDOMProps> & CalendarProps<T, M> & CalendarControlOptions<T, M>,
 ) {
   const { locale } = useLocale();
   const { calendarRef } = useYearPicker();
@@ -137,21 +162,62 @@ function CalendarInner<T extends DateValue, M extends CalendarSelectionMode>(
     picker &&
     props.selectionMode !== "multiple";
   const selection = props.value ?? props.defaultValue;
-  const state = useCalendarState<DateValue, CalendarSelectionMode>({
-    ...options,
-    ...bounds,
-    locale,
-    createCalendar,
-    value: inherit ? picker.model.dateValue : props.value,
-    defaultFocusedValue:
-      props.defaultFocusedValue ??
-      (Array.isArray(selection) && selection.length === 0 ? today(getLocalTimeZone()) : undefined),
-    onChange: (value) => {
-      if (inherit && value && !Array.isArray(value)) picker.select(value as DateValue);
-      props.onChange?.(value as Parameters<NonNullable<typeof props.onChange>>[0]);
+  const control = useModelControl<DateValue | readonly DateValue[]>(
+    calendarPrimitive,
+    {
+      ...options,
+      value: inherit
+        ? picker.model.dateValue
+        : Array.isArray(props.value)
+          ? props.value.filter((date): date is T => date !== null)
+          : (props.value as DateValue | null),
+      defaultValue: Array.isArray(props.defaultValue)
+        ? props.defaultValue.filter((date): date is T => date !== null)
+        : (props.defaultValue as DateValue | null),
+      onValueChange(value, details) {
+        props.onValueChange?.(
+          value as Parameters<NonNullable<CalendarControlOptions<T, M>["onValueChange"]>>[0],
+          details,
+        );
+        if (!details.canceled && inherit && (value === null || "calendar" in value)) {
+          if (picker.select(value, details) === false) details.cancel();
+        }
+        if (!details.canceled)
+          props.onChange?.(value as Parameters<NonNullable<typeof props.onChange>>[0]);
+      },
+      onChange: undefined,
     },
-  });
-  const gestures = useCalendarGestures(state);
+    (value) =>
+      value === null
+        ? null
+        : "calendar" in value
+          ? encodeDate(value)
+          : value.map((date) => date.toString()),
+    useCallback(
+      (value) =>
+        Array.isArray(value)
+          ? value.map((date) => decodeDate(date, props.defaultFocusedValue)!)
+          : decodeDate(value, props.defaultFocusedValue),
+      [props.defaultFocusedValue],
+    ),
+    { move: (event, from) => moveCalendarFocus(event, from, state, locale, props.firstDayOfWeek) },
+  );
+  const state: ReturnType<typeof useCalendarState<DateValue, CalendarSelectionMode>> =
+    useCalendarState<DateValue, CalendarSelectionMode>({
+      ...options,
+      ...bounds,
+      locale,
+      createCalendar,
+      value: control.value,
+      defaultValue: undefined,
+      defaultFocusedValue:
+        props.defaultFocusedValue ??
+        (Array.isArray(selection) && selection.length === 0
+          ? today(getLocalTimeZone())
+          : undefined),
+      onChange: control.change,
+    });
+  const gestures = useCalendarGestures(state, control.handle);
   const { xstyle, style, render, ref, children } = props;
   const presentation: CalendarRenderState = {
     isDisabled: state.isDisabled,
@@ -160,46 +226,52 @@ function CalendarInner<T extends DateValue, M extends CalendarSelectionMode>(
     state,
   };
   const compiled = stylex.props(styles.root, xstyle);
-  const element = useRender({
-    defaultTagName: "div",
-    render,
-    ref: (node) => {
-      const caller = assignRef(ref, node);
-      const own = assignRef(calendarRef, node);
-      return () => {
-        caller();
-        own();
-      };
+  const element = usePart(
+    control.handle,
+    "root",
+    {},
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, calendarDOMProps(props), {
+        role: props.role ?? "group",
+        "data-lenso-slot": props["data-lenso-slot"] ?? "calendar",
+        "data-disabled": state.isDisabled || undefined,
+        style:
+          typeof style === "function"
+            ? { ...compiled.style, ...style(presentation) }
+            : mergeStyle(compiled.style, style),
+        children: typeof children === "function" ? children(presentation) : children,
+      }),
+      render: (node) => renderElement("div", node, render, presentation),
+      ref: (node: React.ComponentRef<"div"> | null) => {
+        const caller = assignRef(ref, node);
+        const own = assignRef(calendarRef, node);
+        return () => {
+          caller();
+          own();
+        };
+      },
     },
-    state: presentation,
-    stateAttributesMapping: { state: () => null },
-    props: mergeProps(compiled, calendarDOMProps(props), {
-      role: props.role ?? "group",
-      "data-slot": props["data-slot"] ?? "calendar",
-      "data-disabled": state.isDisabled || undefined,
-      style:
-        typeof style === "function"
-          ? { ...compiled.style, ...style(presentation) }
-          : mergeStyle(compiled.style, style),
-      children: typeof children === "function" ? children(presentation) : children,
-    }),
-  });
+    "div",
+  );
   return (
-    <CalendarStateContext value={state}>
-      <CalendarGestures value={gestures}>
-        <CalendarView
-          value={{
-            days:
-              props.visibleDuration?.days ??
-              (props.visibleDuration?.weeks ? props.visibleDuration.weeks * 7 : undefined),
-            firstDayOfWeek: props.firstDayOfWeek,
-            autoFocus: props.autoFocus,
-          }}
-        >
-          {element}
-        </CalendarView>
-      </CalendarGestures>
-    </CalendarStateContext>
+    <CalendarControlContext value={control.handle}>
+      <CalendarStateContext value={state}>
+        <CalendarGestures value={gestures}>
+          <CalendarView
+            value={{
+              days:
+                props.visibleDuration?.days ??
+                (props.visibleDuration?.weeks ? props.visibleDuration.weeks * 7 : undefined),
+              firstDayOfWeek: props.firstDayOfWeek,
+              autoFocus: props.autoFocus,
+            }}
+          >
+            {element}
+          </CalendarView>
+        </CalendarGestures>
+      </CalendarStateContext>
+    </CalendarControlContext>
   );
 }
 export function calendarDOMProps(props: object) {
@@ -228,7 +300,9 @@ export function CalendarHeader({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-header"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: unknown })["data-lenso-slot"] ?? "calendar-header"
+      }
     />
   );
 }
@@ -242,23 +316,26 @@ export function CalendarHeadingPart({
   xstyle,
   style,
   ...props
-}: StyleXProps<useRender.ComponentProps<"h2">> & {
+}: StyleXProps<PartProps<"h2">> & {
   offset?: DateDuration;
   format?: CalendarHeadingFormat;
 }) {
   const state = useNativeCalendarState();
   const { locale } = useLocale();
   const compiled = stylex.props(styles.heading, xstyle);
-  return useRender({
-    defaultTagName: "h2",
-    ref,
+  return renderElement(
+    "h2",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, props, {
+        "data-lenso-slot": props["data-lenso-slot"] ?? "calendar-heading",
+        style: mergeStyle(compiled.style, style),
+        children: children ?? calendarHeading(state, locale, { offset, format }),
+      }),
+      ref: ref,
+    },
     render,
-    props: mergeProps(compiled, props, {
-      "data-slot": props["data-slot"] ?? "calendar-heading",
-      style: mergeStyle(compiled.style, style),
-      children: children ?? calendarHeading(state, locale, { offset, format }),
-    }),
-  });
+  );
 }
 export function CalendarNavButton({
   children,
@@ -286,14 +363,15 @@ export function CalendarNavButton({
       }
       aria-label={props["aria-label"] ?? (previous ? "Previous page" : "Next page")}
       onClick={(event, details) => {
-        onClick?.(event, details);
+        const result = onClick?.(event, details);
         if (!event.defaultPrevented) {
           state.setFocused(false);
           if (previous) state.focusPreviousPage();
           else state.focusNextPage();
         }
+        return result;
       }}
-      data-slot={props["data-slot"] ?? "calendar-nav-button"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "calendar-nav-button"}
       style={mergeStyle(compiled.style, style)}
     >
       {children ?? (
@@ -312,7 +390,7 @@ export function CalendarNavButton({
     </Button>
   );
 }
-export type CalendarGridProps = StyleXProps<Omit<useRender.ComponentProps<"table">, "children">> & {
+export type CalendarGridProps = StyleXProps<Omit<PartProps<"table">, "children">> & {
   offset?: DateDuration;
   weekdayStyle?: "narrow" | "short" | "long";
   children?: ReactNode | ((date: CalendarDate) => ReactElement);
@@ -338,32 +416,35 @@ export function CalendarGrid({
     isYearPickerOpen && styles.gridHidden,
     xstyle,
   );
-  const element = useRender({
-    defaultTagName: "table",
-    ref,
+  const element = renderElement(
+    "table",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, props, {
+        role: "grid",
+        "aria-label": props["aria-label"] ?? calendarHeading(state, locale, { offset }),
+        "aria-readonly": state.isReadOnly || undefined,
+        "aria-multiselectable":
+          "anchorDate" in state || state.selectionMode === "multiple" || undefined,
+        "aria-hidden": isYearPickerOpen || undefined,
+        "data-lenso-slot": props["data-lenso-slot"] ?? calendarGridSlot,
+        style: mergeStyle(compiled.style, style),
+        children:
+          typeof children === "function" ? (
+            <>
+              <CalendarGridHeader>
+                {(day) => <CalendarHeaderCellPart>{day}</CalendarHeaderCellPart>}
+              </CalendarGridHeader>
+              <CalendarGridBody>{children}</CalendarGridBody>
+            </>
+          ) : (
+            children
+          ),
+      }),
+      ref: ref,
+    },
     render,
-    props: mergeProps(compiled, props, {
-      role: "grid",
-      "aria-label": props["aria-label"] ?? calendarHeading(state, locale, { offset }),
-      "aria-readonly": state.isReadOnly || undefined,
-      "aria-multiselectable":
-        "anchorDate" in state || state.selectionMode === "multiple" || undefined,
-      "aria-hidden": isYearPickerOpen || undefined,
-      "data-slot": props["data-slot"] ?? calendarGridSlot,
-      style: mergeStyle(compiled.style, style),
-      children:
-        typeof children === "function" ? (
-          <>
-            <CalendarGridHeader>
-              {(day) => <CalendarHeaderCellPart>{day}</CalendarHeaderCellPart>}
-            </CalendarGridHeader>
-            <CalendarGridBody>{children}</CalendarGridBody>
-          </>
-        ) : (
-          children
-        ),
-    }),
-  });
+  );
   return <CalendarView value={{ ...parent, start, weekdayStyle }}>{element}</CalendarView>;
 }
 export function CalendarGridHeader({
@@ -373,7 +454,7 @@ export function CalendarGridHeader({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<useRender.ComponentProps<"thead">, "children">> & {
+}: StyleXProps<Omit<PartProps<"thead">, "children">> & {
   children?: ReactNode | ((day: string) => ReactElement);
 }) {
   const view = use(CalendarView);
@@ -385,29 +466,32 @@ export function CalendarGridHeader({
     timeZone: state.timeZone,
   });
   const compiled = stylex.props(styles.section, view.days != null && styles.daySection, xstyle);
-  return useRender({
-    defaultTagName: "thead",
+  return renderElement(
+    "thead",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, props, {
+        "data-lenso-slot": props["data-lenso-slot"] ?? "calendar-grid-header",
+        "aria-hidden": true,
+        style: mergeStyle(compiled.style, style),
+        children:
+          typeof children === "function" ? (
+            <tr {...stylex.props(styles.row)}>
+              {Array.from({ length: 7 }, (_, index) =>
+                cloneElement(
+                  children(formatter.format(start.add({ days: index }).toDate(state.timeZone))),
+                  { key: index },
+                ),
+              )}
+            </tr>
+          ) : (
+            children
+          ),
+      }),
+      ref: ref,
+    },
     render,
-    ref,
-    props: mergeProps(compiled, props, {
-      "data-slot": props["data-slot"] ?? "calendar-grid-header",
-      "aria-hidden": true,
-      style: mergeStyle(compiled.style, style),
-      children:
-        typeof children === "function" ? (
-          <tr {...stylex.props(styles.row)}>
-            {Array.from({ length: 7 }, (_, index) =>
-              cloneElement(
-                children(formatter.format(start.add({ days: index }).toDate(state.timeZone))),
-                { key: index },
-              ),
-            )}
-          </tr>
-        ) : (
-          children
-        ),
-    }),
-  });
+  );
 }
 export function CalendarGridBody({
   children,
@@ -416,7 +500,7 @@ export function CalendarGridBody({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<useRender.ComponentProps<"tbody">, "children">> & {
+}: StyleXProps<Omit<PartProps<"tbody">, "children">> & {
   children?: ReactNode | ((date: CalendarDate) => ReactElement);
 }) {
   const view = use(CalendarView);
@@ -453,16 +537,19 @@ export function CalendarGridBody({
         </tr>,
       );
   }
-  return useRender({
-    defaultTagName: "tbody",
+  return renderElement(
+    "tbody",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, props, {
+        "data-lenso-slot": props["data-lenso-slot"] ?? "calendar-grid-body",
+        style: mergeStyle(compiled.style, style),
+        children: typeof children === "function" ? rows : children,
+      }),
+      ref: ref,
+    },
     render,
-    ref,
-    props: mergeProps(compiled, props, {
-      "data-slot": props["data-slot"] ?? "calendar-grid-body",
-      style: mergeStyle(compiled.style, style),
-      children: typeof children === "function" ? rows : children,
-    }),
-  });
+  );
 }
 export function CalendarHeaderCellPart({
   render,
@@ -470,76 +557,114 @@ export function CalendarHeaderCellPart({
   xstyle,
   style,
   ...props
-}: StyleXProps<useRender.ComponentProps<"th">>) {
+}: StyleXProps<PartProps<"th">>) {
   const compiled = stylex.props(styles.headerCell, xstyle);
-  return useRender({
-    defaultTagName: "th",
+  return renderElement(
+    "th",
+    {
+      ...mergeProps(compiled, props, {
+        scope: "col",
+        "data-lenso-slot": props["data-lenso-slot"] ?? "calendar-header-cell",
+        style: mergeStyle(compiled.style, style),
+      }),
+      ref: ref,
+    },
     render,
-    ref,
-    props: mergeProps(compiled, props, {
-      scope: "col",
-      "data-slot": props["data-slot"] ?? "calendar-header-cell",
-      style: mergeStyle(compiled.style, style),
-    }),
-  });
-}
-export function useCalendarGestures(state: NativeCalendarState) {
-  const drag = useRef<{ start: CalendarDate; id: number; anchor: CalendarDate | null } | null>(
-    null,
   );
-  const skipClick = useRef(0);
+}
+export function useCalendarGestures(state: NativeCalendarState, control: ModelControlHandle) {
+  const latest = useRef({ state, control });
+  const release = useRef<(() => void) | undefined>(undefined);
+  const finish = useRef(0);
+  useLayoutEffect(() => {
+    latest.current = { state, control };
+  }, [state, control]);
+  useEffect(
+    () => () => {
+      release.current?.();
+      cancelAnimationFrame(finish.current);
+    },
+    [],
+  );
   useEffect(() => {
-    if (!("anchorDate" in state)) return;
-    const up = (event: globalThis.PointerEvent) => {
-      if (drag.current?.id !== event.pointerId) return;
-      if (state.isDragging && state.anchorDate) {
-        state.commitSelection();
-        skipClick.current = performance.now() + 500;
-      }
-      drag.current = null;
-      state.setDragging(false);
-    };
-    const cancel = () => {
-      if (!drag.current) return;
-      state.setAnchorDate(drag.current.anchor);
-      drag.current = null;
-      state.setDragging(false);
-    };
-    window.addEventListener("pointerup", up);
-    window.addEventListener("pointercancel", cancel);
-    window.addEventListener("blur", cancel);
-    return () => {
-      window.removeEventListener("pointerup", up);
-      window.removeEventListener("pointercancel", cancel);
-      window.removeEventListener("blur", cancel);
-    };
-  }, [state]);
+    if (state.isDisabled || state.isReadOnly) {
+      release.current?.();
+      release.current = undefined;
+    }
+  }, [state.isDisabled, state.isReadOnly]);
   return {
     begin(date: CalendarDate, event: PointerEvent<HTMLElement>) {
       if (
-        "anchorDate" in state &&
-        !state.isDisabled &&
-        !state.isReadOnly &&
-        event.pointerType === "mouse" &&
-        event.button === 0
+        !("anchorDate" in state) ||
+        state.isDisabled ||
+        state.isReadOnly ||
+        event.pointerType !== "mouse" ||
+        event.button !== 0 ||
+        event.defaultPrevented
       )
-        drag.current = { start: date, id: event.pointerId, anchor: state.anchorDate };
+        return;
+      release.current?.();
+      const anchor = state.anchorDate;
+      let started = false;
+      const element = event.currentTarget;
+      const unbind = bindDrag(element, event.nativeEvent, {
+        threshold: dragThreshold,
+        cancelOnEscape: true,
+        onStart() {
+          const model = latest.current.state;
+          if (!("anchorDate" in model)) return false;
+          started = true;
+          if (!model.anchorDate) model.setAnchorDate(date);
+          model.setDragging(true);
+        },
+        onMove({ x, y }) {
+          const model = latest.current.state;
+          if (!("anchorDate" in model)) return;
+          const cell = element.ownerDocument
+            .elementFromPoint(x, y)
+            ?.closest<HTMLElement>("[data-calendar-date]");
+          const value = cell?.getAttribute("data-calendar-date");
+          if (!value) return;
+          const next = toCalendarDate(decodeDate(value, model.focusedDate)!);
+          if (!model.isCellDisabled(next) && !model.isCellUnavailable(next))
+            model.highlightDate(next);
+        },
+        onEnd(event, canceled) {
+          release.current = undefined;
+          const model = latest.current.state;
+          if (!("anchorDate" in model)) return;
+          if (canceled) {
+            model.setAnchorDate(anchor);
+            model.setDragging(false);
+            return;
+          }
+          if (started)
+            finish.current = requestAnimationFrame(() => {
+              const current = latest.current;
+              if ("anchorDate" in current.state) {
+                current.control.api.run(
+                  () => {
+                    if ("anchorDate" in current.state) current.state.commitSelection();
+                  },
+                  { reason: "drag", event },
+                );
+                current.state.setDragging(false);
+              }
+            });
+        },
+      });
+      release.current = () => {
+        unbind();
+        const model = latest.current.state;
+        if ("anchorDate" in model) {
+          model.setAnchorDate(anchor);
+          model.setDragging(false);
+        }
+      };
     },
     hover(date: CalendarDate) {
-      if (!("anchorDate" in state) || state.isCellUnavailable(date) || state.isCellDisabled(date))
-        return;
-      if (drag.current && !isSameDay(drag.current.start, date)) {
-        if (!state.anchorDate) state.setAnchorDate(drag.current.start);
-        state.setDragging(true);
-      }
-      state.highlightDate(date);
-    },
-    consume(detail: number) {
-      if (detail > 0 && performance.now() < skipClick.current) {
-        skipClick.current = 0;
-        return true;
-      }
-      return false;
+      if ("anchorDate" in state && !state.isCellDisabled(date) && !state.isCellUnavailable(date))
+        state.highlightDate(date);
     },
   };
 }
@@ -547,8 +672,8 @@ export const CalendarGestures = createContext<ReturnType<typeof useCalendarGestu
 export function useNativeCalendarCell(date: CalendarDate) {
   const state = useNativeCalendarState();
   const view = use(CalendarView);
-  const { locale, direction } = useLocale();
-  const { calendarRef } = useYearPicker();
+  const { locale } = useLocale();
+  const control = use(CalendarControlContext)!;
   const gestures = use(CalendarGestures);
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -593,45 +718,26 @@ export function useNativeCalendarCell(date: CalendarDate) {
       dayFormatter.formatToParts(date.toDate(state.timeZone)).find((part) => part.type === "day")
         ?.value ?? String(date.day),
   };
-  const navigate = (event: KeyboardEvent<HTMLButtonElement>) => {
-    const action = {
-      ArrowRight: direction === "rtl" ? state.focusPreviousDay : state.focusNextDay,
-      ArrowLeft: direction === "rtl" ? state.focusNextDay : state.focusPreviousDay,
-      ArrowUp: state.focusPreviousRow,
-      ArrowDown: state.focusNextRow,
-      PageUp: () => state.focusPreviousSection(event.shiftKey),
-      PageDown: () => state.focusNextSection(event.shiftKey),
-      Home: () => state.setFocusedDate(startOfWeek(state.focusedDate, locale, view.firstDayOfWeek)),
-      End: () => state.setFocusedDate(endOfWeek(state.focusedDate, locale, view.firstDayOfWeek)),
-    }[event.key];
-    if (!action) return;
-    event.preventDefault();
-    action();
-    const steps = {
-      ArrowRight: direction === "rtl" ? -1 : 1,
-      ArrowLeft: direction === "rtl" ? 1 : -1,
-      ArrowUp: -7,
-      ArrowDown: 7,
-    };
-    const days = steps[event.key as keyof typeof steps];
-    const target = days === undefined ? null : date.add({ days });
-    const existing = target
-      ? calendarRef.current?.querySelector<HTMLElement>(
-          `[data-calendar-date="${target.toString()}"]:not([data-outside-month])`,
-        )
-      : null;
-    if (existing) existing.focus();
-    else
-      requestAnimationFrame(() =>
-        calendarRef.current?.querySelector<HTMLElement>('[data-calendar-focused="true"]')?.focus(),
-      );
-  };
   const fullDate = labelFormatter.format(date.toDate(state.timeZone));
   return {
     values,
     native: {
-      disabled: disabled || unavailable,
-      tabIndex: isSameDay(date, state.focusedDate) && !outside ? 0 : -1,
+      disabled: state.isDisabled,
+      "aria-disabled": disabled || unavailable || undefined,
+      tabIndex:
+        outside || state.isDisabled
+          ? -1
+          : control.api.roving.tabIndex(control.state, {
+              key: date.toString(),
+              props: { value: date.toString() },
+            }),
+      ref(node: HTMLElement | null) {
+        if (!node || outside) return;
+        const cleanup = control.api.bind(node, date.toString(), state.isDisabled);
+        if (!state.isDisabled && isSameDay(date, state.focusedDate))
+          control.api.roving.remember(date.toString());
+        return cleanup;
+      },
       autoFocus: view.autoFocus && isSameDay(date, state.focusedDate) && !outside,
       "aria-label": `${fullDate}${selected ? " selected" : ""}`,
       "aria-pressed": selected,
@@ -647,7 +753,9 @@ export function useNativeCalendarCell(date: CalendarDate) {
         setFocusVisible(false);
         setPressed(false);
       },
-      onKeyDown: navigate,
+      onKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
+        control.api.navigate(event.nativeEvent);
+      },
       onPointerDown(event: PointerEvent<HTMLButtonElement>) {
         setPressed(true);
         gestures?.begin(date, event);
@@ -666,8 +774,14 @@ export function useNativeCalendarCell(date: CalendarDate) {
         setHovered(false);
         setPressed(false);
       },
-      onClick(event: React.MouseEvent<HTMLButtonElement>) {
-        if (!gestures?.consume(event.detail) && !disabled && !unavailable) state.selectDate(date);
+      onClick(event: React.MouseEvent<HTMLElement>, details: ButtonActionDetails) {
+        if (!disabled && !unavailable)
+          withSource(details.source, () =>
+            control.api.run(() => state.selectDate(date), {
+              reason: "item-press",
+              event: event.nativeEvent,
+            }),
+          );
       },
     },
   };
@@ -681,7 +795,14 @@ export type CalendarCellProps = StyleXProps<
   children?: ReactNode | ((state: CalendarCellRenderState) => ReactNode);
   style?: CSSProperties | ((state: CalendarCellRenderState) => CSSProperties | undefined);
 };
-export function CalendarCell({ date, children, xstyle, style, ...props }: CalendarCellProps) {
+export function CalendarCell({
+  date,
+  children,
+  xstyle,
+  style,
+  onClick,
+  ...props
+}: CalendarCellProps) {
   const { values, native } = useNativeCalendarCell(date);
   const compiled = stylex.props(
     styles.cell,
@@ -697,7 +818,12 @@ export function CalendarCell({ date, children, xstyle, style, ...props }: Calend
     <td {...stylex.props(styles.cellContainer)} aria-selected={values.isSelected}>
       <Button
         {...mergeProps(native, props, compiled)}
-        data-slot={props["data-slot"] ?? "calendar-cell"}
+        onClick={(event, details) => {
+          const result = onClick?.(event, details);
+          if (!event.defaultPrevented) native.onClick(event, details);
+          return result;
+        }}
+        data-lenso-slot={props["data-lenso-slot"] ?? "calendar-cell"}
         style={{ ...compiled.style, ...(typeof style === "function" ? style(values) : style) }}
       >
         <CalendarCellSelection value={values.isSelected}>
@@ -719,7 +845,9 @@ export function CalendarCellIndicator({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: unknown })["data-slot"] ?? "calendar-cell-indicator"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: unknown })["data-lenso-slot"] ?? "calendar-cell-indicator"
+      }
       aria-hidden="true"
     />
   );

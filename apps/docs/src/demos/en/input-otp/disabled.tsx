@@ -6,7 +6,7 @@ export function Disabled() {
     <TextField disabled name="code" xstyle={styles.field}>
       <Label>Verify account</Label>
       <Description>Code verification is currently disabled</Description>
-      <InputOTP disabled length={6} name="code">
+      <InputOTP disabled maxLength={6} name="code">
         <Slots />
       </InputOTP>
     </TextField>

@@ -14,43 +14,33 @@ export function Placements() {
   return (
     <div {...stylex.props(styles.row)}>
       {placements.map((placement) => (
-        <Drawer.Provider key={placement}>
-          <Drawer
-            swipeDirection={
-              placement === "bottom" ? "down" : placement === "top" ? "up" : placement
-            }
-          >
-            <Drawer.Trigger render={<Button />}>
-              {placement.charAt(0).toUpperCase() + placement.slice(1)}
-            </Drawer.Trigger>
-            <Drawer.Portal>
-              <Drawer.Backdrop />
-              <Drawer.Viewport>
-                <Drawer.Popup>
-                  <Drawer.Content>
-                    <Drawer.Close aria-label="Close drawer" />
-                    {placement === "bottom" && <Drawer.Handle />}
-                    <Drawer.Header>
-                      <Drawer.Title>
-                        {placement.charAt(0).toUpperCase() + placement.slice(1)} Drawer
-                      </Drawer.Title>
-                    </Drawer.Header>
-                    <Drawer.Body>
-                      <p>
-                        此抽屉从屏幕<strong>{PLACEMENT_LABELS[placement]}</strong>边缘滑入。
-                      </p>
-                    </Drawer.Body>
-                    <Drawer.Footer>
-                      <Drawer.Close render={<Button variant="bordered" />}>取消</Drawer.Close>
-                      <Drawer.Close render={<Button />}>完成</Drawer.Close>
-                    </Drawer.Footer>
-                    {placement === "top" && <Drawer.Handle />}
-                  </Drawer.Content>
-                </Drawer.Popup>
-              </Drawer.Viewport>
-            </Drawer.Portal>
-          </Drawer>
-        </Drawer.Provider>
+        <Drawer key={placement} side={placement}>
+          <Drawer.Trigger render={<Button />}>
+            {placement.charAt(0).toUpperCase() + placement.slice(1)}
+          </Drawer.Trigger>
+          <Drawer.Backdrop />
+          <Drawer.Content>
+            <Drawer.Layout>
+              <Drawer.Close aria-label="Close drawer" />
+              {placement === "bottom" && <Drawer.Handle />}
+              <Drawer.Header>
+                <Drawer.Title>
+                  {placement.charAt(0).toUpperCase() + placement.slice(1)}Drawer
+                </Drawer.Title>
+              </Drawer.Header>
+              <Drawer.Body>
+                <p>
+                  此抽屉从屏幕<strong>{PLACEMENT_LABELS[placement]}</strong>边缘滑入。
+                </p>
+              </Drawer.Body>
+              <Drawer.Footer>
+                <Drawer.Close render={<Button variant="bordered" />}>取消</Drawer.Close>
+                <Drawer.Close render={<Button />}>完成</Drawer.Close>
+              </Drawer.Footer>
+              {placement === "top" && <Drawer.Handle />}
+            </Drawer.Layout>
+          </Drawer.Content>
+        </Drawer>
       ))}
     </div>
   );

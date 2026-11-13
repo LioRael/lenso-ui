@@ -1,6 +1,6 @@
 /**
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
- * Modified: StyleX styles and Base UI state selectors.
+ * Modified: StyleX styles and UI SDK state selectors.
  */
 import * as stylex from "@stylexjs/stylex";
 import { focusRing } from "../../focus-ring.stylex.const.js";
@@ -40,17 +40,17 @@ export const radioStyles = stylex.create({
     borderColor: {
       default: tokens.controlFieldBorder,
 
-      ":is([data-slot='radio'][data-checked] *)": "transparent",
-      ":is([data-slot='radio'][data-invalid] *)": tokens.statusErrorBorder,
+      ":is([data-lenso-slot='radio'][data-checked] *)": "transparent",
+      ":is([data-lenso-slot='radio'][data-invalid] *)": tokens.statusErrorBorder,
     },
     backgroundColor: {
       default: tokens.controlFieldFill,
-      ":is([data-slot='radio'][data-checked] *)": tokens.tint,
+      ":is([data-lenso-slot='radio'][data-checked] *)": tokens.tint,
     },
     "--lenso-focus-elevation": tokens.fieldShadow,
     boxShadow: {
       default: focusRing.elevation,
-      ":is([data-slot='radio']:focus-visible *)": focusRing.outerElevated,
+      ":is([data-lenso-slot='radio']:focus-visible *)": focusRing.outerElevated,
     },
     "::after": {
       content: '""',
@@ -63,14 +63,14 @@ export const radioStyles = stylex.create({
         default: "transparent",
         "@media (hover: hover) and (pointer: fine)": {
           default: null,
-          ":is([data-slot='radio']:hover:not(:focus):not([data-disabled]) *)":
+          ":is([data-lenso-slot='radio']:hover:not(:focus):not([data-disabled]) *)":
             "var(--lenso-fill-secondary)",
         },
-        ":is([data-slot='radio']:focus:not([data-disabled]) *)": "var(--lenso-fill-primary)",
+        ":is([data-lenso-slot='radio']:focus:not([data-disabled]) *)": "var(--lenso-fill-primary)",
       },
     },
     outline: "none",
-    transform: { default: "scale(1)", ":is([data-slot='radio']:active *)": "scale(.95)" },
+    transform: { default: "scale(1)", ":is([data-lenso-slot='radio']:active *)": "scale(.95)" },
     transition: {
       default: `background-color 200ms ${tokens.motionEaseOut}, transform 100ms ${tokens.motionEaseOut}`,
       "@media (prefers-reduced-motion: reduce)": "none",
@@ -97,7 +97,7 @@ export const radioStyles = stylex.create({
       scale: {
         default: "1",
         ":is([data-checked])": ".4286",
-        ":is([data-slot='radio']:active [data-checked])": ".5714",
+        ":is([data-lenso-slot='radio']:active [data-checked])": ".5714",
       },
       transition: {
         default: `scale 200ms ${tokens.motionEaseOut}, background-color 200ms ${tokens.motionEaseOut}`,

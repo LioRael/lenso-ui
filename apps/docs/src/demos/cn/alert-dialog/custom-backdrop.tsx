@@ -37,35 +37,29 @@ export function CustomBackdrop() {
       <AlertDialog.Trigger render={<Button destructive variant="prominent" />}>
         删除账户
       </AlertDialog.Trigger>
-      <AlertDialog.Portal>
-        <AlertDialog.Backdrop variant="blur" xstyle={styles.backdrop} />
-        <AlertDialog.Viewport>
-          <AlertDialog.Popup xstyle={styles.popup}>
-            <AlertDialog.Close aria-label="Close dialog" />
-            <AlertDialog.Header xstyle={styles.header}>
-              <AlertDialog.Icon variant="danger">
-                <TriangleExclamation {...stylex.props(styles.glyph)} />
-              </AlertDialog.Icon>
-              <AlertDialog.Title>要永久删除账户吗？</AlertDialog.Title>
-            </AlertDialog.Header>
-            <AlertDialog.Body>
-              <AlertDialog.Description>
-                此操作无法撤销。你的数据、设置与内容将从服务器永久清除。醒目的红色背景用于强调该决定的严重性与不可逆性。
-              </AlertDialog.Description>
-            </AlertDialog.Body>
-            <AlertDialog.Footer xstyle={styles.footer}>
-              <AlertDialog.Close render={<Button xstyle={styles.action} />}>
-                保留账户
-              </AlertDialog.Close>
-              <AlertDialog.Close
-                render={<Button destructive variant="prominent" xstyle={styles.action} />}
-              >
-                永久删除
-              </AlertDialog.Close>
-            </AlertDialog.Footer>
-          </AlertDialog.Popup>
-        </AlertDialog.Viewport>
-      </AlertDialog.Portal>
+      <AlertDialog.Backdrop variant="blur" xstyle={styles.backdrop} />
+      <AlertDialog.Content xstyle={styles.popup}>
+        <AlertDialog.Close aria-label="Close dialog" />
+        <AlertDialog.Header xstyle={styles.header}>
+          <AlertDialog.Icon variant="danger">
+            <TriangleExclamation {...stylex.props(styles.glyph)} />
+          </AlertDialog.Icon>
+          <AlertDialog.Title>要永久删除账户吗？</AlertDialog.Title>
+        </AlertDialog.Header>
+        <AlertDialog.Body>
+          <AlertDialog.Description>
+            此操作无法撤销。你的数据、设置与内容将从服务器永久清除。醒目的红色背景用于强调该决定的严重性与不可逆性。
+          </AlertDialog.Description>
+        </AlertDialog.Body>
+        <AlertDialog.Footer xstyle={styles.footer}>
+          <AlertDialog.Close render={<Button xstyle={styles.action} />}>保留账户</AlertDialog.Close>
+          <AlertDialog.Close
+            render={<Button destructive variant="prominent" xstyle={styles.action} />}
+          >
+            永久删除
+          </AlertDialog.Close>
+        </AlertDialog.Footer>
+      </AlertDialog.Content>
     </AlertDialog>
   );
 }

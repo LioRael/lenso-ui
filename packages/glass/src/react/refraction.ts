@@ -46,7 +46,7 @@ export function useGlassRef<T extends HTMLElement>(
     const surface = element.parentElement;
     const nativePaint =
       (deferOptics ||
-        surface?.matches('[data-slot="menu-surface"], [data-slot="select-surface"]')) &&
+        surface?.matches('[data-lenso-slot="menu-surface"], [data-lenso-slot="select-surface"]')) &&
       liveBackdrop &&
       !refractsBackdrop() &&
       /AppleWebKit\//.test(navigator.userAgent)
@@ -149,7 +149,15 @@ export function useGlassRef<T extends HTMLElement>(
     deferOptics,
   ]);
   useEffect(() => {
-    if (!element || !enabled || !fusion || selection) return;
+    if (
+      !element ||
+      !enabled ||
+      !fusion ||
+      selection ||
+      element.hasAttribute("popover") ||
+      element.tagName === "DIALOG"
+    )
+      return;
     fusion.members.add(element);
     fusion.update();
     return () => {

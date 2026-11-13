@@ -80,7 +80,7 @@ export function PhotosEditorRuler({
         max={max}
         step={1}
         onValueChange={(v) => onChange(Array.isArray(v) ? v[0]! : v)}
-        onValueCommitted={onCommit}
+        onValueCommit={onCommit}
         xstyle={s.semanticSlider}
       >
         <Slider.Label xstyle={s.hidden}>{label}</Slider.Label>

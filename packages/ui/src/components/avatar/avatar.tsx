@@ -37,8 +37,8 @@ export function AvatarRoot({ size, color, variant, xstyle, style, ...props }: Av
     <Context.Provider value={appearance}>
       <Primitive.Avatar
         {...props}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar"}
-        render={slotRender("span", props["data-slot"] ?? "avatar", props.render)}
+        data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "avatar"}
+        render={slotRender("span", props["data-lenso-slot"] ?? "avatar", props.render)}
         {...compiled}
         style={mergeStyle<Primitive.AvatarState>(compiled.style, style)}
       />
@@ -67,8 +67,10 @@ export function AvatarFallback({
   return (
     <Primitive.AvatarFallback
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar-fallback"}
-      render={slotRender("span", props["data-slot"] ?? "avatar-fallback", props.render)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "avatar-fallback"
+      }
+      render={slotRender("span", props["data-lenso-slot"] ?? "avatar-fallback", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.AvatarState>(compiled.style, style)}
     />
@@ -83,8 +85,10 @@ export function AvatarImage({
   return (
     <Primitive.AvatarImage
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar-image"}
-      render={slotRender("img", props["data-slot"] ?? "avatar-image", props.render)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "avatar-image"
+      }
+      render={slotRender("img", props["data-lenso-slot"] ?? "avatar-image", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.AvatarState>(compiled.style, style)}
     />

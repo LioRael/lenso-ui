@@ -30,3 +30,9 @@ export const ColorField = Object.assign(ColorFieldRoot, {
   Prefix: ColorInputGroup.Prefix,
   Suffix: ColorInputGroup.Suffix,
 });
+
+export { createModelController as createColorFieldController } from "@lenso/primitives/model-control";
+export type {
+  ModelController as ColorFieldController,
+  ModelChangeReason as ColorFieldChangeReason,
+} from "@lenso/primitives/model-control";

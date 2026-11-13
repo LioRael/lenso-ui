@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { breadcrumbsStyles } from "@lenso/tokens/breadcrumbs";
-import { useRender } from "@base-ui/react/use-render";
+import { renderElement, type PartProps } from "@ui-sdk/react/primitive";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import type * as React from "react";
 import * as stylex from "@stylexjs/stylex";
@@ -21,32 +21,34 @@ function Nav({
   render,
   ref,
   ...props
-}: StyleXProps<useRender.ComponentProps<"nav">> & { "data-slot"?: unknown }) {
+}: StyleXProps<PartProps<"nav">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(xstyle);
-  return useRender({
-    defaultTagName: "nav",
-    render,
-    ref,
-    props: {
-      ...props,
-      ...compiled,
-      style: mergeStyle(compiled.style, style),
-      "data-slot": props["data-slot"] ?? "breadcrumbs-nav",
+  return renderElement(
+    "nav",
+    {
+      ...{
+        ...props,
+        ...compiled,
+        style: mergeStyle(compiled.style, style),
+        "data-lenso-slot": props["data-lenso-slot"] ?? "breadcrumbs-nav",
+      },
+      ref: ref,
     },
-  });
+    render,
+  );
 }
 function List({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"ol">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"ol">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(breadcrumbsStyles.root, xstyle);
   return (
     <ol
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "breadcrumbs"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "breadcrumbs"}
     />
   );
 }
@@ -54,14 +56,14 @@ function Item({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"li">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"li">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(breadcrumbsStyles.item, xstyle);
   return (
     <li
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "breadcrumbs-item"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "breadcrumbs-item"}
     />
   );
 }
@@ -69,14 +71,14 @@ function Separator({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(breadcrumbsStyles.separator, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "breadcrumbs-separator"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "breadcrumbs-separator"}
     />
   );
 }
@@ -92,7 +94,7 @@ export function BreadcrumbsRoot({
   disabled = false,
   ...props
 }: BreadcrumbsRootProps) {
-  const items = Children.toArray(children);
+  const items = Children.toArray(typeof children === "function" ? children({}) : children);
   const last = items.reduce(
     (previous, child, index) =>
       isValidElement(child) && child.type === BreadcrumbsItem ? index : previous,

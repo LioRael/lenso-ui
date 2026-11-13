@@ -1,30 +1,31 @@
 "use client";
 // Native chips preserve keyboard removal and focus.
 import { ComboBox } from "@lenso/ui";
-import { useId } from "react";
 import * as stylex from "@stylexjs/stylex";
+import { useId, useState } from "react";
 import {
-  animals,
   animalLabel,
+  AnimalOptions,
   animalValue,
   sameAnimal,
-  AnimalOptions,
-  type Animal,
   useFocusMenu,
+  type Animal,
 } from "./shared";
 import { styles } from "./styles.stylex";
 
 export function MultipleSelection() {
   const id = useId();
+  const [selected, setSelected] = useState<Animal[]>([]);
   const menu = useFocusMenu();
   return (
     <div {...stylex.props(styles.field)}>
       <ComboBox
         {...menu.root}
         multiple
-        items={animals}
-        itemToStringLabel={animalLabel}
-        itemToStringValue={animalValue}
+        value={selected}
+        onValueChange={setSelected}
+        itemToLabel={animalLabel}
+        itemToValue={animalValue}
         isItemEqualToValue={sameAnimal}
       >
         <ComboBox.Label htmlFor={id}>Favorite Animals</ComboBox.Label>
@@ -35,22 +36,16 @@ export function MultipleSelection() {
           </ComboBox.Trigger>
         </ComboBox.InputGroup>
         <ComboBox.Chips>
-          <ComboBox.Value>
-            {(selected: Animal[]) =>
-              selected.length === 0 ? (
-                <span {...stylex.props(styles.muted)}>No animals selected</span>
-              ) : (
-                selected.map((animal) => (
-                  <ComboBox.Chip key={animal.id}>
-                    {animal.name}
-                    <ComboBox.ChipRemove aria-label={`Remove ${animal.name}`}>
-                      ×
-                    </ComboBox.ChipRemove>
-                  </ComboBox.Chip>
-                ))
-              )
-            }
-          </ComboBox.Value>
+          {selected.length === 0 ? (
+            <span>No animals selected</span>
+          ) : (
+            selected.map((animal) => (
+              <ComboBox.Chip key={animal.id} value={animal}>
+                {animal.name}
+                <ComboBox.ChipRemove aria-label={`Remove ${animal.name}`}>×</ComboBox.ChipRemove>
+              </ComboBox.Chip>
+            ))
+          )}
         </ComboBox.Chips>
         <AnimalOptions />
       </ComboBox>

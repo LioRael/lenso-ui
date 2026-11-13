@@ -1,7 +1,7 @@
 {
   "name": "@lenso/ui",
   "version": "0.10.0",
-  "description": "Lenso React components with StyleX, UI SDK and Base UI interactions.",
+  "description": "Lenso React components with StyleX and UI SDK interactions.",
   "license": "(Apache-2.0 AND MIT)",
   "repository": {
     "type": "git",
@@ -48,8 +48,6 @@
     "test": "bun test test/*.test.ts && bun test --preload ../../tests/setup/dom.ts test/*.dom.test.tsx"
   },
   "dependencies": {
-    "@base-ui/react": "catalog:",
-    "@base-ui/utils": "0.5.0",
     "@internationalized/date": "3.12.4",
     "@lenso/glass": "workspace:*",
     "@lenso/primitives": "workspace:*",

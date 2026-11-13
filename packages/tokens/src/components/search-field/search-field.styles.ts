@@ -1,5 +1,5 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
-// Modified: compound native Base UI field parts and explicit clear semantics.
+// Modified: compound native UI SDK field parts and explicit clear semantics.
 import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../../tokens.stylex.const.js";
 export const searchFieldGroupStyles = stylex.create({
@@ -23,7 +23,7 @@ export const searchFieldGroupStyles = stylex.create({
       default: "none",
       ":has(input:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
         "1.5px solid var(--lenso-focus-ring)",
-      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *):has(:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
+      ":is([data-field-grouped] *, [data-lenso-slot='fieldset-row'] *):has(:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
         "none",
     },
     outlineOffset: 2,

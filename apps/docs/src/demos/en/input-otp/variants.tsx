@@ -14,7 +14,7 @@ export function Variants() {
       ).map(({ variant, glass, label }) => (
         <TextField key={label} name={label} xstyle={styles.field}>
           <Label>{label}</Label>
-          <InputOTP length={6} name={label} variant={variant} glass={glass}>
+          <InputOTP maxLength={6} name={label} variant={variant} glass={glass}>
             <Slots />
           </InputOTP>
         </TextField>

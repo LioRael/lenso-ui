@@ -43,7 +43,7 @@ export function BadgeRoot({
   return (
     <span
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "badge"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "badge"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
       data-material="glass-small"
@@ -58,7 +58,9 @@ export function BadgeLabel({ xstyle, style, ...props }: StyleXProps<ComponentPro
   return (
     <span
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "badge-label"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "badge-label"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -69,7 +71,9 @@ export function BadgeAnchor({ xstyle, style, ...props }: StyleXProps<ComponentPr
   return (
     <span
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "badge-anchor"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "badge-anchor"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />

@@ -1,13 +1,12 @@
 "use client";
 // Adapted from onlymoein/liquidglass 0d9a1c5, MIT.
 // Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz.
-// Modified for Base UI Toolbar, StyleX, scroll-edge ownership and resize tracking.
+// Modified for UI SDK Toolbar, StyleX, scroll-edge ownership and resize tracking.
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { navigationBarStyles } from "@lenso/tokens/navigation-bar";
 import { Toolbar, type ToolbarRootProps } from "../toolbar/index.js";
 import { assignRef } from "../../utils/interaction/ref.js";
-import { useDirection } from "@base-ui/react/direction-provider";
 
 export type NavigationBarProps = Omit<
   ToolbarRootProps,
@@ -38,7 +37,6 @@ export function NavigationBar({
   "aria-label": label = "Navigation bar",
   ...props
 }: NavigationBarProps) {
-  const direction = useDirection();
   const barRef = useRef<HTMLElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const inferredScrollRef = useRef<HTMLElement | null>(null);
@@ -98,10 +96,10 @@ export function NavigationBar({
         edge={edge}
         scrollRef={targetRef}
         xstyle={[navigationBarStyles.root, xstyle]}
-        data-slot={props["data-slot"] ?? "navigation-bar"}
+        data-lenso-slot={props["data-lenso-slot"] ?? "navigation-bar"}
         data-large={large ? "" : undefined}
       >
-        <div {...stylex.props(navigationBarStyles.side)} data-slot="navigation-bar-leading">
+        <div {...stylex.props(navigationBarStyles.side)} data-lenso-slot="navigation-bar-leading">
           {onBack && (
             <Toolbar.Group>
               <Toolbar.Button isIconOnly aria-label={backLabel} onClick={onBack}>
@@ -113,10 +111,7 @@ export function NavigationBar({
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   aria-hidden="true"
-                  {...stylex.props(
-                    navigationBarStyles.backIcon,
-                    direction === "rtl" && navigationBarStyles.backIconRtl,
-                  )}
+                  {...stylex.props(navigationBarStyles.backIcon)}
                 >
                   <path d="M15.75 5.5 8.25 13l7.5 7.5" />
                 </svg>
@@ -128,19 +123,22 @@ export function NavigationBar({
         {large ? (
           <span
             aria-hidden="true"
-            data-slot="navigation-bar-title"
+            data-lenso-slot="navigation-bar-title"
             {...stylex.props(navigationBarStyles.title, navigationBarStyles.collapsingTitle)}
           >
             {title}
           </span>
         ) : (
-          <Heading data-slot="navigation-bar-title" {...stylex.props(navigationBarStyles.title)}>
+          <Heading
+            data-lenso-slot="navigation-bar-title"
+            {...stylex.props(navigationBarStyles.title)}
+          >
             {title}
           </Heading>
         )}
         <div
           {...stylex.props(navigationBarStyles.side, navigationBarStyles.trailing)}
-          data-slot="navigation-bar-trailing"
+          data-lenso-slot="navigation-bar-trailing"
         >
           {trailing}
         </div>
@@ -148,7 +146,7 @@ export function NavigationBar({
       {large && (
         <Heading
           ref={headingRef}
-          data-slot="navigation-bar-large-title"
+          data-lenso-slot="navigation-bar-large-title"
           {...stylex.props(navigationBarStyles.largeTitle)}
         >
           {title}

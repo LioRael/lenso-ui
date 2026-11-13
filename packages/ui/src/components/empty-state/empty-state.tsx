@@ -7,7 +7,12 @@ import type { ComponentProps } from "react";
 export function EmptyStateRoot({ xstyle, style, ...props }: StyleXProps<ComponentProps<"div">>) {
   const compiled = stylex.props(emptyStateStyles.root, xstyle);
   return (
-    <div {...props} data-slot="empty-state" {...compiled} style={{ ...compiled.style, ...style }} />
+    <div
+      {...props}
+      data-lenso-slot="empty-state"
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+    />
   );
 }
 export function EmptyStateContent({ xstyle, style, ...props }: StyleXProps<ComponentProps<"div">>) {
@@ -15,7 +20,7 @@ export function EmptyStateContent({ xstyle, style, ...props }: StyleXProps<Compo
   return (
     <div
       {...props}
-      data-slot="empty-state-content"
+      data-lenso-slot="empty-state-content"
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -26,7 +31,7 @@ export function EmptyStateMessage({ xstyle, style, ...props }: StyleXProps<Compo
   return (
     <div
       {...props}
-      data-slot="empty-state-message"
+      data-lenso-slot="empty-state-message"
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -42,7 +47,7 @@ export function EmptyStateTitle({
   return (
     <h3
       {...props}
-      data-slot="empty-state-title"
+      data-lenso-slot="empty-state-title"
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >
@@ -59,7 +64,7 @@ export function EmptyStateDescription({
   return (
     <p
       {...props}
-      data-slot="empty-state-description"
+      data-lenso-slot="empty-state-description"
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -70,7 +75,7 @@ export function EmptyStateActions({ xstyle, style, ...props }: StyleXProps<Compo
   return (
     <div
       {...props}
-      data-slot="empty-state-actions"
+      data-lenso-slot="empty-state-actions"
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -94,7 +99,7 @@ export function EmptyStateIcon({
     <div
       aria-hidden="true"
       {...props}
-      data-slot="empty-state-icon"
+      data-lenso-slot="empty-state-icon"
       data-variant={variant}
       {...compiled}
       style={{ ...compiled.style, ...style }}

@@ -1,8 +1,6 @@
 @import "@lenso/tokens/styles.css";
 @import "./font.css";
 
-@stylex;
-
 :root,
 .dark {
   --color-fd-background: var(--lenso-background-primary);
@@ -63,4 +61,17 @@
     animation-duration: 0s !important;
     transition-duration: 0s !important;
   }
+}
+
+pre span[style*="--shiki-light"] {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style, normal);
+  font-weight: var(--shiki-light-font-weight, inherit);
+  text-decoration: var(--shiki-light-text-decoration, none);
+}
+.dark pre span[style*="--shiki-dark"] {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style, normal);
+  font-weight: var(--shiki-dark-font-weight, inherit);
+  text-decoration: var(--shiki-dark-text-decoration, none);
 }

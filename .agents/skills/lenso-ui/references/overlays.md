@@ -7,10 +7,11 @@ Sheet and ActionSheet retain different panel and touch-interaction contracts.
 
 ## Preserve the native hierarchy
 
-Follow root, trigger, portal, backdrop/positioner, popup and supporting parts
-from the actual family. Modal exposes `Popup`; another family's `Popover` or
-`Content` is not a drop-in substitute. A namespace member is available only if
-the installed entry exports it.
+Follow the installed root, trigger, backdrop and `Content` composition. SDK
+Content owns positioning, portal, presence and focus. Use `Menu.SubContent`
+inside `Menu.Sub`. Drawer and Sheet expose the SDK handle and snap-point
+contracts. Tooltip delay belongs on Root. Toast uses `createToaster` and
+`Toast.Region`; pass each independent queue explicitly.
 
 Use the native `render` composition for custom triggers, preserving props, refs
 and handlers. Avoid nested interactive elements. Dialogs need an accessible

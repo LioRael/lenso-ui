@@ -4,7 +4,7 @@ import { tokens } from "../../tokens.stylex.const.js";
 export const rangeCalendarStyles = stylex.create({
   root: {
     position: "relative",
-    width: { default: 338, ":is([data-slot=date-range-picker-popover] > *)": 346 },
+    width: { default: 338, ":is([data-lenso-slot=date-range-picker-popover] > *)": 346 },
     maxWidth: "100%",
     containerType: "inline-size",
     fontFamily: tokens.fontBody,

@@ -1,41 +1,17 @@
 "use client";
-// Modified: Base UI owns pointer, keyboard, form and focus contracts.
-import {
-  createContext,
-  use,
-  type ComponentPropsWithRef,
-  type CSSProperties,
-  type ReactNode,
-} from "react";
-import { Slider as Base } from "@base-ui/react/slider";
-import { useRender } from "@base-ui/react/use-render";
-import { useDirection } from "@base-ui/react/direction-provider";
-import { useColorSliderState, type ColorSliderState } from "react-stately/useColorSliderState";
-import type { Color, ColorChannel, ColorSpace } from "react-stately/Color";
+import { formatNumber } from "@ui-sdk/core/number";
+import { createContext, use, useMemo, type ComponentProps } from "react";
+import type { ColorSpace, ColorChannel } from "react-stately/Color";
+import * as Sdk from "@ui-sdk/react/color-picker";
+import { Field, FieldLabel } from "@ui-sdk/react/field";
+import { renderElement, type PartProps } from "@ui-sdk/react/primitive";
 import * as stylex from "@stylexjs/stylex";
-import { useSliderThumbRef } from "../../utils/interaction/slider.js";
 import { colorSliderStyles as styles } from "@lenso/tokens/color-slider";
+import { ColorScope, ColorValueContext, type ColorScopeProps } from "../../utils/color-state.js";
+import { slotRender } from "../../utils/sdk-render.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { ColorValueContext } from "../../utils/color-state.js";
 import { useLocale } from "../../utils/locale.js";
-type ColorSliderRenderState = { [K in keyof Base.Root.State]: Base.Root.State[K] } & {
-  isDisabled: boolean;
-  isDragging: boolean;
-  state: ColorSliderState;
-};
-const Context = createContext<{
-  model: ColorSliderState;
-  channel: ColorChannel;
-  orientation: "horizontal" | "vertical";
-  label?: string;
-  labelledBy?: string;
-  locale: string;
-} | null>(null);
-function useModel() {
-  const value = use(Context);
-  if (!value) throw new Error("ColorSlider parts require ColorSlider.Root");
-  return value;
-}
+import { useSliderThumbRef } from "../../utils/interaction/slider.js";
 export type HSLChannel = "hue" | "saturation" | "lightness" | "alpha";
 export type HSBChannel = "hue" | "saturation" | "brightness" | "alpha";
 export type RGBChannel = "red" | "green" | "blue" | "alpha";
@@ -47,212 +23,162 @@ export type ColorSliderChannelProps =
   | { channel: RGBChannel; colorSpace?: "rgb" }
   | { channel: HSLHSBSharedChannel; colorSpace?: "hsl" | "hsb" }
   | { channel: AlphaChannel; colorSpace?: ColorSpace };
-export type ColorSliderRootProps = StyleXProps<
-  Omit<
-    ComponentPropsWithRef<typeof Base.Root<number>>,
-    "value" | "defaultValue" | "onChange" | "children" | "style" | "render"
-  >
-> &
-  ColorSliderChannelProps & {
-    value?: string | Color;
-    defaultValue?: string | Color;
-    onChange?: (value: Color) => void;
-    onChangeEnd?: (value: Color) => void;
-    isDisabled?: boolean;
-    children?: ReactNode | ((state: ColorSliderRenderState) => ReactNode);
-    style?: CSSProperties | ((state: ColorSliderRenderState) => CSSProperties | undefined);
-    render?: useRender.RenderProp<ColorSliderRenderState>;
-  };
-const requiredColorSpace: Partial<Record<ColorChannel, ColorSpace>> = {
-  red: "rgb",
-  green: "rgb",
-  blue: "rgb",
-  lightness: "hsl",
-  brightness: "hsb",
-};
-function getValidColorSpace(channel: ColorChannel, colorSpace?: ColorSpace) {
-  if (colorSpace && requiredColorSpace[channel]) return requiredColorSpace[channel];
-  if ((channel === "hue" || channel === "saturation") && colorSpace === "rgb") return "hsl";
-  return colorSpace;
+type Channels = { channel: ColorChannel; orientation: "horizontal" | "vertical" };
+const Context = createContext<Channels | null>(null);
+function useChannels() {
+  const channels = use(Context);
+  if (!channels) throw new Error("ColorSlider parts require ColorSlider.Root");
+  return channels;
 }
-
+export type ColorSliderRootProps = StyleXProps<ColorScopeProps> &
+  ColorSliderChannelProps & {
+    isDisabled?: boolean;
+    orientation?: "horizontal" | "vertical";
+  };
 export function ColorSliderRoot({
-  orientation = "horizontal",
-  channel,
-  colorSpace,
   value,
   defaultValue,
   onChange,
   onChangeEnd,
-  isDisabled,
-  disabled = isDisabled,
-  children,
-  render,
-  style,
-  xstyle,
   onValueChange,
-  onValueCommitted,
+  onValueCommit,
+  controller,
+  name,
+  form,
+  disabled,
+  isDisabled,
+  readOnly,
+  required,
+  format,
+  gamut,
+  space,
+  colorSpace,
+  channel,
+  orientation = "horizontal",
   ...props
 }: ColorSliderRootProps) {
   const parent = use(ColorValueContext);
-  const { locale } = useLocale();
-  const inherits = value === undefined && defaultValue === undefined && parent;
-  const model = useColorSliderState({
-    locale,
-    channel,
-    colorSpace: getValidColorSpace(channel, colorSpace),
-    value: inherits ? parent.color : value,
-    defaultValue,
-    isDisabled: disabled,
-    onChange(color) {
-      if (inherits) parent.setColor(color);
-      onChange?.(color);
-    },
-  });
-  const color = model.getDisplayColor();
-  const range = color.getChannelRange(channel);
-  const compiled = stylex.props(
-    styles.root,
-    disabled && styles.disabled,
-    orientation === "vertical" && styles.vertical,
-    xstyle,
-  );
-  const map = (native: Base.Root.State): ColorSliderRenderState => ({
-    ...native,
-    isDisabled: native.disabled,
-    isDragging: native.dragging,
-    state: model,
-  });
+  const channels = useMemo(() => ({ channel, orientation }), [channel, orientation]);
+  const presentation = <SliderRoot {...props} />;
+  if (parent && value === undefined && defaultValue === undefined)
+    return (
+      <Context value={channels}>
+        <Field>{presentation}</Field>
+      </Context>
+    );
+  const inferred =
+    channel === "red" || channel === "green" || channel === "blue"
+      ? "srgb"
+      : channel === "lightness"
+        ? "hsl"
+        : "hsv";
   return (
-    <Context
-      value={{
-        model,
-        channel,
-        orientation,
-        locale,
-        label: props["aria-label"],
-        labelledBy: props["aria-labelledby"],
-      }}
-    >
-      <Base.Root<number>
-        {...props}
-        {...compiled}
-        orientation={orientation}
-        disabled={disabled}
-        min={range.minValue}
-        max={range.maxValue}
-        step={range.step}
-        largeStep={range.pageSize}
-        value={model.getThumbValue(0)}
-        onValueChange={(next, details) => {
-          onValueChange?.(next, details);
-          if (!details.isCanceled) model.setThumbValue(0, next);
-        }}
-        onValueCommitted={(next, details) => {
-          onValueCommitted?.(next, details);
-          onChangeEnd?.(color.withChannelValue(channel, next));
-        }}
-        data-slot={props["data-slot"] ?? "color-slider"}
-        style={
-          typeof style === "function"
-            ? (native) => ({ ...compiled.style, ...style(map(native)) })
-            : mergeStyle(compiled.style, style)
-        }
-        render={(nativeProps, nativeState) => (
-          <ColorSliderFrame {...nativeProps} render={render} state={map(nativeState)}>
-            {typeof children === "function" ? children(map(nativeState)) : children}
-          </ColorSliderFrame>
-        )}
-      />
+    <Context value={channels}>
+      <Field>
+        <ColorScope
+          {...props}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={onChange}
+          onChangeEnd={onChangeEnd}
+          onValueChange={onValueChange}
+          onValueCommit={onValueCommit}
+          controller={controller}
+          name={name}
+          form={form}
+          disabled={disabled ?? isDisabled}
+          readOnly={readOnly}
+          required={required}
+          format={format}
+          gamut={gamut}
+          space={
+            space ??
+            (colorSpace === "rgb" ? "srgb" : colorSpace === "hsb" ? "hsv" : colorSpace) ??
+            inferred
+          }
+          style={{ display: "contents" }}
+        >
+          {presentation}
+        </ColorScope>
+      </Field>
     </Context>
   );
 }
-function ColorSliderFrame({
-  render,
-  state,
-  ref,
-  ...props
-}: useRender.ComponentProps<"div", ColorSliderRenderState> & { state: ColorSliderRenderState }) {
-  return useRender({
-    defaultTagName: "div",
+function SliderRoot({ xstyle, style, render, children, ...props }: StyleXProps<ColorScopeProps>) {
+  const scope = use(ColorValueContext)!;
+  const { orientation } = useChannels();
+  const compiled = stylex.props(
+    styles.root,
+    scope.native.disabled && styles.disabled,
+    orientation === "vertical" && styles.vertical,
+    xstyle,
+  );
+  return renderElement(
+    "div",
+    {
+      ...props,
+      ...compiled,
+      style:
+        typeof style === "function"
+          ? { ...compiled.style, ...style(scope.native) }
+          : mergeStyle(compiled.style, style),
+      "data-lenso-slot": props["data-lenso-slot"] ?? "color-slider",
+      children: typeof children === "function" ? children(scope) : children,
+    },
     render,
-    state,
-    stateAttributesMapping: { state: () => null },
-    ref,
-    props,
-  });
+    scope.native,
+  );
 }
 export function ColorSliderLabel({
   xstyle,
   style,
   ...props
-}: StyleXProps<ComponentPropsWithRef<typeof Base.Label>>) {
+}: StyleXProps<ComponentProps<typeof FieldLabel>>) {
   const compiled = stylex.props(styles.label, xstyle);
   return (
-    <Base.Label
+    <FieldLabel
       {...props}
       {...compiled}
-      data-slot={props["data-slot"] ?? "label"}
       style={mergeStyle(compiled.style, style)}
+      render={slotRender("label", "color-slider-label", props.render)}
     />
   );
 }
 export function ColorSliderOutput({
-  children,
   xstyle,
   style,
+  render,
+  children,
   ...props
-}: StyleXProps<Omit<ComponentPropsWithRef<typeof Base.Value>, "children">> & {
-  children?: ReactNode | ((state: { state: ColorSliderState }) => ReactNode);
-}) {
-  const { model } = useModel();
+}: StyleXProps<PartProps<"output">>) {
+  const scope = use(ColorValueContext)!;
+  const { channel } = useChannels();
+  const { locale } = useLocale();
+  const color = scope.color;
+  const value = color.getChannelValue(channel);
+  const format = color.getChannelFormatOptions(channel);
   const compiled = stylex.props(styles.output, xstyle);
-  return (
-    <Base.Value
-      {...props}
-      {...compiled}
-      data-slot={props["data-slot"] ?? "color-slider-output"}
-      style={mergeStyle(compiled.style, style)}
-    >
-      {() =>
-        typeof children === "function"
-          ? children({ state: model })
-          : (children ?? model.getThumbValueLabel(0))
-      }
-    </Base.Value>
+  return renderElement(
+    "output",
+    {
+      ...props,
+      ...compiled,
+      style: mergeStyle(compiled.style, style),
+      children:
+        children ??
+        formatNumber(
+          format.style === "percent" && channel !== "alpha" ? value / 100 : value,
+          locale,
+          format,
+        ),
+      "data-lenso-slot": "color-slider-output",
+    },
+    render,
   );
 }
-export type ColorTrackRenderState = Base.Control.State & {
-  color: Color;
-  defaultStyle: CSSProperties;
-  isDisabled: boolean;
-  isDragging: boolean;
-};
-export type ColorThumbRenderState = Base.Thumb.State & {
-  color: Color;
-  defaultStyle: CSSProperties;
-  isDisabled: boolean;
-  isDragging: boolean;
-};
-export type ColorSliderTrackProps = StyleXProps<
-  Omit<ComponentPropsWithRef<typeof Base.Control>, "style">
-> & { style?: CSSProperties | ((state: ColorTrackRenderState) => CSSProperties | undefined) };
-export type ColorSliderThumbProps = StyleXProps<
-  Omit<ComponentPropsWithRef<typeof Base.Thumb>, "style">
-> & { style?: CSSProperties | ((state: ColorThumbRenderState) => CSSProperties | undefined) };
+export type ColorSliderTrackProps = StyleXProps<ComponentProps<typeof Sdk.ColorPickerSlider>>;
 export function ColorSliderTrack({ xstyle, style, ...props }: ColorSliderTrackProps) {
-  const { model, channel, orientation } = useModel();
-  const direction = useDirection();
-  const color = model.getDisplayColor();
-  const range = color.getChannelRange(channel);
-  const to = orientation === "vertical" ? "top" : direction === "rtl" ? "left" : "right";
-  const stops =
-    channel === "hue"
-      ? [0, 60, 120, 180, 240, 300, 360]
-      : channel === "lightness"
-        ? [range.minValue, (range.maxValue + range.minValue) / 2, range.maxValue]
-        : [range.minValue, range.maxValue];
-  const gradient = `linear-gradient(to ${to}, ${stops.map((stop) => color.withChannelValue(channel, stop).toString("css")).join(", ")})`;
+  const { channel, orientation } = useChannels();
   const compiled = stylex.props(
     styles.track,
     styles.caps,
@@ -261,76 +187,53 @@ export function ColorSliderTrack({ xstyle, style, ...props }: ColorSliderTrackPr
     xstyle,
   );
   return (
-    <Base.Control
-      data-lg-slider-control=""
+    <Sdk.ColorPickerSlider
       {...props}
       {...compiled}
-      data-slot={props["data-slot"] ?? "color-slider-track"}
-      style={(native) =>
-        ({
-          ...compiled.style,
-          forcedColorAdjust: "none",
-          background: `${gradient},var(--lenso-color-checkerboard) 50% / 16px 16px`,
-          "--track-start-color": color.withChannelValue(channel, range.minValue).toString("css"),
-          "--track-end-color": color.withChannelValue(channel, range.maxValue).toString("css"),
-          ...(typeof style === "function"
-            ? style({
-                ...native,
-                color,
-                defaultStyle: { background: gradient, forcedColorAdjust: "none" },
-                isDisabled: native.disabled,
-                isDragging: native.dragging,
-              })
-            : style),
-        }) as CSSProperties
-      }
+      channel={channel}
+      orientation={orientation}
+      data-lg-slider-control=""
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", "color-slider-track", props.render)}
     />
   );
 }
+export type ColorSliderThumbProps = StyleXProps<ComponentProps<typeof Sdk.ColorPickerSliderThumb>>;
 export function ColorSliderThumb({
-  ref,
-  children,
   xstyle,
   style,
+  children,
+  ref,
   ...props
 }: ColorSliderThumbProps) {
-  const { orientation, model, channel, label, labelledBy, locale } = useModel();
+  const { channel, orientation } = useChannels();
   const presentationRef = useSliderThumbRef(ref);
   const compiled = stylex.props(
     styles.thumb,
     orientation === "vertical" && styles.verticalThumb,
     xstyle,
   );
-  const color = model.getDisplayColor();
   return (
-    <Base.Thumb
-      ref={presentationRef}
-      data-lg-slider-thumb=""
+    <Sdk.ColorPickerSliderThumb
       {...props}
       {...compiled}
-      index={0}
-      aria-label={props["aria-label"] ?? label ?? color.getChannelName(channel, locale)}
-      aria-labelledby={props["aria-labelledby"] ?? labelledBy}
-      getAriaValueText={() =>
-        `${model.getThumbValueLabel(0)}, ${channel === "hue" ? color.getHueName(locale) : color.getColorName(locale)}`
-      }
-      data-slot={props["data-slot"] ?? "color-slider-thumb"}
-      style={(native) => ({
-        ...compiled.style,
-        "--lg-color-thumb": color.toString("css"),
-        ...(typeof style === "function"
-          ? style({
-              ...native,
-              color,
-              defaultStyle: { backgroundColor: color.toString("css") },
-              isDisabled: native.disabled,
-              isDragging: native.dragging,
-            })
-          : style),
-      })}
+      channel={channel}
+      orientation={orientation}
+      ref={presentationRef}
+      data-lg-slider-thumb=""
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", "color-slider-thumb", props.render)}
     >
-      <span aria-hidden="true" {...stylex.props(styles.optical)} />
-      {children}
-    </Base.Thumb>
+      {(native) => (
+        <>
+          <span
+            aria-hidden="true"
+            {...stylex.props(styles.optical)}
+            style={{ backgroundColor: "var(--color-picker-color)" }}
+          />
+          {typeof children === "function" ? children(native) : children}
+        </>
+      )}
+    </Sdk.ColorPickerSliderThumb>
   );
 }

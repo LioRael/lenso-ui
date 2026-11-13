@@ -37,6 +37,7 @@ for (const pointerType of ["mouse", "touch"]) {
     };
     const event = (type: string) =>
       new PointerEvent(type, {
+        bubbles: true,
         pointerId: 1,
         pointerType,
         isPrimary: true,
@@ -56,7 +57,8 @@ for (const pointerType of ["mouse", "touch"]) {
       element.dispatchEvent(event("pointerdown"));
       advance(60);
       expect(60 * scale()).toBeCloseTo(expected, 2);
-      window.dispatchEvent(event("pointercancel"));
+      element.addEventListener("pointercancel", (event) => event.stopPropagation());
+      element.dispatchEvent(event("pointercancel"));
       advance(180);
       expect(scale()).toBe(1);
       expect(element.hasAttribute("data-lenso-pressed")).toBe(false);

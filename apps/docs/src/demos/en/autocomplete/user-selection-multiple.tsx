@@ -1,9 +1,9 @@
 "use client";
-import { NativeAutocomplete } from "./_native";
+import { OptionPicker } from "./_native";
 import { users } from "./user-selection";
 export function UserSelectionMultiple() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={users}
       label="Users"
       placeholder="Select your teammates"

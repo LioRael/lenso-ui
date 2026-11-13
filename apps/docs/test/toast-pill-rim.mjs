@@ -32,7 +32,7 @@ for (const [name, engine] of [
         window.rimSamples = [];
         window.stopRimSampling = false;
         const sample = () => {
-          const lens = document.querySelector('[data-slot="toast"] [data-material-lens]');
+          const lens = document.querySelector('[data-lenso-slot="toast"] [data-material-lens]');
           if (lens?.hasAttribute("data-material-resizing")) {
             const canvas = lens.querySelector("[data-lenso-live-rim]");
             const edge = canvas
@@ -52,19 +52,19 @@ for (const [name, engine] of [
       const download = page.getByRole("button", { name: "Download", exact: true });
       await download.waitFor();
       await page.waitForFunction(() => {
-        const lens = document.querySelector('[data-slot="toast"] [data-material-lens]');
+        const lens = document.querySelector('[data-lenso-slot="toast"] [data-material-lens]');
         return (
           lens?.hasAttribute("data-lenso-glass-foreground-rim") &&
           !lens.hasAttribute("data-material-resizing")
         );
       });
-      const box = await page.locator('[data-slot="toast"]').boundingBox();
+      const box = await page.locator('[data-lenso-slot="toast"]').boundingBox();
       const clip = { x: box.x - 3, y: box.y - 3, width: box.width + 6, height: box.height + 6 };
       const settled = await page.screenshot({ clip });
       // Hold the exact presentation state used while the next optical map is pending.
       await page.evaluate(() =>
         document
-          .querySelector('[data-slot="toast"] [data-material-lens]')
+          .querySelector('[data-lenso-slot="toast"] [data-material-lens]')
           .setAttribute("data-material-resizing", ""),
       );
       const moving = await page.screenshot({ clip });
@@ -134,7 +134,7 @@ for (const [name, engine] of [
       }
       await page.evaluate(() =>
         document
-          .querySelector('[data-slot="toast"] [data-material-lens]')
+          .querySelector('[data-lenso-slot="toast"] [data-material-lens]')
           .removeAttribute("data-material-resizing"),
       );
       await download.click();
@@ -160,7 +160,7 @@ for (const [name, engine] of [
       await completed.focus();
       await page.keyboard.press("Enter");
       await page.getByRole("button", { name: "Dismiss update notification" }).click();
-      await page.locator('[data-slot="toast"]').waitFor({ state: "detached" });
+      await page.locator('[data-lenso-slot="toast"]').waitFor({ state: "detached" });
       console.log(
         `PASS ${name} ${theme}: ${samples.length} painted resize frames; edge pixel difference ${difference.difference.toFixed(3)}; top ${difference.top}`,
       );

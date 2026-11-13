@@ -9,44 +9,33 @@ export function Placements() {
   return (
     <div {...stylex.props(styles.row)}>
       {placements.map((placement) => (
-        <Drawer.Provider key={placement}>
-          <Drawer
-            swipeDirection={
-              placement === "bottom" ? "down" : placement === "top" ? "up" : placement
-            }
-          >
-            <Drawer.Trigger render={<Button />}>
-              {placement.charAt(0).toUpperCase() + placement.slice(1)}
-            </Drawer.Trigger>
-            <Drawer.Portal>
-              <Drawer.Backdrop />
-              <Drawer.Viewport>
-                <Drawer.Popup>
-                  <Drawer.Content>
-                    <Drawer.Close aria-label="Close drawer" />
-                    {placement === "bottom" && <Drawer.Handle />}
-                    <Drawer.Header>
-                      <Drawer.Title>
-                        {placement.charAt(0).toUpperCase() + placement.slice(1)} Drawer
-                      </Drawer.Title>
-                    </Drawer.Header>
-                    <Drawer.Body>
-                      <p>
-                        This drawer slides in from the <strong>{placement}</strong> edge of the
-                        screen.
-                      </p>
-                    </Drawer.Body>
-                    <Drawer.Footer>
-                      <Drawer.Close render={<Button variant="bordered" />}>Cancel</Drawer.Close>
-                      <Drawer.Close render={<Button />}>Done</Drawer.Close>
-                    </Drawer.Footer>
-                    {placement === "top" && <Drawer.Handle />}
-                  </Drawer.Content>
-                </Drawer.Popup>
-              </Drawer.Viewport>
-            </Drawer.Portal>
-          </Drawer>
-        </Drawer.Provider>
+        <Drawer key={placement} side={placement}>
+          <Drawer.Trigger render={<Button />}>
+            {placement.charAt(0).toUpperCase() + placement.slice(1)}
+          </Drawer.Trigger>
+          <Drawer.Backdrop />
+          <Drawer.Content>
+            <Drawer.Layout>
+              <Drawer.Close aria-label="Close drawer" />
+              {placement === "bottom" && <Drawer.Handle />}
+              <Drawer.Header>
+                <Drawer.Title>
+                  {placement.charAt(0).toUpperCase() + placement.slice(1)}Drawer
+                </Drawer.Title>
+              </Drawer.Header>
+              <Drawer.Body>
+                <p>
+                  This drawer slides in from the <strong>{placement}</strong>edge of the screen.
+                </p>
+              </Drawer.Body>
+              <Drawer.Footer>
+                <Drawer.Close render={<Button variant="bordered" />}>Cancel</Drawer.Close>
+                <Drawer.Close render={<Button />}>Done</Drawer.Close>
+              </Drawer.Footer>
+              {placement === "top" && <Drawer.Handle />}
+            </Drawer.Layout>
+          </Drawer.Content>
+        </Drawer>
       ))}
     </div>
   );

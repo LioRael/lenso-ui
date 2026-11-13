@@ -22,6 +22,15 @@ export const popoverStyles = stylex.create({
   },
   positioner: { zIndex: tokens.zIndexOverlay, maxWidth: "var(--available-width)" },
   popup: {
+    position: "fixed",
+    overflow: "visible",
+    visibility: {
+      default: null,
+      ":is([popover]:not(:popover-open),[data-closed]:not([data-ending-style]))": "hidden",
+    },
+    borderWidth: 0,
+    margin: 0,
+    backgroundColor: "transparent",
     "--material-blur": "65px",
     color: tokens.labelPrimary,
     borderRadius: 38,
@@ -42,10 +51,8 @@ export const popoverStyles = stylex.create({
       default: "0 0",
       ':is([data-starting-style])[data-side="top"]': "0 4px",
       ':is([data-starting-style])[data-side="bottom"]': "0 -4px",
-      ':is([data-starting-style]):is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
-        "4px 0",
-      ':is([data-starting-style]):is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
-        "-4px 0",
+      ':is([data-starting-style]):is([data-side="left"])': "4px 0",
+      ':is([data-starting-style]):is([data-side="right"])': "-4px 0",
     },
     pointerEvents: { default: "auto", ":is([data-ending-style])": "none" },
     transitionProperty: "opacity, transform, translate",
@@ -61,47 +68,40 @@ export const popoverStyles = stylex.create({
   arrow: {
     width: {
       default: 56,
-      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"],[data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])': 13,
+      ':is([data-side="left"],[data-side="right"])': 13,
     },
     height: {
       default: 13,
-      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"],[data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])': 56,
+      ':is([data-side="left"],[data-side="right"])': 56,
     },
     bottom: {
       default: -12,
-      ':is([data-side="bottom"],[data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"],[data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
-        "auto",
+      ':is([data-side="bottom"],[data-side="left"],[data-side="right"])': "auto",
     },
     top: { default: "auto", ':is([data-side="bottom"])': -12 },
     right: {
       default: "auto",
-      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
-        -12,
+      ':is([data-side="left"])': -12,
     },
     left: {
       default: "auto",
-      ':is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
-        -12,
+      ':is([data-side="right"])': -12,
     },
     "--popover-arrow-rotate": {
       default: "0deg",
       ':is([data-side="bottom"])': "180deg",
-      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
-        "-90deg",
-      ':is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
-        "90deg",
+      ':is([data-side="left"])': "-90deg",
+      ':is([data-side="right"])': "90deg",
     },
     "--popover-arrow-left": {
       default: "0px",
       ':is([data-side="bottom"])': "56px",
-      ':is([data-side="right"],[data-side="inline-end"][data-direction="ltr"],[data-side="inline-start"][data-direction="rtl"])':
-        "13px",
+      ':is([data-side="right"])': "13px",
     },
     "--popover-arrow-top": {
       default: "0px",
       ':is([data-side="bottom"])': "13px",
-      ':is([data-side="left"],[data-side="inline-start"][data-direction="ltr"],[data-side="inline-end"][data-direction="rtl"])':
-        "56px",
+      ':is([data-side="left"])': "56px",
     },
   },
   arrowMaterial: {

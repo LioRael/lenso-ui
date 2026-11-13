@@ -1,5 +1,4 @@
 import { composeStories, type Meta, type StoryObj } from "@storybook/react-vite";
-import { DirectionProvider } from "@base-ui/react/direction-provider";
 import { FormWorkflowContract } from "./form-workflow-contract.fixture";
 import { FormWorkflowInvalidFixture } from "./form-workflow-invalid.fixture";
 import { NavigationContractFixture } from "./navigation-contract.fixture";
@@ -19,19 +18,19 @@ export const InvalidForm: Story = { render: () => <FormWorkflowInvalidFixture />
 export const Navigation: Story = { render: () => <NavigationContractFixture /> };
 export const RTLSlider: Story = {
   render: () => (
-    <DirectionProvider direction="rtl">
+    <>
       <div dir="rtl">
         <DefaultSlider />
       </div>
-    </DirectionProvider>
+    </>
   ),
 };
 export const RTLRange: Story = {
   render: () => (
-    <DirectionProvider direction="rtl">
+    <>
       <div dir="rtl">
         <RangeSlider />
       </div>
-    </DirectionProvider>
+    </>
   ),
 };

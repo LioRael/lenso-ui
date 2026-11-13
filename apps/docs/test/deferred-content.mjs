@@ -17,11 +17,11 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       await route.continue();
     });
     await page.addInitScript(() => {
-      window.apiContinuity = { seen: false, lost: false };
+      window.playgroundContinuity = { seen: false, lost: false };
       const frame = () => {
-        const api = !!document.getElementById("native-api-tabs");
-        if (window.apiContinuity.seen && !api) window.apiContinuity.lost = true;
-        window.apiContinuity.seen ||= api;
+        const api = !!document.querySelector('[data-component-story="Tabs"]');
+        if (window.playgroundContinuity.seen && !api) window.playgroundContinuity.lost = true;
+        window.playgroundContinuity.seen ||= api;
         requestAnimationFrame(frame);
       };
       requestAnimationFrame(frame);
@@ -50,18 +50,26 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       "An ordinary first screen must not load specialized previews, closed appearance controls or source",
     );
     assert.equal(await page.locator("[data-example-mounted]").count(), 0);
-    await page
-      .getByRole("heading", { name: "API Reference", exact: true })
-      .scrollIntoViewIfNeeded();
-    const summary = page.locator("summary").filter({ hasText: "Composition and actions (5)" });
-    await summary.click();
-    const example = page.locator('[data-example-name="tabs-vertical"]');
-    await example.scrollIntoViewIfNeeded();
-    await example.locator("[data-example-mounted]").waitFor({ state: "attached" });
-    assert.equal(
-      await page.locator('[data-example-name="tabs-disabled"] [data-example-mounted]').count(),
-      0,
-    );
+    const playground = page.locator('[data-component-story="Tabs"]');
+    await playground
+      .locator("[data-story-preview]")
+      .getByRole("tab", { name: "Activity", exact: true })
+      .click();
+    await playground
+      .getByRole("log")
+      .getByText(/value: activity/)
+      .waitFor();
+    await playground.getByRole("button", { name: "Clear", exact: true }).click();
+    await playground
+      .getByRole("log")
+      .getByText("Waiting for an interaction…", { exact: true })
+      .waitFor();
+
+    assert.equal(await page.locator('[id="native-api-tabs"]').count(), 0);
+    await page.getByRole("combobox", { name: "Preset", exact: true }).click();
+    await page.getByRole("option", { name: "Vertical layout", exact: true }).click();
+    await page.locator("[data-example-mounted]").waitFor({ state: "attached" });
+    assert.equal(await page.locator("[data-example-mounted]").count(), 1);
     const story = page.locator('[data-component-story="Tabs"]');
     await story.getByRole("tab", { name: "Code", exact: true }).click();
     await story.getByRole("status").waitFor();
@@ -72,16 +80,18 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     await story.getByRole("tab", { name: "Live preview", exact: true }).click();
     await story.locator("[data-story-preview]").waitFor();
     await page.getByRole("button", { name: "Copy Markdown", exact: true }).click();
-    await page.waitForFunction(() => window.copiedMarkdown?.includes("## API Reference"));
+    await page.waitForFunction(() => window.copiedMarkdown?.includes("<ComponentPlayground"));
     assert.ok(scripts.some((url) => url.includes("page-markdown")));
+    assert.ok(!(await page.evaluate(() => window.copiedMarkdown)).includes("## API Reference"));
     await page.getByRole("button", { name: "Theme", exact: true }).first().click();
     await page.getByRole("listbox", { name: "Theme presets" }).waitFor();
     await page.keyboard.press("Escape");
-    assert.deepEqual(await page.evaluate(() => window.apiContinuity), { seen: true, lost: false });
+    assert.deepEqual(await page.evaluate(() => window.playgroundContinuity), {
+      seen: true,
+      lost: false,
+    });
     assert.deepEqual(errors, []);
-    console.log(
-      `${name}: preserved API, closed examples, visible demos and first-use source passed`,
-    );
+    console.log(`${name}: compact content, lazy playground scenarios and first-use source passed`);
   } finally {
     await browser.close();
   }

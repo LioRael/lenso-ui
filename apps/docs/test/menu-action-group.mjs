@@ -33,12 +33,12 @@ for (const [engine, type] of [
           .locator(`[data-action-case=${kind}]`)
           .getByRole("button", { name: label, exact: true });
         await trigger.click();
-        const popup = page.locator("[data-slot=menu-popup][data-open]");
+        const popup = page.locator("[data-lenso-slot=menu-popup][data-open]");
         await popup.waitFor();
         await page.waitForTimeout(600);
         const geometry = await popup.evaluate((e) => {
-          const group = e.querySelector("[data-slot=menu-action-group]"),
-            items = [...group.querySelectorAll("[data-slot=menu-action]")];
+          const group = e.querySelector("[data-lenso-slot=menu-action-group]"),
+            items = [...group.querySelectorAll("[data-lenso-slot=menu-action]")];
           const p = e.getBoundingClientRect(),
             g = group.getBoundingClientRect();
           return {
@@ -85,7 +85,7 @@ for (const [engine, type] of [
           await page.waitForTimeout(140);
           const error = await popup.evaluate((e) => {
             const row = e.querySelector("[data-highlighted]");
-            const plate = e.querySelector('[data-slot="menu-plate"]');
+            const plate = e.querySelector('[data-lenso-slot="menu-plate"]');
             if (!row || !plate) return Infinity;
             const a = row.getBoundingClientRect(),
               b = plate.getBoundingClientRect();

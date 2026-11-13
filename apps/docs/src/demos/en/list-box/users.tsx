@@ -2,7 +2,7 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Check } from "@gravity-ui/icons";
-import { Avatar, ListBox } from "@lenso/ui";
+import { Avatar, ListBox, type ListBoxRootProps } from "@lenso/ui";
 import { Description, Label } from "./text";
 
 export const styles = stylex.create({
@@ -53,8 +53,8 @@ export function UserItems({
   return users.slice(0, count).map((user, index) => (
     <ListBox.Item
       key={user.key}
-      itemKey={user.key}
-      textValue={user.name}
+      value={user.key}
+      label={user.name}
       xstyle={customStyles && styles.customItem}
       render={
         renderItems
@@ -72,20 +72,20 @@ export function UserItems({
       </div>
       <ListBox.Item.Indicator>
         {customCheck
-          ? ({ isSelected }) =>
-              isSelected ? <Check {...stylex.props(styles.check)} aria-hidden="true" /> : null
+          ? ({ selected }) =>
+              selected ? <Check {...stylex.props(styles.check)} aria-hidden="true" /> : null
           : undefined}
       </ListBox.Item.Indicator>
     </ListBox.Item>
   ));
 }
 export function UsersList(
-  props: Omit<React.ComponentProps<typeof ListBox>, "children"> &
+  props: Omit<ListBoxRootProps<string, boolean>, "children"> &
     React.ComponentProps<typeof UserItems>,
 ) {
   const { customCheck, customStyles, renderItems, count, ...root } = props;
   return (
-    <ListBox aria-label="Users" {...root}>
+    <ListBox<string, boolean> aria-label="Users" {...root}>
       <UserItems
         customCheck={customCheck}
         customStyles={customStyles}

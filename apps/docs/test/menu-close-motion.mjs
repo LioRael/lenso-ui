@@ -7,8 +7,8 @@ await mkdir(out, { recursive: true });
 // A popup that resized while open should return along the same path as one
 // mounted at its final size. Fixed-size closing tests cannot detect stale bounds.
 async function checkResizedExit(page, trigger, slot) {
-  const popup = page.locator(`[data-slot="${slot}"]`);
-  const resizeRule = `[data-slot="${slot}"] { width: 480px !important; height: 280px !important; }`;
+  const popup = page.locator(`[data-lenso-slot="${slot}"]`);
+  const resizeRule = `[data-lenso-slot="${slot}"] { width: 480px !important; height: 280px !important; }`;
   const trajectories = [];
   for (const resizeWhileOpen of [true, false]) {
     let style;
@@ -23,7 +23,7 @@ async function checkResizedExit(page, trigger, slot) {
     assert.equal(final.height, 280);
     if (resizeWhileOpen) assert.notEqual(initial.width, final.width);
     await page.keyboard.press("Escape");
-    const surface = popup.locator('[data-slot$="-surface"]');
+    const surface = popup.locator('[data-lenso-slot$="-surface"]');
     const trajectory = [];
     for (const interval of [16, 64, 112, 80]) {
       await page.clock.runFor(interval);
@@ -92,15 +92,19 @@ for (const [engine, type] of [
         await trigger.click({ force: true });
         await page.clock.runFor(700);
         const popup = page.locator(
-          `[data-slot=${select ? "select-popover" : "menu-popup"}][data-open]`,
+          `[data-lenso-slot=${select ? "select-popover" : "menu-popup"}][data-open]`,
         );
         await popup.waitFor();
         if (kind === "icon") assert.equal(await popup.getAttribute("data-menu-motion"), "icon");
         const handle = await popup.elementHandle();
         const measure = (e) => {
-          const s = e.querySelector('[data-slot="menu-surface"], [data-slot="select-surface"]');
+          const s = e.querySelector(
+            '[data-lenso-slot="menu-surface"], [data-lenso-slot="select-surface"]',
+          );
           const r = s.getBoundingClientRect();
-          const glyph = e.querySelector('[data-slot="menu-glyph"], [data-slot="select-glyph"]');
+          const glyph = e.querySelector(
+            '[data-lenso-slot="menu-glyph"], [data-lenso-slot="select-glyph"]',
+          );
           const g = glyph?.getBoundingClientRect();
           return {
             width: r.width,

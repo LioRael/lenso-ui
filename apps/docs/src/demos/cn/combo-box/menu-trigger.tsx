@@ -19,7 +19,7 @@ function Policy({ mode }: { mode: "focus" | "input" | "manual" }) {
       </p>
       <AnimalPicker
         open={open}
-        openOnInputClick={mode === "focus"}
+
         inputFocus={mode === "focus" ? () => setOpen(true) : undefined}
         onOpenChange={(next, details) => {
           if (next && mode === "manual" && details.reason === "input-change") return;

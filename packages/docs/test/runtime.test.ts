@@ -4,7 +4,6 @@ import {
   mkdir,
   readFile,
   readdir,
-  realpath,
   rm,
   stat,
   symlink,
@@ -13,7 +12,6 @@ import {
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { createRequire } from "node:module";
 import type { AddressInfo } from "node:net";
 import { afterEach, test } from "bun:test";
 
@@ -40,16 +38,19 @@ test("prepare generates one model and byte-exact Markdown without changing sourc
   const result = await prepare(root);
   assert.equal(result.pages.length, 1);
   assert.equal(
-    await readFile(path.join(root, ".lenso", "public", "_lenso", "markdown", "index.md"), "utf8"),
+    await readFile(
+      path.join(root, ".lenso", "build", "public", "_lenso", "markdown", "index.md"),
+      "utf8",
+    ),
     before,
   );
   assert.equal(await readFile(path.join(root, "content", "index.md"), "utf8"), before);
   const search = await readFile(
-    path.join(root, ".lenso", "public", "_lenso", "search.json"),
+    path.join(root, ".lenso", "build", "public", "_lenso", "search.json"),
     "utf8",
   );
   assert.match(search, /Start here/);
-  const model = await import(path.join(root, ".lenso", "model.ts"));
+  const model = await import(path.join(root, ".lenso", "build", "model.ts"));
   assert.equal(model.trees.en.children[0].url, "/");
   assert.equal(model.pages[0].headings[0].id, "reading");
 });
@@ -67,7 +68,7 @@ test("prepare retires old generated modules without following symlinks", async (
   await assert.rejects(readFile(next), { code: "ENOENT" });
   await assert.rejects(readFile(model), { code: "ENOENT" });
   await assert.rejects(readFile(render), { code: "ENOENT" });
-  await readFile(path.join(directory, "next.config.ts"));
+  await readFile(path.join(directory, "vite.config.ts"));
   await readFile(path.join(directory, "model.ts"));
 
   const outside = path.join(root, "outside.mjs");
@@ -77,50 +78,27 @@ test("prepare retires old generated modules without following symlinks", async (
   assert.equal(await readFile(outside, "utf8"), "unchanged");
 });
 
-// Both dev bundlers use the authored Babel transforms and consumer aliases/rules.
-test("Turbopack dev stages Babel and preserves consumer build configuration", async () => {
+// The standalone host must own its compiler setup without changing authored files.
+test("Vite host replaces Next configuration and isolates dev from production", async () => {
   const root = await project();
   await mkdir(path.join(root, "src"));
-  const babel = '{"presets":["next/babel"]}\n';
-  await writeFile(path.join(root, "babel.config.json"), babel);
-  await writeFile(path.join(root, "fixture-input.json"), "{}");
-  await writeFile(
-    path.join(root, "postcss.config.cjs"),
-    'module.exports = { plugins: [], directory: __dirname, input: require.resolve("./fixture-input.json") };\n',
-  );
-  await writeFile(
-    path.join(root, "build.mjs"),
-    `export default { turbopack: { root: ${JSON.stringify(root)}, rules: { "*.txt": { loaders: ["raw-loader"] } }, resolveAlias: { prior: "./prior" } } };`,
-  );
+  await writeFile(path.join(root, "build.mjs"), 'export default { define: { CUSTOM: "true" } };');
   await writeFile(
     path.join(root, "docs.config.mjs"),
     'export default { title: "Docs", build: "build.mjs", aliases: { "@": "src" } };',
   );
-  const webpack = await prepare(root, { development: true });
-  const staged = path.join(webpack.directory, "babel.config.json");
-  assert.equal(await readFile(staged, "utf8"), babel);
-  const turbo = await prepare(root, { development: true, turbopack: true });
-  assert.equal(await readFile(staged, "utf8"), babel);
-  assert.notEqual(turbo.configurationKey, webpack.configurationKey);
-  assert.equal(turbo.watchPaths.includes("babel.config.json"), true);
-  assert.match(await readFile(path.join(turbo.directory, "postcss.config.cjs"), "utf8"), /require/);
-  const postcss = createRequire(import.meta.url)(path.join(turbo.directory, "postcss.config.cjs"));
-  assert.equal(await realpath(postcss.directory), await realpath(root));
-  assert.equal(
-    await realpath(postcss.input),
-    await realpath(path.join(root, "fixture-input.json")),
-  );
-  const settings = await (
-    await import(path.join(turbo.directory, "next.config.ts"))
-  ).default("phase-development-server", {});
-  assert.equal(settings.turbopack.root, root);
-  assert.deepEqual(settings.turbopack.resolveAlias, { prior: "./prior", "@": "./src" });
-  assert.deepEqual(settings.turbopack.rules["*.txt"].loaders, ["raw-loader"]);
-  await prepare(root);
-  assert.equal(await readFile(staged, "utf8"), babel);
-  assert.equal(await readFile(path.join(root, "babel.config.json"), "utf8"), babel);
-  await assert.rejects(run("build", root, { turbopack: true }), /only available for development/);
-  await assert.rejects(run("preview", root, { turbopack: true }), /only available for development/);
+  const dev = await prepare(root, { development: true });
+  const before = await readFile(path.join(dev.directory, "vite.config.ts"), "utf8");
+  const production = await prepare(root);
+  assert.notEqual(production.directory, dev.directory);
+  assert.equal(await readFile(path.join(dev.directory, "vite.config.ts"), "utf8"), before);
+  assert.match(before, /tanstackStart/);
+  assert.match(before, /stylex/);
+  assert.match(before, /build\.mjs/);
+  for (const directory of [dev.directory, production.directory])
+    for (const file of ["next.config.ts", "babel.config.json", "postcss.config.cjs"])
+      await assert.rejects(readFile(path.join(directory, file)), { code: "ENOENT" });
+  assert.equal(dev.watchPaths.includes("build.mjs"), true);
 });
 
 test("the exported search index is readable by the installed Fumadocs static client", async () => {
@@ -158,14 +136,15 @@ test("prepare refuses foreign runtime data and symlinked ownership markers", asy
 
 test("prepare rejects generated ancestor symlinks even when the descendant exists", async () => {
   const root = await project();
-  const runtime = path.join(root, ".lenso");
+  const runtime = path.join(root, ".lenso", "build");
   const outside = path.join(root, "outside");
   await mkdir(path.join(outside, "[[...slug]]"), { recursive: true });
   const target = path.join(outside, "[[...slug]]", "page.tsx");
   await writeFile(target, "must not change");
-  await mkdir(runtime);
+  await mkdir(runtime, { recursive: true });
+  await writeFile(path.join(root, ".lenso", ".lenso-owned"), "lenso-docs\n");
   await writeFile(path.join(runtime, ".lenso-owned"), "lenso-docs\n");
-  await symlink(outside, path.join(runtime, "app"));
+  await symlink(outside, path.join(runtime, "src"));
   await assert.rejects(prepare(root), /Generated directory cannot be a symlink/);
   assert.equal(await readFile(target, "utf8"), "must not change");
 });
@@ -274,7 +253,7 @@ test("content-only refresh retains unchanged file times and invalidates the edit
     "public/logo.svg",
     "public/_lenso/markdown/other.md",
     "documents/1.js",
-    "app/(locale-0)/other/page.tsx",
+    "src/routes/[other].tsx",
   ];
   const timestamp = new Date("2000-01-01T00:00:00Z");
   const times = new Map();
@@ -283,17 +262,21 @@ test("content-only refresh retains unchanged file times and invalidates the edit
     await utimes(target, timestamp, timestamp);
     times.set(file, (await stat(target)).mtimeMs);
   }
-  const route = path.join(first.directory, "app", "(locale-0)", "page.tsx");
+  const route = path.join(first.directory, "pages", "0.tsx");
   const before = await readFile(route, "utf8");
   const model = path.join(first.directory, "model.ts");
   const oldModel = await readFile(model, "utf8");
-  await mkdir(path.join(first.directory, "pages"));
-  await writeFile(path.join(first.directory, "pages/0.js"), "export default function Legacy() {};");
+  await mkdir(path.join(first.directory, "app"));
+  await writeFile(
+    path.join(first.directory, "app/legacy.js"),
+    "export default function Legacy() {};",
+  );
   const markdown = "# Home\n\n## Reading\n\nUpdated body.\n";
   await writeFile(path.join(root, "content", "index.md"), markdown);
   await prepare(root, { development: true, previous: first, changedPaths: ["content/index.md"] });
-  await assert.rejects(stat(path.join(first.directory, "pages")), { code: "ENOENT" });
-  assert.notEqual(await readFile(route, "utf8"), before);
+  await assert.rejects(stat(path.join(first.directory, "app/legacy.js")), { code: "ENOENT" });
+  assert.equal(await readFile(route, "utf8"), before);
+  assert.equal(await readFile(path.join(first.directory, "documents/0.md"), "utf8"), markdown);
   const newModel = await readFile(model, "utf8");
   assert.notEqual(
     newModel.match(/export const searchRevision = "([^"]+)"/u)?.[1],

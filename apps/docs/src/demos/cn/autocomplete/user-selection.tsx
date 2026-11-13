@@ -1,7 +1,7 @@
 "use client";
 
 import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, OptionAvatar, styles } from "../../en/autocomplete/_native";
+import { OptionPicker, OptionAvatar, styles } from "../../en/autocomplete/_native";
 export const users = [
   {
     avatarUrl: "/assets/demo/avatars/blue.svg",
@@ -41,7 +41,7 @@ export const users = [
 ];
 export function UserSelection() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={users}
       label="用户"
       placeholder="选择用户"

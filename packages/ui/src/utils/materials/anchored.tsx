@@ -46,7 +46,7 @@ export function AnchoredMaterial({ kind }: { kind: keyof typeof arrowPaths }) {
       const box = popup.getBoundingClientRect();
       if (!width || !height || !box.width || !box.height) return;
       const radius = Math.min(parseFloat(style.borderTopLeftRadius), width / 2, height / 2);
-      const arrow = popup.querySelector<HTMLElement>(`[data-slot="${kind}-arrow-material"]`);
+      const arrow = popup.querySelector<HTMLElement>(`[data-lenso-slot="${kind}-arrow-material"]`);
       let path = "";
       if (arrow && getComputedStyle(arrow.parentElement!).display !== "none") {
         const arrowStyle = getComputedStyle(arrow);
@@ -95,7 +95,8 @@ export function AnchoredMaterial({ kind }: { kind: keyof typeof arrowPaths }) {
           ({ target, type }) =>
             type === "childList" ||
             target === popup ||
-            target === popup.querySelector(`[data-slot="${kind}-arrow-material"]`)?.parentElement,
+            target ===
+              popup.querySelector(`[data-lenso-slot="${kind}-arrow-material"]`)?.parentElement,
         )
       )
         update();
@@ -104,7 +105,7 @@ export function AnchoredMaterial({ kind }: { kind: keyof typeof arrowPaths }) {
       subtree: true,
       childList: true,
       attributes: true,
-      attributeFilter: ["style", "class", "data-side", "data-direction"],
+      attributeFilter: ["style", "class", "data-side"],
     });
     return () => {
       resize.disconnect();
@@ -115,7 +116,7 @@ export function AnchoredMaterial({ kind }: { kind: keyof typeof arrowPaths }) {
     <span
       ref={ref}
       aria-hidden="true"
-      data-slot={`${kind}-material`}
+      data-lenso-slot={`${kind}-material`}
       style={{ "--anchored-material-inset": `${inset}px` } as CSSProperties}
       {...stylex.props(
         materialStyles.root,

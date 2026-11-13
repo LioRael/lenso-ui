@@ -73,11 +73,9 @@ export const Default: Story = {
         <ColorSwatch size="lg" />
         <span>Pick a color</span>
       </ColorPicker.Trigger>
-      <ColorPicker.Popover>
-        <ColorPicker.Dialog aria-label="Pick a color">
-          <PickerArea />
-          <HueSlider />
-        </ColorPicker.Dialog>
+      <ColorPicker.Popover aria-label="Pick a color">
+        <PickerArea />
+        <HueSlider />
       </ColorPicker.Popover>
     </ColorPicker>
   ),
@@ -98,37 +96,35 @@ export const Controlled: Story = {
             <ColorSwatch size="lg" />
             <span>Pick a color</span>
           </ColorPicker.Trigger>
-          <ColorPicker.Popover xstyle={s.pickerGap}>
-            <ColorPicker.Dialog aria-label="Pick a color">
-              <ColorSwatchPicker xstyle={s.presets} size="xs">
-                <Presets />
-              </ColorSwatchPicker>
-              <PickerArea />
-              <div {...stylex.props(s.row2)}>
-                <ColorSlider aria-label="Hue slider" channel="hue" xstyle={s.flex} colorSpace="hsb">
-                  <ColorSlider.Track>
-                    <ColorSlider.Thumb />
-                  </ColorSlider.Track>
-                </ColorSlider>
-                <GlassButton
-                  isIconOnly
-                  aria-label="Shuffle color"
-                  size="sm"
-                  variant="default"
-                  onClick={shuffleColor}
-                >
-                  <ColorStoryIcon kind="shuffle" />
-                </GlassButton>
-              </div>
-              <ColorField aria-label="Color field">
-                <ColorField.Group variant="secondary">
-                  <ColorField.Prefix>
-                    <ColorSwatch size="xs" />
-                  </ColorField.Prefix>
-                  <ColorField.Input />
-                </ColorField.Group>
-              </ColorField>
-            </ColorPicker.Dialog>
+          <ColorPicker.Popover aria-label="Pick a color" xstyle={s.pickerGap}>
+            <ColorSwatchPicker xstyle={s.presets} size="xs">
+              <Presets />
+            </ColorSwatchPicker>
+            <PickerArea />
+            <div {...stylex.props(s.row2)}>
+              <ColorSlider aria-label="Hue slider" channel="hue" xstyle={s.flex} colorSpace="hsb">
+                <ColorSlider.Track>
+                  <ColorSlider.Thumb />
+                </ColorSlider.Track>
+              </ColorSlider>
+              <GlassButton
+                isIconOnly
+                aria-label="Shuffle color"
+                size="sm"
+                variant="default"
+                onClick={shuffleColor}
+              >
+                <ColorStoryIcon kind="shuffle" />
+              </GlassButton>
+            </div>
+            <ColorField aria-label="Color field">
+              <ColorField.Group variant="secondary">
+                <ColorField.Prefix>
+                  <ColorSwatch size="xs" />
+                </ColorField.Prefix>
+                <ColorField.Input />
+              </ColorField.Group>
+            </ColorField>
           </ColorPicker.Popover>
         </ColorPicker>
         <p {...stylex.props(s.width240, s.muted)}>
@@ -145,14 +141,12 @@ export const WithSwatches: Story = {
         <ColorSwatch size="lg" />
         <span>Brand Color</span>
       </ColorPicker.Trigger>
-      <ColorPicker.Popover>
-        <ColorPicker.Dialog aria-label="Brand Color">
-          <PickerArea />
-          <HueSlider />
-          <ColorSwatchPicker xstyle={s.presetsInline} size="xs">
-            <Presets />
-          </ColorSwatchPicker>
-        </ColorPicker.Dialog>
+      <ColorPicker.Popover aria-label="Brand Color">
+        <PickerArea />
+        <HueSlider />
+        <ColorSwatchPicker xstyle={s.presetsInline} size="xs">
+          <Presets />
+        </ColorSwatchPicker>
       </ColorPicker.Popover>
     </ColorPicker>
   ),
@@ -171,26 +165,24 @@ export const WidthFields: Story = {
           <ColorSwatch size="lg" />
           <span>Pick a color</span>
         </ColorPicker.Trigger>
-        <ColorPicker.Popover xstyle={s.pickerNarrow}>
-          <ColorPicker.Dialog aria-label="Pick a color">
-            <PickerArea />
-            <HueSlider />
-            <ColorSpaceSelect value={colorSpace} onChange={setColorSpace} />
-            <div {...stylex.props(s.channelGrid)}>
-              {colorChannelsByColorSpace[colorSpace].map((channel) => (
-                <ColorField
-                  key={channel}
-                  aria-label={channel}
-                  channel={channel}
-                  colorSpace={colorSpace}
-                >
-                  <ColorField.Group variant="secondary">
-                    <ColorField.Input />
-                  </ColorField.Group>
-                </ColorField>
-              ))}
-            </div>
-          </ColorPicker.Dialog>
+        <ColorPicker.Popover aria-label="Pick a color" xstyle={s.pickerNarrow}>
+          <PickerArea />
+          <HueSlider />
+          <ColorSpaceSelect value={colorSpace} onChange={setColorSpace} />
+          <div {...stylex.props(s.channelGrid)}>
+            {colorChannelsByColorSpace[colorSpace].map((channel) => (
+              <ColorField
+                key={channel}
+                aria-label={channel}
+                channel={channel}
+                colorSpace={colorSpace}
+              >
+                <ColorField.Group variant="secondary">
+                  <ColorField.Input />
+                </ColorField.Group>
+              </ColorField>
+            ))}
+          </div>
         </ColorPicker.Popover>
       </ColorPicker>
     );
@@ -253,13 +245,11 @@ export const WithSliders: Story = {
           <ColorSwatch size="lg" />
           <span>Pick a color</span>
         </ColorPicker.Trigger>
-        <ColorPicker.Popover xstyle={s.pickerSliders}>
-          <ColorPicker.Dialog aria-label="Pick a color">
-            <ColorSpaceSelect value={colorSpace} onChange={setColorSpace} />
-            <div {...stylex.props(s.column2)}>
-              <ChannelSliders space={colorSpace} />
-            </div>
-          </ColorPicker.Dialog>
+        <ColorPicker.Popover aria-label="Pick a color" xstyle={s.pickerSliders}>
+          <ColorSpaceSelect value={colorSpace} onChange={setColorSpace} />
+          <div {...stylex.props(s.column2)}>
+            <ChannelSliders space={colorSpace} />
+          </div>
         </ColorPicker.Popover>
       </ColorPicker>
     );

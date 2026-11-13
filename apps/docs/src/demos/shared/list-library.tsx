@@ -244,8 +244,8 @@ export function ListLibrary({ locale = "en", fullscreen = false }: ListLibraryPr
               aria-label={cn ? "资料" : "Library entries"}
               editing={editing}
               disabled={refreshing}
-              selectedKeys={selected}
-              onSelectionChange={setSelected}
+              value={[...selected]}
+              onValueChange={(keys) => setSelected(new Set(keys))}
               onReorder={reorder}
               onKeyDown={(event) => {
                 if (!event.defaultPrevented && event.key === "Escape") {
@@ -313,7 +313,9 @@ export function ListLibrary({ locale = "en", fullscreen = false }: ListLibraryPr
                 href: `#${prefix}-${group}`,
               }))}
               value={groups.includes(active) ? active : groups[0]}
-              onValueChange={setActive}
+              onValueChange={(next) => {
+                if (next !== null) setActive(next);
+              }}
               xstyle={s.index}
             />
           </div>
@@ -364,21 +366,17 @@ export function ListLibrary({ locale = "en", fullscreen = false }: ListLibraryPr
           {notice}
         </p>
       </RefreshControl>
-      <Modal.Portal>
-        <Modal.Backdrop />
-        <Modal.Viewport>
-          <Modal.Popup>
-            <Modal.Title>{opened?.title}</Modal.Title>
-            <Modal.Description>{opened?.detail}</Modal.Description>
-            <p>
-              {cn
-                ? "示例资料，可在列表中选择、排序或删除。"
-                : "A sample entry that you can select, reorder or delete in the library."}
-            </p>
-            <Modal.Close render={<Button />}>{cn ? "关闭" : "Close"}</Modal.Close>
-          </Modal.Popup>
-        </Modal.Viewport>
-      </Modal.Portal>
+      <Modal.Backdrop />
+      <Modal.Content>
+        <Modal.Title>{opened?.title}</Modal.Title>
+        <Modal.Description>{opened?.detail}</Modal.Description>
+        <p>
+          {cn
+            ? "示例资料，可在列表中选择、排序或删除。"
+            : "A sample entry that you can select, reorder or delete in the library."}
+        </p>
+        <Modal.Close render={<Button />}>{cn ? "关闭" : "Close"}</Modal.Close>
+      </Modal.Content>
     </Modal.Root>
   );
 }

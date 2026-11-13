@@ -9,7 +9,9 @@ export function WithClearButton() {
       label="State"
       choices={states}
       value={value}
-      onValueChange={setValue}
+      onValueChange={(next) => {
+        if (!Array.isArray(next)) setValue(next);
+      }}
       clear={value === null ? undefined : () => setValue(null)}
     />
   );

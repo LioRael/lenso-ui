@@ -1,6 +1,17 @@
 "use client";
 import * as React from "react";
-import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
+import {
+  NumberInput as SdkNumberInput,
+  NumberInputGroup as SdkNumberInputGroup,
+  NumberInputControl as SdkNumberInputControl,
+  NumberInputIncrement as SdkNumberInputIncrement,
+  NumberInputDecrement as SdkNumberInputDecrement,
+  NumberInputScrubArea as SdkNumberInputScrubArea,
+  NumberInputScrubAreaCursor as SdkNumberInputScrubAreaCursor,
+  type NumberInputState,
+  type NumberInputButtonState,
+} from "@ui-sdk/react/number-input";
+import { slotRender } from "../../utils/sdk-render.js";
 import { numberFieldStyles, numberFieldGroupStyles } from "@lenso/tokens/number-field";
 import { glassStyles } from "@lenso/tokens/glass";
 import { inputGroupMaterialStyles } from "@lenso/tokens/input-group";
@@ -12,17 +23,17 @@ const Appearance = React.createContext({
   variant: "primary" as "primary" | "secondary",
   fullWidth: false,
 });
-export type NumberFieldRootProps = StyleXProps<BaseNumberField.Root.Props> & {
+export type NumberFieldRootProps = StyleXProps<React.ComponentProps<typeof SdkNumberInput>> & {
   variant?: "primary" | "secondary";
   fullWidth?: boolean;
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 export function NumberFieldRoot({
   variant = "primary",
   fullWidth = false,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
 }: NumberFieldRootProps) {
   const appearance = React.useMemo(() => ({ variant, fullWidth }), [variant, fullWidth]);
@@ -33,11 +44,11 @@ export function NumberFieldRoot({
   );
   return (
     <Appearance value={appearance}>
-      <BaseNumberField.Root
+      <SdkNumberInput
         {...props}
         {...compiled}
-        style={mergeStyle<BaseNumberField.Root.State>(compiled.style, style)}
-        data-slot={slot ?? "number-field"}
+        style={mergeStyle<NumberInputState>(compiled.style, style)}
+        render={slotRender("div", slot ?? "number-field", props.render)}
       />
     </Appearance>
   );
@@ -46,9 +57,11 @@ export function NumberFieldGroup({
   ref,
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseNumberField.Group.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof SdkNumberInputGroup>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const { variant, fullWidth } = React.useContext(Appearance);
   const glassRef = useFocusMethodRef(useGlassRef(ref, true));
   const compiled = stylex.props(
@@ -60,28 +73,30 @@ export function NumberFieldGroup({
     xstyle,
   );
   return (
-    <BaseNumberField.Group
+    <SdkNumberInputGroup
       {...props}
       ref={glassRef}
       {...compiled}
-      style={mergeStyle<BaseNumberField.Group.State>(compiled.style, style)}
-      data-slot={slot ?? "number-field-group"}
+      style={mergeStyle<NumberInputState>(compiled.style, style)}
+      render={slotRender("div", slot ?? "number-field-group", props.render)}
     />
   );
 }
 export function NumberFieldInput({
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseNumberField.Input.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof SdkNumberInputControl>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(numberFieldStyles.input, inputGroupMaterialStyles.input, xstyle);
   return (
-    <BaseNumberField.Input
+    <SdkNumberInputControl
       {...props}
       {...compiled}
-      style={mergeStyle<BaseNumberField.Input.State>(compiled.style, style)}
-      data-slot={slot ?? "number-field-input"}
+      style={mergeStyle<NumberInputState>(compiled.style, style)}
+      render={slotRender("input", slot ?? "number-field-input", props.render)}
     />
   );
 }
@@ -89,40 +104,44 @@ export function NumberFieldIncrementButton({
   children = "+",
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseNumberField.Increment.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof SdkNumberInputIncrement>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(numberFieldStyles.button, numberFieldStyles.increment, xstyle);
   return (
-    <BaseNumberField.Increment
+    <SdkNumberInputIncrement
       aria-label="Increase value"
       {...props}
       {...compiled}
-      style={mergeStyle<BaseNumberField.Increment.State>(compiled.style, style)}
-      data-slot={slot ?? "number-field-increment-button"}
+      style={mergeStyle<NumberInputButtonState>(compiled.style, style)}
+      render={slotRender("button", slot ?? "number-field-increment-button", props.render)}
     >
       {children}
-    </BaseNumberField.Increment>
+    </SdkNumberInputIncrement>
   );
 }
 export function NumberFieldDecrementButton({
   children = "−",
   xstyle,
   style,
-  "data-slot": slot,
+  "data-lenso-slot": slot,
   ...props
-}: StyleXProps<BaseNumberField.Decrement.Props> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentProps<typeof SdkNumberInputDecrement>> & {
+  "data-lenso-slot"?: unknown;
+}) {
   const compiled = stylex.props(numberFieldStyles.button, numberFieldStyles.decrement, xstyle);
   return (
-    <BaseNumberField.Decrement
+    <SdkNumberInputDecrement
       aria-label="Decrease value"
       {...props}
       {...compiled}
-      style={mergeStyle<BaseNumberField.Decrement.State>(compiled.style, style)}
-      data-slot={slot ?? "number-field-decrement-button"}
+      style={mergeStyle<NumberInputButtonState>(compiled.style, style)}
+      render={slotRender("button", slot ?? "number-field-decrement-button", props.render)}
     >
       {children}
-    </BaseNumberField.Decrement>
+    </SdkNumberInputDecrement>
   );
 }
 export const NumberField = Object.assign(NumberFieldRoot, {
@@ -131,8 +150,8 @@ export const NumberField = Object.assign(NumberFieldRoot, {
   Input: NumberFieldInput,
   IncrementButton: NumberFieldIncrementButton,
   DecrementButton: NumberFieldDecrementButton,
-  ScrubArea: BaseNumberField.ScrubArea,
-  ScrubAreaCursor: BaseNumberField.ScrubAreaCursor,
+  ScrubArea: SdkNumberInputScrubArea,
+  ScrubAreaCursor: SdkNumberInputScrubAreaCursor,
 });
 export type NumberFieldProps = NumberFieldRootProps;
 export type NumberFieldGroupProps = React.ComponentProps<typeof NumberFieldGroup>;

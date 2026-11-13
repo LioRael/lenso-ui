@@ -42,8 +42,8 @@ for (const [name, engine] of [
         );
         const style = await modal.evaluate((e) => {
           const s = getComputedStyle(e),
-            title = getComputedStyle(e.querySelector('[data-slot="modal-title"]'));
-          const body = getComputedStyle(e.querySelector('[data-slot="modal-body"]'));
+            title = getComputedStyle(e.querySelector('[data-lenso-slot="modal-title"]'));
+          const body = getComputedStyle(e.querySelector('[data-lenso-slot="modal-body"]'));
           const box = e.getBoundingClientRect();
           return {
             radius: s.borderRadius,
@@ -54,7 +54,7 @@ for (const [name, engine] of [
             left: box.left,
             right: box.right,
             overflow: e.scrollWidth - e.clientWidth,
-            buttonHeights: [...e.querySelector('[data-slot="modal-footer"]').children].map(
+            buttonHeights: [...e.querySelector('[data-lenso-slot="modal-footer"]').children].map(
               (b) => b.getBoundingClientRect().height,
             ),
           };
@@ -100,6 +100,10 @@ for (const [name, engine] of [
         await preferences.click();
         const drawer = page.getByRole("dialog", { name: "Reading preferences", exact: true });
         await drawer.waitFor();
+        assert.equal(
+          await page.locator('[data-lenso-slot="drawer-backdrop"][data-open]').count(),
+          1,
+        );
         await page.waitForFunction(
           (e) => !e.hasAttribute("data-starting-style"),
           await drawer.elementHandle(),
@@ -107,7 +111,7 @@ for (const [name, engine] of [
         const geometry = await drawer.evaluate((e) => {
           const s = getComputedStyle(e),
             b = e.getBoundingClientRect();
-          const body = e.querySelector('[data-slot="drawer-body"]');
+          const body = e.querySelector('[data-lenso-slot="drawer-body"]');
           return {
             top: b.top,
             bottom: b.bottom,
@@ -116,7 +120,7 @@ for (const [name, engine] of [
             background: s.backgroundColor,
             overflow: e.scrollWidth - e.clientWidth,
             scrollable: getComputedStyle(body).overflowY,
-            buttonHeights: [...e.querySelector('[data-slot="drawer-footer"]').children].map(
+            buttonHeights: [...e.querySelector('[data-lenso-slot="drawer-footer"]').children].map(
               (b) => b.getBoundingClientRect().height,
             ),
           };
@@ -156,7 +160,7 @@ for (const [name, engine] of [
         );
         await full.getByRole("button", { name: "Close full screen" }).click();
         await full.waitFor({ state: "hidden" });
-        for (const side of ["left", "up", "down"]) {
+        for (const side of ["left", "top", "bottom"]) {
           await page.getByRole("button", { name: `${side} panel`, exact: true }).click();
           const panel = page.getByRole("dialog", { name: `${side} panel`, exact: true });
           await panel.waitFor();
@@ -167,12 +171,21 @@ for (const [name, engine] of [
           await panel.getByRole("button", { name: "Close panel" }).click();
           await panel.waitFor({ state: "hidden" });
         }
+        await page.getByRole("button", { name: "Photo actions", exact: true }).click();
+        const actions = page.getByRole("dialog", { name: "Manage this photo", exact: true });
+        await actions.waitFor();
+        assert.equal(
+          await page.locator('[data-lenso-slot="action-sheet-backdrop"][data-open]').count(),
+          1,
+        );
+        await actions.getByRole("button", { name: "Cancel", exact: true }).click();
+        await actions.waitFor({ state: "hidden" });
         console.log(
           "PASS",
           name,
           width,
           theme,
-          "panel geometry, form save/cancel, preferences, focus, full-screen overrides and directional compatibility",
+          "panel geometry, form save/cancel, preferences, focus, full-screen overrides and native directional presentations",
         );
       }
       await page.evaluate(() => {
@@ -190,7 +203,7 @@ for (const [name, engine] of [
         await rtl.evaluate(
           (e) =>
             Math.abs(
-              e.querySelector('[data-slot="drawer-close"]').getBoundingClientRect().left -
+              e.querySelector('[data-lenso-slot="drawer-close"]').getBoundingClientRect().left -
                 e.getBoundingClientRect().left -
                 16,
             ) < 1,
@@ -223,9 +236,9 @@ for (const [name, engine] of [
       const long = page.getByRole("dialog", { name: "Long content", exact: true });
       await long.waitFor();
       const fixed = await long.evaluate((e) => {
-        const body = e.querySelector('[data-slot="modal-body"]');
-        const header = e.querySelector('[data-slot="modal-header"]'),
-          footer = e.querySelector('[data-slot="modal-footer"]');
+        const body = e.querySelector('[data-lenso-slot="modal-body"]');
+        const header = e.querySelector('[data-lenso-slot="modal-header"]'),
+          footer = e.querySelector('[data-lenso-slot="modal-footer"]');
         const before = [header.getBoundingClientRect().y, footer.getBoundingClientRect().y];
         body.scrollTop = body.scrollHeight;
         return {
@@ -248,7 +261,7 @@ for (const [name, engine] of [
       await page.getByRole("button", { name: "Bottom sheet" }).click();
       const sheet = page.getByRole("dialog", { name: "Bottom sheet", exact: true });
       await sheet.waitFor();
-      const surface = sheet.locator('[data-slot="sheet-surface"]');
+      const surface = sheet.locator('[data-lenso-slot="sheet-surface"]');
       await page.waitForFunction(
         (e) => !e.hasAttribute("data-starting-style"),
         await sheet.elementHandle(),

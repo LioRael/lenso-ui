@@ -1,6 +1,6 @@
 /**
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
- * Modified: native Base UI values, popup anatomy and StyleX layout.
+ * Modified: native UI SDK values, popup anatomy and StyleX layout.
  */
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Select } from "@lenso/ui";

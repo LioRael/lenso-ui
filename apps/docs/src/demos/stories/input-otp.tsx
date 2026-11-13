@@ -26,7 +26,7 @@ export function Basic(overrides: InputOTPStoryProps) {
         <Label>Verification code</Label>
         <p {...stylex.props(styles.muted)}>Enter the six-digit code to continue.</p>
       </div>
-      <InputOTP length={6} name="code" {...args}>
+      <InputOTP maxLength={6} name="code" {...args}>
         <Slots />
       </InputOTP>
     </TextField>

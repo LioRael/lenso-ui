@@ -26,7 +26,7 @@ export const colorInputGroupStyles = stylex.create({
       default: "none",
       ":has(input:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
         "1.5px solid var(--lenso-focus-ring)",
-      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *):has(:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
+      ":is([data-field-grouped] *, [data-lenso-slot='fieldset-row'] *):has(:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
         "none",
     },
     outlineOffset: 2,

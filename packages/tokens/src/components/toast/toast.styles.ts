@@ -15,6 +15,29 @@ const spinnerFade = stylex.keyframes({
 });
 export const toastStyles = stylex.create({
   viewport: {
+    bottom: {
+      default: "calc(16px + env(safe-area-inset-bottom, 0px))",
+      '[data-side="top"]': "auto",
+    },
+    top: { default: "auto", '[data-side="top"]': "calc(16px + env(safe-area-inset-top, 0px))" },
+    insetInlineStart: { default: "50%", '[data-align="start"]': 16, '[data-align="end"]': "auto" },
+    insetInlineEnd: { default: "auto", '[data-align="end"]': 16 },
+    translate: {
+      default: "-50% 0",
+      ':is([data-align="start"], [data-align="end"])': "none",
+      ":dir(rtl)": "50% 0",
+      ':is([data-align="start"], [data-align="end"]):dir(rtl)': "none",
+    },
+    margin: 0,
+    padding: 0,
+    borderWidth: 0,
+    backgroundColor: "transparent",
+    overflow: "visible",
+    height: {
+      default: "var(--toast-front-height,0px)",
+      ":is([data-expanded])":
+        "calc(var(--toast-stack-height,0px) + (var(--toast-count,1) - 1) * 12px)",
+    },
     position: "fixed",
     zIndex: tokens.zIndexToast,
     pointerEvents: "none",
@@ -31,8 +54,8 @@ export const toastStyles = stylex.create({
   root: {
     boxSizing: "border-box",
     position: "absolute",
-    bottom: { default: 0, ':is([data-placement^="top"])': "auto" },
-    top: { default: "auto", ':is([data-placement^="top"])': 0 },
+    bottom: { default: 0, ':is([data-side="top"] *)': "auto" },
+    top: { default: "auto", ':is([data-side="top"] *)': 0 },
     insetInline: 0,
     display: "flex",
     alignItems: "flex-start",
@@ -44,7 +67,7 @@ export const toastStyles = stylex.create({
     color: tokens.labelPrimary,
     boxShadow: tokens.overlayShadow,
     zIndex: "calc(100 - var(--toast-index))",
-    "--toast-direction": { default: -1, ':is([data-placement^="top"])': 1 },
+    "--toast-direction": { default: -1, ':is([data-side="top"] *)': 1 },
     "--toast-title-color": {
       default: tokens.labelPrimary,
       ':is([data-tone="accent"])': tokens.tintText,
@@ -60,26 +83,26 @@ export const toastStyles = stylex.create({
     },
     "--toast-content-opacity": {
       default: 1,
-      ":not([data-frontmost]):not([data-expanded]):not([data-layout-expanded])": 0,
+      ":not([data-front]):not([data-expanded]):not([data-layout-expanded])": 0,
     },
     "--toast-close-opacity": {
       default: 0,
-      ":hover:is([data-frontmost],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])": 1,
-      ":focus-within:is([data-frontmost],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])": 1,
+      ":hover:is([data-front],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])": 1,
+      ":focus-within:is([data-front],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])": 1,
       ":is([data-ending-style],[data-limited])": 0,
     },
     "--toast-close-pointer-events": {
       default: "none",
-      ":hover:is([data-frontmost],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])":
+      ":hover:is([data-front],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])":
         "auto",
-      ":focus-within:is([data-frontmost],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])":
+      ":focus-within:is([data-front],[data-expanded],[data-layout-expanded]):not([data-ending-style],[data-limited])":
         "auto",
       ":is([data-ending-style],[data-limited])": "none",
     },
     height: {
       default: "var(--toast-height, auto)",
-      ":not([data-frontmost]):not([data-expanded]):not([data-layout-expanded])":
-        "var(--front-height, var(--toast-height, auto))",
+      ":not([data-front]):not([data-expanded]):not([data-layout-expanded])":
+        "var(--toast-front-height, var(--toast-height, auto))",
     },
     outlineWidth: { default: 0, ":focus-visible": 2 },
     outlineStyle: "solid",
@@ -87,24 +110,23 @@ export const toastStyles = stylex.create({
     outlineOffset: 2,
     overflow: {
       default: "visible",
-      ":not([data-frontmost]):not([data-expanded]):not([data-layout-expanded])": "hidden",
+      ":not([data-front]):not([data-expanded]):not([data-layout-expanded])": "hidden",
     },
     transform: {
       default:
-        "translate(var(--toast-swipe-movement-x, 0px), calc(var(--toast-swipe-movement-y, 0px) + var(--toast-direction) * var(--toast-index) * 12px)) scale(calc(1 - var(--toast-index) * .05))",
+        "translate(var(--toast-swipe-x, 0px), calc(var(--toast-swipe-y, 0px) + var(--toast-direction) * var(--toast-index) * 12px)) scale(calc(1 - var(--toast-index) * .05))",
       ":is([data-expanded],[data-layout-expanded])":
-        "translate(var(--toast-swipe-movement-x, 0px), calc(var(--toast-swipe-movement-y, 0px) + var(--toast-direction) * (var(--toast-offset-y) + var(--toast-index) * 12px)))",
+        "translate(var(--toast-swipe-x, 0px), calc(var(--toast-swipe-y, 0px) + var(--toast-direction) * (var(--toast-offset) + var(--toast-index) * 12px)))",
       ":is([data-starting-style])": "translateY(calc(var(--toast-direction) * -100%))",
-      ":is([data-ending-style])[data-frontmost]":
-        "translateY(calc(var(--toast-direction) * -100%))",
-      ":is([data-ending-style]):not([data-frontmost])":
-        "translateY(calc(var(--toast-direction) * (var(--toast-offset-y) + var(--toast-index) * 12px))) scale(.96)",
+      ":is([data-ending-style])[data-front]": "translateY(calc(var(--toast-direction) * -100%))",
+      ":is([data-ending-style]):not([data-front])":
+        "translateY(calc(var(--toast-direction) * (var(--toast-offset) + var(--toast-index) * 12px))) scale(.96)",
       ':is([data-ending-style])[data-swipe-direction="right"]': "translateX(calc(100% + 32px))",
       ':is([data-ending-style])[data-swipe-direction="left"]': "translateX(calc(-100% - 32px))",
       ':is([data-ending-style])[data-swipe-direction="up"]': "translateY(calc(-100% - 32px))",
       ':is([data-ending-style])[data-swipe-direction="down"]': "translateY(calc(100% + 32px))",
     },
-    transformOrigin: { default: "bottom center", ':is([data-placement^="top"])': "top center" },
+    transformOrigin: { default: "bottom center", ':is([data-side="top"] *)': "top center" },
     opacity: { default: 1, ":is([data-ending-style],[data-limited])": 0 },
     pointerEvents: { default: "auto", ":is([data-limited])": "none" },
     transitionProperty: "transform, opacity, height",
@@ -120,8 +142,8 @@ export const toastStyles = stylex.create({
       position: "absolute",
       zIndex: -1,
       insetInline: 0,
-      top: { default: -13, ':is([data-placement^="top"])': 0 },
-      bottom: { default: 0, ':is([data-placement^="top"])': -13 },
+      top: { default: -13, ':is([data-side="top"] *)': 0 },
+      bottom: { default: 0, ':is([data-side="top"] *)': -13 },
     },
   },
   glass: { backgroundColor: "transparent", boxShadow: "none" },

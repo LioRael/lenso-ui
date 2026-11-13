@@ -1,6 +1,6 @@
 "use client";
 
-import { Button as BaseButton } from "@ui-sdk/react/button";
+import { Button as SdkButton } from "@ui-sdk/react/button";
 import { mergeProps } from "@ui-sdk/react/primitive";
 import {
   cloneElement,
@@ -27,8 +27,8 @@ import { slotRender } from "../../utils/sdk-render.js";
 
 export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonVariant = "prominent" | "bordered" | "borderless";
-export type ButtonRootProps = StyleXProps<ComponentProps<typeof BaseButton>> & {
-  "data-slot"?: unknown;
+export type ButtonRootProps = StyleXProps<ComponentProps<typeof SdkButton>> & {
+  "data-lenso-slot"?: unknown;
   size?: ButtonSize;
   variant?: ButtonVariant;
   isIconOnly?: boolean;
@@ -44,7 +44,7 @@ function Icon({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const legacy = useContext(LegacyButtonIconContext);
   const size = useContext(ButtonSizeContext);
   const compiled = stylex.props(
@@ -56,7 +56,7 @@ function Icon({
     <span
       {...mergeProps(compiled, props)}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "button-icon"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "button-icon"}
     />
   );
 }
@@ -73,7 +73,7 @@ export function ButtonRoot({
   isLoading = false,
   xstyle,
   style,
-  "data-slot": dataSlot,
+  "data-lenso-slot": dataSlot,
   render,
   onClickCapture,
   onDoubleClickCapture,
@@ -125,11 +125,11 @@ export function ButtonRoot({
   );
   return (
     <ButtonSizeContext value={size}>
-      <BaseButton
+      <SdkButton
         {...mergeProps(compiled, props)}
         ref={ref}
         style={mergeStyle(compiled.style, style)}
-        data-slot={dataSlot ?? "button"}
+        data-lenso-slot={dataSlot ?? "button"}
         data-glass="false"
         data-lenso-group-item={group.orientation ? "" : undefined}
         data-variant={variant}
@@ -161,7 +161,7 @@ export function ButtonRoot({
             {typeof children === "function" ? children(state) : children}
           </>
         )}
-      </BaseButton>
+      </SdkButton>
     </ButtonSizeContext>
   );
 }

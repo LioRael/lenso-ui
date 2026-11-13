@@ -5,7 +5,10 @@ import { styles } from "./styles.stylex";
 export function FullWidth() {
   return (
     <div {...stylex.props(styles.wide)}>
-      <AnimalPicker fullWidth items={animals.slice(0, 3)} />
+      <AnimalPicker
+        fullWidth
+        items={animals.slice(0, 3).map((value) => ({ value, label: value.name }))}
+      />
     </div>
   );
 }

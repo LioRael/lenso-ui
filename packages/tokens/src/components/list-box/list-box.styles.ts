@@ -31,7 +31,7 @@ export const listBoxItemStyles = stylex.create({
     width: "100%",
     paddingBlock: 6,
     paddingInlineStart: 8,
-    paddingInlineEnd: { default: 8, ":has([data-collection-indicator])": 28 },
+    paddingInlineEnd: 28,
     borderRadius: tokens.shapeContent2xl,
     color: tokens.labelPrimary,
     fontSize: 14,

@@ -16,16 +16,16 @@ export function Example() {
   return (
     <Modal.Root>
       <Modal.Trigger>Open dialog</Modal.Trigger>
-      <Modal.Portal>
+
         <Modal.Backdrop />
-        <Modal.Viewport>
-          <Modal.Popup>
+
+          <Modal.Content>
             <Modal.Title>Account settings</Modal.Title>
             <Modal.Description>Manage your account preferences.</Modal.Description>
             <Modal.Close>Close</Modal.Close>
-          </Modal.Popup>
-        </Modal.Viewport>
-      </Modal.Portal>
+          </Modal.Content>
+
+
     </Modal.Root>
   );
 }
@@ -35,11 +35,11 @@ The root coordinates open state and focus restoration; the heading and descripti
 
 ## Interaction boundary
 
-Base UI owns ordinary native controls, navigation and overlays. Lenso composes concrete native parts with component-specific StyleX maps; there is no generic compatibility wrapper that translates every family into another library's API.
+UI SDK owns ordinary native controls, navigation and overlays. Lenso composes concrete native parts with component-specific StyleX maps; there is no generic compatibility wrapper that translates every family into another library's API.
 
 ListBox, TagGroup and Table use Lenso's local collection model: stable keys, Set-based selection, registered items and collection-aware focus. They are not React Aria collection wrappers. Read their local signatures rather than assuming a Menu, Select or another library's collection contract.
 
-React Aria Components owns date, time and color models and the supporting parts that depend on those contexts. A date segment, calendar grid or color input section cannot be substituted into an unrelated Base UI field simply because its appearance is similar.
+Date, time and color families retain internationalized value models and compose native UI SDK controls. A date segment, calendar grid or color input section cannot be substituted into an unrelated UI SDK field simply because its appearance is similar.
 
 Native HTML owns noninteractive structure. Cards, text surfaces and layout regions do not acquire keyboard behavior merely by being styled.
 

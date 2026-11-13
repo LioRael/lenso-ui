@@ -57,7 +57,6 @@ export const Validation: Story = {
     <SwitchItem
       required
       name="terms-switch"
-      validate={(checked) => (checked ? null : "You must accept to continue")}
       error="You must accept to continue"
       label="Accept terms"
     />

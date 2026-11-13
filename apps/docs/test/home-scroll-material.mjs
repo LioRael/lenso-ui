@@ -16,7 +16,7 @@ for (const [name, engine] of [
           deviceScaleFactor: 2,
         });
         await page.goto(`${base}/cn`);
-        const brand = page.locator("header a[data-slot=glass]");
+        const brand = page.locator("header a[data-lenso-slot=glass]");
         await page.locator('[data-home-showcase] [role="tablist"][data-ready]').waitFor();
         const state = () =>
           brand.evaluate((e) => {
@@ -48,7 +48,7 @@ for (const [name, engine] of [
           if (name === "webkit")
             await page.waitForFunction(() =>
               document
-                .querySelector("header a[data-slot=glass]")
+                .querySelector("header a[data-lenso-slot=glass]")
                 ?.hasAttribute("data-material-paints"),
             );
           await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
@@ -104,7 +104,7 @@ for (const [name, engine] of [
         await page.evaluate(() => scrollTo(0, 0));
         if (name === "webkit")
           await page.waitForFunction(() => {
-            const e = document.querySelector("header a[data-slot=glass]");
+            const e = document.querySelector("header a[data-lenso-slot=glass]");
             return e?.hasAttribute("data-material-paints") && !e.hasAttribute("data-copy");
           });
         console.log(`${name} ${colorScheme} ${width}px: material scroll and return passed`);

@@ -1,5 +1,6 @@
 "use client";
 import {
+  useCallback,
   useContext,
   useId,
   useLayoutEffect,
@@ -8,8 +9,9 @@ import {
   type Key,
   type ReactNode,
 } from "react";
-import { useMergedRefs } from "@base-ui/utils/useMergedRefs";
-import { NativeButton as BaseButton } from "../../utils/native-button.js";
+import { usePart } from "@ui-sdk/react/primitive";
+import { NativeButton as SdkButton } from "../../utils/native-button.js";
+import { assignRef } from "../../utils/interaction/ref.js";
 import { Checkbox } from "../checkbox/index.js";
 import { SwipeActions, type SwipeAction } from "../swipe-actions/index.js";
 import {
@@ -29,10 +31,11 @@ export type ListRootProps = StyleXProps<ComponentProps<"ul">> &
 export function ListRoot({
   editing,
   disabled,
-  selectedKeys,
-  defaultSelectedKeys,
-  onSelectionChange,
+  value,
+  defaultValue,
+  onValueChange,
   onReorder,
+  controller,
   variant = "grouped",
   onKeyDown,
   onClickCapture,
@@ -43,10 +46,11 @@ export function ListRoot({
   const model = useListEditing({
     editing,
     disabled,
-    selectedKeys,
-    defaultSelectedKeys,
-    onSelectionChange,
+    value,
+    defaultValue,
+    onValueChange,
     onReorder,
+    controller,
   });
   const compiled = stylex.props(
     variant === "grouped" && groupStyles.surface,
@@ -54,60 +58,58 @@ export function ListRoot({
     variant === "grouped" && listStyles.surface,
     xstyle,
   );
+  const element = usePart(
+    model.handle,
+    "root",
+    {},
+    {
+      ...props,
+      ...compiled,
+      style: { ...compiled.style, ...style },
+      "aria-label": props["aria-label"] ?? "List",
+      ...{ "data-lenso-slot": "list-root" },
+      onClickCapture: (event) => {
+        onClickCapture?.(event);
+        if (
+          !event.defaultPrevented &&
+          model.dismissOtherRow(event.target as Node) &&
+          event.detail > 0
+        ) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      },
+      onKeyDown: (event) => {
+        onKeyDown?.(event);
+        if (
+          !event.defaultPrevented &&
+          model.editing &&
+          !model.disabled &&
+          (event.ctrlKey || event.metaKey) &&
+          event.key.toLowerCase() === "a" &&
+          !(event.target as Element).closest(
+            'input:not([type="checkbox"]),textarea,select,[contenteditable]',
+          )
+        ) {
+          event.preventDefault();
+          model.selectAll(event.nativeEvent);
+        }
+      },
+    },
+    "ul",
+  );
   return (
     <ListContext value={model}>
-      {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- Cmd/Ctrl+A selects registered row checkboxes while each control keeps its native keys. */}
-      <ul
-        {...props}
-        {...compiled}
-        style={{ ...compiled.style, ...style }}
-        data-slot="list-root"
-        data-editing={editing ? "" : undefined}
-        onClickCapture={(event) => {
-          onClickCapture?.(event);
-          if (
-            !event.defaultPrevented &&
-            model.dismissOtherRow(event.target as Node) &&
-            event.detail > 0
-          ) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-        }}
-        onKeyDown={(event) => {
-          onKeyDown?.(event);
-          if (
-            !event.defaultPrevented &&
-            model.editing &&
-            !model.disabled &&
-            (event.ctrlKey || event.metaKey) &&
-            event.key.toLowerCase() === "a" &&
-            !(event.target as Element).closest(
-              'input:not([type="checkbox"]),textarea,select,[contenteditable]',
-            )
-          ) {
-            event.preventDefault();
-            model.selectAll();
-          }
-        }}
-      />
+      {element}
       {model.editing && model.canReorder && (
         <span id={model.instructionsId} {...stylex.props(listStyles.srOnly)}>
           Press Space or Enter to move. Use Up or Down, Enter to place, Escape to cancel.
         </span>
       )}
-      <span
-        // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- A collection announcement is not a form-associated output field.
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        {...stylex.props(listStyles.srOnly)}
-      >
-        {model.announcement}
-      </span>
     </ListContext>
   );
 }
+
 export type ListContentProps = StyleXProps<ComponentProps<"div">>;
 export function ListContent({ xstyle, style, ...props }: ListContentProps) {
   const compiled = stylex.props(listStyles.content, xstyle);
@@ -116,7 +118,7 @@ export function ListContent({ xstyle, style, ...props }: ListContentProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="list-content"
+      data-lenso-slot="list-content"
     />
   );
 }
@@ -124,7 +126,12 @@ export type ListTitleProps = StyleXProps<ComponentProps<"span">>;
 export function ListTitle({ xstyle, style, ...props }: ListTitleProps) {
   const compiled = stylex.props(listStyles.title, xstyle);
   return (
-    <span {...props} {...compiled} style={{ ...compiled.style, ...style }} data-slot="list-title" />
+    <span
+      {...props}
+      {...compiled}
+      style={{ ...compiled.style, ...style }}
+      data-lenso-slot="list-title"
+    />
   );
 }
 export type ListDescriptionProps = StyleXProps<ComponentProps<"span">>;
@@ -135,7 +142,7 @@ export function ListDescription({ xstyle, style, ...props }: ListDescriptionProp
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="list-description"
+      data-lenso-slot="list-description"
     />
   );
 }
@@ -147,7 +154,7 @@ export function ListLeading({ xstyle, style, ...props }: ListLeadingProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="list-leading"
+      data-lenso-slot="list-leading"
     />
   );
 }
@@ -159,7 +166,7 @@ export function ListTrailing({ xstyle, style, ...props }: ListTrailingProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="list-trailing"
+      data-lenso-slot="list-trailing"
     />
   );
 }
@@ -172,22 +179,22 @@ export function ListSeparator({ xstyle, style, ...props }: ListSeparatorProps) {
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="list-separator"
+      data-lenso-slot="list-separator"
     />
   );
 }
-export type ListActionProps = StyleXProps<ComponentProps<"button">>;
+export type ListActionProps = StyleXProps<ComponentProps<typeof SdkButton>>;
 export function ListAction({ xstyle, style, ...props }: ListActionProps) {
   const row = useContext(ListRowContext);
   const compiled = stylex.props(listStyles.action, row.editing && listStyles.editingAction, xstyle);
   return (
-    <button
+    <SdkButton
       type="button"
       {...props}
       disabled={props.disabled || row.disabled || row.editing}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="list-action"
+      data-lenso-slot="list-action"
     />
   );
 }
@@ -225,12 +232,22 @@ export function ListItem({
   const model = useListContext();
   const group = useContext(ListSectionContext);
   const node = useRef<HTMLLIElement>(null);
-  const mergedRef = useMergedRefs(node, ref);
+  const mergedRef = useCallback(
+    (element: HTMLLIElement | null) => {
+      const ownCleanup = assignRef(node, element);
+      const callerCleanup = assignRef(ref, element);
+      return () => {
+        ownCleanup();
+        callerCleanup();
+      };
+    },
+    [ref],
+  );
   const register = model?.register;
   const text = textValue ?? String(itemKey ?? "item");
   const inactive = disabled || !!model?.disabled;
   const editing = !!model?.editing && itemKey !== undefined;
-  const selected = itemKey !== undefined && !!model?.selected.has(itemKey);
+  const selected = itemKey !== undefined && !!model?.isSelected(itemKey);
   const managed = itemKey !== undefined || !!startActions?.length || !!endActions?.length;
   useLayoutEffect(() => {
     if (register && itemKey !== undefined && node.current)
@@ -255,7 +272,7 @@ export function ListItem({
   );
   const row = (
     <div
-      data-slot="list-row"
+      data-lenso-slot="list-row"
       {...stylex.props(groupStyles.row, listStyles.item, height === "tall" && listStyles.tall)}
     >
       {editing && (
@@ -269,7 +286,12 @@ export function ListItem({
             disabled={inactive}
             checked={selected}
             aria-label={selectionLabel ?? `Select ${text}`}
-            onCheckedChange={(checked) => model!.setChecked(itemKey!, checked)}
+            onCheckedChange={(checked, details) =>
+              model!.setChecked(itemKey!, checked === true, {
+                reason: "item-press",
+                ...(details.event ? { event: details.event } : {}),
+              })
+            }
           >
             <Checkbox.Content>
               <Checkbox.Control xstyle={listStyles.selectionControl}>
@@ -279,29 +301,19 @@ export function ListItem({
           </Checkbox>
         </span>
       )}
-      <div data-slot="list-body" {...stylex.props(listStyles.body)}>
+      <div data-lenso-slot="list-body" {...stylex.props(listStyles.body)}>
         {content}
       </div>
       {editing && model?.canReorder && (
-        <BaseButton
+        <button
+          type="button"
           data-list-reorder=""
           disabled={inactive}
           aria-label={reorderLabel ?? `Move ${text}`}
           aria-describedby={model.instructionsId}
           aria-pressed={model.drag?.key === itemKey}
           {...stylex.props(listStyles.handle)}
-          onPointerDown={(event) => {
-            if (event.isPrimary && event.button === 0 && !event.defaultPrevented) {
-              event.preventDefault();
-              model.pointerDown(itemKey!, event.currentTarget, event.pointerId, event.clientY);
-            }
-          }}
-          onPointerMove={(event) => model.pointerMove(event.pointerId, event.clientY)}
-          onPointerUp={(event) => model.pointerEnd(event.pointerId, event.defaultPrevented)}
-          onPointerCancel={(event) => model.pointerEnd(event.pointerId, true)}
-          onLostPointerCapture={(event) => {
-            if (event.target === event.currentTarget) model.pointerEnd(event.pointerId, true);
-          }}
+          onPointerDown={(event) => model.pointerDown(itemKey!, event.nativeEvent)}
           onKeyDown={(event) => model.keyDown(itemKey!, event.currentTarget, event)}
           onBlur={() => model.blurHandle(itemKey!)}
           onClick={(event) => {
@@ -310,7 +322,7 @@ export function ListItem({
           }}
         >
           <span aria-hidden="true">≡</span>
-        </BaseButton>
+        </button>
       )}
     </div>
   );
@@ -322,7 +334,7 @@ export function ListItem({
         {...compiled}
         ref={mergedRef}
         style={{ ...compiled.style, ...style }}
-        data-slot="list-item"
+        data-lenso-slot="list-item"
         data-list-key={itemKey === undefined ? undefined : String(itemKey)}
         data-selected={selected ? "" : undefined}
         onClickCapture={(event) => {
@@ -357,8 +369,16 @@ export function ListItem({
             {...(model && itemKey !== undefined
               ? {
                   openSide: model.open?.key === itemKey ? model.open.side : null,
-                  onOpenSideChange: (side: "start" | "end" | null) =>
-                    model.setOpen(side ? { key: itemKey, side } : null),
+                  onOpenSideChange: (side, details) => {
+                    if (
+                      !side &&
+                      details.reason === "outside-press" &&
+                      details.event?.target instanceof Node &&
+                      model.isOtherRow(details.event.target)
+                    )
+                      details.cancel();
+                    else model.setOpen(side ? { key: itemKey, side } : null);
+                  },
                 }
               : {})}
           >

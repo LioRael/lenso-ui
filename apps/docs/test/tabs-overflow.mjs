@@ -28,9 +28,9 @@ try {
           await more.waitFor();
           const bar = section.getByRole("tablist");
           assert.ok(await bar.getByRole("tab", { selected: true }).isVisible());
-          assert.equal(await section.locator('[data-slot="tabs-list-scroller"]').count(), 0);
+          assert.equal(await section.locator('[data-lenso-slot="tabs-list-scroller"]').count(), 0);
           assert.ok(
-            await section.locator('[data-slot="tabs-list-container"]').evaluate((host) => {
+            await section.locator('[data-lenso-slot="tabs-list-container"]').evaluate((host) => {
               host.scrollTop = 100;
               host.scrollLeft = 100;
               return (

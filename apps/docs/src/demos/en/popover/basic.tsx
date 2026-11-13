@@ -9,16 +9,12 @@ export function PopoverBasic() {
     <div {...stylex.props(styles.row)}>
       <Popover>
         <Popover.Trigger render={<Button />}>Click me</Popover.Trigger>
-        <Popover.Portal>
-          <Popover.Positioner sideOffset={16}>
-            <Popover.Popup xstyle={styles.popup}>
-              <Popover.Title>Popover Title</Popover.Title>
-              <Popover.Description xstyle={styles.description}>
-                This is the popover content. You can put any content here.
-              </Popover.Description>
-            </Popover.Popup>
-          </Popover.Positioner>
-        </Popover.Portal>
+        <Popover.Content xstyle={styles.popup} sideOffset={16}>
+          <Popover.Title>Popover Title</Popover.Title>
+          <Popover.Description xstyle={styles.description}>
+            This is the popover content. You can put any content here.
+          </Popover.Description>
+        </Popover.Content>
       </Popover>
     </div>
   );

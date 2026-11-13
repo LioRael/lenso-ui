@@ -31,41 +31,33 @@ export function Preview({ label, disabled, example }: PopupButtonStoryProps) {
   if (example === "menu")
     return (
       <div>
-        <Menu morphTrigger={false} elastic={false}>
+        <Menu elastic={false}>
           <Menu.Trigger render={<PopupButton />} disabled={disabled}>
             {label}
           </Menu.Trigger>
-          <Menu.Portal>
-            <Menu.Positioner>
-              <Menu.Popup>
-                <Menu.Item onClick={() => setAction("Copied")}>Copy</Menu.Item>
-                <Menu.Item onClick={() => setAction("Archived")}>Archive</Menu.Item>
-              </Menu.Popup>
-            </Menu.Positioner>
-          </Menu.Portal>
+          <Menu.Content>
+            <Menu.Item onClick={() => setAction("Copied")}>Copy</Menu.Item>
+            <Menu.Item onClick={() => setAction("Archived")}>Archive</Menu.Item>
+          </Menu.Content>
         </Menu>
         <p aria-live="polite">{action}</p>
       </div>
     );
   return (
-    <Select morphTrigger={false} defaultValue="weekly" items={items} disabled={disabled}>
+    <Select defaultValue="weekly" items={items} disabled={disabled}>
       <Select.Trigger render={<PopupButton />} aria-label="Repeat">
         <Select.Value />
       </Select.Trigger>
-      <Select.Portal>
-        <Select.Positioner alignItemWithTrigger={example === "select"} sideOffset={4}>
-          <Select.Popup>
-            <Select.List>
-              {items.map(({ value, label }) => (
-                <Select.Item key={value} value={value}>
-                  <Select.ItemText>{label}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.List>
-          </Select.Popup>
-        </Select.Positioner>
-      </Select.Portal>
+      <Select.Content alignItemWithTrigger={example === "select"} sideOffset={4}>
+        <Select.List>
+          {items.map(({ value, label }) => (
+            <Select.Item key={value} value={value}>
+              <Select.ItemText>{label}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </Select.List>
+      </Select.Content>
     </Select>
   );
 }

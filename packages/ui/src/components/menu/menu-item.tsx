@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Menu as Base } from "@base-ui/react/menu";
+import * as SdkMenu from "@ui-sdk/react/menu";
+import { slotRender } from "../../utils/sdk-render.js";
 import { menuItemStyles as s } from "@lenso/tokens/menu";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 
@@ -10,15 +11,17 @@ export function MenuItemRoot({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Item.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Item>, "ref"> & { variant?: "default" | "danger" }) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkMenu.MenuItem>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkMenu.MenuItem>, "ref"> & {
+    variant?: "default" | "danger";
+  }) {
   const compiled = stylex.props(s.root, variant === "danger" && s.danger, xstyle);
   return (
-    <Base.Item
+    <SdkMenu.MenuItem
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Item.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-item"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", props["data-lenso-slot"] ?? "menu-item", props.render)}
     />
   );
 }
@@ -27,17 +30,17 @@ export function MenuItemCheckbox({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.CheckboxItem.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.CheckboxItem>, "ref"> & {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkMenu.MenuCheckboxItem>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkMenu.MenuCheckboxItem>, "ref"> & {
     variant?: "default" | "danger";
   }) {
   const compiled = stylex.props(s.root, variant === "danger" && s.danger, xstyle);
   return (
-    <Base.CheckboxItem
+    <SdkMenu.MenuCheckboxItem
       {...props}
       {...compiled}
-      style={mergeStyle<Base.CheckboxItem.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-item"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", props["data-lenso-slot"] ?? "menu-item", props.render)}
     />
   );
 }
@@ -46,36 +49,17 @@ export function MenuItemRadio({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.RadioItem.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.RadioItem>, "ref"> & {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkMenu.MenuRadioItem>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkMenu.MenuRadioItem>, "ref"> & {
     variant?: "default" | "danger";
   }) {
   const compiled = stylex.props(s.root, variant === "danger" && s.danger, xstyle);
   return (
-    <Base.RadioItem
+    <SdkMenu.MenuRadioItem
       {...props}
       {...compiled}
-      style={mergeStyle<Base.RadioItem.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-item"}
-    />
-  );
-}
-export function MenuItemLink({
-  variant = "default",
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.LinkItem.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.LinkItem>, "ref"> & {
-    variant?: "default" | "danger";
-  }) {
-  const compiled = stylex.props(s.root, variant === "danger" && s.danger, xstyle);
-  return (
-    <Base.LinkItem
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.LinkItem.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-item"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("div", props["data-lenso-slot"] ?? "menu-item", props.render)}
     />
   );
 }
@@ -83,31 +67,15 @@ export function MenuItemIndicator({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.CheckboxItemIndicator.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.CheckboxItemIndicator>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkMenu.MenuItemIndicator>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkMenu.MenuItemIndicator>, "ref">) {
   const compiled = stylex.props(s.indicator, xstyle);
   return (
-    <Base.CheckboxItemIndicator
+    <SdkMenu.MenuItemIndicator
       {...props}
       {...compiled}
-      style={mergeStyle<Base.CheckboxItemIndicator.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-item-indicator"}
-    />
-  );
-}
-export function MenuItemRadioIndicator({
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.RadioItemIndicator.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.RadioItemIndicator>, "ref">) {
-  const compiled = stylex.props(s.indicator, xstyle);
-  return (
-    <Base.RadioItemIndicator
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.RadioItemIndicator.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-item-indicator"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("span", props["data-lenso-slot"] ?? "menu-item-indicator", props.render)}
     />
   );
 }
@@ -122,7 +90,10 @@ export function MenuItemSubmenuIndicator({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "menu-item-submenu-indicator"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ??
+        "menu-item-submenu-indicator"
+      }
     />
   );
 }
@@ -137,7 +108,7 @@ export function MenuItemLabel({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "label"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "label"}
     />
   );
 }
@@ -152,7 +123,9 @@ export function MenuItemDescription({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "description"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "description"
+      }
     />
   );
 }
@@ -167,7 +140,7 @@ export function MenuItemIcon({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="menu-item-icon"
+      data-lenso-slot="menu-item-icon"
     />
   );
 }
@@ -182,7 +155,7 @@ export function MenuItemContent({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="menu-item-content"
+      data-lenso-slot="menu-item-content"
     />
   );
 }
@@ -197,7 +170,7 @@ export function MenuItemShortcut({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="menu-item-shortcut"
+      data-lenso-slot="menu-item-shortcut"
     />
   );
 }
@@ -208,9 +181,7 @@ export const MenuItem = Object.assign(MenuItemRoot, {
   Shortcut: MenuItemShortcut,
   Checkbox: MenuItemCheckbox,
   Radio: MenuItemRadio,
-  Link: MenuItemLink,
   Indicator: MenuItemIndicator,
-  RadioIndicator: MenuItemRadioIndicator,
   SubmenuIndicator: MenuItemSubmenuIndicator,
   Label: MenuItemLabel,
   Description: MenuItemDescription,

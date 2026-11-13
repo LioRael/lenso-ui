@@ -79,14 +79,14 @@ export const Range: Story = {
       min={0}
       step={50}
       {...nativeArgs(args)}
-      render={(props, { values }) => (
+      render={(props, { value }) => (
         <div {...props}>
           <Slider.Label>Price Range</Slider.Label>
           <Slider.Output />
           <Slider.Control>
             <Slider.Track>
               <Slider.Fill />
-              {values.map((_, index) => (
+              {(Array.isArray(value) ? value : [value]).map((_, index) => (
                 <Slider.Thumb
                   key={index}
                   index={index}

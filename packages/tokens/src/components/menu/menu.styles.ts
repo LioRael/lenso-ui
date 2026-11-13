@@ -65,7 +65,7 @@ export const menuStyles = stylex.create({
       width: 1,
       backgroundColor: {
         default: "transparent",
-        ":is([data-slot='menu-bar-item'] + *)": "var(--lenso-separator)",
+        ":is([data-lenso-slot='menu-bar-item'] + *)": "var(--lenso-separator)",
       },
     },
   },
@@ -87,7 +87,17 @@ export const menuStyles = stylex.create({
   },
 
   popup: {
-    position: "relative",
+    visibility: {
+      default: null,
+      ":is([popover]:not(:popover-open),[data-closed]:not([data-ending-style]))": "hidden",
+    },
+    overflow: "visible",
+    padding: 0,
+    borderWidth: 0,
+    margin: 0,
+    // Safari otherwise sizes the parent from the submenu before native placement.
+    position: "fixed",
+    backgroundColor: "transparent",
     boxSizing: "border-box",
     width: "max-content",
     minWidth: "min(250px, var(--available-width, 100vw))",
@@ -281,7 +291,7 @@ export const menuItemStyles = stylex.create({
     backgroundColor: {
       default: "transparent",
       ":focus-visible:not([data-menu-plate-active] *)": "var(--lenso-menu-highlight)",
-      ":is([data-highlighted], [data-popup-open]):not([data-menu-plate-active] *)":
+      ":is([data-highlighted], [data-open]):not([data-menu-plate-active] *)":
         "var(--lenso-menu-highlight)",
       "@media (hover: hover) and (pointer: fine)": {
         default: null,

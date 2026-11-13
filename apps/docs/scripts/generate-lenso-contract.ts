@@ -65,14 +65,9 @@ export async function collectContractInputs(
     const runtime = packageInfo(
       await json(path.join(docsRoot, "node_modules/@stylexjs/stylex/package.json")),
     );
-    for (const name of ["babel-plugin", "postcss-plugin", "unplugin"]) {
+    for (const name of ["babel-plugin", "unplugin"]) {
       const compiler = packageInfo(
-        await json(
-          path.join(
-            name === "postcss-plugin" ? path.join(directory, "packages/docs") : docsRoot,
-            `node_modules/@stylexjs/${name}/package.json`,
-          ),
-        ),
+        await json(path.join(docsRoot, `node_modules/@stylexjs/${name}/package.json`)),
       );
       if (compiler.version !== runtime.version)
         throw new Error("StyleX compiler/runtime versions differ.");

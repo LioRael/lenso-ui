@@ -1,48 +1,40 @@
 "use client";
+import * as SdkAlertDialog from "@ui-sdk/react/alert-dialog";
+import { slotRender } from "../../utils/sdk-render.js";
 // native alertdialog semantics.
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { AlertDialog as Base } from "@base-ui/react/alert-dialog";
 import { alertDialogStyles as s, alertDialogIconStyles as tones } from "@lenso/tokens/alert-dialog";
-import { materialStyles } from "@lenso/tokens/materials";
-import { MaterialBackground } from "../../utils/materials/render.js";
+import { useGlassRef } from "@lenso/glass/react";
+import { liquidMaterialStyles, materialStyles } from "@lenso/tokens/materials";
 import { presentationMaterials } from "../../utils/materials/presentation.js";
 import { closeButtonStyles } from "@lenso/tokens/close-button";
 import { DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from "../../icons/index.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
-export function AlertDialogRoot<Payload = unknown>(props: Base.Root.Props<Payload>) {
-  return <Base.Root {...props} />;
+export function AlertDialogRoot(props: React.ComponentProps<typeof SdkAlertDialog.AlertDialog>) {
+  return <SdkAlertDialog.AlertDialog {...props} />;
 }
 export function AlertDialogTrigger({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Trigger.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Trigger>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkAlertDialog.AlertDialogTrigger>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkAlertDialog.AlertDialogTrigger>, "ref">) {
   const ownPresentation =
     props.render == null ||
     (React.isValidElement(props.render) && typeof props.render.type === "string");
   const compiled = stylex.props(ownPresentation && s.trigger, xstyle);
   return (
-    <Base.Trigger
+    <SdkAlertDialog.AlertDialogTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Trigger.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-trigger"}
-    />
-  );
-}
-export function AlertDialogPortal({
-  container,
-  ...props
-}: React.ComponentPropsWithRef<typeof Base.Portal>) {
-  const themed = useThemePortalContainer();
-  return (
-    <Base.Portal
-      {...props}
-      container={container === undefined ? (themed ?? undefined) : container}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-trigger",
+        props.render,
+      )}
     />
   );
 }
@@ -51,82 +43,92 @@ export function AlertDialogBackdrop({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Backdrop.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Backdrop>, "ref"> & {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkAlertDialog.AlertDialogBackdrop>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkAlertDialog.AlertDialogBackdrop>, "ref"> & {
     variant?: "transparent" | "opaque" | "blur";
   }) {
   const compiled = stylex.props(s.backdrop, s[variant], xstyle);
   return (
-    <Base.Backdrop
+    <SdkAlertDialog.AlertDialogBackdrop
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Backdrop.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-backdrop"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-backdrop",
+        props.render,
+      )}
     />
   );
 }
-export function AlertDialogViewport({
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Viewport.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, "ref">) {
-  const compiled = stylex.props(s.viewport, xstyle);
-  return (
-    <Base.Viewport
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Viewport.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-viewport"}
-    />
-  );
-}
-export function AlertDialogPopup({
+export function AlertDialogContent({
   size = "md",
   placement = "center",
   children,
+  ref,
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Popup.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Popup>, "ref"> & {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkAlertDialog.AlertDialogContent>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkAlertDialog.AlertDialogContent>, "ref"> & {
     size?: "xs" | "sm" | "md" | "lg" | "cover";
     placement?: "auto" | "top" | "center" | "bottom";
   }) {
+  const glassRef = useGlassRef(
+    ref,
+    true,
+    false,
+    presentationMaterials.compact,
+    undefined,
+    false,
+    true,
+  );
   const compiled = stylex.props(
     materialStyles.root,
+    liquidMaterialStyles.small,
+    liquidMaterialStyles.medium,
+    liquidMaterialStyles.compact,
+    materialStyles.accessible,
     s.popup,
     s[size],
-    materialStyles.accessible,
+    s.nativeContent,
     xstyle,
   );
   return (
-    <Base.Popup
+    <SdkAlertDialog.AlertDialogContent
       {...props}
+      ref={glassRef}
       data-placement={placement}
       {...compiled}
-      style={mergeStyle<Base.Popup.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-popup"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-popup",
+        props.render,
+      )}
       data-material={presentationMaterials.compact}
     >
-      <MaterialBackground variant={presentationMaterials.compact} liveGeometry />
-      {children}
-    </Base.Popup>
+      {(state) => <>{typeof children === "function" ? children(state) : children}</>}
+    </SdkAlertDialog.AlertDialogContent>
   );
 }
 export function AlertDialogTitle({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Title.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Title>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkAlertDialog.AlertDialogTitle>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkAlertDialog.AlertDialogTitle>, "ref">) {
   const compiled = stylex.props(s.title, xstyle);
   return (
-    <Base.Title
+    <SdkAlertDialog.AlertDialogTitle
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Title.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-title"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "h2",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-title",
+        props.render,
+      )}
     />
   );
 }
@@ -134,15 +136,19 @@ export function AlertDialogDescription({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Description.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Description>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkAlertDialog.AlertDialogDescription>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkAlertDialog.AlertDialogDescription>, "ref">) {
   const compiled = stylex.props(s.description, xstyle);
   return (
-    <Base.Description
+    <SdkAlertDialog.AlertDialogDescription
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Description.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-description"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "p",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-description",
+        props.render,
+      )}
     />
   );
 }
@@ -152,8 +158,8 @@ export function AlertDialogClose({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Close.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkAlertDialog.AlertDialogClose>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkAlertDialog.AlertDialogClose>, "ref">) {
   const bare = children === undefined && render === undefined;
   const compiled = stylex.props(
     bare && closeButtonStyles.root,
@@ -162,18 +168,22 @@ export function AlertDialogClose({
     xstyle,
   );
   return (
-    <Base.Close
+    <SdkAlertDialog.AlertDialogClose
       aria-label={bare ? "Close" : undefined}
       {...props}
-      render={render}
+
       {...compiled}
-      style={mergeStyle<Base.Close.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-close"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-close",
+        render,
+      )}
     >
       {bare ? (
         <svg
           {...stylex.props(closeButtonStyles.icon)}
-          data-slot="close-button-icon"
+          data-lenso-slot="close-button-icon"
           viewBox="0 0 16 16"
           fill="none"
           aria-hidden="true"
@@ -188,7 +198,7 @@ export function AlertDialogClose({
       ) : (
         children
       )}
-    </Base.Close>
+    </SdkAlertDialog.AlertDialogClose>
   );
 }
 export function AlertDialogHeader({
@@ -202,7 +212,9 @@ export function AlertDialogHeader({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-header"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-header"
+      }
     />
   );
 }
@@ -217,7 +229,9 @@ export function AlertDialogBody({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-body"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-body"
+      }
     />
   );
 }
@@ -236,7 +250,9 @@ export function AlertDialogFooter({
       data-layout={layout}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-footer"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-footer"
+      }
     />
   );
 }
@@ -262,9 +278,13 @@ export function AlertDialogIcon({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "alert-dialog-icon"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "alert-dialog-icon"
+      }
     >
-      {children ?? <DefaultIcon data-slot="alert-dialog-default-icon" width={20} height={20} />}
+      {children ?? (
+        <DefaultIcon data-lenso-slot="alert-dialog-default-icon" width={20} height={20} />
+      )}
     </div>
   );
 }
@@ -273,8 +293,8 @@ export function AlertDialogAction({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Close.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref"> & {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkAlertDialog.AlertDialogClose>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkAlertDialog.AlertDialogClose>, "ref"> & {
     variant?: "default" | "cancel" | "destructive";
   }) {
   const compiled = stylex.props(
@@ -284,11 +304,11 @@ export function AlertDialogAction({
     xstyle,
   );
   return (
-    <Base.Close
+    <SdkAlertDialog.AlertDialogClose
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Close.State>(compiled.style, style)}
-      data-slot="alert-dialog-action"
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("button", "alert-dialog-action", props.render)}
       data-variant={variant}
     />
   );
@@ -304,7 +324,7 @@ export function AlertDialogFields({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="alert-dialog-fields"
+      data-lenso-slot="alert-dialog-fields"
     />
   );
 }
@@ -312,10 +332,8 @@ export function AlertDialogFields({
 export const AlertDialog = Object.assign(AlertDialogRoot, {
   Root: AlertDialogRoot,
   Trigger: AlertDialogTrigger,
-  Portal: AlertDialogPortal,
   Backdrop: AlertDialogBackdrop,
-  Viewport: AlertDialogViewport,
-  Popup: AlertDialogPopup,
+  Content: AlertDialogContent,
   Title: AlertDialogTitle,
   Description: AlertDialogDescription,
   Close: AlertDialogClose,

@@ -83,7 +83,7 @@ test("nested optical controls own pointer and keyboard light exactly once", () =
   const outer = surface();
   const inner = document.createElement("button");
   inner.setAttribute("data-glass", "true");
-  inner.innerHTML = '<span data-slot="glass-press-highlight"></span>';
+  inner.innerHTML = '<span data-lenso-slot="glass-press-highlight"></span>';
   inner.getBoundingClientRect = () => new DOMRect(100, 40, 50, 50);
   outer.append(inner);
   const cleanOuter = trackPressHighlight(outer);

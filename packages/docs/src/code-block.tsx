@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Copy, Check } from "@gravity-ui/icons";
-import { Button } from "@base-ui/react/button";
+import { Button } from "@lenso/ui/button";
 import { styles, notebook } from "@lenso/docs/presentation";
 
 export function DocumentationCodeBlock({
@@ -18,7 +18,9 @@ export function DocumentationCodeBlock({
     <div {...stylex.props(notebook.codePane)}>
       <Button
         aria-label="Copy code"
-        {...stylex.props(notebook.iconButton, notebook.codeCopy)}
+        isIconOnly
+        variant="borderless"
+        xstyle={[notebook.iconButton, notebook.codeCopy]}
         onClick={async () => {
           try {
             await navigator.clipboard.writeText(code);
@@ -34,7 +36,9 @@ export function DocumentationCodeBlock({
           <Copy width={16} height={16} aria-hidden="true" />
         )}
       </Button>
-      <output {...stylex.props(notebook.hidden)}>{status}</output>
+      <output aria-live="polite" {...stylex.props(notebook.hidden)}>
+        {status}
+      </output>
       {/* A focusable pre owns horizontal keyboard scrolling, including Safari. */}
       {/* oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
       <pre dir="ltr" tabIndex={0} aria-label="Example source" {...stylex.props(styles.pre)}>

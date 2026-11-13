@@ -26,7 +26,7 @@ export function NotificationRoot({
       {...props}
       {...compiled}
       style={mergeStyle<Collapsible.CollapsibleState>(compiled.style, style)}
-      data-slot="notification"
+      data-lenso-slot="notification"
       render={slotRender("div", "notification", props.render)}
     >
       {(state) => (
@@ -62,7 +62,7 @@ export function NotificationTrigger({ xstyle, style, ...props }: NotificationTri
       {...props}
       {...compiled}
       style={mergeStyle<Collapsible.CollapsibleTriggerState>(compiled.style, style)}
-      data-slot="notification-trigger"
+      data-lenso-slot="notification-trigger"
       render={slotRender("button", "notification-trigger", props.render)}
     />
   );
@@ -77,7 +77,7 @@ export function NotificationPanel({ xstyle, style, ...props }: NotificationPanel
       {...props}
       {...compiled}
       style={mergeStyle<Collapsible.CollapsiblePanelState>(compiled.style, style)}
-      data-slot="notification-panel"
+      data-lenso-slot="notification-panel"
       render={slotRender("div", "notification-panel", props.render)}
     />
   );
@@ -90,7 +90,7 @@ export function NotificationHeader({ xstyle, style, ...props }: NotificationHead
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-header"
+      data-lenso-slot="notification-header"
     />
   );
 }
@@ -102,7 +102,7 @@ export function NotificationIcon({ xstyle, style, ...props }: NotificationIconPr
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-icon"
+      data-lenso-slot="notification-icon"
     />
   );
 }
@@ -114,7 +114,7 @@ export function NotificationContent({ xstyle, style, ...props }: NotificationCon
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-content"
+      data-lenso-slot="notification-content"
     />
   );
 }
@@ -126,7 +126,7 @@ export function NotificationTitle({ xstyle, style, ...props }: NotificationTitle
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-title"
+      data-lenso-slot="notification-title"
     />
   );
 }
@@ -138,7 +138,7 @@ export function NotificationDescription({ xstyle, style, ...props }: Notificatio
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-description"
+      data-lenso-slot="notification-description"
     />
   );
 }
@@ -150,7 +150,7 @@ export function NotificationTime({ xstyle, style, ...props }: NotificationTimePr
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-time"
+      data-lenso-slot="notification-time"
     />
   );
 }
@@ -162,7 +162,7 @@ export function NotificationBody({ xstyle, style, ...props }: NotificationBodyPr
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-body"
+      data-lenso-slot="notification-body"
     />
   );
 }
@@ -174,7 +174,7 @@ export function NotificationActions({ xstyle, style, ...props }: NotificationAct
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-actions"
+      data-lenso-slot="notification-actions"
     />
   );
 }
@@ -186,7 +186,7 @@ export function NotificationPreview({ xstyle, style, ...props }: NotificationPre
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="notification-preview"
+      data-lenso-slot="notification-preview"
     />
   );
 }

@@ -1,21 +1,21 @@
 "use client";
-// interactions use Base UI 1.7.
+import * as SdkDialog from "@ui-sdk/react/dialog";
+import { slotRender } from "../../utils/sdk-render.js";
+// Native top-layer interaction is owned by UI SDK.
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Dialog } from "@base-ui/react/dialog";
 import { modalStyles as s } from "@lenso/tokens/modal";
 import { closeButtonStyles } from "@lenso/tokens/close-button";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
 
 const ScrollContext = React.createContext<"inside" | "outside">("inside");
-export function ModalRoot<Payload = unknown>({
+export function ModalRoot({
   scroll = "inside",
   ...props
-}: Dialog.Root.Props<Payload> & { scroll?: "inside" | "outside" }) {
+}: React.ComponentProps<typeof SdkDialog.Dialog> & { scroll?: "inside" | "outside" }) {
   return (
     <ScrollContext.Provider value={scroll}>
-      <Dialog.Root {...props} />
+      <SdkDialog.Dialog {...props} />
     </ScrollContext.Provider>
   );
 }
@@ -23,30 +23,22 @@ export function ModalTrigger({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Dialog.Trigger.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Dialog.Trigger>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogTrigger>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogTrigger>, "ref">) {
   const ownPresentation =
     props.render == null ||
     (React.isValidElement(props.render) && typeof props.render.type === "string");
   const compiled = stylex.props(ownPresentation && s.trigger, xstyle);
   return (
-    <Dialog.Trigger
+    <SdkDialog.DialogTrigger
       {...props}
       {...compiled}
-      style={mergeStyle<Dialog.Trigger.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-trigger"}
-    />
-  );
-}
-export function ModalPortal({
-  container,
-  ...props
-}: React.ComponentPropsWithRef<typeof Dialog.Portal>) {
-  const themed = useThemePortalContainer();
-  return (
-    <Dialog.Portal
-      {...props}
-      container={container === undefined ? (themed ?? undefined) : container}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-trigger",
+        props.render,
+      )}
     />
   );
 }
@@ -55,58 +47,50 @@ export function ModalBackdrop({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Dialog.Backdrop.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Dialog.Backdrop>, "ref"> & {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogBackdrop>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogBackdrop>, "ref"> & {
     variant?: "transparent" | "opaque" | "blur";
   }) {
   const compiled = stylex.props(s.backdrop, s[variant], xstyle);
   return (
-    <Dialog.Backdrop
+    <SdkDialog.DialogBackdrop
       {...props}
       {...compiled}
-      style={mergeStyle<Dialog.Backdrop.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-backdrop"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-backdrop",
+        props.render,
+      )}
     />
   );
 }
-export function ModalViewport({
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Dialog.Viewport.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Dialog.Viewport>, "ref">) {
-  const compiled = stylex.props(s.viewport, xstyle);
-  return (
-    <Dialog.Viewport
-      {...props}
-      {...compiled}
-      style={mergeStyle<Dialog.Viewport.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-viewport"}
-    />
-  );
-}
-export function ModalPopup({
+export function ModalContent({
   size = "md",
   placement = "auto",
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Dialog.Popup.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Dialog.Popup>, "ref"> & {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogContent>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogContent>, "ref"> & {
     size?: "xs" | "sm" | "md" | "lg" | "cover" | "full";
     placement?: "auto" | "top" | "center" | "bottom";
   }) {
   const scroll = React.useContext(ScrollContext);
-  const compiled = stylex.props(s.popup, s[size], s[scroll], xstyle);
+  const compiled = stylex.props(s.popup, s[size], s[scroll], s.nativeContent, xstyle);
   return (
-    <Dialog.Popup
+    <SdkDialog.DialogContent
       {...props}
       data-size={size}
       data-placement={placement}
       data-scroll={scroll}
       {...compiled}
-      style={mergeStyle<Dialog.Popup.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-popup"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-popup",
+        props.render,
+      )}
     />
   );
 }
@@ -114,15 +98,19 @@ export function ModalTitle({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Dialog.Title.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Dialog.Title>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogTitle>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogTitle>, "ref">) {
   const compiled = stylex.props(s.title, xstyle);
   return (
-    <Dialog.Title
+    <SdkDialog.DialogTitle
       {...props}
       {...compiled}
-      style={mergeStyle<Dialog.Title.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-title"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "h2",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-title",
+        props.render,
+      )}
     />
   );
 }
@@ -130,15 +118,19 @@ export function ModalDescription({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Dialog.Description.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Dialog.Description>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogDescription>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogDescription>, "ref">) {
   const compiled = stylex.props(s.description, xstyle);
   return (
-    <Dialog.Description
+    <SdkDialog.DialogDescription
       {...props}
       {...compiled}
-      style={mergeStyle<Dialog.Description.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-description"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "p",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-description",
+        props.render,
+      )}
     />
   );
 }
@@ -148,23 +140,27 @@ export function ModalClose({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Dialog.Close.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Dialog.Close>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDialog.DialogClose>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDialog.DialogClose>, "ref">) {
   const bare = children === undefined && render === undefined;
   const compiled = stylex.props(bare && closeButtonStyles.root, bare && s.close, xstyle);
   return (
-    <Dialog.Close
+    <SdkDialog.DialogClose
       aria-label={bare ? "Close" : undefined}
       {...props}
-      render={render}
+
       {...compiled}
-      style={mergeStyle<Dialog.Close.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-close"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-close",
+        render,
+      )}
     >
       {bare ? (
         <svg
           {...stylex.props(closeButtonStyles.icon)}
-          data-slot="close-button-icon"
+          data-lenso-slot="close-button-icon"
           viewBox="0 0 16 16"
           fill="none"
           aria-hidden="true"
@@ -179,7 +175,7 @@ export function ModalClose({
       ) : (
         children
       )}
-    </Dialog.Close>
+    </SdkDialog.DialogClose>
   );
 }
 export function ModalHeader({
@@ -193,7 +189,9 @@ export function ModalHeader({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-header"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-header"
+      }
     />
   );
 }
@@ -209,7 +207,7 @@ export function ModalBody({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-body"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-body"}
     />
   );
 }
@@ -224,7 +222,9 @@ export function ModalFooter({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-footer"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-footer"
+      }
     />
   );
 }
@@ -239,17 +239,15 @@ export function ModalIcon({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "modal-icon"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "modal-icon"}
     />
   );
 }
 export const Modal = Object.assign(ModalRoot, {
   Root: ModalRoot,
   Trigger: ModalTrigger,
-  Portal: ModalPortal,
   Backdrop: ModalBackdrop,
-  Viewport: ModalViewport,
-  Popup: ModalPopup,
+  Content: ModalContent,
   Title: ModalTitle,
   Description: ModalDescription,
   Close: ModalClose,

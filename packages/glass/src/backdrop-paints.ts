@@ -21,6 +21,87 @@ export function paintMovingMaterialBackdrop(element: HTMLElement): () => void {
   return createMaterialBackdrop(element, true, false, undefined, createNativePreferences(element));
 }
 
+function materialBackdropTone(
+  style: CSSStyleDeclaration,
+  size: { width: number; height: number },
+  clarity?: number,
+) {
+  const value = (name: string) => style.getPropertyValue(name).trim();
+  const amount = parseFloat(value("--lg-material-size"));
+  return toneCSS({
+    mode: value("--lenso-material-action-mode") === "dark" ? "dark" : "light",
+    size: Math.max(
+      0,
+      Math.min(1, Number.isFinite(amount) ? amount : (Math.min(size.width, size.height) - 60) / 60),
+    ),
+    clarity:
+      value("--apple-material-profile") === "clear"
+        ? 1
+        : (clarity ?? (Number(value("--lenso-glass-clarity")) || 0)),
+  });
+}
+
+// A native popup and its ::backdrop live above ordinary DOM siblings. Keep its
+// calibrated paint on the popup, above the modal dimmer.
+function paintNativePopup(
+  element: HTMLElement,
+  onReady?: () => void,
+  preference?: ReturnType<typeof createNativePreferences>,
+) {
+  const property = "--lenso-native-material-filter";
+  const original = element.style.getPropertyValue(property);
+  const priority = element.style.getPropertyPriority(property);
+  const paintId = `material-${++nextPaintId}`;
+  let previous = "";
+  let notified = false;
+  let stopped = false;
+  const prepare = (style: CSSStyleDeclaration, size: { width: number; height: number }) => {
+    const preferred = preference?.read(style);
+    const blur = preferred?.blur ?? (style.getPropertyValue("--lg-blur").trim() || "15.3px");
+    const opacity = style.getPropertyValue("--lenso-glass-face-opacity").trim() || "1";
+    const filter = preferred?.opaque
+      ? "none"
+      : `blur(${blur}) ${materialBackdropTone(style, size, preferred?.clarity)} opacity(${opacity})`;
+    return () => {
+      if (stopped) return;
+      preference?.apply(preferred);
+      if (filter !== previous) {
+        previous = filter;
+        element.style.setProperty(property, filter);
+      }
+      if (element.getAttribute("data-material-paints") !== paintId)
+        element.setAttribute("data-material-paints", paintId);
+      if (!notified) {
+        notified = true;
+        onReady?.();
+      }
+    };
+  };
+  prepare(getComputedStyle(element), {
+    width: element.offsetWidth,
+    height: element.offsetHeight,
+  })();
+  const subscription = observeBackdrop({
+    element,
+    source: element,
+    prepare() {},
+    read(_change, reads) {
+      return prepare(reads.style(element), reads.size(element));
+    },
+  });
+  const stopVisibility = watchCopy(element, (active) => subscription.visible(active));
+  return () => {
+    stopped = true;
+    stopVisibility();
+    subscription.stop();
+    preference?.destroy();
+    if (element.getAttribute("data-material-paints") === paintId)
+      element.removeAttribute("data-material-paints");
+    if (original) element.style.setProperty(property, original, priority);
+    else element.style.removeProperty(property);
+  };
+}
+
 function createMaterialBackdrop(
   element: HTMLElement,
   liquid: boolean,
@@ -28,6 +109,14 @@ function createMaterialBackdrop(
   onReady?: () => void,
   preference?: ReturnType<typeof createNativePreferences>,
 ): () => void {
+  if (
+    liquid &&
+    element.matches("[popover], dialog") &&
+    ["medium", "large"].includes(
+      getComputedStyle(element).getPropertyValue("--apple-material-profile").trim(),
+    )
+  )
+    return paintNativePopup(element, onReady, preference);
   const foreground =
     liquid && element.hasAttribute("data-material-lens") ? element.parentElement! : element;
   let anchor = foreground;
@@ -188,25 +277,7 @@ function createMaterialBackdrop(
         !profile.includes("knob") &&
         element.dataset["variant"] !== "prominent" &&
         element.dataset["variant"] !== "filled";
-      const toneSize = parseFloat(value("--lg-material-size"));
-      const tone = calibrated
-        ? toneCSS({
-            mode: value("--lenso-material-action-mode") === "dark" ? "dark" : "light",
-            size: Math.max(
-              0,
-              Math.min(
-                1,
-                Number.isFinite(toneSize)
-                  ? toneSize
-                  : (Math.min(size.width, size.height) - 60) / 60,
-              ),
-            ),
-            clarity:
-              profile === "clear"
-                ? 1
-                : (preferred?.clarity ?? (Number(value("--lenso-glass-clarity")) || 0)),
-          })
-        : "";
+      const tone = calibrated ? materialBackdropTone(style, size, preferred?.clarity) : "";
       if (calibrated && profile !== "small") paints = [];
       else if (calibrated) {
         // A native filter transforms the live backdrop but supplies no backing

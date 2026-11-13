@@ -142,27 +142,23 @@ export function CustomAnimations() {
       {animations.map(({ name, Icon, popup, backdrop, description }) => (
         <Modal key={name}>
           <Modal.Trigger render={<Button />}>{name}</Modal.Trigger>
-          <Modal.Portal>
-            <Modal.Backdrop xstyle={backdrop} />
-            <Modal.Viewport>
-              <Modal.Popup xstyle={[styles.popup, popup]}>
-                <Modal.Close aria-label="Close dialog" />
-                <Modal.Header>
-                  <Modal.Icon xstyle={styles.icon}>
-                    <Icon {...stylex.props(styles.glyph)} />
-                  </Modal.Icon>
-                  <Modal.Title>{name}动画</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Modal.Description xstyle={styles.description}>{description}</Modal.Description>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Modal.Close render={<Button variant="bordered" />}>关闭</Modal.Close>
-                  <Modal.Close render={<Button />}>再试一次</Modal.Close>
-                </Modal.Footer>
-              </Modal.Popup>
-            </Modal.Viewport>
-          </Modal.Portal>
+          <Modal.Backdrop xstyle={backdrop} />
+          <Modal.Content xstyle={[styles.popup, popup]}>
+            <Modal.Close aria-label="Close dialog" />
+            <Modal.Header>
+              <Modal.Icon xstyle={styles.icon}>
+                <Icon {...stylex.props(styles.glyph)} />
+              </Modal.Icon>
+              <Modal.Title>{name}动画</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Modal.Description xstyle={styles.description}>{description}</Modal.Description>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.Close render={<Button variant="bordered" />}>关闭</Modal.Close>
+              <Modal.Close render={<Button />}>再试一次</Modal.Close>
+            </Modal.Footer>
+          </Modal.Content>
         </Modal>
       ))}
     </div>

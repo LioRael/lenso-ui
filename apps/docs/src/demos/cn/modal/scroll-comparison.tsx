@@ -49,37 +49,31 @@ export function ScrollComparison() {
         <Modal.Trigger render={<Button />}>
           打开模态框（{scroll.charAt(0).toUpperCase() + scroll.slice(1)})
         </Modal.Trigger>
-        <Modal.Portal>
-          <Modal.Backdrop />
-          <Modal.Viewport>
-            <Modal.Popup xstyle={styles.popup}>
-              <Modal.Header>
-                <Modal.Title>
-                  Scroll: {scroll.charAt(0).toUpperCase() + scroll.slice(1)}
-                </Modal.Title>
-                <Modal.Description xstyle={styles.caption}>
-                  对比滚动行为——内部在模态框内滚动内容，外部允许页面滚动
-                </Modal.Description>
-              </Modal.Header>
-              <Modal.Body>
-                {Array.from({
-                  length: 30,
-                }).map((_, i) => (
-                  <p key={i} {...stylex.props(styles.paragraph)}>
-                    段落{i + 1}： Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                    pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet hendrerit
-                    risus, sed porttitor quam.
-                  </p>
-                ))}
-              </Modal.Body>
-              <Modal.Footer>
-                <Modal.Close render={<Button variant="bordered" />}>取消</Modal.Close>
-                <Modal.Close render={<Button />}>确认</Modal.Close>
-              </Modal.Footer>
-              <Modal.Close aria-label="Close dialog" />
-            </Modal.Popup>
-          </Modal.Viewport>
-        </Modal.Portal>
+        <Modal.Backdrop />
+        <Modal.Content xstyle={styles.popup}>
+          <Modal.Header>
+            <Modal.Title>Scroll: {scroll.charAt(0).toUpperCase() + scroll.slice(1)}</Modal.Title>
+            <Modal.Description xstyle={styles.caption}>
+              对比滚动行为——内部在模态框内滚动内容，外部允许页面滚动
+            </Modal.Description>
+          </Modal.Header>
+          <Modal.Body>
+            {Array.from({
+              length: 30,
+            }).map((_, i) => (
+              <p key={i} {...stylex.props(styles.paragraph)}>
+                段落{i + 1}： Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+                pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet hendrerit risus,
+                sed porttitor quam.
+              </p>
+            ))}
+          </Modal.Body>
+          <Modal.Footer>
+            <Modal.Close render={<Button variant="bordered" />}>取消</Modal.Close>
+            <Modal.Close render={<Button />}>确认</Modal.Close>
+          </Modal.Footer>
+          <Modal.Close aria-label="Close dialog" />
+        </Modal.Content>
       </Modal>
     </div>
   );

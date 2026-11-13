@@ -252,29 +252,33 @@ test("release list orders public packages by dependencies and excludes private e
   );
 });
 
-test("Command release requires distributable primitive entries and an exact UI dependency", () => {
+test("primitive release requires retained entries, client boundaries and an exact UI dependency", () => {
   const item = entries.find((entry) => entry.kind === "primitives")!;
   const files = [
     "package/LICENSE",
-    ...["command", "data-grid", "resize-handle", "sidebar"].flatMap((family) => [
+    "package/dist/sidebar/sidebar.js",
+    "package/dist/sidebar/sidebar.d.ts",
+    ...["sidebar"].flatMap((family) => [
       `package/dist/${family}/index.js`,
       `package/dist/${family}/index.d.ts`,
     ]),
   ];
   const manifest = { name: item.name, version: item.version! };
-  const contents = { "package/dist/command/index.js": '"use client";' };
+  const contents = Object.fromEntries(
+    ["sidebar"].map((family) => [`package/dist/${family}/index.js`, '"use client";']),
+  );
   assert.doesNotThrow(() => validatePackage(manifest, files, contents, item, item.version!));
   assert.throws(() => validatePackage(manifest, files, {}, item, item.version!), /use client/);
   assert.throws(
     () =>
       validatePackage(
         manifest,
-        files.filter((file) => !file.includes("/command/")),
-        {},
+        files.filter((file) => !file.includes("/sidebar/")),
+        contents,
         item,
         item.version!,
       ),
-    /command/,
+    /sidebar/,
   );
   const ui = {
     name: uiEntry.name,

@@ -5,7 +5,7 @@ import { tagStyles } from "@lenso/tokens/tag";
 import { materialStyles } from "@lenso/tokens/materials";
 import { MaterialBackground } from "../../utils/materials/render.js";
 import { type StyleXProps } from "../../utils/styled.js";
-import { CollectionContext, type CollectionKey } from "../list-box/list-box.js";
+import { CollectionContext, type CollectionKey } from "../list-box/collection-model.js";
 import { TagGroupContext } from "../tag-group/tag-group.js";
 
 export interface TagRootProps extends StyleXProps<
@@ -99,7 +99,7 @@ export function TagRoot({
           if (ref) ref.current = value;
         }}
         style={{ ...compiled.style, ...style }}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tag"}
+        data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "tag"}
         data-collection-item="tag"
         data-material="glass-small"
         role="row"
@@ -165,7 +165,9 @@ export function TagRemoveButton({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "tag-remove-button"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "tag-remove-button"
+      }
       disabled={tag.disabled || props.disabled}
       onClick={(event) => {
         event.stopPropagation();

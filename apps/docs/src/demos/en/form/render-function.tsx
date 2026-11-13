@@ -25,35 +25,42 @@ export function RenderFunction() {
     alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
   }
   return (
-    <Form
-      xstyle={styles.form}
-      render={(props) => <form {...props} data-custom="foo" />}
-      onSubmit={onSubmit}
-    >
-      <TextField
-        name="email"
-        validate={(value) =>
-          /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(String(value))
-            ? null
-            : "Please enter a valid email address"
-        }
-      >
+    <Form xstyle={styles.form} data-custom="foo" onSubmit={onSubmit}>
+      <TextField name="email">
         <Label required>Email</Label>
-        <Input required type="email" placeholder="john@example.com" />
+        <Input
+          required
+          type="email"
+          placeholder="john@example.com"
+          onInput={(event) => {
+            const message = ((value: string) =>
+              /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(String(value))
+                ? null
+                : "Please enter a valid email address")(event.currentTarget.value);
+            event.currentTarget.setCustomValidity(message ?? "");
+          }}
+        />
         <FieldError />
       </TextField>
-      <TextField
-        name="password"
-        validate={(value) => {
-          const password = String(value);
-          if (password.length < 8) return "Password must be at least 8 characters";
-          if (!/[A-Z]/.test(password)) return "Password must contain at least one uppercase letter";
-          if (!/[0-9]/.test(password)) return "Password must contain at least one number";
-          return null;
-        }}
-      >
+      <TextField name="password">
         <Label required>Password</Label>
-        <Input required minLength={8} type="password" placeholder="Enter your password" />
+        <Input
+          required
+          minLength={8}
+          type="password"
+          placeholder="Enter your password"
+          onInput={(event) => {
+            const message = ((value: string) => {
+              const password = String(value);
+              if (password.length < 8) return "Password must be at least 8 characters";
+              if (!/[A-Z]/.test(password))
+                return "Password must contain at least one uppercase letter";
+              if (!/[0-9]/.test(password)) return "Password must contain at least one number";
+              return null;
+            })(event.currentTarget.value);
+            event.currentTarget.setCustomValidity(message ?? "");
+          }}
+        />
         <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
         <FieldError />
       </TextField>

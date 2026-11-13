@@ -78,7 +78,7 @@ when the field is focused.
 
 ## Preserve familiar interaction
 
-Use the component's public parts and native Base UI contracts. Date, time and
+Use the component's public parts and native UI SDK contracts. Date, time and
 color families retain their native value models. Preserve labels, refs, native
 props, event ownership and focus restoration. A composition is complete when
 its controls work with the expected input methods.

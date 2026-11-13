@@ -1,10 +1,10 @@
 "use client";
 
-import { NativeAutocomplete } from "../../en/autocomplete/_native";
+import { OptionPicker } from "../../en/autocomplete/_native";
 import { users } from "./user-selection";
 export function UserSelectionMultiple() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={users}
       label="用户"
       placeholder="选择队友"

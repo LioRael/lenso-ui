@@ -105,7 +105,40 @@ export function Example() {
   </EmptyState.Content>
   ${props["withAction"] ? "<EmptyState.Actions><GlassButton fullWidth>Create collection</GlassButton></EmptyState.Actions>" : ""}
 </EmptyState>`;
-  if (["Button", "GlassButton"].includes(name))
+  if (name === "Button") {
+    const example = props["example"];
+    const icon = example === "icon-only" ? "Gear" : props["destructive"] ? "TrashBin" : "Plus";
+    const withIcon = example === "with-icon" || example === "icon-only";
+    const imports = [
+      "Button",
+      ...(example === "async" ? ["Spinner"] : []),
+      ...(example === "form" ? ["Input", "TextField"] : []),
+    ];
+    const click =
+      example === "async"
+        ? 'onClick={async () => {\n        console.log("Saving…");\n        await new Promise((resolve) => setTimeout(resolve, 1200));\n        console.log("Saved");\n      }} pendingAnnouncement="Saving"'
+        : example === "form"
+          ? 'type="submit"'
+          : "onClick={(_event, { source }) => console.log(" + JSON.stringify(label) + ", source)}";
+    const composition =
+      example === "render"
+        ? 'render={(props) => <button {...props} data-example="custom-button" />}'
+        : "";
+    const content =
+      example === "async"
+        ? '{(state) => <>{state.pending && <Spinner color="current" size="sm" aria-hidden="true" />} ' +
+          text +
+          "</>}"
+        : (withIcon ? `<Button.Icon><${icon} /></Button.Icon>` : "") +
+          (example === "icon-only" ? "" : text);
+    const button = `<Button ${attributes(["example"])} ${example === "icon-only" ? `isIconOnly aria-label={${JSON.stringify(label)}}` : ""} ${click} ${composition}>\n      ${content}\n    </Button>`;
+    const body =
+      example === "form"
+        ? `<form onSubmit={(event) => {\n      event.preventDefault();\n      console.log("Subscribed:", new FormData(event.currentTarget).get("email"));\n    }}>\n      <TextField name="email">\n        <TextField.Label>Email</TextField.Label>\n        <Input name="email" type="email" defaultValue="ada@example.com" required />\n      </TextField>\n      ${button}\n    </form>`
+        : button;
+    return `"use client";\n\n${withIcon ? `import { ${icon} } from "@gravity-ui/icons";\n` : ""}import { ${imports.join(", ")} } from "@lenso/ui";\n\nexport function Example() {\n  return (\n    ${body}\n  );\n}`;
+  }
+  if (name === "GlassButton")
     return `import { ${name} } from "@lenso/ui";\n\n<${name} ${attributes()}>\n  ${text}\n</${name}>`;
   if (name === "Glass" || name === "GlassMagnifier")
     return `import { ${name} } from "@lenso/ui";\n\n<${name} ${attributes(["width", "height", "radius"])} style={{ width: ${JSON.stringify(props["width"])}, height: ${JSON.stringify(props["height"])}, borderRadius: ${JSON.stringify(props["radius"])} }}>\n  ${text}\n</${name}>`;
@@ -119,7 +152,7 @@ export function Example() {
   else if (name === "Slider")
     body = `<Slider ${attributes(["value"])} value={value} onValueChange={(next) => setValue(typeof next === "number" ? next : (next[0] ?? 0))}>\n      <Slider.Control>\n        <Slider.Track><Slider.Fill /><Slider.Thumb aria-label="Volume" /></Slider.Track>\n      </Slider.Control>\n    </Slider>`;
   else if (name === "Tabs")
-    body = `<Tabs lift={${JSON.stringify(props["lift"] ?? 20)}} orientation={${JSON.stringify(props["orientation"] ?? "horizontal")}} value={value} onValueChange={setValue}>\n      <Tabs.List activateOnFocus={${JSON.stringify(props["activateOnFocus"] ?? true)}} aria-label="Sections">\n        <Tabs.Tab value="overview">Overview</Tabs.Tab>\n        <Tabs.Tab value="activity">Activity</Tabs.Tab>\n        <Tabs.Tab value="settings">Settings</Tabs.Tab>\n        <Tabs.Indicator />\n      </Tabs.List>\n    </Tabs>`;
+    body = `<Tabs lift={${JSON.stringify(props["lift"] ?? 20)}} orientation={${JSON.stringify(props["orientation"] ?? "horizontal")}} activation={${JSON.stringify(props["activation"] ?? "automatic")}} value={value} onValueChange={setValue}>\n      <Tabs.List aria-label="Sections">\n        <Tabs.Tab value="overview">Overview</Tabs.Tab>\n        <Tabs.Tab value="activity">Activity</Tabs.Tab>\n        <Tabs.Tab value="settings">Settings</Tabs.Tab>\n        <Tabs.Indicator />\n      </Tabs.List>\n    </Tabs>`;
   else if (name === "Sheet")
     return `"use client";
 

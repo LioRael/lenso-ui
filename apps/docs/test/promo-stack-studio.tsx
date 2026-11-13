@@ -9,7 +9,7 @@ export function mount(host: HTMLElement, stacked: boolean) {
   const root = createRoot(host);
   root.render(
     <ThemeScope theme="light" glassTint={0.5}>
-      <style>{`[data-promo-stack] [data-slot="menu-bar"], [data-promo-stack] output { display:none !important; }`}</style>
+      <style>{`[data-promo-stack] [data-lenso-slot="menu-bar"], [data-promo-stack] output { display:none !important; }`}</style>
       <main
         data-promo-stack=""
         style={{

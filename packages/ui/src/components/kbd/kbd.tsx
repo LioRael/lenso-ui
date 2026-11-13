@@ -36,7 +36,7 @@ export function KbdRoot({ variant = "default", xstyle, style, ...props }: KbdRoo
   return (
     <kbd
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "kbd"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "kbd"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -48,7 +48,7 @@ export function KbdAbbr({ keyValue, xstyle, style, ...props }: KbdAbbrProps) {
     <abbr
       title={keys[keyValue][1]}
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "kbd-abbr"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "kbd-abbr"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >
@@ -61,7 +61,9 @@ export function KbdContent({ xstyle, style, ...props }: StyleXProps<ComponentPro
   return (
     <span
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "kbd-content"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "kbd-content"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />

@@ -1,5 +1,5 @@
 "use client";
-import { NativeAutocomplete } from "./_native";
+import { OptionPicker } from "./_native";
 const tags = [
   { id: "react", name: "React" },
   { id: "typescript", name: "TypeScript" },
@@ -12,7 +12,7 @@ const tags = [
 ];
 export function TagGroupSelection() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={tags}
       label="Tags"
       placeholder="Select tags"

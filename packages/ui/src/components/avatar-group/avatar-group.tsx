@@ -1,5 +1,5 @@
 "use client";
-// modified for native HTML, Base UI and StyleX.
+// modified for native HTML, UI SDK and StyleX.
 import {
   Children,
   cloneElement,
@@ -17,7 +17,11 @@ export type AvatarGroupRootProps = StyleXProps<ComponentProps<"div">> &
 export type AvatarGroupCountProps = AvatarRootProps;
 export function AvatarGroupCount({ children, xstyle, ...props }: AvatarGroupCountProps) {
   return (
-    <Avatar data-slot="avatar-group-count" {...props} xstyle={[avatarGroupStyles.count, xstyle]}>
+    <Avatar
+      data-lenso-slot="avatar-group-count"
+      {...props}
+      xstyle={[avatarGroupStyles.count, xstyle]}
+    >
       <Avatar.Fallback>{children}</Avatar.Fallback>
     </Avatar>
   );
@@ -59,7 +63,9 @@ export function AvatarGroupRoot({
     <AvatarGroupContext.Provider value={appearance}>
       <div
         {...props}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "avatar-group"}
+        data-lenso-slot={
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "avatar-group"
+        }
         {...compiled}
         style={{ ...compiled.style, ...style }}
       >

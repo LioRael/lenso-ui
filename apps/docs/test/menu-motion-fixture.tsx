@@ -19,14 +19,10 @@ function Fixture() {
         <h1>Menu motion regression</h1>
         <Menu morphTrigger={false} elastic={false}>
           <Menu.Trigger>Plain actions</Menu.Trigger>
-          <Menu.Portal>
-            <Menu.Positioner>
-              <Menu.Popup>
-                <Menu.Item>Parcel</Menu.Item>
-                <Menu.Item>Freight</Menu.Item>
-              </Menu.Popup>
-            </Menu.Positioner>
-          </Menu.Portal>
+          <Menu.Content>
+            <Menu.Item>Parcel</Menu.Item>
+            <Menu.Item>Freight</Menu.Item>
+          </Menu.Content>
         </Menu>
         <Select
           morphTrigger={false}
@@ -40,22 +36,18 @@ function Fixture() {
             <Select.Value />
             <Select.Indicator />
           </Select.Trigger>
-          <Select.Portal>
-            <Select.Positioner alignItemWithTrigger={false}>
-              <Select.Popup>
-                <Select.List>
-                  <Select.Item value="name">
-                    <Select.ItemText>Name</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                  <Select.Item value="size">
-                    <Select.ItemText>Size</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                </Select.List>
-              </Select.Popup>
-            </Select.Positioner>
-          </Select.Portal>
+          <Select.Content alignItemWithTrigger={false}>
+            <Select.List>
+              <Select.Item value="name">
+                <Select.ItemText>Name</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+              <Select.Item value="size">
+                <Select.ItemText>Size</Select.ItemText>
+                <Select.ItemIndicator />
+              </Select.Item>
+            </Select.List>
+          </Select.Content>
         </Select>
       </main>
     </ThemeScope>

@@ -20,6 +20,7 @@ export function createLabelRefraction(element: HTMLElement) {
 
 interface TrackSurface {
   content: HTMLElement;
+  clip: HTMLElement;
   paint(amount: number): void;
   refresh(): void;
   setActive(active: boolean): void;
@@ -34,15 +35,18 @@ export function createKnobRefraction(
   glass: HTMLElement,
   kind: "switch" | "slider",
 ) {
-  const source = control.querySelector<HTMLElement>(`[data-slot="${kind}-track"]`);
+  const source = control.querySelector<HTMLElement>(`[data-lenso-slot="${kind}-track"]`);
   if (!source) return;
   const sourcePaint =
-    source.querySelector<HTMLElement>('[data-slot="slider-track-paint"]') ?? source;
-  const sourceFill = source.querySelector<HTMLElement>('[data-slot="slider-fill"]');
+    source.querySelector<HTMLElement>('[data-lenso-slot="slider-track-paint"]') ?? source;
+  const sourceFill = source.querySelector<HTMLElement>('[data-lenso-slot="slider-fill"]');
   let shared = tracks.get(source);
   if (!shared) {
+    // WebKit must crop the filtered result without masking the SVG input.
+    const clip = document.createElement("span");
+    clip.className = stylex.props(knobMaterialStyles.content).className ?? "";
     const content = document.createElement("span");
-    content.className = stylex.props(knobMaterialStyles.content).className ?? "";
+    content.className = stylex.props(knobMaterialStyles.filteredContent).className ?? "";
     content.dataset["controlLensContent"] = kind;
     content.setAttribute("aria-hidden", "true");
     content.inert = true;
@@ -50,7 +54,8 @@ export function createKnobRefraction(
     const fill = document.createElement("span");
     if (kind === "slider") track.append(fill);
     content.append(track);
-    control.prepend(content);
+    clip.append(content);
+    control.prepend(clip);
     const lenses = new Map<ControlLens, number>();
     let x = 0,
       y = 0,
@@ -158,6 +163,7 @@ export function createKnobRefraction(
     refresh();
     shared = {
       content,
+      clip,
       paint,
       refresh,
       lenses,
@@ -166,7 +172,7 @@ export function createKnobRefraction(
         setActive(false);
         changes.disconnect();
         resize.disconnect();
-        content.remove();
+        clip.remove();
         tracks.delete(source);
       },
     };
@@ -178,6 +184,7 @@ export function createKnobRefraction(
     surface.content,
     { ...profiles[kind], paintsLight: true, pill: true },
     [sourcePaint, ...(sourceFill ? [sourceFill] : [])],
+    surface.clip,
   );
   surface.lenses.set(lens, 0);
   let active = false;

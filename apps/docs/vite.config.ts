@@ -44,7 +44,7 @@ export default defineConfig(({ command }) => {
     },
     server: {
       host: "127.0.0.1",
-      port: 3000,
+      port: 4310,
       strictPort: true,
       watch: { ignored: ["**/out/**", "**/dist/**", "**/.cache/**", "**/.tanstack/**"] },
     },
@@ -69,11 +69,9 @@ export default defineConfig(({ command }) => {
         "react-dom/client",
         "react/jsx-runtime",
         "react/jsx-dev-runtime",
-        "@base-ui/react/*",
         "@internationalized/date",
         "react-stately/*",
         "@lenso/ui > react-stately",
-        "@base-ui/react",
         "@stylexjs/stylex",
         "culori",
         "next-themes",
@@ -104,7 +102,7 @@ export default defineConfig(({ command }) => {
     ssr: {
       noExternal: [
         /^@lenso\//,
-        /^@base-ui\//,
+        /^@ui-sdk\//,
         "fumadocs-core",
         "fumadocs-ui",
         "@fumadocs/story",

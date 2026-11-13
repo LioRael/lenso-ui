@@ -71,7 +71,7 @@ function Template({
     <div {...stylex.props(items === overflow ? s.tabs400 : custom ? s.tabs380 : s.tabs600)}>
       <Tabs defaultValue={items[0]!.id} {...args}>
         <Tabs.ListContainer>
-          <Tabs.List activateOnFocus aria-label={label} xstyle={custom && s.customList}>
+          <Tabs.List aria-label={label} xstyle={custom && s.customList}>
             {items.map((item, index) => (
               <Tabs.Tab
                 key={item.id}
@@ -156,7 +156,7 @@ function ShowcaseTemplate(args: TabsRootProps) {
         </div>
         <Tabs {...args} defaultValue="200" onValueChange={(next) => setSelectedZoom(String(next))}>
           <Tabs.ListContainer xstyle={s.cameraContainer}>
-            <Tabs.List activateOnFocus aria-label="Options" xstyle={s.cameraList}>
+            <Tabs.List aria-label="Options" xstyle={s.cameraList}>
               {zoomLevels.map((zoom) => (
                 <Tabs.Tab
                   key={zoom.id}

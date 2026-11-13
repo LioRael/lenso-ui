@@ -142,20 +142,16 @@ export function CustomValue() {
               <Select.Value />
               <Select.Indicator />
             </Select.Trigger>
-            <Select.Portal>
-              <Select.Positioner>
-                <Select.Popover>
-                  <Select.List>
-                    {formatStyleOptions.map((option) => (
-                      <Select.Item key={option.value} value={option.value}>
-                        <Select.ItemText>{option.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
-                    ))}
-                  </Select.List>
-                </Select.Popover>
-              </Select.Positioner>
-            </Select.Portal>
+            <Select.Content>
+              <Select.List>
+                {formatStyleOptions.map((option) => (
+                  <Select.Item key={option.value} value={option.value}>
+                    <Select.ItemText>{option.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.List>
+            </Select.Content>
           </Select>
         </div>
       </div>

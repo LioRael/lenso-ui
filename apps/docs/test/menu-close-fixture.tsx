@@ -46,20 +46,16 @@ function example(
               <Select.Value />
               <Select.Indicator />
             </Select.Trigger>
-            <Select.Portal>
-              <Select.Positioner alignItemWithTrigger={kind === "select"}>
-                <Select.Popover>
-                  <Select.List>
-                    {choices.map((c) => (
-                      <Select.Item key={c.value} value={c.value}>
-                        <Select.ItemText>{c.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
-                    ))}
-                  </Select.List>
-                </Select.Popover>
-              </Select.Positioner>
-            </Select.Portal>
+            <Select.Content alignItemWithTrigger={kind === "select"}>
+              <Select.List>
+                {choices.map((c) => (
+                  <Select.Item key={c.value} value={c.value}>
+                    <Select.ItemText>{c.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.List>
+            </Select.Content>
           </Select>
         ) : (
           <Menu open={open} onOpenChange={onOpenChange} morphTrigger={kind !== "menu-anchored"}>
@@ -74,29 +70,24 @@ function example(
                 Long actions
               </Menu.Trigger>
             )}
-            <Menu.Portal>
-              <Menu.Positioner side={kind === "above" ? "top" : "bottom"}>
-                <Menu.Popup style={{ width: 250 }}>
-                  {kind === "cascade" && (
-                    <Menu.SubmenuRoot presentation="cascade">
-                      <Menu.SubmenuTrigger>Nested actions</Menu.SubmenuTrigger>
-                      <Menu.Portal>
-                        <Menu.Positioner>
-                          <Menu.Popup aria-label="Contour child">
-                            {choices.map((c) => (
-                              <Menu.Item key={c.value}>{c.label}</Menu.Item>
-                            ))}
-                          </Menu.Popup>
-                        </Menu.Positioner>
-                      </Menu.Portal>
-                    </Menu.SubmenuRoot>
-                  )}
-                  {choices.map((c) => (
-                    <Menu.Item key={c.value}>{c.label}</Menu.Item>
-                  ))}
-                </Menu.Popup>
-              </Menu.Positioner>
-            </Menu.Portal>
+            <Menu.Content style={{ width: 250 }} side={kind === "above" ? "top" : "bottom"}>
+              {kind === "cascade" && (
+                <Menu.Sub presentation="cascade">
+                  <Menu.SubTrigger>Nested actions</Menu.SubTrigger>
+                  <Menu.Content
+                    aria-label="Contour child"
+                    side={kind === "above" ? "top" : "bottom"}
+                  >
+                    {choices.map((c) => (
+                      <Menu.Item key={c.value}>{c.label}</Menu.Item>
+                    ))}
+                  </Menu.Content>
+                </Menu.Sub>
+              )}
+              {choices.map((c) => (
+                <Menu.Item key={c.value}>{c.label}</Menu.Item>
+              ))}
+            </Menu.Content>
           </Menu>
         )}
       </main>

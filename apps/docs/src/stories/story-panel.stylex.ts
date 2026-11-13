@@ -36,7 +36,19 @@ export const panel = stylex.create({
     gap: 16,
     alignItems: "start",
   },
+  inlineBody: {
+    gridTemplateColumns: {
+      default: "minmax(0, 1fr)",
+      "@container (min-width: 760px)": "minmax(0, 1fr) 320px",
+      "@container (min-width: 1000px)": "minmax(0, 1fr) 360px",
+    },
+    gap: 16,
+    alignItems: "start",
+  },
+  inlineScene: { padding: 0, overflow: "hidden", alignItems: "stretch" },
+  inlineControls: { backgroundColor: "var(--lenso-background-secondary)", containerType: "normal" },
   scene: {
+    width: "100%",
     position: "relative",
     display: "flex",
     alignItems: "center",
@@ -72,6 +84,7 @@ export const panel = stylex.create({
     "--lg-tab-width": "96px",
     "--lg-tab-height": { default: "36px", "@media (pointer: coarse)": "44px" },
   },
+  argumentLabel: { fontSize: 14, lineHeight: "20px" },
   argument: {
     minWidth: 0,
     borderBottom: "0.5px solid var(--lenso-separator)",
@@ -87,7 +100,7 @@ export const panel = stylex.create({
     alignItems: "center",
   },
   choiceRow: { gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.25fr)" },
-  textInput: { textAlign: "end", justifySelf: "end" },
+  textInput: { fontSize: 14, textAlign: "end", justifySelf: "end" },
   readonlyValue: {
     minWidth: 0,
     fontSize: 15,

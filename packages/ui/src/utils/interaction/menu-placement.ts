@@ -1,3 +1,5 @@
+import { useLayoutEffect, useState } from "react";
+
 /** Wait for native collision/size placement before capturing a morph destination. */
 export function afterMenuPlacement(element: HTMLElement, ready: () => void) {
   let frame = 0,
@@ -29,4 +31,23 @@ export function retainMenuChild(parent: HTMLElement) {
     if (count > 0) parent.setAttribute(name, String(count));
     else parent.removeAttribute(name);
   };
+}
+
+export function useMenuStackOffset(
+  element: HTMLElement | null,
+  parent: HTMLElement | null | undefined,
+  enabled: boolean,
+) {
+  const [offset, setOffset] = useState(0);
+  useLayoutEffect(() => {
+    if (!enabled || !parent || !element) return;
+    const measure = () =>
+      setOffset(-Math.min(parent.offsetHeight * 0.62, element.offsetHeight + 8));
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(parent);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [element, parent, enabled]);
+  return offset;
 }

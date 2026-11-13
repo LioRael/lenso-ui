@@ -11,8 +11,8 @@ export function Default() {
       <Slider.Control>
         <Slider.Track>
           <Slider.Fill />
+          <Slider.Thumb aria-label="Volume" />
         </Slider.Track>
-        <Slider.Thumb aria-label="Volume" />
       </Slider.Control>
     </Slider>
   );

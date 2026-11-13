@@ -16,38 +16,32 @@ export function Navigation() {
     { icon: Gear, label: "Settings" },
   ];
   return (
-    <Drawer.Provider>
-      <Drawer swipeDirection="left">
-        <Drawer.Trigger render={<Button />}>
-          <Button.Icon>
-            <Bars />
-          </Button.Icon>
-          Menu
-        </Drawer.Trigger>
-        <Drawer.Portal>
-          <Drawer.Backdrop />
-          <Drawer.Viewport>
-            <Drawer.Popup>
-              <Drawer.Content>
-                <Drawer.Close aria-label="Close drawer" />
-                <Drawer.Header>
-                  <Drawer.Title>Navigation</Drawer.Title>
-                </Drawer.Header>
-                <Drawer.Body>
-                  <nav {...stylex.props(styles.navigation)}>
-                    {navItems.map((item) => (
-                      <button key={item.label} {...stylex.props(styles.navButton)} type="button">
-                        <item.icon {...stylex.props(styles.icon)} />
-                        {item.label}
-                      </button>
-                    ))}
-                  </nav>
-                </Drawer.Body>
-              </Drawer.Content>
-            </Drawer.Popup>
-          </Drawer.Viewport>
-        </Drawer.Portal>
-      </Drawer>
-    </Drawer.Provider>
+    <Drawer side="left">
+      <Drawer.Trigger render={<Button />}>
+        <Button.Icon>
+          <Bars />
+        </Button.Icon>
+        Menu
+      </Drawer.Trigger>
+      <Drawer.Backdrop />
+      <Drawer.Content>
+        <Drawer.Layout>
+          <Drawer.Close aria-label="Close drawer" />
+          <Drawer.Header>
+            <Drawer.Title>Navigation</Drawer.Title>
+          </Drawer.Header>
+          <Drawer.Body>
+            <nav {...stylex.props(styles.navigation)}>
+              {navItems.map((item) => (
+                <button key={item.label} {...stylex.props(styles.navButton)} type="button">
+                  <item.icon {...stylex.props(styles.icon)} />
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </Drawer.Body>
+        </Drawer.Layout>
+      </Drawer.Content>
+    </Drawer>
   );
 }

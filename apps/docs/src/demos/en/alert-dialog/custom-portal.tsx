@@ -34,40 +34,35 @@ export function CustomPortal() {
           Render alert dialogs inside a custom container instead of <code>document.body</code>
         </p>
         <p {...stylex.props(styles.caption)}>
-          Apply <code {...stylex.props(styles.code)}>transform: translateZ(0)</code> to the
-          container to create a new stacking context.
+          Apply <code {...stylex.props(styles.code)}>transform: translateZ(0)</code>to the container
+          to create a new stacking context.
         </p>
       </div>
       <div ref={setPortalRef} {...stylex.props(styles.container)}>
         {!!portalContainer && (
           <AlertDialog>
             <AlertDialog.Trigger render={<Button />}>Open Alert Dialog</AlertDialog.Trigger>
-            <AlertDialog.Portal container={portalContainer}>
-              <AlertDialog.Backdrop xstyle={styles.backdrop} />
-              <AlertDialog.Viewport xstyle={styles.viewport}>
-                <AlertDialog.Popup xstyle={styles.popup}>
-                  <AlertDialog.Close aria-label="Close dialog" />
-                  <AlertDialog.Header>
-                    <AlertDialog.Icon variant="accent" />
-                    <AlertDialog.Title>Custom Portal</AlertDialog.Title>
-                  </AlertDialog.Header>
-                  <AlertDialog.Body>
-                    {Array.from({ length: 3 }, (_, index) => (
-                      <p key={index} {...stylex.props(styles.caption)}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
-                      </p>
-                    ))}
-                  </AlertDialog.Body>
-                  <AlertDialog.Footer>
-                    <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
-                    <AlertDialog.Action>Confirm</AlertDialog.Action>
-                  </AlertDialog.Footer>
-                </AlertDialog.Popup>
-              </AlertDialog.Viewport>
-            </AlertDialog.Portal>
+            <AlertDialog.Backdrop xstyle={styles.backdrop} />
+            <AlertDialog.Content xstyle={styles.popup} container={portalContainer}>
+              <AlertDialog.Close aria-label="Close dialog" />
+              <AlertDialog.Header>
+                <AlertDialog.Icon variant="accent" />
+                <AlertDialog.Title>Custom Portal</AlertDialog.Title>
+              </AlertDialog.Header>
+              <AlertDialog.Body>
+                {Array.from({ length: 3 }, (_, index) => (
+                  <p key={index} {...stylex.props(styles.caption)}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                ))}
+              </AlertDialog.Body>
+              <AlertDialog.Footer>
+                <AlertDialog.Action variant="cancel">Cancel</AlertDialog.Action>
+                <AlertDialog.Action>Confirm</AlertDialog.Action>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
           </AlertDialog>
         )}
       </div>

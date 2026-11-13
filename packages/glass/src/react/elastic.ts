@@ -15,6 +15,7 @@ export function useElasticRef<T extends HTMLElement>(
   ref: Ref<T> | undefined,
   {
     enabled = true,
+    capture,
     shouldStart,
     propertyPrefix = "--lg-press",
     grow,
@@ -26,9 +27,9 @@ export function useElasticRef<T extends HTMLElement>(
   useEffect(
     () =>
       element && enabled
-        ? press(element, shouldStart, propertyPrefix, { grow, release, touchRelease })
+        ? press(element, shouldStart, propertyPrefix, { capture, grow, release, touchRelease })
         : undefined,
-    [element, enabled, shouldStart, propertyPrefix, grow, release, touchRelease],
+    [element, enabled, capture, shouldStart, propertyPrefix, grow, release, touchRelease],
   );
   return useCallback(
     (node: T | null) => {

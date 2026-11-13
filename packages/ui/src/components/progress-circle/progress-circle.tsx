@@ -37,8 +37,10 @@ export function ProgressCircleRoot({
     <Context.Provider value={{ size, percentage, indeterminate: props.value == null }}>
       <Primitive.Progress
         {...props}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-circle"}
-        render={slotRender("div", props["data-slot"] ?? "progress-circle", props.render)}
+        data-lenso-slot={
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "progress-circle"
+        }
+        render={slotRender("div", props["data-lenso-slot"] ?? "progress-circle", props.render)}
         {...compiled}
         style={mergeStyle<Primitive.ProgressState>(compiled.style, style)}
       />
@@ -63,7 +65,9 @@ export function ProgressCircleTrack({
       fill="none"
       aria-hidden="true"
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-circle-track"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "progress-circle-track"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -82,7 +86,10 @@ export function ProgressCircleTrackCircle({
       r={RADIUS}
       strokeWidth={4}
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-circle-track-circle"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ??
+        "progress-circle-track-circle"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -110,7 +117,10 @@ export function ProgressCircleFillCircle({
       strokeLinecap="round"
       transform={`rotate(-90 ${cx} ${cy})`}
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "progress-circle-fill-circle"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ??
+        "progress-circle-fill-circle"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -125,8 +135,8 @@ export function ProgressCircleLabel({
   return (
     <Primitive.ProgressLabel
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "label"}
-      render={slotRender("span", props["data-slot"] ?? "label", props.render)}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "label"}
+      render={slotRender("span", props["data-lenso-slot"] ?? "label", props.render)}
       {...compiled}
       style={mergeStyle<Primitive.ProgressState>(compiled.style, style)}
     />

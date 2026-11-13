@@ -2,9 +2,13 @@
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: Base UI owns checked state, validation, input and keyboard behavior.
+ * Modified: UI SDK owns checked state, validation, input and keyboard behavior.
  */
-import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
+import {
+  Checkbox as SdkCheckbox,
+  CheckboxIndicator as SdkCheckboxIndicator,
+} from "@ui-sdk/react/checkbox";
+import { slotRender } from "../../utils/sdk-render.js";
 import { checkboxStyles } from "@lenso/tokens/checkbox";
 import { createContext, useContext, type ComponentPropsWithRef } from "react";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
@@ -14,20 +18,20 @@ import * as stylex from "@stylexjs/stylex";
 export type CheckboxVariant = "primary" | "secondary";
 export const CheckboxVariantContext = createContext<CheckboxVariant>("primary");
 export type CheckboxRootProps = StyleXProps<
-  Omit<BaseCheckbox.Root.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseCheckbox.Root>["ref"];
+  Omit<React.ComponentProps<typeof SdkCheckbox>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkCheckbox>["ref"];
   }
-> & { "data-slot"?: unknown; variant?: CheckboxVariant };
+> & { "data-lenso-slot"?: unknown; variant?: CheckboxVariant };
 export function CheckboxRoot({ variant, xstyle, style, ...props }: CheckboxRootProps) {
   const compiled = stylex.props(checkboxStyles.root, xstyle);
   const inherited = useContext(CheckboxVariantContext);
   return (
     <CheckboxVariantContext value={variant ?? inherited}>
-      <BaseCheckbox.Root
+      <SdkCheckbox
         {...props}
         {...compiled}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "checkbox"}
+        render={slotRender("button", props["data-lenso-slot"] ?? "checkbox", props.render)}
       />
     </CheckboxVariantContext>
   );
@@ -36,14 +40,14 @@ export function CheckboxContent({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(checkboxStyles.content, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "checkbox-content"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "checkbox-content"}
     />
   );
 }
@@ -51,14 +55,14 @@ function Control({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(checkboxStyles.control, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "checkbox-control"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "checkbox-control"}
     />
   );
 }
@@ -79,17 +83,17 @@ function Indicator({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseCheckbox.Indicator.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseCheckbox.Indicator>["ref"];
+  Omit<React.ComponentProps<typeof SdkCheckboxIndicator>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkCheckboxIndicator>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(checkboxStyles.indicator, xstyle);
   return (
-    <BaseCheckbox.Indicator
+    <SdkCheckboxIndicator
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "checkbox-indicator"}
+      render={slotRender("span", props["data-lenso-slot"] ?? "checkbox-indicator", props.render)}
     />
   );
 }

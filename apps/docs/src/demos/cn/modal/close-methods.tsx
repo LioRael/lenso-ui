@@ -1,8 +1,8 @@
 "use client";
 
 import { CircleCheck, CircleInfo } from "@gravity-ui/icons";
-import { useRef } from "react";
-import { Dialog } from "@base-ui/react/dialog";
+import { useState } from "react";
+import { createDialogController } from "@ui-sdk/react/dialog";
 import * as stylex from "@stylexjs/stylex";
 import { Button, Modal } from "@lenso/ui";
 const styles = stylex.create({
@@ -42,76 +42,67 @@ const styles = stylex.create({
   },
 });
 export function CloseMethods() {
-  const actionsRef = useRef<Dialog.Root.Actions | null>(null);
+  const [controller] = useState(createDialogController);
   return (
     <div {...stylex.props(styles.column)}>
       <div {...stylex.props(styles.section)}>
         <h3 {...stylex.props(styles.heading)}>Using Modal.Close</h3>
         <p {...stylex.props(styles.caption)}>
-          Compose a Button with <code>Modal.Close</code> to close the modal automatically.
+          Compose a Button with <code>Modal.Close</code>to close the modal automatically.
         </p>
         <Modal>
           <Modal.Trigger render={<Button />}>打开模态框</Modal.Trigger>
-          <Modal.Portal>
-            <Modal.Backdrop />
-            <Modal.Viewport>
-              <Modal.Popup xstyle={styles.popup}>
-                <Modal.Header>
-                  <Modal.Icon xstyle={styles.accent}>
-                    <CircleInfo {...stylex.props(styles.circle)} />
-                  </Modal.Icon>
-                  <Modal.Title>Using Modal.Close</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Modal.Description>
-                    Click either button below - both use <code>Modal.Close</code>
-                    ，会自动关闭模态框。
-                  </Modal.Description>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Modal.Close render={<Button variant="bordered" />}>取消</Modal.Close>
-                  <Modal.Close render={<Button />}>确认</Modal.Close>
-                </Modal.Footer>
-              </Modal.Popup>
-            </Modal.Viewport>
-          </Modal.Portal>
+          <Modal.Backdrop />
+          <Modal.Content xstyle={styles.popup}>
+            <Modal.Header>
+              <Modal.Icon xstyle={styles.accent}>
+                <CircleInfo {...stylex.props(styles.circle)} />
+              </Modal.Icon>
+              <Modal.Title>Using Modal.Close</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Modal.Description>
+                Click either button below - both use <code>Modal.Close</code>，会自动关闭模态框。
+              </Modal.Description>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.Close render={<Button variant="bordered" />}>取消</Modal.Close>
+              <Modal.Close render={<Button />}>确认</Modal.Close>
+            </Modal.Footer>
+          </Modal.Content>
         </Modal>
       </div>
       <div {...stylex.props(styles.section)}>
-        <h3 {...stylex.props(styles.heading)}>Using Root actions</h3>
+        <h3 {...stylex.props(styles.heading)}>Using controller</h3>
         <p {...stylex.props(styles.caption)}>
-          Access the native <code>close</code> method through the Root&apos;s{" "}
-          <code>actionsRef</code>. This gives you full control over when and how to close the modal,
-          allowing you to add custom logic before closing.
+          Access the native <code>close</code>method through the Root&apos;s <code>controller</code>
+          . This gives you full control over when and how to close the modal, allowing you to add
+          custom logic before closing.
         </p>
-        <Modal actionsRef={actionsRef}>
+        <Modal controller={controller}>
           <Modal.Trigger render={<Button />}>打开模态框</Modal.Trigger>
-          <Modal.Portal>
-            <Modal.Backdrop />
-            <Modal.Viewport>
-              <Modal.Popup xstyle={styles.popup}>
-                <Modal.Header>
-                  <Modal.Icon xstyle={styles.success}>
-                    <CircleCheck {...stylex.props(styles.circle)} />
-                  </Modal.Icon>
-                  <Modal.Title>Using Root actions</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Modal.Description>
-                    下方按钮使用渲染属性中的<code>close</code> method from Root actions. You can add
-                    validation or other logic before calling <code>actionsRef.current.close()</code>
-                    前进行校验或其他逻辑。
-                  </Modal.Description>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="bordered" onClick={() => actionsRef.current?.close()}>
-                    取消
-                  </Button>
-                  <Button onClick={() => actionsRef.current?.close()}>确认</Button>
-                </Modal.Footer>
-              </Modal.Popup>
-            </Modal.Viewport>
-          </Modal.Portal>
+          <Modal.Backdrop />
+          <Modal.Content xstyle={styles.popup}>
+            <Modal.Header>
+              <Modal.Icon xstyle={styles.success}>
+                <CircleCheck {...stylex.props(styles.circle)} />
+              </Modal.Icon>
+              <Modal.Title>Using controller</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Modal.Description>
+                下方按钮使用渲染属性中的<code>close</code>method from controller. You can add
+                validation or other logic before calling <code>controller.close()</code>
+                前进行校验或其他逻辑。
+              </Modal.Description>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="bordered" onClick={() => controller.close()}>
+                取消
+              </Button>
+              <Button onClick={() => controller.close()}>确认</Button>
+            </Modal.Footer>
+          </Modal.Content>
         </Modal>
       </div>
     </div>

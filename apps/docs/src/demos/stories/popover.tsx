@@ -25,17 +25,13 @@ export function PopoverBasic(overrides: PopoverStoryProps) {
     <div {...stylex.props(styles.row)}>
       <Popover {...args}>
         <Popover.Trigger render={<Button />}>Click me</Popover.Trigger>
-        <Popover.Portal>
-          <Popover.Positioner side={side} align={align}>
-            <Popover.Popup xstyle={styles.popup}>
-              {arrow && <Popover.Arrow />}
-              <Popover.Title>Popover Title</Popover.Title>
-              <Popover.Description xstyle={styles.description}>
-                This is the popover content. You can put any content here.
-              </Popover.Description>
-            </Popover.Popup>
-          </Popover.Positioner>
-        </Popover.Portal>
+        <Popover.Content xstyle={styles.popup} side={side} align={align}>
+          {arrow && <Popover.Arrow />}
+          <Popover.Title>Popover Title</Popover.Title>
+          <Popover.Description xstyle={styles.description}>
+            This is the popover content. You can put any content here.
+          </Popover.Description>
+        </Popover.Content>
       </Popover>
     </div>
   );

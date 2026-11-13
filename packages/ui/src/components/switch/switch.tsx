@@ -2,9 +2,10 @@
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: Base UI checked state and semantic input; scoped size composition.
+ * Modified: UI SDK checked state and semantic input; scoped size composition.
  */
-import { Switch as BaseSwitch } from "@base-ui/react/switch";
+import { Switch as SdkSwitch, SwitchThumb as SdkSwitchThumb } from "@ui-sdk/react/switch";
+import { slotRender } from "../../utils/sdk-render.js";
 import { switchStyles } from "@lenso/tokens/switch";
 import { createContext, useContext, type ComponentPropsWithRef } from "react";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
@@ -16,10 +17,10 @@ import { useSwitchRef } from "../../utils/interaction/switch.js";
 type SwitchSize = "sm" | "md" | "lg";
 const SizeContext = createContext<SwitchSize>("md");
 export type SwitchRootProps = StyleXProps<
-  Omit<BaseSwitch.Root.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSwitch.Root>["ref"];
+  Omit<React.ComponentProps<typeof SdkSwitch>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkSwitch>["ref"];
   }
-> & { "data-slot"?: unknown; size?: SwitchSize };
+> & { "data-lenso-slot"?: unknown; size?: SwitchSize };
 export function SwitchRoot({ size = "md", xstyle, style, ref, ...props }: SwitchRootProps) {
   const presentationRef = useSwitchRef(ref);
   const compiled = stylex.props(
@@ -30,12 +31,12 @@ export function SwitchRoot({ size = "md", xstyle, style, ref, ...props }: Switch
   );
   return (
     <SizeContext value={size}>
-      <BaseSwitch.Root
+      <SdkSwitch
         {...props}
         {...compiled}
         ref={presentationRef}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "switch"}
+        render={slotRender("button", props["data-lenso-slot"] ?? "switch", props.render)}
       />
     </SizeContext>
   );
@@ -44,14 +45,14 @@ export function SwitchContent({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(switchStyles.content, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "switch-content"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "switch-content"}
     />
   );
 }
@@ -60,16 +61,20 @@ function Control({
   style,
   children,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(switchStyles.control, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "switch-control"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "switch-control"}
     >
-      <span aria-hidden="true" data-slot="switch-track" {...stylex.props(switchStyles.track)} />
+      <span
+        aria-hidden="true"
+        data-lenso-slot="switch-track"
+        {...stylex.props(switchStyles.track)}
+      />
       {children}
     </span>
   );
@@ -94,21 +99,25 @@ function Thumb({
   children,
   ...props
 }: StyleXProps<
-  Omit<BaseSwitch.Thumb.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseSwitch.Thumb>["ref"];
+  Omit<React.ComponentProps<typeof SdkSwitchThumb>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkSwitchThumb>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(switchStyles.thumb, xstyle);
   return (
-    <BaseSwitch.Thumb
+    <SdkSwitchThumb
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "switch-thumb"}
+      render={slotRender("span", props["data-lenso-slot"] ?? "switch-thumb", props.render)}
     >
-      <KnobMaterial kind="toggle" controlEdge />
-      {children}
-    </BaseSwitch.Thumb>
+      {(state) => (
+        <>
+          <KnobMaterial kind="toggle" controlEdge />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </SdkSwitchThumb>
   );
 }
 export type SwitchThumbProps = ComponentPropsWithRef<typeof Thumb>;
@@ -129,14 +138,14 @@ export function SwitchIcon({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(switchStyles.icon, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "switch-icon"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "switch-icon"}
     />
   );
 }

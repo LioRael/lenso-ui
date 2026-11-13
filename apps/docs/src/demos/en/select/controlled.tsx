@@ -12,7 +12,9 @@ export function Controlled() {
         choices={controlledStates}
         placeholder="Select a state"
         value={state}
-        onValueChange={setState}
+        onValueChange={(next) => {
+          if (!Array.isArray(next)) setState(next);
+        }}
       />
       <p {...stylex.props(exampleStyles.note)}>
         Selected: {controlledStates.find((item) => item.value === state)?.label || "None"}

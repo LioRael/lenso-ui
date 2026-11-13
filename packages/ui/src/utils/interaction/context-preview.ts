@@ -38,8 +38,8 @@ export function presentContextPreview(
       const handoff = Math.min(1, t / 0.18);
       preview.style.opacity = String(handoff);
       source.style.opacity = String(sourceOpacity * (1 - handoff));
-      const surface = popup.querySelector<HTMLElement>('[data-slot="menu-surface"]');
-      const content = popup.querySelector<HTMLElement>('[data-slot="menu-content"]');
+      const surface = popup.querySelector<HTMLElement>('[data-lenso-slot="menu-surface"]');
+      const content = popup.querySelector<HTMLElement>('[data-lenso-slot="menu-content"]');
       surface?.style.setProperty("--lg-menu-surface-opacity", String(t));
       if (content) content.style.opacity = String(t);
     } else {

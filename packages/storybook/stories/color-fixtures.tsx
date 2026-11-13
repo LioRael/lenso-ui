@@ -86,20 +86,16 @@ export function ColorSpaceSelect({
         <Select.Indicator />
       </Select.Trigger>
       <div ref={setContainer} />
-      <Select.Portal container={container}>
-        <Select.Positioner>
-          <Select.Popover>
-            <Select.List>
-              {(["hsl", "hsb", "rgb"] as const).map((space) => (
-                <Select.Item key={space} value={space}>
-                  <Select.ItemText>{space}</Select.ItemText>
-                  <Select.ItemIndicator />
-                </Select.Item>
-              ))}
-            </Select.List>
-          </Select.Popover>
-        </Select.Positioner>
-      </Select.Portal>
+      <Select.Content container={container}>
+        <Select.List>
+          {(["hsl", "hsb", "rgb"] as const).map((space) => (
+            <Select.Item key={space} value={space}>
+              <Select.ItemText>{space}</Select.ItemText>
+              <Select.ItemIndicator />
+            </Select.Item>
+          ))}
+        </Select.List>
+      </Select.Content>
     </Select>
   );
 }

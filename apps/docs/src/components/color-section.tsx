@@ -3,7 +3,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { Gear } from "@gravity-ui/icons";
 import { Tooltip } from "@lenso/ui";
-import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip";
 import { useState, type ReactNode, type ReactElement } from "react";
 import { colors as styles } from "@/styles/color-handbook.stylex";
 import { notebook } from "@lenso/docs/presentation";
@@ -35,20 +34,16 @@ function ColorTooltip({
   children,
   content,
 }: {
-  children: ReactElement;
+  children: ReactElement<Record<string, unknown>>;
   content?: string | undefined;
 }) {
   if (!content) return children;
   return (
-    <Tooltip.Root>
-      <BaseTooltip.Trigger delay={0} render={children} />
-      <Tooltip.Portal>
-        <Tooltip.Positioner>
-          <Tooltip.Popup xstyle={styles.tooltip}>
-            <pre {...stylex.props(styles.tooltipText)}>{content}</pre>
-          </Tooltip.Popup>
-        </Tooltip.Positioner>
-      </Tooltip.Portal>
+    <Tooltip.Root delay={0}>
+      <Tooltip.Trigger render={children} />
+      <Tooltip.Content xstyle={styles.tooltip}>
+        <pre {...stylex.props(styles.tooltipText)}>{content}</pre>
+      </Tooltip.Content>
     </Tooltip.Root>
   );
 }

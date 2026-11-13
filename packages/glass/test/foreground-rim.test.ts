@@ -4,6 +4,7 @@ import {
   foregroundRimTiles,
   hasForegroundRim,
 } from "../src/foreground-rim.js";
+import { fusionGeometry } from "../src/fusion-geometry.js";
 import type { Shape } from "../src/optical-fields.js";
 
 const shape: Shape = {
@@ -30,6 +31,7 @@ test("live rim tiles preserve the fitted rim pixels without scaling corners", ()
   for (const material of [
     shape,
     { ...shape, materialProfile: "medium" as const },
+    { ...shape, materialProfile: "medium" as const, materialRim: "classic" as const },
     { ...shape, materialProfile: "medium" as const, appleMode: "dark" as const },
   ]) {
     for (const radius of [16, 17.375, 20, 30]) {
@@ -88,24 +90,53 @@ test("extending a panel preserves every corner and straight-edge pixel", () => {
 // These are image-code values sampled from the supplied Rex light screenshot,
 // not values derived from the implementation's highlight equation.
 test("light panel reflections follow the reference's white crest and inward decay", () => {
-  const image = foregroundRimPixels(311, 40, 20, { ...shape, materialProfile: "medium" });
-  const face = [224, 235, 247];
-  for (const [offset, target] of [
-    [0, [255, 255, 255]],
-    [1, [255, 255, 255]],
-    [2, [237, 249, 255]],
-    [4, [232, 244, 254]],
-    [6, [229, 240, 251]],
-    [8, [227, 238, 250]],
-    [12, [225, 236, 249]],
-    [20, [224, 235, 247]],
-  ] as const) {
-    const at = ((offset + 2) * image.width + Math.floor(image.width / 2)) * 4;
-    const alpha = image.data[at + 3]! / 255;
-    for (let channel = 0; channel < 3; channel++) {
-      const color = image.data[at + channel]! * alpha + face[channel]! * (1 - alpha);
-      expect(Math.abs(color - target[channel]!)).toBeLessThanOrEqual(5);
+  for (const materialRim of [undefined, "classic"] as const) {
+    const image = foregroundRimPixels(311, 40, 20, {
+      ...shape,
+      materialProfile: "medium",
+      materialRim,
+    });
+    const face = [224, 235, 247];
+    for (const [offset, target] of [
+      [0, [255, 255, 255]],
+      [1, [255, 255, 255]],
+      [2, [237, 249, 255]],
+      [4, [232, 244, 254]],
+      [6, [229, 240, 251]],
+      [8, [227, 238, 250]],
+      [12, [225, 236, 249]],
+      [20, [224, 235, 247]],
+    ] as const) {
+      const at =
+        ((offset + 2 + (materialRim === "classic" ? 1 : 0)) * image.width +
+          Math.floor(image.width / 2)) *
+        4;
+      const alpha = image.data[at + 3]! / 255;
+      for (let channel = 0; channel < 3; channel++) {
+        const color = image.data[at + channel]! * alpha + face[channel]! * (1 - alpha);
+        expect(Math.abs(color - target[channel]!)).toBeLessThanOrEqual(5);
+      }
     }
+  }
+});
+
+// Popup overflow removes all samples outside the host. The first remaining
+// sample must still darken the face instead of becoming a white reflection.
+test("classic compact panel keeps a dark hairline inside its clipped bounds", () => {
+  const image = foregroundRimPixels(300, 146, 34, {
+    ...shape,
+    materialProfile: "medium",
+    materialRim: "classic",
+  });
+  for (const [x, y] of [
+    [302, 2],
+    [2, 148],
+  ]) {
+    const at = (y! * image.width + x!) * 4;
+    const alpha = image.data[at + 3]! / 255;
+    const painted = image.data[at]! * alpha + 224 * (1 - alpha);
+    expect(alpha).toBeGreaterThan(0.04);
+    expect(painted).toBeLessThan(215);
   }
 });
 
@@ -161,4 +192,25 @@ test("panel inner depth fades from the rim without a detached rectangular shadow
   for (let i = 1; i < upper.length; i++) expect(upper[i]!).toBeLessThanOrEqual(upper[i - 1]!);
   expect(darkening(2, 57)).toBeGreaterThan(darkening(8, 57));
   expect(darkening(24, 57)).toBe(0);
+});
+
+// Fusion suppresses member rims; the shared exterior must retain their calibrated
+// light/shade rather than substituting a uniform gray stroke.
+test("a fused capsule preserves the standalone foreground material", () => {
+  const width = 220,
+    height = 34,
+    radius = 17;
+  const geometry = fusionGeometry([{ x: 0, y: 0, width, height, radius }], 0);
+  const standalone = foregroundRimPixels(width, height, radius, shape);
+  const fused = foregroundRimPixels(
+    width,
+    height,
+    0,
+    { ...shape, materialSurface: "group" },
+    geometry,
+  );
+  let difference = 0;
+  for (let i = 0; i < standalone.data.length; i++)
+    difference = Math.max(difference, Math.abs(standalone.data[i]! - fused.data[i]!));
+  expect(difference).toBeLessThanOrEqual(1);
 });

@@ -6,7 +6,7 @@ import { Sizes } from "../src/demos/en/glass-button/sizes";
 import "../src/styles/global.css";
 
 function Fixture() {
-  const [snap, setSnap] = useState<number | string | null>(0.525);
+  const [snap, setSnap] = useState<React.ComponentProps<typeof Sheet>["snapPoint"]>(0.525);
   const [clicks, setClicks] = useState(0);
   return (
     <main
@@ -26,49 +26,44 @@ function Fixture() {
       <output aria-label="Actions">{clicks}</output>
       <Sheet snapPoint={snap} onSnapPointChange={setSnap}>
         <Sheet.Trigger render={<Button />}>Open comparison sheet</Sheet.Trigger>
-        <Sheet.Portal>
-          <Sheet.Backdrop />
-          <Sheet.Viewport>
-            <Sheet.Popup>
-              <Sheet.Handle />
-              <Sheet.Header>
-                <Sheet.Title>Comparison sheet</Sheet.Title>
-                <Button onClick={() => setSnap(snap === 1 ? 0.525 : 1)}>Toggle detent</Button>
-              </Sheet.Header>
-              <Sheet.Body>
-                <Sheet.Description>
-                  Drag the body, scroll the notes, or edit the controls.
-                </Sheet.Description>
-                <input aria-label="Sheet text" defaultValue="Editable text" />
-                <Slider defaultValue={30}>
-                  <Slider.Label>Sheet range</Slider.Label>
-                  <Slider.Control>
-                    <Slider.Track>
-                      <Slider.Fill />
-                    </Slider.Track>
-                    <Slider.Thumb />
-                  </Slider.Control>
-                </Slider>
-                <div
-                  data-case="horizontal"
-                  style={{ overflowX: "auto", whiteSpace: "nowrap", paddingBlock: 24 }}
-                >
-                  {Array.from({ length: 12 }, (_, index) => (
-                    <span key={index} style={{ display: "inline-block", width: 100 }}>
-                      Item {index + 1}
-                    </span>
-                  ))}
-                </div>
-                {Array.from({ length: 40 }, (_, index) => (
-                  <p key={index}>Note {index + 1}</p>
-                ))}
-              </Sheet.Body>
-              <Sheet.Footer>
-                <Sheet.Close render={<Button />}>Done</Sheet.Close>
-              </Sheet.Footer>
-            </Sheet.Popup>
-          </Sheet.Viewport>
-        </Sheet.Portal>
+        <Sheet.Content>
+          <Sheet.Handle />
+          <Sheet.Header>
+            <Sheet.Title>Comparison sheet</Sheet.Title>
+            <Button onClick={() => setSnap(snap === 1 ? 0.525 : 1)}>Toggle detent</Button>
+          </Sheet.Header>
+          <Sheet.Body>
+            <Sheet.Description>
+              Drag the body, scroll the notes, or edit the controls.
+            </Sheet.Description>
+            <input aria-label="Sheet text" defaultValue="Editable text" />
+            <Slider defaultValue={30}>
+              <Slider.Label>Sheet range</Slider.Label>
+              <Slider.Control>
+                <Slider.Track>
+                  <Slider.Fill />
+                  <Slider.Thumb />
+                </Slider.Track>
+              </Slider.Control>
+            </Slider>
+            <div
+              data-case="horizontal"
+              style={{ overflowX: "auto", whiteSpace: "nowrap", paddingBlock: 24 }}
+            >
+              {Array.from({ length: 12 }, (_, index) => (
+                <span key={index} style={{ display: "inline-block", width: 100 }}>
+                  Item {index + 1}
+                </span>
+              ))}
+            </div>
+            {Array.from({ length: 40 }, (_, index) => (
+              <p key={index}>Note {index + 1}</p>
+            ))}
+          </Sheet.Body>
+          <Sheet.Footer>
+            <Sheet.Close render={<Button />}>Done</Sheet.Close>
+          </Sheet.Footer>
+        </Sheet.Content>
       </Sheet>
     </main>
   );

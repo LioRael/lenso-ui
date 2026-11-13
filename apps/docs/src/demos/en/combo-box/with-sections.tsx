@@ -39,7 +39,7 @@ export function WithSections() {
   const menu = useFocusMenu();
   return (
     <div {...stylex.props(styles.field)}>
-      <ComboBox {...menu.root} items={regions}>
+      <ComboBox {...menu.root}>
         <ComboBox.Label htmlFor={id}>Country</ComboBox.Label>
         <ComboBox.InputGroup>
           <ComboBox.Input {...menu.input} id={id} placeholder="Search countries..." />
@@ -47,28 +47,22 @@ export function WithSections() {
             <ComboBox.Indicator />
           </ComboBox.Trigger>
         </ComboBox.InputGroup>
-        <ComboBox.Portal>
-          <ComboBox.Positioner>
-            <ComboBox.Popover>
-              <ComboBox.List>
-                {(region: (typeof regions)[number], index: number) => (
-                  <ComboBox.Group key={region.label} items={region.items}>
-                    {index > 0 && <ComboBox.Separator />}
-                    <ComboBox.GroupLabel>{region.label}</ComboBox.GroupLabel>
-                    <ComboBox.Collection>
-                      {(country: (typeof region.items)[number]) => (
-                        <ComboBox.Item key={country.value} value={country}>
-                          {country.label}
-                          <ComboBox.ItemIndicator />
-                        </ComboBox.Item>
-                      )}
-                    </ComboBox.Collection>
-                  </ComboBox.Group>
-                )}
-              </ComboBox.List>
-            </ComboBox.Popover>
-          </ComboBox.Positioner>
-        </ComboBox.Portal>
+        <ComboBox.Content>
+          <ComboBox.List>
+            {regions.map((region: (typeof regions)[number], index: number) => (
+              <ComboBox.Group key={region.label}>
+                {index > 0 && <ComboBox.Separator />}
+                <ComboBox.GroupLabel>{region.label}</ComboBox.GroupLabel>
+                {region.items.map((country) => (
+                  <ComboBox.Item key={country.value} value={country.value} label={country.label}>
+                    {country.label}
+                    <ComboBox.ItemIndicator />
+                  </ComboBox.Item>
+                ))}
+              </ComboBox.Group>
+            ))}
+          </ComboBox.List>
+        </ComboBox.Content>
       </ComboBox>
     </div>
   );

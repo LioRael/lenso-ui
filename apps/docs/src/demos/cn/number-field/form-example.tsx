@@ -1,4 +1,5 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 
 import {
   Button,
@@ -13,6 +14,7 @@ import {
 import { useState, type FormEvent } from "react";
 import { Controls, styles } from "../../en/number-field/parts";
 export function FormExample() {
+  const log = usePlaygroundLog();
   const [value, setValue] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const stockAvailable = 3;
@@ -22,7 +24,7 @@ export function FormExample() {
     if (value === null || value < 1 || value > stockAvailable || isSubmitting) return;
     setIsSubmitting(true);
     setTimeout(() => {
-      console.log("Order submitted:", {
+      log("Order submitted:", {
         quantity: value,
       });
       setValue(null);
@@ -31,7 +33,7 @@ export function FormExample() {
   };
   return (
     <Form xstyle={styles.form} onSubmit={handleSubmit}>
-      <TextField name="quantity" invalid={isOutOfStock} validationMode="onChange">
+      <TextField name="quantity" invalid={isOutOfStock}>
         <NumberField
           required
           min={1}

@@ -39,3 +39,9 @@ export const CalendarYearPicker = {
   GridBody: CalendarYearPickerGridBody,
   Cell: CalendarYearPickerCell,
 };
+
+export { createModelController as createCalendarYearPickerController } from "@lenso/primitives/model-control";
+export type {
+  ModelController as CalendarYearPickerController,
+  ModelChangeReason as CalendarYearPickerChangeReason,
+} from "@lenso/primitives/model-control";

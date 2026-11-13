@@ -1,17 +1,26 @@
 "use client";
-// Modified: Base UI controls with content-area color input styling.
-import { Input as BaseInput } from "@base-ui/react/input";
-import { NumberField } from "@base-ui/react/number-field";
-import { useRender } from "@base-ui/react/use-render";
-import { mergeProps } from "@base-ui/react/merge-props";
-import type { ComponentPropsWithRef, CSSProperties, PointerEvent, Ref } from "react";
+// Modified: UI SDK controls with content-area color input styling.
+import { Input as SdkInput, type InputState } from "@ui-sdk/react/input";
+import { NumberInputControl, type NumberInputState } from "@ui-sdk/react/number-input";
+import { renderElement, type PartProps, type RenderProp } from "@ui-sdk/react/primitive";
+import { mergeProps } from "@ui-sdk/react/primitive";
+import {
+  useRef,
+  useLayoutEffect,
+  useCallback,
+  type ComponentPropsWithRef,
+  type CSSProperties,
+  type PointerEvent,
+  type Ref,
+} from "react";
+import { assignRef } from "../../utils/interaction/ref.js";
 import * as stylex from "@stylexjs/stylex";
 import { colorInputGroupStyles as styles } from "@lenso/tokens/color-input-group";
 import { inputGroupMaterialStyles } from "@lenso/tokens/input-group";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { useColorFieldModel } from "../color-field/color-field.js";
 import { useFocusMethodRef } from "../../utils/interaction/focus-method.js";
-export type ColorInputGroupRootProps = StyleXProps<useRender.ComponentProps<"div">> & {
+export type ColorInputGroupRootProps = StyleXProps<PartProps<"div">> & {
   fullWidth?: boolean;
   variant?: "primary" | "secondary";
 };
@@ -35,33 +44,36 @@ export function ColorInputGroupRoot({
     fullWidth && styles.fullWidth,
     xstyle,
   );
-  return useRender({
-    defaultTagName: "div",
+  return renderElement(
+    "div",
+    {
+      ...mergeProps(compiled, props, {
+        role: "group",
+        "data-lenso-slot": props["data-lenso-slot"] ?? "color-input-group",
+        "data-disabled": state.isDisabled || undefined,
+        "data-invalid": state.isInvalid || undefined,
+        style: mergeStyle(compiled.style, style),
+        onPointerDown(event: PointerEvent<HTMLDivElement>) {
+          onPointerDown?.(event);
+          if (
+            !event.defaultPrevented &&
+            event.target instanceof Element &&
+            !event.target.closest("input,button,a[href],[tabindex]")
+          )
+            event.currentTarget.querySelector<HTMLInputElement>("input:not(:disabled)")?.focus();
+        },
+      }),
+      ref: focusRef,
+    },
     render,
-    ref: focusRef,
-    props: mergeProps(compiled, props, {
-      role: "group",
-      "data-slot": props["data-slot"] ?? "color-input-group",
-      "data-disabled": state.isDisabled || undefined,
-      "data-invalid": state.isInvalid || undefined,
-      style: mergeStyle(compiled.style, style),
-      onPointerDown(event: PointerEvent<HTMLDivElement>) {
-        onPointerDown?.(event);
-        if (
-          !event.defaultPrevented &&
-          event.target instanceof Element &&
-          !event.target.closest("input,button,a[href],[tabindex]")
-        )
-          event.currentTarget.querySelector<HTMLInputElement>("input:not(:disabled)")?.focus();
-      },
-    }),
-  });
+  );
 }
 export type ColorInputGroupInputProps = StyleXProps<
-  Omit<ComponentPropsWithRef<typeof BaseInput>, "style" | "ref">
+  Omit<ComponentPropsWithRef<typeof SdkInput>, "style" | "ref" | "render">
 > & {
   ref?: Ref<HTMLInputElement>;
-  style?: CSSProperties | ((state: BaseInput.State) => CSSProperties | undefined);
+  render?: RenderProp<InputState | NumberInputState>;
+  style?: CSSProperties | ((state: InputState | NumberInputState) => CSSProperties | undefined);
 };
 export function ColorInputGroupInput({
   xstyle,
@@ -69,9 +81,26 @@ export function ColorInputGroupInput({
   onValueChange,
   onBlur,
   onKeyDown,
+  ref,
   ...props
 }: ColorInputGroupInputProps) {
-  const { model, channel, isReadOnly, isRequired, isDisabled, inputProps } = useColorFieldModel();
+  const { model, control, channel, isReadOnly, isRequired, isDisabled, inputProps } =
+    useColorFieldModel();
+  const nativeInput = useRef<HTMLInputElement>(null);
+  const inputRef = useCallback(
+    (node: HTMLInputElement | null) => {
+      const own = assignRef(nativeInput, node),
+        caller = assignRef(ref, node);
+      return () => {
+        own();
+        caller();
+      };
+    },
+    [ref],
+  );
+  useLayoutEffect(() => {
+    nativeInput.current?.setCustomValidity(model.realtimeValidation.validationErrors.join("\n"));
+  });
   const compiled = stylex.props(inputGroupMaterialStyles.input, styles.input, xstyle);
   const {
     name: _name,
@@ -83,16 +112,21 @@ export function ColorInputGroupInput({
   } = inputProps;
   if (channel)
     return (
-      <NumberField.Input
+      <NumberInputControl
+        ref={inputRef}
         {...channelInputProps}
         {...props}
         {...compiled}
-        data-slot={props["data-slot"] ?? "color-input-group-input"}
+        data-lenso-slot={props["data-lenso-slot"] ?? "color-input-group-input"}
         style={mergeStyle(compiled.style, style)}
         onFocus={(event) => {
           fieldFocus?.(event);
           onFocusChange?.(true);
           props.onFocus?.(event);
+        }}
+        onInvalid={(event) => {
+          model.commitValidation();
+          props.onInvalid?.(event);
         }}
         onBlur={(event) => {
           fieldBlur?.(event);
@@ -103,7 +137,8 @@ export function ColorInputGroupInput({
       />
     );
   return (
-    <BaseInput
+    <SdkInput
+      ref={inputRef}
       {...channelInputProps}
       name={inputProps.name}
       form={inputProps.form}
@@ -115,18 +150,22 @@ export function ColorInputGroupInput({
       required={isRequired || props.required}
       onValueChange={(value, details) => {
         onValueChange?.(value, details);
-        if (!details.isCanceled && model.validate(value)) model.setInputValue(value);
+        if (!details.canceled && model.validate(value)) model.setInputValue(value);
       }}
       onFocus={(event) => {
         fieldFocus?.(event);
         onFocusChange?.(true);
         props.onFocus?.(event);
       }}
+      onInvalid={(event) => {
+        model.commitValidation();
+        props.onInvalid?.(event);
+      }}
       onBlur={(event) => {
         fieldBlur?.(event);
         onFocusChange?.(false);
         onBlur?.(event);
-        model.commit();
+        control.api.run(() => model.commit(), { reason: "input-commit", event: event.nativeEvent });
       }}
       onKeyDown={(event) => {
         onKeyDown?.(event);
@@ -141,10 +180,13 @@ export function ColorInputGroupInput({
         const action = actions[event.key as keyof typeof actions];
         if (action) {
           if (event.key !== "Enter") event.preventDefault();
-          action();
+          control.api.run(action, {
+            reason: event.key === "Enter" ? "input-commit" : "step-key",
+            event: event.nativeEvent,
+          });
         }
       }}
-      data-slot={props["data-slot"] ?? "color-input-group-input"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "color-input-group-input"}
       style={mergeStyle(compiled.style, style)}
     />
   );
@@ -159,7 +201,7 @@ export function ColorInputGroupPrefix({
     <div
       {...props}
       {...compiled}
-      data-slot={props["data-slot"] ?? "color-input-group-prefix"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "color-input-group-prefix"}
       style={mergeStyle(compiled.style, style)}
     />
   );
@@ -174,7 +216,7 @@ export function ColorInputGroupSuffix({
     <div
       {...props}
       {...compiled}
-      data-slot={props["data-slot"] ?? "color-input-group-suffix"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "color-input-group-suffix"}
       style={mergeStyle(compiled.style, style)}
     />
   );

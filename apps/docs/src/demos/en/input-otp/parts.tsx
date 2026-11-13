@@ -51,15 +51,15 @@ export function Slots({ custom = false }: { custom?: boolean }) {
   return (
     <>
       <InputOTP.Group>
-        <InputOTP.Slot aria-label="Digit 1" xstyle={custom && styles.customSlot} />
-        <InputOTP.Slot aria-label="Digit 2" xstyle={custom && styles.customSlot} />
-        <InputOTP.Slot aria-label="Digit 3" xstyle={custom && styles.customSlot} />
+        <InputOTP.Slot aria-label="Digit 1" xstyle={custom && styles.customSlot} index={0} />
+        <InputOTP.Slot aria-label="Digit 2" xstyle={custom && styles.customSlot} index={1} />
+        <InputOTP.Slot aria-label="Digit 3" xstyle={custom && styles.customSlot} index={2} />
       </InputOTP.Group>
       <InputOTP.Separator xstyle={custom && styles.separator} />
       <InputOTP.Group>
-        <InputOTP.Slot aria-label="Digit 4" xstyle={custom && styles.customSlot} />
-        <InputOTP.Slot aria-label="Digit 5" xstyle={custom && styles.customSlot} />
-        <InputOTP.Slot aria-label="Digit 6" xstyle={custom && styles.customSlot} />
+        <InputOTP.Slot aria-label="Digit 4" xstyle={custom && styles.customSlot} index={3} />
+        <InputOTP.Slot aria-label="Digit 5" xstyle={custom && styles.customSlot} index={4} />
+        <InputOTP.Slot aria-label="Digit 6" xstyle={custom && styles.customSlot} index={5} />
       </InputOTP.Group>
     </>
   );

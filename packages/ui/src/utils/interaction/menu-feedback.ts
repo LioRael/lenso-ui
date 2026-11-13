@@ -7,10 +7,10 @@ const resistance = (value: number) =>
 
 export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select" = "menu") {
   const content = card.querySelector<HTMLElement>(
-    family === "select" ? "[data-select-content]" : '[data-slot="menu-content"]',
+    family === "select" ? "[data-select-content]" : '[data-lenso-slot="menu-content"]',
   )!;
-  const plate = card.querySelector<HTMLElement>(`[data-slot="${family}-plate"]`)!;
-  const popupSelector = `[data-slot="${family === "select" ? "select-popover" : "menu-popup"}"]`;
+  const plate = card.querySelector<HTMLElement>(`[data-lenso-slot="${family}-plate"]`)!;
+  const popupSelector = `[data-lenso-slot="${family === "select" ? "select-popover" : "menu-popup"}"]`;
   const native = createNativeMenuFeedback(card);
   const offset = { x: 0, y: 0 };
   const paint = () => {
@@ -92,7 +92,7 @@ export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select"
   const syncHighlight = () => {
     if (gesture) return;
     const row = [
-      ...content.querySelectorAll<HTMLElement>("[data-highlighted], [data-popup-open]"),
+      ...content.querySelectorAll<HTMLElement>('[data-highlighted], [role="menuitem"][data-open]'),
     ].find((node) => node.closest(popupSelector) === card && !node.hasAttribute("data-disabled"));
     if (row || !pointerInside) highlight(row ?? null);
   };
@@ -100,12 +100,16 @@ export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select"
   highlights.observe(content, {
     subtree: true,
     attributes: true,
-    attributeFilter: ["data-highlighted", "data-popup-open"],
+    attributeFilter: ["data-highlighted", "data-open"],
   });
   syncHighlight();
   const down = (event: PointerEvent) => {
     if (
+      !(event.target instanceof Element) ||
+      event.target.closest(popupSelector) !== card ||
       card.getAttribute("data-menu-elastic") === "false" ||
+      card.hasAttribute("data-menu-child-count") ||
+      !!event.target.closest('[aria-haspopup="menu"]') ||
       !event.isPrimary ||
       event.button !== 0 ||
       event.defaultPrevented ||
@@ -122,6 +126,8 @@ export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select"
     highlight(rowAt(event.clientX, event.clientY));
   };
   const move = (event: PointerEvent) => {
+    if (!gesture && event.target instanceof Element && event.target.closest(popupSelector) !== card)
+      return;
     pointerInside = true;
     if (!gesture) {
       const row = event.pointerType === "mouse" ? rowAt(event.clientX, event.clientY) : null;
@@ -167,6 +173,7 @@ export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select"
     if (!gesture && event.pointerType === "mouse") highlight(null);
   };
   const click = (event: MouseEvent) => {
+    if (event.target instanceof Element && event.target.closest(popupSelector) !== card) return;
     if (event.detail !== 0 && performance.now() < suppressClickUntil) {
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -177,7 +184,11 @@ export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select"
     queueMicrotask(syncHighlight);
   };
   const elastic = new MutationObserver(() => {
-    if (card.getAttribute("data-menu-elastic") !== "false") return;
+    if (
+      card.getAttribute("data-menu-elastic") !== "false" &&
+      !card.hasAttribute("data-menu-child-count")
+    )
+      return;
     const old = gesture;
     gesture = null;
     if (old && card.hasPointerCapture(old.id)) card.releasePointerCapture(old.id);
@@ -186,12 +197,15 @@ export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select"
     x.set(0, true);
     y.set(0, true);
   });
-  elastic.observe(card, { attributes: true, attributeFilter: ["data-menu-elastic"] });
+  elastic.observe(card, {
+    attributes: true,
+    attributeFilter: ["data-menu-elastic", "data-menu-child-count"],
+  });
   card.addEventListener("pointerdown", down);
   card.addEventListener("pointermove", move);
   card.addEventListener("pointerleave", leave);
-  card.addEventListener("pointerup", end);
-  card.addEventListener("pointercancel", end);
+  card.addEventListener("pointerup", end, true);
+  card.addEventListener("pointercancel", end, true);
   card.addEventListener("lostpointercapture", end);
   card.addEventListener("click", click, true);
   card.addEventListener("keydown", key);
@@ -210,8 +224,8 @@ export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select"
     card.removeEventListener("pointerdown", down);
     card.removeEventListener("pointermove", move);
     card.removeEventListener("pointerleave", leave);
-    card.removeEventListener("pointerup", end);
-    card.removeEventListener("pointercancel", end);
+    card.removeEventListener("pointerup", end, true);
+    card.removeEventListener("pointercancel", end, true);
     card.removeEventListener("lostpointercapture", end);
     card.removeEventListener("click", click, true);
     card.removeEventListener("keydown", key);

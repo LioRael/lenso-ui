@@ -1,4 +1,3 @@
-// native Base UI side/align mapping.
 export const placements = [
   "bottom",
   "bottom left",
@@ -30,9 +29,7 @@ export const positionControls = {
 };
 export function position({ placement = "bottom", offset }: OverlayPositionArgs) {
   const [sideName, alignment] = placement.split(" ");
-  const side = (
-    sideName === "start" ? "inline-start" : sideName === "end" ? "inline-end" : sideName
-  ) as "top" | "bottom" | "left" | "right" | "inline-start" | "inline-end";
+  const side = sideName as "top" | "bottom" | "left" | "right" | "start" | "end";
   const align =
     alignment === "left" || alignment === "top" || alignment === "start"
       ? "start"

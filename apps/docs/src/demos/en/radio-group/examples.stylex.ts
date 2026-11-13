@@ -17,7 +17,7 @@ export const styles = stylex.create({
     fontWeight: 500,
     color: {
       default: "var(--lenso-label-primary)",
-      ":is([data-slot='radio'][data-checked] *)": "var(--lenso-status-success-text)",
+      ":is([data-lenso-slot='radio'][data-checked] *)": "var(--lenso-status-success-text)",
     },
   },
   billingText: { display: "flex", flexDirection: "column", gap: 2 },
@@ -26,7 +26,7 @@ export const styles = stylex.create({
     lineHeight: "20px",
     color: {
       default: "var(--lenso-label-secondary)",
-      ":is([data-slot='radio'][data-checked] *)":
+      ":is([data-lenso-slot='radio'][data-checked] *)":
         "color-mix(in oklab, var(--lenso-status-success-text) 80%, transparent)",
     },
   },
@@ -40,15 +40,16 @@ export const styles = stylex.create({
     borderStyle: "solid",
     borderColor: {
       default: "color-mix(in oklab, var(--lenso-status-success-indicator) 10%, transparent)",
-      ":is([data-slot='radio'][data-checked] *)":
+      ":is([data-lenso-slot='radio'][data-checked] *)":
         "color-mix(in oklab, var(--lenso-status-success-indicator) 30%, transparent)",
     },
     backgroundColor: {
       default:
         "color-mix(in oklab, var(--lenso-control-status-success-soft-fill) 30%, transparent)",
       ":hover": "var(--lenso-control-status-success-soft-hover-fill)",
-      ":is([data-slot='radio'][data-checked] *)": "var(--lenso-control-status-success-soft-fill)",
-      ":is([data-slot='radio'][data-checked]:hover *)":
+      ":is([data-lenso-slot='radio'][data-checked] *)":
+        "var(--lenso-control-status-success-soft-fill)",
+      ":is([data-lenso-slot='radio'][data-checked]:hover *)":
         "var(--lenso-control-status-success-soft-hover-fill)",
     },
     paddingInline: 16,
@@ -57,7 +58,7 @@ export const styles = stylex.create({
     transitionDuration: "150ms",
     outline: {
       default: null,
-      ":is([data-slot='radio']:focus-visible *)":
+      ":is([data-lenso-slot='radio']:focus-visible *)":
         "2px solid color-mix(in oklab, var(--lenso-status-success-indicator) 15%, transparent)",
     },
   },
@@ -71,12 +72,12 @@ export const styles = stylex.create({
     borderStyle: "solid",
     borderColor: {
       default: "var(--lenso-control-border)",
-      ":is([data-slot='radio'][data-checked] *)": "transparent",
+      ":is([data-lenso-slot='radio'][data-checked] *)": "transparent",
     },
     backgroundColor: {
       default: "var(--lenso-control-fill)",
-      ":is([data-slot='radio'][data-checked] *)": "var(--lenso-status-success-indicator)",
-      ":is([data-slot='radio'][data-checked]:active *)":
+      ":is([data-lenso-slot='radio'][data-checked] *)": "var(--lenso-status-success-indicator)",
+      ":is([data-lenso-slot='radio'][data-checked]:active *)":
         "var(--lenso-control-status-success-hover-fill)",
     },
     boxShadow: "none",
@@ -98,7 +99,7 @@ export const styles = stylex.create({
     backgroundColor: "var(--lenso-status-success-on-fill)",
     scale: {
       default: ".5",
-      ":is([data-slot='radio']:active *)": ".57",
+      ":is([data-lenso-slot='radio']:active *)": ".57",
     },
   },
   checkout: {
@@ -139,14 +140,14 @@ export const styles = stylex.create({
     borderStyle: "solid",
     borderColor: {
       default: "transparent",
-      ":is([data-slot='radio'][data-checked] *)": "var(--lenso-tint)",
-      ":is([data-slot='radio']:focus-visible *)": "var(--lenso-tint)",
+      ":is([data-lenso-slot='radio'][data-checked] *)": "var(--lenso-tint)",
+      ":is([data-lenso-slot='radio']:focus-visible *)": "var(--lenso-tint)",
     },
     backgroundColor: {
       default: "var(--lenso-background-grouped-secondary)",
-      ":is([data-slot='radio'][data-checked] *)":
+      ":is([data-lenso-slot='radio'][data-checked] *)":
         "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
-      ":is([data-slot='radio']:focus-visible *)":
+      ":is([data-lenso-slot='radio']:focus-visible *)":
         "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
     },
     paddingInline: 20,
@@ -167,11 +168,11 @@ export const styles = stylex.create({
     borderStyle: "solid",
     borderColor: {
       default: "transparent",
-      ":is([data-slot='radio'][data-checked] *)": "var(--lenso-tint)",
+      ":is([data-lenso-slot='radio'][data-checked] *)": "var(--lenso-tint)",
     },
     backgroundColor: {
       default: "var(--lenso-background-grouped-secondary)",
-      ":is([data-slot='radio'][data-checked] *)":
+      ":is([data-lenso-slot='radio'][data-checked] *)":
         "color-mix(in oklab, var(--lenso-tint) 10%, transparent)",
     },
     paddingInline: 20,

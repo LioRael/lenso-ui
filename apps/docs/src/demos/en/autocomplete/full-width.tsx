@@ -1,17 +1,10 @@
 "use client";
-import { Surface } from "@lenso/ui";
-import { NativeAutocomplete, styles } from "./_native";
+import { TextSuggestions } from "./text-suggestions";
 import { states } from "./default";
 export function FullWidth() {
   return (
-    <Surface xstyle={[styles.surface, styles.fullSurface]}>
-      <NativeAutocomplete
-        items={states}
-        label="State"
-        variant="secondary"
-        fullWidth
-        searchLabel="Search states"
-      />
-    </Surface>
+    <div>
+      <TextSuggestions label="State to visit" options={states.map((item) => item.name)} fullWidth />
+    </div>
   );
 }

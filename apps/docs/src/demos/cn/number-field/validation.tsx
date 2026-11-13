@@ -7,7 +7,7 @@ export function Validation() {
   return (
     <div {...stylex.props(styles.column)}>
       <TextField invalid name="quantity">
-        <NumberField required min={0} name="quantity" value={-5} allowOutOfRange>
+        <NumberField required min={0} name="quantity" value={-5}>
           <Label required>数量</Label>
           <Controls />
           <FieldError match>数量必须大于或等于 0</FieldError>
@@ -23,7 +23,6 @@ export function Validation() {
           name="percentage"
           step={0.1}
           value={1.5}
-          allowOutOfRange
         >
           <Label>百分比</Label>
           <Controls />

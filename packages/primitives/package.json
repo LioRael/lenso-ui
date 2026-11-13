@@ -15,21 +15,41 @@
   ],
   "type": "module",
   "exports": {
-    "./resize-handle": {
-      "types": "./dist/resize-handle/index.d.ts",
-      "import": "./dist/resize-handle/index.js"
-    },
-    "./data-grid": {
-      "types": "./dist/data-grid/index.d.ts",
-      "import": "./dist/data-grid/index.js"
-    },
     "./sidebar": {
       "types": "./dist/sidebar/index.d.ts",
       "import": "./dist/sidebar/index.js"
     },
-    "./command": {
-      "types": "./dist/command/index.d.ts",
-      "import": "./dist/command/index.js"
+    "./sidebar/core": {
+      "types": "./dist/sidebar/sidebar.d.ts",
+      "import": "./dist/sidebar/sidebar.js"
+    },
+    "./section-index": {
+      "types": "./dist/section-index/index.d.ts",
+      "import": "./dist/section-index/index.js"
+    },
+    "./section-index/core": {
+      "types": "./dist/section-index/section-index.d.ts",
+      "import": "./dist/section-index/section-index.js"
+    },
+    "./swipe-actions": {
+      "types": "./dist/swipe-actions/index.d.ts",
+      "import": "./dist/swipe-actions/index.js"
+    },
+    "./swipe-actions/core": {
+      "types": "./dist/swipe-actions/swipe-actions.d.ts",
+      "import": "./dist/swipe-actions/swipe-actions.js"
+    },
+    "./model-control": {
+      "types": "./dist/model-control/model-control.d.ts",
+      "import": "./dist/model-control/model-control.js"
+    },
+    "./list/core": {
+      "types": "./dist/list/list.d.ts",
+      "import": "./dist/list/list.js"
+    },
+    "./wheel-picker/core": {
+      "types": "./dist/wheel-picker/wheel-picker.d.ts",
+      "import": "./dist/wheel-picker/wheel-picker.js"
     }
   },
   "publishConfig": {
@@ -41,11 +61,10 @@
     "typecheck": "bun check --no-script --noEmit"
   },
   "dependencies": {
-    "@tanstack/react-table": "catalog:"
+    "@ui-sdk/core": "0.1.0-beta.1",
+    "@ui-sdk/react": "0.1.0-beta.1"
   },
   "devDependencies": {
-    "@base-ui/react": "catalog:",
-    "@stylexjs/stylex": "catalog:",
     "@types/bun": "1.4.4",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
@@ -55,8 +74,6 @@
     "typescript": "catalog:"
   },
   "peerDependencies": {
-    "@base-ui/react": ">=1.7.0 <2.0.0",
-    "@stylexjs/stylex": ">=0.19.0 <1.0.0",
     "react": ">=19.2.0 <20.0.0"
   }
 }

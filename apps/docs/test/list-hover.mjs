@@ -14,10 +14,10 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       });
       await page.addInitScript((value) => localStorage.setItem("theme", value), theme);
       for (const [route, selector] of [
-        ["/en/list-lab", '[data-list-key="a-access"] [data-slot="list-action"]'],
+        ["/en/list-lab", '[data-list-key="a-access"] [data-lenso-slot="list-action"]'],
         [
           "/en/docs/react/components/navigation-bar",
-          '[data-slot="list-item"] > [data-slot="list-action"]',
+          '[data-lenso-slot="list-item"] > [data-lenso-slot="list-action"]',
         ],
       ]) {
         await page.goto(`${base}${route}`, { waitUntil: "networkidle", timeout: 120000 });
@@ -29,8 +29,8 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         await action.hover();
         const geometry = await action.evaluate((node) => {
           const style = getComputedStyle(node);
-          const row = node.closest('[data-slot="list-item"]');
-          const text = node.querySelector('[data-slot="list-title"]');
+          const row = node.closest('[data-lenso-slot="list-item"]');
+          const text = node.querySelector('[data-lenso-slot="list-title"]');
           return {
             start: style.paddingInlineStart,
             end: style.paddingInlineEnd,

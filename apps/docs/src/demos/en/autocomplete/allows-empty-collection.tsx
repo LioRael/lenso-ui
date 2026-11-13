@@ -1,12 +1,9 @@
 "use client";
-import { NativeAutocomplete } from "./_native";
+import { TextSuggestions } from "./text-suggestions";
 export function AllowsEmptyCollection() {
   return (
-    <NativeAutocomplete
-      items={[]}
-      label="State"
-      searchLabel="Search states"
-      searchPlaceholder="Search states..."
-    />
+    <div>
+      <TextSuggestions label="State to visit" options={[]} />
+    </div>
   );
 }

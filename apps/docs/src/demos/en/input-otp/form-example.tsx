@@ -1,4 +1,5 @@
 "use client";
+import { usePlaygroundLog } from "../../shared/playground-log";
 import {
   Button,
   Description,
@@ -14,6 +15,7 @@ import { useState, type FormEvent } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Slots, styles } from "./parts";
 export function FormExample() {
+  const log = usePlaygroundLog();
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,7 +30,7 @@ export function FormExample() {
     setIsSubmitting(true);
     setTimeout(() => {
       if (value === "123456") {
-        console.log("Code verified successfully!");
+        log("Code verified successfully!");
         setValue("");
       } else setError("Invalid code. Please try again.");
       setIsSubmitting(false);
@@ -40,7 +42,7 @@ export function FormExample() {
         <Label>Two-factor authentication</Label>
         <Description>Enter the 6-digit code from your authenticator app</Description>
         <InputOTP
-          length={6}
+          maxLength={6}
           name="code"
           value={value}
           onValueChange={(next) => {

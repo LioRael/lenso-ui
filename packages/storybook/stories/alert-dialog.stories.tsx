@@ -1,4 +1,4 @@
-// Modified: native Base UI Root/Portal/Viewport/Popup/Close composition.
+// Modified: native UI SDK Root/Portal/Viewport/Popup/Close composition.
 import type { Meta } from "@storybook/react-vite";
 import * as stylex from "@stylexjs/stylex";
 import { GlassButton, AlertDialog, Button } from "@lenso/ui";
@@ -30,7 +30,7 @@ export const Default = () => (
     confirm="Delete Project"
   >
     <p>
-      This will permanently delete <strong>My Awesome Project</strong> and all of its data. This
+      This will permanently delete <strong>My Awesome Project</strong>and all of its data. This
       action cannot be undone.
     </p>
   </AlertExample>
@@ -78,36 +78,32 @@ export const Statuses = () => {
           <AlertDialog.Trigger render={<Button xstyle={s[status]} />}>
             {trigger}
           </AlertDialog.Trigger>
-          <AlertDialog.Portal>
-            <AlertDialog.Backdrop />
-            <AlertDialog.Viewport>
-              <AlertDialog.Popup xstyle={s.alertWidth}>
-                <AlertDialog.Close />
-                <AlertDialog.Header>
-                  <AlertDialog.Icon variant={status} />
-                  <AlertDialog.Title>{header}</AlertDialog.Title>
-                </AlertDialog.Header>
-                <AlertDialog.Body>
-                  <p>{body}</p>
-                </AlertDialog.Body>
-                <AlertDialog.Footer>
-                  <AlertDialog.Close render={<GlassButton variant="default" />}>
-                    {cancel}
-                  </AlertDialog.Close>
-                  <AlertDialog.Close
-                    render={
-                      <Button
-                        destructive={status === "danger"}
-                        variant={status === "danger" ? "prominent" : "prominent"}
-                      />
-                    }
-                  >
-                    {confirm}
-                  </AlertDialog.Close>
-                </AlertDialog.Footer>
-              </AlertDialog.Popup>
-            </AlertDialog.Viewport>
-          </AlertDialog.Portal>
+          <AlertDialog.Backdrop />
+          <AlertDialog.Content xstyle={s.alertWidth}>
+            <AlertDialog.Close />
+            <AlertDialog.Header>
+              <AlertDialog.Icon variant={status} />
+              <AlertDialog.Title>{header}</AlertDialog.Title>
+            </AlertDialog.Header>
+            <AlertDialog.Body>
+              <p>{body}</p>
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <AlertDialog.Close render={<GlassButton variant="default" />}>
+                {cancel}
+              </AlertDialog.Close>
+              <AlertDialog.Close
+                render={
+                  <Button
+                    destructive={status === "danger"}
+                    variant={status === "danger" ? "prominent" : "prominent"}
+                  />
+                }
+              >
+                {confirm}
+              </AlertDialog.Close>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
         </AlertDialog.Root>
       ))}
     </div>
@@ -195,30 +191,26 @@ export const CustomIcon = () => (
     <AlertDialog.Trigger render={<GlassButton variant="default" />}>
       Reset Password
     </AlertDialog.Trigger>
-    <AlertDialog.Portal>
-      <AlertDialog.Backdrop />
-      <AlertDialog.Viewport>
-        <AlertDialog.Popup xstyle={s.alertWidth}>
-          <AlertDialog.Close />
-          <AlertDialog.Header>
-            <AlertDialog.Icon variant="warning">
-              <OverlayIcon name="lock-open" />
-            </AlertDialog.Icon>
-            <AlertDialog.Title>Reset your password?</AlertDialog.Title>
-          </AlertDialog.Header>
-          <AlertDialog.Body>
-            <p>
-              We'll send a password reset link to your email address. You'll need to create a new
-              password to regain access to your account.
-            </p>
-          </AlertDialog.Body>
-          <AlertDialog.Footer>
-            <AlertDialog.Close render={<GlassButton variant="default" />}>Cancel</AlertDialog.Close>
-            <AlertDialog.Close render={<Button />}>Send Reset Link</AlertDialog.Close>
-          </AlertDialog.Footer>
-        </AlertDialog.Popup>
-      </AlertDialog.Viewport>
-    </AlertDialog.Portal>
+    <AlertDialog.Backdrop />
+    <AlertDialog.Content xstyle={s.alertWidth}>
+      <AlertDialog.Close />
+      <AlertDialog.Header>
+        <AlertDialog.Icon variant="warning">
+          <OverlayIcon name="lock-open" />
+        </AlertDialog.Icon>
+        <AlertDialog.Title>Reset your password?</AlertDialog.Title>
+      </AlertDialog.Header>
+      <AlertDialog.Body>
+        <p>
+          We'll send a password reset link to your email address. You'll need to create a new
+          password to regain access to your account.
+        </p>
+      </AlertDialog.Body>
+      <AlertDialog.Footer>
+        <AlertDialog.Close render={<GlassButton variant="default" />}>Cancel</AlertDialog.Close>
+        <AlertDialog.Close render={<Button />}>Send Reset Link</AlertDialog.Close>
+      </AlertDialog.Footer>
+    </AlertDialog.Content>
   </AlertDialog.Root>
 );
 
@@ -227,33 +219,29 @@ export const CustomBackdrop = () => (
     <AlertDialog.Trigger render={<Button destructive variant="prominent" />}>
       Delete Account
     </AlertDialog.Trigger>
-    <AlertDialog.Portal>
-      <AlertDialog.Backdrop variant="blur" xstyle={custom.redBackdrop} />
-      <AlertDialog.Viewport>
-        <AlertDialog.Popup xstyle={custom.width420}>
-          <AlertDialog.Close />
-          <AlertDialog.Header xstyle={s.centered}>
-            <AlertDialog.Icon variant="danger">
-              <OverlayIcon name="triangle-exclamation" />
-            </AlertDialog.Icon>
-            <AlertDialog.Title>Permanently delete your account?</AlertDialog.Title>
-          </AlertDialog.Header>
-          <AlertDialog.Body>
-            <p>
-              This action cannot be undone. All your data, settings, and content will be permanently
-              removed from our servers. The dramatic red backdrop emphasizes the severity and
-              irreversibility of this decision.
-            </p>
-          </AlertDialog.Body>
-          <AlertDialog.Footer xstyle={s.reverse}>
-            <AlertDialog.Close render={<Button fullWidth />}>Keep Account</AlertDialog.Close>
-            <AlertDialog.Close render={<Button destructive fullWidth variant="prominent" />}>
-              Delete Forever
-            </AlertDialog.Close>
-          </AlertDialog.Footer>
-        </AlertDialog.Popup>
-      </AlertDialog.Viewport>
-    </AlertDialog.Portal>
+    <AlertDialog.Backdrop variant="blur" xstyle={custom.redBackdrop} />
+    <AlertDialog.Content xstyle={custom.width420}>
+      <AlertDialog.Close />
+      <AlertDialog.Header xstyle={s.centered}>
+        <AlertDialog.Icon variant="danger">
+          <OverlayIcon name="triangle-exclamation" />
+        </AlertDialog.Icon>
+        <AlertDialog.Title>Permanently delete your account?</AlertDialog.Title>
+      </AlertDialog.Header>
+      <AlertDialog.Body>
+        <p>
+          This action cannot be undone. All your data, settings, and content will be permanently
+          removed from our servers. The dramatic red backdrop emphasizes the severity and
+          irreversibility of this decision.
+        </p>
+      </AlertDialog.Body>
+      <AlertDialog.Footer xstyle={s.reverse}>
+        <AlertDialog.Close render={<Button fullWidth />}>Keep Account</AlertDialog.Close>
+        <AlertDialog.Close render={<Button destructive fullWidth variant="prominent" />}>
+          Delete Forever
+        </AlertDialog.Close>
+      </AlertDialog.Footer>
+    </AlertDialog.Content>
   </AlertDialog.Root>
 );
 
@@ -272,32 +260,28 @@ export const CustomTrigger = () => (
         <p {...stylex.props(s.small)}>Permanently remove this item</p>
       </div>
     </AlertDialog.Trigger>
-    <AlertDialog.Portal>
-      <AlertDialog.Backdrop />
-      <AlertDialog.Viewport>
-        <AlertDialog.Popup xstyle={s.alertWidth}>
-          <AlertDialog.Close />
-          <AlertDialog.Header>
-            <AlertDialog.Icon variant="danger">
-              <OverlayIcon name="trash-bin" />
-            </AlertDialog.Icon>
-            <AlertDialog.Title>Delete this item?</AlertDialog.Title>
-          </AlertDialog.Header>
-          <AlertDialog.Body>
-            <p>
-              Use <code>AlertDialog.Trigger</code> to create custom trigger elements beyond standard
-              buttons. This example shows a card-style trigger with icons and descriptive text.
-            </p>
-          </AlertDialog.Body>
-          <AlertDialog.Footer>
-            <AlertDialog.Close render={<GlassButton variant="default" />}>Cancel</AlertDialog.Close>
-            <AlertDialog.Close render={<Button destructive variant="prominent" />}>
-              Delete Item
-            </AlertDialog.Close>
-          </AlertDialog.Footer>
-        </AlertDialog.Popup>
-      </AlertDialog.Viewport>
-    </AlertDialog.Portal>
+    <AlertDialog.Backdrop />
+    <AlertDialog.Content xstyle={s.alertWidth}>
+      <AlertDialog.Close />
+      <AlertDialog.Header>
+        <AlertDialog.Icon variant="danger">
+          <OverlayIcon name="trash-bin" />
+        </AlertDialog.Icon>
+        <AlertDialog.Title>Delete this item?</AlertDialog.Title>
+      </AlertDialog.Header>
+      <AlertDialog.Body>
+        <p>
+          Use <code>AlertDialog.Trigger</code>to create custom trigger elements beyond standard
+          buttons. This example shows a card-style trigger with icons and descriptive text.
+        </p>
+      </AlertDialog.Body>
+      <AlertDialog.Footer>
+        <AlertDialog.Close render={<GlassButton variant="default" />}>Cancel</AlertDialog.Close>
+        <AlertDialog.Close render={<Button destructive variant="prominent" />}>
+          Delete Item
+        </AlertDialog.Close>
+      </AlertDialog.Footer>
+    </AlertDialog.Content>
   </AlertDialog.Root>
 );
 

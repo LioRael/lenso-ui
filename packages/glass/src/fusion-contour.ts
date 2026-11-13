@@ -1,5 +1,6 @@
 // Group rim/shadow recipes adapted from onlymoein/liquidglass 89f8b736 (MIT).
 // Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz.
+import { foregroundRimPixels } from "./foreground-rim.js";
 import type { FusionEdgePixels } from "./fusion-geometry.js";
 import { materialContours } from "@lenso/tokens/materials";
 import type { GeometrySampler, Shape } from "./refraction.js";
@@ -26,6 +27,18 @@ export function paintFusionContour(
     const context = canvas.getContext("2d")!;
     context.setTransform(density, 0, 0, density, padding * density, padding * density);
     context.clearRect(-padding, -padding, width + padding * 2, height + padding * 2);
+    if (shape.appleMode === "light") {
+      const rectangle = sample.roundedRect;
+      const rim = rectangle
+        ? foregroundRimPixels(rectangle.width, rectangle.height, rectangle.radius, shape)
+        : foregroundRimPixels(width, height, 0, shape, sample);
+      context.putImageData(
+        new ImageData(rim.data, rim.width, rim.height),
+        (padding - 1 + (rectangle?.x ?? 0)) * density,
+        (padding - 1 + (rectangle?.y ?? 0)) * density,
+      );
+      return;
+    }
     const data = decodeURIComponent(outline.slice(outline.indexOf(",") + 1)).match(
       / d="([^"]*)"/,
     )![1]!;
@@ -41,7 +54,10 @@ export function paintFusionContour(
       [0.7, 0],
       [1, 0.34],
     ])
-      gradient.addColorStop(at!, `rgb(255 255 255 / ${alpha})`);
+      gradient.addColorStop(
+        at!,
+        `rgb(255 255 255 / ${Math.min(1, alpha! * (1 + (shape.materialClarity ?? 0) * 1.1))})`,
+      );
     context.lineWidth = 0.67;
     context.strokeStyle = gradient;
     context.stroke(path);

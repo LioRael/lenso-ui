@@ -75,26 +75,24 @@ export function useFocusMenu() {
     },
   };
 }
-export function AnimalOptions({ disabledIds = [] }: { disabledIds?: string[] }) {
+export function AnimalOptions({
+  items = animals,
+  disabledIds = [],
+}: {
+  items?: Animal[];
+  disabledIds?: string[];
+}) {
   return (
-    <ComboBox.Portal>
-      <ComboBox.Positioner>
-        <ComboBox.Popover>
-          <ComboBox.List>
-            {(animal: Animal) => (
-              <ComboBox.Item
-                key={animal.id}
-                value={animal}
-                disabled={disabledIds.includes(animal.id)}
-              >
-                {animal.name}
-                <ComboBox.ItemIndicator />
-              </ComboBox.Item>
-            )}
-          </ComboBox.List>
-        </ComboBox.Popover>
-      </ComboBox.Positioner>
-    </ComboBox.Portal>
+    <ComboBox.Content>
+      <ComboBox.List>
+        {items.map((animal: Animal) => (
+          <ComboBox.Item key={animal.id} value={animal} disabled={disabledIds.includes(animal.id)}>
+            {animal.name}
+            <ComboBox.ItemIndicator />
+          </ComboBox.Item>
+        ))}
+      </ComboBox.List>
+    </ComboBox.Content>
   );
 }
 export function AnimalPicker({
@@ -106,7 +104,7 @@ export function AnimalPicker({
   secondary = false,
   inputFocus,
   composed = false,
-  items = animals,
+  items = animals.map((value) => ({ value, label: value.name })),
   ...rootProps
 }: ComboBoxRootProps<Animal> & {
   label?: string;
@@ -124,17 +122,14 @@ export function AnimalPicker({
     <div {...stylex.props(styles.field, rootProps.fullWidth && styles.fullWidth)}>
       <ComboBox
         variant={secondary ? "secondary" : "primary"}
-        items={items}
-        itemToStringLabel={animalLabel}
-        itemToStringValue={animalValue}
+        itemToLabel={animalLabel}
+        itemToValue={animalValue}
         isItemEqualToValue={sameAnimal}
         {...menu.root}
         {...rootProps}
       >
         <ComboBox.Label htmlFor={id}>{label}</ComboBox.Label>
-        <ComboBox.InputGroup
-          render={composed ? (props) => <div {...props} data-custom="foo" /> : undefined}
-        >
+        <ComboBox.InputGroup data-custom={composed ? "foo" : undefined}>
           <ComboBox.Input
             id={id}
             placeholder={placeholder}
@@ -145,7 +140,12 @@ export function AnimalPicker({
             {indicator ?? <ComboBox.Indicator />}
           </ComboBox.Trigger>
         </ComboBox.InputGroup>
-        <AnimalOptions disabledIds={disabledIds} />
+        <AnimalOptions
+          items={items.flatMap((item) =>
+            typeof item === "object" && "value" in item ? [item.value] : [],
+          )}
+          disabledIds={disabledIds}
+        />
         {description && (
           <p id={`${id}-description`} {...stylex.props(styles.muted)}>
             {description}

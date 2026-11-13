@@ -65,27 +65,23 @@ export function Statuses() {
           <AlertDialog.Trigger render={<Button xstyle={styles[status]} />}>
             {trigger}
           </AlertDialog.Trigger>
-          <AlertDialog.Portal>
-            <AlertDialog.Backdrop />
-            <AlertDialog.Viewport>
-              <AlertDialog.Popup xstyle={styles.popup}>
-                <AlertDialog.Close aria-label="Close dialog" />
-                <AlertDialog.Header>
-                  <AlertDialog.Icon variant={status} />
-                  <AlertDialog.Title>{header}</AlertDialog.Title>
-                </AlertDialog.Header>
-                <AlertDialog.Body>
-                  <AlertDialog.Description>{body}</AlertDialog.Description>
-                </AlertDialog.Body>
-                <AlertDialog.Footer>
-                  <AlertDialog.Action variant="cancel">{cancel}</AlertDialog.Action>
-                  <AlertDialog.Action variant={status === "danger" ? "destructive" : "default"}>
-                    {confirm}
-                  </AlertDialog.Action>
-                </AlertDialog.Footer>
-              </AlertDialog.Popup>
-            </AlertDialog.Viewport>
-          </AlertDialog.Portal>
+          <AlertDialog.Backdrop />
+          <AlertDialog.Content xstyle={styles.popup}>
+            <AlertDialog.Close aria-label="Close dialog" />
+            <AlertDialog.Header>
+              <AlertDialog.Icon variant={status} />
+              <AlertDialog.Title>{header}</AlertDialog.Title>
+            </AlertDialog.Header>
+            <AlertDialog.Body>
+              <AlertDialog.Description>{body}</AlertDialog.Description>
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <AlertDialog.Action variant="cancel">{cancel}</AlertDialog.Action>
+              <AlertDialog.Action variant={status === "danger" ? "destructive" : "default"}>
+                {confirm}
+              </AlertDialog.Action>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
         </AlertDialog>
       ))}
     </div>

@@ -22,7 +22,7 @@ export function WithValidation() {
         <Label>Verify account</Label>
         <Description>Hint: The code is 123456</Description>
         <InputOTP
-          length={6}
+          maxLength={6}
           name="code"
           value={value}
           onValueChange={(next) => {

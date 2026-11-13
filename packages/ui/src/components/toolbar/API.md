@@ -1,6 +1,6 @@
 # Toolbar
 
-`Toolbar.Root` owns native Base UI roving focus. Use `Toolbar.Button` for actions
+`Toolbar.Root` owns native UI SDK roving focus. Use `Toolbar.Button` for actions
 and label both the toolbar and its groups.
 
 ## Menus in a shared surface
@@ -53,7 +53,7 @@ The 250ms transition moves existing buttons with transforms and unfolds their
 inside corners. A shared geometry field starts as a complete capsule, develops
 a neck, pinches apart and finishes with independent button lenses. Reversing the
 state retargets the current transition. Button DOM nodes, action handlers, refs,
-native disabled semantics and keyboard focus remain owned by Base UI.
+native disabled semantics and keyboard focus remain owned by UI SDK.
 
 The group reserves its separated extent, including a 40px final gap, so the
 toolbar and optical coordinate system do not resize during the transition.

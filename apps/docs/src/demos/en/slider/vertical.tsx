@@ -14,8 +14,8 @@ export function Vertical() {
         <Slider.Control>
           <Slider.Track>
             <Slider.Fill />
+            <Slider.Thumb />
           </Slider.Track>
-          <Slider.Thumb />
         </Slider.Control>
       </Slider>
     </div>

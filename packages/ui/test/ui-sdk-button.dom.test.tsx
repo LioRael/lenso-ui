@@ -25,7 +25,7 @@ test("an agent discovers and presses the styled button with its source", async (
     root!.render(
       <Button
         ref={ref}
-        data-slot="custom-action"
+        data-lenso-slot="custom-action"
         onClick={(_event, details) => {
           source = details.source;
         }}
@@ -37,7 +37,7 @@ test("an agent discovers and presses the styled button with its source", async (
   const entries = agent.snapshot().filter((entry) => !entry.offPage);
   expect(entries.map((entry) => entry.label)).toContain("Save settings");
   for (const entry of entries) expect(entry.label).toBeTruthy();
-  expect(ref.current).toBe(container.querySelector('[data-slot="custom-action"]'));
+  expect(ref.current).toBe(container.querySelector('[data-lenso-slot="custom-action"]'));
   await act(async () => {
     const result = await agent.act({ steps: [{ ref: "Save settings", action: "press" }] });
     expect(result.ok).toBe(true);

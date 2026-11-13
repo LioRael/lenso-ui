@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Drawer as Base } from "@base-ui/react/drawer";
+import * as SdkDrawer from "@ui-sdk/react/drawer";
+import { slotRender } from "../../utils/sdk-render.js";
 import { materialStyles, vibrantStyles } from "@lenso/tokens/materials";
 import { sheetStyles as s } from "@lenso/tokens/sheet";
-import { DrawerRoot, DrawerTrigger, DrawerPortal, DrawerClose } from "../drawer/drawer.js";
+import { DrawerRoot, DrawerTrigger, DrawerClose } from "../drawer/drawer.js";
 import { GlassButton } from "../glass-button/glass-button.js";
 import { CloseIcon } from "../../icons/index.js";
 import { MaterialBackground } from "../../utils/materials/render.js";
@@ -14,29 +15,30 @@ import { assignRef } from "../../utils/interaction/ref.js";
 import { trackSheetPresentation } from "./track-presentation.js";
 import { mergeStyle, type StyleXProps, type XStyle } from "../../utils/styled.js";
 
-const defaultSnapPoints: Base.Root.SnapPoint[] = [0.525, 1];
+const defaultSnapPoints: SdkDrawer.SnapPoint[] = [0.525, 1];
 const DimContext = React.createContext(true);
 const SheetDepthContext = React.createContext(0);
 type SheetPresentation = {
-  snapPoints: readonly Base.Root.SnapPoint[];
-  attached: readonly Base.Root.SnapPoint[];
+  snapPoints: readonly SdkDrawer.SnapPoint[];
+  attached: readonly SdkDrawer.SnapPoint[];
 };
 const PresentationContext = React.createContext<SheetPresentation | null>(null);
-const samePoints = (left: readonly Base.Root.SnapPoint[], right: readonly Base.Root.SnapPoint[]) =>
+const samePoints = (left: readonly SdkDrawer.SnapPoint[], right: readonly SdkDrawer.SnapPoint[]) =>
   left.length === right.length && left.every((point, index) => Object.is(point, right[index]));
 
-export type SheetRootProps<Payload = unknown> = Omit<Base.Root.Props<Payload>, "swipeDirection"> & {
+export type SheetRootProps = Omit<React.ComponentProps<typeof SdkDrawer.Drawer>, "side"> & {
   dim?: boolean;
   /** Snap points that meet the bottom edge. Omit to retain the default floating partial sheet. */
-  edgeAttachedSnapPoints?: readonly Base.Root.SnapPoint[];
+  edgeAttachedSnapPoints?: readonly SdkDrawer.SnapPoint[];
 };
 
-export function SheetRoot<Payload = unknown>({
+export function SheetRoot({
   dim = true,
+  expandOnScroll = false,
   snapPoints = defaultSnapPoints,
   edgeAttachedSnapPoints,
   ...props
-}: SheetRootProps<Payload>) {
+}: SheetRootProps) {
   const depth = React.useContext(SheetDepthContext);
   const nextPresentation = edgeAttachedSnapPoints
     ? { snapPoints, attached: edgeAttachedSnapPoints }
@@ -57,7 +59,12 @@ export function SheetRoot<Payload = unknown>({
     <SheetDepthContext.Provider value={depth + 1}>
       <DimContext.Provider value={dim}>
         <PresentationContext.Provider value={presentation}>
-          <DrawerRoot {...props} snapPoints={snapPoints} swipeDirection="down" />
+          <DrawerRoot
+            {...props}
+            expandOnScroll={expandOnScroll}
+            snapPoints={snapPoints}
+            side="bottom"
+          />
         </PresentationContext.Provider>
       </DimContext.Provider>
     </SheetDepthContext.Provider>
@@ -68,55 +75,44 @@ export function SheetTrigger(props: React.ComponentPropsWithRef<typeof DrawerTri
   return (
     <DrawerTrigger
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-trigger"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-trigger"
+      }
     />
   );
-}
-export function SheetPortal(props: React.ComponentPropsWithRef<typeof DrawerPortal>) {
-  return <DrawerPortal {...props} />;
 }
 export function SheetBackdrop({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Backdrop.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Backdrop>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDrawer.DrawerBackdrop>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDrawer.DrawerBackdrop>, "ref">) {
   const dim = React.useContext(DimContext);
   const compiled = stylex.props(s.backdrop, !dim && s.undimmed, xstyle);
   return (
-    <Base.Backdrop
+    <SdkDrawer.DrawerBackdrop
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Backdrop.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-backdrop"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-backdrop",
+        props.render,
+      )}
     />
   );
 }
-export function SheetViewport({
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Viewport.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, "ref">) {
-  const compiled = stylex.props(s.viewport, xstyle);
-  return (
-    <Base.Viewport
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Viewport.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-viewport"}
-    />
-  );
-}
-export function SheetPopup({
+export function SheetContent({
   ref,
   children,
   surfaceXstyle,
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Popup.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Popup>, "ref"> & { surfaceXstyle?: XStyle }) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDrawer.DrawerContent>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDrawer.DrawerContent>, "ref"> & {
+    surfaceXstyle?: XStyle;
+  }) {
   const nested = React.useContext(SheetDepthContext) > 1;
   const presentation = React.useContext(PresentationContext);
   const [popup, setPopup] = React.useState<HTMLElement | null>(null);
@@ -129,24 +125,32 @@ export function SheetPopup({
   );
   React.useLayoutEffect(() => {
     if (!popup || !presentation) return;
-    const surface = popup.querySelector<HTMLElement>('[data-slot="sheet-surface"]');
+    const surface = popup.querySelector<HTMLElement>('[data-lenso-slot="sheet-surface"]');
     const viewport = popup.parentElement;
     if (!surface || !viewport) return;
     return trackSheetPresentation(popup, surface, viewport, presentation);
   }, [popup, presentation]);
-  const compiled = stylex.props(s.popup, presentation && s.adaptivePopup, xstyle);
+  const compiled = stylex.props(s.popup, s.nativeContent, presentation && s.adaptivePopup, xstyle);
   return (
-    <Base.Popup
+    <SdkDrawer.DrawerContent
       {...props}
       ref={popupRef}
       data-sheet-adaptive={presentation ? "" : undefined}
       {...compiled}
-      style={mergeStyle<Base.Popup.State>(compiled.style, style)}
+      style={mergeStyle(compiled.style, style)}
       data-sheet-nested={nested ? "" : undefined}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-popup"}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-popup",
+        props.render,
+      )}
     >
-      <SheetSurface xstyle={surfaceXstyle}>{children}</SheetSurface>
-    </Base.Popup>
+      {(state) => (
+        <SheetSurface xstyle={surfaceXstyle}>
+          {typeof children === "function" ? children(state) : children}
+        </SheetSurface>
+      )}
+    </SdkDrawer.DrawerContent>
   );
 }
 
@@ -195,7 +199,7 @@ function SheetSurface({
   return (
     <div
       ref={surfaceRef}
-      data-slot="sheet-surface"
+      data-lenso-slot="sheet-surface"
       {...compiled}
       style={
         {
@@ -222,7 +226,7 @@ function SheetSurface({
         liveGeometry
         layerXstyle={s.glass}
       />
-      <div data-slot="sheet-solid" {...stylex.props(s.solid)} />
+      <div data-lenso-slot="sheet-solid" {...stylex.props(s.solid)} />
       {children}
     </div>
   );
@@ -232,21 +236,25 @@ export function SheetHandle({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">>) {
+}: StyleXProps<React.ComponentProps<typeof SdkDrawer.DrawerHandle>>) {
   const compiled = stylex.props(s.handle, xstyle);
   return (
-    <div
+    <SdkDrawer.DrawerHandle
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-handle"}
-      aria-hidden="true"
+      render={slotRender(
+        "button",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-handle",
+        props.render,
+      )}
+      aria-label="Resize sheet"
     >
       <span
         {...stylex.props(vibrantStyles.fill, vibrantStyles.primaryFill, s.handleBar)}
-        data-slot="sheet-handle-bar"
+        data-lenso-slot="sheet-handle-bar"
       />
-    </div>
+    </SdkDrawer.DrawerHandle>
   );
 }
 export function SheetHeader({
@@ -260,7 +268,9 @@ export function SheetHeader({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-header"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-header"
+      }
     />
   );
 }
@@ -268,15 +278,19 @@ export function SheetTitle({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Title.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Title>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDrawer.DrawerTitle>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDrawer.DrawerTitle>, "ref">) {
   const compiled = stylex.props(s.title, xstyle);
   return (
-    <Base.Title
+    <SdkDrawer.DrawerTitle
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Title.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-title"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "h2",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-title",
+        props.render,
+      )}
     />
   );
 }
@@ -284,15 +298,19 @@ export function SheetDescription({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Description.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Description>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkDrawer.DrawerDescription>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkDrawer.DrawerDescription>, "ref">) {
   const compiled = stylex.props(xstyle);
   return (
-    <Base.Description
+    <SdkDrawer.DrawerDescription
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Description.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-description"}
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender(
+        "div",
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-description",
+        props.render,
+      )}
     />
   );
 }
@@ -307,7 +325,7 @@ export function SheetBody({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-body"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-body"}
     />
   );
 }
@@ -322,7 +340,9 @@ export function SheetFooter({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-footer"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-footer"
+      }
     />
   );
 }
@@ -341,7 +361,9 @@ export function SheetClose({
         bare ? <GlassButton isIconOnly icon={<CloseIcon />} xstyle={[s.close, xstyle]} /> : render
       }
       xstyle={bare ? undefined : xstyle}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "sheet-close"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "sheet-close"
+      }
     >
       {children}
     </DrawerClose>
@@ -350,12 +372,9 @@ export function SheetClose({
 
 export const Sheet = Object.assign(SheetRoot, {
   Root: SheetRoot,
-  Provider: Base.Provider,
   Trigger: SheetTrigger,
-  Portal: SheetPortal,
   Backdrop: SheetBackdrop,
-  Viewport: SheetViewport,
-  Popup: SheetPopup,
+  Content: SheetContent,
   Handle: SheetHandle,
   Header: SheetHeader,
   Title: SheetTitle,
@@ -363,5 +382,4 @@ export const Sheet = Object.assign(SheetRoot, {
   Body: SheetBody,
   Footer: SheetFooter,
   Close: SheetClose,
-  createHandle: Base.createHandle,
 });

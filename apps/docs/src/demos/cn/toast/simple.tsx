@@ -1,10 +1,13 @@
 "use client";
+import type { ReactNode } from "react";
 
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
 import { Notifications, styles } from "../../en/toast/_shared";
+const toaster = createToaster<ReactNode>();
+
 function Messages() {
-  const manager = Toast.useToastManager();
+  const manager = toaster;
   return (
     <>
       <div {...stylex.props(styles.frame)}>
@@ -13,7 +16,7 @@ function Messages() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "Simple message",
                 type: "default",
               })
@@ -25,7 +28,7 @@ function Messages() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "Operation completed",
                 type: "success",
               })
@@ -37,9 +40,9 @@ function Messages() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "New update available",
-                type: "accent",
+                type: "info",
               })
             }
           >
@@ -49,7 +52,7 @@ function Messages() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "Please check your settings",
                 type: "warning",
               })
@@ -61,9 +64,9 @@ function Messages() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              manager.add({
+              manager({
                 title: "Something went wrong",
-                type: "danger",
+                type: "error",
               })
             }
           >
@@ -71,14 +74,14 @@ function Messages() {
           </Button>
         </div>
       </div>
-      <Notifications />
+      <Notifications toaster={toaster} />
     </>
   );
 }
 export function Simple() {
   return (
-    <Toast.Provider>
+    <>
       <Messages />
-    </Toast.Provider>
+    </>
   );
 }

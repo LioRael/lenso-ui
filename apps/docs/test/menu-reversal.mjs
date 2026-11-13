@@ -46,12 +46,12 @@ for (const [engine, type] of [
         await trigger.click({ force: true });
         await page.clock.runFor(180);
         const popup = page.locator(
-          `[data-slot="${select ? "select-popover" : "menu-popup"}"][data-open]`,
+          `[data-lenso-slot="${select ? "select-popover" : "menu-popup"}"][data-open]`,
         );
         const handle = await popup.elementHandle();
         const measure = (e) => {
           const surface = e.querySelector(
-            '[data-slot="menu-surface"], [data-slot="select-surface"]',
+            '[data-lenso-slot="menu-surface"], [data-lenso-slot="select-surface"]',
           );
           return {
             ...surface.getBoundingClientRect().toJSON(),
@@ -90,7 +90,7 @@ for (const [engine, type] of [
         });
         await page.clock.runFor(160);
         const surface = page.locator(
-          `[data-slot="${kind === "select" ? "select" : "menu"}-surface"]`,
+          `[data-lenso-slot="${kind === "select" ? "select" : "menu"}-surface"]`,
         );
         const handle = await surface.elementHandle();
         await page.evaluate(() => window.dispose.setOpen(false));

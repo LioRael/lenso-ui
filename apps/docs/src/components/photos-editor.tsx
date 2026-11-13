@@ -281,415 +281,397 @@ export function PhotosEditor({
         if (!open) requestClose();
       }}
     >
-      <Modal.Portal>
-        <Modal.Backdrop variant="transparent" />
-        <Modal.Viewport>
-          <Modal.Popup size="full" xstyle={s.popup}>
-            <ActionSheet
-              dim={false}
-              open={confirm}
-              onOpenChange={(open, details) => {
-                if (open && !dirty) {
-                  details.cancel();
-                  onClose();
-                  return;
+      <Modal.Backdrop variant="transparent" />
+      <Modal.Content size="full" xstyle={s.popup}>
+        <ActionSheet
+          dim={false}
+          open={confirm}
+          onOpenChange={(open, details) => {
+            if (open && !dirty) {
+              details.cancel();
+              onClose();
+              return;
+            }
+            setConfirm(open);
+          }}
+        >
+          <Tabs
+            value={mode}
+            onValueChange={(value) => {
+              if (value === "adjust" || value === "filters" || value === "crop") {
+                commit();
+                swipingTools.current = false;
+                setMode(value);
+                setComparing(false);
+              }
+            }}
+            glass
+            onKeyDown={(event) => {
+              if (!(event.metaKey || event.ctrlKey) || saving || event.defaultPrevented) return;
+              if (event.key.toLowerCase() === "z" || event.key.toLowerCase() === "y") {
+                event.preventDefault();
+                navigateHistory(
+                  event.shiftKey || event.key.toLowerCase() === "y" ? "redo" : "undo",
+                );
+              }
+            }}
+            aria-busy={saving}
+            inert={saving}
+            xstyle={[s.layout, mode === "crop" && s.cropLayout]}
+          >
+            <header {...stylex.props(s.header)}>
+              <ActionSheet.Trigger
+                render={
+                  <GlassButton size="sm" disabled={saving} xstyle={confirm && s.cancelHidden} />
                 }
-                setConfirm(open);
-              }}
-            >
-              <Tabs
-                value={mode}
-                onValueChange={(value) => {
-                  if (value === "adjust" || value === "filters" || value === "crop") {
-                    commit();
-                    swipingTools.current = false;
-                    setMode(value);
-                    setComparing(false);
-                  }
-                }}
-                glass
-                onKeyDown={(event) => {
-                  if (!(event.metaKey || event.ctrlKey) || saving || event.defaultPrevented) return;
-                  if (event.key.toLowerCase() === "z" || event.key.toLowerCase() === "y") {
-                    event.preventDefault();
-                    navigateHistory(
-                      event.shiftKey || event.key.toLowerCase() === "y" ? "redo" : "undo",
-                    );
-                  }
-                }}
-                aria-busy={saving}
-                inert={saving}
-                xstyle={[s.layout, mode === "crop" && s.cropLayout]}
               >
-                <header {...stylex.props(s.header)}>
-                  <ActionSheet.Trigger
-                    render={
-                      <GlassButton size="sm" disabled={saving} xstyle={confirm && s.cancelHidden} />
-                    }
+                Cancel
+              </ActionSheet.Trigger>
+              <GlassButton
+                size="sm"
+                xstyle={s.done}
+                variant="prominent"
+                disabled={!dirty || saving}
+                isLoading={saving}
+                onClick={save}
+              >
+                Done
+              </GlassButton>
+            </header>
+            <Toolbar aria-label="Editing tools" xstyle={s.toolbar}>
+              <Toolbar.Group xstyle={s.toolbarGroup}>
+                {mode === "crop" ? (
+                  <>
+                    <Toolbar.Button
+                      aria-label="Flip horizontally"
+                      aria-pressed={draft.flipped}
+                      xstyle={s.toolbarIcon}
+                      onClick={() => apply({ ...draft, flipped: !draft.flipped })}
+                    >
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        width={22}
+                        height={22}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.5}
+                      >
+                        <path d="M12 2v20M9 6 2 18h7ZM15 6l7 12h-7Z" />
+                      </svg>
+                    </Toolbar.Button>
+                    <Toolbar.Button
+                      aria-label="Rotate left"
+                      xstyle={s.toolbarIcon}
+                      onClick={() => {
+                        setPortraitCrop((previous) => !previous);
+                        apply({
+                          ...draft,
+                          rotation: (draft.rotation + 270) % 360,
+                          crop: rotateCropLeft(draft.crop),
+                        });
+                      }}
+                    >
+                      <ArrowRotateLeft width={22} height={22} />
+                    </Toolbar.Button>
+                  </>
+                ) : (
+                  <>
+                    <Toolbar.Button
+                      aria-label="Undo edit"
+                      disabled={!history.past.length || saving}
+                      xstyle={s.toolbarIcon}
+                      onClick={() => navigateHistory("undo")}
+                    >
+                      <ArrowUturnCcwLeft width={22} height={22} />
+                    </Toolbar.Button>
+                    <Toolbar.Button
+                      aria-label="Redo edit"
+                      disabled={!history.future.length || saving}
+                      xstyle={s.toolbarIcon}
+                      onClick={() => navigateHistory("redo")}
+                    >
+                      <ArrowUturnCwRight width={22} height={22} />
+                    </Toolbar.Button>
+                  </>
+                )}
+              </Toolbar.Group>
+              <Modal.Title xstyle={s.title}>
+                {modes.find((item) => item.key === mode)!.label}
+              </Modal.Title>
+              <Toolbar.Group xstyle={[s.toolbarGroup, s.toolbarGroupEnd]}>
+                {mode === "crop" && (
+                  <Toolbar.Button
+                    aria-label="Aspect ratio"
+                    aria-pressed={showRatios}
+                    xstyle={s.toolbarIcon}
+                    onClick={() => setShowRatios(!showRatios)}
                   >
-                    Cancel
-                  </ActionSheet.Trigger>
-                  <GlassButton
-                    size="sm"
-                    xstyle={s.done}
-                    variant="prominent"
-                    disabled={!dirty || saving}
-                    isLoading={saving}
-                    onClick={save}
+                    <Crop width={22} height={22} />
+                  </Toolbar.Button>
+                )}
+                <Menu>
+                  <Menu.Trigger
+                    render={<Toolbar.Button aria-label="Editor options" xstyle={s.toolbarIcon} />}
                   >
-                    Done
-                  </GlassButton>
-                </header>
-                <Toolbar aria-label="Editing tools" xstyle={s.toolbar}>
-                  <Toolbar.Group xstyle={s.toolbarGroup}>
-                    {mode === "crop" ? (
-                      <>
-                        <Toolbar.Button
-                          aria-label="Flip horizontally"
-                          aria-pressed={draft.flipped}
-                          xstyle={s.toolbarIcon}
-                          onClick={() => apply({ ...draft, flipped: !draft.flipped })}
-                        >
-                          <svg
-                            aria-hidden="true"
-                            viewBox="0 0 24 24"
-                            width={22}
-                            height={22}
+                    <Ellipsis width={22} height={22} />
+                  </Menu.Trigger>
+                  <Menu.Content align="end">
+                    <Menu.Item
+                      disabled={!hasAdjustments(draft) || saving}
+                      onClick={() => {
+                        setAspect(0);
+                        apply(originalAdjustments);
+                      }}
+                    >
+                      Reset all adjustments
+                    </Menu.Item>
+                    <Menu.CheckboxItem
+                      disabled={mode === "crop"}
+                      checked={comparing}
+                      onCheckedChange={setComparing}
+                      value="photos-editor"
+                    >
+                      Compare original
+                    </Menu.CheckboxItem>
+                  </Menu.Content>
+                </Menu>
+              </Toolbar.Group>
+            </Toolbar>
+            <Modal.Description xstyle={s.hidden}>
+              Edit this sample photo. Hold the image to compare. Your original is kept.
+            </Modal.Description>
+            <div inert={saving} {...stylex.props(s.workspace)}>
+              <PhotosEditorPreview
+                src={photo.src}
+                title={photo.title}
+                value={draft}
+                cropping={mode === "crop"}
+                lockedAspect={
+                  aspect === 0
+                    ? 0
+                    : aspect < 0
+                      ? orientedSize(dimensions.width, dimensions.height, draft.rotation).width /
+                        orientedSize(dimensions.width, dimensions.height, draft.rotation).height
+                      : aspect > 1 && portraitCrop
+                        ? 1 / aspect
+                        : aspect
+                }
+                comparing={comparing}
+                onCompare={setComparing}
+                onChange={(value) => {
+                  update(value);
+                }}
+                onCommit={commit}
+                onLoaded={loaded}
+              />
+            </div>
+            <div inert={saving} {...stylex.props(s.controls)}>
+              <div {...stylex.props(s.parameterName)} aria-live="polite">
+                {comparing ? "Original" : label}
+              </div>
+              <Tabs.Panel value="adjust" xstyle={s.panel}>
+                <div
+                  ref={mode === "adjust" ? carousel : undefined}
+                  {...stylex.props(s.carousel)}
+                  aria-label="Adjustment tools"
+                  onPointerDown={() => {
+                    swipingTools.current = true;
+                  }}
+                  onWheel={() => {
+                    swipingTools.current = true;
+                  }}
+                  onScroll={scrollTools}
+                >
+                  {tools.map(({ key, label: name }) => (
+                    <Button
+                      key={key}
+                      variant="borderless"
+                      aria-label={name}
+                      aria-pressed={tool === key}
+                      onClick={() => {
+                        swipingTools.current = false;
+                        commit();
+                        setTool(key);
+                      }}
+                      xstyle={s.tool}
+                    >
+                      <span {...stylex.props(s.toolIcon, draft[key] !== 0 && s.modifiedIcon)}>
+                        {tool === key && draft[key] !== 0 ? (
+                          draft[key]
+                        ) : (
+                          <AdjustmentGlyph tool={key} />
+                        )}
+                      </span>
+                    </Button>
+                  ))}
+                </div>
+                <PhotosEditorRuler
+                  key={tool}
+                  label={label}
+                  value={draft[tool]}
+                  onChange={(value) => update({ ...draft, [tool]: value })}
+                  onCommit={commit}
+                />
+              </Tabs.Panel>
+              <Tabs.Panel value="filters" xstyle={s.panel}>
+                <div
+                  ref={mode === "filters" ? carousel : undefined}
+                  {...stylex.props(s.carousel)}
+                  aria-label="Photo filters"
+                  onPointerDown={() => {
+                    swipingTools.current = true;
+                  }}
+                  onWheel={() => {
+                    swipingTools.current = true;
+                  }}
+                  onScroll={scrollTools}
+                >
+                  {presets.map(({ key, label: name }) => (
+                    <Button
+                      key={key}
+                      variant="borderless"
+                      aria-label={name}
+                      aria-pressed={draft.preset === key}
+                      xstyle={s.filterButton}
+                      onClick={() => {
+                        swipingTools.current = false;
+                        apply({ ...draft, preset: key });
+                      }}
+                    >
+                      <img
+                        src={photo.thumb}
+                        alt=""
+                        draggable={false}
+                        {...stylex.props(
+                          s.filterThumb,
+                          s.filter(adjustmentFilter({ ...originalAdjustments, preset: key })),
+                          draft.preset === key && s.filterSelected,
+                        )}
+                      />
+                    </Button>
+                  ))}
+                </div>
+                {draft.preset !== "original" && (
+                  <PhotosEditorRuler
+                    label="Filter intensity"
+                    value={draft.intensity}
+                    min={0}
+                    onChange={(intensity) => update({ ...draft, intensity })}
+                    onCommit={commit}
+                  />
+                )}
+              </Tabs.Panel>
+              <Tabs.Panel value="crop" xstyle={s.panel}>
+                {showRatios ? (
+                  <>
+                    <div {...stylex.props(s.orientation)}>
+                      <Button
+                        variant="borderless"
+                        aria-label="Portrait crop"
+                        disabled={aspect <= 1}
+                        aria-pressed={portraitCrop}
+                        onClick={() => chooseAspect(aspect, true)}
+                      >
+                        <svg aria-hidden="true" width={18} height={24} viewBox="0 0 18 24">
+                          <rect
+                            x="2"
+                            y="2"
+                            width="14"
+                            height="20"
+                            rx="2"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth={1.5}
-                          >
-                            <path d="M12 2v20M9 6 2 18h7ZM15 6l7 12h-7Z" />
-                          </svg>
-                        </Toolbar.Button>
-                        <Toolbar.Button
-                          aria-label="Rotate left"
-                          xstyle={s.toolbarIcon}
-                          onClick={() => {
-                            setPortraitCrop((previous) => !previous);
-                            apply({
-                              ...draft,
-                              rotation: (draft.rotation + 270) % 360,
-                              crop: rotateCropLeft(draft.crop),
-                            });
-                          }}
-                        >
-                          <ArrowRotateLeft width={22} height={22} />
-                        </Toolbar.Button>
-                      </>
-                    ) : (
-                      <>
-                        <Toolbar.Button
-                          aria-label="Undo edit"
-                          disabled={!history.past.length || saving}
-                          xstyle={s.toolbarIcon}
-                          onClick={() => navigateHistory("undo")}
-                        >
-                          <ArrowUturnCcwLeft width={22} height={22} />
-                        </Toolbar.Button>
-                        <Toolbar.Button
-                          aria-label="Redo edit"
-                          disabled={!history.future.length || saving}
-                          xstyle={s.toolbarIcon}
-                          onClick={() => navigateHistory("redo")}
-                        >
-                          <ArrowUturnCwRight width={22} height={22} />
-                        </Toolbar.Button>
-                      </>
-                    )}
-                  </Toolbar.Group>
-                  <Modal.Title xstyle={s.title}>
-                    {modes.find((item) => item.key === mode)!.label}
-                  </Modal.Title>
-                  <Toolbar.Group xstyle={[s.toolbarGroup, s.toolbarGroupEnd]}>
-                    {mode === "crop" && (
-                      <Toolbar.Button
-                        aria-label="Aspect ratio"
-                        aria-pressed={showRatios}
-                        xstyle={s.toolbarIcon}
-                        onClick={() => setShowRatios(!showRatios)}
+                          />
+                        </svg>
+                      </Button>
+                      <Button
+                        variant="borderless"
+                        aria-label="Landscape crop"
+                        disabled={aspect <= 1}
+                        aria-pressed={!portraitCrop}
+                        onClick={() => chooseAspect(aspect, false)}
                       >
-                        <Crop width={22} height={22} />
-                      </Toolbar.Button>
-                    )}
-                    <Menu>
-                      <Menu.Trigger
-                        render={
-                          <Toolbar.Button aria-label="Editor options" xstyle={s.toolbarIcon} />
-                        }
-                      >
-                        <Ellipsis width={22} height={22} />
-                      </Menu.Trigger>
-                      <Menu.Portal>
-                        <Menu.Positioner align="end">
-                          <Menu.Popup>
-                            <Menu.Item
-                              disabled={!hasAdjustments(draft) || saving}
-                              onClick={() => {
-                                setAspect(0);
-                                apply(originalAdjustments);
-                              }}
-                            >
-                              Reset all adjustments
-                            </Menu.Item>
-                            <Menu.CheckboxItem
-                              disabled={mode === "crop"}
-                              checked={comparing}
-                              onCheckedChange={setComparing}
-                            >
-                              Compare original
-                            </Menu.CheckboxItem>
-                          </Menu.Popup>
-                        </Menu.Positioner>
-                      </Menu.Portal>
-                    </Menu>
-                  </Toolbar.Group>
-                </Toolbar>
-                <Modal.Description xstyle={s.hidden}>
-                  Edit this sample photo. Hold the image to compare. Your original is kept.
-                </Modal.Description>
-                <div inert={saving} {...stylex.props(s.workspace)}>
-                  <PhotosEditorPreview
-                    src={photo.src}
-                    title={photo.title}
-                    value={draft}
-                    cropping={mode === "crop"}
-                    lockedAspect={
-                      aspect === 0
-                        ? 0
-                        : aspect < 0
-                          ? orientedSize(dimensions.width, dimensions.height, draft.rotation)
-                              .width /
-                            orientedSize(dimensions.width, dimensions.height, draft.rotation).height
-                          : aspect > 1 && portraitCrop
-                            ? 1 / aspect
-                            : aspect
-                    }
-                    comparing={comparing}
-                    onCompare={setComparing}
-                    onChange={(value) => {
-                      update(value);
-                    }}
-                    onCommit={commit}
-                    onLoaded={loaded}
-                  />
-                </div>
-                <div inert={saving} {...stylex.props(s.controls)}>
-                  <div {...stylex.props(s.parameterName)} aria-live="polite">
-                    {comparing ? "Original" : label}
-                  </div>
-                  <Tabs.Panel value="adjust" xstyle={s.panel}>
-                    <div
-                      ref={mode === "adjust" ? carousel : undefined}
-                      {...stylex.props(s.carousel)}
-                      aria-label="Adjustment tools"
-                      onPointerDown={() => {
-                        swipingTools.current = true;
-                      }}
-                      onWheel={() => {
-                        swipingTools.current = true;
-                      }}
-                      onScroll={scrollTools}
-                    >
-                      {tools.map(({ key, label: name }) => (
+                        <svg aria-hidden="true" width={24} height={18} viewBox="0 0 24 18">
+                          <rect
+                            x="2"
+                            y="2"
+                            width="20"
+                            height="14"
+                            rx="2"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={1.5}
+                          />
+                        </svg>
+                      </Button>
+                    </div>
+                    <div {...stylex.props(s.ratios)} aria-label="Crop aspect ratios">
+                      {ratios.map((item) => (
                         <Button
-                          key={key}
+                          key={item.label}
                           variant="borderless"
-                          aria-label={name}
-                          aria-pressed={tool === key}
-                          onClick={() => {
-                            swipingTools.current = false;
-                            commit();
-                            setTool(key);
-                          }}
-                          xstyle={s.tool}
+                          aria-pressed={aspect === item.value}
+                          onClick={() => chooseAspect(item.value)}
                         >
-                          <span {...stylex.props(s.toolIcon, draft[key] !== 0 && s.modifiedIcon)}>
-                            {tool === key && draft[key] !== 0 ? (
-                              draft[key]
-                            ) : (
-                              <AdjustmentGlyph tool={key} />
-                            )}
-                          </span>
+                          {item.label}
                         </Button>
                       ))}
                     </div>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="borderless"
+                      aria-label="Reset straighten"
+                      disabled={draft.straighten === 0}
+                      onClick={() => apply({ ...draft, straighten: 0 })}
+                      xstyle={s.tool}
+                    >
+                      <span {...stylex.props(s.toolIcon, draft.straighten !== 0 && s.modifiedIcon)}>
+                        {draft.straighten || <Sun aria-hidden="true" />}
+                      </span>
+                    </Button>
                     <PhotosEditorRuler
-                      key={tool}
-                      label={label}
-                      value={draft[tool]}
-                      onChange={(value) => update({ ...draft, [tool]: value })}
+                      label="Straighten angle"
+                      value={draft.straighten}
+                      min={-45}
+                      max={45}
+                      onChange={(straighten) => update({ ...draft, straighten })}
                       onCommit={commit}
                     />
-                  </Tabs.Panel>
-                  <Tabs.Panel value="filters" xstyle={s.panel}>
-                    <div
-                      ref={mode === "filters" ? carousel : undefined}
-                      {...stylex.props(s.carousel)}
-                      aria-label="Photo filters"
-                      onPointerDown={() => {
-                        swipingTools.current = true;
-                      }}
-                      onWheel={() => {
-                        swipingTools.current = true;
-                      }}
-                      onScroll={scrollTools}
-                    >
-                      {presets.map(({ key, label: name }) => (
-                        <Button
-                          key={key}
-                          variant="borderless"
-                          aria-label={name}
-                          aria-pressed={draft.preset === key}
-                          xstyle={s.filterButton}
-                          onClick={() => {
-                            swipingTools.current = false;
-                            apply({ ...draft, preset: key });
-                          }}
-                        >
-                          <img
-                            src={photo.thumb}
-                            alt=""
-                            draggable={false}
-                            {...stylex.props(
-                              s.filterThumb,
-                              s.filter(adjustmentFilter({ ...originalAdjustments, preset: key })),
-                              draft.preset === key && s.filterSelected,
-                            )}
-                          />
-                        </Button>
-                      ))}
-                    </div>
-                    {draft.preset !== "original" && (
-                      <PhotosEditorRuler
-                        label="Filter intensity"
-                        value={draft.intensity}
-                        min={0}
-                        onChange={(intensity) => update({ ...draft, intensity })}
-                        onCommit={commit}
-                      />
-                    )}
-                  </Tabs.Panel>
-                  <Tabs.Panel value="crop" xstyle={s.panel}>
-                    {showRatios ? (
-                      <>
-                        <div {...stylex.props(s.orientation)}>
-                          <Button
-                            variant="borderless"
-                            aria-label="Portrait crop"
-                            disabled={aspect <= 1}
-                            aria-pressed={portraitCrop}
-                            onClick={() => chooseAspect(aspect, true)}
-                          >
-                            <svg aria-hidden="true" width={18} height={24} viewBox="0 0 18 24">
-                              <rect
-                                x="2"
-                                y="2"
-                                width="14"
-                                height="20"
-                                rx="2"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth={1.5}
-                              />
-                            </svg>
-                          </Button>
-                          <Button
-                            variant="borderless"
-                            aria-label="Landscape crop"
-                            disabled={aspect <= 1}
-                            aria-pressed={!portraitCrop}
-                            onClick={() => chooseAspect(aspect, false)}
-                          >
-                            <svg aria-hidden="true" width={24} height={18} viewBox="0 0 24 18">
-                              <rect
-                                x="2"
-                                y="2"
-                                width="20"
-                                height="14"
-                                rx="2"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth={1.5}
-                              />
-                            </svg>
-                          </Button>
-                        </div>
-                        <div {...stylex.props(s.ratios)} aria-label="Crop aspect ratios">
-                          {ratios.map((item) => (
-                            <Button
-                              key={item.label}
-                              variant="borderless"
-                              aria-pressed={aspect === item.value}
-                              onClick={() => chooseAspect(item.value)}
-                            >
-                              {item.label}
-                            </Button>
-                          ))}
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <Button
-                          variant="borderless"
-                          aria-label="Reset straighten"
-                          disabled={draft.straighten === 0}
-                          onClick={() => apply({ ...draft, straighten: 0 })}
-                          xstyle={s.tool}
-                        >
-                          <span
-                            {...stylex.props(s.toolIcon, draft.straighten !== 0 && s.modifiedIcon)}
-                          >
-                            {draft.straighten || <Sun aria-hidden="true" />}
-                          </span>
-                        </Button>
-                        <PhotosEditorRuler
-                          label="Straighten angle"
-                          value={draft.straighten}
-                          min={-45}
-                          max={45}
-                          onChange={(straighten) => update({ ...draft, straighten })}
-                          onCommit={commit}
-                        />
-                      </>
-                    )}
-                  </Tabs.Panel>
-                </div>
-                <Tabs.List aria-label="Editing mode" xstyle={s.modes}>
-                  {modes.map(({ key, label: name, Icon }) => (
-                    <Tabs.Tab key={key} value={key} xstyle={s.mode}>
-                      <Icon aria-hidden="true" width={22} height={22} />
-                      {name}
-                    </Tabs.Tab>
-                  ))}
-                </Tabs.List>
-                {error && <output {...stylex.props(s.status)}>{error}</output>}
-              </Tabs>
-              <ActionSheet.Portal>
-                <ActionSheet.Backdrop />
-                <ActionSheet.Viewport xstyle={s.discardViewport}>
-                  <ActionSheet.Popup
-                    ref={discardPanel}
-                    initialFocus={discardPanel}
-                    xstyle={s.discardPopup}
-                  >
-                    <ActionSheet.Header xstyle={s.discardHeader}>
-                      <ActionSheet.Title xstyle={s.discardTitle}>
-                        Discard changes?
-                      </ActionSheet.Title>
-                    </ActionSheet.Header>
-                    <ActionSheet.Actions>
-                      <ActionSheet.Action destructive onClick={onClose}>
-                        Discard changes
-                      </ActionSheet.Action>
-                    </ActionSheet.Actions>
-                  </ActionSheet.Popup>
-                </ActionSheet.Viewport>
-              </ActionSheet.Portal>
-            </ActionSheet>
-          </Modal.Popup>
-        </Modal.Viewport>
-      </Modal.Portal>
+                  </>
+                )}
+              </Tabs.Panel>
+            </div>
+            <Tabs.List aria-label="Editing mode" xstyle={s.modes}>
+              {modes.map(({ key, label: name, Icon }) => (
+                <Tabs.Tab key={key} value={key} xstyle={s.mode}>
+                  <Icon aria-hidden="true" width={22} height={22} />
+                  {name}
+                </Tabs.Tab>
+              ))}
+            </Tabs.List>
+            {error && <output {...stylex.props(s.status)}>{error}</output>}
+          </Tabs>
+          <ActionSheet.Backdrop />
+          <ActionSheet.Content
+            ref={discardPanel}
+            initialFocus={() => discardPanel.current}
+            xstyle={s.discardPopup}
+          >
+            <ActionSheet.Header xstyle={s.discardHeader}>
+              <ActionSheet.Title xstyle={s.discardTitle}>Discard changes?</ActionSheet.Title>
+            </ActionSheet.Header>
+            <ActionSheet.Actions>
+              <ActionSheet.Action destructive onClick={onClose}>
+                Discard changes
+              </ActionSheet.Action>
+            </ActionSheet.Actions>
+          </ActionSheet.Content>
+        </ActionSheet>
+      </Modal.Content>
     </Modal>
   );
 }

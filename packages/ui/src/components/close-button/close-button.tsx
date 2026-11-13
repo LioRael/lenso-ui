@@ -9,14 +9,14 @@ function Icon({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"svg">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"svg">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(closeButtonStyles.icon, xstyle);
   return (
     <svg
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "close-button-icon"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "close-button-icon"}
     />
   );
 }
@@ -29,7 +29,7 @@ export function CloseButtonRoot({ children, xstyle, ...props }: CloseButtonRootP
     <ButtonRoot
       aria-label="Close"
       {...props}
-      data-slot="close-button"
+      data-lenso-slot="close-button"
       xstyle={[closeButtonStyles.root, xstyle]}
     >
       {children ?? (

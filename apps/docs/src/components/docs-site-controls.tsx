@@ -5,7 +5,10 @@ import * as stylex from "@stylexjs/stylex";
 import { useSearchContext } from "fumadocs-ui/contexts/search";
 import { TabBar } from "@lenso/ui/tab-bar";
 import Link from "fumadocs-core/link";
-import type { DocumentationSiteLayoutProps } from "@lenso/docs/client";
+import {
+  DocumentationCompactSearchTrigger,
+  type DocumentationSiteLayoutProps,
+} from "@lenso/docs/client";
 import { Globe, LogoGithub, Magnifier } from "@gravity-ui/icons";
 import { GlassButton } from "@lenso/ui";
 import type { Locale } from "@/lib/source";
@@ -91,20 +94,11 @@ export function ReactWebDrawerLabel() {
   );
 }
 
-export function HeaderNavigation({ locale }: { locale: Locale }) {
-  const { setOpenSearch } = useSearchContext();
-  const searchLabel = locale === "cn" ? "搜索文档" : "Search documentation";
+export function HeaderNavigation({ locale: _locale }: { locale: Locale }) {
   return (
-    <GlassButton
-      isIconOnly
-      aria-label={searchLabel}
-      aria-keyshortcuts="Meta+K Control+K"
-      data-docs-search-trigger=""
-      onClick={() => setOpenSearch(true)}
-      xstyle={[s.control, s.icon, s.navigation]}
-    >
-      <Magnifier width={16} height={16} aria-hidden="true" />
-    </GlassButton>
+    <span {...stylex.props(s.navigation)}>
+      <DocumentationCompactSearchTrigger />
+    </span>
   );
 }
 

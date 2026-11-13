@@ -19,7 +19,7 @@ export function SkeletonRoot({
     <div
       aria-hidden="true"
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "skeleton"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "skeleton"}
       data-skeleton-animation={animationType}
       {...compiled}
       style={{ ...compiled.style, ...style }}

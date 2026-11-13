@@ -66,11 +66,11 @@ try {
             };
             fill(getComputedStyle(node.closest("main")).backgroundColor);
             const track = fill(
-              getComputedStyle(node.querySelector('[data-slot="segmented-control-glass"]'))
+              getComputedStyle(node.querySelector('[data-lenso-slot="segmented-control-glass"]'))
                 .backgroundColor,
             );
             const selected = fill(
-              getComputedStyle(node.querySelector('[data-slot="segmented-control-tint"]'))
+              getComputedStyle(node.querySelector('[data-lenso-slot="segmented-control-tint"]'))
                 .backgroundColor,
             );
             return (
@@ -91,7 +91,8 @@ try {
         assert.equal(await group.getByRole("radio").count(), 0);
         await page.waitForFunction(
           () =>
-            document.querySelector('[data-slot="segmented-control-row"]').childElementCount === 0,
+            document.querySelector('[data-lenso-slot="segmented-control-row"]')
+              .childElementCount === 0,
         );
         await page.getByRole("button", { name: "Toggle options", exact: true }).click();
         assert.equal(await unread.getAttribute("aria-checked"), "true");
@@ -99,7 +100,7 @@ try {
         await page.getByRole("button", { name: "Reset filter", exact: true }).click();
         await page.waitForFunction(
           () =>
-            document.querySelector('[data-slot="segmented-control"] [aria-checked="true"]')
+            document.querySelector('[data-lenso-slot="segmented-control"] [aria-checked="true"]')
               ?.textContent === "All",
         );
         assert.equal(
@@ -122,7 +123,7 @@ try {
         const tablist = page.getByRole("tablist", { name: "Filter panels", exact: true });
         const metrics = (node) => {
           const item = node.querySelector('[role="radio"], [role="tab"]');
-          const track = node.querySelector('[data-slot$="-glass"]');
+          const track = node.querySelector('[data-lenso-slot$="-glass"]');
           const style = getComputedStyle(item);
           return {
             width: item.getBoundingClientRect().width,
@@ -154,10 +155,10 @@ try {
           await page.mouse.down();
           await page.waitForFunction(
             ({ slot, height }) => {
-              const root = document.querySelector(`[data-slot="${slot}"]`);
+              const root = document.querySelector(`[data-lenso-slot="${slot}"]`);
               return (
                 root.hasAttribute("data-lifted") &&
-                root.querySelector('[data-slot$="-tint"]').getBoundingClientRect().height >
+                root.querySelector('[data-lenso-slot$="-tint"]').getBoundingClientRect().height >
                   height + 8
               );
             },
@@ -167,15 +168,19 @@ try {
           await page.mouse.up();
           await page.waitForFunction(
             ({ slot, selected }) =>
-              document.querySelector(`[data-slot="${slot}"] [${selected}="true"]`)?.textContent ===
-              "Unread",
+              document.querySelector(`[data-lenso-slot="${slot}"] [${selected}="true"]`)
+                ?.textContent === "Unread",
             { slot: role === "radio" ? "segmented-control" : "tabs-list", selected },
           );
           await page.waitForFunction(
             (slot) => {
-              const root = document.querySelector(`[data-slot="${slot}"]`);
-              const paint = root.querySelector('[data-slot$="-tint"]').getBoundingClientRect();
-              const item = root.querySelector("[data-active]").getBoundingClientRect();
+              const root = document.querySelector(`[data-lenso-slot="${slot}"]`);
+              const paint = root
+                .querySelector('[data-lenso-slot$="-tint"]')
+                .getBoundingClientRect();
+              const item = root
+                .querySelector('[aria-checked="true"], [aria-selected="true"]')
+                .getBoundingClientRect();
               return Math.abs(paint.x - item.x) < 1 && Math.abs(paint.height - item.height) < 1;
             },
             role === "radio" ? "segmented-control" : "tabs-list",
@@ -262,7 +267,7 @@ try {
           assert.equal(await a.getAttribute("aria-current"), "location");
           assert.equal(
             Number(await page.getByLabel("Index activations").textContent()),
-            touchBefore + 2,
+            touchBefore + 1,
           );
           await cdp.detach();
         }
@@ -274,12 +279,14 @@ try {
         assert.deepEqual(await group.evaluate(metrics), await tablist.evaluate(metrics));
         assert.equal(
           await group
-            .locator('[data-slot="segmented-control-glass"][data-material="glass-small"]')
+            .locator('[data-lenso-slot="segmented-control-glass"][data-material="glass-small"]')
             .count(),
           1,
         );
         assert.equal(
-          await tablist.locator('[data-slot="tabs-glass"][data-material="glass-small"]').count(),
+          await tablist
+            .locator('[data-lenso-slot="tabs-glass"][data-material="glass-small"]')
+            .count(),
           1,
         );
         await page.getByRole("button", { name: "Toggle direction" }).click();

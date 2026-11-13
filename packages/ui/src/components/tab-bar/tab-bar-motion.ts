@@ -28,7 +28,7 @@ function copyItemContent(item: HTMLElement) {
       (name.startsWith("data-") &&
         !name.startsWith("data-tab-bar-") &&
         name !== "data-testid" &&
-        name !== "data-slot") ||
+        name !== "data-lenso-slot") ||
       name === "aria-current" ||
       name === "dir" ||
       name === "lang"
@@ -89,14 +89,20 @@ function copyItemContent(item: HTMLElement) {
 
 function present(group: HTMLElement) {
   const list = group.querySelector<HTMLElement>("[data-tab-bar-list]");
-  const indicator = group.querySelector<HTMLElement>("[data-slot='tab-bar-indicator']");
-  const highlight = group.querySelector<HTMLElement>("[data-slot='tab-bar-highlight']");
-  const highlightRow = group.querySelector<HTMLElement>("[data-slot='tab-bar-highlight-row']");
-  const highlightRing = group.querySelector<HTMLElement>("[data-slot='tab-bar-highlight-ring']");
-  const highlightCentre = group.querySelector<HTMLElement>(
-    "[data-slot='tab-bar-highlight-centre']",
+  const indicator = group.querySelector<HTMLElement>("[data-lenso-slot='tab-bar-indicator']");
+  const highlight = group.querySelector<HTMLElement>("[data-lenso-slot='tab-bar-highlight']");
+  const highlightRow = group.querySelector<HTMLElement>(
+    "[data-lenso-slot='tab-bar-highlight-row']",
   );
-  const centreRow = group.querySelector<HTMLElement>("[data-slot='tab-bar-highlight-centre-row']");
+  const highlightRing = group.querySelector<HTMLElement>(
+    "[data-lenso-slot='tab-bar-highlight-ring']",
+  );
+  const highlightCentre = group.querySelector<HTMLElement>(
+    "[data-lenso-slot='tab-bar-highlight-centre']",
+  );
+  const centreRow = group.querySelector<HTMLElement>(
+    "[data-lenso-slot='tab-bar-highlight-centre-row']",
+  );
   if (
     !list ||
     !indicator ||
@@ -108,7 +114,7 @@ function present(group: HTMLElement) {
   )
     return;
   const contentOptics = highlight.querySelector<HTMLElement>(
-    "[data-slot='tab-bar-highlight-optics']",
+    "[data-lenso-slot='tab-bar-highlight-optics']",
   );
   const refraction = contentOptics ? createLabelRefraction(contentOptics) : undefined;
   let growY = 20;

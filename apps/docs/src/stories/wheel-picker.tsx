@@ -22,14 +22,18 @@ export function WheelPickerStory({ disabled }: WheelPickerStoryProps) {
           aria-label="Hours"
           options={hours}
           value={hour}
-          onValueChange={setHour}
+          onValueChange={(next) => {
+            if (next !== null) setHour(next);
+          }}
           disabled={disabled}
         />
         <WheelPicker
           aria-label="Minutes"
           options={minutes}
           value={minute}
-          onValueChange={setMinute}
+          onValueChange={(next) => {
+            if (next !== null) setMinute(next);
+          }}
           disabled={disabled}
         />
       </div>

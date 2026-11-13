@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { NativeAutocomplete, styles, type Option } from "./_native";
+import { OptionPicker, styles, type Option } from "./_native";
 import { controlledStates } from "./controlled";
 export function ControlledMultiple() {
   const [selected, setSelected] = useState<Option | Option[] | null>(() =>
@@ -9,7 +9,7 @@ export function ControlledMultiple() {
   );
   return (
     <div {...stylex.props(styles.stack)}>
-      <NativeAutocomplete
+      <OptionPicker
         items={controlledStates}
         label="States"
         placeholder="Select states"

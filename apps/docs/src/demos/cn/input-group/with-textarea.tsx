@@ -88,55 +88,37 @@ export function WithTextArea() {
           onChange={(event) => setValue(event.target.value)}
         />
         <InputGroup.Suffix xstyle={styles.suffix}>
-          <Tooltip>
+          <Tooltip delay={0}>
             <Tooltip.Trigger
-              delay={0}
               render={<GlassButton isIconOnly aria-label="附加文件" size="sm" variant="default" />}
             >
               <Plus aria-hidden="true" />
             </Tooltip.Trigger>
-            <Tooltip.Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Popup>
-                  <p {...stylex.props(styles.hint)}>添加文件等</p>
-                </Tooltip.Popup>
-              </Tooltip.Positioner>
-            </Tooltip.Portal>
+            <Tooltip.Content>
+              <p {...stylex.props(styles.hint)}>添加文件等</p>
+            </Tooltip.Content>
           </Tooltip>
-          <Tooltip>
-            <Tooltip.Trigger
-              delay={0}
-              render={<Button isIconOnly aria-label="连接应用" size="sm" />}
-            >
+          <Tooltip delay={0}>
+            <Tooltip.Trigger render={<Button isIconOnly aria-label="连接应用" size="sm" />}>
               <PlugConnection aria-hidden="true" />
             </Tooltip.Trigger>
-            <Tooltip.Portal>
-              <Tooltip.Positioner>
-                <Tooltip.Popup>
-                  <p {...stylex.props(styles.hint)}>连接应用</p>
-                </Tooltip.Popup>
-              </Tooltip.Positioner>
-            </Tooltip.Portal>
+            <Tooltip.Content>
+              <p {...stylex.props(styles.hint)}>连接应用</p>
+            </Tooltip.Content>
           </Tooltip>
           <div {...stylex.props(styles.actions)}>
-            <Tooltip>
+            <Tooltip delay={0}>
               <Tooltip.Trigger
-                delay={0}
                 render={<Button isIconOnly aria-label="语音输入" size="sm" variant="borderless" />}
               >
                 <Microphone aria-hidden="true" />
               </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <Tooltip.Positioner>
-                  <Tooltip.Popup>
-                    <p {...stylex.props(styles.hint)}>语音输入</p>
-                  </Tooltip.Popup>
-                </Tooltip.Positioner>
-              </Tooltip.Portal>
+              <Tooltip.Content>
+                <p {...stylex.props(styles.hint)}>语音输入</p>
+              </Tooltip.Content>
             </Tooltip>
-            <Tooltip>
+            <Tooltip delay={0}>
               <Tooltip.Trigger
-                delay={0}
                 render={
                   <Button
                     isIconOnly
@@ -153,16 +135,12 @@ export function WithTextArea() {
                   <ArrowUp aria-hidden="true" />
                 )}
               </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <Tooltip.Positioner>
-                  <Tooltip.Popup xstyle={styles.tooltip}>
-                    <p {...stylex.props(styles.hint)}>发送</p>
-                    <Kbd xstyle={styles.key}>
-                      <Kbd.Abbr keyValue="enter" />
-                    </Kbd>
-                  </Tooltip.Popup>
-                </Tooltip.Positioner>
-              </Tooltip.Portal>
+              <Tooltip.Content xstyle={styles.tooltip}>
+                <p {...stylex.props(styles.hint)}>发送</p>
+                <Kbd xstyle={styles.key}>
+                  <Kbd.Abbr keyValue="enter" />
+                </Kbd>
+              </Tooltip.Content>
             </Tooltip>
           </div>
         </InputGroup.Suffix>

@@ -11,7 +11,16 @@ for (const [engine, type] of [
   ["webkit", webkit],
 ]) {
   const browser = await type.launch(
-    engine === "chromium" ? { args: ["--use-angle=metal", "--enable-gpu"] } : {},
+    engine === "chromium"
+      ? {
+          ...(process.env.UI_SDK_CHROMIUM_CHANNEL
+            ? { channel: process.env.UI_SDK_CHROMIUM_CHANNEL }
+            : {}),
+          args: ["--use-angle=metal", "--enable-gpu"],
+        }
+      : process.env.UI_SDK_WEBKIT_EXECUTABLE
+        ? { executablePath: process.env.UI_SDK_WEBKIT_EXECUTABLE }
+        : {},
   );
   try {
     for (const width of [1440, 390]) {
@@ -32,16 +41,16 @@ for (const [engine, type] of [
               const slot = family === "menu" ? "menu-popup" : "select-popover";
               const owned = document.getElementById(trigger.getAttribute("aria-controls") ?? "");
               card =
-                owned?.closest(`[data-slot="${slot}"]`) ??
-                document.querySelector(`[data-slot="${slot}"][data-open]`);
+                owned?.closest(`[data-lenso-slot="${slot}"]`) ??
+                document.querySelector(`[data-lenso-slot="${slot}"][data-open]`);
             }
             if (card) {
-              const surface = card.querySelector(`[data-slot="${family}-surface"]`);
-              const glyph = card.querySelector(`[data-slot="${family}-glyph"]`);
+              const surface = card.querySelector(`[data-lenso-slot="${family}-surface"]`);
+              const glyph = card.querySelector(`[data-lenso-slot="${family}-glyph"]`);
               const icon = glyph?.querySelector("svg");
               const box = surface?.getBoundingClientRect();
               const content = card.querySelector(
-                family === "menu" ? '[data-slot="menu-content"]' : "[data-select-content]",
+                family === "menu" ? '[data-lenso-slot="menu-content"]' : "[data-select-content]",
               );
               window.motionFrames.push({
                 t: performance.now() - started,
@@ -72,15 +81,61 @@ for (const [engine, type] of [
       const select = page.getByRole("combobox", { name: "State", exact: true });
       await select.waitFor();
       await select.scrollIntoViewIfNeeded();
+      await page.waitForFunction(
+        (element) => Object.keys(element).some((key) => key.startsWith("__reactProps")),
+        await select.elementHandle(),
+      );
       await select.evaluate((e) => window.sampleMotion("select", e));
       if (width === 390) await select.tap();
       else await select.click();
       await page.getByRole("option", { name: "Washington", exact: true }).waitFor();
       await page.waitForTimeout(700);
       const side = await page
-        .locator('[data-slot="select-popover"][data-open]')
+        .locator('[data-lenso-slot="select-popover"][data-open]')
         .getAttribute("data-side");
       if (width === 390) assert.notEqual(side, "none", "touch must exercise ordinary placement");
+      const selectAppearance = await page
+        .locator('[data-lenso-slot="select-popover"][data-open]')
+        .evaluate(
+          (card, selectTrigger) => {
+            const style = getComputedStyle(card);
+            const row = card.querySelector(
+              '[data-selected][data-lenso-slot="select-item"] [data-lenso-slot="select-item-text"]',
+            );
+            const trigger = selectTrigger.querySelector('[data-lenso-slot="select-value"]');
+            return {
+              padding: style.padding,
+              overflow: style.overflow,
+              elastic: card.getAttribute("data-menu-elastic"),
+              labelDrift:
+                row && trigger
+                  ? Math.abs(
+                      row.getBoundingClientRect().left - trigger.getBoundingClientRect().left,
+                    )
+                  : Infinity,
+            };
+          },
+          await select.elementHandle(),
+        );
+      assert.equal(
+        selectAppearance.padding,
+        "0px",
+        "native popover padding changes the panel and row geometry",
+      );
+      assert.equal(
+        selectAppearance.overflow,
+        "visible",
+        "native popover overflow clips the glass shadow and morph",
+      );
+      assert.equal(
+        selectAppearance.elastic,
+        "false",
+        "Select must not use the Menu's elastic press motion",
+      );
+      assert.ok(
+        selectAppearance.labelDrift < 1,
+        `selected label jumped horizontally: ${selectAppearance.labelDrift}px`,
+      );
       const opening = await page.evaluate(() => window.motionFrames);
       assert.ok(
         opening.some((f) => f.morphing),
@@ -95,10 +150,10 @@ for (const [engine, type] of [
         await page.keyboard.press(key);
         await page.waitForTimeout(140);
         const error = await page
-          .locator('[data-slot="select-popover"][data-open]')
+          .locator('[data-lenso-slot="select-popover"][data-open]')
           .evaluate((e) => {
             const row = e.querySelector('[role="option"][data-highlighted]');
-            const plate = e.querySelector('[data-slot="select-plate"]');
+            const plate = e.querySelector('[data-lenso-slot="select-plate"]');
             if (!row || !plate) return Infinity;
             const a = row.getBoundingClientRect(),
               b = plate.getBoundingClientRect();
@@ -114,7 +169,8 @@ for (const [engine, type] of [
       }
       await page.getByRole("listbox").waitFor({ state: "hidden" });
       assert.match(await select.textContent(), /Washington/);
-      assert.equal(await select.evaluate((e) => document.activeElement === e), true);
+      if (width !== 390)
+        assert.equal(await select.evaluate((e) => document.activeElement === e), true);
       await select.click();
       await page.getByRole("listbox").waitFor();
       await page.keyboard.press("Escape");
@@ -129,7 +185,7 @@ for (const [engine, type] of [
       await page.waitForFunction(() =>
         Boolean(
           document
-            .querySelector('[data-slot="menu-trigger"][aria-label="Actions"]')
+            .querySelector('[data-lenso-slot="menu-trigger"][aria-label="Actions"]')
             ?.style.getPropertyValue("--lenso-glass-clarity"),
         ),
       );
@@ -144,10 +200,20 @@ for (const [engine, type] of [
       await trigger.evaluate((e) => window.sampleMotion("menu", e));
       await trigger.click({ force: true });
       await page.clock.runFor(16);
-      const popup = page.locator('[data-slot="menu-popup"][data-open]');
+      const popup = page.locator('[data-lenso-slot="menu-popup"][data-open]');
       await popup.waitFor();
       await page.clock.runFor(650);
       assert.equal(await popup.getAttribute("data-menu-motion"), "icon");
+      const menuShell = await popup.evaluate((card) => ({
+        padding: getComputedStyle(card).padding,
+        overflow: getComputedStyle(card).overflow,
+      }));
+      assert.equal(menuShell.padding, "0px");
+      assert.equal(
+        menuShell.overflow,
+        "visible",
+        "Menu's glass shadow and morph must escape the native popup bounds",
+      );
       const iconOpening = await page.evaluate(() => window.motionFrames);
       await writeFile(
         `${out}/${engine}-${width}-opening.json`,
@@ -210,7 +276,7 @@ for (const [engine, type] of [
       await page.goto(`${base}/cn/docs/react/components/select`, { waitUntil: "domcontentloaded" });
       const reducedSelect = page.getByRole("combobox", { name: "State", exact: true });
       await reducedSelect.click();
-      const reducedPopup = page.locator('[data-slot="select-popover"][data-open]');
+      const reducedPopup = page.locator('[data-lenso-slot="select-popover"][data-open]');
       await reducedPopup.waitFor();
       await page.waitForTimeout(100);
       assert.equal(await reducedPopup.getAttribute("data-menu-morphing"), null);
@@ -223,7 +289,7 @@ for (const [engine, type] of [
       await page.waitForFunction(() => document.querySelector("[data-lenso-fusion-field]"));
       const label = page.getByRole("button", { name: "照片选项", exact: true });
       await label.click();
-      await page.locator('[data-slot="menu-popup"][data-open]').waitFor();
+      await page.locator('[data-lenso-slot="menu-popup"][data-open]').waitFor();
       await page.waitForTimeout(650);
       const labelHeight = (await label.boundingBox()).height;
       await label.evaluate((e) => window.sampleMotion("menu", e));

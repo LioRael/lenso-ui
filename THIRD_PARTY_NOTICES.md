@@ -4,6 +4,14 @@ This document records third-party material retained in this repository. A packag
 may contain only a subset; original work is covered by the repository MIT license.
 The full license texts below accompany the corresponding adapted material.
 
+## UI SDK
+
+React controls and their native API documentation use `@ui-sdk/react` and
+`@ui-sdk/core` 0.1.0-beta.1, Apache-2.0, Copyright 2026 Vercel, Inc.
+The packages remain external dependencies. Their declaration attribution and
+original license texts are retained in `packages/devtools/licenses/`.
+Lenso's React wrappers supply StyleX presentation and domain value conversion.
+
 ## Glass materials (MIT)
 
 Glass materials, switch geometry and refraction retain Copyright (c) 2026 Kelvin
@@ -30,7 +38,7 @@ in `packages/glass/src/material-tone.ts`, touch response in
 commit `89f8b7360a4501940aba9b838710bceb56b23601`, under MIT.
 These adaptations retain Copyright (c) 2026 Kelvin Zhang and
 Copyright (c) 2026 Moein Saharkhiz. Lenso uses its own per-corner distance field,
-time-based interruption correction, continuous clear transfer, StyleX material ownership and Base UI
+time-based interruption correction, continuous clear transfer, StyleX material ownership and UI SDK
 interaction contracts.
 
 NavigationBar's title composition and scroll-collapse mechanism adapt
@@ -38,7 +46,7 @@ NavigationBar's title composition and scroll-collapse mechanism adapt
 and PageControl's arrow/Home/End interaction adapts its
 [PageControl implementation](https://github.com/onlymoein/liquidglass/blob/d93c8634e67a64c1bd4d1d75cd333905fe567687/src/page-control.tsx),
 under MIT, Copyright (c) 2026 Kelvin Zhang and Copyright (c) 2026 Moein Saharkhiz.
-Lenso retains Base UI controls, StyleX, shared scroll-edge materials and its
+Lenso retains UI SDK controls, StyleX, shared scroll-edge materials and its
 existing pagination API, adding RTL keys and focus across the indicator window.
 
 TabBar's tap/drag spring tuning follows
@@ -63,7 +71,7 @@ avoid WebKit clipping, and retains its scroll binding.
 
 ## HeroUI source adaptations (Apache-2.0)
 
-Lenso maintains its own component implementation, Base UI interactions, StyleX
+Lenso maintains its own component implementation, UI SDK interactions, StyleX
 styling and visual direction. Retained source adaptations remain covered by the
 attribution and license below.
 
@@ -73,7 +81,7 @@ material in `packages/ui/src`, `packages/tokens/src`,
 `packages/storybook/stories`, `packages/docs` and `apps/docs/src`. This includes
 component composition, hooks, glyphs, style maps, documentation layouts and
 examples. Lenso contributors modified these materials for local APIs, native
-Base UI or HTML behavior, StyleX, themes and documentation. Original copyright
+UI SDK or HTML behavior, StyleX, themes and documentation. Original copyright
 notices and file-specific modification notes remain in source. Removing repeated
 headers does not relicense the adapted material or assert an independent rewrite.
 
@@ -88,7 +96,7 @@ Source: https://github.com/heroui-inc/heroui
 Reference: tag `v3.2.6`, commit `e385ac202b2cdb94b1bf6fa76d32c31c8259cc5e`.
 
 Modified by Lenso contributors: component styles and default themes are
-translated into StyleX maps and theme CSS. Interaction uses native Base UI contracts or native HTML. Specialized date,
+translated into StyleX maps and theme CSS. Interaction uses native UI SDK contracts or native HTML. Specialized date,
 time and color families compose native parts around internationalized value
 models. The current visual system supersedes the former visual target. Glyphs and reference
 documentation are also adapted from the pinned source. This is a modified
@@ -112,7 +120,7 @@ Source: https://github.com/adobe/react-spectrum
 
 Lenso adapts the pure color-area gradient calculation and calendar year/era list
 and heading calculations in `packages/ui/src/utils/color-gradient.ts` and
-`calendar-state.ts`. The UI uses Base UI; React Aria interaction code is not
+`calendar-state.ts`. The UI uses UI SDK; React Aria interaction code is not
 imported or bundled. React Stately and internationalized date dependencies retain
 their own separately distributed licenses. See the Apache license text below.
 
@@ -175,7 +183,7 @@ Separately installed dependencies retain their own licenses.
 
 Button, GlassButton and PopupButton use factual layout measurements from the owner-supplied
 iOS and iPadOS 27 community kit. The kit, Apple fonts, SF Symbols and template
-artwork are not distributed; the controls use Base UI and StyleX.
+artwork are not distributed; the controls use UI SDK and StyleX.
 
 ## License texts
 

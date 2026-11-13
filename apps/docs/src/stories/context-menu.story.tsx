@@ -8,7 +8,7 @@ export const story = defineStory({
       variant: "Default",
       initial: {
         elastic: true,
-        presentation: "popup",
+        compact: false,
         preview: true,
         layout: "vertical",
         previewAlign: "leading",

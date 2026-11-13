@@ -2,14 +2,14 @@ import { prepareGlassBackdrop, type BackdropSnapshotOptions } from "@lenso/glass
 import { captureMenuTexture } from "./vector-paint.js";
 
 function ownsMenu(example: HTMLElement, popup: HTMLElement) {
-  const roots = [...example.querySelectorAll<HTMLElement>('[data-slot="menu-trigger"]')];
+  const roots = [...example.querySelectorAll<HTMLElement>('[data-lenso-slot="menu-trigger"]')];
   const scopes = new Set<ParentNode>([
     example.getRootNode() as ParentNode,
     popup.getRootNode() as ParentNode,
     popup.ownerDocument,
   ]);
   const children = [...scopes].flatMap((scope) => [
-    ...scope.querySelectorAll<HTMLElement>('[data-slot="menu-submenu-trigger"]'),
+    ...scope.querySelectorAll<HTMLElement>('[data-lenso-slot="menu-submenu-trigger"]'),
   ]);
   const controls = (trigger: HTMLElement, menu: HTMLElement) =>
     !!menu.id && !!trigger.getAttribute("aria-controls")?.split(/\s+/).includes(menu.id);
@@ -20,7 +20,7 @@ function ownsMenu(example: HTMLElement, popup: HTMLElement) {
     menu =
       children
         .find((trigger) => controls(trigger, menu!))
-        ?.closest<HTMLElement>('[data-slot="menu-popup"]') ?? null;
+        ?.closest<HTMLElement>('[data-lenso-slot="menu-popup"]') ?? null;
   }
   return false;
 }
@@ -30,11 +30,11 @@ export function menuBackdrop(
   example: HTMLElement,
   lens: HTMLElement,
 ): BackdropSnapshotOptions | undefined {
-  const popup = lens.closest<HTMLElement>('[data-slot="menu-popup"]');
+  const popup = lens.closest<HTMLElement>('[data-lenso-slot="menu-popup"]');
   const source = example.closest<HTMLElement>("#nd-notebook-layout");
   const view = lens.ownerDocument.defaultView;
   if (!popup || !source || !view || source.contains(lens)) return;
-  const foreground = popup.querySelector<HTMLElement>('[data-slot="menu-content"]');
+  const foreground = popup.querySelector<HTMLElement>('[data-lenso-slot="menu-content"]');
   if (!foreground) return;
   // Base UI may commit the trigger link after the lens ref, especially in WebKit.
   let owned = false;

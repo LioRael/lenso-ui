@@ -1,15 +1,16 @@
 "use client";
-// Base UI owns the toast queue.
+// UI SDK owns the notification queue and dismissal.
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Toast as Base } from "@base-ui/react/toast";
+import * as SdkToast from "@ui-sdk/react/toast";
+import type { Toast as ToastData } from "@ui-sdk/core/toast";
+import { slotRender } from "../../utils/sdk-render.js";
 import { toastStyles as s } from "@lenso/tokens/toast";
 import { materialStyles } from "@lenso/tokens/materials";
 import { MaterialBackground } from "../../utils/materials/render.js";
 import { presentationMaterials } from "../../utils/materials/presentation.js";
 import { closeButtonStyles } from "@lenso/tokens/close-button";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
-import { useThemePortalContainer } from "../../utils/theme-scope.js";
 import { CloseIcon, DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from "../../icons/index.js";
 import { Spinner } from "../spinner/spinner.js";
 import { ProgressCircle } from "../progress-circle/progress-circle.js";
@@ -17,156 +18,27 @@ import { PillSwap, usePillSize, usePillTransition } from "./pill-motion.js";
 import { PillNumber } from "./pill-number.js";
 import { PillMarquee } from "./pill-marquee.js";
 
-export const ToastProvider = Base.Provider;
-type Placement = "bottom" | "bottom-start" | "bottom-end" | "top" | "top-start" | "top-end";
-const PlacementContext = React.createContext<Placement>("bottom");
-const ExpandedLayoutContext = React.createContext(false);
+const ToastDataContext = React.createContext<ToastData<React.ReactNode> | null>(null);
 type Tone = "default" | "accent" | "success" | "warning" | "danger";
 type Variant = Tone | "glass" | "pill";
-const PillContext = React.createContext<Base.Root.Props["toast"] | null>(null);
+const PillContext = React.createContext<ToastData<React.ReactNode> | null>(null);
 const IndicatorContext = React.createContext({ variant: "default" as Tone, loading: false });
-export function ToastRoot({
-  toast,
-  variant = "glass",
-  ref,
-  style,
-  xstyle,
-  children,
-  ...props
-}: StyleXProps<Omit<Base.Root.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Root>, "ref"> & {
-    variant?: Variant;
-  }) {
-  const { toasts } = Base.useToastManager();
-  const placement = React.useContext(PlacementContext);
-  const alwaysExpanded = React.useContext(ExpandedLayoutContext);
-  const pill = variant === "pill";
-  const glass = variant === "glass" || pill;
-  const material = pill ? presentationMaterials.compact : presentationMaterials.toast;
-  const measure = usePillSize(pill);
-  const previous = usePillTransition(measure, toast.type, toast.updateKey, pill);
-  const front = toasts.find((item) => item.transitionStatus !== "ending") ?? toasts[0];
-  const appearance = glass
-    ? toast.type === "error"
-      ? "danger"
-      : (toast.type ?? "default")
-    : variant;
-  const tone =
-    appearance === "accent" ||
-    appearance === "success" ||
-    appearance === "warning" ||
-    appearance === "danger"
-      ? appearance
-      : "default";
-  const loading = toast.type === "loading";
-  const indicator = React.useMemo<React.ContextType<typeof IndicatorContext>>(
-    () => ({ variant: tone, loading }),
-    [tone, loading],
-  );
-  const compiled = stylex.props(
-    glass && materialStyles.root,
-    s.root,
-    glass && s.glass,
-    pill && s.pill,
-    glass && materialStyles.accessible,
-    xstyle,
-  );
-  return (
-    <PillContext.Provider value={pill ? toast : null}>
-      <IndicatorContext.Provider value={indicator}>
-        <Base.Root
-          {...props}
-          {...compiled}
-          ref={ref}
-          data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast"}
-          toast={toast}
-          data-frontmost={front?.id === toast.id ? "" : undefined}
-          data-layout-expanded={alwaysExpanded ? "" : undefined}
-          data-placement={placement}
-          data-variant={variant}
-          data-material={glass ? material : undefined}
-          data-tone={tone}
-          style={mergeStyle<Base.Root.State>(
-            {
-              ...compiled.style,
-              "--front-height": `${front?.height ?? toast.height ?? 0}px`,
-            } as React.CSSProperties,
-            style,
-          )}
-        >
-          {glass && <MaterialBackground variant={material} liveGeometry={pill} />}
-          {pill ? (
-            <>
-              <div {...stylex.props(s.pillClip)}>
-                <div ref={measure} data-slot="toast-pill-measure" {...stylex.props(s.pillMeasure)}>
-                  {children}
-                </div>
-                <div ref={previous} aria-hidden="true" inert {...stylex.props(s.pillPrevious)} />
-              </div>
-            </>
-          ) : (
-            children
-          )}
-        </Base.Root>
-      </IndicatorContext.Provider>
-    </PillContext.Provider>
-  );
-}
-export function ToastPortal({
-  container,
-  ...props
-}: React.ComponentPropsWithRef<typeof Base.Portal>) {
-  const themed = useThemePortalContainer();
-  return (
-    <Base.Portal
-      {...props}
-      container={container === undefined ? (themed ?? undefined) : container}
-    />
-  );
-}
-export function ToastViewport({
-  placement = "bottom",
-  alwaysExpanded = false,
-  xstyle,
-  children,
-  style,
-  ...props
-}: StyleXProps<Omit<Base.Viewport.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Viewport>, "ref"> & {
-    placement?: Placement;
-    /** Keeps the layout expanded without replacing Base UI's hover/focus state. */
-    alwaysExpanded?: boolean;
-  }) {
-  const compiled = stylex.props(s.viewport, s[placement], xstyle);
-  return (
-    <PlacementContext.Provider value={placement}>
-      <ExpandedLayoutContext.Provider value={alwaysExpanded}>
-        <Base.Viewport
-          {...props}
-          {...compiled}
-          style={mergeStyle<Base.Viewport.State>(compiled.style, style)}
-          data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-viewport"}
-        >
-          {children}
-        </Base.Viewport>
-      </ExpandedLayoutContext.Provider>
-    </PlacementContext.Provider>
-  );
-}
 export function ToastContent({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Content.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Content>, "ref">) {
+}: StyleXProps<Omit<React.ComponentPropsWithRef<"div">, "ref">> &
+  Pick<React.ComponentPropsWithRef<"div">, "ref">) {
   const pill = React.useContext(PillContext);
   const compiled = stylex.props(s.fading, s.content, pill && s.pillContent, xstyle);
   return (
-    <Base.Content
+    <div
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Content.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-content"}
+      style={mergeStyle(compiled.style, style)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "toast-content"
+      }
     />
   );
 }
@@ -175,26 +47,30 @@ export function ToastTitle({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Title.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Title>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkToast.ToastTitle>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkToast.ToastTitle>, "ref">) {
   const pill = React.useContext(PillContext);
-  const content = children ?? pill?.title;
+  const content = (typeof children === "function" ? children({}) : children) ?? pill?.title;
   const compiled = stylex.props(s.title, pill && s.pillTitle, xstyle);
   return (
-    <Base.Title
+    <SdkToast.ToastTitle
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Title.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-title"}
+      style={mergeStyle(compiled.style, style)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "toast-title"
+      }
     >
       {pill ? (
         <PillSwap identity={React.isValidElement(content) ? content.type : content}>
           {content}
         </PillSwap>
+      ) : typeof children === "function" ? (
+        children({})
       ) : (
         children
       )}
-    </Base.Title>
+    </SdkToast.ToastTitle>
   );
 }
 export function ToastMarquee({
@@ -209,7 +85,7 @@ export function ToastMarquee({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="toast-marquee"
+      data-lenso-slot="toast-marquee"
     >
       <PillMarquee>{children}</PillMarquee>
     </span>
@@ -219,15 +95,17 @@ export function ToastDescription({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Description.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Description>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkToast.ToastDescription>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkToast.ToastDescription>, "ref">) {
   const compiled = stylex.props(s.description, xstyle);
   return (
-    <Base.Description
+    <SdkToast.ToastDescription
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Description.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-description"}
+      style={mergeStyle(compiled.style, style)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "toast-description"
+      }
     />
   );
 }
@@ -236,8 +114,8 @@ export function ToastClose({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Close.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Close>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkToast.ToastClose>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkToast.ToastClose>, "ref">) {
   const pill = React.useContext(PillContext);
   const compiled = stylex.props(
     closeButtonStyles.root,
@@ -247,15 +125,17 @@ export function ToastClose({
     xstyle,
   );
   return (
-    <Base.Close
+    <SdkToast.ToastClose
       aria-label="Close"
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Close.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-close"}
+      style={mergeStyle(compiled.style, style)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "toast-close"
+      }
     >
-      {children ?? <CloseIcon {...stylex.props(s.closeIcon)} data-slot="close-button-icon" />}
-    </Base.Close>
+      {children ?? <CloseIcon {...stylex.props(s.closeIcon)} data-lenso-slot="close-button-icon" />}
+    </SdkToast.ToastClose>
   );
 }
 export function ToastAction({
@@ -263,8 +143,8 @@ export function ToastAction({
   xstyle,
   style,
   ...props
-}: StyleXProps<Omit<Base.Action.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Action>, "ref">) {
+}: StyleXProps<Omit<React.ComponentProps<typeof SdkToast.ToastAction>, "ref">> &
+  Pick<React.ComponentPropsWithRef<typeof SdkToast.ToastAction>, "ref">) {
   const pill = React.useContext(PillContext);
   const compiled = stylex.props(
     s.fading,
@@ -274,14 +154,16 @@ export function ToastAction({
     xstyle,
   );
   return (
-    <Base.Action
+    <SdkToast.ToastAction
       {...props}
       {...compiled}
-      style={mergeStyle<Base.Action.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-action"}
+      style={mergeStyle(compiled.style, style)}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "toast-action"
+      }
     >
       {children}
-    </Base.Action>
+    </SdkToast.ToastAction>
   );
 }
 export function ToastIndicator({
@@ -315,7 +197,7 @@ export function ToastIndicator({
         <Spinner color="current" size="sm" />
       )
     ) : (
-      <DefaultIcon data-slot="toast-default-icon" />
+      <DefaultIcon data-lenso-slot="toast-default-icon" />
     ));
   const kind = React.isValidElement(content) ? content.type : content;
   const swapIdentity = React.useMemo(() => ({ kind, type: pill?.type }), [kind, pill?.type]);
@@ -335,7 +217,9 @@ export function ToastIndicator({
       data-swapped={swapped ? "true" : undefined}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-indicator"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "toast-indicator"
+      }
     >
       {pill ? <PillSwap identity={swapIdentity}>{content}</PillSwap> : content}
     </span>
@@ -362,7 +246,7 @@ export function ToastProgress({
       value={value}
       min={min}
       max={max}
-      data-slot="toast-progress"
+      data-lenso-slot="toast-progress"
       xstyle={[s.pillProgress, xstyle]}
     >
       <ProgressCircle.Track xstyle={s.pillProgressTrack}>
@@ -378,55 +262,134 @@ export function ToastProgress({
     </ProgressCircle.Root>
   );
 }
-export function ToastPositioner({
+
+export type ToastRegionProps = StyleXProps<React.ComponentProps<typeof SdkToast.ToastRegion>>;
+export function ToastRegion({
   xstyle,
   style,
+  children,
+  side = "bottom",
+  align = "center",
   ...props
-}: StyleXProps<Omit<Base.Positioner.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Positioner>, "ref">) {
-  const compiled = stylex.props(s.positioner, xstyle);
+}: ToastRegionProps) {
+  const compiled = stylex.props(s.viewport, xstyle);
   return (
-    <Base.Positioner
+    <SdkToast.ToastRegion
       {...props}
+      side={side}
+      align={align}
       {...compiled}
-      style={mergeStyle<Base.Positioner.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-positioner"}
-    />
+      style={mergeStyle(compiled.style, style)}
+      render={slotRender("section", props["data-lenso-slot"] ?? "toast-region", props.render)}
+    >
+      {(data, item) => (
+        <ToastDataContext value={data}>
+          {children ? (
+            children(data, item)
+          ) : (
+            <ToastRoot>
+              <ToastContent>
+                <ToastTitle />
+                <ToastDescription />
+                <ToastAction />
+                <ToastClose />
+              </ToastContent>
+            </ToastRoot>
+          )}
+        </ToastDataContext>
+      )}
+    </SdkToast.ToastRegion>
   );
 }
-export function ToastArrow({
+export type ToastRootProps = StyleXProps<React.ComponentProps<typeof SdkToast.Toast>> & {
+  variant?: Variant;
+};
+export function ToastRoot({
+  variant = "glass",
   xstyle,
   style,
+  children,
   ...props
-}: StyleXProps<Omit<Base.Arrow.Props, "ref">> &
-  Pick<React.ComponentPropsWithRef<typeof Base.Arrow>, "ref">) {
-  const compiled = stylex.props(s.arrow, xstyle);
+}: ToastRootProps) {
+  const data = React.useContext(ToastDataContext);
+  const pill = variant === "pill",
+    glass = variant === "glass" || pill;
+  const material = pill ? presentationMaterials.compact : presentationMaterials.toast;
+  const measure = usePillSize(pill),
+    previous = usePillTransition(measure, data?.type, data?.version, pill);
+  const appearance = glass
+    ? data?.type === "error"
+      ? "danger"
+      : (data?.type ?? "default")
+    : variant;
+  const tone: Tone =
+    appearance === "accent" ||
+    appearance === "success" ||
+    appearance === "warning" ||
+    appearance === "danger"
+      ? appearance
+      : "default";
+  const indicator = React.useMemo(
+    () => ({ variant: tone, loading: data?.type === "loading" }),
+    [tone, data?.type],
+  );
+  const compiled = stylex.props(
+    glass && materialStyles.root,
+    s.root,
+    glass && s.glass,
+    pill && s.pill,
+    glass && materialStyles.accessible,
+    xstyle,
+  );
   return (
-    <Base.Arrow
-      {...props}
-      {...compiled}
-      style={mergeStyle<Base.Arrow.State>(compiled.style, style)}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "toast-arrow"}
-    />
+    <PillContext value={pill ? data : null}>
+      <IndicatorContext value={indicator}>
+        <SdkToast.Toast
+          {...props}
+          {...compiled}
+          style={mergeStyle(compiled.style, style)}
+          render={slotRender("li", props["data-lenso-slot"] ?? "toast", props.render)}
+          data-variant={variant}
+          data-tone={tone}
+          data-material={glass ? material : undefined}
+        >
+          {(state) => (
+            <>
+              {glass && <MaterialBackground variant={material} liveGeometry={pill} />}{" "}
+              {pill ? (
+                <div {...stylex.props(s.pillClip)}>
+                  <div
+                    ref={measure}
+                    data-lenso-slot="toast-pill-measure"
+                    {...stylex.props(s.pillMeasure)}
+                  >
+                    {typeof children === "function" ? children(state) : children}
+                  </div>
+                  <div ref={previous} aria-hidden="true" inert {...stylex.props(s.pillPrevious)} />
+                </div>
+              ) : typeof children === "function" ? (
+                children(state)
+              ) : (
+                children
+              )}
+            </>
+          )}
+        </SdkToast.Toast>
+      </IndicatorContext>
+    </PillContext>
   );
 }
-export const useToastManager = Base.useToastManager;
-export const createToastManager = Base.createToastManager;
+export const createToaster = SdkToast.createToaster;
+export const toast = SdkToast.toast;
 export const Toast = Object.assign(ToastRoot, {
   Root: ToastRoot,
-  Provider: ToastProvider,
-  Portal: ToastPortal,
-  Viewport: ToastViewport,
+  Region: ToastRegion,
   Content: ToastContent,
   Title: ToastTitle,
-  Marquee: ToastMarquee,
   Description: ToastDescription,
   Close: ToastClose,
   Action: ToastAction,
   Indicator: ToastIndicator,
   Progress: ToastProgress,
-  Positioner: ToastPositioner,
-  Arrow: ToastArrow,
-  useToastManager,
-  createToastManager,
+  Marquee: ToastMarquee,
 });

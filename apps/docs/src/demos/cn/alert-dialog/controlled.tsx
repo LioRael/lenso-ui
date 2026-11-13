@@ -98,37 +98,33 @@ export function Controlled() {
               </div>
             </div>
             <AlertDialog open={open} onOpenChange={setOpen}>
-              <AlertDialog.Portal>
-                <AlertDialog.Backdrop />
-                <AlertDialog.Viewport>
-                  <AlertDialog.Popup xstyle={styles.popup}>
-                    <AlertDialog.Close aria-label="Close dialog" />
-                    <AlertDialog.Header>
-                      <AlertDialog.Icon variant={reducer ? "success" : "accent"} />
-                      <AlertDialog.Title>
-                        Controlled with {reducer ? "useReducer()" : "useState()"}
-                      </AlertDialog.Title>
-                    </AlertDialog.Header>
-                    <AlertDialog.Body>
-                      <AlertDialog.Description>
-                        {reducer ? (
-                          "The reducer handles open, close, and toggle actions while the native Root owns focus and dismissal."
-                        ) : (
-                          <>
-                            This alert dialog is controlled by React&apos;s <code>useState</code>{" "}
-                            hook. Pass <code>打开</code> and <code>onOpenChange</code> props to
-                            manage the dialog state externally.
-                          </>
-                        )}
-                      </AlertDialog.Description>
-                    </AlertDialog.Body>
-                    <AlertDialog.Footer>
-                      <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
-                      <AlertDialog.Action>确认</AlertDialog.Action>
-                    </AlertDialog.Footer>
-                  </AlertDialog.Popup>
-                </AlertDialog.Viewport>
-              </AlertDialog.Portal>
+              <AlertDialog.Backdrop />
+              <AlertDialog.Content xstyle={styles.popup}>
+                <AlertDialog.Close aria-label="Close dialog" />
+                <AlertDialog.Header>
+                  <AlertDialog.Icon variant={reducer ? "success" : "accent"} />
+                  <AlertDialog.Title>
+                    Controlled with {reducer ? "useReducer()" : "useState()"}
+                  </AlertDialog.Title>
+                </AlertDialog.Header>
+                <AlertDialog.Body>
+                  <AlertDialog.Description>
+                    {reducer ? (
+                      "The reducer handles open, close, and toggle actions while the native Root owns focus and dismissal."
+                    ) : (
+                      <>
+                        This alert dialog is controlled by React&apos;s <code>useState</code> hook.
+                        Pass <code>打开</code> and <code>onOpenChange</code> props to manage the
+                        dialog state externally.
+                      </>
+                    )}
+                  </AlertDialog.Description>
+                </AlertDialog.Body>
+                <AlertDialog.Footer>
+                  <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
+                  <AlertDialog.Action>确认</AlertDialog.Action>
+                </AlertDialog.Footer>
+              </AlertDialog.Content>
             </AlertDialog>
           </div>
         );

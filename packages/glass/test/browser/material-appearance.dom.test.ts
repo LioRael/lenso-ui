@@ -107,3 +107,45 @@ test("foreground-owned materials do not also apply the legacy rectangular shade"
     element.remove();
   }
 });
+
+// Immediate-visibility tests skip the observer delay that exposed transparent
+// first frames in native popups. Keep both observation and optical work cold.
+test("a visible popup gets its material before intersection and optical callbacks", () => {
+  const agent = Object.getOwnPropertyDescriptor(navigator, "userAgent");
+  const intersection = globalThis.IntersectionObserver;
+  const resize = globalThis.ResizeObserver;
+  const raf = globalThis.requestAnimationFrame;
+  const cancel = globalThis.cancelAnimationFrame;
+  Object.defineProperty(navigator, "userAgent", { configurable: true, value: "Chrome/150" });
+  globalThis.IntersectionObserver = class extends intersection {
+    override observe() {}
+  };
+  globalThis.ResizeObserver = class extends resize {
+    override observe() {}
+  };
+  globalThis.requestAnimationFrame = () => 1;
+  globalThis.cancelAnimationFrame = () => {};
+  const popup = document.createElement("div");
+  popup.setAttribute("popover", "manual");
+  popup.style.cssText =
+    "--lg-material:apple;--apple-material-profile:medium;--lenso-material-action-mode:light;border-radius:24px";
+  Object.defineProperties(popup, { offsetWidth: { value: 300 }, offsetHeight: { value: 200 } });
+  document.body.append(popup);
+  const stop = attachGlass(popup, { profileKey: "glass-medium", liveGeometry: true });
+  try {
+    expect(popup.hasAttribute("data-material-filter")).toBe(true);
+    const id = popup.style.getPropertyValue("--lg-filter").match(/#([^)"]+)/)![1]!;
+    const filter = document.getElementById(id)!;
+    expect(filter.getAttribute("data-lenso-tone")).toBe("light");
+    expect(filter.querySelector("feImage")).toBeNull();
+  } finally {
+    stop();
+    popup.remove();
+    globalThis.IntersectionObserver = intersection;
+    globalThis.ResizeObserver = resize;
+    globalThis.requestAnimationFrame = raf;
+    globalThis.cancelAnimationFrame = cancel;
+    if (agent) Object.defineProperty(navigator, "userAgent", agent);
+    else Reflect.deleteProperty(navigator, "userAgent");
+  }
+});

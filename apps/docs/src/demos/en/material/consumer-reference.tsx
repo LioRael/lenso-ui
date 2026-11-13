@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Card, Surface, Toast } from "@lenso/ui";
+import { Button, Card, Surface, Toast, createToaster } from "@lenso/ui";
 const s = stylex.create({
   gallery: { display: "grid", gap: 20, width: "100%", minWidth: 0 },
   scene: {
@@ -32,13 +32,13 @@ const s = stylex.create({
   },
 });
 function Queue({ container, chinese }: { container: HTMLElement; chinese: boolean }) {
-  const manager = Toast.useToastManager();
+  const [manager] = useState(() => createToaster());
   return (
     <>
       <div {...stylex.props(s.controls)}>
         <Button
           onClick={() =>
-            manager.add({
+            manager({
               title: chinese ? "更改已保存" : "Changes saved",
               description: chinese
                 ? "通知使用 Clear Glass 材料。"
@@ -50,20 +50,18 @@ function Queue({ container, chinese }: { container: HTMLElement; chinese: boolea
           {chinese ? "显示通知" : "Show notification"}
         </Button>
       </div>
-      <Toast.Portal container={container}>
-        <Toast.Viewport xstyle={s.viewport}>
-          {manager.toasts.map((item) => (
-            <Toast key={item.id} toast={item}>
-              <Toast.Indicator />
-              <Toast.Content>
-                <Toast.Title />
-                <Toast.Description />
-              </Toast.Content>
-              <Toast.Close aria-label={chinese ? "关闭通知" : "Close notification"} />
-            </Toast>
-          ))}
-        </Toast.Viewport>
-      </Toast.Portal>
+      <Toast.Region toaster={manager} container={container} xstyle={s.viewport}>
+        {(item) => (
+          <Toast key={item.id}>
+            <Toast.Indicator />
+            <Toast.Content>
+              <Toast.Title />
+              <Toast.Description />
+            </Toast.Content>
+            <Toast.Close aria-label={chinese ? "关闭通知" : "Close notification"} />
+          </Toast>
+        )}
+      </Toast.Region>
     </>
   );
 }
@@ -123,9 +121,9 @@ function Scene({
         </Surface>
       )}
       {family === "toast" && container && (
-        <Toast.Provider timeout={0}>
+        <>
           <Queue container={container} chinese={chinese} />
-        </Toast.Provider>
+        </>
       )}
     </div>
   );

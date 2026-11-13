@@ -5,7 +5,7 @@ export type XStyle = stylex.StyleXStyles<Record<string, NonNullable<unknown> | n
 
 export type StyleXProps<Props> = Omit<Props, "className"> & {
   xstyle?: XStyle;
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 
 export function mergeStyle(

@@ -1,9 +1,11 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
-// Adapted: Base UI owns open state, dismissal, focus, selection and unmount actions.
+// Adapted: UI SDK owns open state, dismissal, focus, selection and unmount actions.
 import { useCallback, useLayoutEffect, useState, type Ref, type RefObject } from "react";
 import { createSpring } from "@lenso/glass/motion";
+import { createGlassContour } from "@lenso/glass";
 import { presentMenuFeedback } from "./menu-feedback.js";
 import { afterMenuPlacement } from "./menu-placement.js";
+import { holdPopupExit, finishPopupExit, cancelPopupExit } from "./popup-exit.js";
 import { assignRef } from "./ref.js";
 import { sampleMenu, type MenuPose } from "./menu-shape.js";
 import { createMenuTimeline } from "./menu-timeline.js";
@@ -23,7 +25,7 @@ const part = (card: HTMLElement, family: PopupFamily, name: string) =>
   card.querySelector<HTMLElement>(
     family === "select" && name === "list"
       ? "[data-select-content]"
-      : `[data-slot="${family}-${name}"]`,
+      : `[data-lenso-slot="${family}-${name}"]`,
   );
 
 function present(
@@ -38,6 +40,7 @@ function present(
   const content = part(card, family, family === "select" ? "list" : "content")!;
   const plate = part(card, family, "plate");
   if (!surface || !glyph || !content) return;
+  const contour = createGlassContour(surface);
   const updateGlyph = () => {
     glyph.replaceChildren(...[...trigger.childNodes].map((node) => node.cloneNode(true)));
     for (const child of glyph.querySelectorAll("[id], [tabindex]")) {
@@ -45,13 +48,15 @@ function present(
       child.removeAttribute("tabindex");
     }
     for (const decoration of glyph.querySelectorAll(
-      '[data-material-paint], [data-material-lens], [data-slot="glass-press-highlight"], [hidden]',
+      '[data-material-paint], [data-material-lens], [data-lenso-slot="glass-press-highlight"], [hidden]',
     ))
       decoration.remove();
   };
   if (morph) updateGlyph();
   // The shell morphs inside the popup's layout box. The trigger moves independently.
   const source = trigger.getBoundingClientRect();
+  const joined =
+    trigger.closest('[data-lenso-glass-group]:not([data-lenso-glass-state="detached"])') !== null;
   const target = card.getBoundingClientRect();
   let measuredBox = target;
   const from = { width: source.width, height: source.height };
@@ -158,9 +163,8 @@ function present(
       }
     }
   };
-  // Base UI waits for popup animations on external controlled closes. Keep its exit
+  // UI SDK waits for popup animations on external controlled closes. Keep its exit
   // pending until the geometry timeline finishes, without animating a CSS property.
-  let exit: Animation | undefined;
   const paintShape = (value: number, liquid?: MenuPose, finished = false) => {
     const t = clamp(value),
       settled = liquid ? finished && !leaving : t === 1;
@@ -195,7 +199,7 @@ function present(
           liquid?.triggerOpacity ?? (family === "select" ? Number(t === 0) : 1 - clamp(t / 0.2)),
         ),
       );
-    if (liquid && sourceMasks.get(trigger) === mask) {
+    if (liquid && !joined && sourceMasks.get(trigger) === mask) {
       returnScale = Math.max(0.01, liquid.triggerScale);
       returnLift = liquid.triggerLift;
       if (returnScale !== 1 || returnLift !== 0)
@@ -233,12 +237,13 @@ function present(
       settled || items <= 0 ? "" : `blur(${liquid?.blur ?? 6 * (1 - t)}px)`,
     );
     surface.toggleAttribute("data-material-resting", settled);
+    contour.paint(width, height, corner, to);
     content.style.clipPath = settled
       ? ""
       : `inset(${local(top, origin.y, shiftY)}px ${to.width - local(left + width, origin.x, shiftX)}px ${to.height - local(top + height, origin.y, shiftY)}px ${local(left, origin.x, shiftX)}px round ${corner / scale}px)`;
     card.toggleAttribute("data-menu-morphing", liquid ? !finished : !settled && value !== 0);
     if (leaving && (liquid ? finished : value === 0)) {
-      exit?.finish();
+      finishPopupExit(card);
       unmount();
     }
   };
@@ -277,9 +282,8 @@ function present(
     const next = card.hasAttribute("data-open") && !card.hasAttribute("data-ending-style");
     if (!next && card.hasAttribute("data-menu-child-count")) return;
     if (next !== opened) {
-      exit?.cancel();
-      exit = opened && !next ? card.animate?.([], 1) : undefined;
-      exit?.pause();
+      if (next) cancelPopupExit(card);
+      else holdPopupExit(card);
       opened = next;
       if (!next && family === "select" && morph) {
         updateGlyph();
@@ -301,7 +305,8 @@ function present(
     card.removeAttribute("data-menu-plate-active");
     card.removeAttribute("data-menu-motion");
     shape.stop();
-    exit?.cancel();
+    contour.destroy();
+    cancelPopupExit(card);
     surface.setAttribute("data-material-hidden", "");
     surface.removeAttribute("data-material-resting");
     if (sourceMasks.get(trigger) === mask) {
@@ -330,6 +335,9 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
   const surface = part(card, family, "surface")!;
   const content = part(card, family, family === "select" ? "list" : "content")!;
   const origin = getComputedStyle(card).getPropertyValue("--transform-origin") || "center";
+  const contour = createGlassContour(surface);
+  const layout = { width: surface.offsetWidth, height: surface.offsetHeight };
+  const radius = parseFloat(getComputedStyle(surface).borderTopLeftRadius);
   surface.style.transformOrigin = origin;
   content.style.transformOrigin = origin;
   let leaving = false;
@@ -338,11 +346,11 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
       surface.style.transform = "";
       content.style.transform = "";
       content.style.filter = "";
-      if (value === 0) unmount();
       return;
     }
     const t = clamp(value);
     const transform = t === 1 ? "" : `scale(${0.5 + 0.5 * t})`;
+    const scale = 0.5 + 0.5 * t;
     surface.toggleAttribute("data-material-hidden", leaving && value === 0);
     surface.style.transform = transform;
     surface.style.setProperty("--lg-menu-surface-opacity", String(clamp(t / 0.2)));
@@ -350,8 +358,12 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
     content.style.opacity = String(leaving ? clamp((t - 0.55) / 0.45) : clamp((t - 0.15) / 0.6));
     content.style.filter = t === 1 ? "" : `blur(${6 * (1 - t)}px)`;
     surface.toggleAttribute("data-material-resting", t === 1);
+    contour.paint(layout.width * scale, layout.height * scale, radius * scale, layout);
     card.toggleAttribute("data-menu-morphing", t !== 1 && value !== 0);
-    if (leaving && value === 0) unmount();
+    if (leaving && value === 0) {
+      finishPopupExit(card);
+      unmount();
+    }
   });
   spring.paint();
   let opened: boolean | undefined;
@@ -359,6 +371,8 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
     const next = card.hasAttribute("data-open") && !card.hasAttribute("data-ending-style");
     if (!next && card.hasAttribute("data-menu-child-count")) return;
     if (opened === next) return;
+    if (next) cancelPopupExit(card);
+    else holdPopupExit(card);
     opened = next;
     leaving = !next;
     spring.tune(leaving ? 900 : 600, leaving ? 57 : 46);
@@ -374,6 +388,8 @@ function presentAnchored(card: HTMLElement, unmount: () => void, family: PopupFa
   return () => {
     observer.disconnect();
     spring.stop();
+    contour.destroy();
+    cancelPopupExit(card);
     stopFeedback();
     surface.style.removeProperty("--lg-menu-surface-opacity");
     for (const node of [surface, content])
@@ -396,7 +412,7 @@ export function useMenuPopupRef(
 ) {
   const [element, setElement] = useState<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
-    if (!element) return;
+    if (!element || element.getAttribute("data-presentation") === "sheet") return;
     if (!morph && !feedback) return;
     const labelledBy = element.getAttribute("aria-labelledby")?.split(" ")[0];
     const owner =

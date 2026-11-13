@@ -1,13 +1,13 @@
 "use client";
 // modified for native HTML and StyleX.
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { useRender } from "@base-ui/react/use-render";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { renderElement, type PartProps } from "@ui-sdk/react/primitive";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import { scrollShadowStyles, scrollShadowProperties } from "@lenso/tokens/scroll-shadow";
 import * as stylex from "@stylexjs/stylex";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 export type ScrollShadowVisibility = "auto" | "both" | "top" | "bottom" | "left" | "right" | "none";
-export type ScrollShadowRootProps = StyleXProps<useRender.ComponentProps<"div">> & {
+export type ScrollShadowRootProps = StyleXProps<PartProps<"div">> & {
   size?: number;
   offset?: number;
   orientation?: "vertical" | "horizontal";
@@ -149,24 +149,27 @@ export function ScrollShadowRoot({
     automatic && edges.overflow === false && scrollShadowStyles.inactive,
     xstyle,
   );
-  const root = useRender({
-    defaultTagName: "div",
+  const root = renderElement(
+    "div",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(props, compiled, {
+        "data-lenso-slot": props["data-lenso-slot"] ?? "scroll-shadow",
+        "data-orientation": orientation,
+        "data-scroll-shadow-mode": isEnabled && visibility === "auto" ? "auto" : "manual",
+        "data-scroll-shadow-size": size,
+        "data-top-scroll": vertical && !after ? String(before) : undefined,
+        "data-bottom-scroll": vertical && !before ? String(after) : undefined,
+        "data-top-bottom-scroll": vertical && before && after ? "true" : undefined,
+        "data-left-scroll": !vertical && !after ? String(before) : undefined,
+        "data-right-scroll": !vertical && !before ? String(after) : undefined,
+        "data-left-right-scroll": !vertical && before && after ? "true" : undefined,
+        style: mergeStyle(compiled.style, style),
+      }),
+      ref: mergedRef,
+    },
     render,
-    ref: mergedRef,
-    props: mergeProps(props, compiled, {
-      "data-slot": props["data-slot"] ?? "scroll-shadow",
-      "data-orientation": orientation,
-      "data-scroll-shadow-mode": isEnabled && visibility === "auto" ? "auto" : "manual",
-      "data-scroll-shadow-size": size,
-      "data-top-scroll": vertical && !after ? String(before) : undefined,
-      "data-bottom-scroll": vertical && !before ? String(after) : undefined,
-      "data-top-bottom-scroll": vertical && before && after ? "true" : undefined,
-      "data-left-scroll": !vertical && !after ? String(before) : undefined,
-      "data-right-scroll": !vertical && !before ? String(after) : undefined,
-      "data-left-right-scroll": !vertical && before && after ? "true" : undefined,
-      style: mergeStyle(compiled.style, style),
-    }),
-  });
+  );
   return (
     <>
       <style href="lenso-scroll-shadow-properties" precedence="lenso-components">

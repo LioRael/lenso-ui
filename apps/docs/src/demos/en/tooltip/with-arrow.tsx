@@ -11,35 +11,23 @@ export function TooltipWithArrow() {
   const offsetId = useId();
   return (
     <div {...stylex.props(styles.row)}>
-      <Tooltip>
-        <Tooltip.Trigger delay={0} aria-describedby={arrowId} render={<Button />}>
+      <Tooltip delay={0}>
+        <Tooltip.Trigger aria-describedby={arrowId} render={<Button />}>
           With Arrow
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner sideOffset={7}>
-            <Tooltip.Popup id={arrowId}>
-              <Tooltip.Arrow />
-              <p>Tooltip with arrow indicator</p>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content id={arrowId} sideOffset={7}>
+          <Tooltip.Arrow />
+          <p>Tooltip with arrow indicator</p>
+        </Tooltip.Content>
       </Tooltip>
-      <Tooltip>
-        <Tooltip.Trigger
-          delay={0}
-          aria-describedby={offsetId}
-          render={<Button variant="prominent" />}
-        >
+      <Tooltip delay={0}>
+        <Tooltip.Trigger aria-describedby={offsetId} render={<Button variant="prominent" />}>
           Custom Offset
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner sideOffset={12}>
-            <Tooltip.Popup id={offsetId}>
-              <Tooltip.Arrow />
-              <p>Custom offset from trigger</p>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content id={offsetId} sideOffset={12}>
+          <Tooltip.Arrow />
+          <p>Custom offset from trigger</p>
+        </Tooltip.Content>
       </Tooltip>
     </div>
   );

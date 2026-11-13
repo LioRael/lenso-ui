@@ -3,12 +3,12 @@
 // Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz.
 // Modified for RTL, controlled selection and the sliding indicator window.
 import { useLayoutEffect, useRef, useState, type ComponentProps } from "react";
-import { NativeButton as BaseButton } from "../../utils/native-button.js";
+import { NativeButton as SdkButton } from "../../utils/native-button.js";
 import * as stylex from "@stylexjs/stylex";
 import { pageControlStyles } from "@lenso/tokens/page-control";
 import { Glass } from "../glass/index.js";
 import type { StyleXProps } from "../../utils/styled.js";
-import { useDirection } from "@base-ui/react/direction-provider";
+import { isRTL } from "@ui-sdk/core";
 export type PageControlProps = Omit<StyleXProps<ComponentProps<"nav">>, "children" | "onChange"> & {
   count: number;
   /** Zero-based page index. */
@@ -34,7 +34,6 @@ export function PageControl({
   ...props
 }: PageControlProps) {
   const [localPage, setLocalPage] = useState(defaultPage);
-  const direction = useDirection();
   const buttons = useRef(new Map<number, HTMLElement>());
   const focusPage = useRef<number | null>(null);
   const total = Number.isFinite(count) ? Math.max(0, Math.trunc(count)) : 0;
@@ -62,7 +61,7 @@ export function PageControl({
       index !== current &&
       ((offset === 0 && start > 0) || (offset === visible - 1 && index < total - 1));
     return (
-      <BaseButton
+      <SdkButton
         key={index}
         ref={(node) => {
           if (node) buttons.current.set(index, node);
@@ -87,7 +86,7 @@ export function PageControl({
             overflow && pageControlStyles.overflow,
           )}
         />
-      </BaseButton>
+      </SdkButton>
     );
   });
   return (
@@ -97,7 +96,7 @@ export function PageControl({
       {...props}
       {...compiled}
       style={{ ...compiled.style, ...style }}
-      data-slot="page-control"
+      data-lenso-slot="page-control"
       data-variant={variant}
       onKeyDown={(event) => {
         onKeyDown?.(event);
@@ -112,7 +111,7 @@ export function PageControl({
           return;
         const focused = [...buttons.current].find(([, button]) => button === event.target)?.[0];
         if (focused === undefined) return;
-        const forward = direction === "rtl" ? -1 : 1;
+        const forward = isRTL(event.currentTarget) ? -1 : 1;
         const next = {
           ArrowLeft: focused - forward,
           ArrowRight: focused + forward,
@@ -132,13 +131,13 @@ export function PageControl({
       }}
     >
       {variant === "prominent" ? (
-        <Glass xstyle={trackStyle} data-material="glass-small" data-slot="page-control-track">
+        <Glass xstyle={trackStyle} data-material="glass-small" data-lenso-slot="page-control-track">
           {dots}
         </Glass>
       ) : (
         <div
           {...stylex.props(trackStyle, pageControlStyles.plainTrack)}
-          data-slot="page-control-track"
+          data-lenso-slot="page-control-track"
         >
           {dots}
         </div>

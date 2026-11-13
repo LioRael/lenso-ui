@@ -49,9 +49,8 @@ export function CustomValue() {
     <div {...stylex.props(styles.field)}>
       <ComboBox<(typeof users)[number]>
         {...menu.root}
-        items={users}
-        itemToStringLabel={(user) => user.name}
-        itemToStringValue={(user) => user.id}
+        itemToLabel={(user) => user.name}
+        itemToValue={(user) => user.id}
       >
         <ComboBox.Label htmlFor={id}>User</ComboBox.Label>
         <ComboBox.InputGroup>
@@ -60,27 +59,23 @@ export function CustomValue() {
             <ComboBox.Indicator />
           </ComboBox.Trigger>
         </ComboBox.InputGroup>
-        <ComboBox.Portal>
-          <ComboBox.Positioner>
-            <ComboBox.Popover>
-              <ComboBox.List>
-                {(user: (typeof users)[number]) => (
-                  <ComboBox.Item key={user.id} value={user}>
-                    <Avatar size="sm">
-                      <AvatarImage src={user.avatarUrl} alt="" />
-                      <AvatarFallback>{user.fallback}</AvatarFallback>
-                    </Avatar>
-                    <div {...stylex.props(styles.user)}>
-                      <span>{user.name}</span>
-                      <span {...stylex.props(styles.muted)}>{user.email}</span>
-                    </div>
-                    <ComboBox.ItemIndicator />
-                  </ComboBox.Item>
-                )}
-              </ComboBox.List>
-            </ComboBox.Popover>
-          </ComboBox.Positioner>
-        </ComboBox.Portal>
+        <ComboBox.Content>
+          <ComboBox.List>
+            {users.map((user: (typeof users)[number]) => (
+              <ComboBox.Item key={user.id} value={user}>
+                <Avatar size="sm">
+                  <AvatarImage src={user.avatarUrl} alt="" />
+                  <AvatarFallback>{user.fallback}</AvatarFallback>
+                </Avatar>
+                <div {...stylex.props(styles.user)}>
+                  <span>{user.name}</span>
+                  <span {...stylex.props(styles.muted)}>{user.email}</span>
+                </div>
+                <ComboBox.ItemIndicator />
+              </ComboBox.Item>
+            ))}
+          </ComboBox.List>
+        </ComboBox.Content>
       </ComboBox>
     </div>
   );

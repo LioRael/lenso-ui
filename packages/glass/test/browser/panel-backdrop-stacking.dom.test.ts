@@ -36,9 +36,8 @@ for (const position of ["sticky", "fixed"]) {
   });
 }
 
-test("ordinary portal paints retain their sibling order", () => {
+test("ordinary application-root paints retain their sibling order", () => {
   const portal = document.createElement("div");
-  portal.setAttribute("data-base-ui-portal", "");
   const glass = document.createElement("div");
   portal.append(glass);
   document.body.append(portal);
@@ -50,3 +49,24 @@ test("ordinary portal paints retain their sibling order", () => {
     portal.remove();
   }
 });
+
+for (const tag of ["dialog", "div"]) {
+  test(`native ${tag} popup paints stay inside their fixed host`, () => {
+    const popup = document.createElement(tag);
+    if (tag === "div") popup.setAttribute("popover", "manual");
+    popup.style.position = "fixed";
+    const glass = document.createElement("div");
+    popup.append(glass);
+    document.body.append(popup);
+    const stop = paintBackdrop(glass);
+    try {
+      const paints = popup.querySelector("[data-material-live-paints]");
+      expect(paints?.parentElement).toBe(popup);
+      expect(popup.firstElementChild).toBe(paints);
+    } finally {
+      stop();
+      expect(popup.querySelector("[data-material-live-paints]")).toBeNull();
+      popup.remove();
+    }
+  });
+}

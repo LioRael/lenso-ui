@@ -15,32 +15,22 @@ export function TooltipBasic() {
   const textId = useId();
   const informationId = useId();
   return (
-    <Tooltip.Provider delay={0}>
-      <div {...stylex.props(styles.row)}>
-        <Tooltip>
-          <Tooltip.Trigger aria-describedby={textId} render={<Button />}>
-            悬停查看
-          </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Positioner>
-              <Tooltip.Popup id={textId}>这是一个工具提示</Tooltip.Popup>
-            </Tooltip.Positioner>
-          </Tooltip.Portal>
-        </Tooltip>
-        <Tooltip>
-          <Tooltip.Trigger
-            aria-describedby={informationId}
-            render={<Button isIconOnly aria-label="更多信息" />}
-          >
-            <CircleInfo />
-          </Tooltip.Trigger>
-          <Tooltip.Portal>
-            <Tooltip.Positioner>
-              <Tooltip.Popup id={informationId}>更多信息</Tooltip.Popup>
-            </Tooltip.Positioner>
-          </Tooltip.Portal>
-        </Tooltip>
-      </div>
-    </Tooltip.Provider>
+    <div {...stylex.props(styles.row)}>
+      <Tooltip delay={0}>
+        <Tooltip.Trigger aria-describedby={textId} render={<Button />}>
+          悬停查看
+        </Tooltip.Trigger>
+        <Tooltip.Content id={textId}>这是一个工具提示</Tooltip.Content>
+      </Tooltip>
+      <Tooltip delay={0}>
+        <Tooltip.Trigger
+          aria-describedby={informationId}
+          render={<Button isIconOnly aria-label="更多信息" />}
+        >
+          <CircleInfo />
+        </Tooltip.Trigger>
+        <Tooltip.Content id={informationId}>更多信息</Tooltip.Content>
+      </Tooltip>
+    </div>
   );
 }

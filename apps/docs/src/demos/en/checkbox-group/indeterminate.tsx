@@ -11,8 +11,11 @@ export function Indeterminate() {
   return (
     <div>
       <Checkbox
-        indeterminate={selected.length > 0 && selected.length < allOptions.length}
-        checked={selected.length === allOptions.length}
+        checked={
+          selected.length > 0 && selected.length < allOptions.length
+            ? "indeterminate"
+            : selected.length === allOptions.length
+        }
         name="select-all"
         onCheckedChange={(checked) => setSelected(checked ? allOptions : [])}
       >

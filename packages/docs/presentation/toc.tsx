@@ -239,7 +239,8 @@ function PageTOC({ items, locale, title }: { items: TOCItem[]; locale: string; t
       {header ? createPortal(mobileTOC, header) : mobileTOC}
       <aside id="nd-toc" aria-label={label} {...stylex.props(styles.toc)}>
         <h3 {...stylex.props(notebook.tocTitle)}>
-          <TextAlignLeft width={16} height={16} aria-hidden="true" /> {label}
+          <TextAlignLeft width={16} height={16} aria-hidden="true" />
+          {label}
         </h3>
         {links}
       </aside>

@@ -19,12 +19,13 @@ for (const [name, engine] of [
       .locator('[data-home-showcase] [role="tablist"]')
       .evaluate((list) => {
         const tab = list.querySelector('[aria-selected="true"]').getBoundingClientRect();
-        const tint = list.querySelector('[data-slot="tabs-tint"]').getBoundingClientRect();
+        const tint = list.querySelector('[data-lenso-slot="tabs-tint"]').getBoundingClientRect();
         return {
           tabHeight: tab.height,
           tintHeight: tint.height,
           radius: parseFloat(
-            getComputedStyle(list.querySelector('[data-slot="tabs-tint"]')).borderTopLeftRadius,
+            getComputedStyle(list.querySelector('[data-lenso-slot="tabs-tint"]'))
+              .borderTopLeftRadius,
           ),
           centerOffset: tint.y + tint.height / 2 - tab.y - tab.height / 2,
           backdrop: getComputedStyle(list.querySelector("[data-material-lens]")).backdropFilter,
@@ -57,7 +58,7 @@ for (const [name, engine] of [
       function sample() {
         const list = document.querySelector('[data-home-showcase] [role="tablist"]');
         const tab = list?.querySelector('[aria-selected="true"]');
-        const tint = list?.querySelector('[data-slot="tabs-tint"]');
+        const tint = list?.querySelector('[data-lenso-slot="tabs-tint"]');
         if (tab && tint && getComputedStyle(list).position === "relative") {
           const t = tab.getBoundingClientRect(),
             i = tint.getBoundingClientRect();
@@ -96,7 +97,7 @@ for (const [name, engine] of [
       `${name}: indicator geometry changed during hydration`,
     );
     const sourceState = () =>
-      list.locator('[data-slot="tabs-glass"]').evaluate((glass) => {
+      list.locator('[data-lenso-slot="tabs-glass"]').evaluate((glass) => {
         const lens = glass.querySelector(":scope > [data-material-lens]");
         const copy = lens?.previousElementSibling;
         return {
@@ -139,7 +140,7 @@ for (const [name, engine] of [
     if (name === "webkit")
       await page.waitForFunction(() => {
         const lens = document.querySelector(
-          '[data-home-showcase] [data-slot="tabs-glass"] > [data-material-lens]',
+          '[data-home-showcase] [data-lenso-slot="tabs-glass"] > [data-material-lens]',
         );
         return [...(lens?.previousElementSibling?.querySelectorAll("img") ?? [])].some((image) =>
           image.src.endsWith("/3.jpg"),
@@ -175,7 +176,7 @@ for (const [name, engine] of [
       await page.waitForTimeout(300);
       assert.equal(
         await list
-          .locator('[data-lg-tabs-lens="native"] [data-slot="tabs-refraction"] img')
+          .locator('[data-lg-tabs-lens="native"] [data-lenso-slot="tabs-refraction"] img')
           .count(),
         0,
         `${name}: a held indicator must not bypass its track by copying the page photo`,
@@ -200,8 +201,10 @@ for (const [name, engine] of [
     for (const width of [320, 390]) {
       await page.setViewportSize({ width, height: 900 });
       await page.waitForTimeout(150);
-      const navigation = page.locator('[data-home-showcase] [data-slot="tabs-list-container"]');
-      assert.equal(await navigation.locator('[data-slot="tabs-list-scroller"]').count(), 0);
+      const navigation = page.locator(
+        '[data-home-showcase] [data-lenso-slot="tabs-list-container"]',
+      );
+      assert.equal(await navigation.locator('[data-lenso-slot="tabs-list-scroller"]').count(), 0);
       assert.ok(
         await navigation.evaluate((host) => {
           host.scrollTop = 100;

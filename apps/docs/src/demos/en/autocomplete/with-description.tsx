@@ -1,14 +1,14 @@
 "use client";
-import { NativeAutocomplete } from "./_native";
+import { TextSuggestions } from "./text-suggestions";
 import { states } from "./default";
 export function WithDescription() {
   return (
-    <NativeAutocomplete
-      items={states}
-      label="State"
-      searchLabel="Search states"
-      searchPlaceholder="Search states..."
-      description="Select your state of residence"
-    />
+    <div>
+      <TextSuggestions
+        label="State to visit"
+        options={states.map((item) => item.name)}
+        description="Suggestions are optional; any text remains a valid value."
+      />
+    </div>
   );
 }

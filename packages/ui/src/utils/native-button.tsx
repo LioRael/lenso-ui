@@ -7,13 +7,13 @@ import { assignRef } from "./interaction/ref.js";
 
 export type NativeButtonProps = Omit<ComponentProps<typeof SdkButton>, "ref"> & {
   ref?: Ref<HTMLElement>;
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
 };
 
 export function NativeButton({
   ref,
   render,
-  "data-slot": slot = "button",
+  "data-lenso-slot": slot = "button",
   ...props
 }: NativeButtonProps) {
   const elementRef = useCallback((node: HTMLButtonElement | null) => assignRef(ref, node), [ref]);

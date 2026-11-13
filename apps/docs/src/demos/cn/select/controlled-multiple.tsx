@@ -18,7 +18,7 @@ export function ControlledMultiple() {
         choices={controlledStates}
         placeholder="请选择州"
         value={selected}
-        onValueChange={setSelected}
+        onValueChange={(next) => setSelected(Array.isArray(next) ? next : [])}
       />
       <p {...stylex.props(exampleStyles.note)}>
         已选：{selected.length > 0 ? selected.join(", ") : "无"}

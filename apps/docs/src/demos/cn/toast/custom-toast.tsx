@@ -1,37 +1,38 @@
 "use client";
+import type { ReactNode } from "react";
 
 import * as stylex from "@stylexjs/stylex";
-import { Button, CloseIcon, Toast } from "@lenso/ui";
+import { Button, CloseIcon, Toast, createToaster } from "@lenso/ui";
 import { styles } from "../../en/toast/_shared";
+const toaster = createToaster<ReactNode>();
+
 function CustomLayout() {
-  const manager = Toast.useToastManager();
+  const manager = toaster;
   return (
     <>
-      <Toast.Portal>
-        <Toast.Viewport placement="bottom">
-          {manager.toasts.map((item) => (
-            <Toast key={item.id} toast={item} xstyle={styles.customRoot}>
-              <Toast.Content>
-                <div {...stylex.props(styles.customRow)}>
-                  <Toast.Indicator xstyle={styles.accent} />
-                  <div {...stylex.props(styles.customText)}>
-                    {item.title && <Toast.Title xstyle={styles.accent} />}
-                    {item.description && <Toast.Description />}
-                  </div>
+      <Toast.Region toaster={manager} side="bottom">
+        {(item) => (
+          <Toast key={item.id} xstyle={styles.customRoot}>
+            <Toast.Content>
+              <div {...stylex.props(styles.customRow)}>
+                <Toast.Indicator xstyle={styles.accent} />
+                <div {...stylex.props(styles.customText)}>
+                  {item.title && <Toast.Title xstyle={styles.accent} />}
+                  {item.description && <Toast.Description />}
                 </div>
-              </Toast.Content>
-              <Toast.Close xstyle={styles.customClose} aria-label="Close notification">
-                <CloseIcon {...stylex.props(styles.customCloseIcon)} />
-              </Toast.Close>
-            </Toast>
-          ))}
-        </Toast.Viewport>
-      </Toast.Portal>
+              </div>
+            </Toast.Content>
+            <Toast.Close xstyle={styles.customClose} aria-label="Close notification">
+              <CloseIcon {...stylex.props(styles.customCloseIcon)} />
+            </Toast.Close>
+          </Toast>
+        )}
+      </Toast.Region>
       <Button
         size="sm"
         variant="bordered"
         onClick={() =>
-          manager.add({
+          manager({
             description: "使用自定义渲染函数",
             title: "自定义布局 Toast",
             type: "default",
@@ -46,9 +47,9 @@ function CustomLayout() {
 export function CustomToast() {
   return (
     <div {...stylex.props(styles.frame)}>
-      <Toast.Provider>
+      <>
         <CustomLayout />
-      </Toast.Provider>
+      </>
     </div>
   );
 }

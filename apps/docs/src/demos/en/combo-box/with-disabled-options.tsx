@@ -9,5 +9,11 @@ const animals = [
   { id: "tiger", name: "Tiger" },
 ];
 export function WithDisabledOptions() {
-  return <AnimalPicker label="Animal" items={animals} disabledIds={["cat", "kangaroo"]} />;
+  return (
+    <AnimalPicker
+      label="Animal"
+      items={animals.map((value) => ({ value, label: value.name }))}
+      disabledIds={["cat", "kangaroo"]}
+    />
+  );
 }

@@ -1,36 +1,11 @@
 "use client";
 
-import { Tabs as BaseTabs } from "@base-ui/react/tabs";
+import { Tabs as LensoTabs } from "@lenso/ui/tabs";
 import { Children, isValidElement, type ReactNode, type ReactElement } from "react";
 import * as stylex from "@stylexjs/stylex";
 
 const styles = stylex.create({
   root: { marginBlock: 24, minWidth: 0 },
-  list: {
-    display: "flex",
-    gap: 8,
-    overflowX: "auto",
-    borderBottomWidth: 1,
-    borderBottomStyle: "solid",
-    borderBottomColor: "var(--lenso-control-border)",
-  },
-  tab: {
-    color: {
-      default: "var(--lenso-label-secondary)",
-      ":is([data-active])": "var(--lenso-label-primary)",
-    },
-    backgroundColor: "transparent",
-    borderWidth: 0,
-    paddingBlock: 12,
-    paddingInline: 16,
-    cursor: "pointer",
-    font: "inherit",
-    fontWeight: 500,
-    outlineColor: "var(--lenso-focus-ring)",
-    borderBottomWidth: 2,
-    borderBottomStyle: "solid",
-    borderBottomColor: { default: "transparent", ":is([data-active])": "var(--lenso-tint)" },
-  },
   panel: { paddingTop: 12, outlineColor: "var(--lenso-focus-ring)" },
 });
 interface TabProps {
@@ -54,30 +29,26 @@ export function Tabs({
 }) {
   const panels = Children.toArray(children).filter(isValidElement) as ReactElement<TabProps>[];
   return (
-    <BaseTabs.Root
-      defaultValue={defaultValue ?? panels[0]?.props.value ?? "0"}
-      {...stylex.props(styles.root)}
-    >
-      <BaseTabs.List aria-label="Code examples" {...stylex.props(styles.list)}>
-        {panels.map((panel, index) => (
-          <BaseTabs.Tab
-            key={index}
-            value={panel.props.value ?? String(index)}
-            {...stylex.props(styles.tab)}
-          >
-            {panel.props.title ?? items?.[index] ?? `Example ${index + 1}`}
-          </BaseTabs.Tab>
-        ))}
-      </BaseTabs.List>
+    <LensoTabs defaultValue={defaultValue ?? panels[0]?.props.value ?? "0"} xstyle={styles.root}>
+      <LensoTabs.ListContainer>
+        <LensoTabs.List aria-label="Code examples">
+          {panels.map((panel, index) => (
+            <LensoTabs.Tab key={index} value={panel.props.value ?? String(index)}>
+              {panel.props.title ?? items?.[index] ?? `Example ${index + 1}`}
+            </LensoTabs.Tab>
+          ))}
+          <LensoTabs.Indicator />
+        </LensoTabs.List>
+      </LensoTabs.ListContainer>
       {panels.map((panel, index) => (
-        <BaseTabs.Panel
+        <LensoTabs.Panel
           key={index}
           value={panel.props.value ?? String(index)}
-          {...stylex.props(styles.panel)}
+          xstyle={styles.panel}
         >
           {panel.props.children}
-        </BaseTabs.Panel>
+        </LensoTabs.Panel>
       ))}
-    </BaseTabs.Root>
+    </LensoTabs>
   );
 }

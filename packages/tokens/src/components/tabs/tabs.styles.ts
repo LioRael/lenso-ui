@@ -107,7 +107,7 @@ export const tabsStyles = stylex.create({
     WebkitTapHighlightColor: "transparent",
     maskImage: {
       default: "none",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control'])[data-ready]:not([data-hidden]) *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control'])[data-ready]:not([data-hidden]) *)":
         "linear-gradient(#000 0 0), linear-gradient(#000 0 0), radial-gradient(circle closest-side, #000 99%, transparent 100%), radial-gradient(circle closest-side, #000 99%, transparent 100%)",
     },
     maskComposite: "exclude, add, add",
@@ -119,7 +119,10 @@ export const tabsStyles = stylex.create({
   },
   tabVertical: { minWidth: 80 },
   initialTab: {
-    anchorName: { default: "none", ":is([data-active])": "--lenso-tabs-active" },
+    anchorName: {
+      default: "none",
+      ":is(:is([aria-selected=true], [aria-checked=true]))": "--lenso-tabs-active",
+    },
     "::before": {
       content: '""',
       position: "absolute",
@@ -132,7 +135,7 @@ export const tabsStyles = stylex.create({
         default: "none",
         "@supports not (anchor-scope: --lenso-tabs-active)": {
           default: null,
-          ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]):has(:is([data-slot='tabs-tint'], [data-slot='segmented-control-tint'])) :is([data-slot='tabs-tab'], [data-slot='segmented-control-item'])[data-active])":
+          ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]):has(:is([data-lenso-slot='tabs-tint'], [data-lenso-slot='segmented-control-tint'])) :is([data-lenso-slot='tabs-tab'], [data-lenso-slot='segmented-control-item']):is([aria-selected=true], [aria-checked=true]))":
             "block",
         },
       },
@@ -143,47 +146,47 @@ export const tabsStyles = stylex.create({
     positionAnchor: "--lenso-tabs-active",
     left: {
       default: "calc(2px + var(--lg-tabs-indicator-inset, 0px))",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]) *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]) *)":
         "calc(anchor(left, 2px) + var(--lg-tabs-indicator-inset, 0px))",
     },
     right: {
       default: "auto",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]) *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]) *)":
         "auto",
     },
     top: {
       default: "calc(2px + var(--lg-tabs-indicator-inset, 0px))",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]) *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]) *)":
         "calc(anchor(top, 2px) + var(--lg-tabs-indicator-inset, 0px))",
     },
     width: {
       default:
         "calc(var(--active-tab-width, var(--lg-tab-width)) - 2 * var(--lg-tabs-indicator-inset, 0px))",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]) *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]) *)":
         "calc(anchor-size(width) - 2 * var(--lg-tabs-indicator-inset, 0px))",
     },
     height: {
       default:
         "calc(var(--active-tab-height, var(--lg-tab-height)) - 2 * var(--lg-tabs-indicator-inset, 0px))",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]) *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]) *)":
         "calc(anchor-size(height) - 2 * var(--lg-tabs-indicator-inset, 0px))",
     },
     transform: {
       default: "var(--lg-tabs-transform, translateX(0px))",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]) *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]) *)":
         "none",
     },
     zIndex: {
       default: 2,
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]) *)": 0,
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control'])[data-ready] > :is([data-slot='tabs-tint'], [data-slot='segmented-control-tint']))": 3,
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]) *)": 0,
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control'])[data-ready] > :is([data-lenso-slot='tabs-tint'], [data-lenso-slot='segmented-control-tint']))": 3,
     },
     opacity: {
       default: 0,
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control'])[data-ready]:not([data-hidden]) *)": 1,
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control'])[data-ready]:not([data-hidden]) *)": 1,
       "@supports (anchor-scope: --lenso-tabs-active)": {
         default: null,
-        ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-ready]):has(:is([data-slot='tabs-tab'], [data-slot='segmented-control-item'])[data-active]) *)": 1,
+        ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]):has(:is([data-lenso-slot='tabs-tab'], [data-lenso-slot='segmented-control-item']):is([aria-selected=true], [aria-checked=true])) *)": 1,
       },
     },
   },
@@ -196,8 +199,8 @@ export const tabsStyles = stylex.create({
     backgroundColor: `color-mix(in srgb, ${tokens.labelSecondary} 25%, transparent)`,
     opacity: {
       default: 1,
-      ":is([data-active] *)": 0,
-      ':is([data-active] + :is([data-slot="tabs-tab"], [data-slot="segmented-control-item"]) *)': 0,
+      ":is(:is([aria-selected=true], [aria-checked=true]) *)": 0,
+      ':is(:is([aria-selected=true], [aria-checked=true]) + :is([data-lenso-slot="tabs-tab"], [data-lenso-slot="segmented-control-item"]) *)': 0,
     },
     transitionProperty: "opacity",
     transitionDuration: { default: "150ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
@@ -228,7 +231,7 @@ export const tabsStyles = stylex.create({
   fallback: {
     display: {
       default: "block",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):has(> [data-lg-tabs-lens='native']:not([hidden])) > *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):has(> [data-lg-tabs-lens='native']:not([hidden])) > *)":
         "none",
     },
   },
@@ -279,7 +282,7 @@ export const tabsStyles = stylex.create({
   tint: {
     outlineStyle: {
       default: "none",
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control']):not([data-pointer-focus]):has(> :is([data-slot='tabs-tab'][aria-selected='true'], [data-slot='segmented-control-item'][aria-checked='true']):focus-visible) > *)":
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-pointer-focus]):has(> :is([data-lenso-slot='tabs-tab'][aria-selected='true'], [data-lenso-slot='segmented-control-item'][aria-checked='true']):focus-visible) > *)":
         "solid",
     },
     outlineWidth: 1.5,
@@ -300,7 +303,7 @@ export const tabsStyles = stylex.create({
     borderRadius: "calc(var(--lg-tab-height) / 2)",
     zIndex: {
       default: 0,
-      ":is(:is([data-slot='tabs-list'], [data-slot='segmented-control'])[data-ready] *)": 3,
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control'])[data-ready] *)": 3,
     },
     pointerEvents: "none",
     color: "var(--lenso-label-primary)",
@@ -344,14 +347,14 @@ export const tabsStyles = stylex.create({
   showPrevious: {
     display: {
       default: "none",
-      ':is([data-slot="tabs-list-container"]:has(> :is([data-left-scroll="true"], [data-left-right-scroll="true"], [data-top-scroll="true"], [data-top-bottom-scroll="true"])) > *)':
+      ':is([data-lenso-slot="tabs-list-container"]:has(> :is([data-left-scroll="true"], [data-left-right-scroll="true"], [data-top-scroll="true"], [data-top-bottom-scroll="true"])) > *)':
         "inline-flex",
     },
   },
   showNext: {
     display: {
       default: "none",
-      ':is([data-slot="tabs-list-container"]:has(> :is([data-right-scroll="true"], [data-left-right-scroll="true"], [data-bottom-scroll="true"], [data-top-bottom-scroll="true"])) > *)':
+      ':is([data-lenso-slot="tabs-list-container"]:has(> :is([data-right-scroll="true"], [data-left-right-scroll="true"], [data-bottom-scroll="true"], [data-top-bottom-scroll="true"])) > *)':
         "inline-flex",
     },
   },

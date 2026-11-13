@@ -40,7 +40,7 @@ export const inputGroupStyles = stylex.create({
       default: `background-color 150ms ${tokens.motionEaseSmooth}, border-color 150ms ${tokens.motionEaseSmooth}, box-shadow 150ms ${tokens.motionEaseOut}`,
       "@media (prefers-reduced-motion: reduce)": "none",
     },
-    // Adapt invalid-field-ring to native Base UI presence attributes. Each :is()
+    // Adapt invalid-field-ring to native UI SDK presence attributes. Each :is()
     // stays attached to the styled shell, including the Field.Root ancestor case.
     outline: {
       default: "none",
@@ -61,11 +61,11 @@ export const inputGroupStyles = stylex.create({
     color: tokens.labelPrimary,
     paddingInlineStart: {
       default: 12,
-      ":is([data-slot='input-group']:has([data-slot='input-group-prefix']) *)": 0,
+      ":is([data-lenso-slot='input-group']:has([data-lenso-slot='input-group-prefix']) *)": 0,
     },
     paddingInlineEnd: {
       default: 12,
-      ":is([data-slot='input-group']:has([data-slot='input-group-suffix']) *)": 0,
+      ":is([data-lenso-slot='input-group']:has([data-lenso-slot='input-group-suffix']) *)": 0,
     },
     paddingBlock: 8,
     boxShadow: "none",
@@ -157,7 +157,7 @@ export const inputGroupMaterialStyles = stylex.create({
       default: "none",
       ":has(input:focus-visible, textarea:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
         "1.5px solid var(--lenso-focus-ring)",
-      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *):has(:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
+      ":is([data-field-grouped] *, [data-lenso-slot='fieldset-row'] *):has(:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
         "none",
     },
     outlineOffset: 2,

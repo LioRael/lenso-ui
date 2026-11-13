@@ -38,13 +38,13 @@ for (const [name, engine] of [
       for (let frame = 0; frame < 80; frame++) {
         await page.clock.runFor(16);
         const state = await page.evaluate(() => {
-          const card = document.querySelector('[data-slot="menu-popup"][data-open]');
+          const card = document.querySelector('[data-lenso-slot="menu-popup"][data-open]');
           const lens = card?.querySelector("[data-material-lens]");
           if (!lens) return null;
           const resting = card
-            .querySelector('[data-slot="menu-surface"]')
+            .querySelector('[data-lenso-slot="menu-surface"]')
             .hasAttribute("data-material-resting");
-          const owner = card.closest('[data-slot="menu-positioner"]');
+          const owner = card.closest('[data-lenso-slot="menu-positioner"]');
           const nativePaint = owner.querySelector("[data-material-live-paints]");
           if (nativePaint && !window.handoffPaint) window.handoffPaint = nativePaint;
           return {
@@ -54,7 +54,8 @@ for (const [name, engine] of [
             marked: lens.hasAttribute("data-material-paints"),
             fitted: !!lens.style.getPropertyValue("--lg-rim"),
             visible:
-              card.querySelector('[data-slot="menu-surface"]').getBoundingClientRect().width > 120,
+              card.querySelector('[data-lenso-slot="menu-surface"]').getBoundingClientRect().width >
+              120,
           };
         });
         if (!state?.visible) continue;

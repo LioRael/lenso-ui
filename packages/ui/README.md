@@ -1,18 +1,19 @@
 # @lenso/ui
 
-Components use StyleX. The React interaction migration to UI SDK is in progress;
-Base UI remains in the families not yet migrated. See
-[the migration status](../../docs/plans/ui-sdk-react-migration.md).
+Components use StyleX and native UI SDK interaction contracts. Forms, selection,
+floating overlays and notifications import SDK parts directly. Date, time and
+color families retain their domain value models. Product-specific collection
+and gesture behavior remains in its owning components.
 
-Button, GlassButton, ToggleButton, GlassToggleButton, ToggleButtonGroup,
-Accordion, Disclosure, Avatar, Meter, ProgressBar, ProgressCircle and Separator
-now use UI SDK. Sidebar and Notification use its Collapsible behavior. Internal
-action buttons also use UI SDK; their enclosing fields, calendars and overlays
-may still use Base UI.
+Use `Content` for floating surfaces, native controllers for imperative actions,
+and `createToaster` with `Toast.Region` for notifications. Autocomplete edits
+free text; ComboBox selects options and supports multiple values. Former Base UI
+Portal/Positioner/Popup compositions and manager APIs are removed.
 
-Migrated components can be discovered through `createAgent`, `agentTools` and
-`registerTools` from `@lenso/ui/agent`. Create the agent in browser code.
-The snapshot currently covers migrated controls, not the entire library.
+Controls expose the SDK agent registry through `createAgent`, `agentTools` and
+`registerTools` from `@lenso/ui/agent`. Custom product behavior is not implicitly
+covered by the SDK registry. See [migration notes](../../docs/plans/ui-sdk-react-migration.md)
+for breaking contracts and the unpatched upstream strict declaration issue.
 
 Import themes and component styles once:
 
@@ -59,7 +60,7 @@ always wins, including `glass` or `filled` inside a group:
 ## Shared glass runtime
 
 Glass optics and common motion now come from `@lenso/glass`. Existing component
-imports and props are unchanged; UI retains Base UI interaction ownership and
+imports are unchanged; migrated controls use UI SDK interaction contracts and
 `@lenso/tokens` retains material recipes. See
 [`packages/glass/README.md`](../glass/README.md) for direct runtime use and browser
 limits. Local tarball consumers must include the new package; it is not yet

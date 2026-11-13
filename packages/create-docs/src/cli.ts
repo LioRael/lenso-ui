@@ -13,7 +13,8 @@ Usage: bun create lenso-docs <directory>
 
 Options:
   -h, --help       Show this help
-  -v, --version    Show the version`;
+  -v, --version    Show the version
+  --packages <directory>  Use local packed Lenso dependencies instead of registry versions`;
 }
 
 async function main(args: string[]) {
@@ -25,10 +26,28 @@ async function main(args: string[]) {
     console.log(version);
     return;
   }
-  if (args.length !== 1 || args[0]!.startsWith("-")) {
+  if (
+    (args.length !== 1 && !(args.length === 3 && args[1] === "--packages")) ||
+    args[0]!.startsWith("-")
+  ) {
     throw new Error(`Expected one project directory.\n\n${usage()}`);
   }
 
+  const localPackages: Record<string, string> = {};
+  const packedFiles: string[] = [];
+  const packagesDirectory = args[2] ? path.resolve(args[2]) : undefined;
+  if (packagesDirectory) {
+    const files = await readdir(packagesDirectory);
+    for (const name of ["tokens", "glass", "primitives", "ui", "docs"]) {
+      const matches = files.filter(
+        (file) => file.startsWith(`lenso-${name}-`) && file.endsWith(".tgz"),
+      );
+      if (matches.length !== 1)
+        throw new Error(`Expected one packed @lenso/${name} package in ${packagesDirectory}.`);
+      packedFiles.push(matches[0]!);
+      localPackages[`@lenso/${name}`] = `file:./.lenso-packages/${matches[0]}`;
+    }
+  }
   const requested = args[0]!;
   const name = path.basename(path.resolve(requested));
   if (!/^[a-z0-9][a-z0-9._-]*$/.test(name) || name === "." || name === "..") {
@@ -73,11 +92,24 @@ async function main(args: string[]) {
   await rm(path.join(target, "gitignore"));
   const manifest = JSON.parse(await readFile(path.join(templateDir, "package.json"), "utf8"));
   manifest.name = name;
+  if (packagesDirectory) {
+    await mkdir(path.join(target, ".lenso-packages"));
+    await Promise.all(
+      packedFiles.map((file) =>
+        cp(path.join(packagesDirectory, file), path.join(target, ".lenso-packages", file), {
+          errorOnExist: true,
+          force: false,
+        }),
+      ),
+    );
+    manifest.dependencies["@lenso/docs"] = localPackages["@lenso/docs"];
+    manifest.overrides = localPackages;
+  }
   await writeFile(path.join(target, "package.json"), `${JSON.stringify(manifest, null, 2)}\n`, {
     flag: "wx",
   });
   console.log(`Created ${name} at ${target}`);
-  console.log("Next: install dependencies, then run bun run dev.");
+  console.log(`Next:\n  cd ${JSON.stringify(target)}\n  bun install\n  bun run dev`);
 }
 
 main(process.argv.slice(2)).catch((error) => {

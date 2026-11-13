@@ -63,16 +63,19 @@ export const styles = stylex.create({
     backgroundColor: { default: null, ":hover": "var(--lenso-background-grouped-secondary)" },
     borderStartStartRadius: {
       default: null,
-      ':is([data-slot="accordion-item"]:first-child *)': 16,
+      ':is([data-lenso-slot="accordion-item"]:first-child *)': 16,
     },
-    borderStartEndRadius: { default: null, ':is([data-slot="accordion-item"]:first-child *)': 16 },
+    borderStartEndRadius: {
+      default: null,
+      ':is([data-lenso-slot="accordion-item"]:first-child *)': 16,
+    },
     borderEndStartRadius: {
       default: null,
-      ':is([data-slot="accordion-item"]:last-child :not([aria-expanded="true"]))': 16,
+      ':is([data-lenso-slot="accordion-item"]:last-child :not([aria-expanded="true"]))': 16,
     },
     borderEndEndRadius: {
       default: null,
-      ':is([data-slot="accordion-item"]:last-child :not([aria-expanded="true"]))': 16,
+      ':is([data-lenso-slot="accordion-item"]:last-child :not([aria-expanded="true"]))': 16,
     },
   },
   image: {
@@ -81,11 +84,11 @@ export const styles = stylex.create({
     transitionProperty: "scale,rotate,filter",
     transitionDuration: { default: "300ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
     transitionTimingFunction: "ease-out",
-    scale: { default: "1", ':is([data-slot="accordion-item"]:hover *)': "1.2" },
-    rotate: { default: "0deg", ':is([data-slot="accordion-item"]:hover *)': "-10deg" },
+    scale: { default: "1", ':is([data-lenso-slot="accordion-item"]:hover *)': "1.2" },
+    rotate: { default: "0deg", ':is([data-lenso-slot="accordion-item"]:hover *)': "-10deg" },
     filter: {
       default: "none",
-      ':is([data-slot="accordion-item"]:hover *)':
+      ':is([data-lenso-slot="accordion-item"]:hover *)':
         "drop-shadow(0 4px 3px var(--lenso-material-control-drop))",
     },
   },

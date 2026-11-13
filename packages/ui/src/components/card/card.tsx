@@ -30,7 +30,7 @@ export function CardRoot({
       ref={ref}
       data-variant={variant}
       data-material={variant === "glass" ? "glass-medium" : undefined}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "card"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "card"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >
@@ -44,7 +44,9 @@ export function CardHeader({ xstyle, style, ...props }: StyleXProps<ComponentPro
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "card-header"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "card-header"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -60,7 +62,7 @@ export function CardTitle({
   return (
     <h3
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "card-title"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "card-title"}
       {...compiled}
       style={{ ...compiled.style, ...style }}
     >
@@ -73,7 +75,9 @@ export function CardDescription({ xstyle, style, ...props }: StyleXProps<Compone
   return (
     <p
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "card-description"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "card-description"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -84,7 +88,9 @@ export function CardContent({ xstyle, style, ...props }: StyleXProps<ComponentPr
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "card-content"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "card-content"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />
@@ -95,7 +101,9 @@ export function CardFooter({ xstyle, style, ...props }: StyleXProps<ComponentPro
   return (
     <div
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "card-footer"}
+      data-lenso-slot={
+        (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "card-footer"
+      }
       {...compiled}
       style={{ ...compiled.style, ...style }}
     />

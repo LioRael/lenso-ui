@@ -45,17 +45,28 @@ export const story = defineStory({
       },
     },
     {
-      variant: "Loading",
-      initial: {
-        label: "Continue",
-        variant: "prominent",
-        size: "md",
-        disabled: false,
-        isLoading: true,
-        fullWidth: false,
-        destructive: false,
-        tint: "",
-      },
+      variant: "With icon",
+      initial: { label: "Add member", variant: "bordered", example: "with-icon" },
+    },
+    {
+      variant: "Icon only",
+      initial: { label: "Settings", variant: "bordered", example: "icon-only" },
+    },
+    {
+      variant: "Async action",
+      initial: { label: "Save changes", variant: "prominent", example: "async" },
+    },
+    {
+      variant: "Form submit",
+      initial: { label: "Subscribe", variant: "prominent", example: "form" },
+    },
+    {
+      variant: "Custom element",
+      initial: { label: "Custom button", variant: "bordered", example: "render" },
+    },
+    {
+      variant: "Destructive",
+      initial: { label: "Delete", variant: "prominent", destructive: true, example: "with-icon" },
     },
   ],
 });

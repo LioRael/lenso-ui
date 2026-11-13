@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useRef, useState, type RefObject } from "react";
-import { useRender } from "@base-ui/react/use-render";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { renderElement, type PartProps } from "@ui-sdk/react/primitive";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import { liquidMaterialStyles, materialStyles, vibrantStyles } from "@lenso/tokens/materials";
 import * as stylex from "@stylexjs/stylex";
-import { useGlassRef } from "@lenso/glass/react";
+import { GlassFusionContext, useGlassRef } from "@lenso/glass/react";
 import { paintMaterialBackdrop } from "@lenso/glass";
 import { mergeStyle, type StyleXProps, type XStyle } from "../styled.js";
 
@@ -18,7 +18,7 @@ import {
 } from "./soft-edge.js";
 
 import type { MaterialVariant } from "@lenso/tokens/materials";
-export type MaterialProps = StyleXProps<useRender.ComponentProps<"div">> & {
+export type MaterialProps = StyleXProps<PartProps<"div">> & {
   variant?: MaterialVariant;
   liveGeometry?: boolean;
   deferOptics?: boolean;
@@ -42,37 +42,31 @@ export function Material({
     materialStyles.accessible,
     xstyle,
   );
-  return useRender({
-    defaultTagName: "div",
+  return renderElement(
+    "div",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, props, {
+        "data-lenso-slot": props["data-lenso-slot"] ?? "material",
+        "data-material": variant,
+        style: mergeStyle(compiled.style, style),
+        children: (
+          <>
+            <MaterialBackground
+              variant={variant}
+              liveGeometry={liveGeometry}
+              deferOptics={deferOptics}
+            />
+            {children}
+          </>
+        ),
+      }),
+      ref: ref,
+    },
     render,
-    ref,
-    props: mergeProps(compiled, props, {
-      "data-slot": props["data-slot"] ?? "material",
-      "data-material": variant,
-      style: mergeStyle(compiled.style, style),
-      children: (
-        <>
-          <MaterialBackground
-            variant={variant}
-            liveGeometry={liveGeometry}
-            deferOptics={deferOptics}
-          />
-          {children}
-        </>
-      ),
-    }),
-  });
+  );
 }
-/** Internal decoration; the caller retains its native root and layout. */
-export function MaterialBackground({
-  variant,
-  sourceAnchor,
-  liveBackdrop = false,
-  liveGeometry = false,
-  deferOptics = false,
-  local = false,
-  layerXstyle,
-}: {
+type MaterialBackgroundProps = {
   variant: MaterialVariant;
   layerXstyle?: XStyle;
   sourceAnchor?: RefObject<HTMLElement | null>;
@@ -82,7 +76,24 @@ export function MaterialBackground({
   deferOptics?: boolean;
   /** Keep paints inside a nonrectangular clipped shape. */
   local?: boolean;
-}) {
+};
+/** Decoration owns its optics independently of an ancestor's interactive glass group. */
+export function MaterialBackground(props: MaterialBackgroundProps) {
+  return (
+    <GlassFusionContext value={null}>
+      <MaterialBackgroundPaint {...props} />
+    </GlassFusionContext>
+  );
+}
+function MaterialBackgroundPaint({
+  variant,
+  sourceAnchor,
+  liveBackdrop = false,
+  liveGeometry = false,
+  deferOptics = false,
+  local = false,
+  layerXstyle,
+}: MaterialBackgroundProps) {
   const [opaque, setOpaque] = useState(false);
   const marker = useRef<HTMLSpanElement>(null);
   useEffect(() => {
@@ -158,7 +169,7 @@ export function MaterialBackground({
     </>
   );
 }
-export type ScrollEdgeProps = StyleXProps<useRender.ComponentProps<"div">> & {
+export type ScrollEdgeProps = StyleXProps<PartProps<"div">> & {
   variant?: "soft" | "hard";
   edge?: ScrollEdgeSide;
   /** Bind to the viewport to reveal only the edges with content beyond them. */
@@ -194,50 +205,52 @@ export function ScrollEdge({
     materialStyles.edgeAccessible,
     xstyle,
   );
-  return useRender({
-    defaultTagName: "div",
-    render,
-    ref: edgeRef,
-    props: mergeProps(compiled, props, {
-      "aria-hidden": true,
-      "data-slot": "scroll-edge",
-      "data-scroll-bound": scrollRef ? "" : undefined,
-      "data-edge": edge,
-      "data-variant": variant,
-      style: mergeStyle(compiled.style, style),
-      children:
-        variant === "soft" ? (
-          <>
-            {softEdgeBands.map(({ blur, mask, start, end }) => (
+  return renderElement(
+    "div",
+    {
+      ...mergeProps(compiled, props, {
+        "aria-hidden": true,
+        "data-lenso-slot": "scroll-edge",
+        "data-scroll-bound": scrollRef ? "" : undefined,
+        "data-edge": edge,
+        "data-variant": variant,
+        style: mergeStyle(compiled.style, style),
+        children:
+          variant === "soft" ? (
+            <>
+              {softEdgeBands.map(({ blur, mask, start, end }) => (
+                <span
+                  key={blur}
+                  {...stylex.props(
+                    materialStyles.softLayer,
+                    materialStyles.softProgressive(
+                      blur,
+                      fadeStart ? softEdgeMask(start, end, 1, fadeStart) : mask,
+                    ),
+                  )}
+                />
+              ))}
               <span
-                key={blur}
                 {...stylex.props(
                   materialStyles.softLayer,
-                  materialStyles.softProgressive(
-                    blur,
-                    fadeStart ? softEdgeMask(start, end, 1, fadeStart) : mask,
+                  materialStyles.softTint,
+                  materialStyles.softMask(
+                    fadeStart ? createSoftEdgeTintMask(fadeStart) : softEdgeTintMask,
                   ),
                 )}
               />
-            ))}
-            <span
-              {...stylex.props(
-                materialStyles.softLayer,
-                materialStyles.softTint,
-                materialStyles.softMask(
-                  fadeStart ? createSoftEdgeTintMask(fadeStart) : softEdgeTintMask,
-                ),
-              )}
-            />
-          </>
-        ) : (
-          props.children
-        ),
-    }),
-  });
+            </>
+          ) : (
+            props.children
+          ),
+      }),
+      ref: edgeRef,
+    },
+    render,
+  );
 }
 
-export type MaterialLabelProps = Omit<StyleXProps<useRender.ComponentProps<"span">>, "children"> & {
+export type MaterialLabelProps = Omit<StyleXProps<PartProps<"span">>, "children"> & {
   children: string;
   tone?: "primary" | "secondary" | "tertiary" | "quaternary";
 };
@@ -252,25 +265,28 @@ export function MaterialLabel({
   ...props
 }: MaterialLabelProps) {
   const compiled = stylex.props(vibrantStyles.label, vibrantStyles[tone], xstyle);
-  return useRender({
-    defaultTagName: "span",
+  return renderElement(
+    "span",
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs without reading them during render.
+    {
+      ...mergeProps(compiled, props, {
+        "data-lenso-slot": "material-label",
+        style: mergeStyle(compiled.style, style),
+        children: (
+          <>
+            <span {...stylex.props(vibrantStyles.text, vibrantStyles.lowerText)}>{children}</span>
+            <span aria-hidden="true" {...stylex.props(vibrantStyles.text, vibrantStyles.upperText)}>
+              {children}
+            </span>
+          </>
+        ),
+      }),
+      ref: ref,
+    },
     render,
-    ref,
-    props: mergeProps(compiled, props, {
-      "data-slot": "material-label",
-      style: mergeStyle(compiled.style, style),
-      children: (
-        <>
-          <span {...stylex.props(vibrantStyles.text, vibrantStyles.lowerText)}>{children}</span>
-          <span aria-hidden="true" {...stylex.props(vibrantStyles.text, vibrantStyles.upperText)}>
-            {children}
-          </span>
-        </>
-      ),
-    }),
-  });
+  );
 }
-export type MaterialFillProps = Omit<StyleXProps<useRender.ComponentProps<"span">>, "children"> & {
+export type MaterialFillProps = Omit<StyleXProps<PartProps<"span">>, "children"> & {
   tone?: "primary" | "secondary" | "tertiary" | "separator";
 };
 export function MaterialFill({
@@ -286,14 +302,16 @@ export function MaterialFill({
     tone === "separator" ? vibrantStyles.separator : vibrantStyles[`${tone}Fill`],
     xstyle,
   );
-  return useRender({
-    defaultTagName: "span",
+  return renderElement(
+    "span",
+    {
+      ...mergeProps(compiled, props, {
+        "aria-hidden": true,
+        "data-lenso-slot": "material-fill",
+        style: mergeStyle(compiled.style, style),
+      }),
+      ref: ref,
+    },
     render,
-    ref,
-    props: mergeProps(compiled, props, {
-      "aria-hidden": true,
-      "data-slot": "material-fill",
-      style: mergeStyle(compiled.style, style),
-    }),
-  });
+  );
 }

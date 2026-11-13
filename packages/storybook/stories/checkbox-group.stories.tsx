@@ -74,8 +74,11 @@ export const Indeterminate: Story = {
         <CheckboxItem
           name="select-all"
           label="Select all"
-          indeterminate={selected.length > 0 && selected.length < skills.length}
-          checked={selected.length === skills.length}
+          checked={
+            selected.length > 0 && selected.length < skills.length
+              ? "indeterminate"
+              : selected.length === skills.length
+          }
           onCheckedChange={(checked) => setSelected(checked ? skills : [])}
         />
         <div {...stylex.props(s.indent)}>
@@ -106,14 +109,7 @@ export const Validation: Story = {
           );
         }}
       >
-        <TextField
-          name="preferences"
-          validate={(value) =>
-            Array.isArray(value) && value.length > 0
-              ? null
-              : "Please select at least one notification method."
-          }
-        >
+        <TextField name="preferences">
           <CheckboxGroup aria-labelledby={`${id}-label`} aria-describedby={`${id}-help`}>
             <ChoiceHeading id={`${id}-label`}>Preferences</ChoiceHeading>
             <ChoiceHelp id={`${id}-help`}>Select at least one preference</ChoiceHelp>

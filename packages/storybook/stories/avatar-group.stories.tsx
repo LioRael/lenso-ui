@@ -1,4 +1,4 @@
-// Playground selectors become explicit StyleX on native parts; Base UI owns its controls.
+// Playground selectors become explicit StyleX on native parts; UI SDK owns its controls.
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useId, useState, type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";

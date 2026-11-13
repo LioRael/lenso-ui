@@ -25,14 +25,15 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
           };
           return Object.fromEntries(
             Object.entries(properties).map(([slot, keys]) => {
-              const node = slot === "command" ? root : root.querySelector(`[data-slot="${slot}"]`);
+              const node =
+                slot === "command" ? root : root.querySelector(`[data-lenso-slot="${slot}"]`);
               const style = getComputedStyle(node);
               return [slot, Object.fromEntries(keys.map((key) => [key, style[key]]))];
             }),
           );
         };
         const inlinePresentation = await input
-          .locator('xpath=ancestor::*[@data-slot="command"][1]')
+          .locator('xpath=ancestor::*[@data-lenso-slot="command"][1]')
           .evaluate(presentation);
         await input.fill("settings");
         await page.waitForFunction(() => document.querySelectorAll('[role="option"]').length === 1);

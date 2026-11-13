@@ -1,49 +1,17 @@
-import type { Drawer } from "@base-ui/react/drawer";
+import type { SnapPoint } from "@ui-sdk/react/drawer";
 import { resolvePresentationPoints, sheetPresentationAt } from "./presentation.js";
-
-const registeredClocks = new WeakSet<object>();
-
-export function registerSheetClock(css: Pick<typeof CSS, "registerProperty"> | undefined) {
-  if (!css?.registerProperty) return false;
-  if (registeredClocks.has(css)) return true;
-  try {
-    css.registerProperty({
-      name: "--lenso-sheet-position",
-      syntax: "<length>",
-      inherits: true,
-      initialValue: "0px",
-    });
-  } catch (error) {
-    if (
-      !error ||
-      typeof error !== "object" ||
-      !("name" in error) ||
-      error.name !== "InvalidModificationError"
-    )
-      throw error;
-  }
-  registeredClocks.add(css);
-  return true;
-}
 
 export function trackSheetPresentation(
   popup: HTMLElement,
   surface: HTMLElement,
   viewport: HTMLElement,
-  presentation: {
-    snapPoints: readonly Drawer.Root.SnapPoint[];
-    attached: readonly Drawer.Root.SnapPoint[];
-  },
+  presentation: { snapPoints: readonly SnapPoint[]; attached: readonly SnapPoint[] },
 ) {
   const view = popup.ownerDocument.defaultView!;
-  if (registerSheetClock(view.CSS)) {
-    popup.style.setProperty("--sheet-popup-height", `${popup.offsetHeight}px`);
-    popup.setAttribute("data-sheet-clock", "");
-  }
   let points: ReturnType<typeof resolvePresentationPoints> = [];
   let frame = 0;
-  let opening = popup.hasAttribute("data-starting-style");
   let disposed = false;
+  let opening = true;
   const write = (name: string, value: string) => {
     if (surface.style.getPropertyValue(name) !== value) surface.style.setProperty(name, value);
   };
@@ -51,37 +19,49 @@ export function trackSheetPresentation(
     frame = 0;
     if (disposed) return;
     const css = view.getComputedStyle(popup);
-    const offset = Number.parseFloat(css.getPropertyValue("--drawer-snap-point-offset")) || 0;
-    const movement = Number.parseFloat(css.getPropertyValue("--drawer-swipe-movement-y")) || 0;
-    const nesting = Number.parseFloat(css.getPropertyValue("--sheet-nesting-offset")) || 0;
-    const target = offset + movement;
-    const transform = css.transform;
-    const translation =
-      transform && transform !== "none"
-        ? new view.DOMMatrixReadOnly(transform).m42 - nesting
-        : target;
-    const swiping = popup.hasAttribute("data-swiping");
-    const ending = popup.hasAttribute("data-ending-style");
-    const starting = popup.hasAttribute("data-starting-style");
-    const arrived = Math.abs(translation - target) < 0.1;
-    if (swiping || (!starting && arrived)) opening = false;
-    if (ending) opening = true;
-    popup.toggleAttribute("data-sheet-entering", opening && !ending);
-    // The browser clock drives both transform and visible height. Sampling
-    // that position also visits intermediate shapes when a snap skips a detent.
-    const position = opening || ending || (arrived && !swiping) ? target : translation;
-    const { floating, solid } = sheetPresentationAt(points, popup.offsetHeight - position);
-    write("--sheet-presentation-offset", `${position}px`);
+    const progress = Number.parseFloat(css.getPropertyValue("--drawer-progress"));
+    const target = presentation.snapPoints.find(
+      (point) => String(point) === popup.getAttribute("data-snap-point"),
+    );
+    const transitioning =
+      popup.hasAttribute("data-starting-style") || popup.hasAttribute("data-ending-style");
+    const targetHeight =
+      target === undefined
+        ? undefined
+        : resolvePresentationPoints(
+            [target],
+            [],
+            viewport.offsetHeight,
+            popup.offsetHeight,
+            Number.parseFloat(
+              view.getComputedStyle(popup.ownerDocument.documentElement).fontSize,
+            ) || 16,
+          )[0]?.height;
+    const progressHeight =
+      (Number.isFinite(progress) ? progress : 1) * (points.at(-1)?.height ?? popup.offsetHeight);
+    // Native progress can reach its target before the compositor's translate does.
+    const translation = Number.parseFloat(css.translate?.split(/\s+/)[1] ?? "");
+    const actualHeight =
+      popup.getAttribute("data-driver") !== "scroll-snap" && Number.isFinite(translation)
+        ? popup.offsetHeight - translation
+        : progressHeight;
+    const dragging = popup.hasAttribute("data-dragging");
+    const arrived = Math.abs(actualHeight - (targetHeight ?? progressHeight)) < 0.1;
+    if (dragging || (!transitioning && targetHeight !== undefined && arrived)) opening = false;
+    const height =
+      (opening || transitioning || arrived) && targetHeight !== undefined
+        ? targetHeight
+        : actualHeight;
+    const { floating, solid } = sheetPresentationAt(points, height);
+    write("--sheet-presentation-offset", `${popup.offsetHeight - height}px`);
     write("--sheet-edge-inset", `${floating * 6}px`);
     write("--sheet-bottom-radius", `${floating * 58}px`);
     write("--sheet-solid-opacity", String(solid));
-    if (!ending && (swiping || starting || !arrived)) frame = view.requestAnimationFrame(sample);
-  };
-  const schedule = () => {
-    if (!frame && !disposed) frame = view.requestAnimationFrame(sample);
+    if (!popup.hasAttribute("data-ending-style") && (dragging || !arrived))
+      frame = view.requestAnimationFrame(sample);
   };
   const measure = () => {
-    popup.style.setProperty("--sheet-popup-height", `${popup.offsetHeight}px`);
+    if (frame) view.cancelAnimationFrame(frame);
     points = resolvePresentationPoints(
       presentation.snapPoints,
       presentation.attached,
@@ -89,17 +69,33 @@ export function trackSheetPresentation(
       popup.offsetHeight,
       Number.parseFloat(view.getComputedStyle(popup.ownerDocument.documentElement).fontSize) || 16,
     );
-    if (frame) view.cancelAnimationFrame(frame);
     sample();
   };
   measure();
+  const schedule = () => {
+    if (!frame && !disposed) frame = view.requestAnimationFrame(sample);
+  };
+  viewport.addEventListener("scroll", schedule, { capture: true, passive: true });
   const movementObserver = new MutationObserver((records) => {
-    if (records.some((record) => record.attributeName === "data-starting-style")) opening = true;
+    if (
+      records.some(
+        (record) =>
+          record.attributeName === "data-starting-style" &&
+          popup.hasAttribute("data-starting-style"),
+      )
+    )
+      opening = true;
     schedule();
   });
   movementObserver.observe(popup, {
     attributes: true,
-    attributeFilter: ["style", "data-swiping", "data-starting-style", "data-ending-style"],
+    attributeFilter: [
+      "style",
+      "data-snap-point",
+      "data-starting-style",
+      "data-ending-style",
+      "data-dragging",
+    ],
   });
   const resizeObserver = new ResizeObserver(measure);
   resizeObserver.observe(viewport);
@@ -107,11 +103,9 @@ export function trackSheetPresentation(
   return () => {
     disposed = true;
     movementObserver.disconnect();
+    viewport.removeEventListener("scroll", schedule, true);
     resizeObserver.disconnect();
     if (frame) view.cancelAnimationFrame(frame);
-    popup.removeAttribute("data-sheet-clock");
-    popup.removeAttribute("data-sheet-entering");
-    popup.style.removeProperty("--sheet-popup-height");
     for (const name of [
       "--sheet-presentation-offset",
       "--sheet-edge-inset",

@@ -4,13 +4,30 @@ import { defineConfig } from "tsdown";
 
 export default defineConfig({
   deps: {
-    neverBundle: ["@base-ui/react", "@stylexjs/stylex", "@tanstack/react-table", "react"],
+    neverBundle: ["@ui-sdk/core", "@ui-sdk/react", "react"],
   },
   dts: false,
   entry: {
-    "command/index": path.resolve(import.meta.dirname, "src/command/index.ts"),
-    "data-grid/index": path.resolve(import.meta.dirname, "src/data-grid/index.tsx"),
-    "resize-handle/index": path.resolve(import.meta.dirname, "src/resize-handle/index.tsx"),
+    "wheel-picker/wheel-picker": path.resolve(
+      import.meta.dirname,
+      "src/wheel-picker/wheel-picker.ts",
+    ),
+    "list/list": path.resolve(import.meta.dirname, "src/list/list.ts"),
+    "model-control/model-control": path.resolve(
+      import.meta.dirname,
+      "src/model-control/model-control.ts",
+    ),
+    "swipe-actions/swipe-actions": path.resolve(
+      import.meta.dirname,
+      "src/swipe-actions/swipe-actions.ts",
+    ),
+    "swipe-actions/index": path.resolve(import.meta.dirname, "src/swipe-actions/index.tsx"),
+    "section-index/section-index": path.resolve(
+      import.meta.dirname,
+      "src/section-index/section-index.ts",
+    ),
+    "section-index/index": path.resolve(import.meta.dirname, "src/section-index/index.tsx"),
+    "sidebar/sidebar": path.resolve(import.meta.dirname, "src/sidebar/sidebar.ts"),
     "sidebar/index": path.resolve(import.meta.dirname, "src/sidebar/index.tsx"),
   },
   format: "esm",

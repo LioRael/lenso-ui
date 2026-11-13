@@ -16,36 +16,27 @@ export function RenderFunction() {
   const informationId = useId();
   return (
     <div {...stylex.props(styles.row)}>
-      <Tooltip>
-        <Tooltip.Trigger delay={0} aria-describedby={textId} render={<Button />}>
+      <Tooltip delay={0}>
+        <Tooltip.Trigger aria-describedby={textId} render={<Button />}>
           悬停查看
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner>
-            <Tooltip.Popup id={textId} render={(props) => <div {...props} data-custom="foo" />}>
-              <p>这是一个工具提示</p>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content id={textId} render={(props) => <div {...props} data-custom="foo" />}>
+          <p>这是一个工具提示</p>
+        </Tooltip.Content>
       </Tooltip>
-      <Tooltip>
+      <Tooltip delay={0}>
         <Tooltip.Trigger
-          delay={0}
           aria-describedby={informationId}
           render={<Button isIconOnly aria-label="更多信息" />}
         >
           <CircleInfo />
         </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Positioner>
-            <Tooltip.Popup
-              id={informationId}
-              render={(props) => <div {...props} data-custom="foo" />}
-            >
-              <p>更多信息</p>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </Tooltip.Portal>
+        <Tooltip.Content
+          id={informationId}
+          render={(props) => <div {...props} data-custom="foo" />}
+        >
+          <p>更多信息</p>
+        </Tooltip.Content>
       </Tooltip>
     </div>
   );

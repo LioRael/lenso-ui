@@ -1,26 +1,34 @@
 "use client";
+import { Fragment } from "react";
 
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
 import { Notifications, styles } from "./_shared";
 
 const placements = ["top-start", "top", "top-end", "bottom-start", "bottom", "bottom-end"] as const;
 const placementQueues = {
-  "top-start": Toast.createToastManager(),
-  top: Toast.createToastManager(),
-  "top-end": Toast.createToastManager(),
-  "bottom-start": Toast.createToastManager(),
-  bottom: Toast.createToastManager(),
-  "bottom-end": Toast.createToastManager(),
+  "top-start": createToaster(),
+  top: createToaster(),
+  "top-end": createToaster(),
+  "bottom-start": createToaster(),
+  bottom: createToaster(),
+  "bottom-end": createToaster(),
 };
 
 export function Placements() {
   return (
     <div {...stylex.props(styles.placements)}>
       {placements.map((placement) => (
-        <Toast.Provider key={placement} toastManager={placementQueues[placement]} limit={3}>
-          <Notifications placement={placement} />
-        </Toast.Provider>
+        <Fragment key={placement}>
+          <Notifications
+            side={placement.startsWith("top") ? "top" : "bottom"}
+            align={
+              placement.endsWith("start") ? "start" : placement.endsWith("end") ? "end" : "center"
+            }
+            toaster={placementQueues[placement]}
+            maxVisible={3}
+          />
+        </Fragment>
       ))}
       <div {...stylex.props(styles.placementButtons)}>
         {placements.map((placement) => (
@@ -29,7 +37,7 @@ export function Placements() {
             size="sm"
             variant="bordered"
             onClick={() =>
-              placementQueues[placement].add({
+              placementQueues[placement]({
                 description: "Event has been created",
                 title: "Event created",
                 type: "default",

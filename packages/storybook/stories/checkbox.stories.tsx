@@ -56,14 +56,19 @@ export const WithCustomIndicator: Story = {
     <div {...stylex.props(s.customChecks, s.padded)}>
       <CheckboxItem defaultChecked id="heart" label="Heart" indicator="heart" />
       <CheckboxItem defaultChecked id="plus" label="Plus" indicator="plus" />
-      <CheckboxItem indeterminate id="indeterminate" label="Indeterminate" indicator="dash" />
+      <CheckboxItem
+        checked="indeterminate"
+        id="indeterminate"
+        label="Indeterminate"
+        indicator="dash"
+      />
     </div>
   ),
 };
 export const Indeterminate: Story = {
   render: () => (
     <CheckboxItem
-      indeterminate
+      checked="indeterminate"
       id="select-all"
       label="Select all"
       description="Shows indeterminate state"
@@ -86,7 +91,7 @@ export const Controlled: Story = {
         <CheckboxItem
           id="notifications"
           checked={checked}
-          onCheckedChange={setChecked}
+          onCheckedChange={(next) => setChecked(next === true)}
           label="Email notifications"
         />
         <p {...stylex.props(s.status)}>
@@ -123,7 +128,6 @@ export const Validation: Story = {
     <CheckboxItem
       required
       name="newsletter"
-      validate={(checked) => (checked ? null : "Please subscribe to continue")}
       error="Please subscribe to continue"
       label="Subscribe to newsletter"
     />
@@ -197,7 +201,7 @@ export const LocalArchivedChecked: Story = {
   render: () => <CheckboxItem defaultChecked label="Include archived projects" />,
 };
 export const LocalArchivedIndeterminate: Story = {
-  render: () => <CheckboxItem indeterminate label="Include archived projects" />,
+  render: () => <CheckboxItem checked="indeterminate" label="Include archived projects" />,
 };
 export const LocalArchivedDisabled: Story = {
   render: () => <CheckboxItem disabled label="Include archived projects" />,

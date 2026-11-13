@@ -1,6 +1,7 @@
 "use client";
-// Modified: Base UI native value/onValueChange contract.
-import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group";
+// Modified: UI SDK native value/onValueChange contract.
+import { RadioGroup as SdkRadioGroup } from "@ui-sdk/react/radio";
+import { slotRender } from "../../utils/sdk-render.js";
 import { radioGroupStyles } from "@lenso/tokens/radio-group";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import type * as React from "react";
@@ -8,10 +9,10 @@ import * as stylex from "@stylexjs/stylex";
 import { RadioVariantContext, type RadioVariant } from "../radio/radio.js";
 
 export type RadioGroupRootProps = StyleXProps<
-  Omit<BaseRadioGroup.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseRadioGroup>["ref"];
+  Omit<React.ComponentProps<typeof SdkRadioGroup>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkRadioGroup>["ref"];
   }
-> & { "data-slot"?: unknown; variant?: RadioVariant };
+> & { "data-lenso-slot"?: unknown; variant?: RadioVariant };
 export function RadioGroupRoot({
   variant = "primary",
   xstyle,
@@ -21,11 +22,11 @@ export function RadioGroupRoot({
   const compiled = stylex.props(radioGroupStyles.root, xstyle);
   return (
     <RadioVariantContext value={variant}>
-      <BaseRadioGroup
+      <SdkRadioGroup
         {...props}
         {...compiled}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "radio-group"}
+        render={slotRender("div", props["data-lenso-slot"] ?? "radio-group", props.render)}
       />
     </RadioVariantContext>
   );

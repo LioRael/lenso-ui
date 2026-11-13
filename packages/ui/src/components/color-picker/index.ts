@@ -1,12 +1,12 @@
 // Copyright NextUI Inc. Apache-2.0. Modified for Lenso StyleX.
 import type { ComponentProps } from "react";
 import {
-  ColorPickerRoot,
-  ColorPickerTrigger,
-  ColorPickerPopover,
-  ColorPickerDialog,
-} from "./color-picker.js";
-export { ColorPickerRoot, ColorPickerTrigger, ColorPickerPopover, ColorPickerDialog };
+  PopoverTitle as ColorPickerTitle,
+  PopoverClose as ColorPickerClose,
+  PopoverDescription as ColorPickerPopoverDescription,
+} from "../popover/index.js";
+import { ColorPickerRoot, ColorPickerTrigger, ColorPickerPopover } from "./color-picker.js";
+export { ColorPickerRoot, ColorPickerTrigger, ColorPickerPopover };
 export type {
   ColorPickerRootProps,
   ColorPickerRootProps as ColorPickerProps,
@@ -17,5 +17,9 @@ export const ColorPicker = Object.assign(ColorPickerRoot, {
   Root: ColorPickerRoot,
   Trigger: ColorPickerTrigger,
   Popover: ColorPickerPopover,
-  Dialog: ColorPickerDialog,
+  Title: ColorPickerTitle,
+  Close: ColorPickerClose,
+  PopoverDescription: ColorPickerPopoverDescription,
 });
+
+export { ColorPickerClose, ColorPickerTitle, ColorPickerPopoverDescription };

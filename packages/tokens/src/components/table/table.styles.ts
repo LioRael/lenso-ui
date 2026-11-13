@@ -33,7 +33,7 @@ export const tableStyles = stylex.create({
       content: {
         default: '""',
         ":last-child": "none",
-        ":has([data-slot='table-column-resizer'])": "none",
+        ":has([data-lenso-slot='table-column-resizer'])": "none",
       },
       pointerEvents: "none",
       position: "absolute",

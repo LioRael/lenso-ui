@@ -136,36 +136,32 @@ export function GlassLab({ locale }: { locale: "en" | "cn" }) {
                   <Sliders width={18} height={18} aria-hidden="true" />
                   {cn ? "照片选项" : "Photo options"}
                 </Menu.Trigger>
-                <Menu.Portal>
-                  <Menu.Positioner align="end" sideOffset={8}>
-                    <Menu.Popup>
-                      <Menu.Item
-                        onClick={() => {
-                          setScene(scene === 6 ? 3 : 6);
-                          setMessage(cn ? "已切换照片" : "Photo changed");
-                        }}
-                      >
-                        {cn ? "切换照片" : "Change photo"}
-                      </Menu.Item>
-                      <Menu.Item
-                        onClick={() => {
-                          setRevision((value) => value + 1);
-                          setMessage(cn ? "已重置位置" : "Positions reset");
-                        }}
-                      >
-                        {cn ? "重置位置" : "Reset positions"}
-                      </Menu.Item>
-                      <Menu.Item
-                        onClick={() => {
-                          setTint(0.5);
-                          setMessage(cn ? "已恢复默认材质" : "Material reset");
-                        }}
-                      >
-                        {cn ? "恢复默认材质" : "Reset material"}
-                      </Menu.Item>
-                    </Menu.Popup>
-                  </Menu.Positioner>
-                </Menu.Portal>
+                <Menu.Content align="end" sideOffset={8}>
+                  <Menu.Item
+                    onClick={() => {
+                      setScene(scene === 6 ? 3 : 6);
+                      setMessage(cn ? "已切换照片" : "Photo changed");
+                    }}
+                  >
+                    {cn ? "切换照片" : "Change photo"}
+                  </Menu.Item>
+                  <Menu.Item
+                    onClick={() => {
+                      setRevision((value) => value + 1);
+                      setMessage(cn ? "已重置位置" : "Positions reset");
+                    }}
+                  >
+                    {cn ? "重置位置" : "Reset positions"}
+                  </Menu.Item>
+                  <Menu.Item
+                    onClick={() => {
+                      setTint(0.5);
+                      setMessage(cn ? "已恢复默认材质" : "Material reset");
+                    }}
+                  >
+                    {cn ? "恢复默认材质" : "Reset material"}
+                  </Menu.Item>
+                </Menu.Content>
               </Menu.Root>
             </div>
             <GlassContainer spacing={28} xstyle={s.group(gap)} key={revision}>
@@ -203,8 +199,8 @@ export function GlassLab({ locale }: { locale: "en" | "cn" }) {
               <Slider.Control>
                 <Slider.Track>
                   <Slider.Fill />
+                  <Slider.Thumb aria-label={cn ? "玻璃浓度" : "Glass tint"} />
                 </Slider.Track>
-                <Slider.Thumb aria-label={cn ? "玻璃浓度" : "Glass tint"} />
               </Slider.Control>
             </Slider>
             <div {...stylex.props(s.legend)}>
@@ -222,8 +218,8 @@ export function GlassLab({ locale }: { locale: "en" | "cn" }) {
               <Slider.Control>
                 <Slider.Track>
                   <Slider.Fill />
+                  <Slider.Thumb aria-label={cn ? "按钮间距" : "Control spacing"} />
                 </Slider.Track>
-                <Slider.Thumb aria-label={cn ? "按钮间距" : "Control spacing"} />
               </Slider.Control>
             </Slider>
             <div {...stylex.props(s.actions)}>

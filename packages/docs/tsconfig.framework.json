@@ -7,5 +7,5 @@
     "declaration": true,
     "emitDeclarationOnly": true
   },
-  "include": ["src/react.ts", "src/client.ts", "src/compile-document.tsx"]
+  "include": ["src/react.ts", "src/client.ts", "src/appearance.ts", "src/compile-document.tsx"]
 }

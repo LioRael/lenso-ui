@@ -10,7 +10,7 @@ export function OnSurface() {
           <Label>Verify account</Label>
           <p {...stylex.props(styles.muted)}>We&apos;ve sent a code to a****@gmail.com</p>
         </div>
-        <InputOTP length={6} name="code" variant="secondary">
+        <InputOTP maxLength={6} name="code" variant="secondary">
           <Slots />
         </InputOTP>
         <div {...stylex.props(styles.resend)}>

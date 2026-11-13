@@ -16,13 +16,13 @@ export function Range() {
       step={50}
     >
       <Slider.Label>Price Range</Slider.Label>
-      <Slider.Output>{(formattedValues) => formattedValues.join(" – ")}</Slider.Output>
+      <Slider.Output>{({ text }) => text}</Slider.Output>
       <Slider.Control>
         <Slider.Track>
           <Slider.Fill />
+          <Slider.Thumb index={0} aria-label="Minimum price" />
+          <Slider.Thumb index={1} aria-label="Maximum price" />
         </Slider.Track>
-        <Slider.Thumb index={0} aria-label="Minimum price" />
-        <Slider.Thumb index={1} aria-label="Maximum price" />
       </Slider.Control>
     </Slider>
   );

@@ -1,3 +1,4 @@
+import { holdPopupExit, finishPopupExit, cancelPopupExit } from "./popup-exit.js";
 import { useCallback, useLayoutEffect, useState, type Ref, type RefObject } from "react";
 import { presentMenuFeedback } from "./menu-feedback.js";
 import { afterMenuPlacement, retainMenuChild } from "./menu-placement.js";
@@ -75,16 +76,24 @@ export function useSubmenuPopupRef(
   const [element, setElement] = useState<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
     const item = trigger?.current;
-    const parent = item?.closest<HTMLElement>('[data-slot="menu-popup"]');
-    if (!element || !item || !parent || !unmount) return;
+    const parent = item?.closest<HTMLElement>('[data-lenso-slot="menu-popup"]');
+    if (
+      !element ||
+      !item ||
+      !parent ||
+      !unmount ||
+      element.getAttribute("data-presentation") === "sheet"
+    )
+      return;
     if (!stacked) return presentCascadingSubmenu(element, item, parent, unmount);
+    element.setAttribute("data-menu-motion", "stacked");
     let release = retainMenuChild(parent);
     let retained = true;
-    const surface = element.querySelector<HTMLElement>('[data-slot="menu-surface"]')!;
-    const heading = element.querySelector<HTMLElement>('[data-slot="menu-submenu-heading"]')!;
-    const body = element.querySelector<HTMLElement>('[data-slot="menu-submenu-body"]')!;
-    const parentSurface = parent.querySelector<HTMLElement>('[data-slot="menu-surface"]')!;
-    const parentContent = parent.querySelector<HTMLElement>('[data-slot="menu-content"]')!;
+    const surface = element.querySelector<HTMLElement>('[data-lenso-slot="menu-surface"]')!;
+    const heading = element.querySelector<HTMLElement>('[data-lenso-slot="menu-submenu-heading"]')!;
+    const body = element.querySelector<HTMLElement>('[data-lenso-slot="menu-submenu-body"]')!;
+    const parentSurface = parent.querySelector<HTMLElement>('[data-lenso-slot="menu-surface"]')!;
+    const parentContent = parent.querySelector<HTMLElement>('[data-lenso-slot="menu-content"]')!;
     const previousItemOpacity = item.style.opacity;
     let parentMotion = retainParentMotion(parentSurface, parentContent);
     const content = heading.parentElement!;
@@ -114,7 +123,7 @@ export function useSubmenuPopupRef(
         y: (titleBox.y - popupBox.y) / initialScaleY,
       };
       const target = surface.getBoundingClientRect();
-      const positioner = element.parentElement!;
+      const positioner = element;
       const positioned = positioner.getBoundingClientRect();
       const width = surface.offsetWidth,
         height = surface.offsetHeight;
@@ -162,6 +171,7 @@ export function useSubmenuPopupRef(
           parentMotion.release();
           release();
           retained = false;
+          finishPopupExit(element);
           unmount();
         }
       });
@@ -169,6 +179,8 @@ export function useSubmenuPopupRef(
       const sync = () => {
         const closing = !element.hasAttribute("data-open") || !parent.hasAttribute("data-open");
         if (closing && element.hasAttribute("data-menu-child-count")) return;
+        if (closing) holdPopupExit(element);
+        else cancelPopupExit(element);
         leaving = closing;
         if (!leaving) {
           if (!retained) {
@@ -193,7 +205,9 @@ export function useSubmenuPopupRef(
     return () => {
       cancelPlacement();
       observer?.disconnect();
+      element.removeAttribute("data-menu-motion");
       spring?.stop();
+      cancelPopupExit(element);
       disposeFeedback();
       heading.style.opacity = titlePrevious.opacity;
       heading.style.transform = titlePrevious.transform;

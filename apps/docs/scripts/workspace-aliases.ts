@@ -5,8 +5,34 @@ export function workspaceAliases(root: string) {
   const file = (relative: string) => path.resolve(root, "../..", relative);
   return [
     {
-      find: /^@lenso\/primitives\/command$/,
-      replacement: file("packages/primitives/src/command/index.ts"),
+      find: /^@lenso\/primitives\/wheel-picker\/core$/,
+      replacement: file("packages/primitives/src/wheel-picker/wheel-picker.ts"),
+    },
+    {
+      find: /^@lenso\/primitives\/list\/core$/,
+      replacement: file("packages/primitives/src/list/list.ts"),
+    },
+    ...["section-index", "swipe-actions"].flatMap((name) => [
+      {
+        find: new RegExp(`^@lenso/primitives/${name}/core$`),
+        replacement: file(`packages/primitives/src/${name}/${name}.ts`),
+      },
+      {
+        find: new RegExp(`^@lenso/primitives/${name}$`),
+        replacement: file(`packages/primitives/src/${name}/index.tsx`),
+      },
+    ]),
+    {
+      find: /^@lenso\/primitives\/model-control$/,
+      replacement: file("packages/primitives/src/model-control/model-control.ts"),
+    },
+    {
+      find: /^@lenso\/primitives\/sidebar\/core$/,
+      replacement: file("packages/primitives/src/sidebar/sidebar.ts"),
+    },
+    {
+      find: /^@lenso\/primitives\/sidebar$/,
+      replacement: file("packages/primitives/src/sidebar/index.tsx"),
     },
     {
       find: "../dist/fonts/Inter-Variable.ttf",
@@ -39,7 +65,7 @@ export function workspaceAliases(root: string) {
       find: /^@lenso\/glass\/(react|motion)$/,
       replacement: file("packages/glass/src/$1/index.ts"),
     },
-    ...["react", "client", "source"].map((entry) => ({
+    ...["react", "client", "source", "appearance"].map((entry) => ({
       find: new RegExp(`^@lenso/docs/${entry}$`),
       replacement: file(`packages/docs/src/${entry}.ts`),
     })),

@@ -85,39 +85,35 @@ export function Controlled() {
               </div>
             </div>
             <Modal open={open} onOpenChange={setOpen}>
-              <Modal.Portal>
-                <Modal.Backdrop />
-                <Modal.Viewport>
-                  <Modal.Popup xstyle={styles.popup}>
-                    <Modal.Close aria-label="Close dialog" />
-                    <Modal.Header>
-                      <Modal.Icon xstyle={reducer ? styles.success : styles.accent}>
-                        <CircleCheck {...stylex.props(styles.circle)} />
-                      </Modal.Icon>
-                      <Modal.Title>
-                        Controlled with {reducer ? "useReducer()" : "useState()"}
-                      </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <Modal.Description>
-                        {reducer ? (
-                          "The reducer handles open, close, and toggle actions while the native Root owns focus and dismissal."
-                        ) : (
-                          <>
-                            This modal is controlled by React&apos;s <code>useState</code> hook.
-                            Pass <code>open</code> and <code>onOpenChange</code> props to manage the
-                            modal state externally.
-                          </>
-                        )}
-                      </Modal.Description>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
-                      <Modal.Close render={<Button />}>Confirm</Modal.Close>
-                    </Modal.Footer>
-                  </Modal.Popup>
-                </Modal.Viewport>
-              </Modal.Portal>
+              <Modal.Backdrop />
+              <Modal.Content xstyle={styles.popup}>
+                <Modal.Close aria-label="Close dialog" />
+                <Modal.Header>
+                  <Modal.Icon xstyle={reducer ? styles.success : styles.accent}>
+                    <CircleCheck {...stylex.props(styles.circle)} />
+                  </Modal.Icon>
+                  <Modal.Title>
+                    Controlled with {reducer ? "useReducer()" : "useState()"}
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Modal.Description>
+                    {reducer ? (
+                      "The reducer handles open, close, and toggle actions while the native Root owns focus and dismissal."
+                    ) : (
+                      <>
+                        This modal is controlled by React&apos;s <code>useState</code> hook. Pass{" "}
+                        <code>open</code> and <code>onOpenChange</code> props to manage the modal
+                        state externally.
+                      </>
+                    )}
+                  </Modal.Description>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Modal.Close render={<Button variant="bordered" />}>Cancel</Modal.Close>
+                  <Modal.Close render={<Button />}>Confirm</Modal.Close>
+                </Modal.Footer>
+              </Modal.Content>
             </Modal>
           </div>
         );

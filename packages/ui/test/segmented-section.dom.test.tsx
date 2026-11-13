@@ -31,8 +31,8 @@ async function key(node: HTMLElement, key: string) {
 
 // Cover native form ownership and focus-only index navigation, which existing
 // wheel/page tests cannot establish for these different interaction contracts.
-test("segments retain Base UI form values, disabled items and reset", async () => {
-  const changes: string[] = [];
+test("segments retain SDK native form values, disabled items and reset", async () => {
+  const changes: (string | null)[] = [];
   const host = await mount(
     <form>
       <SegmentedControl
@@ -58,7 +58,7 @@ test("segments retain Base UI form values, disabled items and reset", async () =
   expect(radios[0]!.getAttribute("aria-checked")).toBe("true");
 });
 test("segments preserve controlled rejection and read-only state", async () => {
-  const changes: string[] = [];
+  const changes: (string | null)[] = [];
   const host = await mount(
     <>
       <SegmentedControl
@@ -84,7 +84,7 @@ test("segments preserve controlled rejection and read-only state", async () => {
   expect(host.querySelectorAll('[aria-checked="true"]').length).toBe(2);
 });
 test("index keyboard navigation skips disabled entries without activating a link", async () => {
-  const changes: string[] = [];
+  const changes: (string | null)[] = [];
   const host = await mount(
     <SectionIndex
       items={sections}
@@ -105,9 +105,12 @@ test("index keyboard navigation skips disabled entries without activating a link
   await act(() => links[2]!.click());
   expect(changes).toEqual(["c"]);
   expect(links[2]!.getAttribute("aria-current")).toBe("location");
+  await act(() => root.render(<SectionIndex items={sections} disabled defaultValue="a" />));
+  expect(host.querySelectorAll('[tabindex="0"]')).toHaveLength(0);
+  expect(host.querySelectorAll('a[aria-disabled="true"]')).toHaveLength(3);
 });
 test("index drag survives child capture transfer and suppresses the release click", async () => {
-  const changes: string[] = [];
+  const changes: (string | null)[] = [];
   const host = await mount(
     <SectionIndex items={sections} onValueChange={(value) => changes.push(value)} />,
   );
@@ -123,6 +126,7 @@ test("index drag survives child capture transfer and suppresses the release clic
           pointerId: 1,
           isPrimary: true,
           button: 0,
+          buttons: type === "pointerup" || type === "pointercancel" ? 0 : 1,
           clientY: y,
           bubbles: true,
           cancelable: true,
@@ -144,11 +148,54 @@ test("index drag survives child capture transfer and suppresses the release clic
   await pointer(links[0]!, "pointerdown", 12);
   await pointer(nav, "pointercancel", 12);
   await pointer(nav, "pointermove", 60);
-  expect(changes).toEqual(["a", "c", "a", "a"]);
+  expect(changes).toEqual(["a", "c", "a"]);
   await pointer(links[0]!, "pointerdown", 12);
   await pointer(nav, "pointermove", 60);
   await pointer(nav, "pointerup", 60);
   // A browser may omit the release click; the next keyboard activation has detail 0.
-  await act(() => links[0]!.click());
-  expect(changes).toEqual(["a", "c", "a", "a", "a", "c", "a"]);
+  await key(links[0]!, "Enter");
+  expect(changes).toEqual(["a", "c", "a", "c", "a"]);
+});
+
+test("selected fragments still navigate and modified links keep browser behavior", async () => {
+  let changes = 0;
+  const host = await mount(
+    <>
+      <div id="50%" />
+      <SectionIndex
+        defaultValue="a"
+        items={[{ value: "a", label: "A", href: "#50%" }]}
+        onValueChange={() => {
+          changes++;
+        }}
+      />
+    </>,
+  );
+  let scrolls = 0;
+  host.querySelector<HTMLElement>('[id="50%"]')!.scrollIntoView = () => {
+    scrolls++;
+  };
+  const link = host.querySelector<HTMLAnchorElement>("a")!;
+  await key(link, "Enter");
+  expect(scrolls).toBe(1);
+  expect(changes).toBe(0);
+  await act(() => {
+    for (const type of ["pointerdown", "pointerup"])
+      link.dispatchEvent(
+        new PointerEvent(type, {
+          bubbles: true,
+          cancelable: true,
+          pointerId: 2,
+          isPrimary: true,
+          button: 0,
+          buttons: type === "pointerdown" ? 1 : 0,
+          ctrlKey: true,
+        }),
+      );
+    link.dispatchEvent(
+      new MouseEvent("click", { bubbles: true, cancelable: true, ctrlKey: true, detail: 1 }),
+    );
+  });
+  expect(scrolls).toBe(1);
+  expect(changes).toBe(0);
 });

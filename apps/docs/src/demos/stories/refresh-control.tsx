@@ -21,7 +21,7 @@ export function RefreshControlStory({ disabled }: RefreshControlStoryProps) {
       }}
     >
       <div {...stylex.props(s.header)}>
-        <RefreshControl.Trigger /> · {count} updates
+        <RefreshControl.Trigger />· {count}updates
       </div>
       <RefreshControl.Viewport>
         <List aria-label="Reading list">

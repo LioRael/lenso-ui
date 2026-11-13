@@ -1,5 +1,5 @@
 "use client";
-import { NativeAutocomplete } from "./_native";
+import { TextSuggestions } from "./text-suggestions";
 
 export const states = [
   { id: "florida", name: "Florida" },
@@ -11,13 +11,10 @@ export const states = [
 ];
 export default function Default() {
   return (
-    <NativeAutocomplete
-      items={states}
-      label="States to Visit"
-      placeholder="Select states"
-      multiple
-      chips
-      hideClear
+    <TextSuggestions
+      label="State to visit"
+      options={states.map((item) => item.name)}
+      placeholder="Enter any state"
     />
   );
 }

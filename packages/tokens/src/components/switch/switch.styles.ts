@@ -1,6 +1,6 @@
 /**
  * Copyright 2026 HeroUI. SPDX-License-Identifier: Apache-2.0
- * Modified: StyleX styles and Base UI state selectors.
+ * Modified: StyleX styles and UI SDK state selectors.
  * Glass geometry and thumb adapted from Copyright 2026 Kelvin Zhang (MIT).
  */
 import * as stylex from "@stylexjs/stylex";
@@ -41,8 +41,8 @@ export const switchStyles = stylex.create({
     WebkitTapHighlightColor: "transparent",
     outline: {
       default: "none",
-      ":is([data-slot='switch']:focus-visible *)": "1.5px solid var(--lenso-focus-ring)",
-      ":is([data-slot='fieldset-row'] [data-slot='switch']:focus-visible *)": "none",
+      ":is([data-lenso-slot='switch']:focus-visible *)": "1.5px solid var(--lenso-focus-ring)",
+      ":is([data-lenso-slot='fieldset-row'] [data-lenso-slot='switch']:focus-visible *)": "none",
     },
     outlineOffset: 2,
     "::before": {
@@ -64,7 +64,7 @@ export const switchStyles = stylex.create({
       backgroundColor: "var(--lenso-control-switch-on)",
       opacity: {
         default: "var(--lg-switch-fill, 0)",
-        ":is([data-slot='switch'][data-checked] *)": "var(--lg-switch-fill, 1)",
+        ":is([data-lenso-slot='switch'][data-checked] *)": "var(--lg-switch-fill, 1)",
       },
       pointerEvents: "none",
     },
@@ -94,10 +94,10 @@ export const switchStyles = stylex.create({
         default: "transparent",
         "@media (hover: hover) and (pointer: fine)": {
           default: null,
-          ":is([data-slot='switch']:hover:not(:focus):not([data-disabled]) *)":
+          ":is([data-lenso-slot='switch']:hover:not(:focus):not([data-disabled]) *)":
             "rgb(255 255 255 / .08)",
         },
-        ":is([data-slot='switch']:focus:not([data-disabled]) *)": "rgb(255 255 255 / .12)",
+        ":is([data-lenso-slot='switch']:focus:not([data-disabled]) *)": "rgb(255 255 255 / .12)",
       },
     },
     transform: {

@@ -1,13 +1,10 @@
 import {
   ComboBoxRoot,
+  ComboBoxTrigger,
   ComboBoxInputGroup,
   ComboBoxInput,
   ComboBoxValue,
-  ComboBoxTrigger,
   ComboBoxIndicator,
-  ComboBoxPortal,
-  ComboBoxPositioner,
-  ComboBoxPopover,
   ComboBoxList,
   ComboBoxItem,
   ComboBoxItemIndicator,
@@ -21,55 +18,16 @@ import {
   ComboBoxChips,
   ComboBoxChip,
   ComboBoxChipRemove,
-  ComboBoxCollection,
-  ComboBoxRow,
   ComboBoxStatus,
-  ComboBoxBackdrop,
-  useComboBoxFilter,
+  ComboBoxContent,
 } from "./combo-box.js";
-export const ComboBox: typeof ComboBoxRoot & {
-  Root: typeof ComboBoxRoot;
-  InputGroup: typeof ComboBoxInputGroup;
-  Input: typeof ComboBoxInput;
-  Value: typeof ComboBoxValue;
-  Trigger: typeof ComboBoxTrigger;
-  Indicator: typeof ComboBoxIndicator;
-  Icon: typeof ComboBoxIndicator;
-  Portal: typeof ComboBoxPortal;
-  Positioner: typeof ComboBoxPositioner;
-  Popover: typeof ComboBoxPopover;
-  Popup: typeof ComboBoxPopover;
-  List: typeof ComboBoxList;
-  Item: typeof ComboBoxItem;
-  ItemIndicator: typeof ComboBoxItemIndicator;
-  Label: typeof ComboBoxLabel;
-  Group: typeof ComboBoxGroup;
-  GroupLabel: typeof ComboBoxGroupLabel;
-  Separator: typeof ComboBoxSeparator;
-  Arrow: typeof ComboBoxArrow;
-  Empty: typeof ComboBoxEmpty;
-  Clear: typeof ComboBoxClearButton;
-  ClearButton: typeof ComboBoxClearButton;
-  Chips: typeof ComboBoxChips;
-  Chip: typeof ComboBoxChip;
-  ChipRemove: typeof ComboBoxChipRemove;
-  Collection: typeof ComboBoxCollection;
-  Row: typeof ComboBoxRow;
-  Status: typeof ComboBoxStatus;
-  Backdrop: typeof ComboBoxBackdrop;
-  useFilter: typeof useComboBoxFilter;
-} = Object.assign(ComboBoxRoot, {
+export const ComboBox = Object.assign(ComboBoxRoot, {
   Root: ComboBoxRoot,
+  Trigger: ComboBoxTrigger,
   InputGroup: ComboBoxInputGroup,
   Input: ComboBoxInput,
   Value: ComboBoxValue,
-  Trigger: ComboBoxTrigger,
   Indicator: ComboBoxIndicator,
-  Icon: ComboBoxIndicator,
-  Portal: ComboBoxPortal,
-  Positioner: ComboBoxPositioner,
-  Popover: ComboBoxPopover,
-  Popup: ComboBoxPopover,
   List: ComboBoxList,
   Item: ComboBoxItem,
   ItemIndicator: ComboBoxItemIndicator,
@@ -80,14 +38,10 @@ export const ComboBox: typeof ComboBoxRoot & {
   Arrow: ComboBoxArrow,
   Empty: ComboBoxEmpty,
   Clear: ComboBoxClearButton,
-  ClearButton: ComboBoxClearButton,
   Chips: ComboBoxChips,
   Chip: ComboBoxChip,
   ChipRemove: ComboBoxChipRemove,
-  Collection: ComboBoxCollection,
-  Row: ComboBoxRow,
   Status: ComboBoxStatus,
-  Backdrop: ComboBoxBackdrop,
-  useFilter: useComboBoxFilter,
+  Content: ComboBoxContent,
 });
 export * from "./combo-box.js";

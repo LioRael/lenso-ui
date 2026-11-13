@@ -1,27 +1,31 @@
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: StyleX styles; Base UI owns range geometry.
+ * Modified: StyleX styles; UI SDK owns range geometry.
  */
 import * as stylex from "@stylexjs/stylex";
 import { tokens } from "../../tokens.stylex.const.js";
 
 export const sliderStyles = stylex.create({
+  field: { display: "contents" },
   root: {
     display: "grid",
     width: { default: "100%", ":is([data-orientation='vertical'])": "auto" },
     height: { default: "auto", ":is([data-orientation='vertical'])": "100%" },
-    gap: { default: 0, ":has(> [data-slot='slider-label'], > [data-slot='slider-output'])": 4 },
+    gap: {
+      default: 0,
+      ":has(> [data-lenso-slot='slider-label'], > [data-lenso-slot='slider-output'])": 4,
+    },
     gridTemplateAreas: {
       default: '"track track"',
-      ":has(> [data-slot='slider-label'], > [data-slot='slider-output'])":
+      ":has(> [data-lenso-slot='slider-label'], > [data-lenso-slot='slider-output'])":
         '"label output" "track track"',
       ":is([data-orientation='vertical'])": '"output" "track" "label"',
     },
     gridTemplateColumns: { default: "1fr auto", ":is([data-orientation='vertical'])": "1fr" },
     gridTemplateRows: {
       default: "auto",
-      ":has(> [data-slot='slider-label'], > [data-slot='slider-output'])": "auto auto",
+      ":has(> [data-lenso-slot='slider-label'], > [data-lenso-slot='slider-output'])": "auto auto",
       ":is([data-orientation='vertical'])": "auto 1fr auto",
     },
     opacity: { default: 1, ":is([data-disabled])": 0.5 },
@@ -61,8 +65,7 @@ export const sliderStyles = stylex.create({
     width: "100%",
     borderRadius: "inherit",
     pointerEvents: "none",
-    backgroundImage:
-      "linear-gradient(var(--lg-slider-direction, to right), transparent 0% var(--lg-slider-start, 0%), var(--lenso-tint) var(--lg-slider-start, 0%) var(--lg-slider-end, 0%), transparent var(--lg-slider-end, 0%) 100%)",
+    backgroundColor: "var(--lenso-tint)",
   },
   thumb: {
     width: 44,
@@ -92,7 +95,7 @@ export const sliderStyles = stylex.create({
       "0 6px 13px rgb(0 0 0 / .12), 0 .5px 4px rgb(0 0 0 / .12), inset 0 1px .5px rgb(255 255 255 / calc((1 - var(--lg-slider-face, 1)) * .28)), inset 0 -1px .5px rgb(255 255 255 / calc((1 - var(--lg-slider-face, 1)) * .28))",
     outline: {
       default: "none",
-      ":is([data-lg-slider-thumb]:is(:focus-visible, :has(input:focus-visible)) *)":
+      ":is([data-lg-slider-thumb]:is(:focus-visible, :has(input:focus-visible)) *):not(:is([data-lenso-focus-method='pointer'] *))":
         "2px solid var(--lenso-focus-ring)",
     },
     outlineOffset: 3,

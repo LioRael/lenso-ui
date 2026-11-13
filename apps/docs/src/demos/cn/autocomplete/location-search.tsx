@@ -1,77 +1,23 @@
 "use client";
-
-import { Autocomplete } from "@lenso/ui";
 import { useEffect, useState } from "react";
-import { NativeAutocomplete } from "./location-search--_native";
-const cities = [
-  {
-    country: "USA",
-    name: "New York",
-  },
-  {
-    country: "USA",
-    name: "Los Angeles",
-  },
-  {
-    country: "USA",
-    name: "Chicago",
-  },
-  {
-    country: "UK",
-    name: "London",
-  },
-  {
-    country: "France",
-    name: "Paris",
-  },
-  {
-    country: "Japan",
-    name: "Tokyo",
-  },
-  {
-    country: "Australia",
-    name: "Sydney",
-  },
-  {
-    country: "Canada",
-    name: "Toronto",
-  },
-  {
-    country: "Germany",
-    name: "Berlin",
-  },
-  {
-    country: "Spain",
-    name: "Madrid",
-  },
-].map((city) => ({
-  ...city,
-  id: city.name,
-}));
+import { TextSuggestions } from "../../en/autocomplete/text-suggestions";
+const cities = ["New York", "London", "Paris", "Tokyo", "Sydney"];
 export function LocationSearch() {
-  const { contains } = Autocomplete.useFilter({
-    sensitivity: "base",
-  });
-  const [query, setQuery] = useState("");
-  const [settledQuery, setSettledQuery] = useState("");
+  const [value, setValue] = useState("");
+  const [settled, setSettled] = useState("");
   useEffect(() => {
-    const timeout = setTimeout(() => setSettledQuery(query), 300);
+    const timeout = setTimeout(() => setSettled(value), 300);
     return () => clearTimeout(timeout);
-  }, [query]);
-  const loading = query !== settledQuery;
-  const results = cities.filter((city) => contains(city.name, settledQuery));
+  }, [value]);
   return (
-    <NativeAutocomplete
-      items={cities}
-      label="城市"
-      placeholder="搜索城市"
-      searchLabel="Search cities"
-      searchPlaceholder="Search cities..."
-      inputValue={query}
-      onInputValueChange={setQuery}
-      filteredItems={loading ? [] : results}
-      loading={loading}
-      emptyText="No cities found"
+    <TextSuggestions
+      label="City"
+      value={value}
+      onValueChange={setValue}
+      filter={false}
+      options={cities.filter((city) =>
+        city.toLocaleLowerCase().includes(settled.toLocaleLowerCase()),
+      )}
     />
   );
 }

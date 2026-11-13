@@ -9,7 +9,7 @@ export function Basic() {
         <Label>Verification code</Label>
         <p {...stylex.props(styles.muted)}>Enter the six-digit code to continue.</p>
       </div>
-      <InputOTP length={6} name="code">
+      <InputOTP maxLength={6} name="code">
         <Slots />
       </InputOTP>
     </TextField>

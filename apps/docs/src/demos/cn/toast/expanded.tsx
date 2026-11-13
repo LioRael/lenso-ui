@@ -1,26 +1,27 @@
 "use client";
 
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
 import { Notifications, styles } from "../../en/toast/_shared";
-const queue = Toast.createToastManager();
+const queue = createToaster();
+
 export function Expanded() {
   return (
     <div {...stylex.props(styles.frame)}>
-      <Toast.Provider toastManager={queue}>
-        <Notifications expanded aria-label="展开的通知" />
-      </Toast.Provider>
+      <>
+        <Notifications expanded aria-label="展开的通知" toaster={queue} />
+      </>
       <Button
         size="sm"
         variant="bordered"
         onClick={() => {
-          queue.add({
+          queue({
             title: "简单消息",
             type: "default",
           });
           setTimeout(
             () =>
-              queue.add({
+              queue({
                 title: "操作已完成",
                 type: "success",
               }),
@@ -28,9 +29,9 @@ export function Expanded() {
           );
           setTimeout(
             () =>
-              queue.add({
+              queue({
                 title: "有新更新可用",
-                type: "accent",
+                type: "info",
               }),
             800,
           );

@@ -9,13 +9,13 @@ export async function assertSidebarMotion(p, base) {
   await p.goto(`${base}/en/docs/react/components/sidebar`, { waitUntil: "domcontentloaded" });
   await p.waitForFunction(
     () => {
-      const e = document.querySelector("#nd-sidebar [data-slot=sidebar-disclosure-trigger]");
+      const e = document.querySelector("#nd-sidebar [data-lenso-slot=sidebar-disclosure-trigger]");
       return e && Object.keys(e).some((k) => k.startsWith("__reactProps"));
     },
     null,
     { timeout: 60000 },
   );
-  const t = p.locator("#nd-sidebar [data-slot=sidebar-disclosure-trigger]").first();
+  const t = p.locator("#nd-sidebar [data-lenso-slot=sidebar-disclosure-trigger]").first();
   await t.scrollIntoViewIfNeeded();
   async function capture() {
     await p.evaluate(() => {
@@ -23,7 +23,9 @@ export async function assertSidebarMotion(p, base) {
       window.sidebarMotionPanel = null;
       let n = 0;
       function tick() {
-        const e = document.querySelector("#nd-sidebar [data-slot=sidebar-disclosure-trigger]"),
+        const e = document.querySelector(
+            "#nd-sidebar [data-lenso-slot=sidebar-disclosure-trigger]",
+          ),
           panel =
             document.getElementById(e.getAttribute("aria-controls")) ?? window.sidebarMotionPanel,
           row = panel?.querySelector("a");

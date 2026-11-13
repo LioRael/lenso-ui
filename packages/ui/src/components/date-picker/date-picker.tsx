@@ -1,12 +1,20 @@
 "use client";
-// Modified: native Base UI popover with internationalized date state.
-import { useRef, type ComponentPropsWithRef } from "react";
-import { Popover as Base } from "@base-ui/react/popover";
-import { useRender } from "@base-ui/react/use-render";
-import { mergeProps } from "@base-ui/react/merge-props";
+import { withSource } from "@ui-sdk/core/observe";
+import { sourceOf } from "@ui-sdk/core";
+import { useCallback } from "react";
+// Modified: native UI SDK popover with internationalized date state.
+import { useState, type ComponentPropsWithRef } from "react";
+import * as SdkPopover from "@ui-sdk/react/popover";
+import { slotRender } from "../../utils/sdk-render.js";
+import { usePart, renderElement } from "@ui-sdk/react/primitive";
+import { mergeProps } from "@ui-sdk/react/primitive";
 import { useDatePickerState, type DatePickerStateOptions } from "react-stately/useDatePickerState";
 import { useDateFieldState, type DateValue } from "react-stately/useDateFieldState";
 import { createCalendar } from "@internationalized/date";
+import { datePicker } from "@lenso/primitives/model-control";
+import { useModelControl, type ModelValueOptions } from "../../utils/model-control.js";
+import { encodeDate, decodeDate } from "../../utils/date-values.js";
+import { Field as SdkField } from "@ui-sdk/react/field";
 import * as stylex from "@stylexjs/stylex";
 import { materialStyles } from "@lenso/tokens/materials";
 import { popoverStyles } from "@lenso/tokens/popover";
@@ -24,28 +32,64 @@ import {
   type DateFieldRenderState,
 } from "../../utils/date-field-state.js";
 import { PickerDateContext } from "../../utils/date-picker-state.js";
-import { PopoverPortal } from "../popover/popover.js";
 import { DateFieldLabel, DateFieldDescription, DateFieldError } from "../date-field/date-field.js";
 import {
   DateInputGroupPrefix,
   DateInputGroupSuffix,
 } from "../date-input-group/date-input-group.js";
 export type DatePickerRenderState = DateFieldRenderState & {
-  state: ReturnType<typeof useDatePickerState>;
+  state: Omit<
+    ReturnType<typeof useDatePickerState>,
+    "isOpen" | "setOpen" | "open" | "close" | "toggle"
+  >;
 };
 export type DatePickerRootProps<T extends DateValue = DateValue> = StyleXProps<
   DateFieldDOMProps<DatePickerRenderState>
 > &
-  Omit<DatePickerStateOptions<T>, "onOpenChange"> &
+  Omit<DatePickerStateOptions<T>, "isOpen" | "onOpenChange" | "onChange"> &
+  ModelValueOptions<T> &
   Pick<
-    Base.Root.Props,
-    "open" | "onOpenChange" | "onOpenChangeComplete" | "modal" | "triggerId" | "defaultTriggerId"
+    React.ComponentProps<typeof SdkPopover.Popover>,
+    "open" | "onOpenChange" | "onOpenChangeComplete" | "modal"
   >;
 export function DatePickerRoot<T extends DateValue = DateValue>(props: DatePickerRootProps<T>) {
+  const [popupController] = useState(() => SdkPopover.createPopoverController());
+  return (
+    <SdkPopover.Popover
+      controller={popupController}
+      open={props.open}
+      defaultOpen={props.defaultOpen}
+      onOpenChange={props.onOpenChange}
+      onOpenChangeComplete={props.onOpenChangeComplete}
+      modal={props.modal}
+    >
+      <DatePickerModel {...props} popupController={popupController} />
+    </SdkPopover.Popover>
+  );
+}
+function DatePickerModel<T extends DateValue>({
+  popupController,
+  ...props
+}: DatePickerRootProps<T> & {
+  popupController: SdkPopover.PopoverController;
+}) {
   const { locale } = useLocale();
+  const control = useModelControl<T>(
+    datePicker,
+    props,
+    encodeDate,
+    useCallback(
+      (value) => decodeDate(value, props.value ?? props.defaultValue) as T | null,
+      [props.value, props.defaultValue],
+    ),
+  );
   const model = useDatePickerState({
     ...dateModelOptions(props),
-    isOpen: props.open ?? props.isOpen,
+    value: control.value,
+    defaultValue: undefined,
+    onChange: (value) => control.change(value as T | null),
+    isOpen: false,
+    defaultOpen: undefined,
     onOpenChange: undefined,
     shouldCloseOnSelect: false,
   });
@@ -59,30 +103,43 @@ export function DatePickerRoot<T extends DateValue = DateValue>(props: DatePicke
     locale,
     createCalendar,
   });
-  const scope = useDateFieldScope({ default: field }, props, model);
+  const scope = useDateFieldScope({ default: field }, props, model, control.handle);
   const presentation = { ...scope.state, state: model };
-  const actions = useRef<Base.Root.Actions>(null);
   const { xstyle, style, render, ref, children } = props;
   const compiled = stylex.props(styles.root, xstyle);
-  const element = useRender({
-    defaultTagName: "div",
-    render,
-    ref,
-    state: presentation,
-    stateAttributesMapping: { state: () => null },
-    props: mergeProps(compiled, dateDOMProps(props), {
-      "data-slot": props["data-slot"] ?? "date-picker",
-      "data-date-field-root": "",
-      "data-required": scope.state.isRequired || undefined,
-      "data-disabled": scope.state.isDisabled || undefined,
-      "data-invalid": scope.state.isInvalid || undefined,
-      style:
-        typeof style === "function"
-          ? { ...compiled.style, ...style(presentation) }
-          : mergeStyle(compiled.style, style),
-      children: typeof children === "function" ? children(presentation) : children,
-    }),
-  });
+  const element = usePart(
+    control.handle,
+    "root",
+    {},
+    // oxlint-disable-next-line react/refs -- SDK renderElement forwards refs; it does not read them.
+    {
+      ...mergeProps(compiled, dateDOMProps(props), {
+        "data-lenso-slot": props["data-lenso-slot"] ?? "date-picker",
+        "data-date-field-root": "",
+        "aria-labelledby":
+          props["aria-labelledby"] ?? (props["aria-label"] ? undefined : scope.labelId),
+        "data-required": scope.state.isRequired || undefined,
+        "data-disabled": scope.state.isDisabled || undefined,
+        "data-invalid": scope.state.isInvalid || undefined,
+        style:
+          typeof style === "function"
+            ? { ...compiled.style, ...style(presentation) }
+            : mergeStyle(compiled.style, style),
+        children: (
+          <SdkField
+            disabled={scope.state.isDisabled}
+            invalid={scope.state.isInvalid}
+            style={{ display: "contents" }}
+          >
+            {typeof children === "function" ? children(presentation) : children}
+          </SdkField>
+        ),
+      }),
+      ref: ref,
+      render: (node) => renderElement("div", node, render, presentation),
+    },
+    "div",
+  );
   return (
     <DateFieldContext value={scope}>
       <PickerDateContext
@@ -96,31 +153,27 @@ export function DatePickerRoot<T extends DateValue = DateValue>(props: DatePicke
             isDateUnavailable: props.isDateUnavailable,
             firstDayOfWeek: props.firstDayOfWeek,
           },
-          select(date) {
-            model.setDateValue(date);
+          select(date, options) {
+            const accepted = control.handle.api.run(
+              () => (date === null ? control.change(null) : model.setDateValue(date)),
+              {
+                ...options,
+                reason: options?.reason ?? "item-press",
+              },
+            );
             const close =
               typeof props.shouldCloseOnSelect === "function"
                 ? props.shouldCloseOnSelect()
                 : (props.shouldCloseOnSelect ?? !model.hasTime);
-            if (close) actions.current?.close();
+            if (close && accepted !== false)
+              withSource(options?.source ?? sourceOf(options?.event), () =>
+                popupController.close(),
+              );
+            return accepted;
           },
         }}
       >
-        <Base.Root
-          actionsRef={actions}
-          open={model.isOpen}
-          defaultOpen={props.defaultOpen}
-          onOpenChange={(open, details) => {
-            props.onOpenChange?.(open, details);
-            if (!details.isCanceled) model.setOpen(open);
-          }}
-          onOpenChangeComplete={props.onOpenChangeComplete}
-          modal={props.modal}
-          triggerId={props.triggerId}
-          defaultTriggerId={props.defaultTriggerId}
-        >
-          {element}
-        </Base.Root>
+        {element}
       </PickerDateContext>
     </DateFieldContext>
   );
@@ -129,24 +182,24 @@ export function DatePickerTrigger({
   xstyle,
   style,
   ...props
-}: StyleXProps<ComponentPropsWithRef<typeof Base.Trigger>>) {
+}: StyleXProps<ComponentPropsWithRef<typeof SdkPopover.PopoverTrigger>>) {
   const scope = useDateFieldContext();
   const { locale } = useLocale();
   const compiled = stylex.props(styles.trigger, xstyle);
   return (
-    <Base.Trigger
+    <SdkPopover.PopoverTrigger
       {...props}
       {...compiled}
       aria-label={
         props["aria-label"] ??
-        (props["aria-labelledby"]
+        (props["aria-labelledby"] || typeof props.children === "string"
           ? undefined
           : locale.startsWith("zh")
             ? "选择日期"
             : "Choose date")
       }
       disabled={props.disabled ?? (scope.state.isDisabled || scope.state.isReadOnly)}
-      data-slot={props["data-slot"] ?? "date-picker-trigger"}
+      render={slotRender("button", props["data-lenso-slot"] ?? "date-picker-trigger", props.render)}
       style={mergeStyle(compiled.style, style)}
     />
   );
@@ -163,7 +216,7 @@ export function DatePickerTriggerIndicator({
       aria-hidden="true"
       {...props}
       {...compiled}
-      data-slot={props["data-slot"] ?? "date-picker-trigger-indicator"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "date-picker-trigger-indicator"}
       style={mergeStyle(compiled.style, style)}
     >
       {children ?? (
@@ -183,98 +236,53 @@ export function DatePickerTriggerIndicator({
   );
 }
 
-export type DatePickerPopoverProps = StyleXProps<ComponentPropsWithRef<typeof Base.Popup>> &
-  Pick<
-    Base.Positioner.Props,
-    "side" | "align" | "sideOffset" | "alignOffset" | "collisionPadding" | "collisionBoundary"
-  > & {
-    placement?:
-      | "top"
-      | "bottom"
-      | "left"
-      | "right"
-      | "top start"
-      | "top end"
-      | "bottom start"
-      | "bottom end";
-  };
+export type DatePickerPopoverProps = StyleXProps<
+  ComponentPropsWithRef<typeof SdkPopover.PopoverContent>
+>;
 export function DatePickerPopover({
   children,
-  placement = "bottom",
-  side,
-  align,
+  side = "bottom",
+  align = "center",
   sideOffset = 8,
   alignOffset,
   collisionPadding,
-  collisionBoundary,
   xstyle,
   style,
   ...props
 }: DatePickerPopoverProps) {
-  const [placementSide, placementAlign] = placement.split(" ") as [
-    "top" | "bottom" | "left" | "right",
-    "start" | "end" | undefined,
-  ];
+  const { locale } = useLocale();
   const compiled = stylex.props(
     materialStyles.root,
-    styles.popover,
     materialStyles.accessible,
+    popoverStyles.positioner,
+    styles.popover,
     xstyle,
   );
   return (
-    <PopoverPortal>
-      <Base.Positioner
-        {...stylex.props(popoverStyles.positioner)}
-        side={side ?? placementSide}
-        align={align ?? placementAlign ?? "center"}
-        sideOffset={sideOffset}
-        alignOffset={alignOffset}
-        collisionPadding={collisionPadding}
-        collisionBoundary={collisionBoundary}
-      >
-        <Base.Popup
-          {...props}
-          {...compiled}
-          data-slot={props["data-slot"] ?? "date-picker-popover"}
-          data-material="glass-large"
-          style={mergeStyle(compiled.style, style)}
-        >
-          <MaterialBackground variant="glass-large" liveBackdrop />
-          {children}
-        </Base.Popup>
-      </Base.Positioner>
-    </PopoverPortal>
-  );
-}
-export function pickerEnterTransform(placement: string | null | undefined) {
-  if (placement?.startsWith("top")) return "translateY(4px) scale(.95)";
-  if (placement?.startsWith("bottom")) return "translateY(-4px) scale(.95)";
-  if (placement?.startsWith("left")) return "translateX(4px) scale(.95)";
-  if (placement?.startsWith("right")) return "translateX(-4px) scale(.95)";
-  return "scale(.95)";
-}
+    <SdkPopover.PopoverContent
+      side={side}
+      align={align}
+      sideOffset={sideOffset}
+      alignOffset={alignOffset}
+      collisionPadding={collisionPadding}
 
-export function DatePickerDialog({
-  render,
-  ref,
-  xstyle,
-  style,
-  ...props
-}: StyleXProps<useRender.ComponentProps<"div">>) {
-  const { locale } = useLocale();
-  const compiled = stylex.props(styles.dialog, xstyle);
-  return (
-    <Base.Title
       {...props}
       {...compiled}
-      ref={ref}
-      render={render ?? <div />}
       aria-label={props["aria-label"] ?? (locale.startsWith("zh") ? "日历" : "Calendar")}
-      data-slot={props["data-slot"] ?? "date-picker-dialog"}
+      render={slotRender("div", props["data-lenso-slot"] ?? "date-picker-popover", props.render)}
+      data-material="glass-large"
       style={mergeStyle(compiled.style, style)}
-    />
+    >
+      {(state) => (
+        <>
+          <MaterialBackground variant="glass-large" liveBackdrop />
+          {typeof children === "function" ? children(state) : children}
+        </>
+      )}
+    </SdkPopover.PopoverContent>
   );
 }
+
 export function DatePickerPrefix({ xstyle, ...props }: StyleXProps<ComponentPropsWithRef<"div">>) {
   return <DateInputGroupPrefix {...props} xstyle={[styles.accessory, xstyle]} />;
 }

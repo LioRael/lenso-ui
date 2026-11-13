@@ -1,7 +1,7 @@
 "use client";
 // modified for native HTML and StyleX.
 import { type ComponentProps } from "react";
-import { useRender } from "@base-ui/react/use-render";
+import { renderElement, type PartProps } from "@ui-sdk/react/primitive";
 import {
   typographyStyles,
   typographyTypes,
@@ -24,7 +24,7 @@ const tags = {
   "body-xs": "p",
   code: "code",
 } as const;
-export type TypographyRootProps = StyleXProps<useRender.ComponentProps<"p">> & {
+export type TypographyRootProps = StyleXProps<PartProps<"p">> & {
   type?: keyof typeof typographyTypes;
   align?: keyof typeof typographyAligns;
   color?: keyof typeof typographyColors;
@@ -52,18 +52,21 @@ export function TypographyRoot({
     truncate && typographyStyles.truncate,
     xstyle,
   );
-  return useRender({
-    render,
-    ref,
-    defaultTagName: tags[type],
-    props: {
-      "data-type": type,
-      ...props,
-      "data-slot": (props as { "data-slot"?: string })["data-slot"] ?? "typography",
-      ...compiled,
-      style: { ...compiled.style, ...style },
+  return renderElement(
+    tags[type],
+    {
+      ...{
+        "data-type": type,
+        ...props,
+        "data-lenso-slot":
+          (props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "typography",
+        ...compiled,
+        style: { ...compiled.style, ...style },
+      },
+      ref: ref,
     },
-  });
+    render,
+  );
 }
 export type HeadingProps = Omit<TypographyRootProps, "type"> & { level?: 1 | 2 | 3 | 4 | 5 | 6 };
 export function Heading({ level = 1, ...props }: HeadingProps) {
@@ -87,7 +90,7 @@ export function Prose({ children, xstyle, style, ...props }: ProseProps) {
       </style>
       <div
         {...props}
-        data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "prose"}
+        data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "prose"}
         {...compiled}
         style={{ ...compiled.style, ...style }}
         data-prose-root=""

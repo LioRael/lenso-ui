@@ -12,14 +12,14 @@ function Summary({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"div">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(paginationStyles.summary, xstyle);
   return (
     <div
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "pagination-summary"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "pagination-summary"}
     />
   );
 }
@@ -27,14 +27,14 @@ export function PaginationContent({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"ul">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"ul">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(paginationStyles.content, xstyle);
   return (
     <ul
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "pagination-content"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "pagination-content"}
     />
   );
 }
@@ -42,14 +42,14 @@ export function PaginationItem({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"li">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"li">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(paginationStyles.item, xstyle);
   return (
     <li
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "pagination-item"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "pagination-item"}
     />
   );
 }
@@ -57,14 +57,14 @@ function Ellipsis({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(paginationStyles.ellipsis, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "pagination-ellipsis"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "pagination-ellipsis"}
     />
   );
 }
@@ -72,14 +72,14 @@ function PreviousIcon({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(paginationStyles.icon, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "pagination-previous-icon"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "pagination-previous-icon"}
     />
   );
 }
@@ -87,19 +87,19 @@ function NextIcon({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(paginationStyles.icon, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "pagination-next-icon"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "pagination-next-icon"}
     />
   );
 }
 export type PaginationRootProps = StyleXProps<React.ComponentPropsWithRef<"nav">> & {
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
   size?: ButtonSize;
 };
 export function PaginationRoot({ size = "md", xstyle, style, ...props }: PaginationRootProps) {
@@ -111,7 +111,7 @@ export function PaginationRoot({ size = "md", xstyle, style, ...props }: Paginat
         {...props}
         {...compiled}
         style={mergeStyle(compiled.style, style)}
-        data-slot={props["data-slot"] ?? "pagination"}
+        data-lenso-slot={props["data-lenso-slot"] ?? "pagination"}
       />
     </Context>
   );
@@ -135,7 +135,7 @@ export function PaginationLink({ isActive = false, xstyle, ...props }: Paginatio
   return (
     <LinkRoot
       {...props}
-      data-slot="pagination-link"
+      data-lenso-slot="pagination-link"
       aria-current={isActive ? "page" : undefined}
       data-active={isActive || undefined}
       xstyle={[

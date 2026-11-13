@@ -1,6 +1,6 @@
 /**
  * Copyright NextUI Inc. SPDX-License-Identifier: Apache-2.0
- * Native Lenso RAC supporting parts; ordinary actions and selection use Base UI.
+ * Native Lenso RAC supporting parts; ordinary actions and selection use UI SDK.
  */
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { DateValue } from "@internationalized/date";
@@ -349,20 +349,16 @@ export const Granularity: Story = {
             <span id="date-time-story-granularity-label" {...stylex.props(labelStyles.label)}>
               Granularity
             </span>
-            <Tooltip>
-              <Tooltip.Trigger delay={0} aria-label="Granularity information">
+            <Tooltip delay={0}>
+              <Tooltip.Trigger aria-label="Granularity information">
                 <DateTimeStoryIcon name="circle-question" />
               </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <Tooltip.Positioner side="bottom" align="start">
-                  <Tooltip.Popup>
-                    <p>
-                      Determines the smallest unit displayed in the date picker. By default, this is
-                      "day" for dates, and "minute" for times.
-                    </p>
-                  </Tooltip.Popup>
-                </Tooltip.Positioner>
-              </Tooltip.Portal>
+              <Tooltip.Content side="bottom" align="start">
+                <p>
+                  Determines the smallest unit displayed in the date picker. By default, this is
+                  "day" for dates, and "minute" for times.
+                </p>
+              </Tooltip.Content>
             </Tooltip>
           </div>
           <Select
@@ -377,20 +373,16 @@ export const Granularity: Story = {
               <Select.Value placeholder="Select granularity" />
               <Select.Indicator />
             </Select.Trigger>
-            <Select.Portal>
-              <Select.Positioner>
-                <Select.Popover>
-                  <Select.List>
-                    {granularityOptions.map((option) => (
-                      <Select.Item key={option.id} value={option.id}>
-                        <Select.ItemText>{option.label}</Select.ItemText>
-                        <Select.ItemIndicator />
-                      </Select.Item>
-                    ))}
-                  </Select.List>
-                </Select.Popover>
-              </Select.Positioner>
-            </Select.Portal>
+            <Select.Content>
+              <Select.List>
+                {granularityOptions.map((option) => (
+                  <Select.Item key={option.id} value={option.id}>
+                    <Select.ItemText>{option.label}</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.List>
+            </Select.Content>
           </Select>
         </div>
       </div>

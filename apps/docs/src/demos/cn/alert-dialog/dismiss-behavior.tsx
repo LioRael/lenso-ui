@@ -51,36 +51,32 @@ export function DismissBehavior() {
             }}
           >
             <AlertDialog.Trigger render={<Button />}>打开警告对话框</AlertDialog.Trigger>
-            <AlertDialog.Portal>
-              <AlertDialog.Backdrop />
-              <AlertDialog.Viewport>
-                <AlertDialog.Popup xstyle={styles.popup}>
-                  <AlertDialog.Close aria-label="Close dialog" />
-                  <AlertDialog.Header>
-                    <AlertDialog.Icon variant={blockEscape ? "accent" : "danger"}>
-                      <CircleInfo {...stylex.props(styles.circle)} />
-                    </AlertDialog.Icon>
-                    <AlertDialog.Title>
-                      {blockEscape ? "Keyboard dismissal disabled" : "Backdrop dismissal disabled"}
-                    </AlertDialog.Title>
-                    <AlertDialog.Description xstyle={styles.caption}>
-                      {blockEscape ? "已禁用 ESC 关闭" : "点击遮罩不会关闭此对话框"}
-                    </AlertDialog.Description>
-                  </AlertDialog.Header>
-                  <AlertDialog.Body>
-                    <p>
-                      {blockEscape
-                        ? "按下 ESC 不会有任何反应，必须通过操作按钮关闭此对话框。"
-                        : "尝试点击遮罩区域——对话框不会关闭，必须通过底部操作按钮关闭。"}
-                    </p>
-                  </AlertDialog.Body>
-                  <AlertDialog.Footer>
-                    <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
-                    <AlertDialog.Action>确认</AlertDialog.Action>
-                  </AlertDialog.Footer>
-                </AlertDialog.Popup>
-              </AlertDialog.Viewport>
-            </AlertDialog.Portal>
+            <AlertDialog.Backdrop />
+            <AlertDialog.Content xstyle={styles.popup}>
+              <AlertDialog.Close aria-label="Close dialog" />
+              <AlertDialog.Header>
+                <AlertDialog.Icon variant={blockEscape ? "accent" : "danger"}>
+                  <CircleInfo {...stylex.props(styles.circle)} />
+                </AlertDialog.Icon>
+                <AlertDialog.Title>
+                  {blockEscape ? "Keyboard dismissal disabled" : "Backdrop dismissal disabled"}
+                </AlertDialog.Title>
+                <AlertDialog.Description xstyle={styles.caption}>
+                  {blockEscape ? "已禁用 ESC 关闭" : "点击遮罩不会关闭此对话框"}
+                </AlertDialog.Description>
+              </AlertDialog.Header>
+              <AlertDialog.Body>
+                <p>
+                  {blockEscape
+                    ? "按下 ESC 不会有任何反应，必须通过操作按钮关闭此对话框。"
+                    : "尝试点击遮罩区域——对话框不会关闭，必须通过底部操作按钮关闭。"}
+                </p>
+              </AlertDialog.Body>
+              <AlertDialog.Footer>
+                <AlertDialog.Action variant="cancel">取消</AlertDialog.Action>
+                <AlertDialog.Action>确认</AlertDialog.Action>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
           </AlertDialog>
         </div>
       ))}

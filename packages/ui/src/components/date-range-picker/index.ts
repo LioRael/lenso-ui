@@ -1,11 +1,15 @@
 // Copyright NextUI Inc. Apache-2.0. Modified for Lenso StyleX.
 import type { ComponentProps } from "react";
 import {
+  PopoverTitle as DateRangePickerTitle,
+  PopoverClose as DateRangePickerClose,
+  PopoverDescription as DateRangePickerPopoverDescription,
+} from "../popover/index.js";
+import {
   DateRangePickerRoot,
   DateRangePickerTrigger,
   DateRangePickerTriggerIndicator,
   DateRangePickerPopover,
-  DateRangePickerDialog,
   DateRangePickerLabel,
   DateRangePickerDescription,
   DateRangePickerError,
@@ -18,7 +22,6 @@ export {
   DateRangePickerTrigger,
   DateRangePickerTriggerIndicator,
   DateRangePickerPopover,
-  DateRangePickerDialog,
   DateRangePickerLabel,
   DateRangePickerDescription,
   DateRangePickerError,
@@ -41,7 +44,9 @@ export const DateRangePicker = Object.assign(DateRangePickerRoot, {
   Trigger: DateRangePickerTrigger,
   TriggerIndicator: DateRangePickerTriggerIndicator,
   Popover: DateRangePickerPopover,
-  Dialog: DateRangePickerDialog,
+  Title: DateRangePickerTitle,
+  Close: DateRangePickerClose,
+  PopoverDescription: DateRangePickerPopoverDescription,
   Label: DateRangePickerLabel,
   Description: DateRangePickerDescription,
   Error: DateRangePickerError,
@@ -53,3 +58,11 @@ export const DateRangePicker = Object.assign(DateRangePickerRoot, {
   Prefix: DatePickerPrefix,
   Suffix: DatePickerSuffix,
 });
+
+export { createModelController as createDateRangePickerController } from "@lenso/primitives/model-control";
+export type {
+  ModelController as DateRangePickerController,
+  ModelChangeReason as DateRangePickerChangeReason,
+} from "@lenso/primitives/model-control";
+
+export { DateRangePickerClose, DateRangePickerTitle, DateRangePickerPopoverDescription };

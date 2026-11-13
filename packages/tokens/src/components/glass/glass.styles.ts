@@ -34,7 +34,7 @@ export const glassStyles = stylex.create({
       content: '""',
       display: {
         default: "none",
-        ":is([data-lenso-glass-foreground-rim]):not([data-lenso-glass-opaque], [data-lenso-glass-fused])":
+        ":is([data-lenso-glass-foreground-rim]):not([data-lenso-glass-opaque], [data-lenso-glass-fused], [data-material-live-rim])":
           "block",
       },
       position: "absolute",
@@ -46,7 +46,10 @@ export const glassStyles = stylex.create({
     },
   },
   copyLayer: {
-    display: { default: null, ":has(+ [data-lenso-glass-fused])": "none" },
+    display: {
+      default: null,
+      ":has(+ :is([data-lenso-glass-fused], [data-lenso-fusion-moving]))": "none",
+    },
     position: "absolute",
     top: 0,
     left: 0,
@@ -57,7 +60,10 @@ export const glassStyles = stylex.create({
   },
   // The filtered input stays unpromoted; composite only its unfiltered output shell.
   copyOutput: {
-    display: { default: null, ":has(+ [data-lenso-glass-fused])": "none" },
+    display: {
+      default: null,
+      ":has(+ :is([data-lenso-glass-fused], [data-lenso-fusion-moving]))": "none",
+    },
     position: "absolute",
     top: 0,
     left: 0,

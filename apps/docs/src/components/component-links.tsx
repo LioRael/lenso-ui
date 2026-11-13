@@ -12,7 +12,11 @@ export function ComponentLinks({ family, locale = "en" }: { family?: string; loc
   if (metadata.source === undefined) throw new Error(`Missing component source: ${family}`);
   const implementation = metadata.source;
   const native = metadata.native;
-  const base = native.find((module) => module.startsWith("@base-ui/react/"))?.split("/")[2];
+  const sdk = (
+    native.find(
+      (module) => module.startsWith("@ui-sdk/react/") && !module.endsWith("/primitive"),
+    ) ?? native.find((module) => module === "@ui-sdk/react/primitive")
+  )?.split("/")[2];
   const entries = [
     {
       label: "Source",
@@ -24,9 +28,12 @@ export function ComponentLinks({ family, locale = "en" }: { family?: string; loc
       href: `${product.repository}/blob/main/packages/tokens/src/components/${family}/${family}.styles.ts`,
       icon: LogoGithub,
     },
-    base && {
-      label: "Base UI",
-      href: `https://base-ui.com/react/components/${base}`,
+    sdk && {
+      label: "UI SDK",
+      href:
+        sdk === "primitive"
+          ? "https://ui-sdk.dev/docs/rendering"
+          : `https://ui-sdk.dev/docs/components/${sdk}`,
       icon: Code,
     },
     native.some((module) => module.startsWith("react-aria")) && {

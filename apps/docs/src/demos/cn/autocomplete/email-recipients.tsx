@@ -1,6 +1,6 @@
 "use client";
 
-import { NativeAutocomplete } from "../../en/autocomplete/_native";
+import { OptionPicker } from "../../en/autocomplete/_native";
 const emails = [
   {
     email: "alice@example.com",
@@ -30,7 +30,7 @@ const emails = [
 ];
 export function EmailRecipients() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={emails}
       label="收件人"
       placeholder="添加收件人"

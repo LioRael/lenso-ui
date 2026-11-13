@@ -36,7 +36,7 @@ export function CustomValue() {
           </div>
         ),
       }))}
-      valueContent={(value) => {
+      valueContent={({ value }) => {
         const user = users.find((item) => item.id === value);
         return user ? (
           <span {...stylex.props(exampleStyles.row)}>

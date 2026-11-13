@@ -15,13 +15,13 @@ const presentation = defineConfig({
   deps: {
     neverBundle: [
       "@stylexjs/stylex",
-      "@base-ui/react",
       "@gravity-ui/icons",
       "fumadocs-core",
       "fumadocs-ui",
       "react",
       "react-dom",
       "@pierre/highlights",
+      /^@lenso\//,
     ],
   },
   clean: true,
@@ -30,7 +30,7 @@ const presentation = defineConfig({
 // Keep every React module separate: bundling the framework would erase the
 // server/client boundary between the renderer and its interactive leaf modules.
 const framework = defineConfig({
-  entry: ["src/react.ts", "src/client.ts", "src/compile-document.tsx"],
+  entry: ["src/react.ts", "src/client.ts", "src/appearance.ts", "src/compile-document.tsx"],
   root: "src",
   outDir: "dist/framework",
   format: "esm",

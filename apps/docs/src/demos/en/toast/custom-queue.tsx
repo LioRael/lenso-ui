@@ -1,25 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { Button, createToaster } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
-import { Button, Toast } from "@lenso/ui";
+import { useState } from "react";
 import { Notifications, styles } from "./_shared";
 
 export function CustomQueue() {
-  const [notificationQueue] = useState(() => Toast.createToastManager());
-  const [errorQueue] = useState(() => Toast.createToastManager());
-  const [successQueue] = useState(() => Toast.createToastManager());
+  const [notificationQueue] = useState(() => createToaster());
+  const [errorQueue] = useState(() => createToaster());
+  const [successQueue] = useState(() => createToaster());
   return (
     <div {...stylex.props(styles.queues)}>
-      <Toast.Provider toastManager={notificationQueue} limit={2}>
-        <Notifications placement="bottom" />
-      </Toast.Provider>
+      <>
+        <Notifications side="bottom" align="center" toaster={notificationQueue} maxVisible={2} />
+      </>
       <div {...stylex.props(styles.queueButtons)}>
         <Button
           size="sm"
           variant="bordered"
           onClick={() =>
-            notificationQueue.add({
+            notificationQueue({
               description: "You have a new message",
               title: "New notification",
               type: "default",
@@ -29,35 +29,35 @@ export function CustomQueue() {
           Add notification (max 2)
         </Button>
       </div>
-      <Toast.Provider toastManager={errorQueue} limit={3}>
-        <Notifications placement="bottom-start" />
-      </Toast.Provider>
+      <>
+        <Notifications side="bottom" align="start" toaster={errorQueue} maxVisible={3} />
+      </>
       <div {...stylex.props(styles.queueButtons)}>
         <Button
           destructive
           size="sm"
           variant="bordered"
           onClick={() =>
-            errorQueue.add({
+            errorQueue({
               description: "Failed to save changes",
               title: "Error occurred",
-              type: "danger",
+              type: "error",
             })
           }
         >
           Add error (max 3)
         </Button>
       </div>
-      <Toast.Provider toastManager={successQueue} limit={1}>
-        <Notifications placement="bottom-end" />
-      </Toast.Provider>
+      <>
+        <Notifications side="bottom" align="end" toaster={successQueue} maxVisible={1} />
+      </>
       <div {...stylex.props(styles.queueButtons)}>
         <Button
           xstyle={styles.successText}
           size="sm"
           variant="bordered"
           onClick={() =>
-            successQueue.add({
+            successQueue({
               description: `Operation ${Date.now()}`,
               title: "Success!",
               type: "success",

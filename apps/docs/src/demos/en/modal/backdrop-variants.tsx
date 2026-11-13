@@ -20,32 +20,28 @@ export function BackdropVariants() {
           <Modal.Trigger render={<Button />}>
             {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </Modal.Trigger>
-          <Modal.Portal>
-            <Modal.Backdrop variant={variant} />
-            <Modal.Viewport>
-              <Modal.Popup xstyle={styles.popup}>
-                <Modal.Close aria-label="Close dialog" />
-                <Modal.Header>
-                  <Modal.Icon xstyle={styles.icon}>
-                    <Rocket {...stylex.props(styles.rocket)} />
-                  </Modal.Icon>
-                  <Modal.Title>
-                    Backdrop: {variant.charAt(0).toUpperCase() + variant.slice(1)}
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Modal.Description>
-                    This modal uses the <code>{variant}</code> backdrop variant. Compare the
-                    different visual effects: opaque provides full opacity, blur adds a backdrop
-                    filter, and transparent removes the background.
-                  </Modal.Description>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Modal.Close render={<Button xstyle={styles.action} />}>Continue</Modal.Close>
-                </Modal.Footer>
-              </Modal.Popup>
-            </Modal.Viewport>
-          </Modal.Portal>
+          <Modal.Backdrop variant={variant} />
+          <Modal.Content xstyle={styles.popup}>
+            <Modal.Close aria-label="Close dialog" />
+            <Modal.Header>
+              <Modal.Icon xstyle={styles.icon}>
+                <Rocket {...stylex.props(styles.rocket)} />
+              </Modal.Icon>
+              <Modal.Title>
+                Backdrop: {variant.charAt(0).toUpperCase() + variant.slice(1)}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Modal.Description>
+                This modal uses the <code>{variant}</code>backdrop variant. Compare the different
+                visual effects: opaque provides full opacity, blur adds a backdrop filter, and
+                transparent removes the background.
+              </Modal.Description>
+            </Modal.Body>
+            <Modal.Footer>
+              <Modal.Close render={<Button xstyle={styles.action} />}>Continue</Modal.Close>
+            </Modal.Footer>
+          </Modal.Content>
         </Modal>
       ))}
     </div>

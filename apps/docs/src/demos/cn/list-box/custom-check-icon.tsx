@@ -5,7 +5,7 @@ import { UsersList, styles } from "./custom-check-icon--users";
 export function CustomCheckIcon() {
   return (
     <div {...stylex.props(styles.surface)}>
-      <UsersList selectionMode="multiple" customCheck />
+      <UsersList multiple customCheck />
     </div>
   );
 }

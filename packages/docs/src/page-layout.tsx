@@ -1,10 +1,12 @@
 import type { ComponentType, ReactNode } from "react";
 import type { MDXComponents } from "mdx/types";
 import * as stylex from "@stylexjs/stylex";
-import { LogoGithub, BookOpen, Globe } from "@gravity-ui/icons";
+import { LogoGithub } from "@gravity-ui/icons";
 import type { Root, Node } from "fumadocs-core/page-tree";
 import { TreeContextProvider } from "fumadocs-ui/contexts/tree";
 import Link from "fumadocs-core/link";
+import { GlassButton } from "@lenso/ui/glass-button";
+import { DocsThemePicker } from "./docs-theme-picker";
 import { DocumentationFooter, DocumentationThemeSwitch } from "./shell";
 import {
   DocumentationSiteLayout,
@@ -14,7 +16,7 @@ import {
 import { DocumentationSearch, DocumentationSearchRevision } from "./search";
 import { DocumentationArticle } from "./article";
 import { DocumentationPageActions } from "./page-actions";
-import { styles, notebook } from "@lenso/docs/presentation";
+import { styles, headerControls } from "@lenso/docs/presentation";
 import type { DocsConfig } from "./config.ts";
 import type { DocsRuntimePage as ContentPage } from "./content.ts";
 import type {
@@ -77,15 +79,22 @@ export function DocumentationPageLayout({
     });
   }
   const links = Object.entries(config.links ?? {}).map(([text, url]) => (
-    <Link
+    <GlassButton
       key={text}
-      href={url}
-      external={/^https?:\/\//.test(url)}
+      // The Glass control renders a navigation anchor.
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
+      role="link"
+      render={<Link href={url} external={/^https?:\/\//.test(url)} />}
+      isIconOnly={/^github$/i.test(text)}
       aria-label={/^github$/i.test(text) ? `${config.title} on GitHub` : text}
-      {...stylex.props(/^github$/i.test(text) ? notebook.iconButton : styles.link)}
+      xstyle={[
+        headerControls.control,
+        /^github$/i.test(text) && headerControls.icon,
+        headerControls.link,
+      ]}
     >
       {/^github$/i.test(text) ? <LogoGithub width={16} height={16} aria-hidden="true" /> : text}
-    </Link>
+    </GlassButton>
   ));
   return (
     <DocumentationSearchRevision revision={searchRevision}>
@@ -103,16 +112,7 @@ export function DocumentationPageLayout({
           }
           currentUrl={siteOptions?.currentUrl ?? page.url.slice(basePath.length)}
           activeSection={siteOptions?.activeSection ?? "docs"}
-          sections={
-            siteOptions?.sections ?? [
-              {
-                id: "docs",
-                title: "Documentation",
-                url: "/",
-                icon: <BookOpen width={16} height={16} aria-hidden="true" />,
-              },
-            ]
-          }
+          sections={siteOptions?.sections ?? []}
           navigation={siteOptions?.navigation ?? navigation(tree.children)}
           {...(siteOptions?.navigationStateKey !== undefined
             ? { navigationStateKey: siteOptions.navigationStateKey }
@@ -120,6 +120,7 @@ export function DocumentationPageLayout({
           slots={{
             search: (
               <DocumentationSearch
+                compact
                 from={
                   hasLocaleRegistry
                     ? `${basePath}/_lenso/search/${page.locale}.json`
@@ -129,15 +130,18 @@ export function DocumentationPageLayout({
             ),
             desktopActions: (
               <>
-                {links}
+                <DocsThemePicker
+                  locale={page.locale === "cn" || page.locale.startsWith("zh") ? "cn" : "en"}
+                />
                 <DocumentationThemeSwitch />
+                {links}
               </>
             ),
             drawerActions: <DocumentationThemeSwitch />,
-            sectionTrailing: (
-              <>
-                <Globe width={14} height={14} aria-hidden="true" /> Web
-              </>
+            mobileActions: (
+              <DocsThemePicker
+                locale={page.locale === "cn" || page.locale.startsWith("zh") ? "cn" : "en"}
+              />
             ),
             drawerFooter: (
               <nav aria-label="Project links">

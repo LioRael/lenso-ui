@@ -30,7 +30,7 @@ export const dateInputGroupStyles = stylex.create({
       default: "none",
       ":has(input:focus-visible, [data-date-segment]:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
         "1.5px solid var(--lenso-focus-ring)",
-      ":is([data-field-grouped] *, [data-slot='fieldset-row'] *):has(:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
+      ":is([data-field-grouped] *, [data-lenso-slot='fieldset-row'] *):has(:focus-visible):not(:is([data-lenso-focus-method='pointer'] *))":
         "none",
     },
     outlineOffset: 2,
@@ -51,17 +51,17 @@ export const dateInputGroupStyles = stylex.create({
   focused: {
     borderColor: {
       default: tokens.controlFieldBorder,
-      ":has([data-slot='date-picker-trigger']:focus,[data-slot='date-range-picker-trigger']:focus)":
+      ":has([data-lenso-slot='date-picker-trigger']:focus,[data-lenso-slot='date-range-picker-trigger']:focus)":
         tokens.controlFieldBorder,
     },
     backgroundColor: {
       default: tokens.fillTertiary,
-      ":has([data-slot='date-picker-trigger']:focus,[data-slot='date-range-picker-trigger']:focus)":
+      ":has([data-lenso-slot='date-picker-trigger']:focus,[data-lenso-slot='date-range-picker-trigger']:focus)":
         tokens.controlFieldFill,
     },
     boxShadow: {
       default: focusRing.elevation,
-      ":has([data-slot='date-picker-trigger']:focus,[data-slot='date-range-picker-trigger']:focus)":
+      ":has([data-lenso-slot='date-picker-trigger']:focus,[data-lenso-slot='date-range-picker-trigger']:focus)":
         focusRing.elevation,
     },
   },
@@ -75,7 +75,7 @@ export const dateInputGroupStyles = stylex.create({
     display: "flex",
     flex: {
       default: 1,
-      ":is([data-slot='date-input-group']:has([data-slot='date-range-picker-range-separator']) [slot='start'])":
+      ":is([data-lenso-slot='date-input-group']:has([data-lenso-slot='date-range-picker-range-separator']) [slot='start'])":
         "none",
     },
     cursor: "text",

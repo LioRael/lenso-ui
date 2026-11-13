@@ -64,7 +64,7 @@ export function RenderFunction() {
         href="#"
         render={(props) => (
           <a {...props} data-custom="bar">
-            {props.children}
+            {props["children"]}
           </a>
         )}
       >
@@ -74,7 +74,7 @@ export function RenderFunction() {
         href="#"
         render={(props) => (
           <a {...props} data-custom="bar">
-            {props.children}
+            {props["children"]}
           </a>
         )}
       >
@@ -84,7 +84,7 @@ export function RenderFunction() {
         href="#"
         render={(props) => (
           <a {...props} data-custom="bar">
-            {props.children}
+            {props["children"]}
           </a>
         )}
       >
@@ -93,7 +93,7 @@ export function RenderFunction() {
       <Breadcrumbs.Item
         render={(props) => (
           <a {...props} data-custom="bar">
-            {props.children}
+            {props["children"]}
           </a>
         )}
       >

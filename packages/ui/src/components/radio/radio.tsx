@@ -2,9 +2,10 @@
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: Base UI owns group selection, validation and keyboard behavior.
+ * Modified: UI SDK owns group selection, validation and keyboard behavior.
  */
-import { Radio as BaseRadio } from "@base-ui/react/radio";
+import { Radio as SdkRadio, RadioIndicator as SdkRadioIndicator } from "@ui-sdk/react/radio";
+import { slotRender } from "../../utils/sdk-render.js";
 import { radioStyles } from "@lenso/tokens/radio";
 import { createContext, useContext, type ComponentPropsWithRef } from "react";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
@@ -16,17 +17,17 @@ export function RadioRoot({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseRadio.Root.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseRadio.Root>["ref"];
+  Omit<React.ComponentProps<typeof SdkRadio>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkRadio>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(radioStyles.root, xstyle);
   return (
-    <BaseRadio.Root
+    <SdkRadio
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "radio"}
+      render={slotRender("button", props["data-lenso-slot"] ?? "radio", props.render)}
     />
   );
 }
@@ -36,14 +37,14 @@ export function RadioContent({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(radioStyles.content, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "radio-content"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "radio-content"}
     />
   );
 }
@@ -51,14 +52,14 @@ function Control({
   xstyle,
   style,
   ...props
-}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-slot"?: unknown }) {
+}: StyleXProps<React.ComponentPropsWithRef<"span">> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(radioStyles.control, xstyle);
   return (
     <span
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "radio-control"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "radio-control"}
     />
   );
 }
@@ -79,17 +80,17 @@ function Indicator({
   style,
   ...props
 }: StyleXProps<
-  Omit<BaseRadio.Indicator.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseRadio.Indicator>["ref"];
+  Omit<React.ComponentProps<typeof SdkRadioIndicator>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkRadioIndicator>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(radioStyles.indicator, xstyle);
   return (
-    <BaseRadio.Indicator
+    <SdkRadioIndicator
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "radio-indicator"}
+      render={slotRender("span", props["data-lenso-slot"] ?? "radio-indicator", props.render)}
     />
   );
 }

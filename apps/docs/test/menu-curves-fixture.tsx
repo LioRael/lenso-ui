@@ -20,15 +20,11 @@ export function mount(host: HTMLElement) {
         <section data-motion-case="icon" style={{ marginTop: 80 }}>
           <Menu>
             <Menu.Trigger aria-label="Tall icon" />
-            <Menu.Portal>
-              <Menu.Positioner>
-                <Menu.Popup>
-                  {Array.from({ length: 12 }, (_, i) => (
-                    <Menu.Item key={i}>Action {i + 1}</Menu.Item>
-                  ))}
-                </Menu.Popup>
-              </Menu.Positioner>
-            </Menu.Portal>
+            <Menu.Content>
+              {Array.from({ length: 12 }, (_, i) => (
+                <Menu.Item key={i}>Action {i + 1}</Menu.Item>
+              ))}
+            </Menu.Content>
           </Menu>
         </section>
       </main>

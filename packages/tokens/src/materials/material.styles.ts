@@ -49,6 +49,7 @@ export const liquidMaterialStyles = stylex.create({
     },
   },
   small: {
+    "--lenso-glass-rim": "auto",
     "--lenso-glass-default-active-fill": {
       default: "rgb(255 255 255 / .34)",
       ":is([data-theme='dark'] *)": "rgb(255 255 255 / .3)",
@@ -76,7 +77,8 @@ export const liquidMaterialStyles = stylex.create({
     backdropFilter: {
       default:
         "blur(var(--lg-blur)) var(--lenso-fusion-filter, var(--lg-filter, saturate(1))) opacity(calc(var(--lenso-glass-face-opacity, 1) * var(--lenso-fusion-opacity, 1)))",
-      ":is([data-copy], [data-material-paints], [data-lenso-glass-fused])": "none",
+      ":is([data-copy], [data-lenso-glass-fused])": "none",
+      ":is([data-material-paints])": "var(--lenso-native-material-filter, none)",
       ':is(:disabled, [aria-disabled="true"])': "none",
       ":is([data-lenso-glass-opaque])": "none",
     },
@@ -164,6 +166,9 @@ export const liquidMaterialStyles = stylex.create({
       },
     },
   },
+  compact: {
+    "--lenso-glass-rim": "classic",
+  },
   livePaintContainer: { display: "contents" },
   livePaint: {
     position: "fixed",
@@ -223,6 +228,16 @@ export const materialStyles = stylex.create({
     height: "calc(100% + 2px)",
     pointerEvents: "none",
     zIndex: -1,
+  },
+  editorRim: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    transformOrigin: "0 0",
+    pointerEvents: "none",
+    userSelect: "none",
+    isolation: "isolate",
+    zIndex: 1,
   },
   provider: { display: "contents" },
   root: {

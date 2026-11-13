@@ -29,7 +29,7 @@ test.each(["left", "right"])(
     const host = document.createElement("div");
     document.body.append(host);
     host.innerHTML =
-      '<div data-open><button>View Options</button></div><div data-open style="border-radius:34px"><div data-slot="menu-surface"></div><div data-slot="menu-content"><div data-slot="menu-plate"></div><button role="menuitem">Zoom In</button></div></div>';
+      '<div data-open><button>View Options</button></div><div data-open style="border-radius:34px"><div data-lenso-slot="menu-surface"></div><div data-lenso-slot="menu-content"><div data-lenso-slot="menu-plate"></div><button role="menuitem">Zoom In</button></div></div>';
     const parent = host.children[0] as HTMLElement,
       popup = host.children[1] as HTMLElement;
     popup.dataset["side"] = side;

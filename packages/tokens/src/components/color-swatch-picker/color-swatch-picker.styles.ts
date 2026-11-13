@@ -3,6 +3,17 @@ import * as stylex from "@stylexjs/stylex";
 import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const colorSwatchPickerStyles = stylex.create({
+  srOnly: {
+    position: "absolute",
+    width: 1,
+    height: 1,
+    padding: 0,
+    margin: -1,
+    overflow: "hidden",
+    clipPath: "inset(50%)",
+    whiteSpace: "nowrap",
+    borderWidth: 0,
+  },
   root: { display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 },
   palette: {
     display: "grid",

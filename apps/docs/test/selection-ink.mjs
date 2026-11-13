@@ -5,7 +5,7 @@ export async function assertSelectionInk(page, list, label) {
   const selected = list.locator('[role="tab"][aria-selected="true"]');
   const capture = async () => (await selected.screenshot()).toString("base64");
   const before = await capture();
-  const rows = list.locator('[data-slot="tabs-row"], [data-slot="tabs-centre-row"]');
+  const rows = list.locator('[data-lenso-slot="tabs-row"], [data-lenso-slot="tabs-centre-row"]');
   await rows.evaluateAll((nodes) => nodes.forEach((node) => (node.style.visibility = "hidden")));
   let without;
   try {

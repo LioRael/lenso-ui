@@ -26,9 +26,9 @@ export function SeparatorRoot({
     <Primitive
       orientation={orientation}
       {...props}
-      data-slot={(props as { "data-slot"?: string })["data-slot"] ?? "separator"}
+      data-lenso-slot={(props as { "data-lenso-slot"?: string })["data-lenso-slot"] ?? "separator"}
       {...compiled}
-      render={slotRender("div", props["data-slot"] ?? "separator", props.render)}
+      render={slotRender("div", props["data-lenso-slot"] ?? "separator", props.render)}
       style={mergeStyle<SeparatorState>(compiled.style, style)}
     />
   );

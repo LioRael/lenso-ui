@@ -1,15 +1,25 @@
 "use client";
-// Modified: native Base UI Field/Input and NumberField; pure color state is retained.
+// Modified: native UI SDK Field/Input and NumberField; pure color state is retained.
 import {
   createContext,
+  useId,
+  useEffect,
+  useState,
+  useCallback,
   use,
   type ComponentPropsWithRef,
   type ReactNode,
   type CSSProperties,
 } from "react";
-import { useRender } from "@base-ui/react/use-render";
-import { Field } from "@base-ui/react/field";
-import { NumberField } from "@base-ui/react/number-field";
+import { usePart, renderElement, type PartProps, type RenderProp } from "@ui-sdk/react/primitive";
+import {
+  Field as SdkField,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+  type FieldState,
+} from "@ui-sdk/react/field";
+import { NumberInput } from "@ui-sdk/react/number-input";
 import {
   useColorFieldState,
   type ColorFieldProps,
@@ -18,6 +28,14 @@ import {
   type ColorChannelFieldState,
 } from "react-stately/useColorFieldState";
 import type { Color, ColorChannel, ColorSpace } from "react-stately/Color";
+import { colorField } from "@lenso/primitives/model-control";
+import {
+  useModelControl,
+  type ModelValueOptions,
+  type ModelControlHandle,
+} from "../../utils/model-control.js";
+import { colorCSS, colorFromSDK } from "../../utils/color-state.js";
+import type { ModelValue } from "@lenso/primitives/model-control";
 import * as stylex from "@stylexjs/stylex";
 import { labelStyles } from "@lenso/tokens/label";
 import { colorFieldStyles as styles } from "@lenso/tokens/color-field";
@@ -25,7 +43,7 @@ import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
 import { ColorValueContext } from "../../utils/color-state.js";
 import { useLocale } from "../../utils/locale.js";
 
-export type ColorFieldRenderState = Field.Root.State & {
+export type ColorFieldRenderState = FieldState & {
   isInvalid: boolean;
   isDisabled: boolean;
   isRequired: boolean;
@@ -33,7 +51,7 @@ export type ColorFieldRenderState = Field.Root.State & {
 };
 export type ColorFieldRootProps = StyleXProps<
   Omit<
-    ComponentPropsWithRef<typeof Field.Root>,
+    ComponentPropsWithRef<typeof SdkField>,
     | "children"
     | "style"
     | "render"
@@ -44,7 +62,8 @@ export type ColorFieldRootProps = StyleXProps<
     | "onBlur"
   >
 > &
-  ColorFieldProps & {
+  Omit<ColorFieldProps, "onChange"> &
+  Pick<ModelValueOptions<Color>, "onChange" | "onValueChange" | "controller" | "readOnly"> & {
     autoComplete?: string;
     form?: string;
     fullWidth?: boolean;
@@ -52,9 +71,11 @@ export type ColorFieldRootProps = StyleXProps<
     colorSpace?: ColorSpace;
     children?: ReactNode | ((state: ColorFieldRenderState) => ReactNode);
     style?: CSSProperties | ((state: ColorFieldRenderState) => CSSProperties | undefined);
-    render?: import("@base-ui/react/use-render").useRender.RenderProp<ColorFieldRenderState>;
+    render?: RenderProp<ColorFieldRenderState>;
   };
 type FieldModel = {
+  control: ModelControlHandle;
+  labelId: string;
   model: ColorFieldState | ColorChannelFieldState;
   channel?: ColorChannel;
   isReadOnly: boolean;
@@ -81,33 +102,117 @@ export function useColorFieldModel() {
   return state;
 }
 export function ColorFieldRoot(props: ColorFieldRootProps) {
-  return props.channel ? (
-    <ChannelField {...props} channel={props.channel} />
+  const parent = use(ColorValueContext);
+  const inherited = props.value === undefined && props.defaultValue === undefined && parent;
+  const control = useModelControl<Color>(
+    colorField,
+    {
+      ...props,
+      value: inherited
+        ? parent.color
+        : typeof props.value === "string"
+          ? colorFromSDK(props.value)
+          : props.value,
+      defaultValue:
+        typeof props.defaultValue === "string"
+          ? colorFromSDK(props.defaultValue)
+          : props.defaultValue,
+      onValueChange(value, details) {
+        props.onValueChange?.(value, details);
+        if (
+          !details.canceled &&
+          inherited &&
+          !parent.setColor(value, {
+            reason: "input-commit",
+            ...(details.event ? { event: details.event } : {}),
+          })
+        )
+          details.cancel();
+        if (!details.canceled) props.onChange?.(value, details);
+      },
+      onChange: undefined,
+    },
+    (value) => colorCSS(value ?? undefined) ?? null,
+    useCallback((value: ModelValue) => {
+      if (value === null) return null;
+      if (typeof value !== "string") throw new Error("Expected a CSS color");
+      return colorFromSDK(value);
+    }, []),
+  );
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const owner = props.form ? document.getElementById(props.form) : element?.closest("form");
+    if (!(owner instanceof HTMLFormElement)) return;
+    const reset = (event: Event) => {
+      queueMicrotask(() => {
+        if (!event.defaultPrevented) control.handle.api.reset();
+      });
+    };
+    owner.addEventListener("reset", reset);
+    return () => owner.removeEventListener("reset", reset);
+  }, [element, props.form, control.handle]);
+  const labelId = useId();
+  const content = props.channel ? (
+    <ChannelField
+      {...props}
+      channel={props.channel}
+      value={control.value}
+      control={control.handle}
+      labelId={labelId}
+      onChange={control.change}
+    />
   ) : (
-    <HexField {...props} />
+    <HexField
+      {...props}
+      value={control.value}
+      control={control.handle}
+      labelId={labelId}
+      onChange={control.change}
+    />
+  );
+  return usePart(
+    control.handle,
+    "root",
+    {},
+    {
+      "aria-label": props["aria-label"],
+      "aria-labelledby": props["aria-labelledby"] ?? (props["aria-label"] ? undefined : labelId),
+      ref: setElement,
+      style: { display: props.fullWidth ? "block" : "inline-block" },
+      children: content,
+    },
+    "div",
   );
 }
-function useInheritedProps(props: ColorFieldRootProps) {
-  const parent = use(ColorValueContext);
-  const inherits = props.value === undefined && props.defaultValue === undefined && parent;
-  return {
-    ...props,
-    value: inherits ? parent.color : props.value,
-    onChange(color: Color | null) {
-      if (inherits) parent.setColor(color);
-      props.onChange?.(color);
-    },
-  };
-}
-function HexField(props: ColorFieldRootProps) {
-  const options = useInheritedProps(props);
-  const model = useColorFieldState(options);
+type ControlledFieldProps = Omit<ColorFieldRootProps, "onChange"> & {
+  onChange: (value: Color | null) => void;
+  control: ModelControlHandle;
+  labelId: string;
+};
+function HexField(props: ControlledFieldProps) {
+  const model = useColorFieldState(props);
   return <ColorFieldFrame {...props} model={model} />;
 }
-function ChannelField(props: ColorFieldRootProps & { channel: ColorChannel }) {
+function ChannelField(props: ControlledFieldProps & { channel: ColorChannel }) {
   const { locale } = useLocale();
-  const options = useInheritedProps(props);
-  const model = useColorChannelFieldState({ ...options, channel: props.channel, locale });
+  const space =
+    props.colorSpace ??
+    (props.channel === "red" || props.channel === "green" || props.channel === "blue"
+      ? "rgb"
+      : props.channel === "brightness"
+        ? "hsb"
+        : "hsl");
+  const value =
+    typeof props.value === "string"
+      ? colorFromSDK(props.value, space)
+      : props.value?.toFormat(space);
+  const model = useColorChannelFieldState({
+    ...props,
+    value,
+    colorSpace: space,
+    channel: props.channel,
+    locale,
+  });
   const range = model.colorValue.getChannelRange(props.channel);
   const format = model.colorValue.getChannelFormatOptions(props.channel);
   const multiplier = format.style === "percent" && range.maxValue === 100 ? 100 : 1;
@@ -116,7 +221,7 @@ function ChannelField(props: ColorFieldRootProps & { channel: ColorChannel }) {
       {...props}
       model={model}
       wrapChildren={(children) => (
-        <NumberField.Root
+        <NumberInput
           value={Number.isNaN(model.numberValue) ? null : model.numberValue}
           min={model.minValue}
           max={model.maxValue}
@@ -124,21 +229,29 @@ function ChannelField(props: ColorFieldRootProps & { channel: ColorChannel }) {
           locale={locale}
           format={format}
           disabled={props.isDisabled ?? props.disabled}
-          readOnly={props.isReadOnly}
+          readOnly={props.isReadOnly ?? props.readOnly}
           required={props.isRequired}
-          onValueChange={(value) => model.setNumberValue(value ?? NaN)}
+          onValueChange={(value, details) => {
+            const accepted = props.control.api.run(() => model.setNumberValue(value ?? NaN), {
+              reason: details.reason === "input-change" ? "input-change" : "step-key",
+              ...(details.event ? { event: details.event } : {}),
+            });
+            if (accepted === false) details.cancel();
+          }}
           name={props.name}
           form={props.form}
           style={{ display: "contents" }}
         >
           {children}
-        </NumberField.Root>
+        </NumberInput>
       )}
     />
   );
 }
 function ColorFieldFrame({
   model,
+  control,
+  labelId,
   wrapChildren,
   fullWidth,
   channel,
@@ -146,7 +259,10 @@ function ColorFieldFrame({
   value: _value,
   defaultValue: _defaultValue,
   onChange: _onChange,
-  validate,
+  onValueChange: _onValueChange,
+  controller: _controller,
+  readOnly,
+  validate: _validate,
   validationBehavior: _validationBehavior,
   isInvalid,
   isDisabled,
@@ -169,13 +285,13 @@ function ColorFieldFrame({
   onBlur,
   onFocusChange,
   ...props
-}: ColorFieldRootProps & {
+}: ControlledFieldProps & {
   model: ColorFieldState | ColorChannelFieldState;
   wrapChildren?: (children: ReactNode) => ReactNode;
 }) {
-  const mapState = (native: Field.Root.State): ColorFieldRenderState => ({
+  const mapState = (native: FieldState): ColorFieldRenderState => ({
     ...native,
-    isInvalid: native.valid === false,
+    isInvalid: native.invalid,
     isDisabled: native.disabled,
     isReadOnly,
     isRequired,
@@ -185,8 +301,10 @@ function ColorFieldFrame({
     <ColorFieldModel
       value={{
         model,
+        control,
+        labelId,
         channel,
-        isReadOnly,
+        isReadOnly: readOnly ?? isReadOnly,
         isRequired,
         isInvalid: !!invalid,
         isDisabled: !!disabled,
@@ -204,22 +322,15 @@ function ColorFieldFrame({
         },
       }}
     >
-      <Field.Root
+      <SdkField
+        data-agent-hidden=""
         {...props}
         {...compiled}
         disabled={disabled}
-        invalid={invalid}
+        invalid={invalid ?? (model.displayValidation.isInvalid || undefined)}
         name={name}
-        data-slot={props["data-slot"] ?? "color-field"}
+        data-lenso-slot={props["data-lenso-slot"] ?? "color-field"}
         data-required={isRequired || undefined}
-        validate={
-          validate
-            ? () => {
-                const result = validate(model.colorValue);
-                return result === true ? null : result;
-              }
-            : undefined
-        }
         render={(nativeProps, nativeState) => {
           const content =
             typeof children === "function" ? children(mapState(nativeState)) : children;
@@ -238,7 +349,7 @@ function ColorFieldFrame({
             ? (native) => ({ ...compiled.style, ...style(mapState(native)) })
             : mergeStyle(compiled.style, style)
         }
-      ></Field.Root>
+      ></SdkField>
     </ColorFieldModel>
   );
 }
@@ -246,7 +357,8 @@ export function ColorFieldLabel({
   xstyle,
   style,
   ...props
-}: StyleXProps<ComponentPropsWithRef<typeof Field.Label>>) {
+}: StyleXProps<ComponentPropsWithRef<typeof FieldLabel>>) {
+  const { labelId } = useColorFieldModel();
   const compiled = stylex.props(
     labelStyles.label,
     labelStyles.contextualRequired,
@@ -254,10 +366,11 @@ export function ColorFieldLabel({
     xstyle,
   );
   return (
-    <Field.Label
+    <FieldLabel
       {...props}
+      id={props.id ?? labelId}
       {...compiled}
-      data-slot={props["data-slot"] ?? "label"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "label"}
       style={mergeStyle(compiled.style, style)}
     />
   );
@@ -265,51 +378,49 @@ export function ColorFieldLabel({
 export function ColorFieldDescription({
   xstyle,
   style,
+  render,
   ...props
-}: StyleXProps<ComponentPropsWithRef<typeof Field.Description>>) {
+}: StyleXProps<ComponentPropsWithRef<typeof FieldDescription>>) {
+  const compiled = stylex.props(styles.description, xstyle);
   return (
-    <Field.Validity>
-      {({ validity }) => {
-        const compiled = stylex.props(
-          styles.description,
-          validity.valid === false && styles.hidden,
-          xstyle,
-        );
-        return (
-          <Field.Description
-            {...props}
-            {...compiled}
-            data-slot={props["data-slot"] ?? "description"}
-            style={mergeStyle(compiled.style, style)}
-          />
-        );
-      }}
-    </Field.Validity>
+    <FieldDescription
+      {...props}
+      {...compiled}
+      style={mergeStyle(compiled.style, style)}
+      render={(partProps, state) =>
+        renderElement(
+          "p",
+          {
+            ...partProps,
+            ...stylex.props(state.invalid && styles.hidden),
+            "data-lenso-slot": props["data-lenso-slot"] ?? "description",
+          },
+          render,
+          state,
+        )
+      }
+    />
   );
 }
 export function ColorFieldError({
   xstyle,
   style,
   ...props
-}: StyleXProps<ComponentPropsWithRef<typeof Field.Error>>) {
+}: StyleXProps<ComponentPropsWithRef<typeof FieldError>>) {
   const state = useColorFieldModel();
   const compiled = stylex.props(styles.error, xstyle);
   return (
-    <Field.Error
+    <FieldError
       match={props.match ?? (state.isInvalid ? true : undefined)}
       {...props}
       {...compiled}
-      data-slot={props["data-slot"] ?? "field-error"}
+      data-lenso-slot={props["data-lenso-slot"] ?? "field-error"}
       style={mergeStyle(compiled.style, style)}
     />
   );
 }
 export type { Color as ColorValue } from "react-stately/Color";
 
-function FieldFrameElement({
-  render,
-  ref,
-  ...props
-}: import("@base-ui/react/use-render").useRender.ComponentProps<"div">) {
-  return useRender({ defaultTagName: "div", render, ref, props });
+function FieldFrameElement({ render, ref, ...props }: PartProps<"div">) {
+  return renderElement("div", { ...props, ref: ref }, render);
 }

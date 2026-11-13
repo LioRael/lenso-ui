@@ -25,10 +25,10 @@ export function SingleWithCustomIndicator() {
     </svg>
   );
   const fruit = (value: string, label: string) => (
-    <Menu.RadioItem key={value} value={value} closeOnClick>
-      <Menu.RadioItemIndicator keepMounted xstyle={styles.selectionIndicator}>
+    <Menu.RadioItem key={value} value={value} closeOnSelect>
+      <Menu.ItemIndicator keepMounted xstyle={styles.selectionIndicator}>
         {customCheckmarkIcon}
-      </Menu.RadioItemIndicator>
+      </Menu.ItemIndicator>
       <Menu.Item.Label>{label}</Menu.Item.Label>
     </Menu.RadioItem>
   );

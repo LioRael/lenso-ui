@@ -12,18 +12,18 @@ export async function render(element: ReactNode) {
   document.body.append(container);
   const root = createRoot(container);
   roots.push(root);
-  await act(() => root.render(element));
+  await act(async () => root.render(element));
   return container;
 }
 
 export async function dispatch(element: Element, event: Event) {
-  await act(() => {
+  await act(async () => {
     element.dispatchEvent(event);
   });
 }
 
 export async function click(element: HTMLElement) {
-  await act(() => element.click());
+  await act(async () => element.click());
 }
 
 afterEach(async () => {

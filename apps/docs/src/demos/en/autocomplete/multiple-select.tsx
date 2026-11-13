@@ -1,9 +1,9 @@
 "use client";
-import { NativeAutocomplete } from "./_native";
+import { OptionPicker } from "./_native";
 import { controlledStates } from "./controlled";
 export function MultipleSelect() {
   return (
-    <NativeAutocomplete
+    <OptionPicker
       items={controlledStates}
       label="States"
       placeholder="Select states"

@@ -55,10 +55,10 @@ for (const [name, engine] of [
             );
             await page.waitForTimeout(180);
             const geometry = await popup.evaluate((e, kind) => {
-              const arrow = e.querySelector(`[data-slot="${kind}-arrow-material"]`);
+              const arrow = e.querySelector(`[data-lenso-slot="${kind}-arrow-material"]`);
               const a = arrow.getBoundingClientRect(),
                 p = e.getBoundingClientRect();
-              const surface = e.querySelector(`[data-slot="${kind}-material"]`);
+              const surface = e.querySelector(`[data-lenso-slot="${kind}-material"]`);
               const surfaceBox = surface.getBoundingClientRect();
               const inset = kind === "popover" ? 13 : 12;
               const scale = p.width / parseFloat(getComputedStyle(e).width);
@@ -113,10 +113,10 @@ for (const [name, engine] of [
               const context = canvas.getContext("2d");
               context.drawImage(image, 0, 0);
               const popup = document
-                .querySelector('[data-slot="popover-popup"]')
+                .querySelector('[data-lenso-slot="popover-popup"]')
                 .getBoundingClientRect();
               const arrow = document
-                .querySelector('[data-slot="popover-arrow"]')
+                .querySelector('[data-lenso-slot="popover-arrow"]')
                 .getBoundingClientRect();
               const pixel = (x, y) =>
                 [...context.getImageData(Math.round(x), Math.round(y), 1, 1).data].slice(0, 3);
@@ -144,7 +144,7 @@ for (const [name, engine] of [
             await popup.evaluate((e) =>
               e.closest("[data-theme]").setAttribute("data-contrast", "increased"),
             );
-            const surface = popup.locator(`[data-slot="${kind}-material"]`);
+            const surface = popup.locator(`[data-lenso-slot="${kind}-material"]`);
             await page.waitForFunction(
               (e) => e.hasAttribute("data-material-opaque"),
               await surface.elementHandle(),

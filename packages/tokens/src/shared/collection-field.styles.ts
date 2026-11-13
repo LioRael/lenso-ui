@@ -1,7 +1,7 @@
 /**
  * Copyright 2026 HeroUI.
  * SPDX-License-Identifier: Apache-2.0
- * Modified: StyleX styles and Base UI state/anchor properties.
+ * Modified: StyleX styles and UI SDK state/anchor properties.
  */
 import * as stylex from "@stylexjs/stylex";
 import { focusRing } from "../focus-ring.stylex.const.js";
@@ -63,7 +63,7 @@ export const collectionFieldStyles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     color: tokens.labelPlaceholder,
-    transform: { default: "rotate(0deg)", ":is([data-popup-open])": "rotate(180deg)" },
+    transform: { default: "rotate(0deg)", ":is([data-open])": "rotate(180deg)" },
     transition: {
       default: `transform 150ms ${tokens.motionEaseSmooth}`,
       "@media (prefers-reduced-motion: reduce)": "none",
@@ -71,18 +71,22 @@ export const collectionFieldStyles = stylex.create({
   },
   positioner: { zIndex: tokens.zIndexOverlay, outline: "none" },
   popover: {
+    borderWidth: 0,
+    margin: 0,
+    visibility: {
+      default: null,
+      ":is([popover]:not(:popover-open),[data-closed]:not([data-ending-style]))": "hidden",
+    },
     minWidth: "var(--anchor-width)",
     maxWidth: "var(--available-width)",
     maxHeight: "var(--available-height)",
     transformOrigin: "var(--transform-origin)",
-    overflowY: "auto",
+    overflow: "visible",
     overscrollBehavior: "contain",
     scrollPaddingBlock: ".25rem",
-    backdropFilter: "blur(22px) saturate(1.9)",
-    backgroundColor: tokens.presentationBackground,
+    backgroundColor: "transparent",
     color: tokens.labelPrimary,
     borderRadius: tokens.shapeContent,
-    boxShadow: tokens.overlayShadow,
     padding: 0,
     fontSize: ".875rem",
     outline: "none",
@@ -103,7 +107,12 @@ export const collectionFieldStyles = stylex.create({
       "@media (prefers-reduced-motion: reduce)": "none",
     },
   },
-  list: { padding: ".375rem", outline: "none" },
+  list: {
+    padding: ".375rem",
+    outline: "none",
+    maxHeight: "min(320px, var(--available-height))",
+    overflowY: "auto",
+  },
   item: {
     position: "relative",
     display: "flex",

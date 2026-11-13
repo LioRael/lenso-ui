@@ -1,6 +1,14 @@
 "use client";
 
-import { Toolbar as BaseToolbar } from "@base-ui/react/toolbar";
+import {
+  Toolbar as SdkToolbar,
+  ToolbarButton as SdkToolbarButton,
+  ToolbarSeparator as SdkToolbarSeparator,
+  ToolbarLink as SdkToolbarLink,
+  ToolbarGroup as SdkToolbarGroup,
+} from "@ui-sdk/react/toolbar";
+import { renderElement } from "@ui-sdk/react/primitive";
+import { slotRender } from "../../utils/sdk-render.js";
 import { toolbarStyles } from "@lenso/tokens/toolbar";
 import { glassButtonStyles, glassButtonVariants } from "@lenso/tokens/glass-button";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
@@ -53,6 +61,8 @@ function useToolbarMotion<T extends HTMLElement>(
   );
   return useElasticRef(useGlassRef(ref, glass, false, undefined, undefined, false, detachable), {
     enabled,
+    // Disabled SDK members stop bubbling; surface motion still follows the press.
+    capture: surface,
     shouldStart,
     propertyPrefix: surface ? "--toolbar-press" : "--lg-press",
     grow: detachable ? grow : undefined,
@@ -63,57 +73,60 @@ const Context = createContext<"horizontal" | "vertical">("horizontal");
 function Button({
   xstyle,
   style,
+  render,
   ...props
 }: StyleXProps<
-  Omit<BaseToolbar.Button.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Button>["ref"];
+  Omit<ComponentProps<typeof SdkToolbarButton>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkToolbarButton>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(glassButtonStyles.root, toolbarStyles.button, xstyle);
   return (
-    <BaseToolbar.Button
+    <SdkToolbarButton
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "toolbar-button"}
+      render={slotRender("button", props["data-lenso-slot"] ?? "toolbar-button", render)}
     />
   );
 }
 function Separator({
   xstyle,
   style,
+  render,
   ...props
 }: StyleXProps<
-  Omit<BaseToolbar.Separator.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Separator>["ref"];
+  Omit<ComponentProps<typeof SdkToolbarSeparator>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkToolbarSeparator>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(toolbarStyles.separator, xstyle);
   return (
-    <BaseToolbar.Separator
+    <SdkToolbarSeparator
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "toolbar-separator"}
+      render={slotRender("div", props["data-lenso-slot"] ?? "toolbar-separator", render)}
     />
   );
 }
 export function ToolbarLink({
   xstyle,
   style,
+  render,
   ...props
 }: StyleXProps<
-  Omit<BaseToolbar.Link.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Link>["ref"];
+  Omit<ComponentProps<typeof SdkToolbarLink>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkToolbarLink>["ref"];
   }
-> & { "data-slot"?: unknown }) {
+> & { "data-lenso-slot"?: unknown }) {
   const compiled = stylex.props(linkStyles.root, xstyle);
   return (
-    <BaseToolbar.Link
+    <SdkToolbarLink
       {...props}
       {...compiled}
       style={mergeStyle(compiled.style, style)}
-      data-slot={props["data-slot"] ?? "toolbar-link"}
+      render={slotRender("a", props["data-lenso-slot"] ?? "toolbar-link", render)}
     />
   );
 }
@@ -128,11 +141,11 @@ export function ToolbarGroup({
   children,
   ...props
 }: StyleXProps<
-  Omit<BaseToolbar.Group.Props, "ref"> & {
-    ref?: React.ComponentPropsWithRef<typeof BaseToolbar.Group>["ref"];
+  Omit<ComponentProps<typeof SdkToolbarGroup>, "ref"> & {
+    ref?: React.ComponentPropsWithRef<typeof SdkToolbarGroup>["ref"];
   }
 > & {
-  "data-slot"?: unknown;
+  "data-lenso-slot"?: unknown;
   glass?: boolean;
   /**
    * Animate a shared glass group into separate controls.
@@ -198,36 +211,46 @@ export function ToolbarGroup({
       <GroupContext value>
         <SurfaceContext value={false}>
           <DetachableContext value={{ detached: isDetached }}>
-            <GlassContainer
+            <SdkToolbarGroup
               {...props}
-              render={(renderProps) => (
-                <BaseToolbar.Group
-                  {...renderProps}
-                  disabled={disabled}
+              disabled={disabled}
+              ref={detachableRef}
+              render={(nativeProps, state) => (
+                <GlassContainer
+                  {...nativeProps}
+                  render={(containerProps) =>
+                    renderElement(
+                      "div",
+                      containerProps,
+                      slotRender("div", props["data-lenso-slot"] ?? "toolbar-group", render),
+                      state,
+                    )
+                  }
+                  style={mergeStyle(
+                    nativeProps["style"],
+                    typeof style === "function" ? style(state) : style,
+                  )}
+                  spacing={18}
+                  xstyle={[
+                    toolbarStyles.group,
+                    orientation === "vertical" && toolbarStyles.groupVertical,
+                    toolbarStyles.detachableGroup,
+                    !parentSurface && toolbarStyles.motion,
+                    xstyle,
+                  ]}
+                  data-lenso-slot={props["data-lenso-slot"] ?? "toolbar-group"}
                   data-menu-source={!isDetached ? "" : undefined}
-                  render={render}
-                  style={mergeStyle(renderProps.style, style)}
+                  data-toolbar-detachable=""
+                  data-toolbar-elastic-surface={!parentSurface && !isDetached ? "" : undefined}
+                  data-lenso-glass-group=""
+                  data-lenso-glass-state={isDetached ? "detached" : "joined"}
+                  data-toolbar-detached={isDetached ? "true" : "false"}
+                  data-toolbar-direction={orientation}
                 />
               )}
-              ref={detachableRef}
-              spacing={18}
-              xstyle={[
-                toolbarStyles.group,
-                orientation === "vertical" && toolbarStyles.groupVertical,
-                toolbarStyles.detachableGroup,
-                !parentSurface && toolbarStyles.motion,
-                xstyle,
-              ]}
-              data-slot={props["data-slot"] ?? "toolbar-group"}
-              data-toolbar-detachable=""
-              data-toolbar-elastic-surface={!parentSurface && !isDetached ? "" : undefined}
-              data-lenso-glass-group=""
-              data-lenso-glass-state={isDetached ? "detached" : "joined"}
-              data-toolbar-detached={isDetached ? "true" : "false"}
-              data-toolbar-direction={orientation}
             >
               {children}
-            </GlassContainer>
+            </SdkToolbarGroup>
           </DetachableContext>
         </SurfaceContext>
       </GroupContext>
@@ -236,32 +259,36 @@ export function ToolbarGroup({
     <GroupContext value>
       <DetachableContext value={null}>
         <SurfaceContext value>
-          <BaseToolbar.Group
+          <SdkToolbarGroup
             {...props}
             disabled={disabled}
-            render={render}
+            render={slotRender("div", props["data-lenso-slot"] ?? "toolbar-group", render)}
             {...compiled}
             style={mergeStyle(compiled.style, style)}
             ref={glassRef}
-            data-slot={props["data-slot"] ?? "toolbar-group"}
+            data-lenso-slot={props["data-lenso-slot"] ?? "toolbar-group"}
             data-menu-source={glass && !parentSurface ? "" : undefined}
           >
-            {glass && !parentSurface && (
-              <span
-                aria-hidden="true"
-                data-slot="glass-press-highlight"
-                {...stylex.props(liquidMaterialStyles.pressHighlight)}
-              />
+            {(state) => (
+              <>
+                {glass && !parentSurface && (
+                  <span
+                    aria-hidden="true"
+                    data-lenso-slot="glass-press-highlight"
+                    {...stylex.props(liquidMaterialStyles.pressHighlight)}
+                  />
+                )}
+                {typeof children === "function" ? children(state) : children}
+              </>
             )}
-            {children}
-          </BaseToolbar.Group>
+          </SdkToolbarGroup>
         </SurfaceContext>
       </DetachableContext>
     </GroupContext>
   );
 }
-export type ToolbarRootProps = StyleXProps<ComponentProps<typeof BaseToolbar.Root>> & {
-  "data-slot"?: unknown;
+export type ToolbarRootProps = StyleXProps<ComponentProps<typeof SdkToolbar>> & {
+  "data-lenso-slot"?: unknown;
   isAttached?: boolean;
   /** Opt into a sticky bar with a scroll-bound background band. */
   edge?: "uniform" | "soft" | "none";
@@ -279,6 +306,7 @@ export function ToolbarRoot({
   style,
   ref,
   children,
+  render,
   ...props
 }: ToolbarRootProps) {
   const glassRef = useToolbarMotion(ref, isAttached, elastic, true, isAttached);
@@ -295,32 +323,36 @@ export function ToolbarRoot({
     <ElasticContext value={elastic}>
       <SurfaceContext value={isAttached}>
         <Context value={orientation}>
-          <BaseToolbar.Root
+          <SdkToolbar
             {...props}
             {...compiled}
             style={mergeStyle(compiled.style, style)}
             ref={glassRef}
-            data-slot={props["data-slot"] ?? "toolbar"}
+            render={slotRender("div", props["data-lenso-slot"] ?? "toolbar", render)}
             data-attached={isAttached ? "" : undefined}
             data-menu-source={isAttached ? "" : undefined}
             orientation={orientation}
           >
-            {edge !== "none" && (
-              <ScrollEdge
-                scrollRef={scrollRef}
-                variant={edge === "soft" ? "soft" : "hard"}
-                xstyle={[toolbarStyles.edge, edge === "uniform" && toolbarStyles.uniformEdge]}
-              />
+            {(state) => (
+              <>
+                {edge !== "none" && (
+                  <ScrollEdge
+                    scrollRef={scrollRef}
+                    variant={edge === "soft" ? "soft" : "hard"}
+                    xstyle={[toolbarStyles.edge, edge === "uniform" && toolbarStyles.uniformEdge]}
+                  />
+                )}
+                {isAttached && (
+                  <span
+                    aria-hidden="true"
+                    data-lenso-slot="glass-press-highlight"
+                    {...stylex.props(liquidMaterialStyles.pressHighlight)}
+                  />
+                )}
+                {typeof children === "function" ? children(state) : children}
+              </>
             )}
-            {isAttached && (
-              <span
-                aria-hidden="true"
-                data-slot="glass-press-highlight"
-                {...stylex.props(liquidMaterialStyles.pressHighlight)}
-              />
-            )}
-            {children}
-          </BaseToolbar.Root>
+          </SdkToolbar>
         </Context>
       </SurfaceContext>
     </ElasticContext>
@@ -400,31 +432,29 @@ export function ToolbarButton({
             xstyle,
           ]}
         >
-          {glass && variant !== "plain" && !surface && (
-            <span
-              aria-hidden="true"
-              data-slot="glass-press-highlight"
-              {...stylex.props(liquidMaterialStyles.pressHighlight)}
-            />
+          {(state) => (
+            <>
+              {glass && variant !== "plain" && !surface && (
+                <span
+                  aria-hidden="true"
+                  data-lenso-slot="glass-press-highlight"
+                  {...stylex.props(liquidMaterialStyles.pressHighlight)}
+                />
+              )}
+              {typeof children === "function" ? children(state) : children}
+            </>
           )}
-          {children}
         </Button>
       </ButtonSizeContext>
     </LegacyButtonIconContext>
   );
 }
-export function ToolbarSeparator({
-  orientation: ownOrientation,
-  xstyle,
-  ...props
-}: ComponentProps<typeof Separator>) {
+export function ToolbarSeparator({ xstyle, ...props }: ComponentProps<typeof Separator>) {
   const toolbarOrientation = useContext(Context);
-  const orientation =
-    ownOrientation ?? (toolbarOrientation === "horizontal" ? "vertical" : "horizontal");
+  const orientation = toolbarOrientation === "horizontal" ? "vertical" : "horizontal";
   return (
     <Separator
       {...props}
-      orientation={orientation}
       xstyle={[
         toolbarStyles[orientation === "horizontal" ? "horizontalLine" : "verticalLine"],
         xstyle,

@@ -5,10 +5,11 @@ import * as stylex from "@stylexjs/stylex";
 import { GlassButton } from "@lenso/ui/glass-button";
 import { Sidebar } from "@lenso/ui/sidebar";
 import { Tabs } from "@lenso/ui/tabs";
-import { Dialog } from "@base-ui/react/dialog";
+import { Modal as Dialog } from "@lenso/ui/modal";
 import { Bars, Xmark } from "@gravity-ui/icons";
 import Link from "fumadocs-core/link";
 import { styles, notebook, sidebar } from "@lenso/docs/presentation";
+import { DocsHeaderBackdrop } from "./header-backdrop";
 import { HeaderTOCProvider, HeaderTOCSlot } from "@lenso/docs/toc";
 import { DocumentationNavigation, type DocumentationNavigationItem } from "./site-navigation";
 import { DesktopNavigationState, sidebarScope, useSidebarState } from "./sidebar-state";
@@ -47,6 +48,24 @@ export interface DocumentationSiteLayoutProps {
   };
 }
 
+function SectionPanel({
+  tabbed,
+  value,
+  children,
+}: {
+  tabbed: boolean;
+  value: string;
+  children: ReactNode;
+}) {
+  return tabbed ? (
+    <Tabs.Panel value={value} xstyle={styles.sectionPanel}>
+      {children}
+    </Tabs.Panel>
+  ) : (
+    <div {...stylex.props(styles.sectionPanel)}>{children}</div>
+  );
+}
+
 export function DocumentationSiteLayout({
   brand,
   currentUrl,
@@ -70,6 +89,8 @@ export function DocumentationSiteLayout({
   const isSelected = (section: DocumentationSection) =>
     activeSection === undefined ? section.url === currentUrl : section.id === activeSection;
 
+  const hasSections = sections.length > 0;
+  const Frame = hasSections ? Tabs : "div";
   const selectedSection = sections.find(isSelected)?.id ?? currentUrl;
   const sectionLinks = sections.map((section) => (
     <Sidebar.Item
@@ -87,19 +108,21 @@ export function DocumentationSiteLayout({
   return (
     <HeaderTOCProvider>
       <Dialog.Root open={drawerOpen} onOpenChange={setDrawerOpen}>
-        <Tabs
-          value={selectedSection}
+        <Frame
           id="nd-notebook-layout"
-          xstyle={[styles.shell, slots?.headerNavigation != null && styles.headerNavigationShell]}
+          {...(hasSections
+            ? {
+                activation: "manual" as const,
+                value: selectedSection,
+                xstyle: [
+                  styles.shell,
+                  slots?.headerNavigation != null && styles.headerNavigationShell,
+                ],
+              }
+            : stylex.props(styles.shell, styles.simpleShell))}
         >
           <header id="nd-subnav" data-lenso-backdrop="live" {...stylex.props(styles.header)}>
-            {slots?.headerBackdrop ?? (
-              <div
-                aria-hidden="true"
-                data-docs-header-backdrop=""
-                {...stylex.props(styles.headerBackdrop)}
-              />
-            )}
+            {slots?.headerBackdrop ?? <DocsHeaderBackdrop />}
             <div
               {...stylex.props(
                 notebook.headerBody,
@@ -129,42 +152,44 @@ export function DocumentationSiteLayout({
                 </div>
               </div>
             </div>
-            <div
-              {...stylex.props(
-                styles.sectionBar,
-                slots?.headerNavigation != null && styles.sectionBarNarrow,
-              )}
-            >
-              <Tabs.ListContainer xstyle={styles.sectionTabs}>
-                <Tabs.List
-                  aria-label="Documentation sections"
-                  activateOnFocus={false}
-                  xstyle={[styles.sectionTabList, styles.sectionTabCount(sections.length)]}
-                >
-                  {sections.map((section) => (
-                    <Tabs.Tab
-                      key={section.id}
-                      value={section.id}
-                      nativeButton={false}
-                      render={<Link href={section.url} />}
-                      aria-current={isSelected(section) ? "page" : undefined}
+            {(hasSections || slots?.sectionTrailing != null) && (
+              <div
+                {...stylex.props(
+                  styles.sectionBar,
+                  slots?.headerNavigation != null && styles.sectionBarNarrow,
+                )}
+              >
+                {hasSections && (
+                  <Tabs.ListContainer xstyle={styles.sectionTabs}>
+                    <Tabs.List
+                      aria-label="Documentation sections"
+                      xstyle={[styles.sectionTabList, styles.sectionTabCount(sections.length)]}
                     >
-                      <span {...stylex.props(styles.sectionTabContent)}>
-                        {section.icon}
-                        {section.title}
-                      </span>
-                    </Tabs.Tab>
-                  ))}
-                  <Tabs.Indicator />
-                </Tabs.List>
-              </Tabs.ListContainer>
-              {slots?.sectionTrailing != null && (
-                <span {...stylex.props(notebook.framework)}>{slots.sectionTrailing}</span>
-              )}
-            </div>
+                      {sections.map((section) => (
+                        <Tabs.Tab
+                          key={section.id}
+                          value={section.id}
+                          render={<Link href={section.url} />}
+                          aria-current={isSelected(section) ? "page" : undefined}
+                        >
+                          <span {...stylex.props(styles.sectionTabContent)}>
+                            {section.icon}
+                            {section.title}
+                          </span>
+                        </Tabs.Tab>
+                      ))}
+                      <Tabs.Indicator />
+                    </Tabs.List>
+                  </Tabs.ListContainer>
+                )}
+                {slots?.sectionTrailing != null && (
+                  <span {...stylex.props(notebook.framework)}>{slots.sectionTrailing}</span>
+                )}
+              </div>
+            )}
             <HeaderTOCSlot />
           </header>
-          <Tabs.Panel value={selectedSection} xstyle={styles.sectionPanel}>
+          <SectionPanel tabbed={hasSections} value={selectedSection}>
             <aside aria-label="Documentation sidebar" {...stylex.props(styles.sidebar)}>
               <Sidebar aria-label="Documentation" xstyle={sidebar.pane}>
                 <Sidebar.Header xstyle={sidebar.header}>
@@ -174,12 +199,14 @@ export function DocumentationSiteLayout({
                   </Link>
                   {slots?.identity}
                 </Sidebar.Header>
-                <Sidebar
-                  aria-label="Documentation sections"
-                  xstyle={[sidebar.sections, sidebar.pinnedSections]}
-                >
-                  <Sidebar.Group>{sectionLinks}</Sidebar.Group>
-                </Sidebar>
+                {hasSections && (
+                  <Sidebar
+                    aria-label="Documentation sections"
+                    xstyle={[sidebar.sections, sidebar.pinnedSections]}
+                  >
+                    <Sidebar.Group>{sectionLinks}</Sidebar.Group>
+                  </Sidebar>
+                )}
                 <Sidebar.Content id="nd-sidebar" ref={sidebarRef} xstyle={sidebar.scroll}>
                   <DesktopNavigationState.Provider value={{ branches, setBranch }}>
                     <DocumentationNavigation navigation={navigation} currentUrl={currentUrl} />
@@ -191,53 +218,52 @@ export function DocumentationSiteLayout({
               </Sidebar>
             </aside>
             {children}
-          </Tabs.Panel>
-        </Tabs>
-        <Dialog.Portal>
-          <Dialog.Backdrop {...stylex.props(notebook.backdrop)} />
-          <Dialog.Popup
-            {...stylex.props(notebook.drawer)}
-            onClick={(event) => {
-              // Also dismiss links supplied by the host's action/footer slots.
-              if (event.target instanceof Element && event.target.closest("a[href]"))
-                dismissDrawer();
-            }}
-          >
-            <Dialog.Title {...stylex.props(notebook.hidden)}>{browseLabel}</Dialog.Title>
-            <div {...stylex.props(notebook.drawerHeader)}>
-              <Link
-                href={brand.docsUrl ?? brand.url}
-                onClick={dismissDrawer}
-                {...stylex.props(styles.brand)}
-              >
-                {brand.logo}
-                {brand.title}
-              </Link>
-              <Dialog.Close
-                aria-label={chinese ? "关闭文档导航" : "Close documentation navigation"}
-                render={<GlassButton isIconOnly xstyle={notebook.glassIconButton} />}
-              >
-                <Xmark width={18} height={18} aria-hidden="true" />
-              </Dialog.Close>
-            </div>
-            {slots?.drawerActions != null && (
-              <div {...stylex.props(notebook.drawerHeader)}>{slots.drawerActions}</div>
-            )}
-            <div {...stylex.props(notebook.drawerScroll)}>
+          </SectionPanel>
+        </Frame>
+        <Dialog.Backdrop xstyle={notebook.backdrop} />
+        <Dialog.Content
+          xstyle={notebook.drawer}
+          onClick={(event) => {
+            // Also dismiss links supplied by the host's action/footer slots.
+            if (event.target instanceof Element && event.target.closest("a[href]")) dismissDrawer();
+          }}
+        >
+          <Dialog.Title xstyle={notebook.hidden}>{browseLabel}</Dialog.Title>
+          <div {...stylex.props(notebook.drawerHeader)}>
+            <Link
+              href={brand.docsUrl ?? brand.url}
+              onClick={dismissDrawer}
+              {...stylex.props(styles.brand)}
+            >
+              {brand.logo}
+              {brand.title}
+            </Link>
+            <Dialog.Close
+              aria-label={chinese ? "关闭文档导航" : "Close documentation navigation"}
+              render={<GlassButton isIconOnly xstyle={notebook.glassIconButton} />}
+            >
+              <Xmark width={18} height={18} aria-hidden="true" />
+            </Dialog.Close>
+          </div>
+          {slots?.drawerActions != null && (
+            <div {...stylex.props(notebook.drawerHeader)}>{slots.drawerActions}</div>
+          )}
+          <div {...stylex.props(notebook.drawerScroll)}>
+            {hasSections && (
               <Sidebar aria-label="Documentation sections" xstyle={sidebar.sections}>
                 <Sidebar.Group>{sectionLinks}</Sidebar.Group>
               </Sidebar>
-              <DocumentationNavigation
-                navigation={navigation}
-                currentUrl={currentUrl}
-                onNavigate={dismissDrawer}
-              />
-            </div>
-            {slots?.drawerFooter != null && (
-              <span {...stylex.props(sidebar.item)}>{slots.drawerFooter}</span>
             )}
-          </Dialog.Popup>
-        </Dialog.Portal>
+            <DocumentationNavigation
+              navigation={navigation}
+              currentUrl={currentUrl}
+              onNavigate={dismissDrawer}
+            />
+          </div>
+          {slots?.drawerFooter != null && (
+            <span {...stylex.props(sidebar.item)}>{slots.drawerFooter}</span>
+          )}
+        </Dialog.Content>
       </Dialog.Root>
     </HeaderTOCProvider>
   );
