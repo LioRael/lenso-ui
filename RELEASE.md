@@ -1,4 +1,32 @@
-# Prepared release: UI SDK migration 0.11.0
+# Prepared release: Docs 0.3.1
+
+Publish `@lenso/docs@0.3.1` and `create-lenso-docs@0.3.1`. The initializer pins
+the matching Docs version. UI/Tokens remain at 0.11.0, Glass at 0.2.0 and
+Primitives at 0.9.0; unchanged tarballs must match registry integrity and are
+not republished. Dispatch the existing `Release` workflow with input `0.11.0`,
+which identifies the unchanged UI/Tokens versions, after exact-main verification.
+The protected `npm` environment and OIDC provenance remain required.
+
+- Framework and component documentation share English/Chinese messages and
+  language switching. The legacy section header tabs are removed; sidebar and
+  mobile drawer section navigation remain available.
+- Search prepares its deferred dialog and locale/revision-specific database on
+  pointer intent, keyboard focus or the search shortcut, sharing the same cache.
+- Generated hosts use TanStack Redact for SSR and hydration. React imports stay
+  unchanged; rendering is synchronous, without React time slicing. Embedded React
+  consumers continue to own their runtime.
+- Mobile search returns focus to its opening button. If a viewport change hides
+  that button, closing search focuses the currently visible search trigger.
+
+Existing content projects require no configuration migration. Update the
+`@lenso/docs` dependency to 0.3.1. Hosts with custom search buttons can spread
+`useDocumentationSearchTrigger()` from `@lenso/docs/client` onto their button to
+share trigger registration and opening behavior. Keep the button's accessible
+name and `data-docs-search-trigger` marker for intent preloading.
+
+Prepared versions are not a publication receipt.
+
+# UI SDK migration 0.11.0
 
 This release temporarily excludes `exactOptionalPropertyTypes` from the supported
 TypeScript configuration for SDK-backed primitives. `strict` remains enabled and

@@ -117,7 +117,7 @@
     },
     "packages/create-docs": {
       "name": "create-lenso-docs",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "bin": {
         "create-lenso-docs": "./src/cli.ts",
       },
@@ -137,7 +137,7 @@
     },
     "packages/docs": {
       "name": "@lenso/docs",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "bin": {
         "lenso-docs": "./src/cli.ts",
       },

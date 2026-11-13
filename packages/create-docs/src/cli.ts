@@ -3,7 +3,7 @@ import { cp, lstat, mkdir, readdir, readFile, rm, rmdir, writeFile } from "node:
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-const version = "0.3.0";
+const version = "0.3.1";
 const templateDir = fileURLToPath(new URL("../template/", import.meta.url));
 
 function usage() {
