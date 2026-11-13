@@ -1,6 +1,4 @@
 import type { Preview } from "@storybook/react-vite";
-import { DirectionProvider } from "@base-ui/react/direction-provider";
-import { createElement } from "react";
 import "@lenso/tokens/styles.css";
 
 const preview: Preview = {
@@ -11,11 +9,7 @@ const preview: Preview = {
   decorators: [
     (story, context) => {
       document.documentElement.setAttribute("data-theme", context.globals["theme"]);
-      return createElement(
-        DirectionProvider,
-        { direction: document.documentElement.dir === "rtl" ? "rtl" : "ltr" },
-        story(),
-      );
+      return story();
     },
   ],
   parameters: { layout: "centered", controls: { expanded: true } },
