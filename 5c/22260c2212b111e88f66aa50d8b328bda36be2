@@ -1,0 +1,53 @@
+.github/workflows/release.yml
+  s_fc9d04ec742532::t_cec694aa1481a1 9
+CONTRIBUTING.md
+  s_fc9d04ec742532::t_8f4a0f41e52023 235-236
+RELEASE.md
+  s_fc9d04ec742532::t_377b7b66f8e7aa 1,3-10,20-25,27,56,62-68
+apps/docs/scripts/generate-api-reference.test.ts
+  s_fc9d04ec742532::t_b996288802d3ac 121-124
+bun.lock
+  s_fc9d04ec742532::t_f7cdb9569a5330 119,139,185,207,251,264
+docs/upstream-ui-sdk-types.md
+  s_fc9d04ec742532::t_fbbd77ca8dd8b5 66-79
+packages/create-docs/package.json
+  s_fc9d04ec742532::t_1f8defb46a5b0e 3
+packages/create-docs/src/cli.ts
+  s_fc9d04ec742532::t_18af67bf9b0ae0 6
+packages/create-docs/template/package.json
+  s_fc9d04ec742532::t_517ef22f0bd9ff 11
+packages/create-docs/test/cli.test.ts
+  s_fc9d04ec742532::t_c65937072f83d0 70,92
+packages/docs/package.json
+  s_fc9d04ec742532::t_caaec16b4053d7 3
+packages/glass/package.json
+  s_fc9d04ec742532::t_34e0cf377fd19c 3
+packages/glass/test/browser/filter-split.dom.test.ts
+  s_fc9d04ec742532::t_009ab0c8ec8ff3 76,82-90,95
+packages/primitives/package.json
+  s_fc9d04ec742532::t_4d0a6cbcabe6ca 3
+packages/tokens/package.json
+  s_fc9d04ec742532::t_1174ec7fc65434 3
+packages/ui/package.json
+  s_fc9d04ec742532::t_2741e79dfeb6d4 3
+scripts/publish-packages.ts
+  s_fc9d04ec742532::t_8f929fb2dc085d 48-49,51-52
+tests/publish-packages.test.ts
+  s_fc9d04ec742532::t_548d6ea460840d 117-118,135-136,153-154,189-190,203-204,210,227-228,286,325-326,416-417,458,462,464,474,481,502,506,515,527,539,551
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5c22260c2212b111e88f66aa50d8b328bda36be2",
+  "prompts": {},
+  "sessions": {
+    "s_fc9d04ec742532": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1d132-30d4-7b91-ab51-ed03f8289424",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
