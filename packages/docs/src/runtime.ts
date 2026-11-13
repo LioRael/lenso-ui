@@ -69,6 +69,7 @@ const runtimePackages = [
   "@vitejs/plugin-react",
   "@tanstack/react-router",
   "@tanstack/react-start",
+  "@tanstack/redact",
   "@stylexjs/unplugin",
   "@stylexjs/stylex",
   "@ui-sdk/core",

@@ -5,6 +5,7 @@ const require = createRequire(import.meta.url);
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { redact } from "@tanstack/redact/vite";
 import { fumadocsMdx } from "fumadocs-mdx/vite";
 import story from "@fumadocs/story/vite";
 import stylex from "@stylexjs/unplugin/vite";
@@ -100,14 +101,7 @@ export default defineConfig(({ command }) => {
       ],
     },
     ssr: {
-      noExternal: [
-        /^@lenso\//,
-        /^@ui-sdk\//,
-        "fumadocs-core",
-        "fumadocs-ui",
-        "@fumadocs/story",
-        "@fumari/stf",
-      ],
+      noExternal: true,
     },
     environments: {
       client: {
@@ -119,7 +113,7 @@ export default defineConfig(({ command }) => {
                 groups: [
                   {
                     name: "react-runtime",
-                    test: /node_modules[\\/](?:react|react-dom|scheduler)[\\/]/,
+                    test: /node_modules[\\/](?:(?:react|react-dom|scheduler)[\\/]|@tanstack[\\/]redact[\\/])/,
                     priority: 20,
                   },
                   {
@@ -170,6 +164,7 @@ export default defineConfig(({ command }) => {
         unstable_moduleResolution: { type: "commonJS" },
       }),
       react(),
+      redact(),
     ],
   };
 });

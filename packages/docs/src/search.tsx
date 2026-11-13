@@ -2,7 +2,10 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
+  useEffect,
+  useEffectEvent,
   useMemo,
   useRef,
   lazy,
@@ -60,6 +63,55 @@ export const SearchConfiguration = createContext<
 const SearchRevision = createContext("");
 const StaticSearchDialog = lazy(() => import("./search-dialog"));
 
+function SearchWarmup() {
+  const configuration = useContext(SearchConfiguration)!;
+  const { open, setOpenSearch, hotKey } = useSearchContext();
+  const { from, initDB } = configuration;
+  const prepareDialog = useEffectEvent(() => {
+    // Initializing Fumadocs' deferred open state mounts the dialog without showing it.
+    if (!open) setOpenSearch(false);
+  });
+  useEffect(() => {
+    let started = false;
+    const prepare = () => {
+      if (started) return;
+      started = true;
+      prepareDialog();
+      // Warm the same URL-keyed database used by the dialog, in parallel with its code.
+      void import("fumadocs-core/search/client/orama-static")
+        .then(({ staticClient }) =>
+          staticClient({ from, ...(initDB !== undefined ? { initDB } : {}) }).search(""),
+        )
+        .catch(() => {
+          // Speculative loading must not interrupt reading; the dialog owns search errors.
+        });
+    };
+    const onIntent = (event: Event) => {
+      if (event.target instanceof Element && event.target.closest("[data-docs-search-trigger]"))
+        prepare();
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (
+        !event.defaultPrevented &&
+        !event.isComposing &&
+        hotKey.every(({ key }) => (typeof key === "string" ? event.key === key : key(event)))
+      )
+        prepare();
+    };
+    document.addEventListener("pointerover", onIntent);
+    document.addEventListener("pointerdown", onIntent);
+    document.addEventListener("focusin", onIntent);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerover", onIntent);
+      document.removeEventListener("pointerdown", onIntent);
+      document.removeEventListener("focusin", onIntent);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [from, initDB, hotKey]);
+  return null;
+}
+
 // Internal host boundary: Fumadocs caches static databases by their source URL.
 export function DocumentationSearchRevision({
   revision,
@@ -71,36 +123,43 @@ export function DocumentationSearchRevision({
   return <SearchRevision value={revision}>{children}</SearchRevision>;
 }
 
-function useSearchTriggerRef() {
-  const registry = useContext(SearchConfiguration)?.triggers;
+export function useDocumentationSearchTrigger() {
+  const configuration = useContext(SearchConfiguration);
+  const { setOpenSearch } = useSearchContext();
+  const registry = configuration?.triggers;
   const previous = useRef<HTMLElement | null>(null);
-  return (node: HTMLElement | null) => {
-    if (previous.current) registry?.current.delete(previous.current);
-    if (node) registry?.current.add(node);
-    previous.current = node;
+  const ref = useCallback(
+    (node: HTMLElement | null) => {
+      if (previous.current) registry?.current.delete(previous.current);
+      if (node) registry?.current.add(node);
+      previous.current = node;
+    },
+    [registry],
+  );
+  return {
+    ref,
+    onClick: (event: MouseEvent<HTMLElement>) => {
+      configuration?.rememberTrigger(event.currentTarget);
+      setOpenSearch(true);
+    },
   };
 }
 
 function SearchTriggers({ compact }: { compact: boolean }) {
-  const desktopRef = useSearchTriggerRef();
-  const mobileRef = useSearchTriggerRef();
-  const { setOpenSearch, hotKey } = useSearchContext();
+  const desktopTrigger = useDocumentationSearchTrigger();
+  const mobileTrigger = useDocumentationSearchTrigger();
+  const { hotKey } = useSearchContext();
   const configuration = useContext(SearchConfiguration);
   const label = configuration?.labels?.trigger ?? "Search documentation";
-  const openSearch = (event: MouseEvent<HTMLElement>) => {
-    configuration?.rememberTrigger(event.currentTarget);
-    setOpenSearch(true);
-  };
   if (compact) {
     return (
       <GlassButton
         isIconOnly
-        ref={desktopRef}
+        {...desktopTrigger}
         type="button"
         aria-label={label}
         aria-keyshortcuts="Meta+K Control+K"
         data-docs-search-trigger=""
-        onClick={openSearch}
         xstyle={[headerControls.control, headerControls.icon]}
       >
         <Magnifier width={16} height={16} aria-hidden="true" />
@@ -111,11 +170,10 @@ function SearchTriggers({ compact }: { compact: boolean }) {
     <>
       <div {...stylex.props(notebook.headerDesktop, notebook.searchContainer)}>
         <button
-          ref={desktopRef}
+          {...desktopTrigger}
           type="button"
           aria-label={label}
           data-docs-search-trigger=""
-          onClick={openSearch}
           {...stylex.props(notebook.searchTrigger)}
         >
           <Magnifier width={16} height={16} aria-hidden="true" />
@@ -130,11 +188,10 @@ function SearchTriggers({ compact }: { compact: boolean }) {
       <div {...stylex.props(notebook.headerMobile)}>
         <GlassButton
           isIconOnly
-          ref={mobileRef}
+          {...mobileTrigger}
           type="button"
           aria-label={label}
           data-docs-search-trigger=""
-          onClick={openSearch}
           xstyle={notebook.glassIconButton}
         >
           <Magnifier width={18} height={18} aria-hidden="true" />
@@ -188,6 +245,7 @@ export function DocumentationSearch({
   return (
     <SearchConfiguration value={configuration}>
       <SearchProvider SearchDialog={StaticSearchDialog} preload={false}>
+        <SearchWarmup />
         {children ?? <SearchTriggers compact={compact} />}
       </SearchProvider>
     </SearchConfiguration>

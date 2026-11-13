@@ -9,6 +9,7 @@ export {
 export {
   DocumentationSearch,
   DocumentationCompactSearchTrigger,
+  useDocumentationSearchTrigger,
   type DocumentationSearchProps,
 } from "./search";
 

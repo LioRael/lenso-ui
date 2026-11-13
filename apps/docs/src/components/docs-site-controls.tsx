@@ -2,12 +2,12 @@
 
 import * as stylex from "@stylexjs/stylex";
 
-import { useSearchContext } from "fumadocs-ui/contexts/search";
 import { TabBar } from "@lenso/ui/tab-bar";
 import Link from "fumadocs-core/link";
 import {
   DocumentationCompactSearchTrigger,
   DocumentationLanguageToggle,
+  useDocumentationSearchTrigger,
   type DocumentationSiteLayoutProps,
 } from "@lenso/docs/client";
 import { Globe, LogoGithub, Magnifier } from "@gravity-ui/icons";
@@ -106,7 +106,7 @@ export function MobileNavigation({
   sections: DocumentationSiteLayoutProps["sections"];
   activeSection?: string;
 }) {
-  const { setOpenSearch } = useSearchContext();
+  const searchTrigger = useDocumentationSearchTrigger();
   const searchLabel = locale === "cn" ? "搜索文档" : "Search documentation";
   return (
     <TabBar
@@ -131,11 +131,11 @@ export function MobileNavigation({
       </TabBar.Group>
       <TabBar.Group separate>
         <TabBar.Button
+          {...searchTrigger}
           icon={<Magnifier aria-hidden="true" />}
           aria-label={searchLabel}
           aria-keyshortcuts="Meta+K Control+K"
           data-docs-search-trigger=""
-          onClick={() => setOpenSearch(true)}
         >
           {searchLabel}
         </TabBar.Button>

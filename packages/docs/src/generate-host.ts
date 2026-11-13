@@ -81,6 +81,7 @@ export async function generateHost(
     `import { defineConfig, mergeConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { redact } from "@tanstack/redact/vite";
 import stylex from "@stylexjs/unplugin/vite";
 ${build ? `import consumer from ${importPath(viteConfig, build)};` : "const consumer = {};"}
 export default defineConfig(async (environment) => {
@@ -97,7 +98,7 @@ export default defineConfig(async (environment) => {
       include: ["react", "react-dom/client", "react/jsx-runtime", "react/jsx-dev-runtime", "@stylexjs/stylex", "@gravity-ui/icons", "culori", "@fuma-translate/react", "@lenso/ui > react-stately", "fumadocs-ui > next-themes",
         "fumadocs-ui/provider/tanstack", "fumadocs-ui/provider/base", "fumadocs-ui/contexts/search", "fumadocs-ui/contexts/i18n", "fumadocs-ui/contexts/tree", "fumadocs-ui/layouts/notebook/page", "fumadocs-ui/components/steps", "fumadocs-ui/utils/use-footer-items", "fumadocs-ui/components/toc", "fumadocs-ui/components/ui/collapsible", "fumadocs-ui/mdx", "fumadocs-core/framework", "fumadocs-core/framework/tanstack", "fumadocs-core/link", "fumadocs-core/toc", "fumadocs-core/search/client"],
     },
-    ssr: { noExternal: [/^@lenso\\//, /^@ui-sdk\\//, "fumadocs-core", "fumadocs-ui"] },
+    ssr: { noExternal: true },
     build: { target: "es2022" },
     environments: { client: { build: { outDir: "out" } } },
     plugins: [
@@ -108,6 +109,7 @@ export default defineConfig(async (environment) => {
       }),
       stylex({ dev: environment.command === "serve", runtimeInjection: false, useCSSLayers: false, unstable_moduleResolution: { type: "commonJS" } }),
       react(),
+      redact(),
     ],
   });
 });

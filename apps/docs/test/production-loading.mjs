@@ -99,6 +99,13 @@ try {
           await page.locator('[data-component-story="Tabs"] [data-highlighted]').waitFor();
         }
         const trigger = page.locator("[data-docs-search-trigger]:visible").first();
+        await trigger.hover();
+        await page.waitForFunction(() =>
+          performance
+            .getEntriesByType("resource")
+            .some((entry) => new URL(entry.name).pathname === "/search/en.json"),
+        );
+        assert.equal(await page.locator("[data-docs-search]").isVisible(), false);
         await trigger.click();
         const panel = page.locator("[data-docs-search]");
         await panel.getByRole("combobox").fill("button");
@@ -106,6 +113,16 @@ try {
         await page.keyboard.press("Escape");
         await panel.waitFor({ state: "hidden" });
         assert.ok(await trigger.evaluate((node) => document.activeElement === node));
+        assert.equal(
+          await page.evaluate(
+            () =>
+              performance
+                .getEntriesByType("resource")
+                .filter((entry) => new URL(entry.name).pathname === "/search/en.json").length,
+          ),
+          1,
+          "Intent preload and the dialog must share one search database request",
+        );
         assert.deepEqual(errors, []);
         await page.close();
       }
