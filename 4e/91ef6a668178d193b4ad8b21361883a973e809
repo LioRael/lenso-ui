@@ -1,0 +1,28 @@
+RELEASE.md
+  h_9d56aba080c170 1-29
+bun.lock
+  h_9d56aba080c170 120,140
+packages/create-docs/package.json
+  h_9d56aba080c170 3
+packages/create-docs/src/cli.ts
+  h_9d56aba080c170 6
+packages/create-docs/template/package.json
+  h_9d56aba080c170 11
+packages/create-docs/test/cli.test.ts
+  h_9d56aba080c170 70,92
+packages/docs/package.json
+  h_9d56aba080c170 3
+scripts/publish-packages.ts
+  h_9d56aba080c170 51-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4e91ef6a668178d193b4ad8b21361883a973e809",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
