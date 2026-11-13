@@ -38,6 +38,12 @@ Install from the lockfile:
 bun install --frozen-lockfile
 ```
 
+SDK-backed primitives temporarily use `exactOptionalPropertyTypes: false`, with
+`strict: true` and `skipLibCheck: false` retained. This is an explicit supported
+compiler configuration, not an exemption from typechecking or the candidate CI
+gate. The reason, consumer limitation and restoration criteria are documented in
+[the upstream compatibility report](docs/upstream-ui-sdk-types.md).
+
 Common entrypoints:
 
 ```sh

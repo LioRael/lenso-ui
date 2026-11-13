@@ -3,14 +3,10 @@
   "compilerOptions": {
     "allowJs": false,
     "declaration": true,
-    "exactOptionalPropertyTypes": true,
+    "exactOptionalPropertyTypes": false,
     "isolatedDeclarations": false,
     "jsx": "react-jsx",
-    "lib": [
-      "ES2023",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "skipLibCheck": false,
     "target": "ES2022",
     "moduleDetection": "auto",
@@ -23,14 +19,7 @@
     "noPropertyAccessFromIndexSignature": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "types": [
-      "bun",
-      "node",
-      "react"
-    ]
+    "types": ["bun", "node", "react"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -265,6 +265,40 @@ createRoot(document.getElementById("root")!).render(
       }),
     );
     await run(process.execPath, ["check", "--no-script", "--noEmit"], { cwd: directory });
+    // Check the shipped primitive declarations without suppressing dependency
+    // declarations, including the renderer constraints that skipLibCheck cannot hide.
+    await writeFile(
+      join(directory, "primitive-types.tsx"),
+      `
+import {createParts} from "@ui-sdk/react/primitive";
+import {Sidebar} from "@lenso/primitives/sidebar";
+import {sidebar} from "@lenso/primitives/sidebar/core";
+import {wheelPicker} from "@lenso/primitives/wheel-picker/core";
+const SidebarParts = createParts(sidebar, {root: "div", trigger: "button", panel: "aside"} as const);
+const WheelParts = createParts(wheelPicker, {root: "div"} as const);
+export const sidebarNode = <Sidebar.Root onOpenChange={(open, details) => {
+  const next: boolean = open;
+  if (next) details.cancel();
+}}><Sidebar.Panel /></Sidebar.Root>;
+export const customSidebar = <SidebarParts.Root defaultOpen><SidebarParts.Trigger />
+  <SidebarParts.Panel /></SidebarParts.Root>;
+export const customWheel = <WheelParts.Root options={[{value: "one", label: "One"}]}
+  onValueChange={(value, details) => { const selected: string | null = value; if (selected) details.cancel(); }} />;
+`,
+    );
+    await writeFile(
+      join(directory, "tsconfig.primitives.json"),
+      JSON.stringify({
+        extends: "./tsconfig.json",
+        compilerOptions: { strict: true, exactOptionalPropertyTypes: false, skipLibCheck: false },
+        include: ["primitive-types.tsx"],
+      }),
+    );
+    await run(
+      process.execPath,
+      ["check", "--no-script", "--noEmit", "-p", "tsconfig.primitives.json"],
+      { cwd: directory },
+    );
     const options = {
       dev: false,
       runtimeInjection: false,

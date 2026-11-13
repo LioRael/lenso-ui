@@ -153,6 +153,7 @@ export const MultipleSelection: Story = {
       value: _value,
       defaultValue: _defaultValue,
       onChange: _onChange,
+      onValueChange: _onValueChange,
       selectionMode: _selectionMode,
       render: _render,
       style: _style,
@@ -165,7 +166,7 @@ export const MultipleSelection: Story = {
           aria-label="Event dates"
           selectionMode="multiple"
           value={value}
-          onChange={setValue}
+          onValueChange={(next) => setValue(next?.filter((date) => date !== null) ?? [])}
         >
           <Calendar.Header>
             <Calendar.Heading />

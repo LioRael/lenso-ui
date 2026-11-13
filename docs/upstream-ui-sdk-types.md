@@ -1,5 +1,32 @@
 # UI SDK strict declaration compatibility
 
+## Current temporary support policy
+
+The owner authorized a temporary compatibility policy on 2026-11-14:
+`packages/primitives` uses `exactOptionalPropertyTypes: false`. Its inherited
+`strict: true` and explicit `skipLibCheck: false` remain unchanged. No workflow
+job, declaration check, runtime API, SDK dependency or dependency file is patched
+or skipped. Other workspace compiler configurations remain unchanged.
+
+The installed-consumer regression checks actual packed primitive declarations
+with strict mode and library checking enabled, including SDK `createParts` use
+of the exported core definitions. The normal complete candidate CI still must
+pass before landing or publication.
+
+This does not fix the SDK's declarations. A consumer enabling
+`exactOptionalPropertyTypes` can still encounter the same SDK declaration and
+renderer constraint errors. We do not claim support for that combination in
+this release. `skipLibCheck` alone is insufficient for custom renderer call sites
+whose constraints are checked in consumer source.
+
+Remove the temporary setting after an official SDK release passes the original
+strict primitive typecheck/build and the packed-consumer check with
+`exactOptionalPropertyTypes: true` and `skipLibCheck: false`. Then update the
+consumer guidance and this policy together. Do not remove the setting based only
+on a release note, a diagnostic count reduction or a skipped declaration check.
+
+## Historical investigation before the temporary policy
+
 Affected packages: `@ui-sdk/core` and `@ui-sdk/react` `0.1.0-beta.1`.
 
 With `exactOptionalPropertyTypes: true` and `skipLibCheck: false`, generated SDK
@@ -76,4 +103,4 @@ factory still exposes `options: Record<string, PropSpec> | undefined` against
 resolve this release blocker, and this checkout retains its pinned beta.1.
 No dependencies, declaration patches, casts or compiler relaxations were applied.
 The prepared Lenso 0.11.0 release must not land or publish until its exact candidate
-passes the authoritative verification gate.
+passes the authoritative verification gate, using the current support policy above.

@@ -1,8 +1,11 @@
 # Prepared release: UI SDK migration 0.11.0
 
-Publication is blocked by the strict SDK declaration issue recorded in
-[the upstream type report](docs/upstream-ui-sdk-types.md). Prepared versions are
-not a publication receipt.
+This release temporarily excludes `exactOptionalPropertyTypes` from the supported
+TypeScript configuration for SDK-backed primitives. `strict` remains enabled and
+primitive declaration checking remains enabled (`skipLibCheck: false`). Consumers
+using exact optional properties may still encounter upstream declaration errors;
+see [the compatibility report](docs/upstream-ui-sdk-types.md). Prepared versions
+are not a publication receipt.
 
 This release migrates React interactions to native UI SDK contracts while retaining
 Lenso's StyleX appearance and Glass presentation. It includes the subsequent
