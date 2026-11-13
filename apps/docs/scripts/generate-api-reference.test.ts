@@ -118,8 +118,10 @@ test("DatePicker retains its generic date model and native supporting parts", ()
   assert.match(picker.signature, /<T extends DateValue = DateValue>/);
   const props = rows(picker);
   assert.match(props.value.type, /^T \| null/);
-  assert.match(props.onChange.type, /MappedDateValue<T>/);
-  assert.ok(props.isDisabled);
+  assert.match(props.onValueChange.type, /T \| null/);
+  assert.match(props.onValueChange.type, /ChangeDetails<ModelChangeReason>/);
+  assert.ok(props.disabled);
+  assert.ok(props.readOnly);
   assert.ok(rows(part("date-picker", "DatePickerTrigger")).onClick);
   assert.ok(rows(part("date-picker", "DatePickerTrigger")).render);
   assert.equal(rows(part("date-picker", "DatePickerTrigger")).onPress, undefined);

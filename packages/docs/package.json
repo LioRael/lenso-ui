@@ -1,6 +1,6 @@
 {
   "name": "@lenso/docs",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Content-first static documentation with MDX and the Lenso documentation shell.",
   "license": "MIT",
   "repository": {

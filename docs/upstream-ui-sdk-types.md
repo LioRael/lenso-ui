@@ -63,3 +63,17 @@ fixture even though `document.getElementById` returns that panel immediately
 before the check. Acceptance uses explicit reference, state and focus assertions,
 SDK `checkServer`, and Chromium/WebKit interaction checks. The helper result is
 not reported as a passing APG audit.
+
+## Release gate recheck: 2026-11-14
+
+The full repository gate still fails in the configured primitives strict typecheck
+with 42 diagnostics. The official npm `beta` tag now points to `0.1.0-beta.2`,
+while `latest` remains `0.1.0-beta.1`. A separate temporary consumer using the
+unmodified official beta.2 tarballs and importing only React Button reproduces
+11 declaration diagnostics under the same strict options. Its generated
+factory still exposes `options: Record<string, PropSpec> | undefined` against
+`options?: Record<string, PropSpec>` in `Primitive`. Therefore beta.2 does not
+resolve this release blocker, and this checkout retains its pinned beta.1.
+No dependencies, declaration patches, casts or compiler relaxations were applied.
+The prepared Lenso 0.11.0 release must not land or publish until its exact candidate
+passes the authoritative verification gate.

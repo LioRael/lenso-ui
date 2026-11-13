@@ -232,8 +232,8 @@ and migration requirements.
 The owner subsequently authorized the 0.8.0 UI/styles release and manual CI
 publication. See `RELEASE.md` for the migration and deferred scope. The manual
 `Release` workflow uses npm Trusted Publishing from the `npm` environment and
-requires successful verification of its exact main commit. It publishes only
-`@lenso/tokens` and `@lenso/ui`; it does not restore Changesets or the former
+requires successful verification of its exact main commit. It publishes the package set declared in `scripts/publish-packages.ts`, including
+the matching Glass, primitives, documentation and initializer packages; it does not restore Changesets or the former
 fixed-group automatic release process.
 
 ### Running ordinary tests
