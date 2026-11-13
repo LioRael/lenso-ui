@@ -1,0 +1,35 @@
+CONTRIBUTING.md
+  s_fc9d04ec742532::t_e4f0aa1ba2dd74 41-45
+  s_fc9d04ec742532::t_a479bb97b4ee1e 46
+docs/upstream-ui-sdk-types.md
+  s_fc9d04ec742532::t_d3c35df9c62f2c 3-29,106
+tests/consumer/installed-consumer.test.ts
+  s_fc9d04ec742532::t_d3c35df9c62f2c 268-301
+packages/primitives/tsconfig.json
+  s_fc9d04ec742532::t_e4f0aa1ba2dd74 6
+  s_fc9d04ec742532::t_d3c35df9c62f2c 9,22,24
+RELEASE.md
+  s_fc9d04ec742532::t_e4f0aa1ba2dd74 3-8
+packages/primitives/README.md
+  s_fc9d04ec742532::t_e4f0aa1ba2dd74 33-46
+apps/docs/src/generated/lenso-docs-index.json
+  s_fc9d04ec742532::t_9812307e23f613 3
+packages/storybook/stories/calendar.stories.tsx
+  s_fc9d04ec742532::t_33eea1fcb11d07 156,169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5f85b7ab52092236968781bf70cb9150e35d9387",
+  "prompts": {},
+  "sessions": {
+    "s_fc9d04ec742532": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1d132-30d4-7b91-ab51-ed03f8289424",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
