@@ -1,0 +1,19 @@
+packages/storybook/.storybook/preview.ts
+  s_fc9d04ec742532::t_255be78dc20942 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "954e9b37143853bd6ea114714b94c28f9cebb396",
+  "prompts": {},
+  "sessions": {
+    "s_fc9d04ec742532": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1d132-30d4-7b91-ab51-ed03f8289424",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
