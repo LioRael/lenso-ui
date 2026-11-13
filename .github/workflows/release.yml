@@ -6,7 +6,7 @@ on:
       version:
         description: Exact version declared by UI and tokens (glass, Docs and tooling use their manifest versions)
         required: true
-        default: "0.10.0"
+        default: "0.10.1"
         type: string
 
 concurrency:

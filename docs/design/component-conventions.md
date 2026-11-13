@@ -44,6 +44,11 @@ and `filter={false}` for externally ranked results. Command.Content and
 Command.Backdrop compose the native dialog; no Portal/Positioner/Popup shim is
 provided.
 
+Glass buttons inside Command keep the shared Small Glass backing paint. The
+panel creates a Chromium backdrop root, so its buttons use the same blur/paint
+fallback as buttons inside a translucent Sheet. They must remain visibly raised
+over both coloured and neutral dark panels after fitted optics are ready.
+
 ## Grouped forms
 
 `Input` and `TextArea` are content-layer fields with ordinary form surfaces.

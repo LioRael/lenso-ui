@@ -113,15 +113,26 @@ or every foreground/Fusion optical path.
 | Maximum observed rAF gap           | 833–1246ms | 21–37ms          |
 
 These measurements identify a strong scene-specific benefit, not a steady
-FPS ratio or a physical-iPhone result. The candidate was injected only in
-the experimental browser; no production default was changed. Source-copy
+FPS ratio or a physical-iPhone result. The initial candidate was injected only in the experimental browser. The
+subsequent source change makes ordinary WebKit glass native by default. Source-copy
 refraction/calibration can visibly differ. The earlier428px mobile probe
 failed to find a visible favorite button, so no mobile result is asserted.
 Full scripts, counters, per-action data and screenshots are in
-[Round87 evidence](/Users/leosouthey/.codex/visualizations/2026/11/08/01a1bada-c998-7850-9e85-360ce49b33f4/menu-select-round87-webkit-native-blur/REPORT.md).
+local experiment artifacts retained outside the source checkout.
 
 The decision is now better grounded: evaluate native frosted material as
 WebKit's ordinary default, while preserving state, motion, focus and
 legibility. In parallel, an independently proven scheduler fix may avoid
 reconstructing unrelated content and retain more optics. Changing only the
 Toggle's blur declaration cannot remove the measured copied-background work.
+
+## Source integration
+
+Ordinary WebKit glass no longer discovers marked backgrounds automatically.
+Menu and Select retain native panel paints across movement, rest and submenus.
+Foreground rims remain fitted, and hidden native paints suspend geometry work.
+Chromium retains the moving paint until decoded fitted optics can take over.
+No interaction or motion trajectory changes, package publication or version bump
+are included. This renderer choice deliberately gives up automatic copied-source
+refraction on WebKit; native Safari and physical-device acceptance remain distinct
+from the automated browser checks.

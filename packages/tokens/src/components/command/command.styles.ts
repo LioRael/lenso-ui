@@ -30,6 +30,11 @@ export const commandStyles = stylex.create({
     "@media (prefers-reduced-motion: reduce)": { animationDuration: "0ms", animationName: "none" },
   },
   root: {
+    // Like Sheet, this filtered panel is a Chromium backdrop root. Nested
+    // buttons need the Small Glass paint instead of filtering empty input.
+    "--lenso-glass-button-filter": "saturate(1)",
+    "--lenso-glass-button-fallback-paint": "1",
+    "--lenso-glass-button-fallback-background": "rgb(255 255 255 / .94)",
     boxSizing: "border-box",
     width: "100%",
     maxWidth: 640,

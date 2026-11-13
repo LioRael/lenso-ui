@@ -1,19 +1,23 @@
-# Prepared release: UI and Tokens 0.10.0
+# Prepared patch release: UI and Tokens 0.10.1
 
-This release is prepared for the current official StyleX integration and component
-architecture. It is not a patch over the registry's UI/Tokens 0.9.2: consumers
-must migrate the removed raw-rule CSS integration described below.
+This patch carries the current Glass performance fixes into consumer installs.
+Tokens and UI advance together; Docs and the initializer update their pinned
+dependencies. Primitives stays at its already-published 0.8.0 version.
+
+This release uses the current official StyleX integration and component
+architecture. Consumers upgrading from UI/Tokens 0.9.2 must still migrate the
+removed raw-rule CSS integration described below.
 
 Publish in dependency order:
 
-| Package             | Version  | Scope                                                                |
-| ------------------- | -------- | -------------------------------------------------------------------- |
-| `@lenso/tokens`     | `0.10.0` | Official StyleX declaration modules and current materials            |
-| `@lenso/glass`      | `0.1.0`  | First shared runtime distribution, including LGPL source and notices |
-| `@lenso/primitives` | `0.8.0`  | Additive Command entry; existing component source is preserved       |
-| `@lenso/ui`         | `0.10.0` | Current controls, Glass runtime and Command integration              |
-| `@lenso/docs`       | `0.2.0`  | Current documentation host and official StyleX integration           |
-| `create-lenso-docs` | `0.2.0`  | Template pinned to Docs 0.2.0                                        |
+| Package             | Version  | Scope                                                       |
+| ------------------- | -------- | ----------------------------------------------------------- |
+| `@lenso/tokens`     | `0.10.1` | Official StyleX declaration modules and current materials   |
+| `@lenso/glass`      | `0.1.1`  | WebKit native paint and stable Menu/Select material handoff |
+| `@lenso/primitives` | `0.8.0`  | Already published and unchanged; no new primitives release  |
+| `@lenso/ui`         | `0.10.1` | Current controls, Glass runtime and Command integration     |
+| `@lenso/docs`       | `0.2.1`  | Current documentation host and official StyleX integration  |
+| `create-lenso-docs` | `0.2.1`  | Template pinned to Docs 0.2.1                               |
 
 The Exact packages and experiment remain private and are not part of npm release.
 The removed `@lenso/stylex-build` package is not restored or republished.
@@ -44,7 +48,7 @@ UI pins the new primitives version in addition to Glass and Tokens. Docs pins
 the matching UI, Glass and Tokens versions through the packed workspace manifests.
 
 Publication remains a manual `Release` dispatch on an exactly verified `main`
-commit, using input `0.10.0`, the protected `npm` environment, npm Trusted
+commit, using input `0.10.1`, the protected `npm` environment, npm Trusted
 Publishing and provenance. Check the publisher configuration for every package,
 including the new Glass package, before approving the environment. The workflow
 does not create Git tags or GitHub Releases. No npm publication is implied by
@@ -75,6 +79,12 @@ the prepared versions or by pushing the source commits.
   uses the SDK's `selected` property.
 
 These are source changes; use the migration details for the version you consume.
+
+- WebKit ordinary glass now uses native backdrop blur, tone and foreground rims
+  instead of automatically copying marked page backgrounds. Menu and Select retain
+  this material through movement, rest and submenus. Chromium keeps its moving
+  material until fitted optics finish decoding. Interactions and motion paths
+  are unchanged; copied-source refraction on WebKit is intentionally reduced.
 
 - Direct documentation visits with a trailing slash preload their article before
   hydration, including Cloudflare's directory redirects. No migration is required.
