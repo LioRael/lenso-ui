@@ -9,8 +9,10 @@ upgrade UI and Tokens together.
 
 Publish UI/Tokens 0.11.3 with Glass 0.2.3, Docs 0.3.4 and create-lenso-docs 0.3.4
 so their exact dependency pins remain aligned. Glass has no optical changes;
-Docs and the initializer only consume the updated package chain. Primitives
-remain at 0.9.0 and must retain their existing registry integrity.
+Docs and the initializer only consume the updated package chain. The owner
+authorized Primitives 0.9.1 to include its already-committed README corrections;
+its implementation and declarations are unchanged from the published 0.9.0.
+Keep the immutable 0.9.0 registry package intact and pin UI to Primitives 0.9.1.
 
 Browser coverage includes Chromium and WebKit, light/dark, LTR/RTL, interrupted
 size transitions, narrow viewports and reduced motion. Console verifies its

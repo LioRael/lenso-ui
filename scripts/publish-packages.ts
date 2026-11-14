@@ -46,7 +46,7 @@ const registry = "https://registry.npmjs.org/";
 export const packages: ReleasePackage[] = [
   { dir: "packages/tokens", name: "@lenso/tokens", kind: "tokens" },
   { dir: "packages/glass", name: "@lenso/glass", kind: "glass", version: "0.2.3" },
-  { dir: "packages/primitives", name: "@lenso/primitives", kind: "primitives", version: "0.9.0" },
+  { dir: "packages/primitives", name: "@lenso/primitives", kind: "primitives", version: "0.9.1" },
   { dir: "packages/ui", name: "@lenso/ui", kind: "ui" },
   { dir: "packages/docs", name: "@lenso/docs", kind: "docs", version: "0.3.4" },
   { dir: "packages/create-docs", name: "create-lenso-docs", kind: "initializer", version: "0.3.4" },

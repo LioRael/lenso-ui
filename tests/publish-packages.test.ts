@@ -115,7 +115,7 @@ test("validates packed exports, required files, dependency protocols and release
     dependencies: {
       "@lenso/tokens": "0.8.0",
       "@lenso/glass": "0.2.3",
-      "@lenso/primitives": "0.9.0",
+      "@lenso/primitives": "0.9.1",
     },
     exports: { ".": { types: "./dist/index.d.ts", import: "./dist/index.js" } },
   };
@@ -133,7 +133,7 @@ test("validates packed exports, required files, dependency protocols and release
           dependencies: {
             "@lenso/tokens": "workspace:*",
             "@lenso/glass": "0.2.3",
-            "@lenso/primitives": "0.9.0",
+            "@lenso/primitives": "0.9.1",
           },
         },
         uiFiles,
@@ -151,7 +151,7 @@ test("validates packed exports, required files, dependency protocols and release
           dependencies: {
             "@lenso/tokens": "0.7.0",
             "@lenso/glass": "0.2.3",
-            "@lenso/primitives": "0.9.0",
+            "@lenso/primitives": "0.9.1",
           },
         },
         uiFiles,
@@ -187,7 +187,7 @@ test("only skips an existing exact integrity and dependency pin", () => {
         dependencies: {
           "@lenso/tokens": "0.8.0",
           "@lenso/glass": "0.2.3",
-          "@lenso/primitives": "0.9.0",
+          "@lenso/primitives": "0.9.1",
         },
       },
     },
@@ -225,7 +225,7 @@ test("only skips an existing exact integrity and dependency pin", () => {
               dependencies: {
                 "@lenso/tokens": "0.7.0",
                 "@lenso/glass": "0.2.3",
-                "@lenso/primitives": "0.9.0",
+                "@lenso/primitives": "0.9.1",
               },
             },
           },
@@ -323,7 +323,7 @@ test("accepted publication waits for registry version and latest without republi
     dependencies: {
       "@lenso/tokens": "0.8.0",
       "@lenso/glass": "0.2.3",
-      "@lenso/primitives": "0.9.0",
+      "@lenso/primitives": "0.9.1",
     },
   };
   const snapshots: Array<{
@@ -414,7 +414,7 @@ test("waiting rejects wrong UI dependency and limits latest-tag lag to its deadl
             dependencies: {
               "@lenso/tokens": "0.7.0",
               "@lenso/glass": "0.2.3",
-              "@lenso/primitives": "0.9.0",
+              "@lenso/primitives": "0.9.1",
             },
           },
         },
