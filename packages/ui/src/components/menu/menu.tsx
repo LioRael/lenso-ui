@@ -208,6 +208,29 @@ export function MenuSurface({
     },
     [ref, motion],
   );
+  const contentRef = React.useCallback((node: HTMLDivElement | null) => {
+    if (!node) return;
+    const updateSelectionInset = () => {
+      const selected = node.querySelectorAll(
+        '[role="menuitemcheckbox"][aria-checked="true"], [role="menuitemradio"][aria-checked="true"]',
+      );
+      node.toggleAttribute(
+        "data-menu-has-selection",
+        Array.from(selected).some(
+          (item) => item.closest('[data-lenso-slot="menu-content"]') === node,
+        ),
+      );
+    };
+    const observer = new MutationObserver(updateSelectionInset);
+    observer.observe(node, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["aria-checked", "role"],
+    });
+    updateSelectionInset();
+    return () => observer.disconnect();
+  }, []);
   const compiled = stylex.props(
     materialStyles.root,
     materialStyles.accessible,
@@ -271,7 +294,7 @@ export function MenuSurface({
                 {...stylex.props(s.glyph)}
               />
             )}
-            <div data-lenso-slot="menu-content" {...stylex.props(s.content)}>
+            <div ref={contentRef} data-lenso-slot="menu-content" {...stylex.props(s.content)}>
               {(motion || submenu) && (
                 <div data-lenso-slot="menu-plate" aria-hidden="true" {...stylex.props(s.plate)} />
               )}

@@ -67,6 +67,7 @@
     "test:popup-visual": "node test/popup-visual.mjs",
     "test:glass-popup-overflow": "node test/glass-popup-overflow.mjs",
     "test:docs-drawer-motion": "node test/docs-drawer-motion.mjs",
+    "test:menu-alignment": "node test/menu-alignment.mjs",
     "test:menu-select-animation": "node test/menu-select-animation.mjs"
   },
   "dependencies": {

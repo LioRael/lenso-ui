@@ -27,7 +27,7 @@ export function MenuSectionLabel({
   ...props
 }: StyleXProps<Omit<React.ComponentProps<typeof SdkMenu.MenuGroupLabel>, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof SdkMenu.MenuGroupLabel>, "ref">) {
-  const compiled = stylex.props(s.label, xstyle);
+  const compiled = stylex.props(s.label, s.menuLabel, xstyle);
   return (
     <SdkMenu.MenuGroupLabel
       {...props}

@@ -210,6 +210,10 @@ export const menuStyles = stylex.create({
   },
   submenuBody: { display: "flex", flexDirection: "column" },
   content: {
+    "--menu-selection-inset": {
+      default: "0px",
+      ":is([data-menu-has-selection])": "16px",
+    },
     opacity: "var(--lg-menu-popup-opacity, 1)",
     transition: "var(--lg-menu-fade-transition, none)",
     // Keep item blend groups from swallowing the sibling material backdrop.
@@ -277,10 +281,7 @@ export const menuItemStyles = stylex.create({
     boxSizing: "border-box",
     paddingBlock: 6,
     paddingInlineEnd: 20,
-    paddingInlineStart: {
-      default: 20,
-      ":is([role='menuitemcheckbox'], [role='menuitemradio'])": 36,
-    },
+    paddingInlineStart: "calc(20px + var(--menu-selection-inset, 0px))",
     borderWidth: 0,
     borderRadius: 21,
     color: {
@@ -329,6 +330,10 @@ export const menuItemStyles = stylex.create({
     width: 24,
     height: 22,
     color: "var(--menu-item-indicator-color, var(--lenso-menu-primary))",
+  },
+  menuIndicator: {
+    insetInlineStart: "var(--menu-selection-inset, 0px)",
+    width: 16,
   },
   submenuIndicator: {
     transform: "rotate(var(--lg-submenu-chevron-rotation, 0deg))",
@@ -380,7 +385,8 @@ export const menuItemStyles = stylex.create({
 export const menuSectionStyles = stylex.create({
   root: { display: "flex", flexDirection: "column", alignItems: "stretch", minWidth: 0, gap: 0 },
   label: {
-    paddingInline: 8,
+    paddingInlineStart: 8,
+    paddingInlineEnd: 8,
     paddingTop: 4,
     paddingBottom: 10,
     fontSize: 13,
@@ -389,5 +395,9 @@ export const menuSectionStyles = stylex.create({
     fontWeight: 500,
     color: "var(--lenso-menu-tertiary)",
     mixBlendMode: "var(--lenso-menu-blend)",
+  },
+  menuLabel: {
+    paddingInlineStart: "calc(20px + var(--menu-selection-inset, 0px))",
+    paddingInlineEnd: 20,
   },
 });

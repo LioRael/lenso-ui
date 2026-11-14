@@ -304,13 +304,16 @@ selection, keyboard operation and focus restoration in both modes.
 
 Menu panels have a 250px minimum width, 10px block/8px inline outer padding and
 42px minimum action rows with 6px block/20px inline inner padding. Icons occupy
-24px with a 12px gap. Keep descriptions, checkmarks and constrained scrolling
-functional when composing this geometry. Quick action groups own a separate
-10px inline inset and 6px inter-action gap. Cancel the content wrapper's inherited
-inline padding before applying that group inset; do not preserve a fixed negative
-margin tied to an older content padding. Action rows retain a 56px height, 6px
-block/4px inline padding and 5px icon-label gap. These horizontal actions do not
-inherit the ordinary row's 20px inline padding.
+24px with a 12px gap. Section labels and text-only action and selection rows
+share the 20px leading inset. When a menu contains a checked item, its labels
+and row contents move 16px inward to make room for the selection indicator;
+each submenu determines its own inset. Keep descriptions, checkmarks and
+constrained scrolling functional when composing this geometry. Quick action
+groups own a separate 10px inline inset and 6px inter-action gap. Cancel the
+content wrapper's inherited inline padding before applying that group inset; do
+not preserve a fixed negative margin tied to an older content padding. Action
+rows retain a 56px height, 6px block/4px inline padding and 5px icon-label gap.
+These horizontal actions do not inherit the ordinary row's 20px inline padding.
 
 Offscreen glass pauses background observation work while retaining its decoded
 source and output. Re-entry alone must not replace a source copy or clear its

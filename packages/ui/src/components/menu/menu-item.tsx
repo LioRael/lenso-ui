@@ -69,7 +69,7 @@ export function MenuItemIndicator({
   ...props
 }: StyleXProps<Omit<React.ComponentProps<typeof SdkMenu.MenuItemIndicator>, "ref">> &
   Pick<React.ComponentPropsWithRef<typeof SdkMenu.MenuItemIndicator>, "ref">) {
-  const compiled = stylex.props(s.indicator, xstyle);
+  const compiled = stylex.props(s.indicator, s.menuIndicator, xstyle);
   return (
     <SdkMenu.MenuItemIndicator
       {...props}
