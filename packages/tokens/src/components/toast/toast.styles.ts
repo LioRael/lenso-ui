@@ -207,6 +207,8 @@ export const toastStyles = stylex.create({
   pillContent: { flex: "0 1 auto", minWidth: 0 },
   pillPrevious: { position: "absolute", inset: 0, pointerEvents: "none" },
   pillTitle: {
+    display: "flex",
+    alignItems: "center",
     fontSize: 13,
     fontWeight: 600,
     lineHeight: "20px",

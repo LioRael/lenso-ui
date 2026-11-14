@@ -121,26 +121,27 @@ function UpdateNotice({ toast }: { toast: ToastData<ReactNode> & { data?: Update
   return (
     <Toast.Root variant="pill" xstyle={expanded && s.expanded}>
       {installed ? (
-        <Collapsible.Root open={expanded} onOpenChange={setExpanded} {...stylex.props(s.installed)}>
+        <Collapsible.Root open={expanded} onOpenChange={setExpanded} xstyle={s.installed}>
           <div {...stylex.props(s.row)}>
             <Toast.Indicator>
               <InstalledIcon />
             </Toast.Indicator>
-            <Toast.Title
-              render={<Collapsible.Trigger />}
+            <Collapsible.Trigger
               aria-label="Update installed. Your terminal tabs won't be lost"
               xstyle={s.disclosure}
             >
-              {expanded ? (
-                "Update installed."
-              ) : (
-                <Toast.Marquee>Update installed. Your terminal tabs won't be lost</Toast.Marquee>
-              )}
-            </Toast.Title>
+              <Toast.Title render={<span />}>
+                {expanded ? (
+                  "Update installed."
+                ) : (
+                  <Toast.Marquee>Update installed. Your terminal tabs won't be lost</Toast.Marquee>
+                )}
+              </Toast.Title>
+            </Collapsible.Trigger>
             <Toast.Action />
             <Toast.Close aria-label="Dismiss update notification" />
           </div>
-          <Collapsible.Content {...stylex.props(s.panel)}>
+          <Collapsible.Content xstyle={s.panel}>
             <Separator xstyle={s.divider} />
             <div {...stylex.props(s.details)}>
               <Toast.Description xstyle={s.description} />
@@ -200,12 +201,12 @@ function UpdateWorkflow({
       action: undefined,
       data: { stage: "downloading", progress: 0 },
     });
-    [1, 2, 3, 4, 7, 12, 18, 24, 31, 40, 49, 58, 68, 78, 88, 96, 100].forEach((progress, index) =>
+    Array.from({ length: 25 }, (_, index) => (index + 1) * 4).forEach((progress, index) =>
       later(
         () => {
           manager.update(current, { data: { stage: "downloading", progress } });
         },
-        (index + 1) * 280,
+        (index + 1) * 120,
       ),
     );
     later(
@@ -223,7 +224,7 @@ function UpdateWorkflow({
             },
           },
         }),
-      5200,
+      3240,
     );
   };
   const check = () => {
@@ -246,7 +247,7 @@ function UpdateWorkflow({
           title: "An update is available",
           type: "info",
           data: { stage: "available" },
-          action: { label: "Download", onAction: download },
+          action: { label: "Download", onAction: download, dismiss: false },
         }),
       1400,
     );
