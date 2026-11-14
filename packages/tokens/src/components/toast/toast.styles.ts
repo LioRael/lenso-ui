@@ -214,6 +214,14 @@ export const toastStyles = stylex.create({
     lineHeight: "20px",
     overflowWrap: "anywhere",
   },
+  pillTitleText: {
+    width: "100%",
+    clipPath: {
+      default: "inset(-20px max(0px, calc(-1 * var(--toast-pill-inline-offset, 0px))) -20px -20px)",
+      ":dir(rtl)":
+        "inset(-20px -20px -20px max(0px, calc(-1 * var(--toast-pill-inline-offset, 0px))))",
+    },
+  },
   pillIndicator: {
     width: 18,
     height: 18,
@@ -248,6 +256,10 @@ export const toastStyles = stylex.create({
     outlineColor: tokens.focusRing,
     outlineOffset: 2,
     cursor: tokens.cursorInteractive,
+    translate: {
+      default: "var(--toast-pill-inline-offset, 0px) 0",
+      ":dir(rtl)": "calc(-1 * var(--toast-pill-inline-offset, 0px)) 0",
+    },
     opacity: { default: 1, ":is(:disabled,[data-disabled])": 0.4 },
     transform: { default: "scale(1)", ":active": "scale(.94)" },
     transition: {

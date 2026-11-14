@@ -25,6 +25,7 @@
     "test:canvas-navigation": "node test/glass-canvas-navigation.mjs",
     "test:moving-glass-preferences": "node test/moving-glass-preferences.mjs",
     "test:glass-contour": "node test/glass-contour.mjs",
+    "test:toast-pill-motion": "node test/toast-pill-motion.mjs",
     "test:native-editor-rim": "node test/native-editor-rim.mjs",
     "test:home-showcase": "node test/home-showcase-initial.mjs",
     "test:home-scroll-material": "node test/home-scroll-material.mjs",

@@ -1,3 +1,26 @@
+# Prepared release: UI/Tokens 0.11.3, Glass 0.2.3 and Docs 0.3.4
+
+Pill Toast trailing actions and the close button now follow the live surface
+edge while content changes width, including reversed transitions and RTL.
+Titles stay clear of moving controls without scaling text or clipping the
+native title's focus outline. Reduced motion keeps the same final geometry.
+Consumers do not need to change their composition or add local transforms;
+upgrade UI and Tokens together.
+
+Publish UI/Tokens 0.11.3 with Glass 0.2.3, Docs 0.3.4 and create-lenso-docs 0.3.4
+so their exact dependency pins remain aligned. Glass has no optical changes;
+Docs and the initializer only consume the updated package chain. Primitives
+remain at 0.9.0 and must retain their existing registry integrity.
+
+Browser coverage includes Chromium and WebKit, light/dark, LTR/RTL, interrupted
+size transitions, narrow viewports and reduced motion. Console verifies its
+consumer-owned expandable notifications separately. No public API migration
+is required.
+
+Dispatch `Release` with input `0.11.3` only after the exact main commit passes
+verification. Preserve the protected `npm` environment, OIDC provenance and
+package-content and integrity checks. Prepared versions are not a publication receipt.
+
 # Prepared release: UI/Tokens 0.11.2, Glass 0.2.2 and Docs 0.3.3
 
 Publish this patch set in dependency order:

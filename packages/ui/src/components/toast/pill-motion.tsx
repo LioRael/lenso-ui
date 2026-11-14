@@ -14,26 +14,39 @@ export function usePillSize(enabled: boolean) {
     if (!enabled || !content || !root) return;
     const viewport =
       root.closest<HTMLElement>('[data-lenso-slot="toast-viewport"]') ?? root.parentElement;
+    let available = Infinity;
     const constrain = () => {
-      if (viewport)
-        content.style.setProperty("--toast-pill-available", `${viewport.clientWidth}px`);
+      available = viewport?.clientWidth ?? Infinity;
+      if (viewport) content.style.setProperty("--toast-pill-available", `${available}px`);
     };
     constrain();
     const dimensions = ["width", "height"] as const;
     const size = () => [content.offsetWidth, content.offsetHeight];
-    const springs = size().map((value, index) =>
+    let target = size();
+    const springs = target.map((value, index) =>
       createSpring(value, 480, 38, (next) => {
         root.style.setProperty(`--toast-pill-${dimensions[index]}`, `${next}px`);
+        if (index === 0)
+          root.style.setProperty(
+            "--toast-pill-inline-offset",
+            `${Math.min(next, available) - target[0]!}px`,
+          );
       }),
     );
     springs.forEach((spring) => spring.paint());
     const resize = () => {
       constrain();
-      size().forEach((value, index) => springs[index]!.set(value));
+      target = size();
+      target.forEach((value, index) => springs[index]!.set(value));
+      springs[0]!.paint();
     };
     update.current = resize;
     let frame: number | null = null;
     const observer = new ResizeObserver(() => {
+      // Compensate live controls before paint; the size spring starts next frame.
+      available = viewport?.clientWidth ?? Infinity;
+      target = size();
+      springs[0]!.paint();
       // Reduced-motion springs paint synchronously; defer writes outside observer delivery.
       if (frame !== null) return;
       frame = requestAnimationFrame(() => {
@@ -52,6 +65,7 @@ export function usePillSize(enabled: boolean) {
       reduced.removeEventListener("change", resize);
       springs.forEach((spring) => spring.stop());
       dimensions.forEach((dimension) => root.style.removeProperty(`--toast-pill-${dimension}`));
+      root.style.removeProperty("--toast-pill-inline-offset");
     };
   }, [enabled]);
   React.useLayoutEffect(() => {
@@ -127,9 +141,11 @@ export function usePillTransition(
 export function PillSwap({
   children,
   identity = children,
+  clip = false,
 }: {
   children: React.ReactNode;
   identity?: unknown;
+  clip?: boolean;
 }) {
   const [snapshot, setSnapshot] = React.useState({
     identity,
@@ -185,7 +201,7 @@ export function PillSwap({
     };
   }, [snapshot.identity, snapshot.previous]);
   return (
-    <span {...stylex.props(s.swap)}>
+    <span {...stylex.props(s.swap, clip && s.pillTitleText)}>
       {snapshot.previous != null && (
         <span ref={previous} aria-hidden="true" inert {...stylex.props(s.swapPrevious)}>
           {snapshot.previous}

@@ -28,6 +28,12 @@ UI SDK owns disclosure state, presence, native refs and keyboard behavior;
 caller StyleX and state-dependent styles remain composable. The panel's inner
 body is a layout owner, so direct-child consumer selectors must account for it.
 
+Pill Toast content changes retain intrinsic sizing, but trailing actions and the
+close control follow the live surface edge throughout its size spring, including
+interrupted motion and RTL. Text and controls do not scale. Reveal title ink only
+within the space preceding those controls; keep the native title's focus outline
+outside that clipping layer. Reduced motion settles the same geometry directly.
+
 ## Command
 
 Command uses unstyled interaction directly from `@ui-sdk/react/command` and

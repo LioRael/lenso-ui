@@ -62,7 +62,7 @@ export function ToastTitle({
       }
     >
       {pill ? (
-        <PillSwap identity={React.isValidElement(content) ? content.type : content}>
+        <PillSwap clip identity={React.isValidElement(content) ? content.type : content}>
           {content}
         </PillSwap>
       ) : typeof children === "function" ? (

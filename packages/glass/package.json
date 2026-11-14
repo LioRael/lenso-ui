@@ -1,6 +1,6 @@
 {
   "name": "@lenso/glass",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Shared glass rendering and motion for Lenso Web interfaces.",
   "license": "(MIT AND LGPL-2.0-or-later)",
   "repository": {
