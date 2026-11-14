@@ -66,7 +66,7 @@ createRoot(document.getElementById("root")!).render(
 );
 ```
 
-This entry supplies the `light` theme. Use `theme="dark"` for a dark scope. If replacing the Vite template entry, omit its starter `index.css` and `App.css` imports; retain your own application styles. Portalled components need the same theme scope; Lenso's native portal wrappers preserve it unless you provide your own container. A stylesheet loaded only by a sibling layout does not style this document.
+This entry supplies the `light` theme. Use `theme="dark"` for a dark scope. If replacing the Vite template entry, omit its starter `index.css` and `App.css` imports; retain your own application styles. UI SDK popups render in place in the browser's top layer and inherit this theme scope without a Portal part. If you create a custom portal, preserve its theme scope explicitly. A stylesheet loaded only by a sibling layout does not style this document.
 
 The first screen can be a single native action:
 
@@ -118,4 +118,4 @@ Use the official Rolldown integration or Next Babel/PostCSS configuration for th
 
 ## Verify a consumer
 
-For a complete scaffold, interactive example and dev/preview commands, follow [Vite and Rolldown](./frameworks#vite-and-rolldown). Build the application, open its production route, and check that both theme CSS and the combined StyleX rules load before the controls render. Exercise a local `xstyle` override and a portalled overlay. Development styling can conceal missing production CSS delivery.
+For a complete scaffold, interactive example and dev/preview commands, follow [Vite and Rolldown](./frameworks#vite-and-rolldown). Build the application, open its production route, and check that both theme CSS and the combined StyleX rules load before the controls render. Exercise a local `xstyle` override and a top-layer overlay. Development styling can conceal missing production CSS delivery.

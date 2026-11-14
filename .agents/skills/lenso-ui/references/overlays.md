@@ -8,7 +8,9 @@ Sheet and ActionSheet retain different panel and touch-interaction contracts.
 ## Preserve the native hierarchy
 
 Follow the installed root, trigger, backdrop and `Content` composition. SDK
-Content owns positioning, portal, presence and focus. Use `Menu.SubContent`
+Content owns positioning, presence and focus in the browser's top layer.
+Popups render in place by default; do not add a Portal or Positioner part.
+Use `Menu.SubContent`
 inside `Menu.Sub`. Drawer and Sheet expose the SDK handle and snap-point
 contracts. Tooltip delay belongs on Root. Toast uses `createToaster` and
 `Toast.Region`; pass each independent queue explicitly.
@@ -22,8 +24,9 @@ than adding document-level listeners.
 
 ## Theme and material ownership
 
-Use ThemeScope and the component's themed portal behavior. An explicit portal
-container changes inheritance: inspect where it mounts before duplicating theme
+Use ThemeScope around the popup's owning tree. In-place top-layer content
+inherits that scope. An explicit `container` or custom portal changes
+inheritance: inspect where it mounts before duplicating theme
 variables. Apply semantic StyleX maps to exported slots. Use the family's own
 positioning and stacking behavior; inspect clipping and scroll containers before
 adding arbitrary z-index or viewport positioning.

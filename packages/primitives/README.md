@@ -1,6 +1,7 @@
 # @lenso/primitives
 
-`@lenso/primitives` contains headless, style-free Product Primitives for Lenso UI. Its public surface is the composable Sidebar model:
+`@lenso/primitives` contains headless, style-free product primitives composed
+with UI SDK. Sidebar supplies the composable React shell panel:
 
 ```bash
 pnpm add @lenso/primitives @ui-sdk/react @ui-sdk/core react
@@ -25,6 +26,13 @@ export function AppShell() {
 The framework-independent `sidebar` definition and controller are exported from
 `@lenso/primitives/sidebar/core`; React parts are generated with SDK `createParts`.
 Use `@lenso/ui/sidebar` for styled navigation inside a panel. The registry also includes an editable Sidebar Recipe for Consumers that need structural ownership.
+
+Other public entries provide SectionIndex and SwipeActions React parts and core
+definitions (`/section-index`, `/swipe-actions` and their `/core` entries).
+`/model-control`, `/list/core` and `/wheel-picker/core` provide shared domain
+value, editable-list and wheel-picker primitives used by the styled UI families.
+These core entries have no React runtime; they do not add replacement Command,
+DataGrid or ResizeHandle component APIs.
 
 Source and browser tests live under `packages/primitives/src/sidebar`. See the repository [component conventions](../../docs/design/component-conventions.md) for the dependency boundary and the [contributing guide](../../CONTRIBUTING.md) for changes and release verification.
 

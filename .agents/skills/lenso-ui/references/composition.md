@@ -10,9 +10,13 @@ example. Identify the root's state owner, its supporting parts and any context
 requirements. Use actual public exports from `@lenso/ui`.
 
 UI SDK owns controls, collections, forms and overlays. Specialized date, time
-and color parts share their internationalized value model while using native
+and color parts retain their domain value models while using native
 UI SDK interaction parts. Native HTML owns static structure. Follow the queried API for that family; similarly
 named parts from another library are not interchangeable.
+
+Keep native `data-slot` and state attributes intact. Lenso's material and
+appearance hooks use `data-lenso-slot`; do not replace the SDK attributes with
+Lenso slot names. Components read direction from the DOM, not a direction provider.
 
 Use controlled state when the surrounding workflow needs to coordinate it.
 Keep one owner for each fact: selection, dialog openness, draft, theme or URL.
@@ -50,8 +54,8 @@ Run typecheck and the actual rendering build. Then operate the changed workflow
 with a keyboard: select, submit, open, dismiss and return focus. Check disabled,
 invalid, empty and loading states that the workflow can reach.
 
-For overlays, confirm the rendered portal retains edited theme variables and
-direction. For collection/form changes, confirm submitted values and selection
+For overlays, confirm the top-layer content retains edited theme variables and
+direction, including an explicit container when used. For collection/form changes, confirm submitted values and selection
 keys as well as visible labels. For layout changes, inspect the actual component
 rectangles and scroll regions in both themes and relevant widths.
 
@@ -94,5 +98,6 @@ import { Button, Modal } from "@lenso/ui";
 </Modal.Root>;
 ```
 
-`Modal.Content` owns portal, presence and focus. Use the native SDK composition
+`Modal.Content` owns top-layer presence and focus, rendering in place by default.
+Use the native SDK composition
 from the installed types and update callers when its contract changes.

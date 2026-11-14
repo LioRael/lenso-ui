@@ -66,7 +66,7 @@ createRoot(document.getElementById("root")!).render(
 );
 ```
 
-入口提供 `light` 主题，深色主题使用 `theme="dark"`。替换 Vite 模板入口时移除模板的 `index.css` 与 `App.css` 导入，保留应用自己的样式。Portal 中的组件需要相同主题作用域；未指定自定义容器时，Lenso 的原生 portal 包装会保留它。仅在兄弟布局加载的样式表不能为此文档提供样式。
+入口提供 `light` 主题，深色主题使用 `theme="dark"`。替换 Vite 模板入口时移除模板的 `index.css` 与 `App.css` 导入，保留应用自己的样式。UI SDK 弹出层在原位置渲染到浏览器顶层，无需 Portal 部件即可继承主题作用域。自行创建 Portal 时，需显式保留其主题作用域。仅在兄弟布局加载的样式表不能为此文档提供样式。
 
 可以从一个实际操作开始：
 
@@ -118,4 +118,4 @@ Rolldown 使用官方集成，Next 使用官方 Babel/PostCSS 配置。源码扫
 
 ## 验证消费者
 
-完整的项目创建、交互示例和开发/预览命令见 [Vite 与 Rolldown](/docs/react/getting-started/frameworks#vite-and-rolldown)。构建应用，打开生产路由，确认主题 CSS 与合并后的 StyleX 规则在控件呈现前已加载。检查本地 `xstyle` 覆盖与 portal 覆盖层。开发环境样式可能掩盖生产 CSS 交付缺失。
+完整的项目创建、交互示例和开发/预览命令见 [Vite 与 Rolldown](/docs/react/getting-started/frameworks#vite-and-rolldown)。构建应用，打开生产路由，确认主题 CSS 与合并后的 StyleX 规则在控件呈现前已加载。检查本地 `xstyle` 覆盖与原生顶层覆盖层。开发环境样式可能掩盖生产 CSS 交付缺失。

@@ -1,8 +1,8 @@
 # Repository structure
 
-Lenso UI and Lenso Docs are independently maintained products. Public package
-names and exports remain stable. `packages/primitives` component source and
-public API are preserved byte-for-byte.
+Lenso UI and Lenso Docs are independently maintained products. React components
+use native UI SDK contracts. The former Base UI parts and primitive APIs are
+not compatibility surfaces; consumers must use the current public exports.
 
 ```text
 apps/
@@ -12,7 +12,7 @@ packages/
   ui/                   @lenso/ui components and their local tests
   tokens/               @lenso/tokens themes and StyleX maps
   glass/                Shared rendering and motion
-  primitives/           Preserved headless source and public API
+  primitives/           SDK-composed Sidebar and shared domain/gesture primitives
   docs/                 @lenso/docs framework
   create-docs/          create-lenso-docs initializer and template
   devtools/             Private docs contracts and source analysis

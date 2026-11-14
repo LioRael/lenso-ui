@@ -105,7 +105,7 @@ The named `unplugin` export also typechecks with the template's NodeNext configu
 
 ### Vite entry and example
 
-Replace the template's `src/main.tsx` and `src/App.tsx`. The entry loads theme/base CSS and supplies a theme scope, which Lenso portals inherit. Use `theme="dark"` for a dark scope. These examples omit the template's `index.css` and `App.css` imports; those starter styles constrain the page and restyle buttons. Keep your own global CSS when integrating into an existing app.
+Replace the template's `src/main.tsx` and `src/App.tsx`. The entry loads theme/base CSS and supplies a theme scope, which UI SDK popups inherit while rendering in place in the browser's top layer. Use `theme="dark"` for a dark scope. These examples omit the template's `index.css` and `App.css` imports; those starter styles constrain the page and restyle buttons. Keep your own global CSS when integrating into an existing app.
 
 ```tsx
 // src/main.tsx
@@ -120,7 +120,7 @@ createRoot(document.getElementById("root")!).render(
 );
 ```
 
-Import tokens directly from `@lenso/tokens/tokens.stylex.const` when referencing them inside `stylex.create`. This example verifies a local `xstyle` override, state updates and a portalled Glass menu:
+Import tokens directly from `@lenso/tokens/tokens.stylex.const` when referencing them inside `stylex.create`. This example verifies a local `xstyle` override, state updates and a top-layer Glass menu:
 
 ```tsx
 // src/App.tsx
@@ -332,11 +332,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-Keep the root layout as a Server Component. Place `ThemeScope` inside a client boundary, as in the page below; use `theme="dark"` for a dark scope. Lenso portals inherit their containing `ThemeScope`. Every root layout and custom `global-error` or `global-not-found` document that replaces the layout must import the stylesheet. Next owns CSS delivery, hashing and manifests.
+Keep the root layout as a Server Component. Place `ThemeScope` inside a client boundary, as in the page below; use `theme="dark"` for a dark scope. UI SDK popups render in place in the browser's top layer and inherit their containing `ThemeScope`; no Portal part is needed. Every root layout and custom `global-error` or `global-not-found` document that replaces the layout must import the stylesheet. Next owns CSS delivery, hashing and manifests.
 
 ### Render and verify
 
-This client page exercises an application `xstyle` override, theme tokens, state and a portalled Glass menu. In StyleX declarations, import tokens directly from `@lenso/tokens/tokens.stylex.const` so the compiler can resolve constants.
+This client page exercises an application `xstyle` override, theme tokens, state and a top-layer Glass menu. In StyleX declarations, import tokens directly from `@lenso/tokens/tokens.stylex.const` so the compiler can resolve constants.
 
 ```tsx
 // app/page.tsx

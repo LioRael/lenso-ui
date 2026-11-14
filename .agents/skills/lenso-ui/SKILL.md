@@ -18,7 +18,7 @@ from the application that imports them. Use [query.md](references/query.md) to
 locate public exports, native props, implementation and examples directly.
 
 For this checkout, read `DESIGN.md` and the relevant sections of
-`docs/design/component-conventions.md`. Use native SDK contracts in `packages/primitives` and update callers with them;
+`docs/design/component-conventions.md`. Use native SDK contracts in the owning UI family or `packages/primitives` and update callers with them;
 do not introduce Base UI compatibility layers or dependency patches.
 Consumer applications follow their own design direction and installed versions.
 
@@ -27,9 +27,10 @@ Consumer applications follow their own design direction and installed versions.
 | User needs                             | Starting family                                     | Detail                                      |
 | -------------------------------------- | --------------------------------------------------- | ------------------------------------------- |
 | Submit or invoke an action             | Button; GlassButton for floating material           | [composition.md](references/composition.md) |
-| Edit and validate text                 | TextField, Input, Textarea, Form                    | [forms.md](references/forms.md)             |
+| Edit and validate text                 | TextField, Input, TextArea, Form                    | [forms.md](references/forms.md)             |
 | Choose a value                         | Select; ComboBox for editable search                | [forms.md](references/forms.md)             |
-| Choose multiple or independent options | CheckboxGroup, RadioGroup, Switch                   | [forms.md](references/forms.md)             |
+| Choose multiple or independent options | CheckboxGroup, Switch                               | [forms.md](references/forms.md)             |
+| Choose one option in a visible group   | RadioGroup, SegmentedControl                        | [forms.md](references/forms.md)             |
 | Change content views                   | Tabs with associated panels                         | [composition.md](references/composition.md) |
 | Navigate application destinations      | TabBar, NavigationBar, Sidebar                      | [composition.md](references/composition.md) |
 | Show a task or confirmation            | Modal, AlertDialog                                  | [overlays.md](references/overlays.md)       |
@@ -57,6 +58,11 @@ value, selection and open state; derive summaries from it.
   behavior. Resolve whether `Root` styles a DOM node before adding layout props.
 - Keep the native date/time/color values and collection keys. Display labels
   and translated text are not stable selection identities.
+- Floating surfaces use `Content`, submenus use `SubContent`; former
+  Portal/Positioner/Popup adapters are absent. Imperative actions use native
+  controllers, not former manager APIs.
+- Autocomplete edits free text; ComboBox selects values. ListBox uses native
+  scalar/array values, not Set-based selected keys. See [forms.md](references/forms.md).
 
 For theme editing read [theming.md](references/theming.md). For first-time setup,
 CSS delivery, SSR or production-only style failures read

@@ -29,11 +29,12 @@ can replace a normal navigation action with static content while editing.
 Independent controls keep their own names and native behavior. List remains
 `ul/li`, with checkbox and button semantics; rows never become options.
 
-The owner accepts `selectedKeys/onSelectionChange` and `onReorder`. Reorder
-callbacks describe keys, targetKey and before/after placement; the owner updates
-its array. This shape is also used by ListBox, but neither its option model nor
-its runtime selection machinery is used by List. Section membership constrains
-sorting. No implicit cross-section move changes a record's category.
+The owner accepts `value`/`defaultValue` arrays, cancelable `onValueChange` and
+`onReorder`. Reorder callbacks describe keys, targetKey and before/after
+placement; the owner updates its array. List composes the SDK's core selection
+and reorder behaviors, not the ListBox option renderer or its interaction
+instance. Section membership constrains sorting. No implicit cross-section move
+changes a record's category.
 
 A handle supports pointer dragging, edge scrolling and keyboard pickup with
 Space/Enter. Up/Down selects a destination, Enter commits, Escape cancels and
@@ -57,4 +58,5 @@ actual list. Undo preserves records added or reordered after a deletion. This
 page is also the maintained browser regression target, rather than a collection
 of unrelated demonstration controls.
 
-See [the vocabulary](../../GLOSSARY.md) for short definitions.
+See [UI SDK behavior ownership](../architecture/ui-sdk-behaviors.md) for the
+shared primitives and their interaction boundaries.

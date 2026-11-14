@@ -6,7 +6,7 @@ shadcn's `Field`; `ComboBox` spelling and native callbacks come from Lenso expor
 
 ## Choose the interaction
 
-- Use TextField for composed text editing, Input/Textarea for their supported
+- Use TextField for composed text editing, Input/TextArea for their supported
   native control roles, and InputGroup for supported leading/trailing content.
 - Use Select for choosing from fixed options; use ComboBox when users type to
   search options. Autocomplete is a distinct contract: inspect whether the task
@@ -17,6 +17,22 @@ shadcn's `Field`; `ComboBox` spelling and native callbacks come from Lenso expor
 - Use the matching date/time/color parts and their internationalized values.
   Inspect the actual `onValueChange` signature and conversion boundary instead
   of passing display strings or JavaScript Date objects by assumption.
+
+## Native SDK migration contracts
+
+Form is a styled native `form`. Use native constraints and explicit field
+`invalid` state, not the former Form/Field validation API. Checkbox uses
+`checked="indeterminate"` for mixed state. NumberField, Slider and InputOTP use
+`onValueCommit` for commits; InputOTP uses `maxLength` and slot `index`.
+
+ListBox uses `value`/`defaultValue` and `onValueChange`, with an array for
+`multiple`, not `selectedKeys` or Set values. Use native item `label`, logical
+`index`, `activation`, `loop` and controllers as needed. Do not apply its
+selection API to Table or TagGroup, which have separate collection contracts.
+
+Native change details expose `reason`, `source` and `cancel()`. Date/time/color
+models retain their domain values and also support cancelable changes; read
+the family's declarations rather than translating every callback to a DOM event.
 
 ## Keep semantics and data together
 

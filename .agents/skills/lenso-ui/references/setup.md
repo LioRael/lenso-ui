@@ -53,5 +53,7 @@ consumer. Authored configs take precedence.
 | Inline styles disappear in a wrapper           | Full `stylex.props` output and native style callback merging            |
 
 Verify a representative component, local `xstyle`, both theme modes and a
-portalled overlay in the consumer itself. Run its typecheck and framework build;
+top-layer overlay in the consumer itself. SDK popups render in place by default;
+check theme inheritance separately if using `container` or a custom portal.
+Run its typecheck and framework build;
 inspect computed style and served assets before claiming CSS delivery works.

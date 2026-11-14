@@ -7,7 +7,7 @@ navigationOrder: 15
 
 ## Compound components
 
-Use the root and parts exported by the same family. For example, a dialog connects its trigger, portal, backdrop and content through `Modal.Root`:
+Use the root and parts exported by the same family. For example, a dialog connects its trigger, backdrop and content through `Modal.Root`. UI SDK manages the native top layer; no Portal part is needed:
 
 ```tsx
 import { Modal } from "@lenso/ui";
@@ -16,16 +16,12 @@ export function Example() {
   return (
     <Modal.Root>
       <Modal.Trigger>Open dialog</Modal.Trigger>
-
-        <Modal.Backdrop />
-
-          <Modal.Content>
-            <Modal.Title>Account settings</Modal.Title>
-            <Modal.Description>Manage your account preferences.</Modal.Description>
-            <Modal.Close>Close</Modal.Close>
-          </Modal.Content>
-
-
+      <Modal.Backdrop />
+      <Modal.Content>
+        <Modal.Title>Account settings</Modal.Title>
+        <Modal.Description>Manage your account preferences.</Modal.Description>
+        <Modal.Close>Close</Modal.Close>
+      </Modal.Content>
     </Modal.Root>
   );
 }
@@ -37,7 +33,7 @@ The root coordinates open state and focus restoration; the heading and descripti
 
 UI SDK owns ordinary native controls, navigation and overlays. Lenso composes concrete native parts with component-specific StyleX maps; there is no generic compatibility wrapper that translates every family into another library's API.
 
-ListBox, TagGroup and Table use Lenso's local collection model: stable keys, Set-based selection, registered items and collection-aware focus. They are not React Aria collection wrappers. Read their local signatures rather than assuming a Menu, Select or another library's collection contract.
+ListBox uses native UI SDK scalar or array values and selection callbacks. TagGroup and Table retain Lenso's separate collection model with stable keys, Set-based selection, registered items and collection-aware focus. They are not React Aria collection wrappers. Read each family's signatures rather than assuming that these collection contracts are interchangeable.
 
 Date, time and color families retain internationalized value models and compose native UI SDK controls. A date segment, calendar grid or color input section cannot be substituted into an unrelated UI SDK field simply because its appearance is similar.
 

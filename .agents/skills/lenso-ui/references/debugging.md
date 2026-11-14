@@ -15,6 +15,12 @@ trigger, expected result and observed result, then inspect its owning layer.
 | Only generated docs disagree          | Current source and generation inputs               | Stale projection                           |
 
 Read the affected declarations and implementation before changing behavior.
+For UI SDK beta declaration/renderer constraint errors, distinguish runtime
+defects from `exactOptionalPropertyTypes` incompatibility. This checkout's
+temporary primitives policy retains `strict: true` and `skipLibCheck: false`
+with `exactOptionalPropertyTypes: false`; see `docs/upstream-ui-sdk-types.md`
+when available. A consumer enabling exact optional properties can still fail.
+Do not patch dependencies or suppress declaration checking to hide that gap.
 Compare with one maintained example and keep app state, styling and interaction
 changes separable enough to identify the cause. Fix the shared owner when the
 same defect appears in multiple places.

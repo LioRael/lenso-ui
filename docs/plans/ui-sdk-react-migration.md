@@ -1,5 +1,12 @@
 # React UI SDK migration
 
+This is the migration record, not the current typecheck status. The later
+[temporary compatibility policy](../upstream-ui-sdk-types.md#current-temporary-support-policy)
+uses `exactOptionalPropertyTypes: false` for primitives while retaining strict
+mode and declaration checking. Validation results below describe the migration
+before that policy. Current interaction ownership is maintained in
+[UI SDK behaviors](../architecture/ui-sdk-behaviors.md).
+
 The former React Base UI runtime consumers have been replaced with UI SDK
 `0.1.0-beta.1`. Vue and Svelte packages are outside this task. StyleX, semantic
 tokens, Glass presentation, and date/time/color domain models remain in Lenso.
@@ -190,7 +197,9 @@ This scan is not a clean migration acceptance signal.
 
 ## Upstream gate
 
-The unmodified SDK has a strict declaration incompatibility, recorded separately
-in [upstream-ui-sdk-types.md](../upstream-ui-sdk-types.md). Primitives strict
-build/typecheck remain red for that issue. Passing component, consumer and
-browser checks do not override that gate. No landing or publication was requested.
+The unmodified SDK has an exact-optional declaration incompatibility, recorded
+separately in [upstream-ui-sdk-types.md](../upstream-ui-sdk-types.md). At migration
+validation, primitives build/typecheck failed with exact optional properties
+enabled. The later temporary policy and its removal criteria live in that
+report; these historical failures do not describe the supported configuration's
+current gate. No landing or publication was requested for this migration.

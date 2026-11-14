@@ -105,7 +105,7 @@ export default defineConfig({
 
 ### Vite 入口与示例
 
-替换模板的 `src/main.tsx` 和 `src/App.tsx`。入口加载主题与基础 CSS，并提供主题作用域；Lenso 的 Portal 会继承它。深色主题使用 `theme="dark"`。示例移除了模板的 `index.css` 和 `App.css` 导入，这些初始样式会限制页面尺寸并覆盖按钮外观；接入已有应用时保留自己需要的全局样式。
+替换模板的 `src/main.tsx` 和 `src/App.tsx`。入口加载主题与基础 CSS，并提供主题作用域；UI SDK 弹出层在原位置渲染到浏览器顶层时会继承它。深色主题使用 `theme="dark"`。示例移除了模板的 `index.css` 和 `App.css` 导入，这些初始样式会限制页面尺寸并覆盖按钮外观；接入已有应用时保留自己需要的全局样式。
 
 ```tsx
 // src/main.tsx
@@ -120,7 +120,7 @@ createRoot(document.getElementById("root")!).render(
 );
 ```
 
-在 `stylex.create` 中使用 token 时，从 `@lenso/tokens/tokens.stylex.const` 直接导入。下面的示例同时验证本地 `xstyle` 覆盖、状态更新和通过 Portal 展开的 Glass 菜单：
+在 `stylex.create` 中使用 token 时，从 `@lenso/tokens/tokens.stylex.const` 直接导入。下面的示例同时验证本地 `xstyle` 覆盖、状态更新和通过原生顶层展开的 Glass 菜单：
 
 ```tsx
 // src/App.tsx
@@ -332,11 +332,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-根布局保持为 Server Component。将 `ThemeScope` 放在客户端边界内，如下面的页面示例；深色主题使用 `theme="dark"`。Lenso 的 Portal 会继承所在的 `ThemeScope`。每个根布局，以及替代布局的自定义 `global-error` 或 `global-not-found` 文档，都必须导入这份样式表。CSS 交付、哈希和清单由 Next 管理。
+根布局保持为 Server Component。将 `ThemeScope` 放在客户端边界内，如下面的页面示例；深色主题使用 `theme="dark"`。UI SDK 弹出层在原位置渲染到浏览器顶层，并继承所在的 `ThemeScope`，无需 Portal 部件。每个根布局，以及替代布局的自定义 `global-error` 或 `global-not-found` 文档，都必须导入这份样式表。CSS 交付、哈希和清单由 Next 管理。
 
 ### 渲染与验证
 
-下面的客户端页面同时演示应用 `xstyle` 覆盖、主题 token、状态更新和通过 Portal 展开的 Glass 菜单。在 StyleX 声明中从 `@lenso/tokens/tokens.stylex.const` 直接导入 token，供编译器解析常量。
+下面的客户端页面同时演示应用 `xstyle` 覆盖、主题 token、状态更新和通过原生顶层展开的 Glass 菜单。在 StyleX 声明中从 `@lenso/tokens/tokens.stylex.const` 直接导入 token，供编译器解析常量。
 
 ```tsx
 // app/page.tsx

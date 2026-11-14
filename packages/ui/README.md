@@ -21,7 +21,7 @@ Import themes and component styles once:
 import "@lenso/tokens/styles.css";
 import { Button } from "@lenso/ui";
 
-<Button variant="primary" size="md">
+<Button variant="prominent" size="md">
   Save
 </Button>;
 ```
@@ -43,16 +43,16 @@ Apache and MIT license texts for retained adaptations.
 
 ## Toolbar button defaults
 
-`Toolbar.Group` provides a shared surface, so its buttons default to `plain`.
-Buttons outside a group continue to default to `glass`. An explicit `variant`
-always wins, including `glass` or `filled` inside a group:
+`Toolbar.Button` uses native SDK toolbar-button behavior and Lenso toolbar styles.
+It does not expose the `variant` prop of `Button` or `GlassButton`. Use
+`Toolbar.Group` to group related actions:
 
 ```tsx
 <Toolbar aria-label="Page actions">
   <Toolbar.Group>
     <Toolbar.Button>Previous</Toolbar.Button>
     <Toolbar.Button>Next</Toolbar.Button>
-    <Toolbar.Button variant="filled">Publish</Toolbar.Button>
+    <Toolbar.Button>Publish</Toolbar.Button>
   </Toolbar.Group>
 </Toolbar>
 ```
