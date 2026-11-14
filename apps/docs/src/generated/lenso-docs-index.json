@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "lensoVersion": "0.11.1",
+  "lensoVersion": "0.11.2",
   "sourceFamilyMapping": {
     "dropdown": "menu",
     "disclosure-group": "accordion"

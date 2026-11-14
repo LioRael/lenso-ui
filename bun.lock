@@ -117,7 +117,7 @@
     },
     "packages/create-docs": {
       "name": "create-lenso-docs",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "bin": {
         "create-lenso-docs": "./src/cli.ts",
       },
@@ -137,7 +137,7 @@
     },
     "packages/docs": {
       "name": "@lenso/docs",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "bin": {
         "lenso-docs": "./src/cli.ts",
       },
@@ -184,7 +184,7 @@
     },
     "packages/glass": {
       "name": "@lenso/glass",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "dependencies": {
         "@lenso/tokens": "workspace:*",
         "@stylexjs/stylex": "catalog:",
@@ -250,7 +250,7 @@
     },
     "packages/tokens": {
       "name": "@lenso/tokens",
-      "version": "0.11.1",
+      "version": "0.11.2",
       "dependencies": {
         "@stylexjs/stylex": "catalog:",
       },
@@ -263,7 +263,7 @@
     },
     "packages/ui": {
       "name": "@lenso/ui",
-      "version": "0.11.1",
+      "version": "0.11.2",
       "dependencies": {
         "@internationalized/date": "3.12.4",
         "@lenso/glass": "workspace:*",

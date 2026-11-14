@@ -1,3 +1,23 @@
+# Prepared release: UI/Tokens 0.11.2, Glass 0.2.2 and Docs 0.3.3
+
+Publish this patch set in dependency order:
+
+| Package             | Version  | Changes                                                                  |
+| ------------------- | -------- | ------------------------------------------------------------------------ |
+| `@lenso/tokens`     | `0.11.2` | Align Menu item and section content when the menu has a selection.       |
+| `@lenso/glass`      | `0.2.2`  | Update the exact Tokens dependency; optical implementation is unchanged. |
+| `@lenso/ui`         | `0.11.2` | Inset selected menus independently, including submenus and RTL layouts.  |
+| `@lenso/docs`       | `0.3.3`  | Consume the updated UI packages.                                         |
+| `create-lenso-docs` | `0.3.3`  | Generate projects pinned to Docs 0.3.3.                                  |
+
+Primitives remain at 0.9.0 and must retain their existing registry integrity.
+Upgrade UI and Tokens together. No API migration is required for this patch;
+the 0.11.0 migration requirements still apply when upgrading from earlier versions.
+
+Dispatch `Release` with input `0.11.2` only after the exact main commit passes
+verification. Preserve the protected `npm` environment, OIDC provenance and
+package-content and integrity checks. Prepared versions are not a publication receipt.
+
 # Prepared release: UI/Tokens 0.11.1, Glass 0.2.1 and Docs 0.3.2
 
 Publish this patch set in dependency order:
