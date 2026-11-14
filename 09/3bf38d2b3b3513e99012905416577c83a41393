@@ -1,0 +1,35 @@
+packages/tokens/src/components/toast/toast.styles.ts
+  s_53dabd35e61a3c::t_0fb5dbeb50f7aa 210-211
+apps/docs/src/demos/en/toast/pill.tsx
+  s_53dabd35e61a3c::t_867901dec46c4e 204,209,227
+  s_53dabd35e61a3c::t_48283a2d7dc99a 133,139
+  s_53dabd35e61a3c::t_d82ff1572468a0 134-138
+  s_53dabd35e61a3c::t_0fb5dbeb50f7aa 124,129,140,144
+  s_53dabd35e61a3c::t_af27d1b9537c53 250
+apps/docs/test/toast-pill-layout.mjs
+  s_53dabd35e61a3c::t_152c3ef37ee6d9 5-8,14,47,113-115
+  s_53dabd35e61a3c::t_a9e32d2846e215 21-27,30,33,35
+  s_53dabd35e61a3c::t_77d66dca1a4de5 81
+  s_53dabd35e61a3c::t_d82ff1572468a0 9,17-20,31-32,40-43,63-80,84-86,91-94,98-101,103-106
+  s_53dabd35e61a3c::t_6310eca4ba4543 48
+  s_53dabd35e61a3c::t_5bdd4087548525 28-29,34
+  s_53dabd35e61a3c::t_867901dec46c4e 12-13,15
+  s_53dabd35e61a3c::t_8a09046f745a1c 1-3,10-11,16,36-39,44-46,49-62,82-83,87-90,95-97,102,107-112,116-120
+  s_53dabd35e61a3c::t_97d6b01d2cd1b7 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "093bf38d2b3b3513e99012905416577c83a41393",
+  "prompts": {},
+  "sessions": {
+    "s_53dabd35e61a3c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1daa9-285b-7dc3-a2ee-693f69e73549",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
