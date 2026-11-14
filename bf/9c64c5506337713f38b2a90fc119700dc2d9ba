@@ -1,0 +1,37 @@
+apps/docs/content/lenso/cn/react/getting-started/installation.mdx
+  s_0a36fa17311984::t_fd0dfa5ae966e8 18-28,30-38,42-44
+apps/docs/content/lenso/en/react/getting-started/frameworks.mdx
+  s_53dabd35e61a3c::t_f9becf809757ee 12-32,39-41,44-46,48-64,68-70,166-182,187-189,192-210,216-218,237-247,249-257,261-263,384-402,408-410
+apps/docs/content/lenso/en/react/getting-started/installation.mdx
+  s_0a36fa17311984::t_b217b4d2bfa465 18-28,30-38,42-44
+apps/docs/src/components/home-layout.tsx
+  s_53dabd35e61a3c::t_59b065cd9c8a9a 54
+apps/docs/src/styles/home-layout.stylex.ts
+  s_0a36fa17311984::t_03eec87c33e08c 26
+apps/docs/content/lenso/cn/react/getting-started/frameworks.mdx
+  s_53dabd35e61a3c::t_a610dd61e2883a 12-32,39-41,44-46,48-64,68-70,166-182,187-189,192-210,216-218,237-247,249-257,261-263,384-402,408-410
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bf9c64c5506337713f38b2a90fc119700dc2d9ba",
+  "prompts": {},
+  "sessions": {
+    "s_0a36fa17311984": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1daa8-3fb7-7c03-beac-1e3b4a74162a",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_53dabd35e61a3c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1daa9-285b-7dc3-a2ee-693f69e73549",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
