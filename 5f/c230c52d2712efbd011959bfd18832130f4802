@@ -1,0 +1,18 @@
+apps/docs/src/generated/api-reference.json
+  h_9d56aba080c170 14330,14564,14573,14582,76485,76515,76548,76585,76616,76647,76684,77018,77048,77081,77118,77149,77180,77211,77242,77279,77310
+apps/docs/test/search-loading.mjs
+  h_9d56aba080c170 1-45
+packages/docs/src/search-dialog.tsx
+  h_9d56aba080c170 3,11,133-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5fc230c52d2712efbd011959bfd18832130f4802",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
