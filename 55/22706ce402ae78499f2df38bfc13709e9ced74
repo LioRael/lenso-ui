@@ -1,0 +1,28 @@
+apps/docs/scripts/docs-projection.test.ts
+  h_9d56aba080c170 140-142,405-406
+apps/docs/scripts/docs-projection.ts
+  h_9d56aba080c170 1307-1311
+apps/docs/scripts/generate-page-documents.ts
+  h_9d56aba080c170 302
+apps/docs/scripts/keyboard-guidance.ts
+  h_9d56aba080c170 5,15
+apps/docs/src/components/component-playground.tsx
+  h_9d56aba080c170 1-2,8,19,21-25
+apps/docs/src/stories/story-context.tsx
+  h_9d56aba080c170 5
+apps/docs/src/stories/story-panel.stylex.ts
+  h_9d56aba080c170 26-28
+apps/docs/src/stories/story-panel.tsx
+  h_9d56aba080c170 21,245,357-360,367-371,472-476
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5522706ce402ae78499f2df38bfc13709e9ced74",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
