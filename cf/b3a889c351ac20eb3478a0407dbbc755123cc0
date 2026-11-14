@@ -1,0 +1,18 @@
+apps/docs/src/components/home-layout.tsx
+  h_9d56aba080c170 5,8,19-22,30-31,54
+apps/docs/src/styles/home-layout.stylex.ts
+  h_9d56aba080c170 22-28
+apps/docs/src/styles/home-playground.stylex.ts
+  h_9d56aba080c170 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cfb3a889c351ac20eb3478a0407dbbc755123cc0",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
