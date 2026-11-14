@@ -1,0 +1,38 @@
+packages/ui/src/components/menu/menu-section.tsx
+  h_9d56aba080c170 30
+packages/ui/src/components/menu/menu-item.tsx
+  h_9d56aba080c170 72
+apps/docs/package.json
+  h_9d56aba080c170 70
+packages/tokens/src/components/menu/menu.styles.ts
+  h_9d56aba080c170 213-216,284,334-337,388-389,399-402
+packages/ui/src/components/menu/menu.tsx
+  h_9d56aba080c170 211-233,297
+apps/docs/test/menu-alignment.mjs
+  h_9d56aba080c170 1-164
+apps/docs/src/generated/api-reference.json
+  s_c5695907fe744f::t_6ba222b8a57f60 53387,87584,87620,87656,87684,87719,87747,87780,87790,87822,87856,87884,87919
+docs/design/component-conventions.md
+  h_9d56aba080c170 307-316
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0d363d38982648f2726e876007f306df98297cd2",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  },
+  "sessions": {
+    "s_c5695907fe744f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1d06d-149b-7062-aa67-3c0145df9d90",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
