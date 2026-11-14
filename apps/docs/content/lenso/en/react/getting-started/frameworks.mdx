@@ -9,18 +9,64 @@ navigationOrder: 3
 
 For a new React TypeScript application, start with the official Vite template. Existing applications can skip these scaffold commands:
 
+<Tabs>
+<Tab title="npm" value="npm">
+
+```sh
+npm create vite@9.3.4 my-app -- --template react-ts
+cd my-app
+npm install
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm create vite@9.3.4 my-app --template react-ts
+cd my-app
+pnpm install
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
 ```sh
 bunx create-vite@9.3.4 my-app --template react-ts
 cd my-app
 bun install
 ```
 
+</Tab>
+</Tabs>
+
 From the application root, install Lenso and the official StyleX integration:
 
+<Tabs>
+<Tab title="npm" value="npm">
+
 ```sh
-bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+npm install @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+npm install -D @stylexjs/unplugin@0.19.1
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+pnpm add -D @stylexjs/unplugin@0.19.1
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
+```sh
+bun add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
 bun add -d @stylexjs/unplugin@0.19.1
 ```
+
+</Tab>
+</Tabs>
 
 This setup was verified with Vite 8.3.8, React 19.3.1 and `@vitejs/plugin-react` 6.3.0. Lenso ships ordinary modules containing StyleX declarations; the plugin compiles library and application styles together.
 
@@ -117,16 +163,58 @@ export default function App() {
 
 Start the development server and open its printed URL:
 
+<Tabs>
+<Tab title="npm" value="npm">
+
+```sh
+npm run dev
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm dev
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
 ```sh
 bun run dev
 ```
 
+</Tab>
+</Tabs>
+
 Then stop it, build the application, and open the production preview URL:
+
+<Tabs>
+<Tab title="npm" value="npm">
+
+```sh
+npm run build
+npm run preview
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm build
+pnpm preview
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
 
 ```sh
 bun run build
 bun run preview
 ```
+
+</Tab>
+</Tabs>
 
 In both modes the Count button should be blue, rounded and at least 180px wide. Clicking it increments the value; Actions opens a styled menu and Reset count resets it. Check the dark scope as well. A successful build alone does not prove stylesheet delivery: missing theme/base CSS or an unconnected StyleX plugin can leave controls unstyled. No Lenso build adapter or generated package metadata is required.
 
@@ -146,10 +234,32 @@ Include `@lenso/docs` when using the documentation framework. Plain Node imports
 
 Run these commands from an existing TypeScript App Router project. This setup was verified with Next.js 16.4.6 (the default Turbopack build), React 19.3.1 and the package versions below. It uses the official StyleX Babel and PostCSS plugins.
 
+<Tabs>
+<Tab title="npm" value="npm">
+
 ```sh
-bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+npm install @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+npm install -D @babel/core@7.29.7 @stylexjs/babel-plugin@0.19.1 @stylexjs/postcss-plugin@0.19.1
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+pnpm add -D @babel/core@7.29.7 @stylexjs/babel-plugin@0.19.1 @stylexjs/postcss-plugin@0.19.1
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
+```sh
+bun add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
 bun add -d @babel/core@7.29.7 @stylexjs/babel-plugin@0.19.1 @stylexjs/postcss-plugin@0.19.1
 ```
+
+</Tab>
+</Tabs>
 
 ### Configure compilation
 
@@ -271,10 +381,32 @@ export default function Page() {
 
 Run the production build and start the resulting application:
 
+<Tabs>
+<Tab title="npm" value="npm">
+
+```sh
+npm run build
+npm run start
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm build
+pnpm start
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
 ```sh
 bun run build
 bun run start
 ```
+
+</Tab>
+</Tabs>
 
 The Count button should be blue, rounded and at least 180px wide. Clicking it increments the value; Actions opens a styled menu and Reset count resets it. An unstyled page is a failed setup even if the build succeeds: check the token CSS import and the PostCSS package glob. After correcting a failed StyleX compilation, if the next build still reports the old source, stop Next, remove only the generated `.next` directory, and rebuild.
 

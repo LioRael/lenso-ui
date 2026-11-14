@@ -15,10 +15,32 @@ navigationOrder: 1
 
 React 包名为 `@lenso/ui`，主题与组件样式映射由 `@lenso/tokens` 提供。UI 与 tokens 应使用匹配的 Lenso 版本。React 和 React DOM 必须满足 React 包公布的 peer 范围。
 
+<Tabs>
+<Tab title="npm" value="npm">
+
 ```sh
-bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+npm install @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+npm install -D @stylexjs/unplugin@0.19.1
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+pnpm add -D @stylexjs/unplugin@0.19.1
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
+```sh
+bun add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
 bun add -d @stylexjs/unplugin@0.19.1
 ```
+
+</Tab>
+</Tabs>
 
 <details>
 <DisclosureSummary>使用未发布候选</DisclosureSummary>

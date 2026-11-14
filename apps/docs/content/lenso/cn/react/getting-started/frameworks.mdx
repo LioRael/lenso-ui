@@ -9,18 +9,64 @@ navigationOrder: 3
 
 新建 React TypeScript 应用时使用官方 Vite 模板；已有应用可跳过以下创建命令：
 
+<Tabs>
+<Tab title="npm" value="npm">
+
+```sh
+npm create vite@9.3.4 my-app -- --template react-ts
+cd my-app
+npm install
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm create vite@9.3.4 my-app --template react-ts
+cd my-app
+pnpm install
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
 ```sh
 bunx create-vite@9.3.4 my-app --template react-ts
 cd my-app
 bun install
 ```
 
+</Tab>
+</Tabs>
+
 在应用根目录安装 Lenso 与官方 StyleX 集成：
 
+<Tabs>
+<Tab title="npm" value="npm">
+
 ```sh
-bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+npm install @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+npm install -D @stylexjs/unplugin@0.19.1
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+pnpm add -D @stylexjs/unplugin@0.19.1
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
+```sh
+bun add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
 bun add -d @stylexjs/unplugin@0.19.1
 ```
+
+</Tab>
+</Tabs>
 
 这套配置已在 Vite 8.3.8、React 19.3.1 和 `@vitejs/plugin-react` 6.3.0 中验证。Lenso 发布包含 StyleX 声明的普通模块，插件统一编译库与应用的样式。
 
@@ -117,16 +163,58 @@ export default function App() {
 
 启动开发服务器并打开输出的地址：
 
+<Tabs>
+<Tab title="npm" value="npm">
+
+```sh
+npm run dev
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm dev
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
 ```sh
 bun run dev
 ```
 
+</Tab>
+</Tabs>
+
 随后停止开发服务器，构建应用并打开生产预览地址：
+
+<Tabs>
+<Tab title="npm" value="npm">
+
+```sh
+npm run build
+npm run preview
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm build
+pnpm preview
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
 
 ```sh
 bun run build
 bun run preview
 ```
+
+</Tab>
+</Tabs>
 
 两种模式下，Count 都应为蓝色圆角按钮，宽度至少 180px。点击后数值递增；Actions 打开带样式的菜单，Reset count 将数值归零。也应检查深色主题。构建成功不能单独证明样式已交付：遗漏主题与基础 CSS，或未真正接入 StyleX 插件，都可能让控件失去样式。不需要 Lenso 构建适配器或生成包 metadata。
 
@@ -146,10 +234,32 @@ ssr: { noExternal: ["@lenso/ui", "@lenso/tokens", "@lenso/glass"] }
 
 在已有的 TypeScript App Router 项目根目录执行以下命令。这套配置已在 Next.js 16.4.6（默认 Turbopack 构建）、React 19.3.1 和以下包版本中验证，使用官方 StyleX Babel 与 PostCSS 插件。
 
+<Tabs>
+<Tab title="npm" value="npm">
+
 ```sh
-bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+npm install @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+npm install -D @babel/core@7.29.7 @stylexjs/babel-plugin@0.19.1 @stylexjs/postcss-plugin@0.19.1
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+pnpm add -D @babel/core@7.29.7 @stylexjs/babel-plugin@0.19.1 @stylexjs/postcss-plugin@0.19.1
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
+```sh
+bun add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
 bun add -d @babel/core@7.29.7 @stylexjs/babel-plugin@0.19.1 @stylexjs/postcss-plugin@0.19.1
 ```
+
+</Tab>
+</Tabs>
 
 ### 配置编译
 
@@ -271,10 +381,32 @@ export default function Page() {
 
 构建并启动生产应用：
 
+<Tabs>
+<Tab title="npm" value="npm">
+
+```sh
+npm run build
+npm run start
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm build
+pnpm start
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
 ```sh
 bun run build
 bun run start
 ```
+
+</Tab>
+</Tabs>
 
 Count 按钮应为蓝色圆角按钮，宽度至少 180px。点击后数值递增；Actions 打开带样式的菜单，Reset count 将数值归零。即使构建成功，没有样式的页面也不能视为接入成功，应检查主题 CSS 导入和 PostCSS 的包扫描路径。修正 StyleX 编译错误后，如果下一次构建仍显示旧源码，先停止 Next，仅删除生成的 `.next` 目录，再重新构建。
 

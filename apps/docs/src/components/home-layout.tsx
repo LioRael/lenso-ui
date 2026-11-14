@@ -51,7 +51,7 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
     <SearchDialog locale={locale}>
       <div id="nd-home-layout" {...stylex.props(s.container)}>
         <div {...stylex.props(s.headerRegion)}>
-          {viewport && <ScrollEdge scrollRef={scrollRef} fadeStart={48} xstyle={s.headerEdge} />}
+          {viewport && <ScrollEdge variant="hard" scrollRef={scrollRef} xstyle={s.headerEdge} />}
           <header {...stylex.props(s.header)}>
             <ThemeScope>
               <div {...stylex.props(s.headerInner)}>

@@ -15,10 +15,32 @@ Choose the build integration for [Vite or Rolldown](./frameworks#vite-and-rolldo
 
 The React package is `@lenso/ui`; its theme and component style maps come from `@lenso/tokens`. Use a matching Lenso UI/tokens release. React and React DOM must satisfy the React package's published peer ranges.
 
+<Tabs>
+<Tab title="npm" value="npm">
+
 ```sh
-bun add @lenso/ui@0.10.0 @lenso/tokens@0.10.0 @stylexjs/stylex@0.19.1
+npm install @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+npm install -D @stylexjs/unplugin@0.19.1
+```
+
+</Tab>
+<Tab title="pnpm" value="pnpm">
+
+```sh
+pnpm add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
+pnpm add -D @stylexjs/unplugin@0.19.1
+```
+
+</Tab>
+<Tab title="Bun" value="bun">
+
+```sh
+bun add @lenso/ui @lenso/tokens @stylexjs/stylex@0.19.1
 bun add -d @stylexjs/unplugin@0.19.1
 ```
+
+</Tab>
+</Tabs>
 
 <details>
 <DisclosureSummary>Using an unpublished candidate</DisclosureSummary>
