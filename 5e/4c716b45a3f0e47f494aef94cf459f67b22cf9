@@ -1,0 +1,22 @@
+RELEASE.md
+  h_9d56aba080c170 12-15
+bun.lock
+  h_9d56aba080c170 209
+packages/primitives/package.json
+  h_9d56aba080c170 3
+scripts/publish-packages.ts
+  h_9d56aba080c170 49
+tests/publish-packages.test.ts
+  h_9d56aba080c170 118,136,154,190,228,326,417
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e4c716b45a3f0e47f494aef94cf459f67b22cf9",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
