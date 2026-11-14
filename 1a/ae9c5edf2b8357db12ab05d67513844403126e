@@ -1,0 +1,43 @@
+.github/workflows/release.yml
+  s_0a36fa17311984::t_521d17d9c256bd 9
+RELEASE.md
+  s_0a36fa17311984::t_6bb778ebad6923 1-23
+bun.lock
+  s_0a36fa17311984::t_7e3c51e6c9b122 120,140,187,253,266
+packages/create-docs/package.json
+  s_0a36fa17311984::t_f95afa107d030c 3
+packages/create-docs/src/cli.ts
+  s_0a36fa17311984::t_29512a0e772505 6
+packages/create-docs/template/package.json
+  s_0a36fa17311984::t_54a08e7b6085f8 11
+packages/create-docs/test/cli.test.ts
+  s_0a36fa17311984::t_8206f2c273f05b 70,92
+packages/docs/package.json
+  s_0a36fa17311984::t_a886d70e04d9ef 3
+packages/glass/package.json
+  s_0a36fa17311984::t_4109c4af0e36bb 3
+packages/tokens/package.json
+  s_0a36fa17311984::t_9d4417d420bcb0 3
+packages/ui/package.json
+  s_0a36fa17311984::t_36ff993dc345c6 3
+scripts/publish-packages.ts
+  s_0a36fa17311984::t_eb22ee2229b774 48,51-52
+tests/publish-packages.test.ts
+  s_0a36fa17311984::t_e9f12acbbf4d34 117,135,153,189,227,286,325,416
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1aae9c5edf2b8357db12ab05d67513844403126e",
+  "prompts": {},
+  "sessions": {
+    "s_0a36fa17311984": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1daa8-3fb7-7c03-beac-1e3b4a74162a",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
