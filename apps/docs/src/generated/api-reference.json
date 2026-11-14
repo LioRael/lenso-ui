@@ -14327,7 +14327,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/action-sheet/action-sheet.tsx", "line": 219 },
+      "source": { "path": "packages/ui/src/components/action-sheet/action-sheet.tsx", "line": 223 },
       "default": "false"
     },
     {
@@ -14561,7 +14561,7 @@
       "expandedType": "undefined | \"auto\" | \"side-by-side\" | \"stacked\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx", "line": 244 },
+      "source": { "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx", "line": 248 },
       "default": "\"auto\""
     },
     {
@@ -14570,7 +14570,7 @@
       "expandedType": "undefined | \"accent\" | \"danger\" | \"default\" | \"success\" | \"warning\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx", "line": 265 },
+      "source": { "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx", "line": 269 },
       "default": "\"danger\""
     },
     {
@@ -14579,7 +14579,7 @@
       "expandedType": "undefined | \"cancel\" | \"default\" | \"destructive\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx", "line": 298 },
+      "source": { "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx", "line": 302 },
       "default": "\"default\""
     },
     {
@@ -76482,7 +76482,7 @@
           "props": "Omit<Omit<BaseSlotProps & ElementProps<\"h2\", {}, BaseSlotProps>, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<BaseSlotProps & ElementProps<\"h2\", {}, BaseSlotProps>, \"ref\">",
           "source": {
             "path": "packages/ui/src/components/action-sheet/action-sheet.tsx",
-            "line": 117
+            "line": 121
           },
           "native": ["@ui-sdk/react/dialog"],
           "members": [],
@@ -76512,7 +76512,7 @@
           "props": "Omit<Omit<BaseSlotProps & ElementProps<\"p\", {}, BaseSlotProps>, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<BaseSlotProps & ElementProps<\"p\", {}, BaseSlotProps>, \"ref\">",
           "source": {
             "path": "packages/ui/src/components/action-sheet/action-sheet.tsx",
-            "line": 137
+            "line": 141
           },
           "native": ["@ui-sdk/react/dialog"],
           "members": [],
@@ -76545,7 +76545,7 @@
           "props": "Omit<Omit<NoInfer<CloseProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<SdkDialog.DialogCloseState>, NoInfer<CloseProps> & BaseSlotProps>, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<NoInfer<CloseProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<SdkDialog.DialogCloseState>, NoInfer<CloseProps> & BaseSlotProps>, \"ref\">",
           "source": {
             "path": "packages/ui/src/components/action-sheet/action-sheet.tsx",
-            "line": 157
+            "line": 161
           },
           "native": ["@ui-sdk/react/dialog"],
           "members": [],
@@ -76582,7 +76582,7 @@
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
           "source": {
             "path": "packages/ui/src/components/action-sheet/action-sheet.tsx",
-            "line": 177
+            "line": 181
           },
           "native": ["@ui-sdk/react/dialog"],
           "members": [],
@@ -76613,7 +76613,7 @@
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
           "source": {
             "path": "packages/ui/src/components/action-sheet/action-sheet.tsx",
-            "line": 194
+            "line": 198
           },
           "native": ["@ui-sdk/react/dialog"],
           "members": [],
@@ -76644,7 +76644,7 @@
           "props": "Omit<Omit<NoInfer<CloseProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<SdkDialog.DialogCloseState>, NoInfer<CloseProps> & BaseSlotProps>, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<NoInfer<CloseProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<SdkDialog.DialogCloseState>, NoInfer<CloseProps> & BaseSlotProps>, \"ref\"> & { destructive?: boolean; }",
           "source": {
             "path": "packages/ui/src/components/action-sheet/action-sheet.tsx",
-            "line": 212
+            "line": 216
           },
           "native": ["@ui-sdk/react/dialog"],
           "members": [],
@@ -76681,7 +76681,7 @@
           "props": "PortalProps & { open?: boolean; defaultOpen?: boolean; onOpenChangeComplete?: (open: boolean) => void; dismissible?: boolean; onDismissAttempt?: (details: SdkDialog.DialogDismissAttemptDetails) => void; persistentElements?: (Element | string)[] | (() => Element[]); pendingAnnouncement?: string; } & PrimitiveOptions & { onOpenChange?: (open: boolean, details: SdkDialog.DialogOpenChangeDetails) => void; onPayloadChange?: (payload: unknown, details: ChangeDetails<SdkDialog.DialogPayloadChangeReason>) => void; modal?: Extract<Modal, boolean | \"trap-focus\">; closeOnOutsidePress?: boolean; presentation?: PresentationSetting<\"dialog\">; controller?: SdkDialog.DialogController<any, any>; } & { children?: React.ReactNode; } & { dim?: boolean; }",
           "source": {
             "path": "packages/ui/src/components/action-sheet/action-sheet.tsx",
-            "line": 236
+            "line": 240
           },
           "native": ["@ui-sdk/react/dialog"],
           "members": [
@@ -77015,7 +77015,7 @@
           "props": "Omit<Omit<BaseSlotProps & ElementProps<\"h2\", {}, BaseSlotProps>, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<BaseSlotProps & ElementProps<\"h2\", {}, BaseSlotProps>, \"ref\">",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 115
+            "line": 119
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77045,7 +77045,7 @@
           "props": "Omit<Omit<BaseSlotProps & ElementProps<\"p\", {}, BaseSlotProps>, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<BaseSlotProps & ElementProps<\"p\", {}, BaseSlotProps>, \"ref\">",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 135
+            "line": 139
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77078,7 +77078,7 @@
           "props": "Omit<Omit<NoInfer<CloseProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<DialogCloseState>, NoInfer<CloseProps> & BaseSlotProps>, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<NoInfer<CloseProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<DialogCloseState>, NoInfer<CloseProps> & BaseSlotProps>, \"ref\">",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 155
+            "line": 159
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77115,7 +77115,7 @@
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 204
+            "line": 208
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77146,7 +77146,7 @@
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 221
+            "line": 225
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77177,7 +77177,7 @@
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { layout?: \"auto\" | \"side-by-side\" | \"stacked\"; }",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 238
+            "line": 242
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77208,7 +77208,7 @@
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { variant?: keyof typeof tones; }",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 259
+            "line": 263
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77239,7 +77239,7 @@
           "props": "Omit<Omit<NoInfer<CloseProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<DialogCloseState>, NoInfer<CloseProps> & BaseSlotProps>, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<NoInfer<CloseProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<DialogCloseState>, NoInfer<CloseProps> & BaseSlotProps>, \"ref\"> & { variant?: \"default\" | \"cancel\" | \"destructive\"; }",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 291
+            "line": 295
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77276,7 +77276,7 @@
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 316
+            "line": 320
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [],
@@ -77307,7 +77307,7 @@
           "props": "PortalProps & { open?: boolean; defaultOpen?: boolean; onOpenChangeComplete?: (open: boolean) => void; dismissible?: boolean; onDismissAttempt?: (details: DialogDismissAttemptDetails) => void; persistentElements?: (Element | string)[] | (() => Element[]); pendingAnnouncement?: string; } & PrimitiveOptions & { onOpenChange?: (open: boolean, details: DialogOpenChangeDetails<SdkAlertDialog.AlertDialogOpenChangeReason>) => void; onPayloadChange?: (payload: unknown, details: ChangeDetails<SdkAlertDialog.AlertDialogPayloadChangeReason>) => void; controller?: SdkAlertDialog.AlertDialogController<any, any>; } & { children?: React.ReactNode; }",
           "source": {
             "path": "packages/ui/src/components/alert-dialog/alert-dialog.tsx",
-            "line": 332
+            "line": 336
           },
           "native": ["@ui-sdk/react/alert-dialog"],
           "members": [

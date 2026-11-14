@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Command } from "@lenso/ui/command";
 import { Kbd } from "@lenso/ui/kbd";
 import { Spinner } from "@lenso/ui/spinner";
@@ -8,7 +8,7 @@ import { Modal as Dialog } from "@lenso/ui/modal";
 import { Button } from "@lenso/ui/button";
 import { FileText, Hashtag, Xmark } from "@gravity-ui/icons";
 import { useRouter } from "fumadocs-core/framework";
-import { useDocsSearch, useHighlightQuery } from "fumadocs-core/search/client";
+import { useHighlightQuery } from "fumadocs-core/search/client";
 import type { SharedProps } from "fumadocs-ui/contexts/search";
 import { SearchConfiguration } from "./search";
 import { compactSearchResults, type DocumentationSearchResult } from "./search-results";
@@ -130,25 +130,57 @@ export default function StaticSearchDialog({ open, onOpenChange }: SharedProps) 
   const restoreFocus = useRef<Element | null>(null);
   const router = useRouter();
   const [active, setActive] = useState<string | null>(null);
-  const { search, setSearch, query } = useDocsSearch(
-    {
-      type: "static",
-      from,
-      allowEmpty,
-      search: { limit: 40, groupBy: { properties: ["page_id"], maxResult: 2 } },
-      ...(initDB !== undefined ? { initDB } : {}),
-    },
-    [from, initDB, allowEmpty],
+  const [search, setSearch] = useState("");
+  const request = useMemo(
+    () => ({ from, initDB, search, allowEmpty }),
+    [from, initDB, search, allowEmpty],
   );
+  const [response, setResponse] = useState<{
+    request: typeof request;
+    data: DocumentationSearchResult[];
+    error?: unknown;
+  }>();
+  const enabled = Boolean(search) || allowEmpty;
+  const query = {
+    data: enabled ? response?.data : undefined,
+    isLoading: enabled && response?.request !== request,
+    error: enabled ? response?.error : undefined,
+  };
+  useEffect(() => {
+    const { from, initDB, search, allowEmpty } = request;
+    if (!search && !allowEmpty) return;
+    let active = true;
+    // The list renders text, not Fumadocs' parsed Markdown/HAST result tree.
+    // Keep the engine deferred and share its URL-keyed cache with intent warmup.
+    void import("fumadocs-core/search/client/orama-static")
+      .then(({ staticClient }) =>
+        staticClient({
+          from,
+          search: { limit: 40, groupBy: { properties: ["page_id"], maxResult: 2 } },
+          ...(initDB !== undefined ? { initDB } : {}),
+        }).search(search),
+      )
+      .then(
+        (data) => {
+          if (active) setResponse({ request, data });
+        },
+        (error: unknown) => {
+          if (active) setResponse({ request, data: [], error });
+        },
+      );
+    return () => {
+      active = false;
+    };
+  }, [request]);
   const items = useMemo(
     () =>
       !search.trim() && links?.length
         ? links.map(([content, url]) => ({ id: url, type: "page" as const, content, url }))
-        : query.data === "empty"
-          ? allowEmpty
+        : query.data
+          ? compactSearchResults(query.data, search)
+          : allowEmpty
             ? []
-            : null
-          : query.data && compactSearchResults(query.data, search),
+            : null,
     [query.data, search, allowEmpty, links],
   );
   const results = query.error ? [] : (items ?? []);
