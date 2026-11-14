@@ -1,0 +1,19 @@
+apps/docs/src/components/home-layout.tsx
+  s_53dabd35e61a3c::t_2306b3ea147e4d 54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0bb9073e2c5e60c4c5cc169e8efe03c706e198d6",
+  "prompts": {},
+  "sessions": {
+    "s_53dabd35e61a3c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1daa9-285b-7dc3-a2ee-693f69e73549",
+        "model": "unknown"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
