@@ -8,6 +8,68 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
+
+    await page.goto(
+      `${base}/en/docs/react/components/tabs?scenario=tabs-vertical&ref=shared#main-content`,
+    );
+    const scenario = page.getByRole("combobox", { name: "Preset", exact: true });
+    await page.waitForFunction(
+      () =>
+        document.querySelector('[aria-label="Preset"]')?.textContent?.includes("Vertical layout"),
+      null,
+      { timeout: 5000 },
+    );
+    await page.locator("[data-example-mounted]").waitFor({ state: "attached" });
+    await scenario.click();
+    await page.getByRole("option", { name: "Default", exact: true }).click();
+    await page.waitForURL(/scenario=Default/);
+    assert.equal(new URL(page.url()).searchParams.get("ref"), "shared");
+    assert.equal(new URL(page.url()).hash, "#main-content");
+    await page.waitForLoadState("networkidle");
+    await page.reload();
+    await page.waitForFunction(() =>
+      document.querySelector('[aria-label="Preset"]')?.textContent?.includes("Default"),
+    );
+    await page.waitForLoadState("networkidle");
+    await page.goBack();
+    await page.waitForFunction(() =>
+      document.querySelector('[aria-label="Preset"]')?.textContent?.includes("Vertical layout"),
+    );
+    await page.waitForLoadState("networkidle");
+    await page.goForward();
+    await page.waitForFunction(() =>
+      document.querySelector('[aria-label="Preset"]')?.textContent?.includes("Default"),
+    );
+    await page.waitForLoadState("networkidle");
+
+    await page.goto(`${base}/en/docs/react/components/button?scenario=With%20icon`);
+    await page
+      .locator("[data-story-preview]")
+      .getByRole("button", { name: "Add member" })
+      .waitFor();
+    await page.waitForLoadState("networkidle");
+    await page.goto(`${base}/en/docs/react/components/button?scenario=not-a-scenario`);
+    await page.locator("[data-story-preview]").getByRole("button", { name: "Continue" }).waitFor();
+    await page.waitForLoadState("networkidle");
+
+    await page.goto(`${base}/cn/docs/react/components/tabs`);
+    await page.locator('[data-component-story="Tabs"] [data-ready]').first().waitFor();
+    const chineseScenario = page.getByRole("combobox", { name: "场景", exact: true });
+    await chineseScenario.click();
+    await page.getByRole("option", { name: "纵向排列", exact: true }).click();
+    await page.waitForURL(/scenario=tabs-vertical/);
+    await page.waitForLoadState("networkidle");
+    await page.reload();
+    await page.waitForFunction(() =>
+      document.querySelector('[aria-label="场景"]')?.textContent?.includes("纵向排列"),
+    );
+    await page.waitForLoadState("networkidle");
+    await page.goBack();
+    await page.waitForFunction(() =>
+      document.querySelector('[aria-label="场景"]')?.textContent?.includes("Default"),
+    );
+    await page.waitForLoadState("networkidle");
+
     for (const locale of ["en", "cn"]) {
       const cn = locale === "cn";
       await page.goto(`${base}/${locale}/docs/react/components/button`);
