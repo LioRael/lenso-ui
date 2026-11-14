@@ -1,0 +1,26 @@
+apps/docs/test/playground-layout.mjs
+  s_53dabd35e61a3c::t_4e3cc17caf09f8 13,17-23,28,34-67,69
+  s_53dabd35e61a3c::t_b6b105a4943254 24
+  s_53dabd35e61a3c::t_82f447c9dc1e04 11-12
+  s_53dabd35e61a3c::t_a82e721a1cd69b 14-16
+  s_53dabd35e61a3c::t_f45e673e8b1017 25-27
+  s_53dabd35e61a3c::t_106df5c6451460 29-33
+  s_53dabd35e61a3c::t_7c876b408735ee 68
+  s_53dabd35e61a3c::t_ba6c7f30d883a0 70-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "af9c14d2cafb76690e519b7fd9825e2899dd39fc",
+  "prompts": {},
+  "sessions": {
+    "s_53dabd35e61a3c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1daa9-285b-7dc3-a2ee-693f69e73549",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
