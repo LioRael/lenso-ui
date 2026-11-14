@@ -1,0 +1,50 @@
+apps/docs/package.json
+  h_9d56aba080c170 68
+apps/docs/scripts/docs-projection.test.ts
+  h_9d56aba080c170 141-146,186,384-412
+apps/docs/scripts/docs-projection.ts
+  h_9d56aba080c170 5,1307-1308
+apps/docs/scripts/generate-docs.ts
+  h_9d56aba080c170 34
+apps/docs/scripts/keyboard-guidance.ts
+  h_9d56aba080c170 1-774
+apps/docs/scripts/static-search.test.ts
+  h_9d56aba080c170 109-112
+apps/docs/test/glass-popup-overflow-fixture.tsx
+  h_9d56aba080c170 1-22
+apps/docs/test/glass-popup-overflow.mjs
+  h_9d56aba080c170 1-120
+apps/docs/test/model-behaviors-fixture.tsx
+  h_9d56aba080c170 69-71,75-77
+apps/docs/test/model-behaviors.mjs
+  h_9d56aba080c170 100-120
+apps/docs/test/presentation-panels.mjs
+  h_9d56aba080c170 257-283
+docs/design/component-conventions.md
+  h_9d56aba080c170 468-473
+packages/tokens/src/components/action-sheet/action-sheet.styles.ts
+  h_9d56aba080c170 75,95,119-125
+packages/tokens/src/components/alert-dialog/alert-dialog.styles.ts
+  h_9d56aba080c170 59,71,94-100
+packages/tokens/src/components/date-picker/date-picker.styles.ts
+  h_9d56aba080c170 59,61,64,67-75
+packages/ui/src/components/action-sheet/action-sheet.tsx
+  h_9d56aba080c170 113-117
+packages/ui/src/components/alert-dialog/alert-dialog.tsx
+  h_9d56aba080c170 111-115
+packages/ui/src/components/calendar-year-picker/calendar-year-picker.tsx
+  h_9d56aba080c170 70
+packages/ui/src/components/date-picker/date-picker.tsx
+  h_9d56aba080c170 279-281
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "37a1514bc10a8515d59ee7b59442a25741f8b401",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
