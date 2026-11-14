@@ -1,0 +1,26 @@
+apps/docs/package.json
+  h_9d56aba080c170 70
+apps/docs/test/menu-alignment.mjs
+  h_9d56aba080c170 1-164
+docs/design/component-conventions.md
+  h_9d56aba080c170 307-316
+packages/tokens/src/components/menu/menu.styles.ts
+  h_9d56aba080c170 213-216,284,334-337,388-389,399-402
+packages/ui/src/components/menu/menu-item.tsx
+  h_9d56aba080c170 72
+packages/ui/src/components/menu/menu-section.tsx
+  h_9d56aba080c170 30
+packages/ui/src/components/menu/menu.tsx
+  h_9d56aba080c170 211-233,297
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6fbf6df322e06c93f17d85cd580a6dc0f02456d8",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
