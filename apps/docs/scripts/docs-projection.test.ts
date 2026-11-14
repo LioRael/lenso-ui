@@ -138,7 +138,12 @@ test("discovers local stories in both locales without changing the source scenar
       "utf8",
     );
     assert.ok(markdown.includes(`<ComponentPlayground family="menu" locale="${locale}" />`));
-    assert.doesNotMatch(markdown, /<ComponentPreview|^## |API Reference|API 参考/m);
+    const heading = locale === "cn" ? "## 纯键盘演练" : "## Keyboard-only walkthrough";
+    assert.ok(markdown.indexOf(heading) > markdown.indexOf("<ComponentPlayground"));
+    assert.match(markdown, /Sort by/);
+    assert.match(markdown, /Escape/);
+    assert.match(markdown, /keyboard/);
+    assert.doesNotMatch(markdown, /<ComponentPreview|API Reference|API 参考/m);
     assert.equal(createExamplePlan(archive, index, manifests, { locale }).requested, 2);
     const chip = await readFile(
       path.join(directory, `apps/docs/content/lenso/${locale}/react/components/chip.mdx`),
@@ -178,7 +183,7 @@ test("projects current version, canonical family placement, local API and all lo
     assert.equal("componentThumbnail" in menu, false);
     const markdown = await readFile(path.join(directory, "apps/docs", menu.markdownFile), "utf8");
     assert.equal(markdown.match(/<ComponentPlayground /g)?.length, 1);
-    assert.doesNotMatch(markdown, /<ComponentPreview|<details>|^## |API Reference|API 参考/m);
+    assert.doesNotMatch(markdown, /<ComponentPreview|<details>|API Reference|API 参考/m);
     assert.ok(menu.examples.some(({ name }) => name === "menu-basic"));
     assert.ok(
       !index.pages.some((page) => /releases|migration|components\/dropdown/.test(page.slug)),
@@ -373,6 +378,35 @@ test("Button keeps one playground without regenerating expanded examples or API 
     assert.doesNotMatch(content, /<ComponentPreview|API Reference|API 参考|<details>|^## /m);
     assert.match(content, /Enter/);
     assert.ok(content.trimEnd().endsWith(`locale="${locale}" />`));
+  }
+});
+
+test("publishes localized key references for composite controls without duplicating playgrounds", async () => {
+  const { directory, write } = await fixture();
+  const reference = JSON.parse(
+    await readFile(path.join(directory, "apps/docs/src/generated/api-reference.json"), "utf8"),
+  );
+  for (const family of ["tabs", "time-field"]) {
+    reference.families[family] = { parts: [{ ...reference.families.chip.parts[0] }] };
+    await write(`apps/docs/src/stories/${family}.story.tsx`, "export const story = {};");
+  }
+  await write("apps/docs/src/generated/api-reference.json", reference);
+  await write(
+    "packages/ui/src/components/index.ts",
+    ["menu", "chip", "tabs", "time-field"]
+      .map((family) => `export * from "./${family}/index.js";`)
+      .join("\n"),
+  );
+  const { markdown } = await generateDocsProjection(directory);
+  for (const locale of ["en", "cn"]) {
+    for (const family of ["tabs", "time-field"]) {
+      const content = markdown.get(`content/lenso/${locale}/react/components/${family}.mdx`)!;
+      assert.equal(content.match(/<ComponentPlayground /g)?.length, 1);
+      assert.ok(content.includes(locale === "cn" ? "## 键盘操作" : "## Keyboard reference"));
+      assert.match(content, /Home\/End/);
+    }
+    const chip = markdown.get(`content/lenso/${locale}/react/components/chip.mdx`)!;
+    assert.doesNotMatch(chip, /^## /m);
   }
 });
 

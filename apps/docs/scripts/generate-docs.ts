@@ -31,6 +31,7 @@ export async function generateDocs(
     "apps/docs/scripts/static-search.ts",
     "apps/docs/src/lib/demo-locale.ts",
     "apps/docs/scripts/docs-projection.ts",
+    "apps/docs/scripts/keyboard-guidance.ts",
     "apps/docs/src/lib/redirects.ts",
     "apps/docs/src/lib/native-api-section.ts",
     "apps/docs/src/lib/api-property-groups.ts",

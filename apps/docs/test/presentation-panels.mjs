@@ -254,6 +254,33 @@ for (const [name, engine] of [
       await page.getByRole("button", { name: "Confirm deletion" }).click();
       const alert = page.getByRole("alertdialog", { name: "Delete note?", exact: true });
       await alert.waitFor();
+      await alert.locator("[data-lenso-live-rim]").waitFor({ state: "attached" });
+      const alertOverflow = await alert.evaluate((e) =>
+        [e, ...e.querySelectorAll("*")]
+          .filter((node) => /auto|scroll/.test(getComputedStyle(node).overflow))
+          .map((node) => [
+            node.scrollWidth - node.clientWidth,
+            node.scrollHeight - node.clientHeight,
+          ]),
+      );
+      assert.ok(
+        alertOverflow.every(([x, y]) => x === 0 && y === 0),
+        "short alert must not scroll",
+      );
+      await page.setViewportSize({ width, height: 160 });
+      const alertScroll = await alert.evaluate((e) => {
+        const scroller = [e, ...e.querySelectorAll("*")].find(
+          (node) =>
+            /auto|scroll/.test(getComputedStyle(node).overflowY) &&
+            node.scrollHeight > node.clientHeight,
+        );
+        if (!scroller) return null;
+        scroller.scrollTop = scroller.scrollHeight;
+        return { top: scroller.scrollTop, horizontal: scroller.scrollWidth - scroller.clientWidth };
+      });
+      assert.ok(alertScroll?.top > 0, "alert content stays scrollable in a short viewport");
+      assert.equal(alertScroll.horizontal, 0);
+      await page.setViewportSize({ width, height: 900 });
       await page.mouse.click(2, 2);
       assert.equal(await alert.isVisible(), true);
       await alert.getByRole("button", { name: "Keep note" }).click();

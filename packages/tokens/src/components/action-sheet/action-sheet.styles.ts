@@ -72,7 +72,7 @@ export const actionSheetStyles = stylex.create({
     width: 300,
     maxWidth: "calc(100% - 32px)",
     maxHeight: "calc(100dvh - 32px)",
-    overflowY: "auto",
+    overflow: "visible",
     zIndex: tokens.zIndexOverlay,
   },
   placement: (placement: "auto" | "bottom" | "center") => ({
@@ -92,7 +92,7 @@ export const actionSheetStyles = stylex.create({
     flexShrink: 0,
     boxSizing: "border-box",
     borderRadius: 34,
-    padding: 14,
+    padding: 0,
     outline: "none",
     color: tokens.labelPrimary,
     fontSize: 17,
@@ -115,6 +115,13 @@ export const actionSheetStyles = stylex.create({
       default: `${tokens.motionEaseOutQuart}, ease-out`,
       ":is([data-ending-style])": "cubic-bezier(.4, 0, .2, 1), cubic-bezier(.4, 0, .6, 1)",
     },
+  },
+  scroller: {
+    maxHeight: "inherit",
+    overflowY: "auto",
+    boxSizing: "border-box",
+    borderRadius: "inherit",
+    padding: 14,
   },
   header: {
     display: "flex",

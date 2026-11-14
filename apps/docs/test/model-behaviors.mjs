@@ -97,6 +97,31 @@ try {
       const returnTrigger = page.getByRole("button", { name: "Choose return date", exact: true });
       await returnTrigger.click();
       const returnDialog = page.getByRole("dialog", { name: "Return date calendar", exact: true });
+      const returnYear = returnDialog.getByRole("button", { name: /year selector/ });
+      await returnYear.focus();
+      await page.keyboard.press("Escape");
+      await returnDialog.waitFor({ state: "hidden" });
+      await page.waitForFunction(
+        () => document.activeElement?.textContent === "Choose return date",
+      );
+      assert.equal(await page.locator('input[name="return"]').inputValue(), "2026-11-13");
+      await returnTrigger.click();
+      await returnYear.focus();
+      await page.keyboard.press("Enter");
+      const yearGrid = returnDialog.locator('[data-lenso-slot="calendar-year-picker-grid"]');
+      await yearGrid.waitFor();
+      await page.keyboard.press("Escape");
+      await yearGrid.waitFor({ state: "hidden" });
+      assert.equal(await returnDialog.isVisible(), true);
+      await page.waitForFunction(
+        () => document.activeElement?.textContent === "Choose return year",
+      );
+      await page.keyboard.press("Escape");
+      await returnDialog.waitFor({ state: "hidden" });
+      await page.waitForFunction(
+        () => document.activeElement?.textContent === "Choose return date",
+      );
+      await returnTrigger.click();
       await returnDialog
         .locator('[data-calendar-date="2026-11-15"]:not([data-outside-month])')
         .click();

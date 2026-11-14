@@ -276,7 +276,9 @@ export function DatePickerPopover({
       {(state) => (
         <>
           <MaterialBackground variant="glass-large" liveBackdrop />
-          {typeof children === "function" ? children(state) : children}
+          <div {...stylex.props(styles.scroller)} data-lenso-slot="date-picker-scroller">
+            {typeof children === "function" ? children(state) : children}
+          </div>
         </>
       )}
     </SdkPopover.PopoverContent>

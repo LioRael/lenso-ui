@@ -106,7 +106,10 @@ for (const locale of ["en", "cn"]) {
         locale === "cn"
           ? [
               ["安装", "react/getting-started/installation"],
-              ["键盘", "react/components/kbd"],
+              // Keyboard guidance now spans many pages in the bounded result set.
+              // Use the specific key-cap term to find Kbd, and check guidance too.
+              ["按键", "react/components/kbd"],
+              ["键盘", "react/components/accordion"],
             ]
           : [
               ["Button", "react/components/button"],

@@ -110,7 +110,11 @@ export function ActionSheetContent({
       data-placement={placement}
       data-material={presentationMaterials.compact}
     >
-      {(state) => <>{typeof children === "function" ? children(state) : children}</>}
+      {(state) => (
+        <div {...stylex.props(s.scroller)} data-lenso-slot="action-sheet-scroller">
+          {typeof children === "function" ? children(state) : children}
+        </div>
+      )}
     </SdkDialog.DialogContent>
   );
 }

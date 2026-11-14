@@ -65,6 +65,7 @@
     "test:model-behaviors": "node test/model-behaviors.mjs",
     "test:ui-sdk-native": "node test/ui-sdk-native.mjs",
     "test:popup-visual": "node test/popup-visual.mjs",
+    "test:glass-popup-overflow": "node test/glass-popup-overflow.mjs",
     "test:docs-drawer-motion": "node test/docs-drawer-motion.mjs",
     "test:menu-select-animation": "node test/menu-select-animation.mjs"
   },

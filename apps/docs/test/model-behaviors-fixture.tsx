@@ -66,9 +66,15 @@ function Fixture() {
         <DatePicker.Popover aria-label="Return date calendar">
           <DatePicker.Title>Return date calendar</DatePicker.Title>
           <Calendar aria-label="Return calendar">
+            <Calendar.Header>
+              <Calendar.YearPickerTrigger>Choose return year</Calendar.YearPickerTrigger>
+            </Calendar.Header>
             <Calendar.Grid>
               <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>
             </Calendar.Grid>
+            <Calendar.YearPickerGrid>
+              <Calendar.YearPickerGridBody />
+            </Calendar.YearPickerGrid>
           </Calendar>
           <DatePicker.Close>Cancel date</DatePicker.Close>
         </DatePicker.Popover>

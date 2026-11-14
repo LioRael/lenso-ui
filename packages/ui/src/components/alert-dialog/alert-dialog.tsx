@@ -108,7 +108,11 @@ export function AlertDialogContent({
       )}
       data-material={presentationMaterials.compact}
     >
-      {(state) => <>{typeof children === "function" ? children(state) : children}</>}
+      {(state) => (
+        <div {...stylex.props(s.scroller)} data-lenso-slot="alert-dialog-scroller">
+          {typeof children === "function" ? children(state) : children}
+        </div>
+      )}
     </SdkAlertDialog.AlertDialogContent>
   );
 }

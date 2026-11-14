@@ -67,7 +67,7 @@ export function CalendarYearPickerTrigger({
         aria-label={`${monthYear}, year selector`}
         onKeyDown={(event) => {
           onKeyDown?.(event);
-          if (!event.defaultPrevented && event.key === "Escape") {
+          if (!event.defaultPrevented && isYearPickerOpen && event.key === "Escape") {
             event.preventDefault();
             withSource("keyboard", () => setIsYearPickerOpen(false));
           }

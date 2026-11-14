@@ -465,6 +465,12 @@ dragging and detents. ActionSheet presents a focused choice of operations, while
 ShareSheet composes Sheet for sharing targets and grouped actions. Keep those
 semantic roles distinct; there is no separate public Dialog alias.
 
+AlertDialog, ActionSheet and date-picker popovers keep their Glass shells outside
+the content scroller. The decorative rim may extend past the shell without
+creating scrollbars; content scrolls only when it exceeds the available space,
+retaining access to response buttons and calendar dates. DateRangePicker reuses
+the DatePicker popover and its scroll ownership.
+
 Sheet delegates drag and scroll arbitration to UI SDK. A scrollable body can
 scroll upward at a partial detent; it does not expand the sheet before scrolling.
 At full height, downward drags scroll existing content toward its top before the
