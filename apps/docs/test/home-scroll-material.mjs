@@ -17,7 +17,7 @@ for (const [name, engine] of [
         });
         await page.goto(`${base}/cn`);
         const brand = page.locator("header a[data-lenso-slot=glass]");
-        await page.locator('[data-home-showcase] [role="tablist"][data-ready]').waitFor();
+        await page.locator("#home-title").waitFor();
         const state = () =>
           brand.evaluate((e) => {
             const id = e.getAttribute("data-material-paints");

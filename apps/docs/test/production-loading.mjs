@@ -52,7 +52,8 @@ try {
             "The document exceeds its gzip HTML budget",
           );
         }
-        await page.waitForFunction(() => document.querySelector("[data-ready]"));
+        if (route !== "/en")
+          await page.waitForFunction(() => document.querySelector("[data-ready]"));
         await page.waitForLoadState("networkidle");
         collecting = false;
         const loaded = await Promise.all(scripts);
@@ -82,16 +83,12 @@ try {
             ),
             "The homepage must not download the document index or MDX registry",
           );
-          const forest = page.getByRole("tab", { name: "Forest", exact: true });
-          await forest.click();
-          await page.waitForFunction(() =>
-            [...document.querySelectorAll('[role="tab"]')].some(
-              (tab) => tab.textContent === "Forest" && tab.getAttribute("aria-selected") === "true",
-            ),
-          );
+          const playground = page.getByRole("region", { name: "Typography playground" });
+          await playground.getByRole("textbox", { name: "Canvas text" }).fill("Hello");
+          await playground.getByText("5 / 80", { exact: true }).waitFor();
           await page
             .locator("#main-content")
-            .getByRole("link", { name: "Components", exact: true })
+            .getByRole("link", { name: "Explore components", exact: true })
             .click();
           await page.getByRole("heading", { name: "Components", exact: true }).waitFor();
         } else {

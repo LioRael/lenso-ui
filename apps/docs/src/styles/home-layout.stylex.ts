@@ -4,14 +4,13 @@ import * as stylex from "@stylexjs/stylex";
 
 export const homeLayout = stylex.create({
   container: {
-    "--home-scene-height": "100svh",
     display: "flex",
     flexDirection: "column",
     minHeight: "100dvh",
     minWidth: 0,
     fontFamily: "var(--lenso-font-body)",
     color: "var(--lenso-label-primary)",
-    backgroundColor: "var(--lenso-background-primary)",
+    backgroundColor: "var(--lenso-background-grouped-primary)",
   },
   headerRegion: {
     position: "fixed",

@@ -8,7 +8,7 @@ const styles = new URL("../src/styles/home.stylex.ts", import.meta.url);
 const originalComponent = await readFile(component, "utf8");
 const originalStyles = await readFile(styles, "utf8");
 assert.ok(
-  originalStyles.includes("fontSize: 18,"),
+  originalStyles.includes('"@media (min-width: 768px)": 18'),
   "The description style edit must have a target",
 );
 
@@ -33,9 +33,11 @@ for (const [name, engine] of [
   try {
     await page.goto(base, { waitUntil: "domcontentloaded", timeout: 60000 });
     await page.waitForFunction(
-      () => getComputedStyle(document.querySelector("h1")).fontSize === "64px",
+      () => getComputedStyle(document.querySelector("h1")).fontSize === "76px",
     );
-    await page.getByRole("heading", { level: 1, name: /Feels familiar/ }).waitFor();
+    await page.locator("#home-title").waitFor();
+    await page.waitForLoadState("networkidle");
+    await page.getByRole("button", { name: "Appearance and language", exact: true }).click();
     await page
       .getByRole("tablist", { name: "Color theme" })
       .locator('[aria-selected="true"]')
@@ -44,6 +46,7 @@ for (const [name, engine] of [
     await page.waitForFunction(() => document.documentElement.classList.contains("dark"));
     await page.getByRole("tab", { name: "Light theme", exact: true }).click();
     await page.waitForFunction(() => document.documentElement.classList.contains("light"));
+    await page.keyboard.press("Escape");
     await page.waitForTimeout(1500);
     await page.evaluate(() => {
       window.__stylexFrames = [];
@@ -67,12 +70,12 @@ for (const [name, engine] of [
     });
     await writeFile(
       component,
-      originalComponent.replace("Feels familiar.", "HMR keeps the page styled."),
+      originalComponent.replace("Great ideas.", "HMR keeps the page styled."),
     );
     await page.getByRole("heading", { level: 1, name: /HMR keeps the page styled/ }).waitFor();
     await page.waitForTimeout(1200);
     const missing = await page.evaluate(() =>
-      window.__stylexFrames.filter((size) => size !== "64px"),
+      window.__stylexFrames.filter((size) => size !== "76px"),
     );
     assert.deepEqual(missing, [], `${name}: active stylesheet disappeared during a text edit`);
     assert.equal(
@@ -84,10 +87,13 @@ for (const [name, engine] of [
       `${name}: unchanged CSS must not rewrite active stylesheets`,
     );
 
-    const description = page.locator("h1 + p");
+    const description = page.locator("#home-description");
     assert.equal(await description.evaluate((node) => getComputedStyle(node).fontSize), "18px");
     rejectNext = true;
-    await writeFile(styles, originalStyles.replace("fontSize: 18,", "fontSize: 19,"));
+    await writeFile(
+      styles,
+      originalStyles.replace('"@media (min-width: 768px)": 18', '"@media (min-width: 768px)": 19'),
+    );
     await page.waitForFunction(() =>
       document.querySelector("h1")?.textContent.includes("HMR keeps"),
     );
@@ -95,13 +101,16 @@ for (const [name, engine] of [
     assert.equal(rejectNext, false, "The failed replacement request must actually run");
     assert.equal(
       await page.locator("h1").evaluate((node) => getComputedStyle(node).fontSize),
-      "64px",
+      "76px",
       "A failed CSS request must retain the previous sheet",
     );
 
-    await writeFile(styles, originalStyles.replace("fontSize: 18,", "fontSize: 20,"));
+    await writeFile(
+      styles,
+      originalStyles.replace('"@media (min-width: 768px)": 18', '"@media (min-width: 768px)": 20'),
+    );
     await page.waitForFunction(
-      () => getComputedStyle(document.querySelector("h1 + p")).fontSize === "20px",
+      () => getComputedStyle(document.querySelector("#home-description")).fontSize === "20px",
     );
     await page.waitForTimeout(700);
     const frames = await page.evaluate(() => {
@@ -110,7 +119,7 @@ for (const [name, engine] of [
     });
     assert.ok(frames.length > 30);
     assert.deepEqual(
-      frames.filter((size) => size !== "64px"),
+      frames.filter((size) => size !== "76px"),
       [],
       `${name}: existing styles must survive successful and failed updates`,
     );

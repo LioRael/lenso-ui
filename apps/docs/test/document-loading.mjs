@@ -25,7 +25,8 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       }).observe(document, { subtree: true, childList: true, characterData: true });
     });
     await page.goto(`${base}/en`);
-    await page.waitForFunction(() => document.querySelector("[data-home-showcase] [data-ready]"));
+    await page.locator("#home-title").waitFor();
+    await page.waitForLoadState("networkidle");
     assert.deepEqual(modules, [], `${name}: the homepage loaded unrelated document modules`);
     await page.route("**/content/lenso/**", async (route) => {
       await new Promise((resolve) => setTimeout(resolve, 600));

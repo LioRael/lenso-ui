@@ -2,7 +2,7 @@
 
 // Copyright 2025 NextUI Inc.
 // Modified: floating Liquid Glass navigation with native Lenso popover behavior.
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import NextLink from "fumadocs-core/link";
 import { Glass, GlassButton, Link, Popover, ThemeScope } from "@lenso/ui";
@@ -22,32 +22,14 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
     ...language,
     url: language.code === "en" ? "/" : "/cn",
   }));
-  const headerRef = useRef<HTMLElement>(null);
-  const [overPhoto, setOverPhoto] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
-    const header = headerRef.current!;
-    const photo = header.closest("#nd-home-layout")!.querySelector("main [data-home-showcase]")!;
     const desktop = matchMedia("(min-width: 1024px)");
-    let observer: IntersectionObserver;
-    const observePhoto = () => {
-      observer?.disconnect();
-      observer = new IntersectionObserver(
-        (entries) => entries.forEach((entry) => setOverPhoto(entry.isIntersecting)),
-        { rootMargin: `-${header.clientHeight}px 0px 0px`, threshold: 0 },
-      );
-      observer.observe(photo);
-    };
-    const updateLayout = () => {
+    const closeDesktopMenu = () => {
       if (desktop.matches) setMenuOpen(false);
-      observePhoto();
     };
-    observePhoto();
-    desktop.addEventListener("change", updateLayout);
-    return () => {
-      observer.disconnect();
-      desktop.removeEventListener("change", updateLayout);
-    };
+    desktop.addEventListener("change", closeDesktopMenu);
+    return () => desktop.removeEventListener("change", closeDesktopMenu);
   }, []);
   const links = [
     { text: cn ? "文档" : "Docs", url: `/${locale}/docs/react/getting-started` },
@@ -63,8 +45,8 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
     <SearchDialog locale={locale}>
       <div id="nd-home-layout" {...stylex.props(s.container)}>
         <div {...stylex.props(s.headerRegion)}>
-          <header ref={headerRef} {...stylex.props(s.header)}>
-            <ThemeScope theme={overPhoto ? "dark" : undefined}>
+          <header {...stylex.props(s.header)}>
+            <ThemeScope>
               <div {...stylex.props(s.headerInner)}>
                 <div {...stylex.props(s.identityGroup)}>
                   <Glass elastic render={<NextLink href={cn ? "/cn" : "/"} />} xstyle={s.brand}>

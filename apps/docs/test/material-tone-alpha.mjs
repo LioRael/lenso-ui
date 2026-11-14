@@ -21,7 +21,7 @@ for (const [name, engine] of [
         deviceScaleFactor: dpr,
       });
       await page.goto(`${base}/cn`);
-      await page.locator('[data-home-showcase] [role="tablist"][data-ready]').waitFor();
+      await page.locator("header [data-lenso-slot=glass]").first().waitFor();
       for (const size of [0, 1]) {
         for (const clarity of [0, 0.5, 1]) {
           const expected = await page.evaluate(

@@ -22,7 +22,7 @@ for (const [engine, type] of [
       const errors = [];
       page.on("pageerror", (error) => errors.push(error.message));
       await page.goto(`${base}/cn`, { waitUntil: "domcontentloaded" });
-      await page.locator("[data-home-showcase]").waitFor();
+      await page.locator("#home-title").waitFor();
       await page.evaluate(async () => {
         const { mount } = await import("/test/menu-motion-fixture.tsx");
         for (const child of document.body.children)
@@ -129,21 +129,15 @@ for (const [engine, type] of [
       );
       await page.keyboard.press("Escape");
       await page.goto(`${base}/cn`, { waitUntil: "domcontentloaded" });
-      const showcase = page.locator("[data-home-showcase]");
-      await showcase.scrollIntoViewIfNeeded();
+      const brand = page.locator("header a[data-lenso-slot=glass]");
+      await brand.scrollIntoViewIfNeeded();
       await page.waitForFunction(() =>
-        document.querySelector("[data-home-showcase] [data-material-lens][data-material-filter]"),
+        document.querySelector("header [data-lenso-slot=glass] [data-material-lens]"),
       );
-      if (engine === "webkit")
-        await page.waitForFunction(() =>
-          document.querySelector("[data-home-showcase] [inert] img"),
-        );
       await page.waitForTimeout(700);
       await page.evaluate(() => {
         window.retainedGlass = [
-          ...document.querySelectorAll(
-            "[data-home-showcase] [data-material-lens], [data-home-showcase] [inert] img",
-          ),
+          ...document.querySelectorAll("header [data-lenso-slot=glass] [data-material-lens]"),
         ];
         window.homeScroll = scrollY;
         scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" });
@@ -156,24 +150,6 @@ for (const [engine, type] of [
         true,
         "unchanged glass rebuilt after re-entry",
       );
-      if (engine === "webkit") {
-        await page.evaluate(() =>
-          scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" }),
-        );
-        await page.waitForTimeout(300);
-        await page.evaluate(() => {
-          document.querySelector(
-            "[data-home-showcase] [data-lenso-backdrop] [role=tabpanel] > img",
-          ).src = "/assets/demo/photos/10.jpg";
-        });
-        await page.waitForTimeout(400);
-        await page.evaluate(() => scrollTo({ top: window.homeScroll, behavior: "instant" }));
-        await page.waitForFunction(() =>
-          [...document.querySelectorAll("[data-home-showcase] [inert] img")].some((e) =>
-            e.src.endsWith("/10.jpg"),
-          ),
-        );
-      }
       assert.deepEqual(errors, []);
       console.log(
         "PASS",
