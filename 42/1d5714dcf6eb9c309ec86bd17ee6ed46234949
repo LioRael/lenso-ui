@@ -1,0 +1,75 @@
+apps/docs/test/start-stylex-hmr.mjs
+  s_0a36fa17311984::t_741609dfdd61da 11,36,38-40,49,73,78,90,93-96,104,108-111,113,122
+apps/docs/test/document-loading.mjs
+  s_53dabd35e61a3c::t_eaf714bf049099 28-29
+apps/docs/src/styles/home.stylex.ts
+  h_9d56aba080c170 118
+  s_53dabd35e61a3c::t_124fb0ea692db5 2,6,8,10-12,16-23,25,29,32-33,38-39,41,43,46,48-49,52-53,59,61-62,64-74,77-80,82,85-115,117,119-128,132,134-146,148-153,159,161-162,164,167
+  s_d49f2afdde8a40::t_9792209f3fe7cf 116
+apps/docs/test/menu-ink-reentry.mjs
+  s_0a36fa17311984::t_e4f77f6379a256 25,132-133,135,140
+apps/docs/test/home-scroll-material.mjs
+  s_0a36fa17311984::t_7d617f1e2534d8 20
+apps/docs/src/styles/home-layout.stylex.ts
+  s_0a36fa17311984::t_5d48b4bb72b999 13
+apps/docs/test/home-showcase-initial.mjs
+  s_0a36fa17311984::t_8f55a40f10bc14 5,8-10,12-42,44-46,48-52,55-58
+  s_64cc117839f013::t_a9464e5fb0ea4e 43
+apps/docs/src/components/home-layout.tsx
+  s_0a36fa17311984::t_1a04bfe0557126 5,28,31-32,48-49
+apps/docs/src/components/home-page.tsx
+  s_53dabd35e61a3c::t_0004acc1ade90b 153-157
+  s_53dabd35e61a3c::t_124fb0ea692db5 5,8-9,11,16-26,28-35,38-45,48-55,65-103,106-112,114-118,120-122,124-140,145-151,159-223,226-231,233,236
+  s_0a36fa17311984::t_5aad488afd25e3 3,152,158
+apps/docs/src/styles/home-playground.stylex.ts
+  s_0a36fa17311984::t_37b616703a2176 3,5,7-8,10-17,19-29,31-37,39-52,54-73,75-81,83-92,94-100,102-103
+apps/docs/src/components/home-playground.tsx
+  h_9d56aba080c170 3-4,6-19,21-26,29,31-42,44-53,55-109,111-135,137-185
+apps/docs/test/material-tone-alpha.mjs
+  h_9d56aba080c170 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "421d5714dcf6eb9c309ec86bd17ee6ed46234949",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  },
+  "sessions": {
+    "s_0a36fa17311984": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1daa8-3fb7-7c03-beac-1e3b4a74162a",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_53dabd35e61a3c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1daa9-285b-7dc3-a2ee-693f69e73549",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_64cc117839f013": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1bb11-dd57-7130-aa1b-617833f48e78",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_d49f2afdde8a40": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1b223-ead1-7131-9aac-8dab90fa59a6",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
