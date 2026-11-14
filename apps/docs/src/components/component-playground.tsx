@@ -1,10 +1,11 @@
-import type { ComponentType } from "react";
-import type { StoryFile, PlaygroundScenario } from "@/stories/story-context";
+import type { ComponentType, ReactNode } from "react";
+import { KeyboardGuidance, type StoryFile, type PlaygroundScenario } from "@/stories/story-context";
 export function ComponentPlayground({
   locale,
   Preview,
   loadFiles,
   scenarios,
+  children,
 }: {
   family: string;
   locale: "en" | "cn";
@@ -15,6 +16,11 @@ export function ComponentPlayground({
   }>;
   loadFiles?: () => Promise<StoryFile[]>;
   scenarios?: PlaygroundScenario[];
+  children?: ReactNode;
 }) {
-  return <Preview locale={locale} loadFiles={loadFiles} scenarios={scenarios} />;
+  return (
+    <KeyboardGuidance value={children}>
+      <Preview locale={locale} loadFiles={loadFiles} scenarios={scenarios} />
+    </KeyboardGuidance>
+  );
 }

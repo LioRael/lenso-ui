@@ -23,6 +23,9 @@ export const panel = stylex.create({
     "--lg-tab-width": "112px",
     "--lg-tab-height": { default: "36px", "@media (pointer: coarse)": "44px" },
   },
+  keyboardList: {
+    "--lg-tab-width": { default: "112px", "@media (max-width: 639px)": "88px" },
+  },
   tab: {
     fontSize: 13,
     fontWeight: { default: 500, ":is([aria-selected='true'])": 600 },

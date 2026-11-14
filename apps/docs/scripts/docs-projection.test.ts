@@ -137,9 +137,9 @@ test("discovers local stories in both locales without changing the source scenar
       path.join(directory, `apps/docs/content/lenso/${locale}/react/components/menu.mdx`),
       "utf8",
     );
-    assert.ok(markdown.includes(`<ComponentPlayground family="menu" locale="${locale}" />`));
-    const heading = locale === "cn" ? "## 纯键盘演练" : "## Keyboard-only walkthrough";
-    assert.ok(markdown.indexOf(heading) > markdown.indexOf("<ComponentPlayground"));
+    assert.ok(markdown.includes(`<ComponentPlayground family="menu" locale="${locale}">`));
+    assert.match(markdown, /keyboard[\s\S]*<\/ComponentPlayground>\s*$/);
+    assert.doesNotMatch(markdown, /^## /m);
     assert.match(markdown, /Sort by/);
     assert.match(markdown, /Escape/);
     assert.match(markdown, /keyboard/);
@@ -402,7 +402,8 @@ test("publishes localized key references for composite controls without duplicat
     for (const family of ["tabs", "time-field"]) {
       const content = markdown.get(`content/lenso/${locale}/react/components/${family}.mdx`)!;
       assert.equal(content.match(/<ComponentPlayground /g)?.length, 1);
-      assert.ok(content.includes(locale === "cn" ? "## 键盘操作" : "## Keyboard reference"));
+      assert.match(content, /Home\/End[\s\S]*<\/ComponentPlayground>\s*$/);
+      assert.doesNotMatch(content, /^## /m);
       assert.match(content, /Home\/End/);
     }
     const chip = markdown.get(`content/lenso/${locale}/react/components/chip.mdx`)!;

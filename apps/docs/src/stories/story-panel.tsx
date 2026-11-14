@@ -18,7 +18,7 @@ export {
   type PlaygroundScenario,
   useStoryLocale,
 } from "./story-context";
-import { useStoryLocale, Scenarios } from "./story-context";
+import { useStoryLocale, Scenarios, KeyboardGuidance } from "./story-context";
 import { PlaygroundActivity } from "./playground-activity";
 import { DeferredExampleSource } from "@/components/deferred-example-source";
 const StorySource = lazy(() => import("./story-source"));
@@ -242,6 +242,7 @@ function Content() {
   const cn = useStoryLocale() === "cn";
   const { presets, preset, variant, setVariant, displayName } = useStory();
   const [view, setView] = useState("preview");
+  const keyboardGuidance = useContext(KeyboardGuidance);
   const scenarios = useContext(Scenarios);
   const [example, setExample] = useState<string | undefined>(
     () => scenarios.find((scenario) => scenario.initial)?.id,
@@ -353,13 +354,21 @@ function Content() {
     >
       <div {...stylex.props(s.toolbar)}>
         <Tabs.ListContainer xstyle={s.listContainer}>
-          <Tabs.List aria-label={cn ? "交互示例视图" : "Playground view"} xstyle={s.list}>
+          <Tabs.List
+            aria-label={cn ? "交互示例视图" : "Playground view"}
+            xstyle={[s.list, Boolean(keyboardGuidance) && s.keyboardList]}
+          >
             <Tabs.Tab value="preview" xstyle={s.tab}>
               {cn ? "实时预览" : "Live preview"}
             </Tabs.Tab>
             <Tabs.Tab value="source" xstyle={s.tab}>
               {cn ? "代码" : "Code"}
             </Tabs.Tab>
+            {keyboardGuidance ? (
+              <Tabs.Tab value="keyboard" xstyle={s.tab}>
+                {cn ? "键盘操作" : "Keyboard"}
+              </Tabs.Tab>
+            ) : null}
             <Tabs.Indicator />
           </Tabs.List>
         </Tabs.ListContainer>
@@ -460,6 +469,11 @@ function Content() {
           )}
         </Suspense>
       </Tabs.Panel>
+      {keyboardGuidance ? (
+        <Tabs.Panel value="keyboard" xstyle={s.panel}>
+          {keyboardGuidance}
+        </Tabs.Panel>
+      ) : null}
     </Tabs>
   );
 }

@@ -1302,10 +1302,13 @@ export async function generateDocsProjection(directory = root) {
               "",
             ]
           : []),
-        `<ComponentPlayground family="${family}" locale="${locale}" />`,
       ];
       const keyboard = keyboardGuidance(family, locale);
-      if (keyboard) sections.push("", keyboard);
+      sections.push(
+        keyboard
+          ? `<ComponentPlayground family="${family}" locale="${locale}">\n\n${keyboard.replace(/^## .+\n\n/, "")}\n\n</ComponentPlayground>`
+          : `<ComponentPlayground family="${family}" locale="${locale}" />`,
+      );
       markdown.set(markdownFile, `${sections.join("\n")}\n`);
       pages.push({
         locale,

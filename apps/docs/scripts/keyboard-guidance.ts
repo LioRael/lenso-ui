@@ -2,7 +2,7 @@ const guides: Record<string, [string, string]> = {
   menu: [
     `## Keyboard-only walkthrough
 
-Use the Complete example in the preview above, with its default settings.
+Switch to Live preview and use the Complete example with its default settings.
 
 1. Press Tab until the Actions button (accessible name: Menu) is focused. Press Enter to open it.
 2. Press End to focus Sort by, then Right Arrow to open its submenu.
@@ -12,7 +12,7 @@ Use the Complete example in the preview above, with its default settings.
 In the Console, both closing entries show open: false and end in keyboard. That last field is the input source, not the dismissal reason. The Sort by and Menu labels identify which layer closed. Up/Down Arrow navigates items; Enter activates the focused action. Left Arrow also returns from a submenu in a left-to-right layout.`,
     `## 纯键盘演练
 
-在上方预览中选择「完整示例」，使用默认设置。
+切换到「实时预览」，选择「完整示例」并使用默认设置。
 
 1. 按 Tab，直到「操作」按钮（无障碍名称为 Menu）获得焦点，按 Enter 打开菜单。
 2. 按 End 聚焦「排序方式」（Sort by），再按右方向键打开子菜单。

@@ -299,7 +299,7 @@ export function PageStory({locale, loadFiles, scenarios}: {locale: "en" | "cn"; 
         `import { PageStory } from ${JSON.stringify(relativeImport(server, client.slice(0, -4)))};`,
       );
       extensions.push(
-        `ComponentPlayground: () => <ComponentPlayground family=${JSON.stringify(family)} locale=${JSON.stringify(page.locale)} Preview={PageStory} loadFiles={() => loadSources().then(module=>module.playground())} scenarios={[${(pageScenarios.get(`${page.locale}/${page.slug}`) ?? []).map(({ name }) => `{id:${JSON.stringify(name)},title:${JSON.stringify(examplePresentation(name, family, page.locale).title)},${name === "menu-default" ? "initial:true," : ""}Preview:demos[${JSON.stringify(name)}]!,loadFiles:()=>loadSources().then(module=>module.examples[${JSON.stringify(name)}]!())}`).join(",")}]} />`,
+        `ComponentPlayground: ({children}: {children?: import("react").ReactNode}) => <ComponentPlayground family=${JSON.stringify(family)} locale=${JSON.stringify(page.locale)} Preview={PageStory} loadFiles={() => loadSources().then(module=>module.playground())} scenarios={[${(pageScenarios.get(`${page.locale}/${page.slug}`) ?? []).map(({ name }) => `{id:${JSON.stringify(name)},title:${JSON.stringify(examplePresentation(name, family, page.locale).title)},${name === "menu-default" ? "initial:true," : ""}Preview:demos[${JSON.stringify(name)}]!,loadFiles:()=>loadSources().then(module=>module.examples[${JSON.stringify(name)}]!())}`).join(",")}]}>{children}</ComponentPlayground>`,
       );
     }
     const identities = new Map<string, number>();

@@ -2,6 +2,7 @@
 import { createContext, useContext, type ReactNode, type ComponentType } from "react";
 const Language = createContext<"en" | "cn">("en");
 export const useStoryLocale = () => useContext(Language);
+export const KeyboardGuidance = createContext<ReactNode>(null);
 export type StoryFile = { file: string; code: string };
 export type PlaygroundScenario = {
   id: string;
