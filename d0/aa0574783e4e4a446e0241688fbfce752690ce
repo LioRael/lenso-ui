@@ -1,0 +1,54 @@
+.agents/skills/lenso-ui/SKILL.md
+  h_9d56aba080c170 21,30,32-33,61-65
+.agents/skills/lenso-ui/references/composition.md
+  h_9d56aba080c170 13,17-20,57-58,101-102
+.agents/skills/lenso-ui/references/debugging.md
+  h_9d56aba080c170 18-23
+.agents/skills/lenso-ui/references/forms.md
+  h_9d56aba080c170 9,21-36
+.agents/skills/lenso-ui/references/overlays.md
+  h_9d56aba080c170 11-13,27-29
+.agents/skills/lenso-ui/references/query.md
+  h_9d56aba080c170 18-22,43-52
+.agents/skills/lenso-ui/references/setup.md
+  h_9d56aba080c170 56-58
+apps/docs/content/lenso/cn/react/getting-started/architecture.mdx
+  h_9d56aba080c170 10,19-24,36,38
+apps/docs/content/lenso/cn/react/getting-started/frameworks.mdx
+  h_9d56aba080c170 108,123,335,339
+apps/docs/content/lenso/cn/react/getting-started/index.mdx
+  h_9d56aba080c170 15
+apps/docs/content/lenso/cn/react/getting-started/installation.mdx
+  h_9d56aba080c170 69,121
+apps/docs/content/lenso/en/react/getting-started/architecture.mdx
+  h_9d56aba080c170 10,19-24,36
+apps/docs/content/lenso/en/react/getting-started/frameworks.mdx
+  h_9d56aba080c170 108,123,335,339
+apps/docs/content/lenso/en/react/getting-started/index.mdx
+  h_9d56aba080c170 15
+apps/docs/content/lenso/en/react/getting-started/installation.mdx
+  h_9d56aba080c170 69,121
+docs/architecture/repository.md
+  h_9d56aba080c170 3-5,15
+docs/design/component-conventions.md
+  h_9d56aba080c170 374-375
+docs/design/list-composition.md
+  h_9d56aba080c170 32-37,61-62
+docs/plans/ui-sdk-react-migration.md
+  h_9d56aba080c170 3-9,200-205
+packages/primitives/README.md
+  h_9d56aba080c170 3-4,30-36
+packages/ui/README.md
+  h_9d56aba080c170 24,46-48,55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d0aa0574783e4e4a446e0241688fbfce752690ce",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
