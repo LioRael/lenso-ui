@@ -1,0 +1,40 @@
+.github/workflows/release.yml
+  h_9d56aba080c170 9
+RELEASE.md
+  h_9d56aba080c170 1-20
+apps/docs/src/generated/lenso-docs-index.json
+  h_9d56aba080c170 3
+bun.lock
+  h_9d56aba080c170 120,140,187,253,266
+packages/create-docs/package.json
+  h_9d56aba080c170 3
+packages/create-docs/src/cli.ts
+  h_9d56aba080c170 6
+packages/create-docs/template/package.json
+  h_9d56aba080c170 11
+packages/create-docs/test/cli.test.ts
+  h_9d56aba080c170 70,92
+packages/docs/package.json
+  h_9d56aba080c170 3
+packages/glass/package.json
+  h_9d56aba080c170 3
+packages/tokens/package.json
+  h_9d56aba080c170 3
+packages/ui/package.json
+  h_9d56aba080c170 3
+scripts/publish-packages.ts
+  h_9d56aba080c170 48,51-52
+tests/publish-packages.test.ts
+  h_9d56aba080c170 117,135,153,189,227,286,325,416
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d47c08d700aa40437c90602004b3c10793e35b73",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
