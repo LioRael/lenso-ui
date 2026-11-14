@@ -1,3 +1,29 @@
+# Prepared release: UI/Tokens 0.11.1, Glass 0.2.1 and Docs 0.3.2
+
+Publish this patch set in dependency order:
+
+| Package             | Version  | Changes                                                                                                                                      |
+| ------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@lenso/tokens`     | `0.11.1` | Align Pill Toast titles and isolate scrolling from glass popup surfaces.                                                                     |
+| `@lenso/glass`      | `0.2.1`  | Update the exact Tokens dependency to 0.11.1; optical implementation is unchanged.                                                           |
+| `@lenso/ui`         | `0.11.1` | Use inner scrollers for ActionSheet, AlertDialog and DatePicker; let Escape close the calendar popup when the year picker is already closed. |
+| `@lenso/docs`       | `0.3.2`  | Defer the text search engine without Markdown result parsing and consume the updated UI packages.                                            |
+| `create-lenso-docs` | `0.3.2`  | Generate projects pinned to Docs 0.3.2.                                                                                                      |
+
+Primitives remain at 0.9.0. The existing registry tarball must retain its integrity
+and is not republished. The docs site's homepage, scenario links and simulated
+Pill Toast workflow are website changes, rather than new framework APIs.
+
+Upgrade UI and Tokens together. Existing documentation projects can update
+`@lenso/docs` to 0.3.2 without a configuration migration. No new public API or
+breaking change is introduced by this patch set; the 0.11.0 migration requirements
+below still apply when upgrading from earlier versions.
+
+Dispatch the existing `Release` workflow with input `0.11.1` only after the exact
+main commit passes verification. Preserve the protected `npm` environment,
+OIDC provenance, package-content validation and dependency/integrity checks.
+Prepared versions are not a publication receipt.
+
 # Prepared release: Docs 0.3.1
 
 Publish `@lenso/docs@0.3.1` and `create-lenso-docs@0.3.1`. The initializer pins
