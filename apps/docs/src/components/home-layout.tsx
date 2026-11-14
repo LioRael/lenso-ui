@@ -2,10 +2,10 @@
 
 // Copyright 2025 NextUI Inc.
 // Modified: floating Liquid Glass navigation with native Lenso popover behavior.
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import * as stylex from "@stylexjs/stylex";
 import NextLink from "fumadocs-core/link";
-import { Glass, GlassButton, Link, Popover, ThemeScope } from "@lenso/ui";
+import { Glass, GlassButton, Link, Popover, ScrollEdge, ThemeScope } from "@lenso/ui";
 import { ChevronDown, Sliders } from "@gravity-ui/icons";
 import { AppearanceControls, RepositoryControl } from "./docs-site-controls";
 import { CompactSearchTrigger, SearchDialog } from "./fumadocs/ui/search-dialog";
@@ -16,6 +16,10 @@ import { headerControls } from "@/styles/header-controls.stylex";
 import { product } from "@/lib/product";
 import type { Locale } from "@/lib/source";
 
+const subscribe = () => () => {};
+const getViewport = () => document.scrollingElement as HTMLElement | null;
+const getServerViewport = () => null;
+
 export function HomeShell({ locale, children }: { locale: Locale; children: ReactNode }) {
   const cn = locale === "cn";
   const alternates = documentationLocales.map((language) => ({
@@ -23,6 +27,8 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
     url: language.code === "en" ? "/" : "/cn",
   }));
   const [menuOpen, setMenuOpen] = useState(false);
+  const viewport = useSyncExternalStore(subscribe, getViewport, getServerViewport);
+  const scrollRef = useMemo(() => ({ current: viewport }), [viewport]);
   useEffect(() => {
     const desktop = matchMedia("(min-width: 1024px)");
     const closeDesktopMenu = () => {
@@ -45,6 +51,7 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
     <SearchDialog locale={locale}>
       <div id="nd-home-layout" {...stylex.props(s.container)}>
         <div {...stylex.props(s.headerRegion)}>
+          {viewport && <ScrollEdge scrollRef={scrollRef} fadeStart={48} xstyle={s.headerEdge} />}
           <header {...stylex.props(s.header)}>
             <ThemeScope>
               <div {...stylex.props(s.headerInner)}>

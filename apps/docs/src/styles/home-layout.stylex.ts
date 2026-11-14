@@ -19,6 +19,13 @@ export const homeLayout = stylex.create({
     zIndex: 10,
     pointerEvents: "none",
   },
+  headerEdge: {
+    position: "absolute",
+    insetInline: 0,
+    top: 0,
+    height: 112,
+    zIndex: 0,
+  },
   header: {
     position: "relative",
     zIndex: 10,

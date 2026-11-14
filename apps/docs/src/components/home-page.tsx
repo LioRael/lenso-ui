@@ -104,11 +104,6 @@ export function HomePage({ locale }: { locale: Locale }) {
               </div>
             </div>
           </div>
-          <div {...stylex.props(s.demoIntroduction)}>
-            <span>
-              {cn ? "不是截图，是你的试用空间。" : "Not a screenshot. Your own space to play."}
-            </span>
-          </div>
           <HomePlayground locale={locale} />
         </section>
 

@@ -61,18 +61,6 @@ export const home = stylex.create({
     gap: 24,
     marginTop: 28,
   },
-  demoIntroduction: {
-    display: "flex",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 12,
-    marginTop: 64,
-    marginBottom: 16,
-    textAlign: "start",
-    fontSize: 12,
-    fontWeight: 500,
-  },
   sectionTitle: {
     marginTop: 0,
     marginBottom: 24,

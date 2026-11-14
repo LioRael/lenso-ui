@@ -4,7 +4,7 @@ export const playground = stylex.create({
   root: {
     textAlign: "start",
     minWidth: 0,
-    marginTop: 24,
+    marginTop: 64,
     marginBottom: { default: 56, "@media (min-width: 900px)": 96 },
   },
   composition: {
