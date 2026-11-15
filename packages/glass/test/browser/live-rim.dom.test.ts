@@ -88,12 +88,18 @@ test("ordinary glass retains its live rim after layout and corner changes", () =
   const stop = attachGlass(lens);
   try {
     expect(lens.querySelector("canvas")).toBeNull();
-    lens.style.borderRadius = "12px";
     const start = new Event("transitionrun", { bubbles: true });
     Object.defineProperty(start, "propertyName", { value: "border-top-left-radius" });
     lens.dispatchEvent(start);
     const canvas = lens.querySelector("canvas")!;
+    // transitionrun can precede the first interpolated geometry.
+    expect(canvas).not.toBeNull();
     expect(canvas.width).toBe(204);
+    expect(lens.hasAttribute("data-material-live-rim")).toBe(true);
+    expect(readLens(lens)?.radius).toBe(20);
+    lens.style.borderRadius = "12px";
+    lens.dispatchEvent(start);
+    expect(lens.querySelector("canvas")).toBe(canvas);
     expect(readLens(lens)?.radius).toBe(12);
     const end = new Event("transitionend", { bubbles: true });
     Object.defineProperty(end, "propertyName", { value: "border-top-left-radius" });
@@ -103,6 +109,11 @@ test("ordinary glass retains its live rim after layout and corner changes", () =
     expect(lens.querySelector("canvas")).toBe(canvas);
     expect(canvas.width).toBe(324);
     expect(lens.hasAttribute("data-material-live-rim")).toBe(true);
+    stop();
+    expect(lens.querySelector("canvas")).toBeNull();
+    expect(lens.hasAttribute("data-material-live-rim")).toBe(false);
+    lens.dispatchEvent(start);
+    expect(lens.querySelector("canvas")).toBeNull();
   } finally {
     stop();
     surface.remove();

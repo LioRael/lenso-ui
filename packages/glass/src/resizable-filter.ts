@@ -1,5 +1,7 @@
+import { splitFilter } from "./filter-split.js";
+
 /** Own a mutable view of decoded optics; cached filters remain immutable. */
-export function createResizableFilter(template: SVGElement, id: string) {
+export function createResizableFilter(template: SVGElement, id: string, split = false) {
   const node = template.cloneNode(true) as SVGElement;
   node.id = id;
   // A baked circle contour would stretch into an ellipse during expansion.
@@ -14,23 +16,32 @@ export function createResizableFilter(template: SVGElement, id: string) {
     contour.remove();
     node.querySelector('[result="contour-paint"]')?.remove();
   }
-  const fields = [...node.querySelectorAll("feImage")].map((image) => ({
-    image,
-    x: Number(image.getAttribute("x") ?? 0),
-    y: Number(image.getAttribute("y") ?? 0),
-    width: Number(image.getAttribute("width")),
-    height: Number(image.getAttribute("height")),
-  }));
+  // Preserve materialized optics only when the fitted lens already uses them.
+  const paint = split
+    ? splitFilter(node, node.querySelector('[result="optical-face"]') ? "optical-face" : "face")
+    : undefined;
+  const nodes = [node, ...(paint?.nodes ?? [])];
+  const fields = nodes
+    .flatMap((node) => [...node.querySelectorAll("feImage")])
+    .map((image) => ({
+      image,
+      x: Number(image.getAttribute("x") ?? 0),
+      y: Number(image.getAttribute("y") ?? 0),
+      width: Number(image.getAttribute("width")),
+      height: Number(image.getAttribute("height")),
+    }));
   const base = fields[0]!;
   const extraWidth = Number(node.getAttribute("width")) - base.width;
   const extraHeight = Number(node.getAttribute("height")) - base.height;
-  template.parentNode!.appendChild(node);
+  template.parentNode!.append(...nodes);
   return {
     node,
-    filter: `url("#${id}")`,
+    filter: paint?.value ?? `url("#${id}")`,
     resize(width: number, height: number) {
-      node.setAttribute("width", String(width + extraWidth));
-      node.setAttribute("height", String(height + extraHeight));
+      for (const owned of nodes) {
+        owned.setAttribute("width", String(width + extraWidth));
+        owned.setAttribute("height", String(height + extraHeight));
+      }
       for (const field of fields) {
         field.image.setAttribute("x", String((field.x * width) / base.width));
         field.image.setAttribute("y", String((field.y * height) / base.height));
@@ -38,6 +49,8 @@ export function createResizableFilter(template: SVGElement, id: string) {
         field.image.setAttribute("height", String((field.height * height) / base.height));
       }
     },
-    destroy: () => node.remove(),
+    destroy() {
+      for (const owned of nodes) owned.remove();
+    },
   };
 }

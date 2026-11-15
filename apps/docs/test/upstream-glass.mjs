@@ -245,9 +245,9 @@ for (const [name, engine] of [
         );
         const range = sheet.getByRole("slider", { name: "Sheet range" });
         const rb = await range.boundingBox();
-        const oldValue = Number(await range.getAttribute("aria-valuenow"));
+        const oldValue = Number(await range.inputValue());
         await drag(rb.x + rb.width / 2, rb.y + rb.height / 2, 70, 0);
-        assert.notEqual(Number(await range.getAttribute("aria-valuenow")), oldValue);
+        assert.notEqual(Number(await range.inputValue()), oldValue);
         assert.ok(
           Math.abs((await measure()).y - full.y) < 1,
           "Slider retains native value and gesture ownership",

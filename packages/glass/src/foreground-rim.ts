@@ -167,10 +167,40 @@ export function foregroundRim(width: number, height: number, radius: number, sha
   return encodeImageData(new ImageData(image.data, image.width, image.height));
 }
 
+// Press/release destroys the live canvas, not the usefulness of its corner pixels.
+// Keep at most 1 MiB of immutable sources; each caller still receives fresh output.
+const tileSources = new Map<string, ReturnType<typeof foregroundRimPixels>>();
+const TILE_BYTES = 1024 * 1024;
+let tileBytes = 0;
+
 /** Reuse unscaled corner pixels and constant edge strips as a live surface resizes. */
 export function foregroundRimTiles(radius: number, shape: Shape) {
   const extent = Math.ceil(Math.max(radius, depth) + 1);
-  const source = foregroundRimPixels(extent * 2 - 1, extent * 2 - 1, radius, shape);
+  const key = JSON.stringify([
+    radius,
+    shape.lightIntensity,
+    shape.lightAngle,
+    shape.materialProfile,
+    shape.materialClarity,
+    shape.appleMode,
+    shape.materialRim,
+  ]);
+  let source = tileSources.get(key);
+  if (source) {
+    tileSources.delete(key);
+    tileSources.set(key, source);
+  } else {
+    source = foregroundRimPixels(extent * 2 - 1, extent * 2 - 1, radius, shape);
+    if (source.data.byteLength <= TILE_BYTES) {
+      while (tileBytes + source.data.byteLength > TILE_BYTES) {
+        const oldest = tileSources.keys().next().value!;
+        tileBytes -= tileSources.get(oldest)!.data.byteLength;
+        tileSources.delete(oldest);
+      }
+      tileSources.set(key, source);
+      tileBytes += source.data.byteLength;
+    }
+  }
   const pixels = new Uint32Array(source.data.buffer);
   const band = extent * 2;
   return (width: number, height: number) => {
@@ -181,6 +211,10 @@ export function foregroundRimTiles(radius: number, shape: Shape) {
     const left = Math.min(band, Math.floor(columns / 2));
     const top = Math.min(band, Math.floor(rows / 2));
     for (let y = 0; y < rows; y++) {
+      if (y > top && y < rows - top) {
+        target.copyWithin(y * columns, top * columns, (top + 1) * columns);
+        continue;
+      }
       const sourceY = y < top ? y : y >= rows - top ? source.height - (rows - y) : band;
       const row = sourceY * source.width;
       const offset = y * columns;

@@ -893,7 +893,11 @@ function refract(
       return;
     }
     if (!fitted.node || !refractsBackdrop()) return;
-    resized ??= createResizableFilter(fitted.node, `lenso-glass-${nextId++}`);
+    resized ??= createResizableFilter(
+      fitted.node,
+      `lenso-glass-${nextId++}`,
+      fitted.paint !== undefined,
+    );
     resized.resize(width, height);
     element.style.setProperty("--lg-filter", resized.filter);
     element.style.setProperty("--lg-rim", "none");
@@ -1010,6 +1014,8 @@ function refract(
     )
       return;
     radiusTransitions.add(event.propertyName);
+    // The fitted rim can retire before the first interpolated geometry arrives.
+    movingRim = true;
     if (rimFrame === undefined) animateRim();
     resizeFitted(true);
     schedule(false);

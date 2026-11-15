@@ -57,6 +57,37 @@ test("live rim tiles preserve the fitted rim pixels without scaling corners", ()
   }
 });
 
+test("live rim reuse keeps recipes and returned pixels independent", () => {
+  const material: Shape = { ...shape };
+  const original = foregroundRimTiles(17.375, material);
+  const first = original(311, 90);
+  const retained = first.data.slice();
+  first.data.fill(0);
+  for (const override of [
+    {},
+    { appleMode: "dark" },
+    { lightIntensity: 0.43 },
+    { lightAngle: 37 },
+    { materialProfile: "medium" },
+    { materialClarity: 1 },
+    { materialRim: "classic" },
+  ] satisfies Partial<Shape>[]) {
+    Object.assign(
+      material,
+      shape,
+      { materialClarity: undefined, materialRim: undefined },
+      override,
+    );
+    const actual = foregroundRimTiles(17.375, material)(311, 90);
+    const expected = foregroundRimPixels(311, 90, 17.375, material);
+    let difference = 0;
+    for (let i = 0; i < actual.data.length; i++)
+      difference = Math.max(difference, Math.abs(actual.data[i]! - expected.data[i]!));
+    expect(difference).toBeLessThanOrEqual(1);
+    expect(original(311, 90).data).toEqual(retained);
+  }
+});
+
 // The small reference has the same pixel pitch and corner radius as the large
 // panel. Extending its straight edges must preserve the fractional corner coverage.
 test("extending a panel preserves every corner and straight-edge pixel", () => {

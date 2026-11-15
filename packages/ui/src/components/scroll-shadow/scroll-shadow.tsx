@@ -100,14 +100,24 @@ export function ScrollShadowRoot({
     el.addEventListener("scroll", schedule, { passive: true });
     // Content can change without resizing the viewport: observe both layout and DOM growth.
     const resize = new ResizeObserver(schedule);
+    const observed = new Set<Element>();
     const observeChildren = () => {
-      resize.disconnect();
-      resize.observe(el);
-      for (const child of el.children) resize.observe(child);
+      for (const child of observed)
+        if (child.parentElement !== el) {
+          resize.unobserve(child);
+          observed.delete(child);
+        }
+      for (const child of el.children)
+        if (!observed.has(child)) {
+          resize.observe(child);
+          observed.add(child);
+        }
     };
+    resize.observe(el);
     observeChildren();
-    const mutations = new MutationObserver(() => {
-      observeChildren();
+    const mutations = new MutationObserver((records) => {
+      if (records.some((record) => record.type === "childList" && record.target === el))
+        observeChildren();
       schedule();
     });
     mutations.observe(el, {

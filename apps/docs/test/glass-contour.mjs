@@ -15,6 +15,8 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       const errors = [];
       page.on("pageerror", (error) => errors.push(error.message));
       await page.goto(`${base}/en/docs/react/components/glass-button`);
+      await page.getByRole("heading", { name: "GlassButton", exact: true }).first().waitFor();
+      await page.waitForLoadState("networkidle");
       await page.evaluate(async (theme) => {
         const { mount } = await import("/test/glass-contour-fixture.tsx");
         for (const child of document.body.children)
