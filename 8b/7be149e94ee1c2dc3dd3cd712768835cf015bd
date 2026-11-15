@@ -1,0 +1,32 @@
+apps/docs/test/glass-contour.mjs
+  h_9d56aba080c170 18-19
+apps/docs/test/upstream-glass.mjs
+  h_9d56aba080c170 248,250
+packages/glass/src/foreground-rim.ts
+  h_9d56aba080c170 170-175,179-203,214-217
+packages/glass/src/refraction.ts
+  h_9d56aba080c170 896-900,1017-1018
+packages/glass/src/resizable-filter.ts
+  h_9d56aba080c170 1-2,4,19-32,36,39,41-44,52-54
+packages/glass/test/browser/live-rim.dom.test.ts
+  h_9d56aba080c170 95-96,98-102,112-116
+packages/glass/test/browser/resizable-filter.dom.test.ts
+  h_9d56aba080c170 3-4,47-84
+packages/glass/test/foreground-rim.test.ts
+  h_9d56aba080c170 60-90
+packages/ui/src/components/scroll-shadow/scroll-shadow.tsx
+  h_9d56aba080c170 103,105-114,116,118-120
+packages/ui/test/scroll-shadow.dom.test.tsx
+  h_9d56aba080c170 1-82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8b7be149e94ee1c2dc3dd3cd712768835cf015bd",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
