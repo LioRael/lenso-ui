@@ -223,10 +223,16 @@ native exit presence.
 
 An owning glass Toolbar or Toolbar.Group also supplies the visual source for
 nested morphing Menus. Menu keeps its actual trigger for activation and focus,
-but uses the nearest owning surface for placement, shape and temporary masking.
-Detached controls remain individual sources. Standalone glass actions have a mild
+but uses the nearest owning surface for placement, shape and temporary masking
+by default. Set `morphSource="trigger"` to expand from its own control, or
+`morphSource="toolbar"` to use the nearest Toolbar even when an inner group also
+owns a surface. Matching a toolbar-width popup to that source lets it replace
+the original row instead of leaving an empty toolbar slot. Detached controls remain individual sources. Standalone glass actions have a mild
 release overshoot; members of a fusion plane and joined groups keep a damped
 return so their shared contour does not repeatedly cross a contact threshold.
+Attached Toolbar separators reserve 4px on each side along the toolbar's main
+axis, so the line reads as a group divider rather than a control edge. Unattached
+toolbars retain their existing 8px root gap without extra separator margins.
 GlassButton and GlassToggleButton use pointer-specific enlargement: 6 CSS px on
 the longer side for a mouse, 16 CSS px for touch/pen, regardless of component
 size. Fusion touch release uses a faster critically damped return (342/37),

@@ -40,7 +40,7 @@ export const toolbarStyles = stylex.create({
     justifyContent: "start",
     justifyItems: "center",
   },
-  attached: { padding: 4, gap: 0 },
+  attached: { padding: 4, gap: 0, "--toolbar-separator-spacing": "4px" },
   motion: {
     scale: "var(--toolbar-press-scale, 1 1)",
     translate: "var(--toolbar-press-translate, 0px 0px)",
@@ -148,6 +148,16 @@ export const toolbarStyles = stylex.create({
   separator: { backgroundColor: tokens.separator, flexShrink: 0 },
   separatorHorizontal: { width: "50%", justifySelf: "center" },
   separatorVertical: { height: "50%", alignSelf: "center" },
-  horizontalLine: { width: "50%", height: 1, justifySelf: "center" },
-  verticalLine: { width: 1, height: "50%", alignSelf: "center" },
+  horizontalLine: {
+    width: "50%",
+    height: 1,
+    justifySelf: "center",
+    marginBlock: "var(--toolbar-separator-spacing, 0px)",
+  },
+  verticalLine: {
+    width: 1,
+    height: "50%",
+    alignSelf: "center",
+    marginInline: "var(--toolbar-separator-spacing, 0px)",
+  },
 });

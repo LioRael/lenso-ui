@@ -101,25 +101,32 @@ export function MenuTrigger({
   style,
   ref,
   children,
+  morphSource = "container",
   ...props
 }: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuTrigger>> & {
   "data-menu-expand"?: boolean;
+  morphSource?: "container" | "trigger" | "toolbar";
 }) {
   const elastic = React.useContext(Elastic);
   const motion = React.useContext(Motion);
   const register = React.useCallback(
     (node: HTMLElement | null) => {
       const caller = assignRef(ref, node);
-      const own = assignRef(
-        motion?.trigger,
-        node?.closest<HTMLElement>('[data-lenso-slot="menu-bar"], [data-menu-source]') ?? node,
-      );
+      const source =
+        morphSource === "trigger"
+          ? node
+          : (node?.closest<HTMLElement>(
+              morphSource === "toolbar"
+                ? '[data-lenso-slot="toolbar"]'
+                : '[data-lenso-slot="menu-bar"], [data-menu-source]',
+            ) ?? node);
+      const own = assignRef(motion?.trigger, source);
       return () => {
         caller();
         own();
       };
     },
-    [ref, motion],
+    [morphSource, ref, motion],
   );
   const own =
     !props["data-menu-expand"] &&

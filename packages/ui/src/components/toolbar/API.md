@@ -7,8 +7,12 @@ and label both the toolbar and its groups.
 
 Compose `Menu.Trigger render={<Toolbar.Button />}` inside `Toolbar.Group`.
 When morphing is enabled, Menu uses the nearest owning glass surface as its
-source, including all joined controls. An attached toolbar owns the source;
-ordinary glass groups own theirs; detached controls remain individual sources.
+source by default, including all joined controls. An attached toolbar owns the
+source; ordinary glass groups own theirs. Pass `morphSource="trigger"` to use
+one control as the source instead, or `morphSource="toolbar"` to morph the
+whole nearest toolbar. A toolbar-width popup can then occupy the toolbar's row
+while it is open, avoiding an empty source slot. Detached controls remain
+individual sources.
 Menu still owns open state, selection, keyboard behavior, dismissal and closing
 motion. `morphTrigger={false}` retains individual anchored-popup behavior.
 

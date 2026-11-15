@@ -6,10 +6,16 @@ const resistance = (value: number) =>
   Math.sign(value) * 7 * (1 - Math.exp((-Math.abs(value) * 0.12) / 7));
 
 export function presentMenuFeedback(card: HTMLElement, family: "menu" | "select" = "menu") {
-  const content = card.querySelector<HTMLElement>(
-    family === "select" ? "[data-select-content]" : '[data-lenso-slot="menu-content"]',
-  )!;
-  const plate = card.querySelector<HTMLElement>(`[data-lenso-slot="${family}-plate"]`)!;
+  const contentSelector =
+    family === "select" ? "[data-select-content]" : '[data-lenso-slot="menu-content"]';
+  const content =
+    [...card.querySelectorAll<HTMLElement>(contentSelector)].find((candidate) => {
+      const bounds = candidate.getBoundingClientRect();
+      return (
+        bounds.width > 0 && bounds.height > 0 && getComputedStyle(candidate).visibility !== "hidden"
+      );
+    }) ?? card.querySelector<HTMLElement>(contentSelector)!;
+  const plate = content.querySelector<HTMLElement>(`[data-lenso-slot="${family}-plate"]`)!;
   const popupSelector = `[data-lenso-slot="${family === "select" ? "select-popover" : "menu-popup"}"]`;
   const native = createNativeMenuFeedback(card);
   const offset = { x: 0, y: 0 };

@@ -33,7 +33,7 @@ function pointer(target: EventTarget, type: string, x: number) {
     }),
   );
 }
-async function mount(onMore: () => void = () => {}) {
+async function mount(onMore: () => void = () => {}, morphSource?: "trigger" | "toolbar") {
   const host = document.createElement("div");
   document.body.append(host);
   root = createRoot(host);
@@ -42,7 +42,9 @@ async function mount(onMore: () => void = () => {}) {
       <Toolbar>
         <Toolbar.Group>
           <Menu>
-            <Menu.Trigger render={<Toolbar.Button />}>Filter</Menu.Trigger>
+            <Menu.Trigger morphSource={morphSource} render={<Toolbar.Button />}>
+              Filter
+            </Menu.Trigger>
             <Menu.Content>
               <Menu.Item>All Photos</Menu.Item>
             </Menu.Content>
@@ -56,6 +58,7 @@ async function mount(onMore: () => void = () => {}) {
   );
   return {
     trigger: host.querySelector<HTMLButtonElement>('button[aria-haspopup="menu"]')!,
+    toolbar: host.querySelector<HTMLElement>('[data-lenso-slot="toolbar"]')!,
     group: host.querySelector<HTMLElement>('[data-lenso-slot="toolbar-group"]')!,
     disabled: [...host.querySelectorAll<HTMLButtonElement>("button")].find(
       (e) => e.textContent === "More",
@@ -108,6 +111,21 @@ test("compact menu bars keep native action buttons and morph from the whole bar"
   expect(trigger.getAttribute("aria-expanded")).toBe("true");
   for (let frame = 0; frame < 10; frame++) await step(() => {});
   expect(bar.style.opacity).toContain("--lg-menu-trigger-opacity");
+  expect(trigger.style.opacity).not.toContain("--lg-menu-trigger-opacity");
+});
+test("a menu can morph from its trigger instead of its shared toolbar group", async () => {
+  const { trigger, group } = await mount(() => {}, "trigger");
+  await step(() => trigger.click());
+  for (let frame = 0; frame < 10; frame++) await step(() => {});
+  expect(trigger.style.opacity).toContain("--lg-menu-trigger-opacity");
+  expect(group.style.opacity).not.toContain("--lg-menu-trigger-opacity");
+});
+test("a menu can morph from its entire toolbar", async () => {
+  const { trigger, toolbar, group } = await mount(() => {}, "toolbar");
+  await step(() => trigger.click());
+  for (let frame = 0; frame < 10; frame++) await step(() => {});
+  expect(toolbar.style.opacity).toContain("--lg-menu-trigger-opacity");
+  expect(group.style.opacity).not.toContain("--lg-menu-trigger-opacity");
   expect(trigger.style.opacity).not.toContain("--lg-menu-trigger-opacity");
 });
 test("disabled toolbar members retain surface press feedback without becoming actionable", async () => {

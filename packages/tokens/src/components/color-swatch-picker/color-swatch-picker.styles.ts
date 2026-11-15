@@ -60,6 +60,7 @@ export const colorSwatchPickerStyles = stylex.create({
     width: 32,
     height: 32,
     boxSizing: "border-box",
+    padding: 0,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: tokens.shapeContent2xl,

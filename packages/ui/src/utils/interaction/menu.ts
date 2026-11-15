@@ -57,6 +57,7 @@ function present(
   const source = trigger.getBoundingClientRect();
   const joined =
     trigger.closest('[data-lenso-glass-group]:not([data-lenso-glass-state="detached"])') !== null;
+  const stableSource = trigger.matches('[data-lenso-slot="toolbar"]');
   const target = card.getBoundingClientRect();
   let measuredBox = target;
   const from = { width: source.width, height: source.height };
@@ -117,6 +118,8 @@ function present(
       "align-items",
       "justify-content",
       "flex-direction",
+      "flex-wrap",
+      "grid-auto-flow",
       "column-gap",
       "row-gap",
       "white-space",
@@ -256,7 +259,7 @@ function present(
         { ...from, ...start },
         to,
         radius,
-        iconOnly || family === "select",
+        iconOnly || family === "select" || stableSource,
       );
     },
     (pose, finished, open) => {
