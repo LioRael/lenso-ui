@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { startStaticServer } from "./static-server.mjs";
 import { chromium, webkit } from "playwright";
+import { saveBrowserFailure, startDiagnostics } from "./browser-diagnostics.mjs";
 
 const server = await startStaticServer();
 const { base } = server;
@@ -16,6 +17,7 @@ try {
         ["/en/docs/react/components/tabs/", 125, 2_100_000, 580_000],
       ]) {
         const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+        await startDiagnostics(page);
         const errors = [];
         const scripts = [];
         let collecting = true;
@@ -123,6 +125,9 @@ try {
         assert.deepEqual(errors, []);
         await page.close();
       }
+    } catch (error) {
+      await saveBrowserFailure(browser, `production-loading-${name}`);
+      throw error;
     } finally {
       await browser.close();
     }

@@ -7,12 +7,13 @@ import { createRequire } from "node:module";
 import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
-import { build } from "vite";
+import { build, preview } from "vite";
 import stylex from "@stylexjs/unplugin";
 import { legalPackages, validateLegalPackage } from "../../scripts/legal-attribution.ts";
 
 const workspace = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const run = promisify(execFile);
+
 test("installed packages preserve consumer exports, types, SSR and production assets", async () => {
   const directory = await realpath(await mkdtemp(join(tmpdir(), "lenso-installed-consumer-")));
   const require = createRequire(import.meta.url);
@@ -306,17 +307,60 @@ export const customWheel = <WheelParts.Root options={[{value: "one", label: "One
       lightningcssOptions: { exclude: 4 },
       unstable_moduleResolution: { type: "commonJS" as const, rootDir: directory },
     };
+    // Keep this tree identical on the server and client; the broad export fixture
+    // above intentionally exercises client-only widgets as well.
+    await writeFile(
+      join(directory, "hydration-app.tsx"),
+      `
+import {useEffect, useState} from "react";
+import {Button, Modal, ThemeScope} from "@lenso/ui";
+export function App() {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  useEffect(() => { document.documentElement.dataset.hydrated = "true"; }, []);
+  return <ThemeScope theme={theme} style={{"--installed-theme-probe": theme === "dark" ? "17px" : "29px"} as React.CSSProperties}>
+    <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>Change installed theme</Button>
+    <Modal.Root><Modal.Trigger>Open hydrated modal</Modal.Trigger><Modal.Backdrop/>
+      <Modal.Content><Modal.Title>Hydrated package dialog</Modal.Title>
+        <Modal.Close>Close hydrated modal</Modal.Close>
+      </Modal.Content>
+    </Modal.Root>
+  </ThemeScope>;
+}
+`,
+    );
+    await writeFile(
+      join(directory, "hydrate.tsx"),
+      `
+import {hydrateRoot} from "react-dom/client";
+import {App} from "./hydration-app";
+import "@lenso/tokens/styles.css";
+hydrateRoot(document.getElementById("root")!, <App/>, {
+  onRecoverableError(error) { console.error("Installed consumer recoverable hydration error", error); }
+});
+`,
+    );
+    await writeFile(
+      join(directory, "hydrate.html"),
+      '<html><body><div id="root"><!--installed-ssr--></div><script type="module" src="/hydrate.tsx"></script></body></html>',
+    );
     await build({
       root: directory,
       configFile: false,
       logLevel: "error",
       plugins: [stylex.vite(options)],
+      esbuild: { jsxDev: false },
+      define: { "process.env.NODE_ENV": JSON.stringify("production") },
+      build: {
+        rollupOptions: { input: [join(directory, "index.html"), join(directory, "hydrate.html")] },
+      },
     });
     await writeFile(
       join(directory, "server.tsx"),
       `
 import assert from "node:assert/strict";
 import {renderToString} from "react-dom/server";
+import {App} from "./hydration-app";
+export const hydrationMarkup = renderToString(<App/>);
 import {Sidebar as PrimitiveSidebar} from "@lenso/primitives/sidebar";
 const sidebarMarkup = renderToString(<PrimitiveSidebar.Root aria-label="SSR navigation" defaultOpen={false}><PrimitiveSidebar.Trigger>Open navigation</PrimitiveSidebar.Trigger><PrimitiveSidebar.Panel>SSR panel</PrimitiveSidebar.Panel></PrimitiveSidebar.Root>);
 assert.match(sidebarMarkup, /data-slot="sidebar"/);
@@ -368,7 +412,14 @@ export const markup = renderToString(<><Button>Server action</Button><ToggleButt
       ssr: { noExternal: ["@lenso/ui", "@lenso/glass", "@lenso/tokens"] },
       build: { ssr: join(directory, "server.tsx"), outDir: "dist-server" },
     });
-    const { markup } = await import(pathToFileURL(join(directory, "dist-server/server.js")).href);
+    const { markup, hydrationMarkup } = await import(
+      pathToFileURL(join(directory, "dist-server/server.js")).href
+    );
+    assert.match(hydrationMarkup, /Open hydrated modal/);
+    const hydrationPage = join(directory, "dist/hydrate.html");
+    const template = await readFile(hydrationPage, "utf8");
+    assert(template.includes("<!--installed-ssr-->"), "Production HTML lost the SSR placeholder");
+    await writeFile(hydrationPage, template.replace("<!--installed-ssr-->", hydrationMarkup));
     assert.match(markup, /<button/);
     assert.match(markup, /Server action/);
     assert.match(markup, /Server swipe row/);
@@ -398,6 +449,27 @@ export const markup = renderToString(<><Button>Server action</Button><ToggleButt
       built.some((file) => file.endsWith(".css")),
       "consumer CSS was not built",
     );
+    const server = await preview({
+      root: directory,
+      configFile: false,
+      logLevel: "error",
+      preview: { host: "127.0.0.1", port: 0, open: false },
+    });
+    try {
+      const address = server.httpServer.address();
+      assert(address && typeof address !== "string");
+      const base = `http://127.0.0.1:${address.port}`;
+      const result = await run(
+        "node",
+        [join(workspace, "tests/consumer/installed-consumer-browser.mjs"), base],
+        { timeout: 60000 },
+      );
+      process.stdout.write(result.stdout);
+    } finally {
+      await new Promise<void>((resolve, reject) =>
+        server.httpServer.close((error) => (error ? reject(error) : resolve())),
+      );
+    }
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

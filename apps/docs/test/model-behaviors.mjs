@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
 import { chromium, webkit } from "playwright";
+import { saveBrowserFailure, startDiagnostics } from "./browser-diagnostics.mjs";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const fixture = root + "test/model-behaviors-fixture.tsx";
 let server;
@@ -46,6 +47,7 @@ try {
         viewport: { width: 900, height: 1000 },
         reducedMotion: "reduce",
       });
+      await startDiagnostics(page);
       page.setDefaultTimeout(10000);
       const errors = [];
       page.on("pageerror", (e) => {
@@ -306,6 +308,9 @@ try {
       assert.deepEqual(errors, []);
       console.log(name, "PASS", browser.version());
       await page.close();
+    } catch (error) {
+      await saveBrowserFailure(browser, `model-behaviors-${name}`);
+      throw error;
     } finally {
       await browser.close();
     }

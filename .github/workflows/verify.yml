@@ -18,6 +18,7 @@ concurrency:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     permissions:
       contents: read
       actions: read
@@ -44,6 +45,7 @@ jobs:
 
   documentation:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
       actions: read
@@ -86,8 +88,26 @@ jobs:
         if: steps.restore.outcome != 'success'
         env:
           LENSO_DOCS_SITE: https://ui.lenso.dev
+      - name: Install consumer browser engines
+        if: steps.restore.outcome != 'success'
+        working-directory: apps/docs
+        run: bunx --no-install playwright install --with-deps chromium webkit
       - run: bun run test:production
         if: steps.restore.outcome != 'success'
+        env:
+          BROWSER_ARTIFACTS: ${{ runner.temp }}/consumer-evidence
+      - name: Check production hydration and payload budgets in both engines
+        if: steps.restore.outcome != 'success'
+        run: node apps/docs/test/browser-gate.mjs production
+        env:
+          BROWSER_ARTIFACTS: ${{ runner.temp }}/consumer-evidence
+      - name: Preserve consumer failure evidence
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: consumer-failure-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/consumer-evidence
+          retention-days: 7
       - name: Enforce Cloudflare's 25 MiB per-file limit
         run: bun apps/docs/scripts/check-export-size.ts
       - name: Preserve verified documentation output
@@ -100,10 +120,46 @@ jobs:
           if-no-files-found: error
           retention-days: 3
 
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [core, glass]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.4.4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 26.10.0
+      - run: bun install --frozen-lockfile
+      - name: Install pinned browser engines and OS dependencies
+        working-directory: apps/docs
+        run: bunx --no-install playwright install --with-deps chromium webkit
+      - name: Generate documentation fixture inputs
+        run: bun run --filter @lenso/ui-docs generate
+      - name: Run browser regressions without retries
+        working-directory: apps/docs
+        run: node test/browser-gate.mjs ${{ matrix.suite }}
+        env:
+          BROWSER_ARTIFACTS: ${{ runner.temp }}/browser-evidence
+      - name: Preserve browser logs and failure traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: browser-${{ matrix.suite }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/browser-evidence
+          retention-days: 7
+
   # Keep the authoritative landing job name; skipped/cancelled dependencies fail closed.
   verify:
     if: always()
-    needs: [checks, documentation]
+    needs: [checks, documentation, browser]
     runs-on: ubuntu-latest
     outputs:
       docs-artifact-id: ${{ needs.documentation.outputs.docs-artifact-id }}
@@ -112,7 +168,8 @@ jobs:
         env:
           CHECKS_RESULT: ${{ needs.checks.result }}
           DOCS_RESULT: ${{ needs.documentation.result }}
-        run: test "$CHECKS_RESULT" = success && test "$DOCS_RESULT" = success
+          BROWSER_RESULT: ${{ needs.browser.result }}
+        run: test "$CHECKS_RESULT" = success && test "$DOCS_RESULT" = success && test "$BROWSER_RESULT" = success
 
   deploy-docs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.workflow_sha == github.sha

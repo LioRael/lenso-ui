@@ -117,10 +117,12 @@ requests, and checks every frame in Chromium and WebKit. It also verifies that
 unchanged CSS does not rewrite active stylesheets and a failed request retains the old
 styles. Run it without simultaneous edits to those homepage files.
 
-Tests print their results to the console and do not retain screenshots or
-reports. Temporary build fixtures are removed after each run. If a
-visual investigation needs an image, capture it as a separate explicit task
-rather than adding a persistent output path to a test.
+Tests print results to the console. Set `BROWSER_ARTIFACTS` to an absolute
+directory to retain suite logs and failure evidence for the browser gates.
+Correctness suites capture failure screenshots, focus state and Playwright
+traces; the isolated consumer captures screenshots, HTML and error diagnostics.
+CI uploads this evidence for seven days. Ordinary local runs leave no evidence
+directory, and temporary build fixtures are removed after each run.
 
 Run `bun run --filter @lenso/ui-docs test:dev-isolation` for development/build
 isolation and bilingual code highlighting. It rejects development imports from
@@ -201,9 +203,13 @@ documentation or policy-only edits need no production build. The
 authoritative candidate workflow runs the complete repository gate and consumer
 verification for the exact candidate SHA.
 
-For generated docs StyleX assets, run `bun run --filter @lenso/ui-docs test:stylex-artifacts` after building docs. `bun run test:production` also validates already-built packages in an isolated installed consumer: exports, types, server rendering and emitted assets.
+For generated docs StyleX assets, run `bun run --filter @lenso/ui-docs test:stylex-artifacts` after building docs. `bun run test:production` also validates already-built packages in an isolated installed consumer: exports, types, server rendering, production hydration, interactions, local theme inheritance and emitted assets in Chromium and WebKit.
 
-Automated tests use Bun and a simulated DOM. They do not establish real browser layout, painting, cross-browser compatibility or visual parity. For visual acceptance, inspect the affected states manually and describe the environment and scope of that inspection.
+Bun DOM tests use a simulated DOM and do not establish layout or painting.
+The browser gates exercise real Chromium and WebKit, including measured geometry
+and pixel assertions, but do not establish complete visual parity, physical iOS
+behavior, assistive-technology acceptance or native platform rendering.
+For visual acceptance, inspect affected states and state the environment and scope.
 
 Use the narrowest useful checks while iterating, but require all applicable
 checks to pass for the final candidate. Do not substitute a previous revision's
@@ -241,7 +247,12 @@ fixed-group automatic release process.
 
 ### Running ordinary tests
 
-`bun run test` runs Bun tests without building dependencies or regenerating source files. DOM tests use the shared preload in `tests/setup/dom.ts`; server tests run separately without browser globals. Tests do not retain screenshots or reports.
+`bun run test` runs repository and workspace Bun tests, including the docs
+photo editor/viewer, native API reference and submenu DOM regressions. DOM tests
+use the shared preload in `tests/setup/dom.ts`; server tests run separately
+without browser globals. Native tests also check generated-wrapper freshness;
+this is not a native platform build. Generator tests exercise generation, so do
+not run them while another process edits their source inputs.
 
 On a fresh checkout, first run `bun run build:packages` and `bun run --filter @lenso/ui-docs generate`; repeat the appropriate build or generation step after changing its inputs.
 
@@ -259,12 +270,39 @@ the affected statement.
 
 ### CI scheduling and release preparation
 
-The acceptance workflow runs the full repository check and documentation/consumer
-production checks on separate runners. The documentation runner uses Turbo's
-package dependency graph before building the site. The final `verify` job fails
-unless both jobs succeed; candidate SHA and artifact trust rules still apply.
+The acceptance workflow runs repository checks, documentation/consumer production
+checks, and two browser shards on separate runners. The documentation runner
+uses Turbo's package dependency graph before building the site and checks the
+static export's existing payload budgets. Browser `core` covers Tabs overflow,
+focus, controlled state and model-backed controls; `glass` covers pre-hydration
+geometry/paint and WebKit canvas encoding during navigation. Both shards use
+Chromium and WebKit. Suites run serially within each shard, without retries;
+one shard's failure does not cancel the other. The final stable `verify` job
+fails unless all three job groups succeed, including every browser matrix entry.
+Skipped, cancelled and missing results cannot authorize landing. Candidate SHA
+and artifact trust rules still apply.
 Only superseded PR runs are cancelled automatically. Main and candidate pushes
 retain their evidence. No cross-run build-output cache is trusted by this gate.
+
+To reproduce these gates locally, first install the pinned engines from the docs
+workspace with `bunx --no-install playwright install chromium webkit` (Linux CI
+also uses `--with-deps`). After docs generation, run
+`node apps/docs/test/browser-gate.mjs core` or `glass` from the repository root.
+After a production docs build, use `production`. Set `BROWSER_ARTIFACTS` when
+investigating a failure; open a trace with Playwright's `show-trace` command.
+
+The manual-only `Performance evidence` workflow runs `performance` against a
+completed production export, without concurrent builds or browser suites on its
+runner. Locally, use `node apps/docs/test/browser-gate.mjs performance` under
+the same isolation. It retains logs for fourteen days, enforces the existing
+geometry-read budget and reports throttled loading samples. Host-dependent
+millisecond measurements are not merge thresholds. Dispatch requires separate
+authorization; ordinary PRs do not run this workflow.
+
+Keep main protection bound to the stable `verify` check, with strict up-to-date
+checks, signed commits, conversation resolution, linear history and no force
+pushes or administrative bypass. Do not require transient browser matrix names
+instead of the aggregate. Repository administration requires owner approval.
 
 Documentation deployment checks whether the commit is still main before fetching
 the verified output or installing deployment tooling. The deploy job still uses

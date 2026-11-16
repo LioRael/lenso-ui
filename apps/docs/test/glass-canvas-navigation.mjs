@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { createServer } from "vite";
 import { webkit } from "playwright";
+import { saveBrowserFailure, startDiagnostics } from "./browser-diagnostics.mjs";
 
 const cacheDir = await mkdtemp(path.join(tmpdir(), "lenso-canvas-navigation-"));
 let replacement;
@@ -37,6 +38,7 @@ try {
   let release;
   try {
     const page = await browser.newPage();
+    await startDiagnostics(page);
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(`${base}__canvas/initial`);
@@ -108,6 +110,9 @@ try {
     console.log(
       "WebKit: pending canvas encoding survived navigation with exact pixels and no resource errors.",
     );
+  } catch (error) {
+    await saveBrowserFailure(browser, "canvas-navigation-webkit");
+    throw error;
   } finally {
     release?.();
     await browser.close();

@@ -20,18 +20,28 @@ const workflow = Bun.YAML.parse(
 test("authoritative verify rejects incomplete parallel acceptance", () => {
   const gate = workflow.jobs.verify!;
   expect(gate.if).toBe("always()");
-  expect(gate.needs).toEqual(["checks", "documentation"]);
+  expect(gate.needs).toEqual(["checks", "documentation", "browser"]);
   const step = gate.steps.find((step) => step.name === "Require every acceptance job")!;
   expect(step.env).toEqual({
     CHECKS_RESULT: "${{ needs.checks.result }}",
     DOCS_RESULT: "${{ needs.documentation.result }}",
+    BROWSER_RESULT: "${{ needs.browser.result }}",
   });
   for (const checks of ["success", "failure", "cancelled", "skipped", ""]) {
     for (const docs of ["success", "failure", "cancelled", "skipped", ""]) {
-      const result = spawnSync("bash", ["-e", "-c", step.run!], {
-        env: { ...process.env, CHECKS_RESULT: checks, DOCS_RESULT: docs },
-      });
-      expect(result.status === 0).toBe(checks === "success" && docs === "success");
+      for (const browser of ["success", "failure", "cancelled", "skipped", ""]) {
+        const result = spawnSync("bash", ["-e", "-c", step.run!], {
+          env: {
+            ...process.env,
+            CHECKS_RESULT: checks,
+            DOCS_RESULT: docs,
+            BROWSER_RESULT: browser,
+          },
+        });
+        expect(result.status === 0).toBe(
+          checks === "success" && docs === "success" && browser === "success",
+        );
+      }
     }
   }
 });

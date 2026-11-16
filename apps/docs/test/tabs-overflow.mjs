@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { chromium, webkit } from "playwright";
 import { createFirstPaintServer } from "./first-paint-server.mjs";
+import { saveBrowserFailure, startDiagnostics } from "./browser-diagnostics.mjs";
 
 const server = await createFirstPaintServer();
 try {
@@ -14,6 +15,7 @@ try {
     try {
       for (const theme of ["light", "dark"]) {
         const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+        await startDiagnostics(page);
         page.setDefaultTimeout(10_000);
         page.setDefaultNavigationTimeout(30_000);
         const errors = [];
@@ -54,7 +56,8 @@ try {
           const current = bar.getByRole("tab", { name: "Billing", exact: true });
           await current.waitFor();
           await page.waitForFunction(() => document.activeElement?.textContent === "Billing");
-          await current.press(direction === "rtl" ? "ArrowRight" : "ArrowLeft");
+          // Native SDK tabs keep disabled choices in arrow navigation; Home selects the first tab.
+          await current.press("Home");
           await page.waitForFunction(
             (direction) =>
               document.querySelector(
@@ -92,6 +95,9 @@ try {
         );
         await page.close();
       }
+    } catch (error) {
+      await saveBrowserFailure(browser, `tabs-overflow-${name}`);
+      throw error;
     } finally {
       await browser.close();
     }

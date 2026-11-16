@@ -1,4 +1,4 @@
-import "../../../scripts/test-dom";
+import "../../../tests/setup/dom";
 import { plugin, Transpiler } from "bun";
 import { transformAsync } from "@babel/core";
 import stylex from "@stylexjs/babel-plugin";

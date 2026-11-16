@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { createFirstPaintServer } from "./first-paint-server.mjs";
 import { chromium, webkit } from "playwright";
+import { saveBrowserFailure, startDiagnostics } from "./browser-diagnostics.mjs";
 
 const server = await createFirstPaintServer();
 
@@ -62,6 +63,7 @@ try {
     try {
       for (const theme of ["light", "dark"]) {
         const staticPage = await browser.newPage({ javaScriptEnabled: false });
+        await startDiagnostics(staticPage);
         await staticPage.goto(`${base}__first-paint?theme=${theme}`);
         const initialTabs = await staticPage.evaluate(tabsGeometry);
         assert.equal(initialTabs.length, 6);
@@ -84,6 +86,7 @@ try {
         );
         await staticPage.close();
         const page = await browser.newPage();
+        await startDiagnostics(page);
         const errors = [];
         page.on("pageerror", (error) => errors.push(error.message));
         page.on("console", (message) => {
@@ -212,6 +215,9 @@ try {
           `${engineName}/${theme}: six Tabs cases and ${initialBoxes.length} glass/control boxes retained initial geometry.`,
         );
       }
+    } catch (error) {
+      await saveBrowserFailure(browser, `first-paint-${engineName}`);
+      throw error;
     } finally {
       await browser.close();
     }

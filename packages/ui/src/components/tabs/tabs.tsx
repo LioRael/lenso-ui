@@ -294,13 +294,15 @@ export function TabListContainer({
               <Menu.ExpandTrigger aria-label={overflowLabel} xstyle={tabsStyles.overflowTrigger} />
               <Menu.Content
                 aria-label={overflowLabel}
-                finalFocus={() =>
-                  selectedFromMenu.current
-                    ? host.current?.querySelector<HTMLElement>(
-                        '[data-lenso-slot="tabs-tab"][aria-selected="true"]',
-                      )
-                    : undefined
-                }
+                finalFocus={() => {
+                  if (!selectedFromMenu.current) return undefined;
+                  const selected = host.current?.querySelector<HTMLElement>(
+                    '[data-lenso-slot="tabs-tab"][aria-selected="true"]',
+                  );
+                  // Focus restoration precedes the next overflow measurement frame.
+                  selected?.removeAttribute("data-tabs-overflow");
+                  return selected;
+                }}
                 align="end"
                 sideOffset={8}
               >

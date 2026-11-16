@@ -56255,7 +56255,7 @@
       "expandedType": "undefined | \"none\" | \"soft\" | \"uniform\"",
       "required": false,
       "description": "Opt into a sticky bar with a scroll-bound background band.",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 294 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 298 },
       "default": "\"uniform\""
     },
     {
@@ -56264,7 +56264,7 @@
       "expandedType": "React.RefObject<HTMLElement | null> | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 295 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 299 },
       "default": null
     },
     {
@@ -56273,7 +56273,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "Enable surface press, elastic drag and spring return. Individual buttons can override this.",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 297 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 301 },
       "default": null
     },
     {
@@ -75428,7 +75428,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 292 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 296 },
       "default": "false"
     },
     {
@@ -75437,7 +75437,7 @@
       "expandedType": "undefined | \"none\" | \"soft\" | \"uniform\"",
       "required": false,
       "description": "Opt into a sticky bar with a scroll-bound background band.",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 294 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 298 },
       "default": "\"none\""
     },
     {
@@ -75446,7 +75446,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "Enable surface press, elastic drag and spring return. Individual buttons can override this.",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 297 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 301 },
       "default": "true"
     },
     {
@@ -75515,7 +75515,7 @@
       "expandedType": "undefined | \"lg\" | \"md\" | \"sm\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 362 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 366 },
       "default": "\"md\""
     },
     {
@@ -75524,7 +75524,7 @@
       "expandedType": "undefined | \"filled\" | \"glass\" | \"plain\"",
       "required": false,
       "description": "Defaults to plain inside Toolbar.Group and glass elsewhere; explicit variants take priority.",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 364 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 368 },
       "default": null
     },
     {
@@ -75533,7 +75533,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 365 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 369 },
       "default": "false"
     },
     {
@@ -75542,7 +75542,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 366 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 370 },
       "default": "true"
     },
     {
@@ -75551,7 +75551,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 367 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 371 },
       "default": "false"
     },
     {
@@ -75560,7 +75560,7 @@
       "expandedType": "string | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 368 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 372 },
       "default": null
     },
     {
@@ -75569,7 +75569,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "Override the toolbar’s elastic pointer animation independently of glass.",
-      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 370 },
+      "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 374 },
       "default": null
     },
     {
@@ -86168,7 +86168,7 @@
           "props": "GlassContainerProps",
           "source": {
             "path": "packages/ui/src/components/glass-container/glass-container.tsx",
-            "line": 107
+            "line": 109
           },
           "native": ["@ui-sdk/react/primitive", "@ui-sdk/react/primitive"],
           "members": ["Item"],
@@ -95294,7 +95294,7 @@
           "name": "TabList",
           "signature": "({ xstyle, ...props }: ComponentProps<typeof List>): React.JSX.Element",
           "props": "Omit<Omit<BaseSlotProps & ElementProps<\"div\", NoInfer<TabsListState>, BaseSlotProps>, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof TabsList>[\"ref\"]; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-lenso-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 365 },
+          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 367 },
           "native": ["@ui-sdk/react/tabs"],
           "members": [],
           "states": {
@@ -95326,7 +95326,7 @@
           "name": "TabRoot",
           "signature": "({ xstyle, ...props }: ComponentProps<typeof Tab>): React.JSX.Element",
           "props": "Omit<Omit<NoInfer<TabProps> & BaseSlotProps & ElementProps<\"button\", NoInfer<TabsTabState>, NoInfer<TabProps> & BaseSlotProps>, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof TabsTab>[\"ref\"]; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-lenso-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 377 },
+          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 379 },
           "native": ["@ui-sdk/react/tabs"],
           "members": [],
           "states": {
@@ -95360,7 +95360,7 @@
           "name": "TabIndicator",
           "signature": "(props: ComponentProps<typeof Indicator>): React.JSX.Element",
           "props": "Omit<Omit<BaseSlotProps & ElementProps<\"span\", NoInfer<TabsIndicatorState>, BaseSlotProps>, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof TabsIndicator>[\"ref\"]; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-lenso-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 390 },
+          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 392 },
           "native": ["@ui-sdk/react/tabs"],
           "members": [],
           "states": {
@@ -95395,7 +95395,7 @@
           "name": "TabPanel",
           "signature": "({ xstyle, ...props }: ComponentProps<typeof Panel>): React.JSX.Element",
           "props": "Omit<Omit<NoInfer<PanelProps> & BaseSlotProps & ElementProps<\"div\", NoInfer<TabsPanelState>, NoInfer<PanelProps> & BaseSlotProps>, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof TabsPanel>[\"ref\"]; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-lenso-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 393 },
+          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 395 },
           "native": ["@ui-sdk/react/tabs"],
           "members": [],
           "states": {
@@ -95425,7 +95425,7 @@
           "name": "TabSeparator",
           "signature": "({ xstyle, ...props }: ComponentProps<typeof Separator>): React.JSX.Element",
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-lenso-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 405 },
+          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 407 },
           "native": ["@ui-sdk/react/tabs"],
           "members": [],
           "states": {},
@@ -95455,7 +95455,7 @@
           "name": "Tabs",
           "signature": "({ orientation, align, lift, elastic, glass, size, xstyle, style, render, ...props }: TabsRootProps): React.JSX.Element",
           "props": "TabsRootProps",
-          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 418 },
+          "source": { "path": "packages/ui/src/components/tabs/tabs.tsx", "line": 420 },
           "native": ["@ui-sdk/react/tabs"],
           "members": ["Root", "ListContainer", "List", "Tab", "Indicator", "Panel", "Separator"],
           "states": {
@@ -96794,7 +96794,7 @@
           "name": "ToolbarRoot",
           "signature": "({ isAttached, edge, scrollRef, elastic, orientation, xstyle, style, ref, children, render, ...props }: ToolbarRootProps): React.JSX.Element",
           "props": "ToolbarRootProps",
-          "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 299 },
+          "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 303 },
           "native": ["@ui-sdk/react/toolbar", "@ui-sdk/react/primitive"],
           "members": [],
           "states": {
@@ -96828,7 +96828,7 @@
           "name": "ToolbarButton",
           "signature": "({ elastic: ownElastic, size, variant: ownVariant, isIconOnly, glass, destructive, tint, render, ref, xstyle, children, ...props }: ToolbarButtonProps): React.JSX.Element",
           "props": "ToolbarButtonProps",
-          "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 372 },
+          "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 376 },
           "native": ["@ui-sdk/react/toolbar", "@ui-sdk/react/primitive"],
           "members": [],
           "states": {
@@ -96862,7 +96862,7 @@
           "name": "ToolbarSeparator",
           "signature": "({ xstyle, ...props }: ComponentProps<typeof Separator>): React.JSX.Element",
           "props": "Omit<Omit<BaseSlotProps & ElementProps<\"div\", NoInfer<ToolbarSeparatorState>, BaseSlotProps>, \"ref\"> & { ref?: React.ComponentPropsWithRef<typeof SdkToolbarSeparator>[\"ref\"]; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-lenso-slot\"?: unknown; }",
-          "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 452 },
+          "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 456 },
           "native": ["@ui-sdk/react/toolbar", "@ui-sdk/react/primitive"],
           "members": [],
           "states": {
@@ -96894,7 +96894,7 @@
           "name": "Toolbar",
           "signature": "({ isAttached, edge, scrollRef, elastic, orientation, xstyle, style, ref, children, render, ...props }: ToolbarRootProps): React.JSX.Element",
           "props": "ToolbarRootProps",
-          "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 465 },
+          "source": { "path": "packages/ui/src/components/toolbar/toolbar.tsx", "line": 469 },
           "native": ["@ui-sdk/react/toolbar", "@ui-sdk/react/primitive"],
           "members": ["Root", "Button", "Link", "Group", "Separator"],
           "states": {
