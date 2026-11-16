@@ -1,8 +1,0 @@
-#!/bin/sh
-set -eu
-[ "$#" -eq 0 ] || exit 64
-. .agents/env
-port=${PREVIEW_PORT:-4310}
-case $port in ''|*[!0-9]*) echo 'Invalid PREVIEW_PORT' >&2; exit 64;; esac
-[ "$port" -gt 0 ] && [ "$port" -le 65535 ] && [ "$port" -ne 49983 ] || exit 64
-exec bun run --filter @lenso/ui-docs dev --port "$port" --host 127.0.0.1

@@ -220,9 +220,8 @@ Migration notes, licenses and verification remain required.
 For this reconstruction landing, the owner waived Delta Review approval.
 This does not waive verification or any future hosting-required review.
 
-The one-time history baseline uses the signed exact-SHA candidate gate and
-explicit old-SHA lease described under Ongoing Git maintenance below. Ordinary
-maintenance subsequently uses protected pull requests. Main verification may
+The history baseline is complete; see [its record](docs/git-history-baseline.md).
+Maintenance uses protected pull requests. Main verification may
 reuse only trusted successful internal candidate evidence bound to the same
 SHA, workflow, inputs and verified artifact. PR evidence never qualifies.
 Preserve unrelated work and never bypass failed or missing required checks.
@@ -287,10 +286,7 @@ and accurate Agent `Co-authored-by` trailers. Do not invent attribution for
 historical commits whose tooling is unknown. Do not create `delivery-xxxx`
 branches or routinely rewrite public main history.
 
-The one-time history baseline switch requires a signed `delta/verify/**`
-candidate and successful `verify` for that exact push SHA. It alone uses an
-explicit old-SHA force-with-lease after rechecking the archive and current main.
-After this switch, ordinary changes merge through protected pull requests with
+Changes merge through protected pull requests with
 required `verify` checks and signed commits. Prefer GitHub squash merge; its
 resulting main SHA runs full verification. PR results are never reused as trusted
 exact-SHA candidate evidence. Release still requires successful verification of

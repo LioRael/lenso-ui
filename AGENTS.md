@@ -33,13 +33,10 @@ Lenso implementation failures.
 
 - Daily development and visual iteration: run `bun run dev:docs` from the
   repository root. Reuse one healthy dev server and browser tab per checkout,
-  including across parallel agent tasks. Before starting or opening docs, follow
-  [.agents/skills/start-preview/SKILL.md](.agents/skills/start-preview/SKILL.md)
-  (the existing name refers to the dev server). See [CONTRIBUTING.md](CONTRIBUTING.md)
+  including across parallel agent tasks. See [CONTRIBUTING.md](CONTRIBUTING.md)
   for production-preview exceptions and cleanup.
 - Components, themes and consumer builds: [.agents/skills/lenso-ui/SKILL.md](.agents/skills/lenso-ui/SKILL.md).
 - Page design and visual review: [.agents/skills/lenso-ui-design/SKILL.md](.agents/skills/lenso-ui-design/SKILL.md).
-- Explicit landing requests: [.agents/skills/land/SKILL.md](.agents/skills/land/SKILL.md).
 
 ## Implementation
 
@@ -58,7 +55,6 @@ operation. Distinguish source snippets from verified runnable examples.
 
 Run affected format, lint, typecheck and regression checks. Run relevant production checks when the changed integration requires them.
 Bun DOM tests do not verify browser layout or rendering; report actual coverage. [CONTRIBUTING.md](CONTRIBUTING.md) defines the
-candidate gate. Landing requires a signed candidate and the authoritative
-`Verify reconstruction` workflow's `verify` job passing for the exact
-`delta/verify/**` push SHA. Preserve signing and landing security; publication
+required checks. Merge through protected pull requests with successful `verify`
+checks and signed commits. Preserve branch protection; package publication
 requires separate authorization.
