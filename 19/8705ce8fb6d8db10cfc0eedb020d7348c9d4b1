@@ -1,0 +1,47 @@
+packages/glass/src/motion/spring.ts
+  s_9b725fa5e1cb00::t_9dde1970450281 34-49,51-53,55-56
+packages/glass/src/react/elastic.ts
+  s_9b725fa5e1cb00::t_513ccdd81abdf6 37-41
+packages/glass/src/react/refraction.ts
+  s_9b725fa5e1cb00::t_02f1f659e6dabc 171-175
+packages/glass/test/browser/capture-lifecycle.dom.test.ts
+  s_9b725fa5e1cb00::t_5daa84c7d17036 1-90
+packages/glass/test/browser/react-refs.dom.test.ts
+  s_9b725fa5e1cb00::t_901c6063dffb9c 1-125
+packages/glass/test/spring.test.ts
+  s_9b725fa5e1cb00::t_3cc9e7181532be 5-157
+packages/ui/src/components/tab-bar/tab-bar-motion.ts
+  s_9b725fa5e1cb00::t_e0aa151df44e16 687-691
+packages/ui/src/components/toolbar/toolbar.tsx
+  s_9b725fa5e1cb00::t_9b4c3e6e4dc307 171-175
+packages/ui/src/utils/interaction/menu.ts
+  s_9b725fa5e1cb00::t_9fccec6a4c8ea1 466
+packages/ui/src/utils/interaction/slider.ts
+  s_9b725fa5e1cb00::t_dcda37b54b24a8 87-91
+packages/ui/src/utils/interaction/submenu.ts
+  s_9b725fa5e1cb00::t_0687298de4dc60 228-232
+packages/ui/src/utils/interaction/switch.ts
+  s_9b725fa5e1cb00::t_9cf408ad0d1279 193-197
+packages/ui/src/utils/interaction/tabs.ts
+  s_9b725fa5e1cb00::t_78cdf09dc59228 642-646
+packages/ui/test/composed-ref-cleanup.dom.test.tsx
+  s_9b725fa5e1cb00::t_e1fca864762330 1-105
+packages/ui/test/presentation-ref-cleanup.dom.test.tsx
+  s_9b725fa5e1cb00::t_21f4dadf49f47f 1-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "198705ce8fb6d8db10cfc0eedb020d7348c9d4b1",
+  "prompts": {},
+  "sessions": {
+    "s_9b725fa5e1cb00": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1e428-164e-7842-8a21-ac0eaf56c748",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
