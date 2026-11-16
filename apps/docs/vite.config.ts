@@ -11,6 +11,7 @@ import story from "@fumadocs/story/vite";
 import stylex from "@stylexjs/unplugin/vite";
 import { workspaceAliases } from "./scripts/workspace-aliases.ts";
 import { sourceImports } from "./scripts/source-imports.ts";
+import { chunkModules } from "./scripts/chunk-isolation.ts";
 const site = process.env["LENSO_DOCS_SITE"] ?? "http://localhost:3000";
 export default defineConfig(({ command }) => {
   const development = command === "serve";
@@ -123,7 +124,12 @@ export default defineConfig(({ command }) => {
                   },
                   {
                     name: "control-runtime",
-                    test: /node_modules[\\/](?:@base-ui[\\/](?:utils[\\/]|react[\\/](?:esm[\\/])?(?:utils|internals|store|floating-ui-react)[\\/])|@floating-ui[\\/])/,
+                    // Share control mechanics, not date/color models or sheet physics.
+                    test: /node_modules[\\/]@ui-sdk[\\/](?:core[\\/]dist[\\/]foundation[\\/](?:(?:kernel|platform|focus|text|shortcuts|disclosure|forms|number)[\\/]|popups[\\/](?!sheet|theme-color)|motion[\\/](?:panel|presence)\.|direct-manipulation[\\/](?:hold|repeat)\.)|react[\\/]dist[\\/](?:render-element|use-primitive|controller-target|children)\.)/,
+                  },
+                  {
+                    name: "icons",
+                    test: /node_modules[\\/]@gravity-ui[\\/]icons[\\/]/,
                   },
                 ],
               },
@@ -133,6 +139,7 @@ export default defineConfig(({ command }) => {
       },
     },
     plugins: [
+      chunkModules(),
       sourceImports({
         "@gravity-ui/icons": path.join(
           path.dirname(require.resolve("@gravity-ui/icons/package.json")),

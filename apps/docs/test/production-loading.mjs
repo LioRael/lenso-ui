@@ -1,7 +1,17 @@
 import assert from "node:assert/strict";
+import { readFile, mkdir, copyFile } from "node:fs/promises";
+import path from "node:path";
 import { startStaticServer } from "./static-server.mjs";
 import { chromium, webkit } from "playwright";
 import { saveBrowserFailure, startDiagnostics } from "./browser-diagnostics.mjs";
+import { assertChunkIsolation } from "../scripts/chunk-isolation.ts";
+
+const metadata = new URL("../out/.vite/chunk-modules.json", import.meta.url);
+const chunks = JSON.parse(await readFile(metadata, "utf8"));
+if (process.env.BROWSER_ARTIFACTS) {
+  await mkdir(process.env.BROWSER_ARTIFACTS, { recursive: true });
+  await copyFile(metadata, path.join(process.env.BROWSER_ARTIFACTS, "chunk-modules.json"));
+}
 
 const server = await startStaticServer();
 const { base } = server;
@@ -59,6 +69,11 @@ try {
         await page.waitForLoadState("networkidle");
         collecting = false;
         const loaded = await Promise.all(scripts);
+        assertChunkIsolation(
+          chunks,
+          loaded.map((script) => new URL(script.url).pathname.slice(1)),
+          route,
+        );
         const decoded = loaded.reduce((n, s) => n + s.bytes, 0);
         const gzip = loaded.reduce((n, s) => n + s.gzip, 0);
         console.log(
@@ -86,8 +101,18 @@ try {
             "The homepage must not download the document index or MDX registry",
           );
           const playground = page.getByRole("region", { name: "Typography playground" });
-          await playground.getByRole("textbox", { name: "Canvas text" }).fill("Hello");
-          await playground.getByText("5 / 80", { exact: true }).waitFor();
+          const text = playground.getByRole("textbox", { name: "Poster text" });
+          await text.fill("Hello");
+          const bold = playground.getByRole("button", { name: "Bold", exact: true });
+          assert.equal(await bold.getAttribute("aria-pressed"), "true");
+          await bold.click();
+          await page.waitForFunction(
+            () =>
+              document
+                .querySelector('[data-home-playground] [aria-label="Bold"]')
+                ?.getAttribute("aria-pressed") === "false",
+          );
+          assert.equal(await text.inputValue(), "Hello", "Editing must survive a React update");
           await page
             .locator("#main-content")
             .getByRole("link", { name: "Explore components", exact: true })

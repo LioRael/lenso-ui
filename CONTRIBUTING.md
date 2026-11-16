@@ -182,6 +182,17 @@ document loaders and bodies remain together in their lazy route. See the
 [loading review](docs/research/docs-loading-tanstack-start-2026-11-09.md) for the
 framework guidance, measurements and tradeoffs.
 
+Production builds also emit `out/.vite/chunk-modules.json` with normalized module
+ownership and static imports, without source contents or absolute checkout paths.
+The production loading gate matches every initial browser script to this metadata,
+checks shared control/icon ownership, and rejects eagerly loaded search, appearance,
+source and Markdown implementations even if they were merged into another chunk.
+It also rejects homepage document-index/body loading. Missing metadata or missing
+implementation ownership fails closed: rebuild the export, or review the policy
+when SDK packaging or implementation locations change. Existing payload budgets
+and filename checks remain enforced. `BROWSER_ARTIFACTS` retains the module map
+alongside failure evidence; the new policy regressions run with ordinary docs tests.
+
 `test:deferred-content` checks development requests and first use of closed
 examples, code, Markdown copying and appearance controls in Chromium and WebKit.
 It also verifies that the API table remains present through hydration.
