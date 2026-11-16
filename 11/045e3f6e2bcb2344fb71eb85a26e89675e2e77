@@ -1,0 +1,21 @@
+CONTRIBUTING.md
+  s_1151d5af4d372e::t_4b9002e5b8f279 282-314
+docs/git-history-baseline.md
+  s_1151d5af4d372e::t_3d072169a205f3 1-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "11045e3f6e2bcb2344fb71eb85a26e89675e2e77",
+  "prompts": {},
+  "sessions": {
+    "s_1151d5af4d372e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1e4ad-25bc-7301-bd58-49506dc26993",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
