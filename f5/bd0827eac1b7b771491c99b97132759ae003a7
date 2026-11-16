@@ -1,0 +1,27 @@
+apps/docs/test/first-paint.mjs
+  s_1151d5af4d372e::t_4cd16a30dfc57a 9
+  s_1151d5af4d372e::t_441001e78c7edb 124,129
+docs/git-history-baseline.md
+  s_1151d5af4d372e::t_261d962a15246f 1-34
+  s_1151d5af4d372e::t_fff0de9163fd1e 35
+CONTRIBUTING.md
+  s_1151d5af4d372e::t_261d962a15246f 223-227,280-314
+apps/docs/test/first-paint-fixture.tsx
+  s_1151d5af4d372e::t_bafc411e5f0818 51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f5bd0827eac1b7b771491c99b97132759ae003a7",
+  "prompts": {},
+  "sessions": {
+    "s_1151d5af4d372e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1e4ad-25bc-7301-bd58-49506dc26993",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
