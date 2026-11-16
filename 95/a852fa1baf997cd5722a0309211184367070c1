@@ -1,0 +1,22 @@
+CONTRIBUTING.md
+  h_9d56aba080c170 185-195
+apps/docs/scripts/chunk-isolation.test.ts
+  h_9d56aba080c170 1-100
+apps/docs/scripts/chunk-isolation.ts
+  h_9d56aba080c170 1-106
+apps/docs/test/production-loading.mjs
+  h_9d56aba080c170 2-3,7-14,72-76,104-115
+apps/docs/vite.config.ts
+  h_9d56aba080c170 14,127-132,142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "95a852fa1baf997cd5722a0309211184367070c1",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
