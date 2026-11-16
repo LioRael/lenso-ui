@@ -31,17 +31,29 @@ function tick(time: number): void {
   // here lets nested set() calls start duplicate animation-frame chains.
   const dt = Math.min(0.1, Math.max(0, (time - last) / 1000));
   last = time;
-  for (const s of moving) {
-    advanceSpring(s, dt);
-    if (Math.abs(s.value - s.target) < 1e-4 && Math.abs(s.velocity) < 1e-3) {
-      s.value = s.target;
-      s.velocity = 0;
-      moving.delete(s);
+  const errors: unknown[] = [];
+  try {
+    // A paint may enqueue a settled spring again; defer it to the next frame.
+    for (const s of [...moving]) {
+      if (!moving.has(s)) continue;
+      advanceSpring(s, dt);
+      if (Math.abs(s.value - s.target) < 1e-4 && Math.abs(s.velocity) < 1e-3) {
+        s.value = s.target;
+        s.velocity = 0;
+        moving.delete(s);
+      }
+      try {
+        s.paint(s.value);
+      } catch (error) {
+        errors.push(error);
+      }
     }
-    s.paint(s.value);
+  } finally {
+    ticking = false;
+    frame = moving.size ? requestAnimationFrame(tick) : 0;
   }
-  ticking = false;
-  frame = moving.size ? requestAnimationFrame(tick) : 0;
+  if (errors.length === 1) throw errors[0];
+  if (errors.length > 1) throw new AggregateError(errors, "Spring paint callbacks failed");
 }
 
 export function prefersReducedMotion(): boolean {

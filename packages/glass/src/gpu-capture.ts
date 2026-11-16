@@ -283,6 +283,7 @@ function capture(root: HTMLElement, width: number, height: number, dpr: number) 
   canvas.width = width * dpr;
   canvas.height = height * dpr;
   const context = canvas.getContext("2d", { willReadFrequently: true })!;
+  let disposed = false;
   return {
     canvas,
     context,
@@ -292,12 +293,14 @@ function capture(root: HTMLElement, width: number, height: number, dpr: number) 
       svg.setAttribute("viewBox", `0 0 ${pixelWidth} ${height * dpr}`);
       image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(svg))}`;
       await image.decode();
+      if (disposed) return;
       context.clearRect(0, 0, pixelWidth, canvas.height);
       underlay?.();
       context.drawImage(image, 0, 0, pixelWidth, canvas.height);
       return canvas;
     },
     dispose() {
+      disposed = true;
       canvas.width = canvas.height = 1;
       image.src = "";
     },
@@ -317,6 +320,7 @@ export function createBackdropAtlas(shape: CaptureShape) {
     revision = -1,
     placement = "",
     previousTime = "";
+  let disposed = false;
   let captures = 0;
   let previousBounds: DOMRect | undefined;
   type Retained = {
@@ -461,6 +465,7 @@ export function createBackdropAtlas(shape: CaptureShape) {
       return captures;
     },
     async update(state: ReturnType<BackdropPaint["snapshot"]>, tiles: CaptureTile[]) {
+      if (disposed) return;
       const { paint } = state;
       if (!paint) throw new Error("Backdrop is no longer self-contained paint");
       // Retain source pixels around stationary paint. Moving the lens or scrolling
@@ -678,6 +683,7 @@ export function createBackdropAtlas(shape: CaptureShape) {
         base = makePack(columns, paint, true, false);
         position(base, all, tiles, paint);
         await base.capture.update(columns * strideX);
+        if (disposed) return;
       }
       const current = pack;
       await pack.capture.update(
@@ -722,6 +728,7 @@ export function createBackdropAtlas(shape: CaptureShape) {
             }
           : undefined,
       );
+      if (disposed) return;
       captures++;
       return {
         indices,
@@ -749,6 +756,7 @@ export function createBackdropAtlas(shape: CaptureShape) {
       };
     },
     dispose() {
+      disposed = true;
       clear();
       previousTiles = [];
     },

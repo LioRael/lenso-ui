@@ -48,12 +48,14 @@ function Container({
       if (typeof ref === "function") {
         const cleanup = ref(node);
         return () => {
+          setElement(null);
           if (cleanup) cleanup();
           else ref(null);
         };
       }
       if (ref) ref.current = node;
       return () => {
+        setElement(null);
         if (ref) ref.current = null;
       };
     },

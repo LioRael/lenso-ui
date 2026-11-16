@@ -168,7 +168,11 @@ export function useGlassRef<T extends HTMLElement>(
   return useCallback(
     (node: T | null) => {
       setElement(node);
-      return assignRef(ref, node);
+      const cleanup = assignRef(ref, node);
+      return () => {
+        setElement(null);
+        cleanup();
+      };
     },
     [ref],
   );

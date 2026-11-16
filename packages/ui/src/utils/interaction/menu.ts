@@ -463,6 +463,7 @@ export function useMenuPopupRef(
       const own = assignRef(popup, node),
         caller = assignRef(ref, node);
       return () => {
+        setElement(null);
         own();
         caller();
       };

@@ -168,7 +168,11 @@ export function ToolbarGroup({
   const detachableRef = useCallback(
     (node: HTMLDivElement | null) => {
       setElement(node);
-      return glassRef(node);
+      const cleanup = glassRef(node);
+      return () => {
+        setElement(null);
+        cleanup();
+      };
     },
     [glassRef],
   );

@@ -29,7 +29,11 @@ export function GlassMagnifier({
   const combinedRef = useCallback(
     (node: HTMLDivElement | null) => {
       setElement(node);
-      return assignRef(ref, node);
+      const cleanup = assignRef(ref, node);
+      return () => {
+        setElement(null);
+        cleanup();
+      };
     },
     [ref],
   );

@@ -1,3 +1,20 @@
+# Unreleased: Glass runtime lifecycle fixes
+
+Glass and elastic callback refs release their internal node ownership when React 19
+invokes ref cleanup, including conditional host removal while the hook stays mounted.
+Forwarded cleanup callbacks, legacy callbacks and object refs retain their contracts.
+Matching UI presentation hooks and composed Glass components now release observers,
+animation tasks and interaction state when their host nodes disappear.
+
+Spring paint failures no longer stop unrelated springs or poison future scheduling.
+Errors remain observable after frame housekeeping: one failure is rethrown unchanged,
+and multiple failures use `AggregateError`. Springs enqueued during painting first
+run in the next frame. Disposing a backdrop atlas prevents late image decoding from
+writing released canvases or returning stale capture output.
+
+No public API or caller migration is required. Optical formulas and motion constants
+are unchanged. These source fixes do not authorize a package release.
+
 # Prepared release: UI/Tokens 0.11.4, Glass 0.2.4 and Docs 0.3.5
 
 Glass reuses live-rim source pixels, preserves split optical resources during

@@ -190,7 +190,11 @@ export function useSwitchRef(ref: Ref<HTMLElement> | undefined) {
   return useCallback(
     (node: HTMLElement | null) => {
       setElement(node);
-      return assignRef(ref, node);
+      const cleanup = assignRef(ref, node);
+      return () => {
+        setElement(null);
+        cleanup();
+      };
     },
     [ref],
   );

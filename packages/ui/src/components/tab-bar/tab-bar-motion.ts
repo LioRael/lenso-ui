@@ -684,7 +684,11 @@ export function useTabBarMotionRef(ref: Ref<HTMLDivElement> | undefined, enabled
   return useCallback(
     (node: HTMLDivElement | null) => {
       setElement(node);
-      return assignRef(ref, node);
+      const cleanup = assignRef(ref, node);
+      return () => {
+        setElement(null);
+        cleanup();
+      };
     },
     [ref],
   );
