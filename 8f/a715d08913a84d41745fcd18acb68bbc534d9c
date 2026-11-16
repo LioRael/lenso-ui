@@ -1,0 +1,43 @@
+.github/scripts/workflow-gate.test.ts
+  s_9b725fa5e1cb00::t_9b276da43471c4 23,28,32-44
+CONTRIBUTING.md
+  s_9b725fa5e1cb00::t_76d63b79610bc6 120-125,206,208-212,250-255,273-283,287-306
+apps/docs/package.json
+  s_9b725fa5e1cb00::t_1a03390f98ae45 17-19
+apps/docs/test/browser-diagnostics.mjs
+  s_9b725fa5e1cb00::t_463133850c9168 1-36
+apps/docs/test/browser-gate.mjs
+  s_9b725fa5e1cb00::t_e801bce38c391f 1-51
+apps/docs/test/first-paint.mjs
+  s_9b725fa5e1cb00::t_25eae59b76ba40 4,66,89,218-220
+apps/docs/test/glass-canvas-navigation.mjs
+  s_9b725fa5e1cb00::t_2a59d34a37e6ef 7,41,113-115
+apps/docs/test/model-behaviors.mjs
+  s_9b725fa5e1cb00::t_5578f5f4125a83 5,50,311-313
+apps/docs/test/photos-dom.preload.ts
+  s_9b725fa5e1cb00::t_53dc64d4a1947a 1
+apps/docs/test/photos-editor.dom.test.tsx
+  s_9b725fa5e1cb00::t_227eb274988209 19,45-52
+apps/docs/test/tabs-overflow.mjs
+  s_9b725fa5e1cb00::t_14559444d3f2ec 4,18,59-60,98-100
+packages/ui-native/package.json
+  s_9b725fa5e1cb00::t_e62e358f7e6dc0 13
+tests/consumer/installed-consumer-browser.mjs
+  s_9b725fa5e1cb00::t_8cd5688fa71dfe 1-134
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8fa715d08913a84d41745fcd18acb68bbc534d9c",
+  "prompts": {},
+  "sessions": {
+    "s_9b725fa5e1cb00": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1e428-164e-7842-8a21-ac0eaf56c748",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
