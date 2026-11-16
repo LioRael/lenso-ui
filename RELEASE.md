@@ -1,3 +1,29 @@
+# Prepared release: UI/Tokens 0.11.4, Glass 0.2.4 and Docs 0.3.5
+
+Glass reuses live-rim source pixels, preserves split optical resources during
+resizing and hands off foreground paint when corner transitions begin. The
+default main-thread path, optical formulas and sampling density are unchanged.
+ScrollShadow retains child observations across unrelated mutations.
+
+Menu feedback targets the visible content and its own plate. Menu.Trigger adds
+the optional `morphSource="trigger"` and `morphSource="toolbar"` choices; the
+default remains `"container"`. Toolbar separators and color-swatch layout are
+refined. Existing callers do not need to change their composition.
+
+Upgrade UI and Tokens together to 0.11.4, with Glass 0.2.4. Docs 0.3.5 and
+create-lenso-docs 0.3.5 consume the updated exact dependency chain. The homepage
+Playground redesign is a docs-site change, not a new Docs framework API.
+Primitives remains at 0.9.1; preserve its published tarball and integrity.
+
+Browser acceptance covers the homepage, upstream glass interactions and contour
+continuity in Chromium and WebKit, including light/dark glass, interrupted
+transitions and reduced motion. Chromium touch simulation is not real-device
+verification. These checks do not establish a new FPS or throughput claim.
+
+Dispatch `Release` with input `0.11.4` only after the exact main commit passes
+verification. Preserve the protected `npm` environment, OIDC provenance and
+package-content and integrity checks. Prepared versions are not a publication receipt.
+
 # Prepared release: UI/Tokens 0.11.3, Glass 0.2.3 and Docs 0.3.4
 
 Pill Toast trailing actions and the close button now follow the live surface

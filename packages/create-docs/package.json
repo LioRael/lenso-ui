@@ -1,6 +1,6 @@
 {
   "name": "create-lenso-docs",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Create a content-only Lenso Docs project",
   "license": "MIT",
   "repository": {
