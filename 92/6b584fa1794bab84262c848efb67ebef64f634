@@ -1,0 +1,21 @@
+AGENTS.md
+  s_22c986b325ab2c::t_6e994ad368c9a8 56-60
+CONTRIBUTING.md
+  s_22c986b325ab2c::t_6e994ad368c9a8 333-340
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "926b584fa1794bab84262c848efb67ebef64f634",
+  "prompts": {},
+  "sessions": {
+    "s_22c986b325ab2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ea56-33d5-7d10-b33d-e207d8efa3f3",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
