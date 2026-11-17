@@ -208,6 +208,7 @@ export class BackdropPaint {
     if (
       !this.checked ||
       change.content ||
+      !!change.texts?.size ||
       change.styles ||
       change.animationSetChanged ||
       (change.animated.size &&

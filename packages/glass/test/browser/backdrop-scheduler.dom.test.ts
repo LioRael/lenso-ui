@@ -163,3 +163,62 @@ test("press mutations update every owner of the lens without updating unrelated 
     else Reflect.deleteProperty(document, "fonts");
   }
 });
+
+// Character edits are sampled by the copies that read the batch. A paused
+// consumer misses that sample, so it must re-copy instead of keeping old text.
+test("a paused backdrop consumer re-copies after a text edit it missed", async () => {
+  const fonts = Object.getOwnPropertyDescriptor(document, "fonts");
+  Object.defineProperty(document, "fonts", { configurable: true, value: new EventTarget() });
+  const raf = globalThis.requestAnimationFrame;
+  globalThis.requestAnimationFrame = () => 1;
+  const source = document.createElement("div");
+  const text = document.createTextNode("initial");
+  source.append(text);
+  const visibleElement = document.createElement("div"),
+    pausedElement = document.createElement("div");
+  const layers = [document.createElement("div"), document.createElement("div")];
+  document.body.append(source, visibleElement, pausedElement, ...layers);
+  const seen: { content: boolean; texts: number }[] = [];
+  const visible = observeBackdrop({
+    source,
+    element: visibleElement,
+    layer: layers[0],
+    prepare() {},
+    read() {
+      return () => {};
+    },
+  });
+  const paused = observeBackdrop({
+    source,
+    element: pausedElement,
+    layer: layers[1],
+    prepare() {},
+    read(change) {
+      seen.push({ content: change.content, texts: change.texts?.size ?? 0 });
+      return () => {};
+    },
+  });
+  const settle = () => new Promise((resolve) => setTimeout(resolve, 10));
+  try {
+    await settle();
+    paused.visible(false);
+    await settle();
+    seen.length = 0;
+    text.data = "edited";
+    await settle();
+    expect(seen.length).toBe(0);
+    paused.visible(true);
+    await settle();
+    expect(seen.at(-1)?.content).toBe(true);
+  } finally {
+    visible.stop();
+    paused.stop();
+    source.remove();
+    visibleElement.remove();
+    pausedElement.remove();
+    layers.forEach((layer) => layer.remove());
+    globalThis.requestAnimationFrame = raf;
+    if (fonts) Object.defineProperty(document, "fonts", fonts);
+    else Reflect.deleteProperty(document, "fonts");
+  }
+});

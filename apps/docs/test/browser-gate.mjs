@@ -8,7 +8,12 @@ import { startStaticServer } from "./static-server.mjs";
 
 const groups = {
   core: ["tabs-overflow.mjs", "model-behaviors.mjs"],
-  glass: ["first-paint.mjs", "glass-canvas-navigation.mjs", "glass-fusion-contour.mjs"],
+  glass: [
+    "first-paint.mjs",
+    "glass-canvas-navigation.mjs",
+    "glass-fusion-contour.mjs",
+    "backdrop-text-layout.mjs",
+  ],
   production: ["production-loading.mjs"],
   performance: ["tab-bar-performance.mjs", "loading-timing.mjs"],
 };

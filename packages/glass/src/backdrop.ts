@@ -112,6 +112,9 @@ interface Copy {
   root: HTMLElement;
   /** Each element of the original, with its copy. */
   pairs: Map<Element, HTMLElement>;
+  /** Each text node of the original, with its copy. */
+  texts: Map<Text, Text>;
+  sizes: Map<Element, { width: number; height: number }>;
   fields: [TextField, TextField][];
 }
 
@@ -226,6 +229,42 @@ function animatedStyles(
   return writes;
 }
 
+// Keep ordinary edits local. If text reflows an ancestor, siblings can stretch
+// or redistribute space too, even when the source's outer size stays fixed.
+function textWrites(
+  copy: Copy,
+  source: HTMLElement,
+  texts: ReadonlySet<Text>,
+  reads: BackdropReads,
+  inlineAncestors: boolean,
+): (() => void)[] {
+  const writes: (() => void)[] = [];
+  const ancestors = new Set<HTMLElement>();
+  for (const text of texts) {
+    const target = copy.texts.get(text);
+    if (!target) continue;
+    const value = text.data;
+    if (target.data !== value) writes.push(() => (target.data = value));
+    if (!inlineAncestors) continue;
+    // The original already reflowed; its used values reflect the new text.
+    for (let node = text.parentElement; node && source.contains(node); node = node.parentElement)
+      ancestors.add(node);
+  }
+  const layoutChanged = [...ancestors].some((original) => {
+    const before = copy.sizes.get(original);
+    const after = reads.box(original);
+    return !before || before.width !== after.width || before.height !== after.height;
+  });
+  for (const original of layoutChanged ? copy.pairs.keys() : ancestors) {
+    const target = copy.pairs.get(original);
+    if (target) {
+      writes.push(inline(original, target, original === source, reads));
+      copy.sizes.set(original, reads.box(original));
+    }
+  }
+  return writes;
+}
+
 // A deep copy that renders like the original wherever it's placed: each
 // element carries its computed style inline, minus anything that would animate
 // it or tie it to the original.
@@ -253,7 +292,18 @@ function copyOf(source: HTMLElement, reads: BackdropReads): Copy {
     inline(original, copy, original === source, reads)();
   });
   root.removeAttribute(MARK);
-  const result = { root, pairs, fields };
+  // Clones preserve child order, so each text node pairs by its parent's index.
+  const texts = new Map<Text, Text>();
+  for (const [original, target] of pairs) {
+    if (original.childNodes.length !== target.childNodes.length) continue;
+    for (let index = 0; index < original.childNodes.length; index++) {
+      const from = original.childNodes[index];
+      const to = target.childNodes[index];
+      if (from?.nodeType === 3 && to?.nodeType === 3) texts.set(from as Text, to as Text);
+    }
+  }
+  const sizes = new Map([...pairs.keys()].map((original) => [original, reads.box(original)]));
+  const result = { root, pairs, texts, sizes, fields };
   // Only share the detached, fully styled recipe for this read batch. A custom
   // element can change its own light DOM during construction or attribute updates.
   if (
@@ -341,9 +391,12 @@ function createBackdropCopy(
   let shift = { x: 0, y: 0 };
   let active = true;
   let copy: Copy | undefined;
+  let candidate: Copy | undefined;
   let ready: Copy | undefined;
   let stale = false;
   let stopped = false;
+  let decoding = false;
+  let pendingTexts: Set<Text> | undefined;
   let version = 0;
   let shared: SharedBackdropRegistration | undefined;
   let nativeStylesStale = false;
@@ -363,6 +416,7 @@ function createBackdropCopy(
       if (layer.style.display) layer.style.display = "";
     },
     read(change, reads, geometry) {
+      if (stopped) return () => {};
       if (!nativeFallback && (geometry || change.styles || !sourceVisible)) {
         const box = reads.box(element);
         const visible = visibleBox(source, reads);
@@ -372,7 +426,7 @@ function createBackdropCopy(
           visible.right >= box.right - 1 &&
           visible.bottom >= box.bottom - 1;
         if (!covered) {
-          stale ||= change.content || change.styles;
+          stale ||= change.content || change.styles || !!change.texts?.size;
           nativeStylesStale ||= change.animated.size > 0;
           return () => {
             if (stopped) return;
@@ -383,7 +437,7 @@ function createBackdropCopy(
           };
         }
       }
-      if (!geometry && !change.content && !change.styles) {
+      if (!geometry && !change.content && !change.styles && !change.texts?.size) {
         const updateSource = shared?.updateSource(change, reads);
         if (typeof updateSource === "function") {
           nativeStylesStale = true;
@@ -413,7 +467,7 @@ function createBackdropCopy(
         return () => {
           clearTimeout(fade);
           fusionHidden = true;
-          stale ||= change.content;
+          stale ||= change.content || !!change.texts?.size;
           nativeStylesStale ||= change.styles || change.animated.size > 0;
           styled = "";
           layer.style.transition = "none";
@@ -477,34 +531,68 @@ function createBackdropCopy(
       const updateShared = shared?.read(change, reads, margin);
       const updates: (() => void)[] = [];
       if (!nativeFallback && (!updateShared || updateShared.native)) {
+        const promoted = !!ready;
         if (ready) {
           copy = ready;
           ready = undefined;
         }
         const install = copy && !copy.root.isConnected;
         let freshlyStyled = false;
-        if (!copy || change.content || stale) {
+        // One candidate may decode at a time. Edits that arrive meanwhile only
+        // mark the latest content, sampled once after it settles.
+        const wanted = !copy || change.content || stale;
+        // Decoding only gates copies that still contain images. Once the latest
+        // source drops them, its copy can land without waiting for stale decodes.
+        const awaitingImages =
+          decoding &&
+          wanted &&
+          (source instanceof HTMLImageElement || source.querySelector("img") !== null);
+        if (awaitingImages) {
+          stale = true;
+        } else if (wanted) {
           stale = false;
-          const next = copyOf(source, reads);
+          pendingTexts = undefined;
+          // Any previous attempt is superseded; its late result must not touch
+          // this attempt's decoder state.
+          decoding = false;
+          candidate = copyOf(source, reads);
+          const attempt = candidate;
           const id = ++version;
           // Keep the previous view while replacement images decode. Text and SVG
           // edits can be installed in the same write as the rest of this batch.
-          const images = copy ? [...next.root.querySelectorAll("img")] : [];
-          if (copy && next.root instanceof HTMLImageElement) images.push(next.root);
+          const images = copy ? [...attempt.root.querySelectorAll("img")] : [];
+          if (copy && attempt.root instanceof HTMLImageElement) images.push(attempt.root);
           if (images.length) {
+            decoding = true;
             void Promise.all(images.map((image) => image.decode().catch(() => undefined))).then(
               () => {
+                if (candidate !== attempt) return;
+                candidate = undefined;
+                decoding = false;
                 if (stopped || id !== version) return;
-                ready = next;
+                // A newer edit superseded this candidate; derive the latest once
+                // instead of presenting an obsolete frame.
+                if (stale) return void subscription.invalidate();
+                ready = attempt;
                 subscription.invalidate();
               },
             );
           } else {
-            copy = next;
+            copy = attempt;
+            candidate = undefined;
             freshlyStyled = true;
           }
         }
-        if (copy && (freshlyStyled || change.styles || install || nativeStylesStale)) {
+        const texts = new Set(change.texts);
+        // The promoted candidate predates edits made while it decoded.
+        if (promoted) for (const text of pendingTexts ?? []) texts.add(text);
+        if (promoted) pendingTexts = undefined;
+        if (decoding) {
+          pendingTexts ??= new Set();
+          for (const text of change.texts ?? []) pendingTexts.add(text);
+        }
+        const styleAll = !!(change.styles || install || nativeStylesStale);
+        if (copy && (freshlyStyled || styleAll)) {
           // Detached controls cannot scroll. Restore their view after insertion.
           for (const [field, target] of copy.fields) {
             const state = reads.text(field);
@@ -512,17 +600,22 @@ function createBackdropCopy(
           }
         }
         if (copy && !freshlyStyled) {
-          if (change.styles || install || nativeStylesStale) {
-            for (const [original, target] of copy.pairs)
+          if (styleAll) {
+            for (const [original, target] of copy.pairs) {
               updates.push(inline(original, target, original === source, reads));
+              copy.sizes.set(original, reads.box(original));
+            }
           } else {
             for (const write of animatedStyles(copy, source, change, reads)) updates.push(write);
           }
+          if (!change.content && texts.size)
+            for (const write of textWrites(copy, source, texts, reads, !styleAll))
+              updates.push(write);
         }
         nativeStylesStale = false;
       } else {
         nativeStylesStale = true;
-        if (change.content) stale = true;
+        if (change.content || change.texts?.size) stale = true;
       }
       const currentCopy = copy;
       return () => {
@@ -617,6 +710,10 @@ function createBackdropCopy(
     stopped = true;
     clearTimeout(fade);
     version++;
+    decoding = false;
+    pendingTexts = undefined;
+    candidate = undefined;
+    copy = ready = undefined;
     stopVisibility?.();
     shared?.stop();
     overlay?.destroy();

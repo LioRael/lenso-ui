@@ -66,6 +66,8 @@ export class BackdropReads {
 export interface BackdropChange {
   content: boolean;
   styles: boolean;
+  /** Text nodes whose data changed in a batch without any structural edit. */
+  texts?: ReadonlySet<Text>;
   animated: Map<Element, Set<string>>;
   paintOnly?: boolean;
   animationSetChanged?: boolean;
@@ -105,6 +107,8 @@ interface Client {
 
 interface Source extends BackdropChange {
   clients: Set<Client>;
+  /** Characters edited since the last flush, when nothing structural changed. */
+  texts: Set<Text>;
 }
 
 const pendingText = new Set<TextField>();
@@ -154,13 +158,18 @@ function flush(): void {
       [...source.animated.values()].every((names) =>
         [...names].every((name) => simplePaint.has(name)),
       );
+    const texts = source.texts.size ? source.texts : undefined;
     for (const client of source.clients) {
       client.pendingContent ||= source.content;
-      if (!client.active || !client.dirty) continue;
+      if (!client.active || !client.dirty) {
+        // A paused consumer samples the edit through its next full copy.
+        if (texts) client.pendingContent = true;
+        continue;
+      }
       client.dirty = false;
       work.push(
         client.read(
-          { ...source, content: client.pendingContent, paintOnly },
+          { ...source, content: client.pendingContent, texts, paintOnly },
           reads,
           client.geometry,
         ),
@@ -169,6 +178,7 @@ function flush(): void {
       client.geometry = false;
     }
     source.content = source.styles = false;
+    source.texts.clear();
     source.animationSetChanged = false;
     source.animated = new Map();
   }
@@ -403,6 +413,7 @@ function observeLensStyle(element: HTMLElement, active: boolean): void {
 function start(): void {
   observer = new MutationObserver((records) => {
     const targets = new Map<Node, boolean>();
+    const texts = new Set<Text>();
     const lensStyles = new Map<HTMLElement, string>();
     const pressed = new Set<HTMLElement>();
     for (const record of records) {
@@ -413,6 +424,12 @@ function start(): void {
         [...record.addedNodes, ...record.removedNodes].every(isCopy)
       )
         continue;
+      // Characters carry no structure: copies synchronize the mapped text node
+      // instead of re-cloning and re-inlining the whole background tree.
+      if (record.type === "characterData") {
+        texts.add(target as Text);
+        continue;
+      }
       const lens = target as HTMLElement;
       if (
         record.attributeName === "style" &&
@@ -434,7 +451,7 @@ function start(): void {
         record.type !== "attributes" || !["style", "class", "id"].includes(record.attributeName!);
       targets.set(target, content || targets.get(target) === true);
     }
-    if (targets.size) {
+    if (targets.size || texts.size) {
       for (const [element, source] of sources) {
         for (const [target, content] of targets) {
           if (element.contains(target)) {
@@ -442,6 +459,10 @@ function start(): void {
             source.content ||= content;
           } else if (target.contains(element)) source.styles = true;
         }
+        // A structural edit in the same batch already samples the latest text
+        // through the full copy, and keeps the whole batch on that path.
+        if (!source.content)
+          for (const text of texts) if (element.contains(text)) source.texts.add(text);
       }
       invalidate();
     } else if (pressed.size) {
@@ -499,7 +520,13 @@ export function observeBackdrop(
   owners.add(client);
   let source = sources.get(entry.source);
   if (!source) {
-    source = { clients: new Set(), content: false, styles: true, animated: new Map() };
+    source = {
+      clients: new Set(),
+      content: false,
+      styles: true,
+      texts: new Set(),
+      animated: new Map(),
+    };
     sources.set(entry.source, source);
   }
   source.clients.add(client);

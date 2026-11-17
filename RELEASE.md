@@ -22,6 +22,12 @@ or destroyed owners cannot paint late results. Bitmap commits preserve the
 current CSS geometry. Initial group paint remains synchronous, and raster
 completion can still lag input; these changes do not promise a frame-rate target.
 
+Backdrop copies bound replacement image decoding to one effective candidate per
+consumer. Character edits reuse mapped text nodes; if ancestor dimensions change,
+the existing copy refreshes all used styles so flex/grid siblings reflow with it.
+Shared capture eligibility also follows text edits. Image decoding itself remains
+uncancellable. No public API or caller migration is required.
+
 # Prepared release: UI/Tokens 0.11.4, Glass 0.2.4 and Docs 0.3.5
 
 Glass reuses live-rim source pixels, preserves split optical resources during
