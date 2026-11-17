@@ -1,0 +1,35 @@
+apps/docs/test/glass-fusion-contour.mjs
+  s_22c986b325ab2c::t_6e24137708186a 76-101,103-112
+  s_22c986b325ab2c::t_8e3b6af92b7a76 102
+packages/glass/src/fusion-contour-pixels.ts
+  s_22c986b325ab2c::t_6b388a6e622cff 116
+packages/glass/test/browser/fusion-contour.dom.test.ts
+  s_22c986b325ab2c::t_c5053d93dc366d 318-336
+  s_22c986b325ab2c::t_6b388a6e622cff 177-204,312-313,315-316
+  s_22c986b325ab2c::t_f9c268585c9b67 136,152,160,167-169,290,307,309-311
+  s_22c986b325ab2c::t_83a3dd3b5737b9 314,317
+RELEASE.md
+  s_22c986b325ab2c::t_322a34409184b3 18-24
+packages/glass/test/browser/fusion-rim.dom.test.ts
+  s_22c986b325ab2c::t_f9c268585c9b67 98-99,125-126
+packages/glass/src/fusion-contour-renderer.ts
+  s_22c986b325ab2c::t_6b388a6e622cff 115-117
+packages/glass/src/fusion-contour.ts
+  s_22c986b325ab2c::t_6b388a6e622cff 21-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ad4c352faa897f039f70025e32fd07c204d3c0c4",
+  "prompts": {},
+  "sessions": {
+    "s_22c986b325ab2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ea56-33d5-7d10-b33d-e207d8efa3f3",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
