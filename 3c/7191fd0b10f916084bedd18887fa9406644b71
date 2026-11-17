@@ -1,0 +1,32 @@
+apps/docs/test/backdrop-text-layout.mjs
+  s_22c986b325ab2c::t_c5053d93dc366d 84-85
+  s_22c986b325ab2c::t_c08bc9f1eb07ba 1-16,21-26,31-36,39-51,54,65-71,83,86-93,130-136
+  s_22c986b325ab2c::t_cfdc9f6e0e00a3 94,101-103,107-109,116-122,128-129
+  s_22c986b325ab2c::t_e188e85c253d71 17-20,27-30,37-38,52-53,55-64,72-82,95-100,104-106,110-115,123-127
+RELEASE.md
+  s_22c986b325ab2c::t_322a34409184b3 25-30
+packages/glass/src/backdrop.ts
+  s_22c986b325ab2c::t_c1ff6a0a625a3e 117,232-233,253-254,256-258,260-261,263,306,604,607
+  s_22c986b325ab2c::t_a333ddb4d5cad3 255,262,606
+  s_22c986b325ab2c::t_2d46f38e941ecb 305
+packages/glass/src/gpu-capture.ts
+  s_22c986b325ab2c::t_b4010f2b5941ef 211
+apps/docs/test/browser-gate.mjs
+  s_22c986b325ab2c::t_59e704325cd92c 11-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3c7191fd0b10f916084bedd18887fa9406644b71",
+  "prompts": {},
+  "sessions": {
+    "s_22c986b325ab2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ea56-33d5-7d10-b33d-e207d8efa3f3",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
