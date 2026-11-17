@@ -11,6 +11,8 @@ packages/glass/src/backdrop.ts
   s_22c986b325ab2c::t_2d46f38e941ecb 305
 packages/glass/src/gpu-capture.ts
   s_22c986b325ab2c::t_b4010f2b5941ef 211
+apps/docs/test/browser-gate.mjs
+  s_22c986b325ab2c::t_53ae810100722d 11-16
 ---
 {
   "schema_version": "authorship/3.0.0",
