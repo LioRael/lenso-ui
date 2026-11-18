@@ -4,11 +4,14 @@ import { execFileSync, spawnSync } from "node:child_process";
 // The old single job had no dependency aggregation. Exercise the actual shell
 // gate so a failed, cancelled or skipped parallel job cannot authorize landing.
 interface Workflow {
+  on?: { push?: { tags?: string[] }; workflow_dispatch?: unknown };
   jobs: Record<
     string,
     {
       if?: string;
-      needs?: string[];
+      needs?: string[] | string;
+      environment?: string;
+      permissions?: Record<string, string>;
       steps: { name?: string; run?: string; env?: Record<string, string> }[];
     }
   >;
@@ -57,4 +60,29 @@ test("documentation graph builds its dependencies on a fresh runner", () => {
   for (const name of ["tokens", "glass", "primitives", "ui", "docs", "ui-docs"])
     expect(tasks).toContain(`@lenso/${name}#build`);
   expect(tasks).toContain("@lenso/ui-docs#generate");
+});
+
+test("tag and manual publication retain npm approval between release checks", async () => {
+  const release = Bun.YAML.parse(
+    await Bun.file(new URL("../workflows/release.yml", import.meta.url)).text(),
+  ) as Workflow;
+  expect(release.on?.push?.tags).toContain("v*");
+  expect(release.on).toHaveProperty("workflow_dispatch");
+  const preflight = release.jobs.preflight!;
+  const publication = release.jobs.release!;
+  expect(preflight.permissions?.["id-token"]).not.toBe("write");
+  expect(
+    preflight.steps.some((step) => step.run === "bun scripts/publish-packages.ts --check"),
+  ).toBe(true);
+  expect(publication.needs).toBe("preflight");
+  expect(publication.environment).toBe("npm");
+  expect(publication.permissions?.["id-token"]).toBe("write");
+  const check = publication.steps.findIndex(
+    (step) => step.run === "bun scripts/publish-packages.ts --check",
+  );
+  const publish = publication.steps.findIndex(
+    (step) => step.run === "bun scripts/publish-packages.ts",
+  );
+  expect(check).toBeGreaterThanOrEqual(0);
+  expect(publish).toBeGreaterThan(check);
 });

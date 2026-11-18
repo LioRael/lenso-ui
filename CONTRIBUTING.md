@@ -250,7 +250,8 @@ requires a separate explicit owner decision, including versioning, publication
 and migration requirements.
 
 The owner subsequently authorized the 0.8.0 UI/styles release and manual CI
-publication. See `RELEASE.md` for the migration and deferred scope. The manual
+publication, then stable tag-triggered releases with retained npm approval.
+See `RELEASE.md` for the migration and release procedure. The
 `Release` workflow uses npm Trusted Publishing from the `npm` environment and
 requires successful verification of its exact main commit. It publishes the package set declared in `scripts/publish-packages.ts`, including
 the matching Glass, primitives, documentation and initializer packages; it does not restore Changesets or the former
@@ -319,12 +320,16 @@ Documentation deployment checks whether the commit is still main before fetching
 the verified output or installing deployment tooling. The deploy job still uses
 the protected docs environment and the artifact from its own successful gate.
 
-Manual package releases validate exact-main verification, version and package
-identities before requesting npm environment approval. Publication rechecks main
-and verification after approval. Packages build through one Turbo dependency graph,
-then all tarballs are validated before the first publish. OIDC provenance, ordered
-publication and registry integrity checks remain required. Dispatching a release
-still requires separate owner authorization.
+Pushing a stable `v<version>` tag triggers `Release`; manual dispatch on main
+remains available. The tag version must match UI and Tokens, while other packages
+use their declared release versions. Both paths require the exact current main
+commit and its successful push-triggered Verify run before requesting npm
+environment approval. Tag releases also check the live remote tag's commit,
+peeling annotated tags. Publication rechecks these conditions after approval.
+Packages build through one Turbo dependency graph, then all tarballs are validated
+before the first publish. OIDC provenance, ordered publication and registry
+integrity checks remain required. Creating or pushing release tags, dispatching
+releases and approving publication still require separate owner authorization.
 
 ## Ongoing Git maintenance
 

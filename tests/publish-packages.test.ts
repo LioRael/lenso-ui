@@ -9,6 +9,7 @@ import {
 } from "../scripts/publish-packages.ts";
 const env = {
   GITHUB_ACTIONS: "true",
+  GITHUB_EVENT_NAME: "workflow_dispatch",
   GITHUB_REF: "refs/heads/main",
   GITHUB_SHA: "abc123",
   LENSO_RELEASE_VERSION: "0.8.0",
@@ -21,6 +22,7 @@ test("accepts only the authorized CI context and exact package identities", () =
   assert.equal(validateContext(env, "abc123", "abc123", manifests), "0.8.0");
   for (const patch of [
     { GITHUB_ACTIONS: "false" },
+    { GITHUB_EVENT_NAME: "push" },
     { GITHUB_REF: "refs/heads/other" },
     { LENSO_RELEASE_VERSION: "v0.8.0" },
     { LENSO_RELEASE_VERSION: "0.8.0-rc.1" },
@@ -44,6 +46,47 @@ test("accepts only the authorized CI context and exact package identities", () =
       manifests[1]!,
     ]),
   );
+});
+
+test("tag releases bind the stable version to the exact verified main and live tag commit", () => {
+  const tagEnv = {
+    ...env,
+    GITHUB_EVENT_NAME: "push",
+    GITHUB_REF: "refs/tags/v0.8.0",
+    LENSO_RELEASE_VERSION: "",
+  };
+  assert.equal(validateContext(tagEnv, "abc123", "abc123", manifests, "abc123"), "0.8.0");
+  for (const ref of [
+    "refs/tags/0.8.0",
+    "refs/tags/v0.7.0",
+    "refs/tags/v00.8.0",
+    "refs/tags/v0.8.0-rc.1",
+    "refs/tags/v0.8.0+build",
+    "refs/tags/v0.8.0/extra",
+  ]) {
+    assert.throws(() =>
+      validateContext({ ...tagEnv, GITHUB_REF: ref }, "abc123", "abc123", manifests, "abc123"),
+    );
+  }
+  assert.throws(() =>
+    validateContext(
+      { ...tagEnv, GITHUB_EVENT_NAME: "workflow_dispatch" },
+      "abc123",
+      "abc123",
+      manifests,
+      "abc123",
+    ),
+  );
+  assert.throws(
+    () => validateContext(tagEnv, "wrong", "abc123", manifests, "abc123"),
+    /GITHUB_SHA/,
+  );
+  assert.throws(
+    () => validateContext(tagEnv, "abc123", "new-main", manifests, "abc123"),
+    /GITHUB_SHA/,
+  );
+  assert.throws(() => validateContext(tagEnv, "abc123", "abc123", manifests, "moved-tag"), /tag/);
+  assert.throws(() => validateContext(tagEnv, "abc123", "abc123", manifests), /tag/);
 });
 
 test("validates packed exports, required files, dependency protocols and release pin", () => {
