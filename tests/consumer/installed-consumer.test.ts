@@ -291,7 +291,7 @@ export const customWheel = <WheelParts.Root options={[{value: "one", label: "One
       join(directory, "tsconfig.primitives.json"),
       JSON.stringify({
         extends: "./tsconfig.json",
-        compilerOptions: { strict: true, exactOptionalPropertyTypes: false, skipLibCheck: false },
+        compilerOptions: { strict: true, exactOptionalPropertyTypes: true, skipLibCheck: false },
         include: ["primitive-types.tsx"],
       }),
     );

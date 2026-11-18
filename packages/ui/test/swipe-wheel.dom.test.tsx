@@ -94,7 +94,15 @@ test("WheelPicker skips disabled options, emits one keyboard change and resets i
     await new Promise((resolve) => setTimeout(resolve, 5));
   });
   expect(new FormData(host.querySelector("form")!).get("letter")).toBe("a");
-  expect(host.querySelector('[role="option"][tabindex="0"]')?.textContent).toBe("Charlie");
+  expect(host.querySelector('[aria-selected="true"]')).toBe(first);
+  expect(host.querySelector('[role="option"][tabindex="0"]')).toBe(first);
+  expect(document.activeElement).toBe(first);
+  await key(document.activeElement as HTMLElement, "ArrowDown");
+  const selected = host.querySelector('[aria-selected="true"]');
+  expect(selected?.textContent).toBe("Charlie");
+  expect(document.activeElement).toBe(selected);
+  expect(new FormData(host.querySelector("form")!).get("letter")).toBe("c");
+  expect(changes).toEqual(["c", "a", "c"]);
 });
 
 test("SwipeActions preserves controlled rejection and disabled state", async () => {
