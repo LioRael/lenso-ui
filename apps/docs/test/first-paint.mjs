@@ -84,6 +84,20 @@ try {
             .evaluate((node) => getComputedStyle(node).backgroundColor),
           "rgb(90, 40, 180)",
         );
+        const initialColors = await staticPage
+          .locator('[data-case="custom-height-padding"] [data-lenso-slot="tabs-indicator"]')
+          .evaluate((node) => {
+            // Caller styles can resolve after the base stylesheet, before hydration.
+            node.style.backgroundColor = "rgb(40, 100, 180)";
+            const overridden = getComputedStyle(node).backgroundColor;
+            node.style.removeProperty("background-color");
+            return [overridden, getComputedStyle(node).backgroundColor];
+          });
+        assert.deepEqual(
+          initialColors,
+          ["rgb(40, 100, 180)", "rgb(90, 40, 180)"],
+          `${engineName}/${theme}: caller colors must apply without an initial transition`,
+        );
         await staticPage.close();
         const page = await browser.newPage();
         await startDiagnostics(page);

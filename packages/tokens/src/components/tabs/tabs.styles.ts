@@ -255,7 +255,11 @@ export const tabsStyles = stylex.create({
     backgroundSize: "100% 100%",
     boxShadow: "0 2px 20px rgb(0 0 0 / .06)",
     opacity: { default: 1, ":is([data-hidden] *)": 0 },
-    transition: "opacity 140ms ease, background-color 140ms ease",
+    transitionProperty: {
+      default: "opacity, background-color",
+      ":is(:is([data-lenso-slot='tabs-list'], [data-lenso-slot='segmented-control']):not([data-ready]) *)":
+        "none",
+    },
     transitionDuration: { default: "140ms, 140ms", ":is([data-lifted] *)": "100ms" },
     "::before": {
       content: '""',
