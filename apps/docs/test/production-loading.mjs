@@ -150,6 +150,56 @@ try {
         assert.deepEqual(errors, []);
         await page.close();
       }
+      for (const locale of ["en", "cn"]) {
+        const page = await browser.newPage({ viewport: { width: 1280, height: 960 } });
+        await startDiagnostics(page);
+        let releaseImages;
+        const images = new Promise((resolve) => {
+          releaseImages = resolve;
+        });
+        let pendingImages = 0;
+        await page.route("**/assets/demo/photos/*.jpg", async (route) => {
+          pendingImages++;
+          await images;
+          await route.continue();
+        });
+        try {
+          const response = await page.goto(`${base}/${locale}/device-lab/`, {
+            waitUntil: "domcontentloaded",
+          });
+          assert.equal(response.status(), 200, "DeviceLab must be exported as a static route");
+          const slider = page.getByRole("slider");
+          await slider.waitFor();
+          await page.waitForFunction(
+            () => document.querySelector('input[type="range"]')?.disabled === false,
+          );
+          assert.ok(pendingImages > 0, "The readiness check must run with photos still loading");
+          assert.equal(await page.locator("output").count(), 0);
+          const inner = page.frameLocator('iframe[title="Inner display"]');
+          const cover = page.frameLocator('iframe[title="Cover display"]');
+          await inner.getByRole("button", { name: "Select", exact: true }).click();
+          await page
+            .getByRole("button", { name: locale === "en" ? "Fold" : "折叠", exact: true })
+            .click();
+          await page.waitForFunction((input) => input.value === "0", await slider.elementHandle());
+          await cover.getByRole("button", { name: "Cancel selection", exact: true }).click();
+          await page
+            .getByRole("button", { name: locale === "en" ? "Unfold" : "展开", exact: true })
+            .click();
+          await page.waitForFunction(
+            (input) => input.value === "180",
+            await slider.elementHandle(),
+          );
+          await inner.getByRole("button", { name: "Select", exact: true }).waitFor();
+          console.log(
+            `${name}/${locale}: exported DeviceLab is interactive across screens while photos are pending.`,
+          );
+        } finally {
+          releaseImages();
+          await page.unrouteAll({ behavior: "wait" });
+          await page.close();
+        }
+      }
     } catch (error) {
       await saveBrowserFailure(browser, `production-loading-${name}`);
       throw error;
