@@ -1,0 +1,25 @@
+apps/docs/src/components/photos-demo.tsx
+  s_22c986b325ab2c::t_404b65e898b29a 3,35,48,120-124,126-128,134-163,165-167,174-181,184-185,201,240,246-273,275-282,284,287,293,302,307,314,316,321-322,328,333,341,343,391,401,413,416,420,480,494-515,595,623,892-894,1005-1006
+apps/docs/src/routes/$locale.photos.tsx
+  s_22c986b325ab2c::t_25f9d3f8a3c6df 2,4-13,25
+apps/docs/src/components/photos-viewer.tsx
+  s_22c986b325ab2c::t_373034b85ad982 22,25-26,47-48,68,77-87,89,94-97,134,186,257-291,346,446,468,473-476,479,501,503
+apps/docs/test/photos-viewer-menu.dom.test.tsx
+  s_22c986b325ab2c::t_6cce51c307b200 19,24-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "97d48f65e759105b8a700337be2f136185d1b0f9",
+  "prompts": {},
+  "sessions": {
+    "s_22c986b325ab2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ea56-33d5-7d10-b33d-e207d8efa3f3",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
