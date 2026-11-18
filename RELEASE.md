@@ -1,4 +1,16 @@
-# Unreleased: Glass runtime lifecycle fixes
+# Prepared release: UI/Tokens 0.11.5, Glass 0.2.5 and Docs 0.3.6
+
+| Package             | Version  | Release scope                                                    |
+| ------------------- | -------- | ---------------------------------------------------------------- |
+| `@lenso/tokens`     | `0.11.5` | Keep the paired UI/Tokens release versions aligned.              |
+| `@lenso/glass`      | `0.2.5`  | Runtime cleanup, contour scheduling and bounded backdrop copies. |
+| `@lenso/ui`         | `0.11.5` | Release presentation cleanup fixes and consume Glass 0.2.5.      |
+| `@lenso/docs`       | `0.3.6`  | Consume the updated exact UI, Tokens and Glass dependency chain. |
+| `create-lenso-docs` | `0.3.6`  | Generate projects pinned to Docs 0.3.6.                          |
+
+Primitives remains at 0.9.1; preserve its published tarball and integrity. This
+release does not include the unmerged UI SDK beta.8 upgrade or device-frame work.
+Upgrade UI and Tokens together. Existing callers need no API migration.
 
 Glass and elastic callback refs release their internal node ownership when React 19
 invokes ref cleanup, including conditional host removal while the hook stays mounted.
@@ -13,7 +25,7 @@ run in the next frame. Disposing a backdrop atlas prevents late image decoding f
 writing released canvases or returning stale capture output.
 
 No public API or caller migration is required. Optical formulas and motion constants
-are unchanged. These source fixes do not authorize a package release.
+are unchanged.
 
 Light fused-group contours compute interaction updates in a dedicated worker,
 with a sliced main-thread fallback. Each plane retains one in-flight raster and
@@ -27,6 +39,12 @@ consumer. Character edits reuse mapped text nodes; if ancestor dimensions change
 the existing copy refreshes all used styles so flex/grid siblings reflow with it.
 Shared capture eligibility also follows text edits. Image decoding itself remains
 uncancellable. No public API or caller migration is required.
+
+After this preparation PR merges, wait for the exact current main commit's
+push-triggered Verify run to succeed, then push `v0.11.5` at that commit. The
+Release workflow must pass preflight and wait for protected `npm` environment
+approval before publishing. Prepared versions and a pushed tag are not a
+publication receipt.
 
 # Release workflow
 
