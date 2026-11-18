@@ -1,0 +1,73 @@
+name: Changesets
+
+on:
+  workflow_run:
+    workflows: [Verify reconstruction]
+    types: [completed]
+
+concurrency:
+  group: changesets-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.4.4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 26.10.0
+      - name: Select version preparation or publication from verified main
+        id: plan
+        run: bun .github/scripts/release-plan.ts
+      - run: bun install --frozen-lockfile
+        if: steps.plan.outputs.mode == 'version'
+      - name: Create or update the signed version PR
+        if: steps.plan.outputs.mode == 'version'
+        id: changesets
+        uses: changesets/action/version@ae32849d5ba541f9ae29e40e22a623bc13562f51
+        with:
+          script: bun run version:packages
+          pr-base-branch: main
+          pr-title: "chore(release): version packages"
+          commit-message: "chore(release): version packages"
+      - name: Run full verification on the generated PR
+        if: steps.changesets.outputs.pr-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.changesets.outputs.pr-number }}
+        run: |
+          branch=$(gh pr view "$PR_NUMBER" --json headRefName --jq .headRefName)
+          test "$branch" = changeset-release/main
+          gh workflow run verify.yml --ref "$branch"
+      - name: Request protected npm publication after the version PR merges
+        if: steps.plan.outputs.mode == 'publish'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_VERSION: ${{ steps.plan.outputs.version }}
+          VERIFIED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          test "$(gh api "repos/$GH_REPO/git/ref/heads/main" --jq .object.sha)" = "$VERIFIED_SHA"
+          gh workflow run release.yml --ref main -f "version=$RELEASE_VERSION"

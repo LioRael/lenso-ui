@@ -1,10 +1,14 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
+import glassManifest from "../packages/glass/package.json" with { type: "json" };
+import primitivesManifest from "../packages/primitives/package.json" with { type: "json" };
+import docsManifest from "../packages/docs/package.json" with { type: "json" };
+import initializerManifest from "../packages/create-docs/package.json" with { type: "json" };
 
 interface ReleasePackage {
   dir: string;
@@ -46,11 +50,21 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const registry = "https://registry.npmjs.org/";
 export const packages: ReleasePackage[] = [
   { dir: "packages/tokens", name: "@lenso/tokens", kind: "tokens" },
-  { dir: "packages/glass", name: "@lenso/glass", kind: "glass", version: "0.2.4" },
-  { dir: "packages/primitives", name: "@lenso/primitives", kind: "primitives", version: "0.9.1" },
+  { dir: "packages/glass", name: "@lenso/glass", kind: "glass", version: glassManifest.version },
+  {
+    dir: "packages/primitives",
+    name: "@lenso/primitives",
+    kind: "primitives",
+    version: primitivesManifest.version,
+  },
   { dir: "packages/ui", name: "@lenso/ui", kind: "ui" },
-  { dir: "packages/docs", name: "@lenso/docs", kind: "docs", version: "0.3.5" },
-  { dir: "packages/create-docs", name: "create-lenso-docs", kind: "initializer", version: "0.3.5" },
+  { dir: "packages/docs", name: "@lenso/docs", kind: "docs", version: docsManifest.version },
+  {
+    dir: "packages/create-docs",
+    name: "create-lenso-docs",
+    kind: "initializer",
+    version: initializerManifest.version,
+  },
 ];
 
 export function validateContext(
@@ -326,6 +340,13 @@ async function checkRelease(): Promise<string> {
     ),
   );
   const version = validateContext(env, head, remoteHead, manifests, remoteTagHead);
+  if (
+    (await readdir(join(root, ".changeset"))).some(
+      (name) => name.endsWith(".md") && name !== "README.md",
+    )
+  ) {
+    throw new Error("consume pending changesets through the version PR before publication");
+  }
   const runs: unknown = JSON.parse(
     run("gh", [
       "run",
