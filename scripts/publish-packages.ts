@@ -35,6 +35,7 @@ interface RegistryMetadata {
 }
 type ReleaseEnvironment = NodeJS.ProcessEnv & {
   GITHUB_ACTIONS?: string;
+  GITHUB_EVENT_NAME?: string;
   GITHUB_REF?: string;
   GITHUB_SHA?: string;
   LENSO_RELEASE_VERSION?: string;
@@ -57,13 +58,22 @@ export function validateContext(
   head: string,
   remoteHead: string | undefined,
   manifests: PackageManifest[],
+  remoteTagHead?: string,
 ): string {
   if (env.GITHUB_ACTIONS !== "true") throw new Error("must run in GitHub Actions");
-  if (env.GITHUB_REF !== "refs/heads/main") throw new Error("must run on refs/heads/main");
+  const tagged = env.GITHUB_EVENT_NAME === "push" && env.GITHUB_REF?.startsWith("refs/tags/v");
+  if (
+    !tagged &&
+    !(env.GITHUB_EVENT_NAME === "workflow_dispatch" && env.GITHUB_REF === "refs/heads/main")
+  ) {
+    throw new Error("must dispatch on main or push a stable v<version> tag");
+  }
   if (!env.GITHUB_SHA || head !== env.GITHUB_SHA || remoteHead !== env.GITHUB_SHA) {
     throw new Error("checkout HEAD and origin/main must equal GITHUB_SHA");
   }
-  const version = env.LENSO_RELEASE_VERSION;
+  if (tagged && remoteTagHead !== head)
+    throw new Error("release tag must still point to GITHUB_SHA");
+  const version = tagged ? env.GITHUB_REF!.slice("refs/tags/v".length) : env.LENSO_RELEASE_VERSION;
   if (!version || !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version)) {
     throw new Error("LENSO_RELEASE_VERSION must be canonical stable semver");
   }
@@ -297,16 +307,59 @@ async function metadata(name: string, timeoutMs = 15_000): Promise<RegistryMetad
   return response.json() as Promise<RegistryMetadata>;
 }
 
-async function publish() {
+async function checkRelease(): Promise<string> {
   const env = process.env;
   const head = run("git", ["rev-parse", "HEAD"]);
   const remoteHead = run("git", ["ls-remote", "origin", "refs/heads/main"]).split(/\s/)[0];
+  const tagRef = env["GITHUB_REF"]?.startsWith("refs/tags/") ? env["GITHUB_REF"] : undefined;
+  const tagRefs = tagRef
+    ? run("git", ["ls-remote", "origin", tagRef, `${tagRef}^{}`])
+        .split("\n")
+        .map((line) => line.split(/\s/))
+    : [];
+  const remoteTagHead =
+    tagRefs.find(([, ref]) => ref === `${tagRef}^{}`)?.[0] ??
+    tagRefs.find(([, ref]) => ref === tagRef)?.[0];
   const manifests = await Promise.all(
     packages.map(async (item) =>
       JSON.parse(await readFile(join(root, item.dir, "package.json"), "utf8")),
     ),
   );
-  const version = validateContext(env, head, remoteHead, manifests);
+  const version = validateContext(env, head, remoteHead, manifests, remoteTagHead);
+  const runs: unknown = JSON.parse(
+    run("gh", [
+      "run",
+      "list",
+      "--repo",
+      env["GITHUB_REPOSITORY"] ?? "",
+      "--workflow",
+      "verify.yml",
+      "--commit",
+      head,
+      "--branch",
+      "main",
+      "--event",
+      "push",
+      "--status",
+      "success",
+      "--limit",
+      "20",
+      "--json",
+      "headSha,conclusion",
+    ]),
+  );
+  if (
+    !Array.isArray(runs) ||
+    !runs.some((run) => run?.headSha === head && run?.conclusion === "success")
+  ) {
+    throw new Error("The exact main commit must pass Verify reconstruction before publication.");
+  }
+  return version;
+}
+
+async function publish() {
+  const env = process.env;
+  const version = await checkRelease();
   const temp = await mkdtemp(join(env["RUNNER_TEMP"] ?? tmpdir(), "lenso-release-"));
   try {
     // One dependency graph: shared dependencies build once, before packing any package.
@@ -386,7 +439,11 @@ async function publish() {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  publish().catch((error) => {
+  const checkOnly = process.argv[2] === "--check";
+  if (process.argv.length > 3 || (process.argv[2] !== undefined && !checkOnly)) {
+    throw new Error("usage: publish-packages.ts [--check]");
+  }
+  (checkOnly ? checkRelease() : publish()).catch((error) => {
     console.error(error instanceof Error ? error.message : error);
     process.exitCode = 1;
   });
