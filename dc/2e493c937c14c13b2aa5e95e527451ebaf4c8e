@@ -1,0 +1,52 @@
+package.json
+  h_9d56aba080c170 38-39,57
+scripts/publish-packages.ts
+  h_9d56aba080c170 3,8-11,53-59,61-67,343-349
+.github/scripts/release-plan.ts
+  h_9d56aba080c170 1-49
+tests/release-versions.test.ts
+  h_9d56aba080c170 1-84
+packages/create-docs/test/cli.test.ts
+  h_9d56aba080c170 8-9,72,94
+.changeset/glass-runtime-patch.md
+  h_9d56aba080c170 1-8
+.github/workflows/changesets.yml
+  h_9d56aba080c170 1-73
+CONTRIBUTING.md
+  h_9d56aba080c170 232-236,253-259,324-339
+.github/scripts/tsconfig.json
+  h_9d56aba080c170 6
+.changeset/config.json
+  h_9d56aba080c170 1-15
+.github/workflows/release.yml
+  h_9d56aba080c170 76-103
+packages/create-docs/src/cli.ts
+  h_9d56aba080c170 6,26
+.changeset/README.md
+  h_9d56aba080c170 1-25
+scripts/sync-release-versions.ts
+  h_9d56aba080c170 1-7
+bun.lock
+  h_9d56aba080c170 11,476-509,718-723,918-919,1630-1635,1730-1731,1734-1735,1790-1791,1810-1811,2082-2083,2274,2498-2505,2686-2687
+.github/scripts/release-plan.test.ts
+  h_9d56aba080c170 1-119
+RELEASE.md
+  h_9d56aba080c170 33-71
+.github/workflows/verify.yml
+  h_9d56aba080c170 5
+.github/scripts/workflow-gate.test.ts
+  h_9d56aba080c170 24,89-90
+tests/publish-packages.test.ts
+  h_9d56aba080c170 19,161-162,179-180,197-198,233-234,271-272,330,369-370,460-461
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dc2e493c937c14c13b2aa5e95e527451ebaf4c8e",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
