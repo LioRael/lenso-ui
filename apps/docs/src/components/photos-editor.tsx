@@ -1,4 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { ActionSheet, Button, GlassButton, Menu, Modal, Tabs, Toolbar } from "@lenso/ui";
 import {
   ArrowRotateLeft,
@@ -23,18 +32,33 @@ import {
   renderPhotoEdit,
   sameAdjustments,
   undoEdit,
-  type EditHistory,
   type PhotoAdjustments,
   type PhotoEdit,
   type PhotoPreset,
 } from "../lib/photos-adjustments";
 import type { DemoPhoto } from "../lib/photos-library";
+import { createPhotosEditorState, type PhotosEditorState } from "../lib/photos-model";
 import { editor as s } from "../styles/photos-editor.stylex";
 import { PhotosEditorPreview } from "./photos-editor-preview";
 import { PhotosEditorRuler } from "./photos-editor-ruler";
 
 type Adjustment = "exposure" | "brightness" | "contrast" | "saturation" | "warmth" | "tint";
-type Mode = "adjust" | "filters" | "crop";
+function useEditorField<K extends keyof PhotosEditorState>(
+  state: PhotosEditorState,
+  change: Dispatch<SetStateAction<PhotosEditorState>>,
+  key: K,
+) {
+  const set = useCallback(
+    (value: SetStateAction<PhotosEditorState[K]>) => {
+      change((previous) => {
+        const next = typeof value === "function" ? value(previous[key]) : value;
+        return Object.is(previous[key], next) ? previous : { ...previous, [key]: next };
+      });
+    },
+    [change, key],
+  );
+  return [state[key], set] as const;
+}
 const tools: { key: Adjustment; label: string }[] = [
   { key: "exposure", label: "Exposure" },
   { key: "brightness", label: "Brightness" },
@@ -118,35 +142,50 @@ export function PhotosEditor({
   initial,
   onSave,
   onClose,
+  session,
+  onSessionChange,
+  onSaveDraft,
 }: {
   photo: DemoPhoto;
   initial: PhotoAdjustments;
   onSave: (edit: PhotoEdit | undefined) => void;
   onClose: () => void;
+  session?: PhotosEditorState;
+  onSessionChange?: Dispatch<SetStateAction<PhotosEditorState>>;
+  onSaveDraft?: () => void;
 }) {
-  const [draft, setDraft] = useState(initial);
-  const draftRef = useRef(initial);
-  const [history, setHistory] = useState<EditHistory>({ past: [], present: initial, future: [] });
-  const [tool, setTool] = useState<Adjustment>("exposure");
-  const [mode, setMode] = useState<Mode>("adjust");
-  const [comparing, setComparing] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+  const [local, setLocal] = useState(() => createPhotosEditorState(photo, initial));
+  const state = session ?? local;
+  const change = onSessionChange ?? setLocal;
+  const [draft, setDraft] = useEditorField(state, change, "draft");
+  const draftRef = useRef(draft);
+  useLayoutEffect(() => {
+    draftRef.current = draft;
+  }, [draft]);
+  const [history, setHistory] = useEditorField(state, change, "history");
+  const [tool, setTool] = useEditorField(state, change, "tool");
+  const [mode, setMode] = useEditorField(state, change, "mode");
+  const [comparing, setComparing] = useEditorField(state, change, "comparing");
+  const [confirm, setConfirm] = useEditorField(state, change, "confirm");
   const discardPanel = useRef<HTMLDivElement>(null);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-  const [aspect, setAspect] = useState(0);
-  const [portraitCrop, setPortraitCrop] = useState(photo.height > photo.width);
-  const [showRatios, setShowRatios] = useState(false);
-  const [dimensions, setDimensions] = useState<{ width: number; height: number }>({
-    width: photo.width,
-    height: photo.height,
-  });
-  const loaded = useCallback((size: { width: number; height: number }) => setDimensions(size), []);
+  const [saving, setSaving] = useEditorField(state, change, "saving");
+  const [error, setError] = useEditorField(state, change, "error");
+  const [aspect, setAspect] = useEditorField(state, change, "aspect");
+  const [portraitCrop, setPortraitCrop] = useEditorField(state, change, "portraitCrop");
+  const [showRatios, setShowRatios] = useEditorField(state, change, "showRatios");
+  const [dimensions, setDimensions] = useEditorField(state, change, "dimensions");
+  const loaded = useCallback(
+    (size: { width: number; height: number }) =>
+      setDimensions((previous) =>
+        previous.width === size.width && previous.height === size.height ? previous : size,
+      ),
+    [setDimensions],
+  );
   const active = useRef(true);
   const carousel = useRef<HTMLDivElement>(null);
   const swipingTools = useRef(false);
   const carouselFrame = useRef(0);
-  const dirty = !sameAdjustments(initial, draft);
+  const dirty = !sameAdjustments(state.initial, draft);
   const label =
     mode === "adjust"
       ? tools.find((item) => item.key === tool)!.label
@@ -160,9 +199,9 @@ export function PhotosEditor({
     setDraft(value);
     setComparing(false);
   }
-  function commit() {
+  const commit = useCallback(() => {
     setHistory((previous) => commitEdit(previous, draftRef.current));
-  }
+  }, [setHistory]);
   function apply(value: PhotoAdjustments) {
     update(value);
     setHistory((previous) => commitEdit(previous, value));
@@ -193,14 +232,15 @@ export function PhotosEditor({
       behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
     });
   }, [tool, mode, draft.preset]);
+  const finishToolSwipe = useEffectEvent(() => {
+    if (swipingTools.current) {
+      commit();
+      swipingTools.current = false;
+    }
+  });
   useEffect(() => {
     const node = carousel.current;
-    const finish = () => {
-      if (swipingTools.current) {
-        commit();
-        swipingTools.current = false;
-      }
-    };
+    const finish = () => finishToolSwipe();
     node?.addEventListener("scrollend", finish);
     return () => {
       node?.removeEventListener("scrollend", finish);
@@ -237,6 +277,10 @@ export function PhotosEditor({
   }
   async function save() {
     if (!dirty || saving) return;
+    if (onSaveDraft) {
+      onSaveDraft();
+      return;
+    }
     if (!hasAdjustments(draft)) {
       onSave(undefined);
       return;

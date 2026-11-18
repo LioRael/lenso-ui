@@ -1179,3 +1179,34 @@ SOFTWARE.
 `onlymoein/liquidglass`, commit `a2d26488ce8656901d088d10a69ec4e82fca37f4`.
 Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz. Full MIT license and file-level
 adaptation details are in `packages/ui-native/LICENSE` and `packages/ui-native/NOTICE.md`.
+
+## Duo fold ramp and hinge strip (MIT)
+
+The fold progress and edge-shading curves in `apps/docs/src/lib/device-scene.ts`
+adapt the live DOM ramp from `doan-labs/duo`, `packages/shell/main.ts`; the curved
+hinge strip adapts `packages/shell/shaders/fold.ts` from the same project, commit
+`3b94a8c45f8dd98f72fc8005ae496e063b38b379`. The projected iframe implementation
+uses StyleX and smoothly masked SVG blur levels instead of backdrop-filter bands.
+No device model or simulated operating system assets are included.
+
+MIT License
+
+Copyright (c) 2026 Doan Labs
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

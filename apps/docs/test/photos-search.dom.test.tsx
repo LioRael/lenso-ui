@@ -34,6 +34,15 @@ test.each([390, 834])(
       expect(document.activeElement).toBe(input);
       expect(host.querySelector('[aria-label="Search suggestions"]')).not.toBeNull();
       expect(host.querySelector('[aria-label="Photo library"]')).toBeNull();
+      for (const composition of [{ isComposing: true }, { keyCode: 229 }]) {
+        await act(() =>
+          input.dispatchEvent(
+            new KeyboardEvent("keydown", { key: "Escape", bubbles: true, ...composition }),
+          ),
+        );
+        expect(host.querySelector('input[name="photos-search"]')).toBe(input);
+        expect(document.activeElement).toBe(input);
+      }
       await act(() =>
         input.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })),
       );
