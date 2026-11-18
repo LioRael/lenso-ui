@@ -1,0 +1,38 @@
+CONTRIBUTING.md
+  h_9d56aba080c170 41-45
+RELEASE.md
+  h_9d56aba080c170 145,152-156
+apps/docs/package.json
+  h_9d56aba080c170 91-92
+apps/docs/test/swipe-wheel.mjs
+  h_9d56aba080c170 200-201
+bun.lock
+  h_9d56aba080c170 48-49,164-165,211-212,273-274,1211,1213
+docs/upstream-ui-sdk-types.md
+  h_9d56aba080c170 3,5-9,12-53,75
+packages/docs/package.json
+  h_9d56aba080c170 101-102
+packages/primitives/README.md
+  h_9d56aba080c170 42-52
+packages/primitives/package.json
+  h_9d56aba080c170 64-65
+packages/primitives/tsconfig.json
+  h_9d56aba080c170 6
+packages/ui/package.json
+  h_9d56aba080c170 56-57
+packages/ui/test/swipe-wheel.dom.test.tsx
+  h_9d56aba080c170 97-105
+tests/consumer/installed-consumer.test.ts
+  h_9d56aba080c170 294
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1ab9aea6f7096bb1354a0c3c13f2c69f19442513",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
