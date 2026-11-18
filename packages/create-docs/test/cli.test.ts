@@ -5,6 +5,8 @@ import { spawnSync } from "node:child_process";
 import { afterEach, test } from "bun:test";
 import assert from "node:assert/strict";
 import { fileURLToPath } from "node:url";
+import initializerManifest from "../package.json" with { type: "json" };
+import docsManifest from "../../docs/package.json" with { type: "json" };
 
 const temporaryDirectories: string[] = [];
 afterEach(async () => {
@@ -67,7 +69,7 @@ test("initializer creates a content-only project without installing dependencies
   }
   const manifest = JSON.parse(await readFile(path.join(target, "package.json"), "utf8"));
   assert.equal(manifest.name, "my-notes");
-  assert.equal(manifest.dependencies["@lenso/docs"], "0.3.5");
+  assert.equal(manifest.dependencies["@lenso/docs"], docsManifest.version);
   assert.deepEqual(manifest.scripts, {
     dev: "lenso-docs dev",
     build: "lenso-docs build",
@@ -89,5 +91,5 @@ test("initializer refuses nonempty targets without changing them", async () => {
 
 test("help and version are available without creating files", async () => {
   assert.match(run(["--help"], process.cwd()).stdout, /Usage:/);
-  assert.equal(run(["--version"], process.cwd()).stdout.trim(), "0.3.5");
+  assert.equal(run(["--version"], process.cwd()).stdout.trim(), initializerManifest.version);
 });

@@ -3,7 +3,7 @@ import { cp, lstat, mkdir, readdir, readFile, rm, rmdir, writeFile } from "node:
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-const version = "0.3.5";
+import initializerManifest from "../package.json" with { type: "json" };
 const templateDir = fileURLToPath(new URL("../template/", import.meta.url));
 
 function usage() {
@@ -23,7 +23,7 @@ async function main(args: string[]) {
     return;
   }
   if (args.length === 1 && (args[0] === "--version" || args[0] === "-v")) {
-    console.log(version);
+    console.log(initializerManifest.version);
     return;
   }
   if (

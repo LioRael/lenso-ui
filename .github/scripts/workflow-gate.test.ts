@@ -21,6 +21,7 @@ const workflow = Bun.YAML.parse(
 ) as Workflow;
 
 test("authoritative verify rejects incomplete parallel acceptance", () => {
+  expect(workflow.on).toHaveProperty("workflow_dispatch");
   const gate = workflow.jobs.verify!;
   expect(gate.if).toBe("always()");
   expect(gate.needs).toEqual(["checks", "documentation", "browser"]);
@@ -85,4 +86,6 @@ test("tag and manual publication retain npm approval between release checks", as
   );
   expect(check).toBeGreaterThanOrEqual(0);
   expect(publish).toBeGreaterThan(check);
+  expect(release.jobs.tags!.needs).toBe("release");
+  expect(release.jobs.tags!.permissions?.["id-token"]).not.toBe("write");
 });

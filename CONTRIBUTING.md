@@ -229,10 +229,11 @@ scope.
 
 ## Landing and release policy
 
-The owner-approved reconstruction policy replaces the former Changesets
-fixed-group release process. The removed registry, release-status tooling and
-automatic publication workflow are retired; a Changeset is no longer required.
-Migration notes, licenses and verification remain required.
+The reconstruction retired the former registry and fixed-group release process.
+The owner has since authorized Changesets release automation with protected npm
+approval. Public package changes require a changeset (`bun run changeset`);
+infrastructure-only changes do not. Migration notes, licenses and verification
+remain required. See [.changeset/README.md](.changeset/README.md) for version groups.
 
 For this reconstruction landing, the owner waived Delta Review approval.
 This does not waive verification or any future hosting-required review.
@@ -249,13 +250,13 @@ are not authorization to publish. Any future release or restored automation
 requires a separate explicit owner decision, including versioning, publication
 and migration requirements.
 
-The owner subsequently authorized the 0.8.0 UI/styles release and manual CI
-publication, then stable tag-triggered releases with retained npm approval.
-See `RELEASE.md` for the migration and release procedure. The
-`Release` workflow uses npm Trusted Publishing from the `npm` environment and
-requires successful verification of its exact main commit. It publishes the package set declared in `scripts/publish-packages.ts`, including
-the matching Glass, primitives, documentation and initializer packages; it does not restore Changesets or the former
-fixed-group automatic release process.
+The `Changesets` workflow prepares a signed version/changelog PR after successful
+main verification. Once that PR merges and its exact main commit passes Verify,
+it dispatches `Release`, which still requires protected `npm` environment
+approval. Publication uses npm Trusted Publishing, validates every tarball and
+preserves immutable published versions. Successful publication records package
+tags. This does not restore the former registry or couple unchanged Primitives
+to UI releases. See `RELEASE.md` for migration and recovery procedures.
 
 ### Running ordinary tests
 
@@ -320,16 +321,22 @@ Documentation deployment checks whether the commit is still main before fetching
 the verified output or installing deployment tooling. The deploy job still uses
 the protected docs environment and the artifact from its own successful gate.
 
-Pushing a stable `v<version>` tag triggers `Release`; manual dispatch on main
-remains available. The tag version must match UI and Tokens, while other packages
-use their declared release versions. Both paths require the exact current main
-commit and its successful push-triggered Verify run before requesting npm
-environment approval. Tag releases also check the live remote tag's commit,
-peeling annotated tags. Publication rechecks these conditions after approval.
-Packages build through one Turbo dependency graph, then all tarballs are validated
-before the first publish. OIDC provenance, ordered publication and registry
-integrity checks remain required. Creating or pushing release tags, dispatching
-releases and approving publication still require separate owner authorization.
+Changesets consumes pending changesets through a protected version PR, including
+the lockfile, initializer template and generated docs. Bot PRs receive explicitly
+dispatched full verification without a PAT; dispatch evidence cannot substitute
+for successful push-triggered verification of the resulting main SHA.
+
+Pushing a stable `v<version>` tag or manually dispatching on main remains available
+for recovery, after all changesets have been consumed. The tag/input version must
+match UI and Tokens; other packages use their manifests. Both paths require the
+exact current main commit and its successful push-triggered Verify run before
+requesting npm approval. Tag releases also check the live remote tag, peeling
+annotated tags. Publication rechecks these conditions after approval. Packages
+build through one Turbo dependency graph; all tarballs are validated before the
+first publish. OIDC provenance, ordered publication and registry integrity checks
+remain required. The authorized automation prepares PRs, requests approval and
+records post-publication package tags, but never approves npm publication.
+Manual release dispatch, tag pushes and npm approval require owner authorization.
 
 ## Ongoing Git maintenance
 
