@@ -19,8 +19,11 @@ import { PhotosEditor } from "./photos-editor";
 import { PhotosViewerMenu } from "./photos-viewer-menu";
 import { PhotoInformation } from "./photos-information";
 import { originalAdjustments, type PhotoEdit } from "../lib/photos-adjustments";
+import { usePhotosField, type PhotosModel } from "../lib/photos-model";
 
 type ViewerProps = {
+  model: PhotosModel;
+  animateTransitions?: boolean;
   selected: number | null;
   photos: DemoPhoto[];
   originals: DemoPhoto[];
@@ -41,6 +44,8 @@ type ViewerProps = {
 };
 
 export function PhotosViewer({
+  model,
+  animateTransitions = true,
   selected,
   photos,
   originals,
@@ -60,7 +65,7 @@ export function PhotosViewer({
   onCaption,
 }: ViewerProps) {
   const [immersive, setImmersive] = useState(false);
-  const [infoOpen, setInfoOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = usePhotosField(model, "informationOpen");
   const infoButton = useRef<HTMLButtonElement>(null);
   const [slideshow, setSlideshow] = useState(false);
   const popup = useRef<HTMLDivElement>(null);
@@ -69,22 +74,27 @@ export function PhotosViewer({
     setSlideshow(false);
     setInfoOpen(false);
     onClose();
-  }, [onClose]);
-  const presentation = usePhotoZoom(selected, tiles, finishClose, pointerOpened);
-  const [confirmation, setConfirmation] = useState<{
-    kind: "delete" | "revert" | "hide";
-    id: number;
-  } | null>(null);
-  const [confirmationOpen, setConfirmationOpen] = useState(false);
+  }, [onClose, setInfoOpen]);
+  const presentation = usePhotoZoom(
+    selected,
+    tiles,
+    finishClose,
+    pointerOpened,
+    animateTransitions,
+  );
+  const [confirmation, setConfirmation] = usePhotosField(model, "viewerConfirmation");
+  const setConfirmationOpen = (open: boolean) =>
+    setConfirmation((previous) => (previous ? { ...previous, open } : null));
   function confirm(kind: "delete" | "revert" | "hide", id: number) {
-    setConfirmation({ kind, id });
-    setConfirmationOpen(true);
+    setConfirmation({ kind, id, open: true });
   }
   const [shareStatus, setShareStatus] = useState("");
   const [statusPhoto, setStatusPhoto] = useState<number | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
-  const [editing, setEditing] = useState(false);
+  const [viewerMenu, setViewerMenu] = usePhotosField(model, "viewerMenu");
+  const moreOpen = viewerMenu !== null;
+  const [editor] = usePhotosField(model, "editor");
+  const editing = editor !== null;
   const photo = photos.find((item) => item.id === selected);
   const index = photos.findIndex((item) => item.id === selected);
   const previous = photos[index - 1];
@@ -121,7 +131,7 @@ export function PhotosViewer({
     }
   }
   async function copyPhoto() {
-    if (!photo) return;
+    if (!photo || !model.getSnapshot().interactive) return;
     setStatusPhoto(photo.id);
     try {
       const png = fetch(photo.src)
@@ -173,6 +183,7 @@ export function PhotosViewer({
           ref={popup}
           size="full"
           xstyle={s.viewer}
+          inert={!model.getSnapshot().interactive}
           onKeyDown={(event) => {
             if (
               event.defaultPrevented ||
@@ -243,8 +254,41 @@ export function PhotosViewer({
                   </Toolbar>
                   <PhotosViewerMenu
                     open={moreOpen}
-                    onOpenChange={(open) => {
-                      setMoreOpen(open);
+                    morphTrigger={model.surface === "standalone"}
+                    submenu={viewerMenu === "root" ? null : viewerMenu}
+                    onSubmenuChange={(submenu, open, details) => {
+                      // The root owns cascading closes, including canceled frame blurs.
+                      if (
+                        !model.getSnapshot().interactive ||
+                        (!open &&
+                          model.surface !== "standalone" &&
+                          details.reason === "window-blur")
+                      ) {
+                        details.cancel();
+                        return;
+                      }
+                      if (details.reason === "parent-close") return;
+                      setViewerMenu((previous) =>
+                        open
+                          ? submenu
+                          : details.reason === "item-press"
+                            ? null
+                            : previous === submenu
+                              ? "root"
+                              : previous,
+                      );
+                    }}
+                    onOpenChange={(open, details) => {
+                      if (
+                        !model.getSnapshot().interactive ||
+                        (!open &&
+                          model.surface !== "standalone" &&
+                          details.reason === "window-blur")
+                      ) {
+                        details.cancel();
+                        return;
+                      }
+                      setViewerMenu(open ? "root" : null);
                       if (open) setShareStatus("");
                     }}
                     onCopy={copyPhoto}
@@ -299,6 +343,7 @@ export function PhotosViewer({
                   </div>
                 </div>
                 <PhotoInformation
+                  model={model}
                   photo={photo}
                   open={infoOpen}
                   caption={captions.get(photo.id) ?? ""}
@@ -398,7 +443,7 @@ export function PhotosViewer({
                     <Toolbar.Button
                       xstyle={s.toolButton}
                       aria-label="Edit photo"
-                      onClick={() => setEditing(true)}
+                      onClick={() => model.openEditor(photo.id)}
                     >
                       <Sliders width={23} height={23} />
                     </Toolbar.Button>
@@ -420,15 +465,18 @@ export function PhotosViewer({
               <div ref={ghostRef} aria-hidden="true" inert {...stylex.props(s.zoomLayer)}>
                 <img src={photo.src} alt="" {...stylex.props(s.zoomImage)} />
               </div>
-              {editing && (
+              {editor && (
                 <PhotosEditor
                   key={photo.id}
                   photo={originals.find((item) => item.id === photo.id)!}
                   initial={edits.get(photo.id)?.adjustments ?? originalAdjustments}
-                  onClose={() => setEditing(false)}
+                  session={editor}
+                  onSessionChange={model.changeEditor}
+                  onSaveDraft={model.saveEditor}
+                  onClose={model.closeEditor}
                   onSave={(edit) => {
                     onEdit(photo.id, edit);
-                    setEditing(false);
+                    model.closeEditor();
                   }}
                 />
               )}
@@ -450,9 +498,9 @@ export function PhotosViewer({
           )}
         </Modal.Content>
       </Modal>
-      <AlertDialog open={confirmationOpen} onOpenChange={setConfirmationOpen}>
+      <AlertDialog open={confirmation?.open ?? false} onOpenChange={setConfirmationOpen}>
         <AlertDialog.Backdrop />
-        <AlertDialog.Content>
+        <AlertDialog.Content inert={!model.getSnapshot().interactive}>
           <AlertDialog.Header>
             <AlertDialog.Title>
               {confirmation?.kind === "revert"

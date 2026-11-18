@@ -62,7 +62,7 @@ export const hasAdjustments = (value: PhotoAdjustments) =>
   !sameAdjustments(value, originalAdjustments);
 
 /** Web color recipes; these do not reproduce Apple's proprietary color pipeline. */
-export function adjustmentFilter(value: PhotoAdjustments) {
+function colorAdjustments(value: PhotoAdjustments) {
   const t = value.preset === "original" ? 0 : value.intensity / 100;
   const vivid = value.preset.startsWith("vivid");
   const dramatic = value.preset.startsWith("dramatic");
@@ -89,7 +89,90 @@ export function adjustmentFilter(value: PhotoAdjustments) {
     0,
     1 + value.saturation / 100 + (vivid ? 0.25 : dramatic ? -0.15 : 0) * t,
   );
-  return `brightness(${2 ** (value.exposure / 100) * (1 + value.brightness / 200)}) contrast(${contrast}) saturate(${saturation}) grayscale(${monochrome ? t : 0}) sepia(${Math.abs(warm) * 0.35}) hue-rotate(${(warm < 0 ? 175 * Math.abs(warm) : -15 * warm) + value.tint * 0.25}deg)`;
+  return {
+    brightness: 2 ** (value.exposure / 100) * (1 + value.brightness / 200),
+    contrast,
+    saturation,
+    grayscale: monochrome ? t : 0,
+    sepia: Math.abs(warm) * 0.35,
+    hue: (warm < 0 ? 175 * Math.abs(warm) : -15 * warm) + value.tint * 0.25,
+  };
+}
+export function adjustmentFilter(value: PhotoAdjustments) {
+  const { brightness, contrast, saturation, grayscale, sepia, hue } = colorAdjustments(value);
+  return `brightness(${brightness}) contrast(${contrast}) saturate(${saturation}) grayscale(${grayscale}) sepia(${sepia}) hue-rotate(${hue}deg)`;
+}
+
+function filterPhotoPixels(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  value: PhotoAdjustments,
+) {
+  const { brightness, contrast, saturation, grayscale, sepia, hue } = colorAdjustments(value);
+  if (
+    brightness === 1 &&
+    contrast === 1 &&
+    saturation === 1 &&
+    grayscale === 0 &&
+    sepia === 0 &&
+    hue === 0
+  )
+    return;
+  const pixels = context.getImageData(0, 0, width, height);
+  const data = pixels.data;
+  const clamp = (channel: number) => Math.max(0, Math.min(255, channel));
+  const offset = 127.5 * (1 - contrast);
+  const angle = (hue * Math.PI) / 180;
+  const cos = Math.cos(angle),
+    sin = Math.sin(angle);
+  const rr = 0.213 + 0.787 * cos - 0.213 * sin;
+  const rg = 0.715 - 0.715 * cos - 0.715 * sin;
+  const rb = 0.072 - 0.072 * cos + 0.928 * sin;
+  const gr = 0.213 - 0.213 * cos + 0.143 * sin;
+  const gg = 0.715 + 0.285 * cos + 0.14 * sin;
+  const gb = 0.072 - 0.072 * cos - 0.283 * sin;
+  const br = 0.213 - 0.213 * cos - 0.787 * sin;
+  const bg = 0.715 - 0.715 * cos + 0.715 * sin;
+  const bb = 0.072 + 0.928 * cos + 0.072 * sin;
+  // CSS filters operate in sRGB and clamp after each stage, not just at the end.
+  // Matrices: https://www.w3.org/TR/filter-effects-1/#ShorthandEquivalents
+  for (let i = 0; i < data.length; i += 4) {
+    if (data[i + 3] === 0) continue;
+    let r = clamp(clamp(data[i]! * brightness) * contrast + offset);
+    let g = clamp(clamp(data[i + 1]! * brightness) * contrast + offset);
+    let b = clamp(clamp(data[i + 2]! * brightness) * contrast + offset);
+    if (saturation !== 1) {
+      const luminance = 0.213 * r + 0.715 * g + 0.072 * b;
+      r = clamp(luminance + (r - luminance) * saturation);
+      g = clamp(luminance + (g - luminance) * saturation);
+      b = clamp(luminance + (b - luminance) * saturation);
+    }
+    if (grayscale !== 0) {
+      const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      r = clamp(r + (luminance - r) * grayscale);
+      g = clamp(g + (luminance - g) * grayscale);
+      b = clamp(b + (luminance - b) * grayscale);
+    }
+    if (sepia !== 0) {
+      const red = clamp(r + (0.393 * r + 0.769 * g + 0.189 * b - r) * sepia);
+      const green = clamp(g + (0.349 * r + 0.686 * g + 0.168 * b - g) * sepia);
+      b = clamp(b + (0.272 * r + 0.534 * g + 0.131 * b - b) * sepia);
+      r = red;
+      g = green;
+    }
+    if (hue !== 0) {
+      const red = clamp(rr * r + rg * g + rb * b);
+      const green = clamp(gr * r + gg * g + gb * b);
+      b = clamp(br * r + bg * g + bb * b);
+      r = red;
+      g = green;
+    }
+    data[i] = r;
+    data[i + 1] = g;
+    data[i + 2] = b;
+  }
+  context.putImageData(pixels, 0, 0);
 }
 export function orientedSize(width: number, height: number, rotation: number) {
   return Math.abs(rotation % 180) === 90 ? { width: height, height: width } : { width, height };
@@ -129,7 +212,8 @@ export function drawPhotoEdit(
   source.width = width;
   source.height = height;
   const ctx = source.getContext("2d");
-  if (!ctx || !("filter" in ctx)) throw new Error("Image adjustments are unavailable");
+  if (!ctx) throw new Error("Image adjustments are unavailable");
+  const nativeFilter = "filter" in ctx;
   const angle = (value.straighten * Math.PI) / 180;
   const cover = Math.max(
     (width * Math.abs(Math.cos(angle)) + height * Math.abs(Math.sin(angle))) / width,
@@ -139,7 +223,7 @@ export function drawPhotoEdit(
   ctx.scale(value.flipped ? -1 : 1, 1);
   ctx.rotate(((value.rotation + value.straighten) * Math.PI) / 180);
   ctx.scale(cover, cover);
-  ctx.filter = adjustmentFilter(value);
+  if (nativeFilter) ctx.filter = adjustmentFilter(value);
   ctx.drawImage(
     image,
     (-image.naturalWidth * scale) / 2,
@@ -147,6 +231,7 @@ export function drawPhotoEdit(
     image.naturalWidth * scale,
     image.naturalHeight * scale,
   );
+  if (!nativeFilter) filterPhotoPixels(ctx, width, height, value);
   const crop = uncropped ? originalAdjustments.crop : constrainCrop(value.crop);
   canvas.width = Math.max(1, Math.round(width * crop.width));
   canvas.height = Math.max(1, Math.round(height * crop.height));

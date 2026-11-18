@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as LocaleIndexRouteImport } from './routes/$locale.index'
+import { Route as LocaleDeviceLabRouteImport } from './routes/$locale.device-lab'
 import { Route as LocaleDocsRouteImport } from './routes/$locale.docs'
 import { Route as LocaleGlassLabRouteImport } from './routes/$locale.glass-lab'
 import { Route as LocaleListLabRouteImport } from './routes/$locale.list-lab'
@@ -40,6 +41,11 @@ const R404Route = R404RouteImport.update({
 const LocaleIndexRoute = LocaleIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleDeviceLabRoute = LocaleDeviceLabRouteImport.update({
+  id: '/device-lab',
+  path: '/device-lab',
   getParentRoute: () => LocaleRoute,
 } as any)
 const LocaleDocsRoute = LocaleDocsRouteImport.update({
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
   '/404': typeof R404Route
+  '/$locale/device-lab': typeof LocaleDeviceLabRoute
   '/$locale/docs': typeof LocaleDocsRouteWithChildren
   '/$locale/glass-lab': typeof LocaleGlassLabRoute
   '/$locale/list-lab': typeof LocaleListLabRoute
@@ -100,6 +107,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/404': typeof R404Route
+  '/$locale/device-lab': typeof LocaleDeviceLabRoute
   '/$locale/glass-lab': typeof LocaleGlassLabRoute
   '/$locale/list-lab': typeof LocaleListLabRoute
   '/$locale/photos': typeof LocalePhotosRoute
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
   '/404': typeof R404Route
+  '/$locale/device-lab': typeof LocaleDeviceLabRoute
   '/$locale/docs': typeof LocaleDocsRouteWithChildren
   '/$locale/glass-lab': typeof LocaleGlassLabRoute
   '/$locale/list-lab': typeof LocaleListLabRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/404'
+    | '/$locale/device-lab'
     | '/$locale/docs'
     | '/$locale/glass-lab'
     | '/$locale/list-lab'
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/404'
+    | '/$locale/device-lab'
     | '/$locale/glass-lab'
     | '/$locale/list-lab'
     | '/$locale/photos'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/404'
+    | '/$locale/device-lab'
     | '/$locale/docs'
     | '/$locale/glass-lab'
     | '/$locale/list-lab'
@@ -203,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/$locale/'
       preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/device-lab': {
+      id: '/$locale/device-lab'
+      path: '/device-lab'
+      fullPath: '/$locale/device-lab'
+      preLoaderRoute: typeof LocaleDeviceLabRouteImport
       parentRoute: typeof LocaleRoute
     }
     '/$locale/docs': {
@@ -279,6 +298,7 @@ const LocaleDocsRouteWithChildren = LocaleDocsRoute._addFileChildren(
 )
 
 interface LocaleRouteChildren {
+  LocaleDeviceLabRoute: typeof LocaleDeviceLabRoute
   LocaleDocsRoute: typeof LocaleDocsRouteWithChildren
   LocaleGlassLabRoute: typeof LocaleGlassLabRoute
   LocaleListLabRoute: typeof LocaleListLabRoute
@@ -287,6 +307,7 @@ interface LocaleRouteChildren {
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
+  LocaleDeviceLabRoute: LocaleDeviceLabRoute,
   LocaleDocsRoute: LocaleDocsRouteWithChildren,
   LocaleGlassLabRoute: LocaleGlassLabRoute,
   LocaleListLabRoute: LocaleListLabRoute,

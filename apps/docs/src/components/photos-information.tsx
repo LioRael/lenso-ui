@@ -1,17 +1,20 @@
 /* oxlint-disable jsx-a11y/no-noninteractive-tabindex -- The metadata region needs focus for native keyboard scrolling. */
-import { useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { TextArea } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import type { DemoPhoto } from "../lib/photos-library";
+import type { PhotosModel } from "../lib/photos-model";
 import { photos as s } from "../styles/photos-demo.stylex";
 
 export function PhotoInformation({
+  model,
   photo,
   open,
   caption,
   onCaptionChange,
   edited,
 }: {
+  model: PhotosModel;
   photo: DemoPhoto;
   open: boolean;
   caption: string;
@@ -19,6 +22,11 @@ export function PhotoInformation({
   edited: boolean;
 }) {
   const captionId = useId();
+  const captionRef = useCallback(
+    (input: HTMLTextAreaElement | null) =>
+      input ? model.registerTextInput(photo.id, input) : undefined,
+    [model, photo.id],
+  );
   const [metadata, setMetadata] = useState<{ src: string; size: number; type: string } | null>(
     null,
   );
@@ -61,6 +69,7 @@ export function PhotoInformation({
         Caption
       </label>
       <TextArea
+        ref={captionRef}
         id={captionId}
         fullWidth
         rows={1}

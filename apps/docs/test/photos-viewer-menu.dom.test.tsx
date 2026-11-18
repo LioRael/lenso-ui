@@ -16,10 +16,15 @@ test("photo options uses the morphing menu contract and dispatches each selected
   const calls: string[] = [];
   function Example() {
     const [open, setOpen] = useState(false);
+    const [submenu, setSubmenu] = useState<"album" | "information" | null>(null);
     return (
       <PhotosViewerMenu
         open={open}
         onOpenChange={setOpen}
+        submenu={submenu}
+        onSubmenuChange={(name, open) =>
+          setSubmenu((previous) => (open ? name : previous === name ? null : previous))
+        }
         onCopy={() => calls.push("copy")}
         onDuplicate={() => duplicated++}
         onHide={() => calls.push("hide")}
