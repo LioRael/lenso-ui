@@ -266,18 +266,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     wasInteractive.current = interactive;
   }, [controlled, interactive, scrollAnchor, revision]);
   useEffect(() => {
-    if (!controlled) return;
-    let cancelled = false;
-    const images = [...(main.current?.querySelectorAll("img") ?? [])];
-    images.forEach((image) => {
-      image.loading = "eager";
-    });
-    void Promise.all(images.map((image) => image.decode().catch(() => {}))).then(() => {
-      if (!cancelled) model.ready(snapshot);
-    });
-    return () => {
-      cancelled = true;
-    };
+    if (controlled) model.ready(snapshot);
   }, [controlled, model, snapshot]);
   const { saveEdit, duplicatePhoto } = model;
   function openCollection(name: string | null) {
