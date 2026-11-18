@@ -38,10 +38,11 @@ Install from the lockfile:
 bun install --frozen-lockfile
 ```
 
-SDK-backed primitives temporarily use `exactOptionalPropertyTypes: false`, with
-`strict: true` and `skipLibCheck: false` retained. This is an explicit supported
-compiler configuration, not an exemption from typechecking or the candidate CI
-gate. The reason, consumer limitation and restoration criteria are documented in
+SDK-backed primitives use `strict: true`, `exactOptionalPropertyTypes: true` and
+`skipLibCheck: false` with UI SDK 0.1.0-beta.8. The installed-consumer regression
+checks the packed primitive declarations with the same settings. Other workspace
+compiler configurations are unchanged; this does not establish full `@lenso/ui`
+exact-optional support. Remaining SDK limitations are documented in
 [the upstream compatibility report](docs/upstream-ui-sdk-types.md).
 
 Common entrypoints:

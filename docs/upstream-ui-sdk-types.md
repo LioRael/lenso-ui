@@ -1,29 +1,56 @@
 # UI SDK strict declaration compatibility
 
-## Current temporary support policy
+## Current support policy: beta.8
 
-The owner authorized a temporary compatibility policy on 2026-11-14:
-`packages/primitives` uses `exactOptionalPropertyTypes: false`. Its inherited
-`strict: true` and explicit `skipLibCheck: false` remain unchanged. No workflow
-job, declaration check, runtime API, SDK dependency or dependency file is patched
-or skipped. Other workspace compiler configurations remain unchanged.
+The workspace pins `@ui-sdk/core` and `@ui-sdk/react` to `0.1.0-beta.8`.
+`packages/primitives` restores `exactOptionalPropertyTypes: true`; its inherited
+`strict: true` and explicit `skipLibCheck: false` remain enabled. No dependency
+patch, runtime compatibility layer or compiler suppression is added. Other
+workspace compiler configurations remain unchanged.
 
 The installed-consumer regression checks actual packed primitive declarations
-with strict mode and library checking enabled, including SDK `createParts` use
-of the exported core definitions. The normal complete candidate CI still must
-pass before landing or publication.
+with all three settings above, including SDK `createParts` use of the exported
+core definitions. The normal complete candidate CI still must pass before
+landing or publication.
 
-This does not fix the SDK's declarations. A consumer enabling
-`exactOptionalPropertyTypes` can still encounter the same SDK declaration and
-renderer constraint errors. We do not claim support for that combination in
-this release. `skipLibCheck` alone is insufficient for custom renderer call sites
-whose constraints are checked in consumer source.
+This support is scoped to `@lenso/primitives`, not the full `@lenso/ui` package or
+every SDK component. Beta.8 still reproduces two separate exact-optional errors:
 
-Remove the temporary setting after an official SDK release passes the original
-strict primitive typecheck/build and the packed-consumer check with
-`exactOptionalPropertyTypes: true` and `skipLibCheck: false`. Then update the
-consumer guidance and this policy together. Do not remove the setting based only
-on a release note, a diagnostic count reduction or a skipped declaration check.
+- React Tooltip's `shortcut.present` can explicitly be `undefined`, but the
+  `SlotFields` constraint does not allow that (TS2344 in `tooltip.d.ts`). Lenso's
+  Tooltip imports this SDK component.
+- `createPreference()` returns `storage: ValueStorage | undefined`, while
+  `PreferenceLike` requires `storage?: ValueStorage`. Passing the result to
+  React `Preferences` fails with TS2375 in consumer source. `skipLibCheck` alone
+  cannot hide this source-level error.
+
+## Beta.8 verification: 2026-11-18
+
+On macOS, a copy of the primitives source using the official beta.8 packages
+passed strict typechecking (453 files), JavaScript/declaration builds and all
+14 existing tests. Installing its real tarball into a separate consumer passed
+both Bun and TypeScript checks with `exactOptionalPropertyTypes: true` and
+`skipLibCheck: false`, including all primitive entries and custom renderer calls.
+The installed package also passed a core state-change and React SSR smoke check.
+
+The two remaining SDK errors above were reproduced with both Bun and TypeScript;
+the same probe passed with only `exactOptionalPropertyTypes` disabled. These
+checks justify restoring the primitive setting, not broadening the full UI
+package's supported compiler configuration.
+
+Upstream [#488](https://github.com/vercel-labs/ui/issues/488) was closed by
+[#754](https://github.com/vercel-labs/ui/pull/754), which adds `| undefined` to
+`Primitive.options` and `WithFeatures.options`. Beta.8 includes that fix. It
+removes the factory/renderer constraint mismatch described below.
+
+## Historical temporary policy: 2026-11-14
+
+The owner authorized `exactOptionalPropertyTypes: false` for primitives while
+retaining `strict: true` and `skipLibCheck: false`. Restoration required an
+official SDK release to pass the strict primitive typecheck/build and a real
+packed-consumer check with exact optional properties and library checking
+enabled. Beta.8 passed those checks; the workaround is no longer needed for
+primitives. The investigation below records the earlier beta.1/beta.2 behavior.
 
 ## Historical investigation before the temporary policy
 
@@ -45,7 +72,7 @@ All have the same SDK factory/renderer constraint mismatch; the local
 locations are usages of that API, not independent implementation failures. A diagnostic run with only exact optional properties disabled
 passes all 452 files reached by the primitives project.
 
-Reproduce against the installed release:
+Historical reproduction against beta.1:
 
 ```sh
 bun run --filter @lenso/primitives typecheck

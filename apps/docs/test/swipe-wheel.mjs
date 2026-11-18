@@ -197,7 +197,8 @@ try {
           node.scrollTop = 6 * node.querySelector('[role="option"]').clientHeight;
         });
         await page.waitForFunction(
-          () => document.querySelector('input[name="minutes"]')?.value === "6",
+          () =>
+            new FormData(document.querySelector('[data-case="wheel-form"]')).get("minutes") === "6",
         );
         await page.waitForTimeout(250);
         assert.equal(

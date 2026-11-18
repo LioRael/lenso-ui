@@ -142,12 +142,17 @@ Prepared versions are not a publication receipt.
 
 # UI SDK migration 0.11.0
 
-This release temporarily excludes `exactOptionalPropertyTypes` from the supported
+The original migration temporarily excluded `exactOptionalPropertyTypes` from the supported
 TypeScript configuration for SDK-backed primitives. `strict` remains enabled and
 primitive declaration checking remains enabled (`skipLibCheck: false`). Consumers
 using exact optional properties may still encounter upstream declaration errors;
 see [the compatibility report](docs/upstream-ui-sdk-types.md). Prepared versions
 are not a publication receipt.
+
+The beta.8 dependency update restores `exactOptionalPropertyTypes: true` only for
+`@lenso/primitives` and its packed-consumer check. Other compiler configurations
+are unchanged. This does not establish full `@lenso/ui` exact-optional support:
+beta.8 still has separate Tooltip and Preferences type incompatibilities.
 
 This release migrates React interactions to native UI SDK contracts while retaining
 Lenso's StyleX appearance and Glass presentation. It includes the subsequent
