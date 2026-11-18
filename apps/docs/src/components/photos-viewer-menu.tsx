@@ -1,4 +1,5 @@
 import { GlassButton, Menu } from "@lenso/ui";
+import type { MenuRootProps } from "@lenso/ui";
 import {
   Copy,
   CopyPlus,
@@ -20,6 +21,9 @@ const menu = stylex.create({
 export function PhotosViewerMenu({
   open,
   onOpenChange,
+  morphTrigger,
+  submenu,
+  onSubmenuChange,
   onCopy,
   onDuplicate,
   onHide,
@@ -28,7 +32,14 @@ export function PhotosViewerMenu({
   onInformation,
 }: {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
+  onOpenChange: NonNullable<MenuRootProps["onOpenChange"]>;
+  morphTrigger?: boolean;
+  submenu: "album" | "information" | null;
+  onSubmenuChange: (
+    submenu: "album" | "information",
+    open: boolean,
+    details: Parameters<NonNullable<MenuRootProps["onOpenChange"]>>[1],
+  ) => void;
   onCopy: () => void;
   onDuplicate: () => void;
   onHide: () => void;
@@ -37,7 +48,7 @@ export function PhotosViewerMenu({
   onInformation: () => void;
 }) {
   return (
-    <Menu open={open} onOpenChange={onOpenChange}>
+    <Menu open={open} onOpenChange={onOpenChange} morphTrigger={morphTrigger}>
       <Menu.Trigger
         render={
           <GlassButton
@@ -74,7 +85,10 @@ export function PhotosViewerMenu({
           <Menu.Item.Label>Play Slideshow</Menu.Item.Label>
         </Menu.Item>
         <Menu.Separator />
-        <Menu.Sub>
+        <Menu.Sub
+          open={submenu === "album"}
+          onOpenChange={(open, details) => onSubmenuChange("album", open, details)}
+        >
           <Menu.SubTrigger>
             <Menu.Item.Icon>
               <CopyPicture width={22} height={22} />
@@ -92,7 +106,10 @@ export function PhotosViewerMenu({
             ))}
           </Menu.SubContent>
         </Menu.Sub>
-        <Menu.Sub>
+        <Menu.Sub
+          open={submenu === "information"}
+          onOpenChange={(open, details) => onSubmenuChange("information", open, details)}
+        >
           <Menu.SubTrigger>
             <Menu.Item.Icon>
               <CircleInfo width={22} height={22} />

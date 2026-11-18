@@ -56,6 +56,7 @@ export function usePhotoZoom(
   tiles: RefObject<Map<number, HTMLElement>>,
   onClosed: () => void,
   pointerOpened: RefObject<boolean>,
+  animateTransitions = true,
 ) {
   const stage = useRef<HTMLDivElement>(null);
   const ghost = useRef<HTMLDivElement>(null);
@@ -94,6 +95,7 @@ export function usePhotoZoom(
 
   const transition = useCallback(
     (exiting: boolean, contentPose?: { x: number; y: number; scale: number }) => {
+      if (!animateTransitions) return false;
       const imageStage = stage.current;
       const layer = ghost.current;
       const tile = selected === null ? undefined : tiles.current.get(selected);
@@ -167,7 +169,7 @@ export function usePhotoZoom(
       };
       return true;
     },
-    [selected, tiles, onClosed, cancel, controls],
+    [selected, tiles, onClosed, cancel, controls, animateTransitions],
   );
 
   useLayoutEffect(() => {

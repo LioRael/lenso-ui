@@ -1,5 +1,6 @@
 "use client";
 
+import { isComposing } from "@ui-sdk/core";
 import {
   useCallback,
   useEffect,
@@ -31,7 +32,7 @@ import {
   Sliders,
 } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
-import { albumNames, library, type DemoPhoto } from "../lib/photos-library";
+import { albumNames, type DemoPhoto } from "../lib/photos-library";
 import { photos as s } from "../styles/photos-demo.stylex";
 import { PhotoImage } from "./photos-image";
 import { ScrollEdge } from "../../../../packages/ui/src/utils/materials/render.tsx";
@@ -44,6 +45,7 @@ import { usePhotosSelectionTransition } from "./photos-selection-transition";
 import { PhotosLibraryMenu, photoFilters, type PhotoFilter } from "./photos-library-menu";
 import { PhotosSelectionActions, PhotosSelectionMenu } from "./photos-selection-actions";
 import { PhotosLibraryOverview, type LibraryView } from "./photos-library-overview";
+import { createPhotosSession, usePhotosField, type PhotosModel } from "../lib/photos-model";
 
 type Destination = "library" | "collections" | "search";
 
@@ -115,62 +117,72 @@ function Collections({
   );
 }
 
-export function PhotosDemo() {
+export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) {
+  const [local] = useState(() => (controlled ? null : createPhotosSession()));
+  const model = controlled ?? local!.screen("standalone");
+  const snapshot = useSyncExternalStore(model.subscribe, model.getSnapshot, model.getSnapshot);
+  const { interactive, revision } = snapshot;
   const tablet = useSyncExternalStore(subscribeTablet, isTabletViewport, isServerTablet);
-  const [destination, setDestination] = useState<Destination>("library");
-  const [query, setQuery] = useState("");
-  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [destination, setDestination] = usePhotosField(model, "destination");
+  const [query, setQuery] = usePhotosField(model, "query");
+  const [recentSearches, setRecentSearches] = usePhotosField(model, "recentSearches");
   const searchTrigger = useRef<HTMLButtonElement>(null);
   const { fieldRef: searchFieldRef, capture: captureSearch } = usePhotosSearchTransition(
     destination === "search",
     searchTrigger,
   );
-  const focusSearch = useCallback((input: HTMLInputElement | null) => input?.focus(), []);
-  const searchOrigin = useRef({
-    destination: "library" as Destination,
-    collection: null as string | null,
-    top: 0,
-    minimized: false,
-  });
-  const searchRestore = useRef<typeof searchOrigin.current | null>(null);
-  const [collection, setCollection] = useState<string | null>(null);
-  const [favorites, setFavorites] = useState(new Set([2, 8, 14]));
-  const [deleted, setDeleted] = useState(new Set<number>());
-  const [sources, setSources] = useState(library);
-  const nextPhotoId = useRef(library.length);
-  const [hiddenPhotos, setHiddenPhotos] = useState(new Set<number>());
-  const [lastHidden, setLastHidden] = useState<number | null>(null);
-  const [lastDeleted, setLastDeleted] = useState<number[]>([]);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [viewerPhotos, setViewerPhotos] = useState(library);
-  const [libraryView, setLibraryView] = useState<LibraryView>("all");
-  const [navigationMinimized, setNavigationMinimized] = useState(false);
+  const searchRequested = useRef(false);
+  const focusSearch = useCallback(
+    (input: HTMLInputElement | null) => {
+      if (!input) return;
+      const cleanup = model.registerTextInput("search", input);
+      if (model.getSnapshot().interactive && (!controlled || searchRequested.current)) {
+        input.focus();
+        searchRequested.current = false;
+      }
+      return cleanup;
+    },
+    [controlled, model],
+  );
+  const [searchOrigin, setSearchOrigin] = usePhotosField(model, "searchOrigin");
+  const [selectionAnchor, setSelectionAnchor] = usePhotosField(model, "selectionAnchor");
+  const searchRestore = useRef<typeof searchOrigin | null>(null);
+  const [collection, setCollection] = usePhotosField(model, "collection");
+  const [favorites, setFavorites] = usePhotosField(model, "favorites");
+  const [deleted, setDeleted] = usePhotosField(model, "deleted");
+  const [sources] = usePhotosField(model, "sources");
+  const [hiddenPhotos, setHiddenPhotos] = usePhotosField(model, "hiddenPhotos");
+  const [lastHidden, setLastHidden] = usePhotosField(model, "lastHidden");
+  const [lastDeleted, setLastDeleted] = usePhotosField(model, "lastDeleted");
+  const [selected, setSelected] = usePhotosField(model, "selected");
+  const [viewerPhotos, setViewerPhotos] = usePhotosField(model, "viewerPhotos");
+  const [libraryView, setLibraryView] = usePhotosField(model, "libraryView");
+  const [navigationMinimized, setNavigationMinimized] = usePhotosField(
+    model,
+    "navigationMinimized",
+  );
   const restoreLibraryPosition = useRef(true);
-  const [dense, setDense] = useState(true);
-  const [dark, setDark] = useState(false);
-  const [selecting, setSelectingState] = useState(false);
+  const [dense, setDense] = usePhotosField(model, "dense");
+  const [dark, setDark] = usePhotosField(model, "dark");
+  const [selecting, setSelectingState] = usePhotosField(model, "selecting");
   const { headerRef: selectionHeaderRef, capture: captureSelection } =
     usePhotosSelectionTransition(selecting);
   function setSelecting(value: boolean, animate = false) {
     captureSelection(animate);
     setSelectingState(value);
   }
-  const [selection, setSelection] = useState(new Set<number>());
-  const [edits, setEdits] = useState(new Map<number, PhotoEdit>());
-  const [captions, setCaptions] = useState(new Map<number, string>());
-  const [filter, setFilter] = useState<PhotoFilter>("all");
-  const [cropped, setCropped] = useState(true);
-  const [albums, setAlbums] = useState(new Map<string, Set<number>>());
-  const [notice, setNotice] = useState("");
-  const selectionAnchor = useRef<number | null>(null);
+  const [selection, setSelection] = usePhotosField(model, "selection");
+  const [edits] = usePhotosField(model, "edits");
+  const [captions, setCaptions] = usePhotosField(model, "captions");
+  const [filter, setFilter] = usePhotosField(model, "filter");
+  const [cropped, setCropped] = usePhotosField(model, "cropped");
+  const [albums, setAlbums] = usePhotosField(model, "albums");
+  const [notice, setNotice] = usePhotosField(model, "notice");
+  const [scrollAnchor, setScrollAnchor] = usePhotosField(model, "scrollAnchor");
   const selectButton = useRef<HTMLButtonElement>(null);
-  const editUrls = useRef(new Map<number, string>());
   useEffect(() => {
-    const urls = editUrls.current;
-    return () => {
-      urls.forEach((url) => URL.revokeObjectURL(url));
-    };
-  }, []);
+    return () => local?.dispose();
+  }, [local]);
   const main = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     if (destination !== "library" || collection || !restoreLibraryPosition.current) return;
@@ -186,7 +198,7 @@ export function PhotosDemo() {
   }, [destination, collection, libraryView]);
   const tiles = useRef(new Map<number, HTMLElement>());
   const pointerOpened = useRef(false);
-  const finishClose = useCallback(() => setSelected(null), []);
+  const finishClose = useCallback(() => setSelected(null), [setSelected]);
   const displayLibrary = sources.map((photo) => {
     const edit = edits.get(photo.id);
     return edit
@@ -225,33 +237,60 @@ export function PhotosDemo() {
           .includes(query.trim().toLowerCase())),
   );
   const selectionGrid = usePhotosDragSelection({
-    active: selecting,
+    active: selecting && interactive,
     ids: visible.map((photo) => photo.id),
     selected: selection,
     onChange: setSelection,
     viewport: main,
   });
-  function saveEdit(id: number, edit: PhotoEdit | undefined) {
-    const previous = editUrls.current.get(id);
-    if (previous) URL.revokeObjectURL(previous);
-    if (edit) editUrls.current.set(id, edit.src);
-    else editUrls.current.delete(id);
-    setEdits((previous) => {
-      const next = new Map(previous);
-      if (edit) next.set(id, edit);
-      else next.delete(id);
-      return next;
+  const wasInteractive = useRef(interactive);
+  const restoringScroll = useRef(false);
+  useLayoutEffect(() => {
+    if (
+      controlled &&
+      (!interactive || !wasInteractive.current || searchRestore.current) &&
+      scrollAnchor &&
+      main.current
+    ) {
+      const tile = tiles.current.get(scrollAnchor.id);
+      if (tile) {
+        const bounds = tile.getBoundingClientRect();
+        const offset = bounds.top - main.current.getBoundingClientRect().top;
+        const delta = offset - scrollAnchor.offset * bounds.height;
+        if (Math.abs(delta) > 0.5) {
+          restoringScroll.current = true;
+          main.current.scrollTop += delta;
+        }
+      }
+    }
+    wasInteractive.current = interactive;
+  }, [controlled, interactive, scrollAnchor, revision]);
+  useEffect(() => {
+    if (!controlled) return;
+    let cancelled = false;
+    const images = [...(main.current?.querySelectorAll("img") ?? [])];
+    images.forEach((image) => {
+      image.loading = "eager";
     });
-  }
+    void Promise.all(images.map((image) => image.decode().catch(() => {}))).then(() => {
+      if (!cancelled) model.ready(snapshot);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [controlled, model, snapshot]);
+  const { saveEdit, duplicatePhoto } = model;
   function openCollection(name: string | null) {
+    setScrollAnchor(null);
     setSelecting(false);
     setSelection(new Set());
-    selectionAnchor.current = null;
+    setSelectionAnchor(null);
     setNavigationMinimized(false);
     main.current?.scrollTo({ top: 0, behavior: "instant" });
     setCollection(name);
   }
   function changeLibraryView(next: LibraryView) {
+    setScrollAnchor(null);
     if (next === libraryView) {
       const element = main.current;
       if (element) element.scrollTop = next === "all" ? element.scrollHeight : 0;
@@ -260,34 +299,38 @@ export function PhotosDemo() {
     setNavigationMinimized(true);
   }
   function navigate(next: Destination) {
+    setScrollAnchor(null);
     restoreLibraryPosition.current = next === "library";
     setNavigationMinimized(false);
     main.current?.scrollTo({ top: 0, behavior: "instant" });
     if (next === "library" && main.current) main.current.scrollTop = main.current.scrollHeight;
-    selectionAnchor.current = null;
+    setSelectionAnchor(null);
     setDestination(next);
     setCollection(null);
     setSelecting(false);
     setSelection(new Set());
   }
   function openSearch(animate = false) {
+    searchRequested.current = true;
     captureSearch(true, animate);
-    searchOrigin.current = {
+    setSearchOrigin({
       destination,
       collection,
       top: main.current?.scrollTop ?? 0,
       minimized: navigationMinimized,
-    };
+      anchor: scrollAnchor,
+    });
     setQuery("");
     navigate("search");
   }
   function closeSearch(animate = false) {
     captureSearch(false, animate);
-    const origin = searchOrigin.current;
+    const origin = searchOrigin;
     restoreLibraryPosition.current = false;
     setDestination(origin.destination);
     setCollection(origin.collection);
     setNavigationMinimized(origin.minimized);
+    setScrollAnchor(origin.anchor);
     setQuery("");
     searchRestore.current = origin;
   }
@@ -295,9 +338,9 @@ export function PhotosDemo() {
     const origin = searchRestore.current;
     if (destination === "search" || !origin) return;
     searchRestore.current = null;
-    if (main.current) main.current.scrollTop = origin.top;
+    if (main.current && !controlled) main.current.scrollTop = origin.top;
     searchTrigger.current?.focus({ preventScroll: true });
-  }, [destination]);
+  }, [destination, controlled]);
 
   useEffect(() => {
     if (destination !== "search") return;
@@ -342,31 +385,10 @@ export function PhotosDemo() {
     setViewerPhotos(remaining);
     setSelected(remaining[Math.min(index, remaining.length - 1)]?.id ?? null);
   }
-  async function duplicatePhoto(id: number) {
-    const source = sources.find((photo) => photo.id === id);
-    if (!source) return;
-    const copyId = nextPhotoId.current++;
-    const edit = edits.get(id);
-    try {
-      const copyEdit = edit
-        ? { ...edit, src: URL.createObjectURL(await (await fetch(edit.src)).blob()) }
-        : undefined;
-      const copy = { ...source, id: copyId };
-      setSources((previous) => [...previous, copy]);
-      setViewerPhotos((previous) => [...previous, copy]);
-      if (copyEdit) saveEdit(copyId, copyEdit);
-      if (favorites.has(id)) setFavorites((previous) => new Set(previous).add(copyId));
-      if (captions.has(id))
-        setCaptions((previous) => new Map(previous).set(copyId, captions.get(id)!));
-      setNotice("Photo duplicated in this sample library");
-    } catch {
-      setNotice("Couldn't duplicate this photo. Try again.");
-    }
-  }
   function exitSelection(animate = false) {
     setSelecting(false, animate);
     setSelection(new Set());
-    selectionAnchor.current = null;
+    setSelectionAnchor(null);
     requestAnimationFrame(() => {
       const target =
         selectButton.current && !selectButton.current.disabled
@@ -376,7 +398,7 @@ export function PhotosDemo() {
     });
   }
   function toggleSelection(id: number, range = false) {
-    const start = visible.findIndex((p) => p.id === selectionAnchor.current);
+    const start = visible.findIndex((p) => p.id === selectionAnchor);
     const end = visible.findIndex((p) => p.id === id);
     setSelection((previous) => {
       const next = new Set(previous);
@@ -388,13 +410,14 @@ export function PhotosDemo() {
       else next.add(id);
       return next;
     });
-    selectionAnchor.current = id;
+    setSelectionAnchor(id);
   }
   function changeFilter(value: PhotoFilter) {
+    setScrollAnchor(null);
     setNotice("");
     setFilter(value);
     setSelection(new Set());
-    selectionAnchor.current = null;
+    setSelectionAnchor(null);
   }
   const selectedPhotos = activeLibrary.filter((p) => selection.has(p.id));
   const allFavorites =
@@ -454,7 +477,7 @@ export function PhotosDemo() {
     collection ??
     (destination === "library" ? "Library" : destination === "search" ? "Search" : "Collections");
   return (
-    <ThemeScope theme={dark ? "dark" : "light"} xstyle={s.root}>
+    <ThemeScope theme={dark ? "dark" : "light"} xstyle={s.root} inert={!interactive}>
       <Tabs
         value={libraryView}
         onValueChange={(value) => {
@@ -468,6 +491,28 @@ export function PhotosDemo() {
           ref={main}
           id="main-content"
           data-photos-demo=""
+          data-photos-revision={controlled ? revision : undefined}
+          inert={!interactive}
+          onScroll={() => {
+            if (restoringScroll.current) {
+              restoringScroll.current = false;
+              return;
+            }
+            if (!controlled || !interactive || selected !== null || !main.current) return;
+            const top = main.current.getBoundingClientRect().top;
+            const tile = [...tiles.current.entries()].find(
+              ([, node]) => node.getBoundingClientRect().bottom > top,
+            );
+            if (tile) {
+              const bounds = tile[1].getBoundingClientRect();
+              const anchor = { id: tile[0], offset: (bounds.top - top) / bounds.height };
+              if (
+                anchor.id !== scrollAnchor?.id ||
+                Math.abs(anchor.offset - scrollAnchor.offset) > 0.001
+              )
+                setScrollAnchor(anchor);
+            }
+          }}
           onKeyDown={(event) => {
             if (
               !selecting ||
@@ -547,7 +592,7 @@ export function PhotosDemo() {
                         onAddTo={addToAlbum}
                         onClear={() => {
                           setSelection(new Set());
-                          selectionAnchor.current = null;
+                          setSelectionAnchor(null);
                         }}
                       />
                     </span>
@@ -575,7 +620,7 @@ export function PhotosDemo() {
                       setSelecting(true, event.detail > 0);
                       setSelection(new Set());
                       setNavigationMinimized(false);
-                      selectionAnchor.current = null;
+                      setSelectionAnchor(null);
                       setNotice("");
                     }}
                   >
@@ -844,6 +889,9 @@ export function PhotosDemo() {
                       placeholder="Search your library…"
                       value={query}
                       onValueChange={setQuery}
+                      onKeyDownCapture={(event) => {
+                        if (isComposing(event)) event.stopPropagation();
+                      }}
                       onKeyDown={(event) => {
                         if (event.key === "Escape") {
                           event.preventDefault();
@@ -954,6 +1002,8 @@ export function PhotosDemo() {
             )}
           </div>
           <PhotosViewer
+            model={model}
+            animateTransitions={!controlled}
             selected={selected}
             photos={viewerPhotos.map((photo) =>
               displayLibrary.find((item) => item.id === photo.id)!,
