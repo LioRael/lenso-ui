@@ -28,6 +28,29 @@ the existing copy refreshes all used styles so flex/grid siblings reflow with it
 Shared capture eligibility also follows text edits. Image decoding itself remains
 uncancellable. No public API or caller migration is required.
 
+# Release workflow
+
+After the workflow update lands on main, pushing a stable tag such as `v0.11.5`
+starts `Release`. The tag's version must match the UI and Tokens manifests; Glass,
+primitives, Docs and the initializer retain the versions declared in the release
+script. Lightweight and annotated tags are supported. Manual dispatch on main
+with the exact UI/Tokens version remains available.
+
+Prepare version, dependency and release-note changes through a protected PR.
+Wait for the resulting main commit's push-triggered Verify run to succeed before
+tagging it. The tag must point to the current main tip, not just an ancestor.
+Preflight checks the version, package identities, current main and live tag before
+requesting approval from the protected `npm` environment. After approval, the
+publication job checks them and the exact-SHA Verify result again. If main advances
+or the tag moves or disappears while approval is pending, publication fails.
+Prerelease tags, build metadata and noncanonical versions are rejected.
+
+A tag starts the approval workflow; it does not bypass approval or bump versions.
+If Verify is not yet successful, wait for it and rerun the failed Release workflow
+for the same unchanged commit and tag. Existing published versions remain immutable:
+only tarballs with matching integrity and dependency pins can be skipped. No tag or
+package publication is authorized merely by preparing these workflow changes.
+
 # Prepared release: UI/Tokens 0.11.4, Glass 0.2.4 and Docs 0.3.5
 
 Glass reuses live-rim source pixels, preserves split optical resources during
