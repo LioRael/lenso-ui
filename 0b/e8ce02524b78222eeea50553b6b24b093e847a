@@ -1,0 +1,24 @@
+.github/scripts/workflow-gate.test.ts
+  h_9d56aba080c170 7,12-14,64-88
+.github/workflows/release.yml
+  h_9d56aba080c170 4-6,22-24,27,35,40,43,47,57,62,65,75
+CONTRIBUTING.md
+  h_9d56aba080c170 254-255,324-333
+RELEASE.md
+  h_9d56aba080c170 18-40
+scripts/publish-packages.ts
+  h_9d56aba080c170 38,61,64-70,74-76,310,314-322,328-362,442-446
+tests/publish-packages.test.ts
+  h_9d56aba080c170 12,25,51-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0be8ce02524b78222eeea50553b6b24b093e847a",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
