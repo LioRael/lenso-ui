@@ -1,0 +1,18 @@
+apps/docs/src/components/photos-demo.tsx
+  h_9d56aba080c170 269
+apps/docs/test/production-loading.mjs
+  h_9d56aba080c170 153-202
+apps/docs/vite.config.ts
+  h_9d56aba080c170 37-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4b03ddd1b2465632c35006360592a403fc54ed7",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
