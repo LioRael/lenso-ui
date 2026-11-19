@@ -1,0 +1,19 @@
+docs/research/scene-owned-glass-2026-11-16.md
+  s_22c986b325ab2c::t_f7821a04a22699 1-1283
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dcd8e994b51e1af8aecfa628baf6e2b3d0c97303",
+  "prompts": {},
+  "sessions": {
+    "s_22c986b325ab2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ea56-33d5-7d10-b33d-e207d8efa3f3",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
