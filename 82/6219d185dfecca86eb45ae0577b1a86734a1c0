@@ -1,0 +1,16 @@
+.github/scripts/setup-playwright-unzip.sh
+  h_9d56aba080c170 1-11
+.github/workflows/verify.yml
+  h_9d56aba080c170 64-65,142-143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "826219d185dfecca86eb45ae0577b1a86734a1c0",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
