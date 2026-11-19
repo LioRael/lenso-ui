@@ -24,6 +24,11 @@ try {
           if (message.type() === "error") errors.push(message.text());
         });
         await page.goto(`${base}__first-paint?theme=${theme}`);
+        const menu = page.getByRole("menu", { name: "More tabs", exact: true });
+        // Clicking during the morph can scroll the anchor away before the pointer hits the item.
+        const billing = menu
+          .filter({ has: page.locator('[data-lenso-slot="menu-surface"][data-material-resting]') })
+          .getByRole("menuitem", { name: "Billing", exact: true });
         for (const direction of ["ltr", "rtl"]) {
           const section = page.locator(`[data-overflow-case="${direction}"]`);
           const more = section.getByRole("button", { name: "More tabs", exact: true });
@@ -43,7 +48,6 @@ try {
             }),
           );
           await more.click();
-          const menu = page.getByRole("menu", { name: "More tabs", exact: true });
           await menu.waitFor();
           assert.equal(
             await menu
@@ -51,7 +55,7 @@ try {
               .getAttribute("aria-disabled"),
             "true",
           );
-          await menu.getByRole("menuitem", { name: "Billing", exact: true }).click();
+          await billing.click();
           await section.getByRole("tabpanel", { name: "Billing", exact: true }).waitFor();
           const current = bar.getByRole("tab", { name: "Billing", exact: true });
           await current.waitFor();
@@ -82,7 +86,7 @@ try {
         }
         const controlled = page.locator('[data-overflow-case="controlled"]');
         await controlled.getByRole("button", { name: "More tabs", exact: true }).click();
-        await page.getByRole("menuitem", { name: "Billing", exact: true }).click();
+        await billing.click();
         assert.equal(await controlled.locator("output").textContent(), "Billing");
         assert.equal(
           await controlled.getByRole("tab", { selected: true }).textContent(),
