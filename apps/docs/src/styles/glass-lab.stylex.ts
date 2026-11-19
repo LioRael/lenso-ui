@@ -16,6 +16,14 @@ export const glassLab = stylex.create({
     marginInline: "auto",
   },
   main: { maxWidth: 1320, marginInline: "auto", paddingInline: 24, paddingBottom: 48 },
+  demoNav: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 24,
+    marginBottom: 20,
+    minHeight: 44,
+    alignItems: "center",
+  },
   intro: { paddingBlock: 32 },
   title: {
     margin: 0,
@@ -44,7 +52,7 @@ export const glassLab = stylex.create({
     isolation: "isolate",
     overflow: "hidden",
     borderRadius: 32,
-    minHeight: 520,
+    minHeight: { default: 520, "@media (min-width: 1024px)": 800 },
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -61,7 +69,11 @@ export const glassLab = stylex.create({
   topActions: {
     position: "absolute",
     top: 24,
-    insetInline: { default: 16, "@media (min-width: 768px)": 24 },
+    insetInline: {
+      default: 16,
+      "@media (min-width: 768px)": 24,
+      "@media (min-width: 1024px)": 96,
+    },
     display: "flex",
     justifyContent: "space-between",
     gap: 12,

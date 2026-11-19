@@ -425,7 +425,7 @@ function Content() {
             <ScrollableExampleScene
               data-story-preview
               data-example-scene
-              registerMenuBackdrop={displayName === "Menu"}
+              registerBackdrop={displayName === "Menu" || displayName === "TabBar"}
               aria-label={cn ? "交互预览内容" : "Interactive preview"}
               {...stylex.props(
                 s.scene,

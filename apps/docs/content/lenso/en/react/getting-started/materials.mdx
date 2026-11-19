@@ -55,6 +55,16 @@ A token is a parameter, not a renderer. Liquid Glass needs internal background s
 
 Dark contour paints use Linear Burn, not alpha-black borders. Source values and Web geometry differences are recorded in the repository's Apple material evidence. This is a Web translation, not a pixel-identical Figma shader.
 
+## Layered composition experiment
+
+[Open the layered glass experiment](/en/glass-lab?pipeline=scene) and drag the upper glass across a photograph, text and a completed lower glass layer. Switch between text, boundary-crossing and overlap presets, edit the labels, adjust blur and compare against deliberately incomplete shared-backdrop sampling. The same page links back to the [existing component demo](/en/glass-lab).
+
+The experiment reuses the verified full-precision pipeline, including paint caching, local blur and direct consumption of packed intermediates. Candidate loop-bound optimizations remain disabled. Current evidence does not establish an overall speedup over the existing components.
+
+The [real-component GPU comparison](/en/glass-lab?pipeline=components) connects fused controls and the photo menu to the same optical implementation. Menus retain their lightweight material while opening or closing, enabling GPU refraction only after settling. Unavailable GPUs, incomplete sampling bounds and unsupported effects fall back: Chromium retains its SVG path, while WebKit menus use native blur. This integration accepts explicit photo inputs only, not arbitrary DOM or other glass layers behind the menu.
+
+This is not a new public component API or a replacement for the default renderer. Text comes from an explicit content model; the photograph, text and glass share one composition domain, rather than capturing arbitrary DOM. Portals, in-scene text editing and scrolling synchronization remain unverified. Low blur exposes displacement; it is not an Apple material match.
+
 ## Material appearance
 
 Liquid Glass uses the iOS 27 recipe in both light and dark appearance. Use `ThemeScope` to scope appearance and glass tint; overlays inherit these settings.

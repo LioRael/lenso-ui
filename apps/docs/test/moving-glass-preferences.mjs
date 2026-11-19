@@ -29,7 +29,8 @@ for (const [engine, type] of [
         const errors = [];
         page.on("pageerror", (error) => errors.push(error.message));
         await page.goto(`${base}/cn/docs/react/components/menu`);
-        await page.getByRole("button", { name: "Actions", exact: true }).waitFor();
+        await page.getByRole("heading", { name: "Menu", level: 1, exact: true }).waitFor();
+        await page.waitForLoadState("networkidle");
         await page.evaluate(
           async ({ kind, theme }) => {
             const { mount } = await import("/test/menu-close-fixture.tsx");

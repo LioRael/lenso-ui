@@ -111,6 +111,24 @@
         "unsupported masks retain the existing renderer",
         paintMask(document, style, 100, 100, 1) === undefined,
       );
+      child.style.clipPath = "none";
+      scene.style.background = "rgb(64, 192, 128)";
+      child.style.background = "rgb(192, 64, 224)";
+      child.style.mixBlendMode = "overlay";
+      const label = document.createElement("span");
+      label.textContent = "Live text";
+      label.style.cssText = "position:absolute;left:140px;top:0";
+      scene.prepend(label);
+      canvas = await capture();
+      check(
+        "overlay blends with page paint across a live-text raster boundary",
+        canvas && same(pixel(canvas, 10, 20), [96, 161, 224, 255]),
+      );
+      check(
+        "overlay leaves page paint outside its source untouched",
+        canvas && same(pixel(canvas, 120, 20), [64, 192, 128, 255]),
+      );
+      if (canvas) canvas.width = canvas.height = 1;
     } catch (error) {
       results.push({ name: String(error), passed: false });
     }

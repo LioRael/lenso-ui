@@ -10,6 +10,7 @@ import {
 } from "react";
 import { GlassBackdropSourceContext } from "@lenso/glass/react";
 import { menuBackdrop } from "../lib/menu-backdrop/source";
+import { tabBarBackdrop } from "../lib/tab-bar-backdrop";
 import { Tabs } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 
@@ -35,9 +36,9 @@ const s = stylex.create({
 });
 
 export function ScrollableExampleScene({
-  registerMenuBackdrop,
+  registerBackdrop,
   ...props
-}: ComponentPropsWithoutRef<"section"> & { registerMenuBackdrop?: boolean }) {
+}: ComponentPropsWithoutRef<"section"> & { registerBackdrop?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   const [scrollable, setScrollable] = useState(false);
   useEffect(() => {
@@ -68,13 +69,16 @@ export function ScrollableExampleScene({
     };
   }, []);
   const source = useCallback(
-    (element: HTMLElement) => (ref.current ? menuBackdrop(ref.current, element) : undefined),
+    (element: HTMLElement) =>
+      ref.current
+        ? (menuBackdrop(ref.current, element) ?? tabBarBackdrop(ref.current, element))
+        : undefined,
     [],
   );
   const scene = (
     <section {...props} ref={ref} tabIndex={props.tabIndex ?? (scrollable ? 0 : undefined)} />
   );
-  return registerMenuBackdrop ? (
+  return registerBackdrop ? (
     <GlassBackdropSourceContext value={source}>{scene}</GlassBackdropSourceContext>
   ) : (
     scene

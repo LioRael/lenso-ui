@@ -55,6 +55,16 @@ Token 是参数，不是渲染器。液态玻璃还需要内部背景采样与�
 
 Dark 轮廓使用 Linear Burn 混合，而不是半透明黑色描边。源参数与 Web 几何差异记录在仓库的 Apple 材料证据文档中，不宣称与 Figma 原生着色器像素完全一致。
 
+## 叠层合成实验
+
+[打开叠层玻璃实验](/cn/glass-lab?pipeline=scene)，拖动上层玻璃经过真实照片、文字及下层玻璃。可以切换文字折射、跨区域和叠层预设，修改文字、调整模糊，并与故意不完整的共享背景采样对比。同一页面可切回[原有组件演示](/cn/glass-lab)。
+
+实验复用已验证的完整精度管线，包括 paint 缓存、局部模糊和直接消费打包中间结果。循环边界候选优化未启用，目前也没有足够证据宣称它整体比原有组件更快。
+
+另有[真实组件 GPU 对照](/cn/glass-lab?pipeline=components)：融合按钮与照片菜单接入同一光学实现。菜单展开、收起时保留原有轻量材质，稳定后才启用 GPU 折射；GPU 不可用、采样越界或效果不支持时回退。Chromium 保留 SVG 路径，WebKit 菜单回退为原生模糊。此接入仅接受显式照片输入，不包含照片之外的任意 DOM 或其他玻璃层。
+
+这不是新的公开组件 API，也没有替换默认渲染器。文字来自显式内容模型，照片、文字与玻璃属于同一个合成域，不是任意 DOM 截图。跨 Portal、场景内文字编辑及滚动同步尚未验证；低模糊用于观察折射，不代表 Apple 材质匹配。
+
 ## Material appearance
 
 Liquid Glass uses the iOS 27 recipe in both light and dark appearance. Use `ThemeScope` to scope appearance and glass tint; overlays inherit these settings.

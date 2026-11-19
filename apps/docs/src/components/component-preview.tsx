@@ -45,17 +45,17 @@ function PreviewScene({
   align,
   minHeight,
   isBgSolid,
-  registerMenuBackdrop,
+  registerBackdrop,
 }: {
   children: ReactNode;
   align: "center" | "start" | "end";
   minHeight: string;
   isBgSolid: boolean;
-  registerMenuBackdrop: boolean;
+  registerBackdrop: boolean;
 }) {
   return (
     <ScrollableExampleScene
-      registerMenuBackdrop={registerMenuBackdrop}
+      registerBackdrop={registerBackdrop}
       data-example-scene
       {...stylex.props(
         previewScene,
@@ -127,7 +127,7 @@ export function ComponentPreview({
               align={align}
               minHeight={minHeight}
               isBgSolid={isBgSolid}
-              registerMenuBackdrop={name === "menu-default"}
+              registerBackdrop={name === "menu-default" || name.startsWith("tab-bar-")}
             >
               {/^(?:calendar|range-calendar|date-field|date-picker|date-range-picker|time-field)-/.test(
                 name,

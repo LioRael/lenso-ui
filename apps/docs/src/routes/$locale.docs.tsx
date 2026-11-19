@@ -1,10 +1,12 @@
 import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
 import { DocumentationSiteLayout } from "@lenso/docs/client";
+import { GlassBackdropSourceContext } from "@lenso/glass/react";
 import { SearchDialog } from "../components/fumadocs/ui/search-dialog";
 import { createLensoSiteOptions } from "../components/docs-site-options";
 import { canonicalSlug, getNavigation, getSectionEntries, isLocale } from "../lib/source";
 import { product } from "../lib/product";
 import { MobileNavigation } from "../components/docs-site-controls";
+import { headerGlassBackdrop } from "../lib/header-glass-backdrop";
 export const Route = createFileRoute("/$locale/docs")({ component: DocsShell });
 function DocsShell() {
   const { locale } = Route.useParams();
@@ -23,9 +25,13 @@ function DocsShell() {
   });
   return (
     <SearchDialog locale={locale}>
-      <DocumentationSiteLayout {...options}>
-        <Outlet />
-      </DocumentationSiteLayout>
+      <GlassBackdropSourceContext
+        value={slug === "react/components/glass-button" ? headerGlassBackdrop : undefined}
+      >
+        <DocumentationSiteLayout {...options}>
+          <Outlet />
+        </DocumentationSiteLayout>
+      </GlassBackdropSourceContext>
       <MobileNavigation
         locale={locale}
         sections={options.sections}

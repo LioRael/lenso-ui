@@ -1,6 +1,8 @@
 "use client";
 
 import * as stylex from "@stylexjs/stylex";
+import { useCallback, useContext } from "react";
+import { GlassBackdropSourceContext } from "@lenso/glass/react";
 
 import { TabBar } from "@lenso/ui/tab-bar";
 import Link from "fumadocs-core/link";
@@ -17,6 +19,7 @@ import { headerControls as s } from "@/styles/header-controls.stylex";
 import { SearchDialog } from "./fumadocs/ui/search-dialog";
 import { ThemeToggle } from "./fumadocs/ui/theme-toggle";
 import { DocsThemePicker } from "./docs-theme-picker";
+import { menuBackdrop } from "../lib/menu-backdrop/source";
 
 export function SiteSearch({ locale }: { locale: Locale }) {
   return <SearchDialog locale={locale} />;
@@ -31,9 +34,30 @@ export function DesktopActions({
   alternates: Parameters<typeof DocumentationLanguageToggle>[0]["alternates"];
   repository: string;
 }) {
+  const backdrop = useContext(GlassBackdropSourceContext);
+  const languageBackdrop = useCallback(
+    (lens: HTMLElement) => {
+      const header = lens.ownerDocument.getElementById("nd-subnav");
+      const menu =
+        header &&
+        menuBackdrop(
+          header,
+          lens,
+          // The desktop TOC placeholder may contain a hidden mobile TOC.
+          (element) =>
+            element.matches("[data-docs-header-toc]") &&
+            !element.getBoundingClientRect().height &&
+            [...element.children].every((child) => getComputedStyle(child).display === "none"),
+        );
+      return menu || backdrop?.(lens);
+    },
+    [backdrop],
+  );
   return (
     <>
-      <DocumentationLanguageToggle locale={locale} alternates={alternates} />
+      <GlassBackdropSourceContext value={languageBackdrop}>
+        <DocumentationLanguageToggle locale={locale} alternates={alternates} />
+      </GlassBackdropSourceContext>
       <AppearanceControls locale={locale} />
       <RepositoryControl repository={repository} />
     </>

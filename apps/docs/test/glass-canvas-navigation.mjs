@@ -43,7 +43,8 @@ try {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(`${base}__canvas/initial`);
     await page.evaluate(async () => {
-      const { encodeCanvas, encodeOpticalMap } = await import("/packages/glass/src/canvas.ts");
+      const { encodeCanvas, encodeImageData, encodeOpticalMap } =
+        await import("/packages/glass/src/canvas.ts");
       const canvas = document.createElement("canvas");
       canvas.width = canvas.height = 20;
       canvas.getContext("2d").fillStyle = "rgb(12, 34, 56)";
@@ -51,6 +52,22 @@ try {
       window.opticalInput = canvas.getContext("2d").getImageData(0, 0, 20, 20);
       window.encodeOpticalMap = encodeOpticalMap;
       window.control = await encodeCanvas(canvas);
+      const encode = HTMLCanvasElement.prototype.toDataURL;
+      HTMLCanvasElement.prototype.toDataURL = () => {
+        throw new Error("Known RGBA must not synchronize canvas encoding");
+      };
+      try {
+        window.raw = await encodeImageData(window.opticalInput);
+      } finally {
+        HTMLCanvasElement.prototype.toDataURL = encode;
+      }
+      const compression = window.CompressionStream;
+      window.CompressionStream = undefined;
+      try {
+        window.fallback = await encodeImageData(window.opticalInput);
+      } finally {
+        window.CompressionStream = compression;
+      }
       // Hold the scheduled encoding frame until document replacement starts.
       const frame = requestAnimationFrame;
       window.requestAnimationFrame = (callback) => {
@@ -76,7 +93,13 @@ try {
         window.encoding,
         window.encodeOpticalMap(window.opticalInput),
       ]);
-      return { result, optical, control: window.control };
+      return {
+        result,
+        optical,
+        control: window.control,
+        raw: window.raw,
+        fallback: window.fallback,
+      };
     });
     release();
     release = undefined;
@@ -88,7 +111,7 @@ try {
     );
     assert.match(encoded.result, /^data:image\/png;base64,/);
     assert.deepEqual(
-      await page.evaluate(async ({ result, optical, control }) => {
+      await page.evaluate(async ({ result, optical, control, raw, fallback }) => {
         const pixels = async (source) => {
           const image = new Image();
           image.src = source;
@@ -99,9 +122,17 @@ try {
           context.drawImage(image, 0, 0);
           return [...context.getImageData(0, 0, 1, 1).data];
         };
-        return [await pixels(control), await pixels(result), await pixels(optical)];
+        return [
+          await pixels(control),
+          await pixels(result),
+          await pixels(optical),
+          await pixels(raw),
+          await pixels(fallback),
+        ];
       }, encoded),
       [
+        [12, 34, 56, 255],
+        [12, 34, 56, 255],
         [12, 34, 56, 255],
         [12, 34, 56, 255],
         [12, 34, 56, 255],

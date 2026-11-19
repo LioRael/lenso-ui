@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Clock, Folder, Heart, House, Magnifier } from "@gravity-ui/icons";
 import { Button, TabBar, type TabBarLayout, type TabBarRootProps } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
+import { compareTabBarText } from "@/lib/tab-bar-text";
 
 const s = stylex.create({
   preview: {
@@ -17,6 +18,19 @@ const s = stylex.create({
   phone: { width: "100%", maxWidth: 400 },
   tablet: { maxWidth: "100%" },
   output: { color: "var(--lenso-label-primary)", fontSize: 14, minHeight: 20 },
+  comparison: {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+  },
+  cost: {
+    color: "var(--lenso-label-secondary)",
+    fontSize: 12,
+    maxWidth: "100%",
+    overflowWrap: "anywhere",
+  },
   scrollArea: {
     boxSizing: "border-box",
     width: "100%",
@@ -61,6 +75,17 @@ export function TabBarExample({
   minimized: controlledMinimized,
   onMinimizedChange,
 }: TabBarExampleProps) {
+  const preview = useRef<HTMLDivElement | null>(null);
+  const [gpuText, setGpuText] = useState(false);
+  const [renamed, setRenamed] = useState(false);
+  const [textStatus, setTextStatus] = useState("");
+  useEffect(() => {
+    if (!gpuText) return;
+    const group = preview.current?.querySelector<HTMLElement>(
+      "[data-tab-bar-group]:not([data-separate])",
+    );
+    if (group) return compareTabBarText(group, setTextStatus);
+  }, [gpuText, layout]);
   const scrollTarget = useRef<HTMLElement | null>(null);
   const [current, setCurrent] = useState<string>("home");
   const [localMinimized, setLocalMinimized] = useState(false);
@@ -82,8 +107,40 @@ export function TabBarExample({
     </TabBar.Link>
   );
   const selected = destinations.find((item) => item.id === current);
+  const libraryLabel = locale === "cn" ? "资料室" : "Líbrary";
   return (
-    <div {...stylex.props(s.preview)}>
+    <div ref={preview} {...stylex.props(s.preview)}>
+      <div {...stylex.props(s.comparison)}>
+        <Button
+          size="sm"
+          variant="bordered"
+          aria-label="GPU text refraction"
+          aria-pressed={gpuText}
+          onClick={() => setGpuText(!gpuText)}
+        >
+          {locale === "cn"
+            ? `文字折射：${gpuText ? "GPU（实验）" : "SVG"}`
+            : `Text refraction: ${gpuText ? "GPU (experimental)" : "SVG"}`}
+        </Button>
+        {gpuText && (
+          <Button size="sm" variant="bordered" onClick={() => setRenamed(!renamed)}>
+            {renamed
+              ? locale === "cn"
+                ? "恢复资料库标签"
+                : "Restore Library label"
+              : locale === "cn"
+                ? "改名为资料室"
+                : "Change Library label"}
+          </Button>
+        )}
+        <output {...stylex.props(s.cost)}>
+          {gpuText
+            ? textStatus
+            : locale === "cn"
+              ? "原文字光学；背景管线不变"
+              : "Original text optics; background unchanged"}
+        </output>
+      </div>
       {autoMinimize && (
         <section
           ref={scrollTarget}
@@ -132,7 +189,7 @@ export function TabBarExample({
                 setCurrent(id);
               }}
             >
-              {locale === "cn" ? cn : en}
+              {id === "library" && renamed ? libraryLabel : locale === "cn" ? cn : en}
             </TabBar.Link>
           ))}
           {layout === "tablet" && showSearch && searchLink}
@@ -155,7 +212,7 @@ export function TabBarExample({
       </Button>
       <output aria-live="polite" {...stylex.props(s.output)}>
         {locale === "cn" ? "当前：" : "Current: "}
-        {selected ? selected[locale] : search}
+        {current === "library" && renamed ? libraryLabel : selected ? selected[locale] : search}
       </output>
     </div>
   );
