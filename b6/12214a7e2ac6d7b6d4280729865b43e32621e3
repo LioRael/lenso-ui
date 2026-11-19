@@ -1,0 +1,19 @@
+apps/docs/test/tabs-overflow.mjs
+  s_7eae3caa88f450::t_f610d9cdfaa7ca 27-31,58,89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b612214a7e2ac6d7b6d4280729865b43e32621e3",
+  "prompts": {},
+  "sessions": {
+    "s_7eae3caa88f450": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1f309-61a0-7bd3-a419-e3202fb1a4fd",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
