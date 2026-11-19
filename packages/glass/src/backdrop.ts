@@ -92,6 +92,7 @@ export function findBackdrop(
 // A copy never animates on its own (it follows the original instead), and its
 // root is placed by the layer rather than where the original sits.
 const STILL = /^(transition|animation|view-transition)/;
+const LOGICAL_INSET = /^inset-(?:block|inline)(?:-|$)/;
 const PLACED: Record<string, string> = {
   position: "absolute",
   top: "0px",
@@ -177,7 +178,11 @@ function inline(
       return;
     }
     for (const [name, value] of values) {
-      if (STILL.test(name) || (root && (name in PLACED || name === "width" || name === "height")))
+      if (
+        STILL.test(name) ||
+        (root &&
+          (name in PLACED || LOGICAL_INSET.test(name) || name === "width" || name === "height"))
+      )
         continue;
       const current = copy.style.getPropertyValue(name);
       if (current === value) continue;
@@ -246,6 +251,10 @@ function copyOf(source: HTMLElement, reads: BackdropReads): Copy {
     if (isBackdropTextField(original) && isBackdropTextField(copy)) fields.push([original, copy]);
     if (template) return;
     copy.removeAttribute("id");
+    if (original === source) {
+      copy.style.removeProperty("inset-block");
+      copy.style.removeProperty("inset-inline");
+    }
     // Detached, a lazy image would never load.
     if (copy instanceof HTMLImageElement) copy.loading = "eager";
     copy.style.transition = copy.style.animation = "none";

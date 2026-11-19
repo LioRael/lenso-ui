@@ -215,6 +215,17 @@ try {
             copy: copy.getBoundingClientRect().top,
           });
         }
+        // A live style refresh must not copy placement already handled by the frame.
+        source.style.insetBlockStart = "72px";
+        source.style.insetInlineStart = "23px";
+        await frame();
+        await frame();
+        const copy = document.querySelector("[inert] p").parentElement;
+        for (const axis of ["top", "left"])
+          positions.push({
+            source: source.getBoundingClientRect()[axis],
+            copy: copy.getBoundingClientRect()[axis],
+          });
         return positions;
       } finally {
         effect.cancel();
