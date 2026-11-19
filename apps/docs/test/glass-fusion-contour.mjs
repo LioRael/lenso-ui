@@ -68,11 +68,13 @@ try {
           null,
           { timeout: 5000, polling: 250 },
         );
-        const initial = await page.evaluate(() =>
-          document
-            .querySelector('[data-case="fusion"] [data-lenso-glass-fusion]')
-            ?.getAttribute("data-lenso-fusion-contour-compute"),
-        );
+        const initial = await page.evaluate(() => {
+          const surface = document.querySelector('[data-case="fusion"] [data-lenso-glass-fusion]');
+          return {
+            compute: surface.getAttribute("data-lenso-fusion-contour-compute"),
+            width: parseFloat(surface.style.width),
+          };
+        });
         const moving = await page.evaluate(async () => {
           const root = document.querySelector('[data-case="fusion"]');
           const edge = root.querySelector("[data-lenso-glass-outline]");
@@ -140,7 +142,26 @@ try {
         await page.mouse.down();
         await page.waitForTimeout(220);
         await page.mouse.up();
-        await page.waitForTimeout(600);
+        // Four toggles return the members to their original size. Wait for that
+        // layout before comparing the worker bitmap, which may still be older.
+        await page.waitForFunction(
+          (width) => {
+            const root = document.querySelector('[data-case="fusion"]');
+            const surface = root?.querySelector("[data-lenso-glass-fusion]");
+            const edge = root?.querySelector("[data-lenso-glass-outline]");
+            return (
+              surface instanceof HTMLElement &&
+              edge instanceof HTMLCanvasElement &&
+              [...root.querySelectorAll("button")].every(
+                (member) => getComputedStyle(member).width === member.style.width,
+              ) &&
+              parseFloat(surface.style.width) === width &&
+              Math.abs(edge.width - Math.ceil((width + 48) * 2)) <= 1
+            );
+          },
+          initial.width,
+          { timeout: 5000 },
+        );
         const result = await page.evaluate(() => {
           window.__measuring = false;
           const root = document.querySelector('[data-case="fusion"]');
@@ -183,7 +204,7 @@ try {
         assert.deepEqual(errors, [], `${name}/${count}: ${JSON.stringify(errors)}`);
         console.log(
           `${name}/${count}: size=${result.size.join("x")} painted=${result.painted} ` +
-            `compute=${initial}->${result.compute} ` +
+            `compute=${initial.compute}->${result.compute} ` +
             `maxFrame=${result.maxFrame.toFixed(1)}ms frames=${result.frames} ` +
             `longTasks=${result.longTasks}${result.longTasks ? `/${result.longTask.toFixed(1)}ms` : ""}`,
         );
