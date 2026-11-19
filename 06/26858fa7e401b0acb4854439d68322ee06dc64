@@ -1,0 +1,19 @@
+.changeset/ui-sdk-beta-eight.md
+  s_7eae3caa88f450::t_bc6d12f1da5ded 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0626858fa7e401b0acb4854439d68322ee06dc64",
+  "prompts": {},
+  "sessions": {
+    "s_7eae3caa88f450": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1f309-61a0-7bd3-a419-e3202fb1a4fd",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
