@@ -1,0 +1,16 @@
+apps/docs/test/backdrop-scheduler-performance.mjs
+  h_9d56aba080c170 218-228
+packages/glass/src/backdrop.ts
+  h_9d56aba080c170 95,181-185,254-257
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b5261f4b03d911de1f2a7aa6e85d813682ba04ec",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
