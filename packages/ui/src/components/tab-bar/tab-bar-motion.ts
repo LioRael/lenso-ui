@@ -278,8 +278,10 @@ function present(group: HTMLElement) {
     const rowTransform = `translate(${rowX}px, ${rowY}px) scale(${1 / sx}, ${1 / sy})`;
     highlightRow.style.transform = rowTransform;
     centreRow.style.transform = rowTransform;
-    refraction?.setActive(state.lift > 0.01);
-    refraction?.update(state.lift);
+    const gpuText = contentOptics?.hasAttribute("data-tab-bar-text-gpu");
+    refraction?.setActive(!gpuText && state.lift > 0.01);
+    if (gpuText) contentOptics?.style.setProperty("--tab-bar-text-lift", String(state.lift));
+    else refraction?.update(state.lift);
     if (
       !gesture &&
       settledBox &&

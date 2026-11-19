@@ -21,7 +21,7 @@ import {
   type RefObject,
 } from "react";
 import { protectLoadingRender } from "../../utils/action-button.js";
-import { useElasticRef } from "@lenso/glass/react";
+import { GlassBackdropSourceContext, useElasticRef } from "@lenso/glass/react";
 import { assignRef } from "../../utils/interaction/ref.js";
 import { prefersReducedMotion } from "@lenso/glass/motion";
 import { KnobMaterial } from "../../utils/materials/knob.js";
@@ -148,6 +148,7 @@ export function TabBarGroup({
   ...props
 }: TabBarGroupProps) {
   const layout = useContext(LayoutContext);
+  const backdropSource = useContext(GlassBackdropSourceContext);
   const { elastic, minimized, expandLabel, setMinimized } = useContext(MotionContext);
   const groupRef = useRef<HTMLDivElement | null>(null);
   const expandRef = useRef<HTMLButtonElement | null>(null);
@@ -227,6 +228,7 @@ export function TabBarGroup({
       <Material
         aria-hidden="true"
         variant="glass-small"
+        liveBackdrop={!!backdropSource}
         liveGeometry
         data-material-resting=""
         xstyle={[tabBarStyles.material, layout === "tablet" && tabBarStyles.tabletMaterial]}

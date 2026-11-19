@@ -8,6 +8,7 @@ export {
 } from "./refraction.js";
 export { paintMaterialBackdrop } from "./backdrop-paints.js";
 export { createControlLens, type ControlLens, type ControlLensOptions } from "./control-lens.js";
+export { TextRefractionGPU } from "./text-refraction.js";
 
 export type {
   BackdropSnapshot,

@@ -136,7 +136,7 @@ const childWrites = new WeakMap<Map<string, string>, Map<string, string>>();
 // parser drops on reassignment. Preserve the individual declarations and order.
 function serializeDeclarations(style: CSSStyleDeclaration): string {
   let text = "";
-  for (let index = 0; index < style.length; index++) {
+  for (let index = 0, length = style.length; index < length; index++) {
     const name = style.item(index);
     const property = name.startsWith("--") ? CSS.escape(name) : name;
     const priority = style.getPropertyPriority(name);
@@ -286,6 +286,11 @@ export interface BackdropOverlay {
   destroy(): void;
 }
 
+export function usesPhotoScene(source: HTMLElement | null) {
+  const mode = source?.getAttribute("data-lenso-backdrop-renderer");
+  return mode === "scene" || mode === "scene-shared";
+}
+
 export function copyBackdrop(
   element: HTMLElement,
   source: HTMLElement,
@@ -294,10 +299,22 @@ export function copyBackdrop(
   fadeIn = 0,
   nativeFallback = false,
   inputOverlay?: () => BackdropOverlay,
+  onActive?: (active: boolean) => void,
 ): () => void {
   const attach = () =>
-    createBackdropCopy(element, source, clipMask, onReady, fadeIn, nativeFallback, inputOverlay);
-  return nativeFallback ? watchNativeBackdropCandidate(element, attach) : attach();
+    createBackdropCopy(
+      element,
+      source,
+      clipMask,
+      onReady,
+      fadeIn,
+      nativeFallback,
+      inputOverlay,
+      onActive,
+    );
+  return nativeFallback && !usesPhotoScene(source)
+    ? watchNativeBackdropCandidate(element, attach)
+    : attach();
 }
 
 function createBackdropCopy(
@@ -308,6 +325,7 @@ function createBackdropCopy(
   fadeIn: number,
   nativeFallback: boolean,
   inputOverlay: (() => BackdropOverlay) | undefined,
+  onActive: ((active: boolean) => void) | undefined,
 ): () => void {
   const layer = document.createElement("div");
   const frame = document.createElement("div");
@@ -583,18 +601,31 @@ function createBackdropCopy(
       };
     },
   });
-  if (viewport && !overlay) {
-    void import("./gpu-backdrop.js")
-      .then(({ registerSharedBackdrop }) => {
+  if (viewport) {
+    const scene = usesPhotoScene(source);
+    void (scene ? import("./scene-backdrop.js") : import("./gpu-backdrop.js"))
+      .then((backend) => {
         if (stopped) return;
-        shared = registerSharedBackdrop(
-          element,
-          source,
-          layer,
-          optics,
-          subscription.invalidate,
-          nativeFallback,
-        );
+        if ("registerSceneBackdrop" in backend)
+          shared = backend.registerSceneBackdrop(
+            element,
+            source,
+            layer,
+            optics,
+            subscription.invalidate,
+            overlay,
+            nativeFallback,
+            onActive,
+          );
+        else if (!overlay)
+          shared = backend.registerSharedBackdrop(
+            element,
+            source,
+            layer,
+            optics,
+            subscription.invalidate,
+            nativeFallback,
+          );
         shared?.visible(active && sourceVisible);
         subscription.invalidate();
       })

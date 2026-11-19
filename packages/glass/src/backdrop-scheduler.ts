@@ -235,8 +235,10 @@ function animationChanged(target: Element, names: Set<string>, restore = false):
   for (const client of clients)
     if (target.contains(client.element)) client.dirty = client.geometry = true;
   // Layout animations can move siblings without resizing the source itself.
+  // Finishing a paint-only animation cannot move unrelated lenses. Its own
+  // source still restores the resolved paint through the targeted path above.
   if (
-    restore ||
+    (restore && (!names.size || [...names].some((name) => !simplePaint.has(name)))) ||
     [...names].some((name) =>
       /^(width|height|margin|padding|inset|top|left|right|bottom|font|flex|grid|gap)/.test(name),
     )

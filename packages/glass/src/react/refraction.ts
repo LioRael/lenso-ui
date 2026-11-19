@@ -21,6 +21,7 @@ import { assignRef } from "./ref.js";
 import { paintMovingMaterialBackdrop } from "../backdrop-paints.js";
 import { paintMovingBackdrop } from "../panel-backdrop.js";
 import { trackPressHighlight } from "../press-highlight.js";
+import { findBackdrop } from "../backdrop.js";
 
 /** Bind shared optics; deferred owners mark their surface as resting or hidden. */
 export function useGlassRef<T extends HTMLElement>(
@@ -44,18 +45,38 @@ export function useGlassRef<T extends HTMLElement>(
     if (!element || !enabled) return;
     let stop: (() => void) | undefined;
     const surface = element.parentElement;
+    let ownedBackdrop: ReturnType<NonNullable<typeof backdropSource>>;
+    if (backdropSource && deferOptics) {
+      try {
+        ownedBackdrop = backdropSource(element);
+      } catch {
+        // A declined owner must not interrupt the native motion path.
+      }
+    }
     const nativePaint =
       (deferOptics ||
         surface?.matches('[data-lenso-slot="menu-surface"], [data-lenso-slot="select-surface"]')) &&
       liveBackdrop &&
       !refractsBackdrop() &&
-      /AppleWebKit\//.test(navigator.userAgent)
+      /AppleWebKit\//.test(navigator.userAgent) &&
+      !ownedBackdrop &&
+      findBackdrop(sourceAnchor?.current ?? element)?.getAttribute(
+        "data-lenso-backdrop-renderer",
+      ) !== "scene"
         ? paintMovingBackdrop(element)
         : undefined;
     let stopped = false;
     let retainedPaint: (() => void) | undefined;
     let fittedObserver: MutationObserver | undefined;
     let state: "resting" | "moving" | "hidden" | undefined;
+    const sceneMotion =
+      deferOptics &&
+      liveBackdrop &&
+      surface?.matches('[data-lenso-slot="menu-surface"]') &&
+      (ownedBackdrop?.liveGeometry ||
+        findBackdrop(sourceAnchor?.current ?? element)?.getAttribute(
+          "data-lenso-backdrop-renderer",
+        ) === "scene");
     const sync = () => {
       const next = !deferOptics
         ? "resting"
@@ -67,6 +88,8 @@ export function useGlassRef<T extends HTMLElement>(
       if (next === state) return;
       const previousState = state;
       state = next;
+      // One optical owner spans the spring and rest; hidden presence still releases it.
+      if (sceneMotion && stop && next !== "hidden") return;
       fittedObserver?.disconnect();
       fittedObserver = undefined;
       if (refractsBackdrop() && previousState === "moving" && next === "resting" && liveBackdrop)
@@ -87,7 +110,7 @@ export function useGlassRef<T extends HTMLElement>(
       if (next === "hidden") {
         retainedPaint?.();
         retainedPaint = undefined;
-      } else if (next === "resting") {
+      } else if (next === "resting" || sceneMotion) {
         stop = attachGlass(element, {
           selection,
           profileKey,

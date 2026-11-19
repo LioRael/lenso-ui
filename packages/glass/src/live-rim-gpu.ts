@@ -2,6 +2,7 @@
 // Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz.
 // Modified: synchronous GPU contour and pixel-area coverage.
 import type { Shape } from "./optical-fields.js";
+import type { FusionFieldInput } from "./fusion-fields.js";
 
 // Same signed-distance recipe and pixel-area coverage as foregroundRimPixels.
 // One offscreen context serves every live rim; consumers copy the completed frame.
@@ -46,16 +47,37 @@ function prepareRenderer(canvas: HTMLCanvasElement, gl: WebGL2RenderingContext) 
     precision highp float;
     uniform vec2 size, resolution;
     uniform float radius, shine, clarity, panel, angle;
+    uniform int count;
+    uniform float blend;
+    uniform vec4 rects[16];
+    uniform float radii[16];
     out vec4 color;
-    float distanceAt(vec2 p) {
+    vec3 pointAt(vec2 p) {
       vec2 q=abs(p)-(size*.5-radius);
-      return radius-length(max(q,0.0))-min(max(q.x,q.y),0.0);
+      vec2 o=max(q,0.0);
+      float len=length(o), d=radius-len-min(max(q.x,q.y),0.0);
+      vec2 n=len>0.0?o/len*sign(p):(q.x>q.y?vec2(sign(p.x),0):vec2(0,sign(p.y)));
+      if(count==0)return vec3(d,n);
+      p+=size*.5;
+      d=0.0;n=vec2(0);
+      for(int i=0;i<count;i++) {
+        vec2 local=p-rects[i].xy-rects[i].zw*.5;
+        q=abs(local)-(rects[i].zw*.5-radii[i]);o=max(q,0.0);len=length(o);
+        float next=radii[i]-len-min(max(q.x,q.y),0.0);
+        float weight=i==0?1.0:blend>0.0?clamp(.5+.5*(next-d)/blend,0.0,1.0):next>d?1.0:0.0;
+        if(weight==0.0)continue;
+        vec2 normal=len>0.0?o/len*sign(local):(q.x>q.y?vec2(sign(local.x),0):vec2(0,sign(local.y)));
+        if(weight==1.0){d=next;n=normal;}
+        else {d=d*(1.0-weight)+next*weight+blend*weight*(1.0-weight);n=n*(1.0-weight)+normal*weight;}
+      }
+      float norm=length(n);
+      return vec3(d,n/max(norm,1e-30));
     }
     vec2 sampleAt(vec2 p) {
-      vec2 q=abs(p)-(size*.5-radius), o=max(q,0.0);
-      float len=length(o), d=radius-len-min(max(q.x,q.y),0.0);
+      vec3 point=pointAt(p);
+      float d=point.x;
       if(d>24.0)return vec2(0);
-      vec2 n=len>0.0?o/len*sign(p):(q.x>q.y?vec2(sign(p.x),0):vec2(0,sign(p.y)));
+      vec2 n=point.yz;
       float vertical=n.y*cos(angle)-n.x*sin(angle);
       float end=vertical*vertical, side=max(0.0,1.0-end), light=0.0, shade=0.0;
       if(d>=0.0) {
@@ -74,11 +96,11 @@ function prepareRenderer(canvas: HTMLCanvasElement, gl: WebGL2RenderingContext) 
     void main() {
       vec2 pitch=(size+2.0)/resolution;
       vec2 p=vec2(gl_FragCoord.x,resolution.y-gl_FragCoord.y)*pitch-1.0-size*.5;
-      float d=distanceAt(p);
+      vec3 point=pointAt(p);
+      float d=point.x;
       if(d>24.0 || d < -1.5){color=vec4(0);return;}
-      vec2 q=abs(p)-(size*.5-radius);
       int count=abs(d)<length(pitch)*.5?16:(d> -1.1 && d<1.7?4:1);
-      int nx=q.x<=0.0 && q.y>=q.x?1:count, ny=q.y<=0.0 && q.x>q.y?1:count;
+      int nx=point.y==0.0?1:count, ny=point.z==0.0?1:count;
       vec2 sum=vec2(0);
       for(int y=0;y<16;y++) {
         if(y>=ny)break;
@@ -102,17 +124,35 @@ function prepareRenderer(canvas: HTMLCanvasElement, gl: WebGL2RenderingContext) 
     return;
   }
   const uniforms = Object.fromEntries(
-    ["size", "resolution", "radius", "shine", "clarity", "panel", "angle"].map((name) => [
-      name,
-      gl.getUniformLocation(program, name),
-    ]),
+    [
+      "size",
+      "resolution",
+      "radius",
+      "shine",
+      "clarity",
+      "panel",
+      "angle",
+      "count",
+      "blend",
+      "rects",
+      "radii",
+    ].map((name) => [name, gl.getUniformLocation(program, name)]),
   );
+  const rects = new Float32Array(64);
+  const radii = new Float32Array(16);
   return {
     canvas,
     release() {
       canvas.width = canvas.height = 1;
     },
-    paint(width: number, height: number, radius: number, shape: Shape, layout = { width, height }) {
+    paint(
+      width: number,
+      height: number,
+      radius: number,
+      shape: Shape,
+      layout = { width, height },
+      fusion?: Pick<FusionFieldInput, "shapes" | "spacing">,
+    ) {
       if (gl.isContextLost()) return;
       const columns = Math.ceil((width + 2) * 2),
         rows = Math.ceil((height + 2) * 2);
@@ -124,6 +164,22 @@ function prepareRenderer(canvas: HTMLCanvasElement, gl: WebGL2RenderingContext) 
       if (canvas.height < capacityHeight) canvas.height = capacityHeight;
       gl.viewport(0, 0, columns, rows);
       gl.useProgram(program);
+      gl.uniform1i(uniforms["count"]!, fusion?.shapes.length ?? 0);
+      if (fusion) {
+        fusion.shapes.forEach((shape, index) => {
+          rects.set([shape.x, shape.y, shape.width, shape.height], index * 4);
+          radii[index] = shape.radius;
+        });
+        gl.uniform4fv(uniforms["rects"]!, rects);
+        gl.uniform1fv(uniforms["radii"]!, radii);
+        gl.uniform1f(
+          uniforms["blend"]!,
+          Math.min(
+            Math.max(0, fusion.spacing),
+            ...fusion.shapes.map((shape) => Math.min(shape.width, shape.height)),
+          ),
+        );
+      }
       gl.uniform2f(uniforms["size"]!, width, height);
       gl.uniform2f(uniforms["resolution"]!, columns, rows);
       gl.uniform1f(uniforms["radius"]!, radius);
@@ -150,9 +206,18 @@ export function paintLiveRim(
   shape: Shape,
   layout?: { width: number; height: number },
   owner?: object,
+  fusion?: Pick<FusionFieldInput, "shapes" | "spacing">,
 ) {
+  if (
+    fusion &&
+    (shape.materialRim === "classic" ||
+      !fusion.shapes.length ||
+      fusion.shapes.length > 16 ||
+      fusion.shapes.some((shape) => shape.corners))
+  )
+    return;
   if (renderer === undefined) renderer = createRenderer() ?? null;
-  const frame = renderer?.paint(width, height, radius, shape, layout);
+  const frame = renderer?.paint(width, height, radius, shape, layout, fusion);
   if (frame && owner) owners.add(owner);
   return frame;
 }

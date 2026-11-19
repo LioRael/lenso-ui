@@ -1,6 +1,95 @@
 import { expect, test } from "bun:test";
 import { attachBackdropSnapshot } from "../../src/backdrop-snapshot.js";
 
+test("changed input retains paint only after synchronous source certification", async () => {
+  const view = document.defaultView!;
+  const raf = view.requestAnimationFrame,
+    cancel = view.cancelAnimationFrame;
+  const frames = new Map<number, FrameRequestCallback>();
+  let serial = 0;
+  view.requestAnimationFrame = (callback) => {
+    frames.set(++serial, callback);
+    return serial;
+  };
+  view.cancelAnimationFrame = (id) => {
+    frames.delete(id);
+  };
+  const source = document.createElement("div"),
+    lens = document.createElement("div"),
+    surface = document.createElement("div");
+  source.getAnimations = () => [];
+  lens.style.backdropFilter = "blur(3px)";
+  document.body.append(source, lens);
+  let disposed = 0;
+  let certified = true;
+  const stop = attachBackdropSnapshot(lens, {
+    source,
+    liveSource: true,
+    ready: () => true,
+    async prepare() {
+      return {
+        surface,
+        update: () => certified,
+        mutate: () => {
+          if (source.textContent === "unsupported") return false;
+          surface.textContent = source.textContent;
+          return true;
+        },
+        dispose() {
+          disposed++;
+        },
+      };
+    },
+  });
+  const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
+  try {
+    for (let step = 0; step < 3; step++) {
+      const current = [...frames.values()];
+      frames.clear();
+      for (const callback of current) callback(step * 16);
+      await flush();
+    }
+    source.textContent = "fresh input";
+    await flush();
+    expect(lens.previousElementSibling).toBe(surface);
+    expect(surface.textContent).toBe("fresh input");
+    expect(lens.style.backdropFilter).toBe("none");
+    expect(disposed).toBe(0);
+    document.body.setAttribute("data-backdrop-test-modality", "pointer");
+    await flush();
+    expect(surface.isConnected).toBe(true);
+    source.dispatchEvent(new Event("focusin", { bubbles: true }));
+    expect(surface.isConnected).toBe(true);
+    source.dispatchEvent(new Event("transitionrun", { bubbles: true }));
+    source.dispatchEvent(new Event("animationstart", { bubbles: true }));
+    expect(surface.isConnected).toBe(true);
+    source.firstChild!.textContent = "unsupported";
+    await flush();
+    expect(surface.isConnected).toBe(false);
+    expect(lens.style.backdropFilter).toBe("blur(3px)");
+    expect(disposed).toBe(1);
+    for (let step = 0; step < 3; step++) {
+      const current = [...frames.values()];
+      frames.clear();
+      for (const callback of current) callback(step * 16);
+      await flush();
+    }
+    expect(surface.isConnected).toBe(true);
+    certified = false;
+    document.body.setAttribute("data-backdrop-test-modality", "keyboard");
+    await flush();
+    expect(surface.isConnected).toBe(false);
+    expect(lens.style.backdropFilter).toBe("blur(3px)");
+  } finally {
+    stop();
+    document.body.removeAttribute("data-backdrop-test-modality");
+    source.remove();
+    lens.remove();
+    view.requestAnimationFrame = raf;
+    view.cancelAnimationFrame = cancel;
+  }
+});
+
 // Running scroll timelines must not permanently block a static owned background.
 test("scroll-driven shadows allow a snapshot and scrolling invalidates it", async () => {
   const view = document.defaultView!;

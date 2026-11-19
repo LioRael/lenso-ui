@@ -5,7 +5,13 @@
  */
 import { appendAppleMaterial } from "./apple-material.js";
 import { foregroundRim, foregroundRimShadow, hasForegroundRim } from "./foreground-rim.js";
-import { maps, type Shape, type GeometrySampler, type OpticalFields } from "./optical-fields.js";
+import {
+  maps,
+  profile,
+  type Shape,
+  type GeometrySampler,
+  type OpticalFields,
+} from "./optical-fields.js";
 export {
   maps,
   type Shape,
@@ -13,7 +19,7 @@ export {
   type GeometrySampler,
   type OpticalFields,
 } from "./optical-fields.js";
-import { findBackdrop, copyBackdrop } from "./backdrop.js";
+import { findBackdrop, copyBackdrop, usesPhotoScene } from "./backdrop.js";
 import { paintBackdrop } from "./panel-backdrop.js";
 import { paintMaterialBackdrop } from "./backdrop-paints.js";
 import { glassIsOpaque, observeGlassPreferences, watchGlassPreferences } from "./preferences.js";
@@ -25,6 +31,7 @@ import { afterGeometrySettles } from "./settled-geometry.js";
 import { createLiveRim } from "./live-rim.js";
 import { createNativeEditorRim } from "./native-editor-rim.js";
 import { splitFilter } from "./filter-split.js";
+import { registerSceneLens } from "./scene-lens.js";
 
 // Refraction model: https://kube.io/blog/liquid-glass-css-svg/
 
@@ -91,6 +98,21 @@ function container(): SVGDefsElement {
   return defs;
 }
 
+function lensKey(
+  width: number,
+  height: number,
+  radius: number,
+  selection: boolean,
+  shape: Shape,
+  filtered: boolean,
+): string {
+  const density = shape.appleMode ? 2 : Math.min(devicePixelRatio || 1, 2);
+  const opticalKey = Object.values({ width, height, radius, selection, ...shape, density }).join(
+    "-",
+  );
+  return (filtered ? "" : "rim-") + opticalKey;
+}
+
 // The filter only bends the rim. Blur and the rim highlight are applied in CSS,
 // which Chromium positions correctly when it repaints part of the glass.
 async function lens(
@@ -101,11 +123,7 @@ async function lens(
   shape: Shape,
   filtered = true,
 ): Promise<Lens> {
-  const density = shape.appleMode ? 2 : Math.min(devicePixelRatio || 1, 2);
-  const opticalKey = Object.values({ width, height, radius, selection, ...shape, density }).join(
-    "-",
-  );
-  const key = (filtered ? "" : "rim-") + opticalKey;
+  const key = lensKey(width, height, radius, selection, shape, filtered);
   const cached = lenses.get(key);
   if (cached) {
     cached.users++;
@@ -123,11 +141,11 @@ async function lens(
   let pending = pendingLenses.get(key);
   if (!pending) {
     // An explicit prewarm may already own the identical rim in its full lens.
-    if (
-      !filtered &&
-      (lenses.has(opticalKey) || spareLenses.has(opticalKey) || pendingLenses.has(opticalKey))
-    )
-      return lens(width, height, radius, selection, shape);
+    if (!filtered) {
+      const opticalKey = lensKey(width, height, radius, selection, shape, true);
+      if (lenses.has(opticalKey) || spareLenses.has(opticalKey) || pendingLenses.has(opticalKey))
+        return lens(width, height, radius, selection, shape);
+    }
     pending = buildLens(width, height, radius, selection, shape, key, filtered);
     pendingLenses.set(key, pending);
     void pending.finally(() => pendingLenses.delete(key));
@@ -150,14 +168,15 @@ async function buildLens(
   fieldBox?: { x: number; y: number; width: number; height: number },
 ): Promise<Lens> {
   shape = { ...shape, materialForeground: !selection && !geometry && hasForegroundRim(shape) };
-  const [prepared, foreground] = await Promise.all([
-    fields ?? maps(width, height, radius, selection, shape, geometry, !filtered),
-    !selection && !geometry && hasForegroundRim(shape)
-      ? foregroundRim(width, height, radius, shape)
-      : undefined,
-  ]);
-  const { displacement, highlight, zoom, scale, shade, contour, silhouette } = prepared;
+  const foregroundImage = shape.materialForeground
+    ? foregroundRim(width, height, radius, shape)
+    : undefined;
   if (!filtered) {
+    const foreground = await foregroundImage;
+    // A foreground-only lens never consumes displacement or the legacy highlight.
+    const highlight = foreground
+      ? ""
+      : (fields ?? (await maps(width, height, radius, selection, shape, geometry, true))).highlight;
     const image = new Image();
     image.src = foreground ?? highlight;
     await image.decode();
@@ -178,6 +197,11 @@ async function buildLens(
     lenses.set(key, result);
     return result;
   }
+  const [prepared, foreground] = await Promise.all([
+    fields ?? maps(width, height, radius, selection, shape, geometry),
+    foregroundImage,
+  ]);
+  const { displacement, highlight, zoom, scale, shade, contour, silhouette } = prepared;
   const sourceReach = (Math.abs(scale) * (1 + shape.dispersion * 0.1)) / 2;
   const sourceMargin = Math.ceil(sourceReach + (shape.sourceBlur ?? 3) * 3 + 1);
   const geometryRecipe = geometry
@@ -275,26 +299,6 @@ async function buildLens(
     if (selection || shape.dispersion > 0) {
       const spread = selection && shape.dispersion === 0 ? 0.035 : shape.dispersion * 0.1;
       const alpha = selection ? "0 0 0 0 1" : "0 0 0 1 0";
-      // On a fitted circular button, WebKit needs the full blur margin for the
-      // copied backdrop. Each displaced colour only needs its maximum reach
-      // plus a guard for interpolation and the following 0.4 px blur.
-      const rayMargin = Math.ceil(sourceReach) + 4;
-      const rayRegion =
-        !selection &&
-        !geometry &&
-        shape.appleMode &&
-        shape.materialProfile === "small" &&
-        width === height &&
-        radius === width / 2 &&
-        /AppleWebKit\//.test(navigator.userAgent) &&
-        !refractsBackdrop()
-          ? {
-              x: -rayMargin,
-              y: -rayMargin,
-              width: width + 2 * rayMargin,
-              height: height + 2 * rayMargin,
-            }
-          : undefined;
       const channels = [
         ["r", 1 + spread, `1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ${alpha}`],
         ["g", 1, `0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 ${alpha}`],
@@ -305,7 +309,6 @@ async function buildLens(
           svg("feDisplacementMap", {
             in: zoom ? "magnified" : "SourceGraphic",
             in2: "field",
-            ...rayRegion,
             scale: scale * factor,
             xChannelSelector: "R",
             yChannelSelector: "G",
@@ -473,6 +476,25 @@ async function buildLens(
       );
     }
   }
+  // Bound channel extraction, not the source blur. Recycled fusion graphs
+  // must refit this region as well as their images when the plane changes.
+  if (
+    !selection &&
+    shape.appleMode &&
+    (geometry || (shape.materialProfile === "small" && width === height && radius === width / 2)) &&
+    /AppleWebKit\//.test(navigator.userAgent) &&
+    !refractsBackdrop()
+  ) {
+    const margin = Math.ceil(sourceReach) + 4;
+    for (const ray of filter.querySelectorAll('feDisplacementMap[in2="field"]'))
+      for (const [name, value] of Object.entries({
+        x: -margin,
+        y: -margin,
+        width: width + 2 * margin,
+        height: height + 2 * margin,
+      }))
+        ray.setAttribute(name, String(value));
+  }
   // Installing an SVG filter before its PNG inputs decode blanks the entire
   // material face for a compositor frame, even when the preceding lens is warm.
   await Promise.all(
@@ -489,6 +511,17 @@ async function buildLens(
   if (!geometry && !selection) {
     const input = coreOptics(width, height, radius, shape);
     if (input) registerCoreOptics(filter, input);
+  }
+  if (
+    !selection &&
+    shape.appleMode &&
+    !zoom &&
+    shape.saturation === 1 &&
+    shape.faceSaturation === 1 &&
+    !shape.materialTint &&
+    !shape.anchorEdge
+  ) {
+    registerSceneLens({ filter, width, height, shape, scale });
   }
   for (const node of recycled?.paint ?? []) node.remove();
   const paint =
@@ -751,8 +784,8 @@ async function fit(
   selection: boolean,
   filtered: boolean,
   current: () => boolean,
+  geometry = readLens(element),
 ): Promise<Lens | undefined> {
-  const geometry = readLens(element);
   if (!geometry) return;
   const { width, height, radius, shape } = geometry;
   const fitted = await lens(width, height, radius, selection, shape, filtered);
@@ -818,6 +851,7 @@ function refract(
   selection: boolean,
   filtered: boolean,
   liveGeometry = false,
+  eagerCachedFit = false,
 ): () => void {
   let cancel: (() => void) | undefined;
   let fitted: Lens | undefined;
@@ -949,10 +983,22 @@ function refract(
     if (fitted && radiusTransitions.size) return;
     const version = ++generation;
     const current = () => !disposed && generation === version;
+    const geometry = idle && eagerCachedFit ? readLens(element) : undefined;
+    const key =
+      geometry &&
+      lensKey(
+        geometry.width,
+        geometry.height,
+        geometry.radius,
+        selection,
+        geometry.shape,
+        filtered,
+      );
+    const hot = key !== undefined && (lenses.has(key) || spareLenses.has(key));
     const run = () => {
       frame = undefined;
       fitting = true;
-      void fit(element, selection, filtered, current)
+      void fit(element, selection, filtered, current, hot ? geometry : undefined)
         .then((next) => {
           if (!next) return;
           if (!current()) {
@@ -979,7 +1025,8 @@ function refract(
           }
         });
     };
-    if (idle) cancel = whenIdle(run);
+    if (hot) run();
+    else if (idle) cancel = whenIdle(run);
     else if (liveGeometry && fitted) cancel = afterGeometrySettles(run);
     else frame = requestAnimationFrame(run);
   };
@@ -1101,13 +1148,14 @@ function attachOptics(
   // Native WebKit paint avoids rebuilding marked page content on control changes.
   const nativeBlur = !native && /AppleWebKit\//.test(navigator.userAgent);
   let ownedBackdrop: ReturnType<GlassBackdropSource>;
-  if (backdropSource && liveBackdrop && !selection && !liveGeometry) {
+  if (backdropSource && !selection) {
     try {
       const input = backdropSource(element);
       if (
         input &&
+        (!liveGeometry || input.liveGeometry) &&
         input.source.ownerDocument === element.ownerDocument &&
-        !input.source.contains(element) &&
+        (!input.source.contains(element) || input.exclude?.(element)) &&
         !element.contains(input.source)
       )
         ownedBackdrop = input;
@@ -1116,13 +1164,14 @@ function attachOptics(
     }
   }
   const canCopy =
-    !nativeBlur &&
+    (!nativeBlur || liveBackdrop) &&
     !selection &&
     !ownedBackdrop &&
     (!native || getComputedStyle(element).getPropertyValue("--lg-material").trim() === "apple");
   let source = canCopy ? findBackdrop(sourceAnchor ?? element) : null;
+  const scene = usesPhotoScene(source);
+  if (nativeBlur && !scene) source = null;
   const filtered = native;
-  let stopCopy = source ? copyBackdrop(element, source, false, undefined, 0, native) : undefined;
   const material = [
     "default",
     "glass-small",
@@ -1130,25 +1179,48 @@ function attachOptics(
     "glass-large",
     "glass-clear",
   ].includes(profileKey ?? "");
-  const needsPaint = !filtered && !source;
-  const panelPaint = needsPaint && liveBackdrop ? paintBackdrop(element) : undefined;
+  const needsPaint = (scene && nativeBlur) || (!filtered && !source);
+  const panelPaint =
+    needsPaint && (liveBackdrop || ownedBackdrop) ? paintBackdrop(element) : undefined;
   let stopPaint: (() => void) | undefined =
     panelPaint ?? (!filtered && material ? paintMaterialBackdrop(element, true) : undefined);
+  let stopCopy = source
+    ? copyBackdrop(
+        element,
+        source,
+        false,
+        undefined,
+        0,
+        native || scene,
+        undefined,
+        scene ? (active) => panelPaint?.setVisible(!active) : undefined,
+      )
+    : undefined;
   const ownedGeometry = ownedBackdrop ? readLens(element) : undefined;
-  const ownedFilter =
-    !!ownedBackdrop &&
-    (!ownedGeometry ||
-      !coreOptics(
-        ownedGeometry.width,
-        ownedGeometry.height,
-        ownedGeometry.radius,
-        ownedGeometry.shape,
-      ));
+  const analytic =
+    ownedGeometry &&
+    coreOptics(
+      ownedGeometry.width,
+      ownedGeometry.height,
+      ownedGeometry.radius,
+      ownedGeometry.shape,
+    );
+  if (analytic && ownedGeometry)
+    element.style.setProperty(
+      "--lg-source-reach",
+      String(
+        profile(analytic.bezel, analytic.thickness).maximum *
+          Math.abs(analytic.level) *
+          (1 + ownedGeometry.shape.dispersion * 0.1),
+      ),
+    );
+  const ownedFilter = !!ownedBackdrop && !analytic;
   let stopLens = refract(
     element,
     selection,
     filtered || source !== null || ownedFilter,
     liveGeometry,
+    source?.getAttribute("data-lenso-backdrop-renderer") === "scene-shared",
   );
   // Hydrated/hidden previews can acquire layout after the ref is attached.
   const stopDiscovery = whenNearViewport(element, () => {

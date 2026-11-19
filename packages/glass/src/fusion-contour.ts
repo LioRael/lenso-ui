@@ -1,6 +1,8 @@
 // Group rim/shadow recipes adapted from onlymoein/liquidglass 89f8b736 (MIT).
 // Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz.
 import { foregroundRimPixels } from "./foreground-rim.js";
+import { paintLiveRim } from "./live-rim-gpu.js";
+import type { FusionFieldInput } from "./fusion-fields.js";
 import type { FusionEdgePixels } from "./fusion-geometry.js";
 import { materialContours } from "@lenso/tokens/materials";
 import type { GeometrySampler, Shape } from "./refraction.js";
@@ -14,6 +16,7 @@ export function paintFusionContour(
   sample: GeometrySampler,
   shape?: Shape,
   edgePixels?: FusionEdgePixels,
+  fusion?: Pick<FusionFieldInput, "shapes" | "spacing">,
 ) {
   const density = 2;
   if (shape?.materialSurface === "group") {
@@ -29,6 +32,25 @@ export function paintFusionContour(
     context.clearRect(-padding, -padding, width + padding * 2, height + padding * 2);
     if (shape.appleMode === "light") {
       const rectangle = sample.roundedRect;
+      const gpu =
+        !rectangle && fusion
+          ? paintLiveRim(width, height, 0, shape, undefined, canvas, fusion)
+          : undefined;
+      if (gpu) {
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.drawImage(
+          gpu.canvas,
+          0,
+          gpu.canvas.height - gpu.height,
+          gpu.width,
+          gpu.height,
+          (padding - 1) * density,
+          (padding - 1) * density,
+          gpu.width,
+          gpu.height,
+        );
+        return;
+      }
       const rim = rectangle
         ? foregroundRimPixels(rectangle.width, rectangle.height, rectangle.radius, shape)
         : foregroundRimPixels(width, height, 0, shape, sample);

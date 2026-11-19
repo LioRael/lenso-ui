@@ -5,14 +5,26 @@ export interface BackdropSnapshot {
   surface: HTMLElement;
   /** A complete material paints above the native lens. Backdrop pixels go below its rim. */
   includesMaterial?: boolean;
+  /** An isolated control can host the replacement under its own foreground. */
+  insideControl?: boolean;
   /** Runs after insertion, before the native filter is retired. */
   present?(): boolean;
+  /** Repaint certified geometry; false restores the native material immediately. */
+  update?(): boolean;
+  /** Synchronously certify and repaint changed source input; false restores native paint. */
+  mutate?(records: readonly MutationRecord[]): boolean;
   dispose(): void;
 }
 
 export interface BackdropSnapshotOptions {
   source: HTMLElement;
   foreground?: HTMLElement;
+  /** The prepared material tracks lens motion over a stationary, complete source. */
+  liveGeometry?: boolean;
+  /** update() certifies source pixels/bounds after scrolling, focus and ancestor attribute changes. */
+  liveSource?: boolean;
+  /** Source-owned overlays omitted from both capture and input invalidation. */
+  exclude?(node: Node): boolean;
   /** Invalidate changes to owned input outside observable DOM (e.g. CSSOM or canvas). */
   subscribe?(invalidate: () => void): () => void;
   /** The owner must exclude unsupported or moving input and preserve native rendering. */
@@ -30,7 +42,16 @@ export type GlassBackdropSource = (lens: HTMLElement) => BackdropSnapshotOptions
 /** Present the source's prepared output only while geometry, input and ownership are stable. */
 export function attachBackdropSnapshot(
   element: HTMLElement,
-  { source, foreground, ready, prepare, subscribe }: BackdropSnapshotOptions,
+  {
+    source,
+    foreground,
+    liveGeometry,
+    liveSource,
+    exclude,
+    ready,
+    prepare,
+    subscribe,
+  }: BackdropSnapshotOptions,
   onMaterial?: (active: boolean) => void,
 ): () => void {
   const document = element.ownerDocument;
@@ -73,6 +94,14 @@ export function attachBackdropSnapshot(
     attempted = false;
   };
 
+  const update = () => {
+    try {
+      return current?.update?.() ?? false;
+    } catch {
+      return false;
+    }
+  };
+
   const measure = () => {
     const box = element.getBoundingClientRect();
     const from = source.getBoundingClientRect();
@@ -81,26 +110,28 @@ export function attachBackdropSnapshot(
       box,
       style,
       key: [
-        view.innerWidth,
-        view.innerHeight,
         view.devicePixelRatio,
-        view.scrollX,
-        view.scrollY,
-        box.x,
-        box.y,
-        box.width,
-        box.height,
-        from.x,
-        from.y,
-        from.width,
-        from.height,
-        style.borderRadius,
+        ...(liveSource
+          ? []
+          : [
+              view.innerWidth,
+              view.innerHeight,
+              view.scrollX,
+              view.scrollY,
+              from.x,
+              from.y,
+              from.width,
+              from.height,
+            ]),
+        ...(liveGeometry ? [] : [box.x, box.y, box.width, box.height]),
+        liveGeometry ? "" : style.borderRadius,
         style.zIndex,
-        style.opacity,
+        liveGeometry ? "" : style.opacity,
         style.visibility,
-        style.getPropertyValue("--lg-filter"),
+        liveGeometry ? "" : style.getPropertyValue("--lg-filter"),
         style.getPropertyValue("--lg-blur"),
         style.getPropertyValue("--lg-source-reach"),
+        liveGeometry ? "" : style.getPropertyValue("--lg-foreground-rim"),
       ].join("|"),
     };
   };
@@ -156,11 +187,15 @@ export function attachBackdropSnapshot(
             surface.style.overflow = "clip";
             surface.style.isolation = "isolate";
             surface.style.willChange = "opacity";
-            element.after(surface);
+            if (snapshot.insideControl) {
+              surface.style.zIndex = "-1";
+              element.prepend(surface);
+            } else element.after(surface);
           } else {
             element.before(surface);
           }
           if (snapshot.present && !snapshot.present()) return restore();
+          if (liveGeometry && (!snapshot.update || !snapshot.update())) return restore();
           if (current !== snapshot || abort.signal.aborted) return;
           element.style.setProperty("backdrop-filter", "none");
           if (snapshot.includesMaterial) onMaterial?.(true);
@@ -177,19 +212,65 @@ export function attachBackdropSnapshot(
   };
 
   const listen = (target: EventTarget, type: string, capture = false) => {
-    target.addEventListener(type, invalidate, capture);
-    listeners.push(() => target.removeEventListener(type, invalidate, capture));
+    const changed = (event: Event) => {
+      if (
+        liveSource &&
+        [
+          "scroll",
+          "resize",
+          "pointerover",
+          "pointerout",
+          "focusin",
+          "focusout",
+          "transitionrun",
+          "animationstart",
+        ].includes(type) &&
+        update()
+      )
+        return;
+      if (!(event.target instanceof Node) || !exclude?.(event.target)) invalidate();
+    };
+    target.addEventListener(type, changed, capture);
+    listeners.push(() => target.removeEventListener(type, changed, capture));
   };
   // Subscribe before allocating DOM observers; a rejected source leaves no observers behind.
   if (subscribe) listeners.push(subscribe(invalidate));
-  const sourceObserver = new MutationObserver(invalidate);
+  const sourceObserver = new MutationObserver((records) => {
+    if (liveSource && current?.mutate) {
+      try {
+        if (current.mutate(records)) return;
+      } catch {
+        // Uncertified input must never keep the previous optical pixels visible.
+      }
+      invalidate();
+      return;
+    }
+    if (
+      liveSource &&
+      records.every((record) => exclude?.(record.target) || record.type === "attributes") &&
+      update()
+    )
+      return;
+    if (
+      records.some((record) => {
+        if (exclude?.(record.target)) return false;
+        const nodes = [...record.addedNodes, ...record.removedNodes];
+        return (
+          record.type !== "childList" || !nodes.length || !nodes.every((node) => exclude?.(node))
+        );
+      })
+    )
+      invalidate();
+  });
   sourceObserver.observe(source, {
     subtree: true,
     attributes: true,
     childList: true,
     characterData: true,
   });
-  const ancestorObserver = new MutationObserver(invalidate);
+  const ancestorObserver = new MutationObserver(() => {
+    if (!liveSource || !update()) invalidate();
+  });
   for (let node = source.parentElement; node; node = node.parentElement)
     ancestorObserver.observe(node, { attributes: true });
   const sheets = () =>
@@ -278,13 +359,20 @@ export function attachBackdropSnapshot(
     if (
       document.visibilityState !== "visible" ||
       !ready() ||
-      source
-        .getAnimations({ subtree: true })
-        .some(
-          (animation) =>
-            animation.timeline instanceof DocumentTimeline &&
-            (animation.pending || animation.playState === "running"),
-        )
+      ((!liveSource || !current) &&
+        source
+          .getAnimations({ subtree: true })
+          .some(
+            (animation) =>
+              !(
+                exclude &&
+                animation.effect instanceof KeyframeEffect &&
+                animation.effect.target &&
+                exclude(animation.effect.target)
+              ) &&
+              animation.timeline instanceof DocumentTimeline &&
+              (animation.pending || animation.playState === "running"),
+          ))
     ) {
       if (current || pending || stableFrames) invalidate();
       signature = "";
@@ -294,7 +382,8 @@ export function attachBackdropSnapshot(
         invalidate();
         signature = key;
       }
-      if (++stableFrames >= 2 && !attempted) start(key);
+      if (++stableFrames >= (liveGeometry ? 1 : 2) && !attempted) start(key);
+      if (current?.update && !update()) invalidate();
     }
     frame = view.requestAnimationFrame(tick);
   };

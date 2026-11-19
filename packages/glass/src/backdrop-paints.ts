@@ -203,7 +203,17 @@ function createMaterialBackdrop(
     element,
     source: foreground,
     layer: container,
-    prepare() {},
+    prepare() {
+      // Hidden layers have no offsetParent. Restore layout before measuring the
+      // return frame; read() can hide them again before this update is painted.
+      if (
+        container.style.display === "none" &&
+        !element.hasAttribute("data-copy") &&
+        Number(getComputedStyle(foreground).opacity) !== 0 &&
+        (foreground === element || Number(getComputedStyle(element).opacity) !== 0)
+      )
+        container.style.removeProperty("display");
+    },
     read(_change, reads) {
       // A copied photo owns the face only while it still covers this lens.
       // Keep the live-page material ready for fixed controls scrolling past it.

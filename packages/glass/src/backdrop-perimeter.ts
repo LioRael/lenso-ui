@@ -4,6 +4,14 @@ import { readLens, refractsBackdrop } from "./refraction.js";
 import type { BackdropSnapshot } from "./backdrop-snapshot.js";
 
 export interface GlassBackdropScene {
+  /** Opt into the retained scene renderer's full-precision convolution. */
+  renderer?: "scene";
+  /** Render beneath the foreground of a positioned, isolated control. */
+  insideControl?: boolean;
+  /** Increment after repainting pixels retained by a live scene. */
+  revision?: number;
+  /** Stationary world-space input bounds; retain scene optics while the lens moves. */
+  bounds?: DOMRectReadOnly;
   /** Lens origin in source CSS pixels. */
   x: number;
   y: number;
@@ -133,7 +141,7 @@ export async function prepareGlassBackdrop(
   )
     return;
   if (
-    ![scene.x * dpr, scene.y * dpr].every(Number.isInteger) ||
+    (scene.renderer !== "scene" && ![scene.x * dpr, scene.y * dpr].every(Number.isInteger)) ||
     scene.x < 0 ||
     scene.y < 0 ||
     (scene.x + w) * dpr > scene.pixels.width ||
@@ -142,6 +150,10 @@ export async function prepareGlassBackdrop(
     signal.aborted
   )
     return;
+  if (scene.renderer === "scene" && scene.bounds && !scene.nativePaint) {
+    const { movingSceneSnapshot } = await import("./scene-snapshot.js");
+    return movingSceneSnapshot(element, scene, scene.bounds, signal);
+  }
   // Owned pixels can use analytic optics even where the browser cannot filter a live backdrop.
   const geometry = !scene.nativePaint && readLens(element);
   const optics =

@@ -2,6 +2,9 @@ import { createCoreBatch } from "./batch.js";
 import type { CoreOptics } from "../core-optics.js";
 import type { BackdropSnapshot } from "../backdrop-snapshot.js";
 import type { GlassBackdropScene } from "../backdrop-perimeter.js";
+import { SceneOptics } from "../scene-optics.js";
+import { readLens } from "../refraction.js";
+import { profile } from "../optical-fields.js";
 
 /** Owned page captures already provide pixels; they do not need a second SVG optical pass. */
 export async function coreSnapshot(
@@ -60,25 +63,60 @@ export async function coreSnapshot(
   canvas.style.cssText = `position:absolute;inset:0;width:${width}px;height:${height}px;border-radius:${style.borderRadius}`;
   let lost = false;
   try {
-    const batch = await createCoreBatch(
-      { width, height, margin, dpr, count: 1, blur },
-      optics,
-      () => {
-        lost = true;
-      },
-    );
-    try {
-      if (signal.aborted || lost) return;
-      batch.paint(
-        {
-          pixels: { canvas: input, width: input.width, height: input.height },
-          indices: [0],
-          columns: 1,
+    if (scene.renderer === "scene") {
+      const geometry = readLens(element);
+      if (!geometry) return;
+      const renderer = new SceneOptics(input.width, input.height, true);
+      try {
+        renderer.render(
+          input,
+          "snapshot",
+          {
+            ...geometry,
+            shape: { ...geometry.shape, materialForeground: true },
+            filter: doc.createElementNS("http://www.w3.org/2000/svg", "filter"),
+            scale: profile(optics.bezel, optics.thickness).maximum * 2 * optics.level,
+          },
+          dpr,
+          { width, height, radius: geometry.radius, margin },
+        );
+        canvas
+          .getContext("2d")!
+          .drawImage(
+            renderer.canvas,
+            margin * dpr,
+            margin * dpr,
+            canvas.width,
+            canvas.height,
+            0,
+            0,
+            canvas.width,
+            canvas.height,
+          );
+      } finally {
+        renderer.dispose();
+      }
+    } else {
+      const batch = await createCoreBatch(
+        { width, height, margin, dpr, count: 1, blur },
+        optics,
+        () => {
+          lost = true;
         },
-        [canvas.getContext("2d")!],
       );
-    } finally {
-      batch.dispose();
+      try {
+        if (signal.aborted || lost) return;
+        batch.paint(
+          {
+            pixels: { canvas: input, width: input.width, height: input.height },
+            indices: [0],
+            columns: 1,
+          },
+          [canvas.getContext("2d")!],
+        );
+      } finally {
+        batch.dispose();
+      }
     }
   } catch {
     // A rejected GPU allocation keeps the existing owned SVG/native snapshot available.
@@ -89,7 +127,7 @@ export async function coreSnapshot(
   if (!(await checkpoint()) || signal.aborted || lost) return;
   const surface = doc.createElement("div"),
     root = surface.attachShadow({ mode: "open" });
-  surface.setAttribute("data-glass-renderer", "shared-core");
+  surface.setAttribute("data-glass-renderer", scene.renderer ?? "shared-core");
   const rim = doc.createElement("div");
   rim.style.cssText = "position:absolute;inset:0;pointer-events:none";
   for (const name of [
@@ -103,6 +141,20 @@ export async function coreSnapshot(
   ])
     rim.style.setProperty(name, style.getPropertyValue(name));
   root.append(canvas, rim);
+  if (scene.renderer === "scene" && element.hasAttribute("data-lenso-glass-foreground-rim")) {
+    const edge = doc.createElement("div"),
+      ink = view.getComputedStyle(element, "::after");
+    edge.style.cssText = `position:absolute;inset:${ink.inset};pointer-events:none`;
+    for (const name of [
+      "background-image",
+      "background-size",
+      "background-position",
+      "background-repeat",
+      "opacity",
+    ])
+      edge.style.setProperty(name, ink.getPropertyValue(name));
+    root.append(edge);
+  }
   return {
     surface,
     includesMaterial: true,

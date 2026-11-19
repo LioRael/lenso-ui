@@ -20,12 +20,14 @@ import {
 import type { MaterialVariant } from "@lenso/tokens/materials";
 export type MaterialProps = StyleXProps<PartProps<"div">> & {
   variant?: MaterialVariant;
+  liveBackdrop?: boolean;
   liveGeometry?: boolean;
   deferOptics?: boolean;
 };
 /** A material surface. Geometry and interactive behavior belong to its consumer. */
 export function Material({
   variant = "regular",
+  liveBackdrop = false,
   liveGeometry = false,
   deferOptics = false,
   children,
@@ -54,6 +56,7 @@ export function Material({
           <>
             <MaterialBackground
               variant={variant}
+              liveBackdrop={liveBackdrop}
               liveGeometry={liveGeometry}
               deferOptics={deferOptics}
             />

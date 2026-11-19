@@ -1,5 +1,59 @@
 import { expect, test } from "bun:test";
-import { attachGlass, createMaterialLens, readLens } from "../../src/refraction.js";
+import {
+  attachGlass,
+  createGeometryLens,
+  createMaterialLens,
+  readLens,
+} from "../../src/refraction.js";
+
+test("a recycled fusion filter retains sampling coverage after its plane widens", async () => {
+  const agent = Object.getOwnPropertyDescriptor(navigator, "userAgent");
+  const decode = HTMLImageElement.prototype.decode;
+  Object.defineProperty(navigator, "userAgent", {
+    configurable: true,
+    value: "AppleWebKit/605.1.15",
+  });
+  HTMLImageElement.prototype.decode = async () => {};
+  const element = document.createElement("div");
+  element.style.cssText = "--lg-material:apple;border-radius:30px";
+  Object.defineProperties(element, { offsetWidth: { value: 60 }, offsetHeight: { value: 60 } });
+  document.body.append(element);
+  const shape = { ...readLens(element)!.shape, dispersion: 0.2, materialSurface: "group" as const };
+  const fields = {
+    displacement: "data:image/png;base64,field",
+    highlight: "",
+    scale: 40,
+    zoom: undefined,
+    contour: undefined,
+    shade: undefined,
+    silhouette: undefined,
+  };
+  let lens;
+  try {
+    const narrow = await createGeometryLens(
+      213,
+      83,
+      shape,
+      () => ({ distance: 10, nx: 0, ny: 1 }),
+      fields,
+    );
+    narrow.destroy();
+    lens = await createGeometryLens(563, 83, shape, () => ({ distance: 10, nx: 0, ny: 1 }), fields);
+    const filter = document.getElementById(lens.filter.match(/#([^)"']+)/)![1]!)!;
+    for (const ray of filter.querySelectorAll("feDisplacementMap")) {
+      expect(Number(ray.getAttribute("x"))).toBeLessThanOrEqual(-lens.sourceReach);
+      expect(
+        Number(ray.getAttribute("x")) + Number(ray.getAttribute("width")),
+      ).toBeGreaterThanOrEqual(563 + lens.sourceReach);
+    }
+  } finally {
+    lens?.destroy();
+    element.remove();
+    HTMLImageElement.prototype.decode = decode;
+    if (agent) Object.defineProperty(navigator, "userAgent", agent);
+    else Reflect.deleteProperty(navigator, "userAgent");
+  }
+});
 
 // Hold optical work cold: an old decoded lens must never be needed to paint the new appearance.
 test.each([false, true])(

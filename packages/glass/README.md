@@ -208,6 +208,92 @@ lens in charge. The source owner must include the whole filter neighborhood and
 must not pass a screenshot or an incomplete reconstruction. This interface does
 not grant access to pixels of arbitrary DOM.
 
+An opt-in `renderer: "scene"` uses the scene pipeline's full-precision convolution
+and RGB refraction for supported analytic materials. By default this prepares a
+stable snapshot. An owner can opt into `liveGeometry: true` and provide stationary
+world-space `bounds` with the scene canvas. The retained GPU renderer then tracks
+axis-aligned lens motion, scale, corners and opacity over those certified pixels.
+The snapshot's `update()` must return false when it cannot represent a frame;
+the original material is restored. This is not continuous DOM capture. Input
+changes still invalidate the capture, and preparation never delays menu interaction.
+The default renderer and owners without this opt-in are unchanged.
+
+An owner may additionally opt into `liveSource: true` when its `update()` can
+certify both source pixels and coordinates after scrolling, viewport changes,
+hover, focus, animation/transition starts and source/ancestor attribute mutations.
+This transfers source validation to the owner;
+it does not make stale pixels safe. Update the retained `bounds` when the source
+translates and increment `GlassBackdropScene.revision` whenever its canvas pixels
+change. Keep recorded capture coordinates independent of mutable public bounds.
+The owner must update lower optical layers before composing an upper layer,
+including their current material pixels, shadows, edges and foreground text.
+Returning false restores native paint and allows a fresh capture after stability.
+Text/node edits still invalidate the snapshot unless its optional
+`mutate(records)` synchronously certifies and repaints the changed input. Returning
+false or throwing restores native paint immediately. Owners opting into live source
+validation must check focus-dependent paint and inherited styles, not just geometry.
+Stylesheet changes still invalidate snapshots; ancestor theme changes retain them
+only if the owner certifies the resulting paint.
+
+The TabBar documentation examples register the same bounded document painter for
+their main and separate search capsules. TabBar's public props, DOM destinations,
+keyboard operation, drag selection and spring motion are unchanged. An application
+must supply its own complete `GlassBackdropSourceContext` to opt into this path;
+unregistered TabBars retain their existing renderer. Selection-lens and label
+refraction remain separate, unchanged optical layers.
+
+The capsules retain GPU optics during certified elastic motion, minimize/expand
+and mid-flight reversal. The document painter synchronously redraws bounded plain
+leaf text and its supported uniform inset tint, including changing control labels.
+Height-only reflow is certified per painted layer; changed gradients, unsupported
+text effects, clips/transforms or other uncertified input still restore native
+paint while a fresh source is prepared. This bounded integration is not arbitrary
+continuous DOM capture or a measured performance improvement.
+Chromium retains SVG refraction; unsupported WebGL2/input keeps the native fallback.
+
+The Menu documentation owner supports certified page translation, retained
+lower-menu composition and bounded nested horizontal/vertical scroll content.
+Owned lower-menu foreground also repaints uniform, inset solid focus outlines;
+unsupported outline styles or outlines inside retained scroll content restore native paint.
+Preparation rasterizes owned scroll content at the original DPR. Each scroll
+update replays its clipped Canvas2D layers from inner to outer, increments the
+source revision and feeds the retained GPU optics; it does not serialize SVG,
+decode fonts or recreate the optical renderer on every scroll frame. Static
+regions and unchanged scroll viewports retain their cached paint.
+
+Bounded, untransformed plain-text viewports can additionally retain a Canvas2D
+paint layer across text edits, inserted/deleted rows and scrolling. The owner
+uses DOM Range line positions and synchronously repaints changed viewport ink,
+then advances the source revision before updating GPU optics. Unsupported text
+effects, nested scroll content and unknown pixels still recapture or fall back.
+This text rasterizer is not pixel-identical to the previous SVG text rasterizer;
+the optical shaders and convolution precision are unchanged. It is not arbitrary
+live DOM capture or a guarantee of faster frame times.
+
+Narrow stacked Menus also use the retained optics. Lower-menu foreground is
+recorded in unscaled coordinates, composed as one alpha group, then placed at
+its current scale and opacity below the upper lens. Material pixels remain live,
+including while the parent shrinks or returns. Native SDK title/back actions,
+focus and spring timing are unchanged. Unknown pixels and uncertified text/node edits still
+restore native paint while recapturing; animated-geometry tests use a controlled
+clock and do not establish wall-clock FPS or uninterrupted cold-start GPU paint.
+
+Scroll-content extents are limited to 8,192 device pixels on either axis and
+4,194,304 device pixels combined per capture. This is a content-extent budget,
+not a bound on total CPU/GPU memory: split paint layers, clip masks and optical
+targets also use resources. Oversized inputs, unsupported composition effects,
+RTL/transformed scroll containers, changed layout and unknown pixels retain or
+restore native paint, with recapture after stability. Uncertified text/node edits and theme
+changes still recapture. This does not promise continuous GPU rendering for
+arbitrary DOM, asynchronous compositor scrolling under main-thread stalls, or
+unsupported sources; WebKit automation does not establish native Safari FPS.
+
+An owner whose source contains its popup must supply `exclude(node)` and omit those
+same overlays from capture. Exclusions also suppress their input invalidations;
+the owner must subscribe separately to any lower overlay that contributes pixels
+to an upper lens. Every contributing layer must be supplied in painter order,
+including its material, edge and foreground. Unsupported input retains native paint.
+
 When there is room beside the lens, the renderer paints the owned source and
 its complete optical filter in a separate region. An integer-pixel offset
 presents that result at the lens position, so moving foreground content can
@@ -352,3 +438,16 @@ Browser integration fixture: run
 then open its loopback URL. It uses the built `@lenso/ui` GlassButton and Glass
 runtime, with controls for animation, context loss and unmount/remount. This is a
 focused consumer fixture, not the documentation development entrypoint.
+
+## Experimental label refraction
+
+`TextRefractionGPU` accepts an application-owned, device-resolution transparent
+glyph image. It does not capture arbitrary DOM or provide semantics, layout or
+input. Its two RGBA8 textures remain resident while geometry changes; `dispose()`
+releases them. Allocation or context failure requires the caller to retain its
+native/SVG rendering. The spectral ink mode assumes a flat light/dark background;
+pass `false` for the final `spectral` argument to `draw` when labels sit over
+translucent material. The TabBar documentation offers an opt-in A/B adapter with a native
+text centre and mild GPU edge refraction. No existing component prop changes,
+and the default text renderer remains SVG. This is not a whole-app text renderer
+or a general DOM-to-texture capture contract.

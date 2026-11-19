@@ -13,6 +13,7 @@ import { fusionGeometry, fusionOutline } from "./fusion-geometry.js";
 import { createFusionMask } from "./fusion-mask.js";
 import { createFusionShadow } from "./fusion-shadow.js";
 import { createFusionFieldRenderer } from "./fusion-field-renderer.js";
+import { releaseLiveRim } from "./live-rim-gpu.js";
 import { fusionMasks, type FusionShape } from "./fusion.js";
 import * as stylex from "@stylexjs/stylex";
 import { glassContainerStyles } from "@lenso/tokens/glass-container";
@@ -555,6 +556,7 @@ export function createFusionOptics(surface: HTMLElement) {
       pressClarity = 0;
       paintRim = undefined;
       lightState = undefined;
+      releaseLiveRim(edge);
       for (const member of styled) clearMember(member);
       return delayed ? 32 : 0;
     },
@@ -660,6 +662,7 @@ export function createFusionOptics(surface: HTMLElement) {
               pressClarity,
           },
           edgePixels,
+          grouped ? undefined : { shapes, spacing },
         );
       paintRim();
       const mask = sharedMaterial
@@ -717,6 +720,7 @@ export function createFusionOptics(surface: HTMLElement) {
       contourMask.destroy();
       opticalMask.destroy();
       shadow.destroy();
+      releaseLiveRim(edge);
       edge.remove();
       pressLight.remove();
       pending = undefined;

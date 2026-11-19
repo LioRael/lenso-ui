@@ -46,6 +46,7 @@ export function encodeCanvas(canvas: HTMLCanvasElement | OffscreenCanvas): Promi
   });
 }
 export function encodeImageData(image: ImageData): Promise<string> {
+  if (typeof CompressionStream !== "undefined") return encodeOpticalMap(image);
   const canvas = opticalCanvas();
   canvas.width = image.width;
   canvas.height = image.height;

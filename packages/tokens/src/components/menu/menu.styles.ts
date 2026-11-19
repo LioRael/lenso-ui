@@ -204,6 +204,7 @@ export const menuStyles = stylex.create({
   triggerIcon: { width: 20, height: 20, flexShrink: 0 },
   submenuHeading: {
     "--lg-submenu-chevron-rotation": "90deg",
+    "--menu-selection-inset": "0px",
     fontWeight: 600,
     position: "relative",
     zIndex: 2,
