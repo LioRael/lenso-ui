@@ -1,0 +1,22 @@
+apps/docs/test/live-rim-gpu.mjs
+  s_22c986b325ab2c::t_f9fbc5753c96eb 18-26,102-181
+apps/docs/test/live-rim-fixture.ts
+  s_22c986b325ab2c::t_f9fbc5753c96eb 2
+  s_22c986b325ab2c::t_f809558e6d4a3e 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f90a6f2499220a5e2d6db67db4a90561c26451ad",
+  "prompts": {},
+  "sessions": {
+    "s_22c986b325ab2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ea56-33d5-7d10-b33d-e207d8efa3f3",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
