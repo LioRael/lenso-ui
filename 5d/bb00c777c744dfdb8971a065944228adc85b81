@@ -1,0 +1,16 @@
+apps/docs/test/first-paint.mjs
+  h_9d56aba080c170 87-100
+packages/tokens/src/components/tabs/tabs.styles.ts
+  h_9d56aba080c170 258-262
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5dbb00c777c744dfdb8971a065944228adc85b81",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
