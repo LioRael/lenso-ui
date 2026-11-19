@@ -1,0 +1,26 @@
+packages/glass/src/canvas.ts
+  s_22c986b325ab2c::t_bd325a98958a69 49
+packages/glass/src/live-rim-gpu.ts
+  s_22c986b325ab2c::t_bd325a98958a69 212-216
+  s_22c986b325ab2c::t_85aef7733f98a5 5,50-53,55,57-74,77-78,80,99-100,103,127-139,141-142,148-155,167-182,209,211,217-218,220
+packages/glass/src/fusion-contour.ts
+  s_22c986b325ab2c::t_4898b3332a5383 4-5,19,35-53
+packages/glass/src/fusion-optics.ts
+  s_22c986b325ab2c::t_4259b0aef1ab66 16,559,665,723
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d29aadd120c18b462839006d006759f70d5b5553",
+  "prompts": {},
+  "sessions": {
+    "s_22c986b325ab2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ea56-33d5-7d10-b33d-e207d8efa3f3",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
