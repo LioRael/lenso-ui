@@ -3,7 +3,7 @@
   "compilerOptions": {
     "allowJs": false,
     "declaration": true,
-    "exactOptionalPropertyTypes": false,
+    "exactOptionalPropertyTypes": true,
     "isolatedDeclarations": false,
     "jsx": "react-jsx",
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
