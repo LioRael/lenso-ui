@@ -131,6 +131,11 @@ export default defineConfig(({ command }) => {
                     name: "icons",
                     test: /node_modules[\\/]@gravity-ui[\\/]icons[\\/]/,
                   },
+                  {
+                    name: "scene-snapshot",
+                    // The moving snapshot always needs the scene optics it presents.
+                    test: /packages[\\/]glass[\\/]dist[\\/]scene-(?:snapshot|optics)-[^/\\]+\.js$/,
+                  },
                 ],
               },
             },

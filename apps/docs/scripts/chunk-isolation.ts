@@ -102,5 +102,14 @@ export function assertChunkIsolation(
       [],
       `${route}: document bodies and the document index must not load on the homepage`,
     );
+    assert.deepEqual(
+      initial.filter((module) =>
+        /^apps\/docs\/src\/(?:components\/docs-site-controls\.tsx|lib\/menu-backdrop\/source\.ts)$/.test(
+          module,
+        ),
+      ),
+      [],
+      `${route}: document navigation and its menu backdrop source are not homepage dependencies`,
+    );
   }
 }

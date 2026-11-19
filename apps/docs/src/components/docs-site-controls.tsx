@@ -12,13 +12,13 @@ import {
   useDocumentationSearchTrigger,
   type DocumentationSiteLayoutProps,
 } from "@lenso/docs/client";
-import { Globe, LogoGithub, Magnifier } from "@gravity-ui/icons";
-import { GlassButton } from "@lenso/ui";
+import { Globe, Magnifier } from "@gravity-ui/icons";
 import type { Locale } from "@/lib/source";
 import { headerControls as s } from "@/styles/header-controls.stylex";
 import { SearchDialog } from "./fumadocs/ui/search-dialog";
 import { ThemeToggle } from "./fumadocs/ui/theme-toggle";
 import { DocsThemePicker } from "./docs-theme-picker";
+import { AppearanceControls, RepositoryControl } from "./header-actions";
 import { menuBackdrop } from "../lib/menu-backdrop/source";
 
 export function SiteSearch({ locale }: { locale: Locale }) {
@@ -61,31 +61,6 @@ export function DesktopActions({
       <AppearanceControls locale={locale} />
       <RepositoryControl repository={repository} />
     </>
-  );
-}
-
-export function AppearanceControls({ locale }: { locale: Locale }) {
-  return (
-    <fieldset aria-label={locale === "cn" ? "外观" : "Appearance"} {...stylex.props(s.appearance)}>
-      <DocsThemePicker locale={locale} />
-      <ThemeToggle />
-    </fieldset>
-  );
-}
-
-export function RepositoryControl({ repository }: { repository: string }) {
-  return (
-    <GlassButton
-      // The render prop creates a real anchor; override Base Button’s default role.
-      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
-      role="link"
-      variant="default"
-      isIconOnly
-      render={<a href={repository} aria-label="Lenso UI on GitHub" />}
-      xstyle={[s.control, s.icon, s.link]}
-    >
-      <LogoGithub width={16} height={16} aria-hidden="true" />
-    </GlassButton>
   );
 }
 

@@ -8,7 +8,7 @@ import NextLink from "fumadocs-core/link";
 import { Glass, GlassButton, Link, Popover, ScrollEdge, ThemeScope } from "@lenso/ui";
 import { GlassBackdropSourceContext } from "@lenso/glass/react";
 import { ChevronDown, Sliders } from "@gravity-ui/icons";
-import { AppearanceControls, RepositoryControl } from "./docs-site-controls";
+import { AppearanceControls, RepositoryControl } from "./header-actions";
 import { CompactSearchTrigger, SearchDialog } from "./fumadocs/ui/search-dialog";
 import { DocumentationLanguageToggle } from "@lenso/docs/client";
 import { documentationLocales } from "@/lib/locale";
