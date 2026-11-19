@@ -1,0 +1,14 @@
+apps/docs/test/glass-fusion-contour.mjs
+  h_9d56aba080c170 71-77,145-164,207
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d7b473a4e0a5c09e025081f0c69f0c0c0d6bc244",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
