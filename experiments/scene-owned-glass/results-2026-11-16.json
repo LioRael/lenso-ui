@@ -1,0 +1,1081 @@
+{
+  "recordedDateUTC": "2026-11-16",
+  "baselineHead": "95a852fa1baf997cd5722a0309211184367070c1",
+  "machine": {
+    "chip": "Apple M2 Pro",
+    "os": "27.2.1",
+    "architecture": "arm64"
+  },
+  "scope": "Vite development fixture; current core Canvas input versus same-context scene texture; not complete DOM/SVG component performance",
+  "method": {
+    "warmupMs": 500,
+    "rafCallbacksPerSample": 180,
+    "pairsPerEngineAndDPR": 3,
+    "cssWidth": 800,
+    "cssHeight": 480,
+    "lensCount": 4,
+    "timerLimit": "RAF callback and JS submission timings, not GPU/presentation/hardware-input timing",
+    "chromium": "headed ANGLE Metal",
+    "webkit": "Playwright WebKit, not installed Safari"
+  },
+  "correctness": [
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "dpr": 1,
+      "parity": [
+        {
+          "dark": false,
+          "maximum": 1,
+          "mean": 0.0001253898128898129,
+          "changed": 193
+        },
+        {
+          "dark": true,
+          "maximum": 1,
+          "mean": 0.00015787422037422038,
+          "changed": 243
+        }
+      ],
+      "interactions": "scroll, pointer/keyboard move, spring, material, both context restores, remount, 320px geometry, reduced motion"
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "dpr": 2,
+      "parity": [
+        {
+          "dark": false,
+          "maximum": 1,
+          "mean": 7.341476091476091e-5,
+          "changed": 452
+        },
+        {
+          "dark": true,
+          "maximum": 1,
+          "mean": 8.33225051975052e-5,
+          "changed": 513
+        }
+      ],
+      "interactions": "scroll, pointer/keyboard move, spring, material, both context restores, remount, 320px geometry, reduced motion"
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "dpr": 3,
+      "parity": [
+        {
+          "dark": false,
+          "maximum": 1,
+          "mean": 0.00011853959222380275,
+          "changed": 702
+        },
+        {
+          "dark": true,
+          "maximum": 1,
+          "mean": 0.00013407469547820425,
+          "changed": 794
+        }
+      ],
+      "interactions": "scroll, pointer/keyboard move, spring, material, both context restores, remount, 320px geometry, reduced motion"
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "dpr": 1,
+      "parity": [
+        {
+          "dark": false,
+          "maximum": 1,
+          "mean": 0.0001123960498960499,
+          "changed": 173
+        },
+        {
+          "dark": true,
+          "maximum": 1,
+          "mean": 0.00014942827442827444,
+          "changed": 230
+        }
+      ],
+      "interactions": "scroll, pointer/keyboard move, spring, material, both context restores, remount, 320px geometry, reduced motion"
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "dpr": 2,
+      "parity": [
+        {
+          "dark": false,
+          "maximum": 1,
+          "mean": 6.740514553014553e-5,
+          "changed": 415
+        },
+        {
+          "dark": true,
+          "maximum": 1,
+          "mean": 8.251039501039501e-5,
+          "changed": 508
+        }
+      ],
+      "interactions": "scroll, pointer/keyboard move, spring, material, both context restores, remount, 320px geometry, reduced motion"
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "dpr": 3,
+      "parity": [
+        {
+          "dark": false,
+          "maximum": 1,
+          "mean": 0.00011651327440801125,
+          "changed": 690
+        },
+        {
+          "dark": true,
+          "maximum": 1,
+          "mean": 0.00012124134931152475,
+          "changed": 718
+        }
+      ],
+      "interactions": "scroll, pointer/keyboard move, spring, material, both context restores, remount, 320px geometry, reduced motion"
+    }
+  ],
+  "samples": [
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 1,
+      "run": 0,
+      "mode": "upload",
+      "navigationToReady": 246.96399999999994,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.300000000000182,
+        "p95": 9.800000000000182,
+        "p99": 10.199999999999818
+      },
+      "submissionMs": {
+        "p50": 0.19999998807907104,
+        "p95": 0.6000000238418579,
+        "p99": 0.800000011920929
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.30000001192092896,
+        "p95": 0.9000000059604645,
+        "p99": 0.9000000059604645
+      },
+      "mainThreadTaskMs": 151.98999999999998,
+      "elapsed": 1493.5,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 1,
+      "run": 0,
+      "mode": "resident",
+      "navigationToReady": 89.3648749999993,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.300000000000182,
+        "p95": 9.900000000000091,
+        "p99": 10.200000000000045
+      },
+      "submissionMs": {
+        "p50": 0.29999998211860657,
+        "p95": 0.4000000059604645,
+        "p99": 0.5
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.5,
+        "p95": 0.5999999940395355,
+        "p99": 0.5999999940395355
+      },
+      "mainThreadTaskMs": 152.012,
+      "elapsed": 1498.0999999940395,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 1,
+      "run": 1,
+      "mode": "resident",
+      "navigationToReady": 87.066417,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.299999999999955,
+        "p95": 10,
+        "p99": 10.299999999999955
+      },
+      "submissionMs": {
+        "p50": 0.20000001788139343,
+        "p95": 0.5,
+        "p99": 0.5999999940395355
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.5999999940395355,
+        "p95": 0.9000000059604645,
+        "p99": 0.9000000059604645
+      },
+      "mainThreadTaskMs": 156.79,
+      "elapsed": 1493.9000000059605,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 1,
+      "run": 1,
+      "mode": "upload",
+      "navigationToReady": 82.24262500000077,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.299999999999955,
+        "p95": 10.099999999999909,
+        "p99": 10.299999999999955
+      },
+      "submissionMs": {
+        "p50": 0.20000001788139343,
+        "p95": 0.6000000238418579,
+        "p99": 0.7000000178813934
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.3999999761581421,
+        "p95": 0.9000000059604645,
+        "p99": 0.9000000059604645
+      },
+      "mainThreadTaskMs": 154.77300000000002,
+      "elapsed": 1499.300000011921,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 1,
+      "run": 2,
+      "mode": "upload",
+      "navigationToReady": 86.25612499999988,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.299999999999955,
+        "p95": 10.100000000000136,
+        "p99": 10.200000000000045
+      },
+      "submissionMs": {
+        "p50": 0.29999998211860657,
+        "p95": 0.5999999940395355,
+        "p99": 0.6000000238418579
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.5999999940395355,
+        "p95": 1.0999999940395355,
+        "p99": 1.0999999940395355
+      },
+      "mainThreadTaskMs": 161.06699999999998,
+      "elapsed": 1492.9000000059605,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 1,
+      "run": 2,
+      "mode": "resident",
+      "navigationToReady": 83.22954199999913,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.299999999999955,
+        "p95": 9.799999999999955,
+        "p99": 10.100000000000136
+      },
+      "submissionMs": {
+        "p50": 0.20000001788139343,
+        "p95": 0.4000000059604645,
+        "p99": 0.4000000059604645
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.5,
+        "p95": 0.7999999821186066,
+        "p99": 0.7999999821186066
+      },
+      "mainThreadTaskMs": 147.622,
+      "elapsed": 1492.9000000059605,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 2,
+      "run": 0,
+      "mode": "upload",
+      "navigationToReady": 69.37900000000081,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.300000000000068,
+        "p95": 9,
+        "p99": 10.399999999999864
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 0.10000002384185791,
+        "p99": 0.19999998807907104
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.20000001788139343,
+        "p95": 0.30000001192092896,
+        "p99": 0.30000001192092896
+      },
+      "mainThreadTaskMs": 30.119,
+      "elapsed": 1497,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 2,
+      "run": 0,
+      "mode": "resident",
+      "navigationToReady": 89.6238340000018,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.300000000000068,
+        "p95": 9.799999999999955,
+        "p99": 10.200000000000045
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 0.09999999403953552,
+        "p99": 0.10000002384185791
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.20000001788139343,
+        "p99": 0.20000001788139343
+      },
+      "mainThreadTaskMs": 22.915000000000003,
+      "elapsed": 1496.800000011921,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 2,
+      "run": 1,
+      "mode": "resident",
+      "navigationToReady": 84.7834580000017,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.300000000000068,
+        "p95": 9.700000000000045,
+        "p99": 10.300000000000182
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 0.10000002384185791,
+        "p99": 0.10000002384185791
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.20000001788139343,
+        "p99": 0.20000001788139343
+      },
+      "mainThreadTaskMs": 22.726,
+      "elapsed": 1497.8999999761581,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 2,
+      "run": 1,
+      "mode": "upload",
+      "navigationToReady": 73.89983299999949,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.300000000000182,
+        "p95": 9.100000000000136,
+        "p99": 10.100000000000023
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 0.09999999403953552,
+        "p99": 0.10000002384185791
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.30000001192092896,
+        "p99": 0.30000001192092896
+      },
+      "mainThreadTaskMs": 24.852,
+      "elapsed": 1497.8999999761581,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 2,
+      "run": 2,
+      "mode": "upload",
+      "navigationToReady": 104.14991699999882,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.300000000000182,
+        "p95": 9.400000000000091,
+        "p99": 10.100000000000136
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 0.09999999403953552,
+        "p99": 0.10000002384185791
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.19999998807907104,
+        "p99": 0.19999998807907104
+      },
+      "mainThreadTaskMs": 24.739,
+      "elapsed": 1498.5999999940395,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "chromium",
+      "version": "158.0.8127.18",
+      "rendererInfo": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "dpr": 2,
+      "run": 2,
+      "mode": "resident",
+      "navigationToReady": 78.48374999999942,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 8.299999999999955,
+        "p95": 10,
+        "p99": 10.200000000000045
+      },
+      "submissionMs": {
+        "p50": 0.19999998807907104,
+        "p95": 0.30000001192092896,
+        "p99": 0.5
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 0.30000001192092896,
+        "p95": 0.5999999940395355,
+        "p99": 0.5999999940395355
+      },
+      "mainThreadTaskMs": 113.13900000000001,
+      "elapsed": 1493.5999999940395,
+      "longTasks": [],
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 1,
+      "run": 0,
+      "mode": "upload",
+      "navigationToReady": 215.27220800000214,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 22,
+        "p99": 29
+      },
+      "submissionMs": {
+        "p50": 6,
+        "p95": 9,
+        "p99": 11
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 9,
+        "p95": 11,
+        "p99": 11
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 3012,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 1,
+      "run": 0,
+      "mode": "resident",
+      "navigationToReady": 68.43487499999901,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 18,
+        "p99": 19
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 1,
+        "p99": 1
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 2,
+        "p95": 2,
+        "p99": 2
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 2988,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 1,
+      "run": 1,
+      "mode": "resident",
+      "navigationToReady": 75.44550000000163,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 18,
+        "p99": 19
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 1,
+        "p99": 1
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 1,
+        "p95": 2,
+        "p99": 2
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 2984,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 1,
+      "run": 1,
+      "mode": "upload",
+      "navigationToReady": 75.31008299999667,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 21,
+        "p99": 34
+      },
+      "submissionMs": {
+        "p50": 6,
+        "p95": 10,
+        "p99": 12
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 8,
+        "p95": 12,
+        "p99": 12
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 3005,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 1,
+      "run": 2,
+      "mode": "upload",
+      "navigationToReady": 73.3936659999963,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 21,
+        "p99": 24
+      },
+      "submissionMs": {
+        "p50": 6,
+        "p95": 9,
+        "p99": 11
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 9,
+        "p95": 11,
+        "p99": 11
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 2993,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 1,
+      "run": 2,
+      "mode": "resident",
+      "navigationToReady": 71.66879200000403,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 18,
+        "p99": 19
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 1,
+        "p99": 1
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 1,
+        "p95": 2,
+        "p99": 2
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 2999,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 2,
+      "run": 0,
+      "mode": "upload",
+      "navigationToReady": 107.96308399999543,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 16,
+        "p95": 30,
+        "p99": 33
+      },
+      "submissionMs": {
+        "p50": 12,
+        "p95": 15,
+        "p99": 17
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 15,
+        "p95": 18,
+        "p99": 18
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 3294,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 2,
+      "run": 0,
+      "mode": "resident",
+      "navigationToReady": 72.34466700001212,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 18,
+        "p99": 19
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 1,
+        "p99": 1
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 1,
+        "p95": 2,
+        "p99": 2
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 2987,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 2,
+      "run": 1,
+      "mode": "resident",
+      "navigationToReady": 74.9510420000006,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 18,
+        "p99": 23
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 1,
+        "p99": 1
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 1,
+        "p95": 2,
+        "p99": 2
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 2992,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 2,
+      "run": 1,
+      "mode": "upload",
+      "navigationToReady": 104.95737499999814,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 16,
+        "p95": 30,
+        "p99": 33
+      },
+      "submissionMs": {
+        "p50": 13,
+        "p95": 15,
+        "p99": 16
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 15,
+        "p95": 16,
+        "p99": 16
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 3267,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 2,
+      "run": 2,
+      "mode": "upload",
+      "navigationToReady": 114.47670899999503,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 16,
+        "p95": 30,
+        "p99": 32
+      },
+      "submissionMs": {
+        "p50": 12,
+        "p95": 15,
+        "p99": 16
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 15,
+        "p95": 15,
+        "p99": 15
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 3232,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 209,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "rendererInfo": "Apple GPU",
+      "dpr": 2,
+      "run": 2,
+      "mode": "resident",
+      "navigationToReady": 70.47854100000404,
+      "width": 800,
+      "height": 480,
+      "frames": 180,
+      "callbackFrameMs": {
+        "p50": 17,
+        "p95": 18,
+        "p99": 19
+      },
+      "submissionMs": {
+        "p50": 0,
+        "p95": 1,
+        "p99": 1
+      },
+      "syntheticInputToSubmissionMs": {
+        "p50": 1,
+        "p95": 2,
+        "p99": 2
+      },
+      "mainThreadTaskMs": null,
+      "elapsed": 2984,
+      "longTasks": null,
+      "calls": {
+        "texSubImage2D": 0,
+        "readPixels": 0,
+        "drawImage": 0,
+        "getImageData": 0,
+        "serializeToString": 0,
+        "decode": 0
+      },
+      "successfulReleaseCycles": 6
+    }
+  ]
+}
