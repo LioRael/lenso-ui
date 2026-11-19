@@ -1,5 +1,13 @@
 # @lenso/primitives
 
+## 0.9.2
+
+### Patch Changes
+
+- ca216d3: Update UI SDK to beta.8 and restore `exactOptionalPropertyTypes` support for
+  `@lenso/primitives`, including its packed declarations. This does not change
+  the supported TypeScript settings for the full `@lenso/ui` package.
+
 ## 0.7.0
 
 ### Minor Changes
