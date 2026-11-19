@@ -43,12 +43,27 @@ try {
     );
     await page.goto(`${base}/__scheduler-performance`);
     await page.evaluate(async (modules) => {
+      await import(`${modules}backdrop.ts`);
+    }, modules);
+    await page.addStyleTag({ url: new URL("/virtual:stylex.css", base).href });
+    await page.evaluate(async (modules) => {
       const { copyBackdrop } = await import(`${modules}backdrop.ts`);
       window.stops = [...document.querySelectorAll(".lens")].map((lens) =>
         copyBackdrop(lens, document.querySelector("#source")),
       );
     }, modules);
     await page.waitForFunction(() => document.querySelectorAll("[inert] p").length === 192);
+    assert.deepEqual(
+      await page
+        .locator("[inert] p")
+        .first()
+        .evaluate((p) => {
+          const frame = p.parentElement.parentElement;
+          return [getComputedStyle(frame).position, getComputedStyle(frame.parentElement).position];
+        }),
+      ["absolute", "absolute"],
+      "The fixture must load the production backdrop copy positioning rules",
+    );
     await page.waitForTimeout(300);
     const cdp = await page.context().newCDPSession(page);
     await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
