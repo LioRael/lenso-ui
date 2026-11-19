@@ -157,6 +157,13 @@ Run `test:tab-bar-performance` separately from builds and other browser tests
 for the docs composition at 390px and 4× Chromium CPU slowdown. It checks six
 transition endpoints and a geometry-read budget, and reports layout/style work
 and frame intervals. These timings are a local simulation, not iPhone FPS.
+Run `test:backdrop-scheduler-performance` for idle, unrelated/source animations,
+scrolling, dragging, unmount and sibling-layout tracking; run
+`test:rim-preparation-performance` for rim encoding, allocation and pixel coverage.
+Both use docs dev. Set `BROWSER_ARTIFACTS` to retain measurements and Chromium
+scheduler traces. Compare timing samples without concurrent builds or browser
+tests. The glass browser gate runs one sample and enforces redundant-work
+invariants, not host-dependent millisecond thresholds.
 Run `test:upstream-glass` against docs dev for TabBar tap rebound, pressed
 foreground rims and retained UI SDK Sheet scroll/gesture ownership. It checks
 Chromium/WebKit light/dark, keyboard and reduced motion, desktop RTL, and

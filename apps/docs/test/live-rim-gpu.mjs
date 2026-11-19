@@ -15,8 +15,15 @@ for (const [name, type] of [
     const page = await browser.newPage();
     await page.goto(`${base}/test/live-rim.html`, { waitUntil: "domcontentloaded" });
     const result = await page.evaluate(async () => {
-      const { foregroundRimPixels, paintLiveRim, releaseLiveRim, sampleMenu, createLiveRim } =
-        await import("/test/live-rim-fixture.ts");
+      const {
+        foregroundRimPixels,
+        paintLiveRim,
+        releaseLiveRim,
+        sampleMenu,
+        createLiveRim,
+        fusionGeometry,
+        paintFusionContour,
+      } = await import("/test/live-rim-fixture.ts");
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
       const checks = [];
@@ -92,6 +99,86 @@ for (const [name, type] of [
               mean: sum / ((actual.length / 4) * 2),
             });
           }
+      // An asymmetric neck distinguishes a union from one stretched capsule.
+      for (const [spacing, clarity] of [
+        [0, 0],
+        [14, 0.65],
+        [28, 1],
+        [56, 0.65],
+      ]) {
+        const shapes = [
+          { x: 12.25, y: 10.5, width: 60, height: 60, radius: 30 },
+          { x: 78.5, y: 19.25, width: 112.5, height: 52, radius: 26 },
+          { x: 197.25, y: 8.75, width: 48, height: 64, radius: 24 },
+        ];
+        const recipe = {
+          ...shape,
+          materialProfile: "small",
+          materialSurface: "group",
+          materialClarity: clarity,
+          lightAngle: 23,
+        };
+        const fusion = { shapes, spacing };
+        const owner = {};
+        const gpu = paintLiveRim(260.25, 86.5, 0, recipe, undefined, owner, fusion);
+        if (!gpu) return { unavailable: true };
+        canvas.width = gpu.width;
+        canvas.height = gpu.height;
+        ctx.drawImage(
+          gpu.canvas,
+          0,
+          gpu.canvas.height - gpu.height,
+          gpu.width,
+          gpu.height,
+          0,
+          0,
+          gpu.width,
+          gpu.height,
+        );
+        const actual = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        const expected = foregroundRimPixels(
+          260.25,
+          86.5,
+          0,
+          recipe,
+          fusionGeometry(shapes, spacing),
+        ).data;
+        const contour = document.createElement("canvas");
+        paintFusionContour(
+          contour,
+          260.25,
+          86.5,
+          "",
+          fusionGeometry(shapes, spacing),
+          recipe,
+          undefined,
+          fusion,
+        );
+        const placed = contour.getContext("2d").getImageData(46, 46, gpu.width, gpu.height).data;
+        if (placed.some((value, index) => value !== actual[index]))
+          throw new Error("Fusion consumer changed the completed GPU rim or its placement");
+        releaseLiveRim(contour);
+        let maxAlpha = 0,
+          maxPremult = 0,
+          sum = 0;
+        for (let at = 0; at < actual.length; at += 4) {
+          const alpha = Math.abs(actual[at + 3] - expected[at + 3]);
+          const premult = Math.abs(
+            (actual[at] * actual[at + 3]) / 255 - (expected[at] * expected[at + 3]) / 255,
+          );
+          maxAlpha = Math.max(maxAlpha, alpha);
+          maxPremult = Math.max(maxPremult, premult);
+          sum += alpha + premult;
+        }
+        checks.push({
+          fusion: true,
+          clarity,
+          maxAlpha,
+          maxPremult,
+          mean: sum / (actual.length / 2),
+        });
+        releaseLiveRim(owner);
+      }
       const element = document.createElement("span");
       document.body.append(element);
       const rim = createLiveRim(element);
