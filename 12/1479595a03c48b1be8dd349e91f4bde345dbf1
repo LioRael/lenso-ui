@@ -1,0 +1,38 @@
+apps/docs/test/glass-canvas-navigation.mjs
+  s_22c986b325ab2c::t_bd325a98958a69 46-47,96-102,125-131
+  s_22c986b325ab2c::t_3b2f6f4c24b2b3 55-70,114
+  s_22c986b325ab2c::t_00e8e1018be47c 137-138
+apps/docs/test/rim-preparation-performance.mjs
+  s_22c986b325ab2c::t_bd325a98958a69 153
+  s_22c986b325ab2c::t_ab7d6fc6fcfbbd 1-152
+apps/docs/src/components/materials-preview.tsx
+  s_4a5cb12287c517::t_416e7fb8b8475f 34-44,88-89,100-108,110-116,124-138,140-145
+apps/docs/src/lib/tab-bar-text.ts
+  s_4a5cb12287c517::t_afb806d6090862 1-321
+apps/docs/test/tab-bar-text.mjs
+  s_4a5cb12287c517::t_55eae02e054375 1-300
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "121479595a03c48b1be8dd349e91f4bde345dbf1",
+  "prompts": {},
+  "sessions": {
+    "s_22c986b325ab2c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1ea56-33d5-7d10-b33d-e207d8efa3f3",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_4a5cb12287c517": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1f167-89b8-7fa1-8ced-70c38821c6cc",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
