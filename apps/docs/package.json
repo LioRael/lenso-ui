@@ -57,6 +57,7 @@
     "format": "bun --bun oxfmt src scripts test *.ts *.json",
     "test:photos": "bun test --preload ./test/photos-dom.preload.ts test/photos-search.dom.test.tsx test/photos-drag.dom.test.tsx test/photos-editing.test.ts test/photos-editor.dom.test.tsx test/photos-viewer-menu.dom.test.tsx",
     "test:photos-export": "node test/photos-export.mjs",
+    "test:photos-glass": "node test/photos-glass.mjs",
     "test:browser": "node test/start-browser.mjs",
     "test:presentation-panels": "node test/presentation-panels.mjs",
     "test:anchored-material": "node test/popover-material.mjs",

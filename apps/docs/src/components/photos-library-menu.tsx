@@ -21,6 +21,7 @@ import {
   CopyPicture,
 } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
+import { photos } from "../styles/photos-demo.stylex";
 
 export const photoFilters = {
   all: "All Items",
@@ -126,7 +127,13 @@ export function PhotosLibraryMenu({
           <BarsDescendingAlignCenter width={22} height={22} />
         </span>
       </Menu.Trigger>
-      <Menu.Content aria-label="Sort and filter" xstyle={s.popup} side="bottom" align="end">
+      <Menu.Content
+        aria-label="Sort and filter"
+        xstyle={[s.popup, photos.menuGlass]}
+        side="bottom"
+        sideOffset={24}
+        align="end"
+      >
         {library && (
           <>
             <Menu.RadioGroup value="added" {...stylex.props(s.sort)} aria-label="Sort by">
@@ -165,7 +172,12 @@ export function PhotosLibraryMenu({
                     <ChevronRight />
                   </Menu.Item.SubmenuIndicator>
                 </Menu.SubTrigger>
-                <Menu.SubContent aria-label="Media types" side="bottom" align="end">
+                <Menu.SubContent
+                  aria-label="Media types"
+                  side="bottom"
+                  align="end"
+                  xstyle={photos.menuGlass}
+                >
                   <Menu.RadioGroup
                     value={filter}
                     onValueChange={(value) => onFilter(value as PhotoFilter)}
@@ -185,7 +197,12 @@ export function PhotosLibraryMenu({
               <ChevronRight />
             </Menu.Item.SubmenuIndicator>
           </Menu.SubTrigger>
-          <Menu.SubContent aria-label="View options" side="bottom" align="end">
+          <Menu.SubContent
+            aria-label="View options"
+            side="bottom"
+            align="end"
+            xstyle={photos.menuGlass}
+          >
             {grid && (
               <>
                 <Menu.Item disabled={!dense} onClick={() => onDense(false)}>

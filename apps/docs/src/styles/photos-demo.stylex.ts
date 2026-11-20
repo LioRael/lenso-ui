@@ -38,6 +38,27 @@ export const photos = stylex.create({
     marginInline: "auto",
     paddingBottom: 112,
   },
+  // Give controls over photos a backing even when native backdrop blur doesn't sample the grid.
+  libraryGlass: {
+    "--lenso-glass-face-tint":
+      "color-mix(in srgb, var(--lenso-background-primary) 72%, transparent)",
+  },
+  libraryGlassButton: {
+    backgroundColor: {
+      ":is([data-variant='default']):not([data-lenso-glass-opaque], [data-lenso-glass-fused], :disabled, [aria-disabled='true'])":
+        "var(--lenso-glass-face-tint)",
+    },
+  },
+  menuGlass: {
+    "--lenso-glass-face-tint": {
+      default: "color-mix(in srgb, var(--lenso-background-primary) 74%, transparent)",
+      "@container style(--lenso-panel-blend-1: lighten)":
+        "color-mix(in srgb, var(--lenso-background-primary) 56%, transparent)",
+    },
+    "--lenso-panel-paint-1": {
+      "@container style(--lenso-panel-blend-1: lighten)": "transparent",
+    },
+  },
   header: {
     paddingInline: { default: 20, "@media (min-width: 768px)": 48 },
     paddingTop: { default: 36, "@media (min-width: 768px)": "max(24px, env(safe-area-inset-top))" },
@@ -130,11 +151,14 @@ export const photos = stylex.create({
     paddingTop: "max(18px, env(safe-area-inset-top))",
     paddingBottom: 20,
     paddingInline: { default: 16, "@media (min-width: 768px)": 32 },
+    pointerEvents: "none",
+    isolation: "isolate",
+  },
+  headingOverPhotos: {
     color: {
       default: "white",
       ":is([data-contrast='increased'] *)": "var(--lenso-label-primary)",
     },
-    pointerEvents: "none",
     textShadow: {
       default: "0 1px 8px #0008",
       ":is([data-contrast='increased'] *)": "none",
@@ -147,7 +171,6 @@ export const photos = stylex.create({
       color: "CanvasText",
       textShadow: "none",
     },
-    isolation: "isolate",
   },
   itemCount: { margin: "3px 0 0", fontSize: 14, fontWeight: 600 },
   visuallyHidden: {

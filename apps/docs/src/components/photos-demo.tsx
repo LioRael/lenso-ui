@@ -465,6 +465,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const title =
     collection ??
     (destination === "library" ? "Library" : destination === "search" ? "Search" : "Collections");
+  const headingOverPhotos = isLibrary && libraryView === "all" && visible.length > 0;
   return (
     <ThemeScope theme={dark ? "dark" : "light"} xstyle={s.root} inert={!interactive}>
       <Tabs
@@ -522,17 +523,10 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
           }}
           {...stylex.props(s.main)}
         >
-          <header
-            {...stylex.props(
-              s.header,
-              isLibrary && libraryView === "all" && visible.length > 0 && s.libraryHeader,
-            )}
-          >
-            {isLibrary && libraryView === "all" && visible.length > 0 && (
-              <ScrollEdge variant="soft" edge="top" xstyle={s.headerEdge} />
-            )}
+          <header {...stylex.props(s.header, headingOverPhotos && s.libraryHeader)}>
+            {headingOverPhotos && <ScrollEdge variant="soft" edge="top" xstyle={s.headerEdge} />}
             <div {...stylex.props(s.headingRow)}>
-              <div>
+              <div {...stylex.props(headingOverPhotos && s.headingOverPhotos)}>
                 <h1 {...stylex.props(s.title)}>{title}</h1>
                 {isLibrary && (
                   <p {...stylex.props(s.itemCount)}>
@@ -543,7 +537,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               <GlassContainer
                 ref={selectionHeaderRef}
                 spacing={8}
-                xstyle={[s.actions, destination === "search" && s.hidden]}
+                xstyle={[s.actions, s.libraryGlass, destination === "search" && s.hidden]}
               >
                 <Toolbar aria-label={selecting ? "Selection options" : "Library options"}>
                   <Toolbar.Group
@@ -598,6 +592,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     aria-label={selecting ? "Cancel selection" : "Select"}
                     xstyle={[
                       s.selectControl,
+                      s.libraryGlassButton,
                       s.selectionSwitch,
                       selecting && s.selectionSwitchActive,
                     ]}
@@ -638,7 +633,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     ref={searchTrigger}
                     isIconOnly
                     aria-label="Search"
-                    xstyle={s.headerIconButton}
+                    xstyle={[s.headerIconButton, s.libraryGlassButton]}
                     onClick={(event) => openSearch(event.detail > 0)}
                   >
                     <Magnifier width={22} height={22} />
@@ -854,12 +849,13 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               Sample library · Photography from <Link href="https://unsplash.com">Unsplash</Link>
             </span>
           </footer>
-          <div
-            {...stylex.props(
+          <ThemeScope
+            glassTint={0.875}
+            xstyle={[
               s.navigation,
               tablet && !selecting && destination !== "search" && s.tabletNavigationHost,
               destination === "search" && s.searchNavigation,
-            )}
+            ]}
           >
             {destination === "search" ? (
               <div {...stylex.props(s.searchDock)}>
@@ -989,7 +985,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                 </Tabs.ListContainer>
               </div>
             )}
-          </div>
+          </ThemeScope>
           <PhotosViewer
             model={model}
             animateTransitions={!controlled}
