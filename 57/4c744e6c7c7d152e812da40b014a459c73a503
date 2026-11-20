@@ -1,0 +1,22 @@
+apps/docs/scripts/chunk-isolation.ts
+  h_9d56aba080c170 105-113
+apps/docs/src/components/docs-site-controls.tsx
+  h_9d56aba080c170 15,21
+apps/docs/src/components/header-actions.tsx
+  h_9d56aba080c170 1-34
+apps/docs/src/components/home-layout.tsx
+  h_9d56aba080c170 11
+apps/docs/vite.config.ts
+  h_9d56aba080c170 134-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "574c744e6c7c7d152e812da40b014a459c73a503",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
