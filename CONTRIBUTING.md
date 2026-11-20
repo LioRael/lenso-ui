@@ -284,15 +284,16 @@ the affected statement.
 
 ### CI scheduling and release preparation
 
-The acceptance workflow runs repository checks, documentation/consumer production
-checks, and two browser shards on separate runners. The documentation runner
-uses Turbo's package dependency graph before building the site and checks the
-static export's existing payload budgets. Browser `core` covers Tabs overflow,
+The acceptance workflow runs repository checks, documentation production checks,
+installed-consumer checks, and two browser shards on separate runners. The
+documentation job builds the site and checks the static export's payload budgets.
+The consumer job builds the starter and its package dependencies before testing
+packed packages outside the workspace. Browser `core` covers Tabs overflow,
 focus, controlled state and model-backed controls; `glass` covers pre-hydration
 geometry/paint and WebKit canvas encoding during navigation. Both shards use
 Chromium and WebKit. Suites run serially within each shard, without retries;
 one shard's failure does not cancel the other. The final stable `verify` job
-fails unless all three job groups succeed, including every browser matrix entry.
+fails unless all four job groups succeed, including every browser matrix entry.
 Skipped, cancelled and missing results cannot authorize landing. Candidate SHA
 and artifact trust rules still apply.
 Only superseded PR runs are cancelled automatically. Main and candidate pushes
@@ -300,8 +301,9 @@ retain their evidence. No cross-run build-output cache is trusted by this gate.
 
 To reproduce these gates locally, first install the pinned engines from the docs
 workspace with `bunx --no-install playwright install chromium webkit` (Linux CI
-also uses `--with-deps`). After docs generation, run
-`node apps/docs/test/browser-gate.mjs core` or `glass` from the repository root.
+uses a digest-pinned Playwright image with the engines already installed). After
+docs generation, run `node apps/docs/test/browser-gate.mjs core` or `glass` from
+the repository root.
 After a production docs build, use `production`. Set `BROWSER_ARTIFACTS` when
 investigating a failure; open a trace with Playwright's `show-trace` command.
 

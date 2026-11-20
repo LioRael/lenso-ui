@@ -24,43 +24,41 @@ test("authoritative verify rejects incomplete parallel acceptance", () => {
   expect(workflow.on).toHaveProperty("workflow_dispatch");
   const gate = workflow.jobs.verify!;
   expect(gate.if).toBe("always()");
-  expect(gate.needs).toEqual(["checks", "documentation", "browser"]);
+  expect(gate.needs).toEqual(["checks", "documentation", "consumer", "browser"]);
   const step = gate.steps.find((step) => step.name === "Require every acceptance job")!;
   expect(step.env).toEqual({
     CHECKS_RESULT: "${{ needs.checks.result }}",
     DOCS_RESULT: "${{ needs.documentation.result }}",
+    CONSUMER_RESULT: "${{ needs.consumer.result }}",
     BROWSER_RESULT: "${{ needs.browser.result }}",
   });
-  for (const checks of ["success", "failure", "cancelled", "skipped", ""]) {
-    for (const docs of ["success", "failure", "cancelled", "skipped", ""]) {
-      for (const browser of ["success", "failure", "cancelled", "skipped", ""]) {
-        const result = spawnSync("bash", ["-e", "-c", step.run!], {
-          env: {
-            ...process.env,
-            CHECKS_RESULT: checks,
-            DOCS_RESULT: docs,
-            BROWSER_RESULT: browser,
-          },
-        });
-        expect(result.status === 0).toBe(
-          checks === "success" && docs === "success" && browser === "success",
-        );
-      }
+  const successful = Object.fromEntries(Object.keys(step.env!).map((key) => [key, "success"]));
+  const status = (results: Record<string, string>) =>
+    spawnSync("bash", ["-e", "-c", step.run!], { env: { ...process.env, ...results } }).status;
+  expect(status(successful)).toBe(0);
+  for (const key of Object.keys(successful)) {
+    for (const result of ["failure", "cancelled", "skipped", ""]) {
+      expect(status({ ...successful, [key]: result })).toBe(1);
     }
   }
 });
 
-test("documentation graph builds its dependencies on a fresh runner", () => {
-  const build = workflow.jobs.documentation!.steps.find((step) =>
-    step.run?.includes("turbo run build"),
-  )!;
-  const plan = JSON.parse(
-    execFileSync("bash", ["-e", "-c", `${build.run} --dry=json`], { encoding: "utf8" }),
-  ) as { tasks: { taskId: string }[] };
-  const tasks = plan.tasks.map((task) => task.taskId);
-  for (const name of ["tokens", "glass", "primitives", "ui", "docs", "ui-docs"])
-    expect(tasks).toContain(`@lenso/${name}#build`);
-  expect(tasks).toContain("@lenso/ui-docs#generate");
+test("documentation and consumer jobs independently build their inputs on fresh runners", () => {
+  for (const [name, target] of [
+    ["documentation", "ui-docs"],
+    ["consumer", "docs-starter"],
+  ] as const) {
+    const job = workflow.jobs[name]!;
+    expect(job.needs).toBeUndefined();
+    const build = job.steps.find((step) => step.run?.includes("turbo run build"))!;
+    const plan = JSON.parse(
+      execFileSync("bash", ["-e", "-c", `${build.run} --dry=json`], { encoding: "utf8" }),
+    ) as { tasks: { taskId: string }[] };
+    const tasks = plan.tasks.map((task) => task.taskId);
+    for (const input of ["tokens", "glass", "primitives", "ui", "docs", target])
+      expect(tasks).toContain(`@lenso/${input}#build`);
+    if (name === "documentation") expect(tasks).toContain("@lenso/ui-docs#generate");
+  }
 });
 
 test("tag and manual publication retain npm approval between release checks", async () => {

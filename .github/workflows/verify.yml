@@ -46,7 +46,7 @@ jobs:
 
   documentation:
     runs-on: ubuntu-latest
-    # Keep both browser job images in sync with the Playwright version in apps/docs/package.json.
+    # Keep the container images in sync with the Playwright version in apps/docs/package.json.
     container: mcr.microsoft.com/playwright:v1.65.0-resolute@sha256:916c9fb63a8340822589dd5c821dae82e8012106bb8515a72f278d97f277446a
     defaults:
       run:
@@ -96,21 +96,19 @@ jobs:
         if: steps.restore.outcome != 'success'
         env:
           LENSO_DOCS_SITE: https://ui.lenso.dev
-      - run: bun run test:production
+      - run: bun run --filter @lenso/ui-docs test:stylex-artifacts
         if: steps.restore.outcome != 'success'
-        env:
-          BROWSER_ARTIFACTS: ${{ runner.temp }}/consumer-evidence
       - name: Check production hydration and payload budgets in both engines
         if: steps.restore.outcome != 'success'
         run: node apps/docs/test/browser-gate.mjs production
         env:
-          BROWSER_ARTIFACTS: ${{ runner.temp }}/consumer-evidence
-      - name: Preserve consumer failure evidence
+          BROWSER_ARTIFACTS: ${{ runner.temp }}/production-evidence
+      - name: Preserve production browser failure evidence
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: consumer-failure-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/consumer-evidence
+          name: production-browser-failure-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/production-evidence
           retention-days: 7
       - name: Enforce Cloudflare's 25 MiB per-file limit
         run: bun apps/docs/scripts/check-export-size.ts
@@ -123,6 +121,52 @@ jobs:
           path: apps/docs/out
           if-no-files-found: error
           retention-days: 3
+
+  consumer:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.65.0-resolute@sha256:916c9fb63a8340822589dd5c821dae82e8012106bb8515a72f278d97f277446a
+    defaults:
+      run:
+        shell: bash
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Provide unzip in the Playwright container
+        run: bash .github/scripts/setup-playwright-unzip.sh
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.4.4
+      - name: Look up a trusted exact-SHA candidate
+        id: candidate
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: bun .github/scripts/reuse-verification.ts reuse
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        if: steps.candidate.outputs.found != 'true'
+        with:
+          node-version: 26.10.0
+      - run: bun install --frozen-lockfile
+        if: steps.candidate.outputs.found != 'true'
+      - run: bunx turbo run build --filter=@lenso/docs-starter
+        if: steps.candidate.outputs.found != 'true'
+      - name: Verify installed packages in isolated consumers
+        if: steps.candidate.outputs.found != 'true'
+        run: bun test --timeout 180000 tests/consumer/*.test.ts
+        env:
+          BROWSER_ARTIFACTS: ${{ runner.temp }}/consumer-evidence
+      - name: Preserve consumer failure evidence
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: consumer-failure-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/consumer-evidence
+          retention-days: 7
 
   browser:
     runs-on: ubuntu-latest
@@ -166,7 +210,7 @@ jobs:
   # Keep the authoritative landing job name; skipped/cancelled dependencies fail closed.
   verify:
     if: always()
-    needs: [checks, documentation, browser]
+    needs: [checks, documentation, consumer, browser]
     runs-on: ubuntu-latest
     outputs:
       docs-artifact-id: ${{ needs.documentation.outputs.docs-artifact-id }}
@@ -175,8 +219,9 @@ jobs:
         env:
           CHECKS_RESULT: ${{ needs.checks.result }}
           DOCS_RESULT: ${{ needs.documentation.result }}
+          CONSUMER_RESULT: ${{ needs.consumer.result }}
           BROWSER_RESULT: ${{ needs.browser.result }}
-        run: test "$CHECKS_RESULT" = success && test "$DOCS_RESULT" = success && test "$BROWSER_RESULT" = success
+        run: test "$CHECKS_RESULT" = success && test "$DOCS_RESULT" = success && test "$CONSUMER_RESULT" = success && test "$BROWSER_RESULT" = success
 
   deploy-docs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.workflow_sha == github.sha
