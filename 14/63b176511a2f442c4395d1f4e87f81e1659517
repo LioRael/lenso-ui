@@ -1,0 +1,16 @@
+apps/docs/src/components/photos-demo.tsx
+  h_9d56aba080c170 964-968,987-989
+apps/docs/src/styles/photos-demo.stylex.ts
+  h_9d56aba080c170 423-442
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1463b176511a2f442c4395d1f4e87f81e1659517",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
