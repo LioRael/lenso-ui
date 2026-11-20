@@ -420,6 +420,26 @@ export const photos = stylex.create({
     "--lg-tab-width": "calc((min(100vw - 40px, 420px) - 132px) / 3)",
     "--lg-tab-height": "44px",
   },
+  timelineLightSelection: {
+    "--lenso-control-segment-selected": "var(--lenso-fill-secondary)",
+  },
+  timelineLiftRim: {
+    position: "absolute",
+    inset: 0,
+    padding: 1,
+    borderRadius: "inherit",
+    pointerEvents: "none",
+    visibility: {
+      default: "hidden",
+      ":is([data-refracting] *)": "visible",
+      "@media (prefers-reduced-motion: reduce), (forced-colors: active)": "hidden",
+    },
+    backgroundImage:
+      "linear-gradient(112deg, rgb(210 151 92 / .52), transparent 28% 72%, rgb(91 157 202 / .50))",
+    maskImage: "linear-gradient(#fff 0 0), linear-gradient(#fff 0 0)",
+    maskClip: "content-box, border-box",
+    maskComposite: "exclude",
+  },
   viewer: {
     backgroundColor: "transparent",
     backdropFilter: "none",
