@@ -1,0 +1,16 @@
+packages/tokens/src/components/menu/menu.styles.ts
+  h_9d56aba080c170 89-93
+packages/ui/src/components/menu/menu.tsx
+  h_9d56aba080c170 245
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b8c93f3677b61d7d97d5e088e7416d4c7639e355",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
