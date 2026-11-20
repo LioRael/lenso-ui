@@ -1,0 +1,44 @@
+packages/glass/README.md
+  h_9d56aba080c170 107,169-182
+packages/glass/src/fusion-entry.ts
+  h_9d56aba080c170 4-7
+packages/glass/src/motion/index.ts
+  h_9d56aba080c170 3-4,6
+packages/glass/src/motion/indicator.ts
+  h_9d56aba080c170 1-87
+packages/glass/src/motion/press.ts
+  h_9d56aba080c170 23-28,30,180-189
+packages/glass/src/motion/velocity-deformation.ts
+  h_9d56aba080c170 16-17,19-25
+packages/glass/src/press-highlight.ts
+  h_9d56aba080c170 22
+packages/glass/src/react/elastic.ts
+  h_9d56aba080c170 4,7,28
+packages/glass/src/react/refraction.ts
+  h_9d56aba080c170 23,40
+packages/glass/test/browser/press.dom.test.ts
+  h_9d56aba080c170 2,49,53,87
+packages/ui/src/components/tab-bar/tab-bar-motion.ts
+  h_9d56aba080c170 4-5,7,287-294,298,309,314,317,336,558,622-623,667-669
+packages/ui/src/utils/interaction/ref.ts
+  h_9d56aba080c170 1,16-35
+packages/ui/src/utils/interaction/slider.ts
+  h_9d56aba080c170 3-5,13-16,25,40,46,54,56
+packages/ui/src/utils/interaction/switch.ts
+  h_9d56aba080c170 3-4,6,20-23,28,33,60,94,147-148,158,163
+packages/ui/src/utils/interaction/tabs.ts
+  h_9d56aba080c170 3,7-8,277-284,288,292,295,297,480,617-622
+packages/ui/test/press-highlight.dom.test.tsx
+  h_9d56aba080c170 2,24,28,51,69,90-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8be791c87df73ea264456fd8cb2efcc454a8a66b",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
