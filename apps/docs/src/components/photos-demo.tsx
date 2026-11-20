@@ -961,7 +961,11 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                 <Tabs.ListContainer xstyle={s.timelineContainer}>
                   <Tabs.List
                     aria-label="Library view"
-                    xstyle={[s.timelineList, tablet && s.tabletTimelineList]}
+                    xstyle={[
+                      s.timelineList,
+                      tablet && s.tabletTimelineList,
+                      !dark && s.timelineLightSelection,
+                    ]}
                   >
                     {(
                       [
@@ -980,7 +984,9 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                         {label}
                       </Tabs.Tab>
                     ))}
-                    <Tabs.Indicator />
+                    <Tabs.Indicator>
+                      {!dark && <span aria-hidden="true" {...stylex.props(s.timelineLiftRim)} />}
+                    </Tabs.Indicator>
                   </Tabs.List>
                 </Tabs.ListContainer>
               </div>
