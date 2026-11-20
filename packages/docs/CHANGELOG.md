@@ -1,5 +1,16 @@
 # @lenso/docs
 
+## 0.3.7
+
+### Patch Changes
+
+- Updated dependencies [4b5db40]
+- Updated dependencies [c662474]
+- Updated dependencies [46e0840]
+  - @lenso/ui@0.12.0
+  - @lenso/tokens@0.12.0
+  - @lenso/glass@0.3.0
+
 ## 0.3.6
 
 ### Patch Changes
