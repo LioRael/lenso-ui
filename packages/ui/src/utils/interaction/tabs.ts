@@ -1,16 +1,11 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
 // Adapted: springs decorate native UI SDK selection; UI SDK retains keyboard and focus ownership.
-import { useCallback, useEffect, useState, type Ref } from "react";
+import { useCallback, type Ref } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { tabsStyles } from "@lenso/tokens/tabs";
 import { held } from "./hold.js";
-import {
-  createSpring,
-  prefersReducedMotion,
-  deformationSpring,
-  velocityDeformation,
-} from "@lenso/glass/motion";
-import { assignRef } from "./ref.js";
+import { bindIndicator, createSpring } from "@lenso/glass/motion";
+import { useBindRef } from "./ref.js";
 import { createLabelRefraction } from "../materials/control-lens.js";
 import type { SegmentedPresentationKind } from "../segmented-presentation.js";
 
@@ -124,8 +119,6 @@ function attach({
     at: number;
   } | null = null;
   const state = { x: 0, lift: 0, stretch: 0 };
-  let lastPosition = 0;
-  let lastTime = 0;
   const refraction = createLabelRefraction(optics);
 
   const measure = () => {
@@ -281,36 +274,27 @@ function attach({
     refraction.update(lift);
   };
 
-  const deformation = createSpring(0, ...deformationSpring, (value) => {
-    state.stretch = value;
-    paint();
+  const indicator = bindIndicator(lens, {
+    stretch: 0.12,
+    lift: [REST[2], REST[3]],
+    onPaint: ({ lift, stretch }) => {
+      state.lift = lift;
+      state.stretch = stretch;
+      paint();
+    },
   });
   const x = createSpring(0, REST[0], REST[1], (value) => {
-    const now = performance.now();
-    const elapsed = now - lastTime;
-    const speed = elapsed > 0 && elapsed < 100 ? ((value - lastPosition) * 1000) / elapsed : 0;
-    lastTime = now;
-    lastPosition = value;
     state.x = value;
-    deformation.set(prefersReducedMotion() ? 0 : velocityDeformation(speed, 0.12));
-    paint();
-  });
-  const lift = createSpring(0, REST[2], REST[3], (value) => {
-    state.lift = value;
-    paint();
+    indicator.move(value);
   });
 
   const move = (target: number, lifted: boolean, instant = false) => {
-    if (instant) {
-      lastTime = 0;
-      lastPosition = target;
-      deformation.set(0, true);
-    }
+    if (instant) indicator.move(target, true);
     const [slideStiffness, slideDamping, liftStiffness, liftDamping] = gesture ? DRAG : REST;
     x.tune(slideStiffness, slideDamping);
-    lift.tune(liftStiffness, liftDamping);
+    indicator.tune(liftStiffness, liftDamping);
     x.set(target, instant);
-    lift.set(lifted ? 1 : 0, instant);
+    indicator.lift(lifted, instant);
   };
 
   const settle = (instant = false) => {
@@ -493,10 +477,9 @@ function attach({
     destroy() {
       cancelAnimationFrame(settleFrame);
       x.stop();
-      deformation.stop();
+      indicator.destroy();
       lens.style.removeProperty("border-radius");
       tint.style.removeProperty("border-radius");
-      lift.stop();
       refraction.destroy();
       observer.disconnect();
       lens.style.removeProperty("--lg-tabs-transform");
@@ -631,21 +614,12 @@ export function useSegmentedListRef(
   enabled: boolean,
   kind: SegmentedPresentationKind,
 ) {
-  const [element, setElement] = useState<HTMLDivElement | null>(null);
-  useEffect(
-    () => (element && enabled ? present(element, kind) : undefined),
-    [element, enabled, kind],
-  );
-  return useCallback(
-    (node: HTMLDivElement | null) => {
-      setElement(node);
-      const cleanup = assignRef(ref, node);
-      return () => {
-        setElement(null);
-        cleanup();
-      };
-    },
-    [ref],
+  return useBindRef(
+    ref,
+    useCallback(
+      (element: HTMLDivElement) => (enabled ? present(element, kind) : undefined),
+      [enabled, kind],
+    ),
   );
 }
 export function useTabsListRef(ref: Ref<HTMLDivElement> | undefined, enabled: boolean) {

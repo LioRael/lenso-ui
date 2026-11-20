@@ -19,7 +19,7 @@ export function lightLabel(member: HTMLElement, strength?: number) {
 }
 
 /** Track light independently of elastic movement, including stationary controls. */
-export function trackPressHighlight(element: HTMLElement) {
+export function bindPressHighlight(element: HTMLElement) {
   let heldKey: string | undefined;
   let pointerId: number | undefined;
   let point: { x: number; y: number } | undefined;

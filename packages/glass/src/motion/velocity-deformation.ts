@@ -13,8 +13,16 @@ export function createVelocityDeformation(maximum: number, paint: (value: number
   let idle = 0;
   const spring = createSpring(0, ...deformationSpring, paint);
   return {
-    sample(position: number) {
+    /** An instant sample places the position without measuring speed from the last one. */
+    sample(position: number, instant = false) {
       const now = performance.now();
+      if (instant) {
+        previous = position;
+        time = now;
+        clearTimeout(idle);
+        spring.set(0, true);
+        return;
+      }
       const elapsed = now - time;
       const speed =
         previous !== undefined && elapsed > 0 && elapsed < 100
