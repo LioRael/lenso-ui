@@ -1,0 +1,14 @@
+apps/docs/test/production-loading.mjs
+  h_9d56aba080c170 20-22,210,213-219
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bacbedc37086fcbd37f895e715a3f32a85c52ead",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
