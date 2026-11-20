@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { trackPressHighlight } from "../../glass/src/press-highlight.js";
+import { bindPressHighlight } from "@lenso/glass/motion";
 
 function surface() {
   const element = document.createElement("button");
@@ -21,10 +21,11 @@ function pointer(type: string, x = 120, id = 1) {
 // Element-local pointermove loses the light when a held gesture crosses an item boundary.
 test("press light follows a held pointer outside its item without elastic motion", () => {
   const element = surface();
-  const cleanup = trackPressHighlight(element);
+  const cleanup = bindPressHighlight(element);
   try {
     element.dispatchEvent(pointer("pointerdown"));
     expect(element.hasAttribute("data-lenso-light-pressed")).toBe(true);
+    expect(element.hasAttribute("data-lenso-pressed")).toBe(false);
     expect(element.style.getPropertyValue("--lg-light-x")).toBe("10%");
     window.dispatchEvent(pointer("pointermove", 260, 2));
     expect(element.style.getPropertyValue("--lg-light-x")).toBe("10%");
@@ -47,7 +48,7 @@ test("disabled descendants cannot illuminate a shared toolbar surface", () => {
   const child = document.createElement("button");
   child.disabled = true;
   element.append(child);
-  const cleanup = trackPressHighlight(element);
+  const cleanup = bindPressHighlight(element);
   try {
     child.dispatchEvent(pointer("pointerdown"));
     expect(element.hasAttribute("data-lenso-light-pressed")).toBe(false);
@@ -65,7 +66,7 @@ test("keyboard lights the focused item's location on a shared surface", () => {
   const child = document.createElement("button");
   child.getBoundingClientRect = () => new DOMRect(220, 40, 80, 50);
   element.append(child);
-  const cleanup = trackPressHighlight(element);
+  const cleanup = bindPressHighlight(element);
   try {
     child.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
     expect(element.style.getPropertyValue("--lg-light-x")).toBe("80%");
@@ -86,8 +87,8 @@ test("nested optical controls own pointer and keyboard light exactly once", () =
   inner.innerHTML = '<span data-lenso-slot="glass-press-highlight"></span>';
   inner.getBoundingClientRect = () => new DOMRect(100, 40, 50, 50);
   outer.append(inner);
-  const cleanOuter = trackPressHighlight(outer);
-  const cleanInner = trackPressHighlight(inner);
+  const cleanOuter = bindPressHighlight(outer);
+  const cleanInner = bindPressHighlight(inner);
   try {
     inner.dispatchEvent(pointer("pointerdown"));
     expect(inner.hasAttribute("data-lenso-light-pressed")).toBe(true);

@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { press } from "../../src/motion/press.js";
+import { bindPress } from "../../src/motion/index.js";
 
 // The old size overrides masked pointer-specific growth; interruption also
 // measured the already enlarged control, reducing the next press target.
@@ -46,10 +46,11 @@ for (const pointerType of ["mouse", "touch"]) {
         clientX: 30,
         clientY: 30,
       });
-    const stop = press(element);
+    const stop = bindPress(element);
     try {
       element.dispatchEvent(event("pointerdown"));
       advance(60);
+      expect(element.hasAttribute("data-lenso-light-pressed")).toBe(false);
       const expected = pointerType === "mouse" ? 66 : 76;
       expect(60 * scale()).toBeCloseTo(expected, 2);
       window.dispatchEvent(event("pointerup"));
@@ -83,7 +84,7 @@ test("reduced motion keeps held controls stationary and resets an active gesture
   const element = document.createElement("button");
   document.body.append(element);
   element.getBoundingClientRect = () => new DOMRect(0, 0, 60, 60);
-  const stop = press(element);
+  const stop = bindPress(element);
   const down = () =>
     element.dispatchEvent(
       new PointerEvent("pointerdown", {

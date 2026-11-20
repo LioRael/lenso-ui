@@ -1,15 +1,10 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
 // Copyright (c) 2026 Moein Saharkhiz.
 // Adapted for variable-width navigation links and native link activation.
-import { useCallback, useEffect, useState, type Ref } from "react";
-import { assignRef } from "../../utils/interaction/ref.js";
+import { useCallback, type Ref } from "react";
+import { useBindRef } from "../../utils/interaction/ref.js";
 import { createLabelRefraction } from "../../utils/materials/control-lens.js";
-import {
-  createSpring,
-  prefersReducedMotion,
-  deformationSpring,
-  velocityDeformation,
-} from "@lenso/glass/motion";
+import { bindIndicator, createSpring, prefersReducedMotion } from "@lenso/glass/motion";
 
 // A tap can swing past its destination; direct manipulation must keep up without overshoot.
 const REST = [225, 21, 676, 47.8] as const;
@@ -172,8 +167,6 @@ function present(group: HTMLElement) {
       }
     | undefined;
   const state = { x: 0, y: 0, width: 0, height: 0, lift: 0, stretch: 0 };
-  let previousX = 0;
-  let previousTime = 0;
   let opticalHeight = 0;
   let settledBox: ReturnType<typeof box> | undefined;
   let copies: { item: HTMLElement; copy: HTMLElement; centre: HTMLElement }[] = [];
@@ -291,26 +284,21 @@ function present(group: HTMLElement) {
       delete group.dataset["highlightActive"];
     if (!gesture && state.lift < 0.01) delete group.dataset["refracting"];
   };
-  const deformation = createSpring(0, ...deformationSpring, (value) => {
-    state.stretch = value;
-    paint();
+  const lens = bindIndicator(indicator, {
+    stretch: 0.12,
+    lift: [REST[2], REST[3]],
+    onPaint: ({ lift, stretch }) => {
+      state.lift = lift;
+      state.stretch = stretch;
+      paint();
+    },
   });
   const position = createSpring(0, REST[0], REST[1], (value) => {
-    const now = performance.now();
-    const elapsed = now - previousTime;
-    const speed = elapsed > 0 && elapsed < 100 ? ((value - previousX) * 1000) / elapsed : 0;
-    previousTime = now;
-    previousX = value;
     state.x = value;
-    if (!batching) deformation.set(prefersReducedMotion() ? 0 : velocityDeformation(speed, 0.12));
-    paint();
+    if (!batching) lens.move(value);
   });
   const width = createSpring(0, REST[0], REST[1], (value) => {
     state.width = value;
-    paint();
-  });
-  const lift = createSpring(0, REST[2], REST[3], (value) => {
-    state.lift = value;
     paint();
   });
   const move = (target: ReturnType<typeof box>, lifted: boolean, instant = false) => {
@@ -318,19 +306,15 @@ function present(group: HTMLElement) {
     const [, , liftStiffness, liftDamping] = gesture ? DRAG : REST;
     position.tune(slideStiffness, slideDamping);
     width.tune(slideStiffness, slideDamping);
-    lift.tune(liftStiffness, liftDamping);
+    lens.tune(liftStiffness, liftDamping);
     state.y = target.y;
     state.height = target.height;
     batching = instant;
     try {
-      if (instant) {
-        previousTime = 0;
-        previousX = target.x;
-        deformation.set(0, true);
-      }
+      if (instant) lens.move(target.x, true);
       width.set(target.width, instant);
       position.set(target.x, instant);
-      lift.set(lifted ? 1 : 0, instant);
+      lens.lift(lifted, instant);
     } finally {
       batching = false;
     }
@@ -349,7 +333,7 @@ function present(group: HTMLElement) {
       group.dataset["indicatorHidden"] = "";
       delete group.dataset["highlightActive"];
       settledBox = undefined;
-      lift.set(0, instant);
+      lens.lift(false, instant);
       shown = false;
       return;
     }
@@ -571,7 +555,7 @@ function present(group: HTMLElement) {
   const minimize = new MutationObserver(() => {
     if (minimized()) {
       end();
-      for (const spring of [position, width, lift, deformation]) spring.stop();
+      for (const spring of [position, width, lens]) spring.stop();
       refraction?.setActive(false);
       delete group.dataset["highlightActive"];
       delete group.dataset["refracting"];
@@ -635,7 +619,8 @@ function present(group: HTMLElement) {
     cancelAnimationFrame(resizeFrame);
     clearTimeout(suppressTimer);
     if (gesture && group.hasPointerCapture(gesture.id)) group.releasePointerCapture(gesture.id);
-    for (const spring of [position, width, lift, deformation]) spring.stop();
+    for (const spring of [position, width]) spring.stop();
+    lens.destroy();
     refraction?.destroy();
     resize.disconnect();
     mutation.disconnect();
@@ -679,17 +664,8 @@ function present(group: HTMLElement) {
 }
 
 export function useTabBarMotionRef(ref: Ref<HTMLDivElement> | undefined, enabled: boolean) {
-  const [element, setElement] = useState<HTMLDivElement | null>(null);
-  useEffect(() => (element && enabled ? present(element) : undefined), [element, enabled]);
-  return useCallback(
-    (node: HTMLDivElement | null) => {
-      setElement(node);
-      const cleanup = assignRef(ref, node);
-      return () => {
-        setElement(null);
-        cleanup();
-      };
-    },
-    [ref],
+  return useBindRef(
+    ref,
+    useCallback((element: HTMLDivElement) => (enabled ? present(element) : undefined), [enabled]),
   );
 }

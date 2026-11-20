@@ -20,11 +20,14 @@ export interface PressOptions {
   touchRelease?: readonly [number, number];
 }
 
-export function press(
+export interface BindPressOptions extends PressOptions {
+  shouldStart?: (event: PointerEvent) => boolean;
+  propertyPrefix?: string;
+}
+
+export function bindPress(
   element: HTMLElement,
-  shouldStart?: (event: PointerEvent) => boolean,
-  propertyPrefix = "--lg-press",
-  options: PressOptions = {},
+  { shouldStart, propertyPrefix = "--lg-press", ...options }: BindPressOptions = {},
 ): () => void {
   const value = [1, 1, 0, 0];
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -173,4 +176,14 @@ export function press(
     ])
       element.style.removeProperty(name);
   };
+}
+
+/** @deprecated Use bindPress with an options object. */
+export function press(
+  element: HTMLElement,
+  shouldStart?: (event: PointerEvent) => boolean,
+  propertyPrefix?: string,
+  options?: PressOptions,
+): () => void {
+  return bindPress(element, { ...options, shouldStart, propertyPrefix });
 }

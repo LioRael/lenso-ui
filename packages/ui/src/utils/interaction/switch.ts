@@ -1,9 +1,9 @@
 // Copyright (c) 2026 Kelvin Zhang. SPDX-License-Identifier: MIT.
 // Adapted: UI SDK owns checked state; the source springs paint its visual state.
-import { useCallback, useEffect, useState, type Ref } from "react";
-import { createSpring, createVelocityDeformation } from "@lenso/glass/motion";
+import type { Ref } from "react";
+import { bindIndicator, createSpring } from "@lenso/glass/motion";
 import { held } from "./hold.js";
-import { assignRef } from "./ref.js";
+import { useBindRef } from "./ref.js";
 import { createKnobRefraction } from "../materials/control-lens.js";
 
 const unit = (value: number) => Math.min(1, Math.max(0, value));
@@ -14,41 +14,23 @@ function present(root: HTMLElement) {
   const blocked = () => root.matches('[data-disabled], [data-readonly], [aria-disabled="true"]');
   const travel = () => ((control()?.getBoundingClientRect().width ?? 64) / 64) * 22;
   const initial = checked() ? 1 : 0;
-  let stretch = 0;
-  let raised = 0;
   const track = control();
   const thumb = track?.querySelector<HTMLElement>('[data-lenso-slot="switch-thumb"]');
   const refraction = track && thumb ? createKnobRefraction(track, thumb, "switch") : undefined;
-  const paintShape = () => {
-    root.style.setProperty(
-      "--lg-switch-lift-x",
-      String((38 / 58 + (20 / 58) * raised) * (1 + stretch)),
-    );
-    root.style.setProperty(
-      "--lg-switch-lift-y",
-      String((24 / 38 + (14 / 38) * raised) / (1 + stretch)),
-    );
-    refraction?.update(raised);
-  };
-  const deformation = createVelocityDeformation(0.04, (value) => {
-    stretch = value;
-    paintShape();
+  const indicator = bindIndicator(root, {
+    property: "--lg-switch",
+    stretch: 0.04,
+    onPaint: ({ lift }) => refraction?.update(lift),
   });
   const position = createSpring(initial, 1000, 80, (value) => {
     const pixels = value * travel();
     root.style.setProperty("--lg-switch-x", `${pixels}px`);
-    deformation.sample(pixels);
-    refraction?.update(raised);
+    indicator.move(pixels);
   });
   const color = createSpring(initial, 1000, 80, (value) =>
     root.style.setProperty("--lg-switch-fill", String(unit(value))),
   );
-  const lift = createSpring(0, 2000, 80, (value) => {
-    raised = value;
-    paintShape();
-    root.style.setProperty("--lg-switch-face", String(1 - 0.91 * unit(value)));
-  });
-  [position, color, lift].forEach((spring) => spring.paint());
+  [position, color].forEach((spring) => spring.paint());
   let gesture: {
     id: number;
     x: number;
@@ -75,7 +57,7 @@ function present(root: HTMLElement) {
   const settle = (next?: boolean) => {
     const old = gesture;
     gesture = null;
-    lift.set(0);
+    indicator.lift(false);
     if (old?.owner.hasPointerCapture(old.id)) old.owner.releasePointerCapture(old.id);
     // Commit through UI SDK's activation contract, including cancellation and forms.
     if (next !== undefined && next !== checked() && !blocked()) root.click();
@@ -109,7 +91,7 @@ function present(root: HTMLElement) {
       owner,
     };
     owner.setPointerCapture(event.pointerId);
-    lift.set(1);
+    indicator.lift(true);
   };
   const move = (event: PointerEvent) => {
     if (!gesture || event.pointerId !== gesture.id) return;
@@ -162,8 +144,8 @@ function present(root: HTMLElement) {
     cancelAnimationFrame(rollback);
     observer.disconnect();
     resize.disconnect();
-    [position, color, lift].forEach((spring) => spring.stop());
-    deformation.stop();
+    [position, color].forEach((spring) => spring.stop());
+    indicator.destroy();
     refraction?.destroy();
     window.removeEventListener("pointerdown", down);
     window.removeEventListener("pointermove", move, true);
@@ -173,29 +155,10 @@ function present(root: HTMLElement) {
     root.removeEventListener("lostpointercapture", cancel);
     root.removeEventListener("click", click, true);
     root.removeEventListener("touchmove", keep);
-    for (const name of [
-      "--lg-switch-x",
-      "--lg-switch-fill",
-      "--lg-switch-lift-x",
-      "--lg-switch-lift-y",
-      "--lg-switch-face",
-    ])
-      root.style.removeProperty(name);
+    for (const name of ["--lg-switch-x", "--lg-switch-fill"]) root.style.removeProperty(name);
   };
 }
 
 export function useSwitchRef(ref: Ref<HTMLElement> | undefined) {
-  const [element, setElement] = useState<HTMLElement | null>(null);
-  useEffect(() => (element ? present(element) : undefined), [element]);
-  return useCallback(
-    (node: HTMLElement | null) => {
-      setElement(node);
-      const cleanup = assignRef(ref, node);
-      return () => {
-        setElement(null);
-        cleanup();
-      };
-    },
-    [ref],
-  );
+  return useBindRef(ref, present);
 }

@@ -20,7 +20,7 @@ import {
 import { assignRef } from "./ref.js";
 import { paintMovingMaterialBackdrop } from "../backdrop-paints.js";
 import { paintMovingBackdrop } from "../panel-backdrop.js";
-import { trackPressHighlight } from "../press-highlight.js";
+import { bindPressHighlight } from "../press-highlight.js";
 
 /** Bind shared optics; deferred owners mark their surface as resting or hidden. */
 export function useGlassRef<T extends HTMLElement>(
@@ -37,7 +37,7 @@ export function useGlassRef<T extends HTMLElement>(
   const fusion = useContext(GlassFusionContext);
   const backdropSource = useContext(GlassBackdropSourceContext);
   useEffect(
-    () => (element && enabled ? trackPressHighlight(element) : undefined),
+    () => (element && enabled ? bindPressHighlight(element) : undefined),
     [element, enabled],
   );
   useLayoutEffect(() => {

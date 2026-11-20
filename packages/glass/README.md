@@ -104,7 +104,7 @@ await it in the menu's activation path.
 ## Non-React fusion ownership
 
 `@lenso/glass/fusion` exports `attachFusion`, the `FusionGroup` type,
-`glassIsOpaque`, `observeGlassPreferences` and `trackPressHighlight` without a
+`glassIsOpaque`, `observeGlassPreferences` and `bindPressHighlight` without a
 React runtime. A renderer owns its container/surface nodes and its mutable member
 set. Call `attachFusion(root, surface, group, spacing)` only while the container
 is enabled and transparent, call `group.update()` when membership changes, and
@@ -166,9 +166,20 @@ retargeting springs from paint callbacks still shares one frame chain.
 The advanceSpring(state, seconds) primitive exposes the same analytical solver
 for sampled trajectories. It advances value and velocity without scheduling a
 frame or painting; existing spring callers need no changes.
-`press`, `glassMotion` and `createVelocityDeformation` retain the accepted motion
-models and cleanup. Drag presentation still has its own loop; this extraction
-does not claim that all browser work shares one frame callback.
+`bindPress(element, options?)` adds elastic deformation. `bindPressHighlight(element)`
+adds pointer and keyboard light, including on controls that stay stationary.
+Both are available from `@lenso/glass/motion`, can be bound independently, and
+return separate cleanup functions. Neither handles activation or focus.
+Existing `press(...)` and `trackPressHighlight(element)` imports still work.
+
+`glassMotion` and `createVelocityDeformation` retain their motion models and
+cleanup. Drag presentation still has its own frame loop.
+`bindIndicator(element, options)` shares lift and velocity stretch across Switch,
+Slider, Tabs and TabBar. Call `move(pixels)` and `lift(held)` from the control's
+own position and gesture handling. Tabs and TabBar read `lift` and `stretch`
+in `onPaint` to draw their lens geometry. With a `property` prefix, the behavior
+also writes the knob's `-lift-x`, `-lift-y` and `-face` CSS variables and removes
+them on `destroy()`. Selection, input handling and optics stay with the control.
 
 Safari remains a supported rendering path. A visible `data-lenso-backdrop`
 source allows copied input; eligible sources can use the shared WebGPU backend.
