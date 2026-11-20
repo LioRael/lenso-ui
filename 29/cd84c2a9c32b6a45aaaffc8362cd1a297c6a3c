@@ -1,0 +1,18 @@
+.github/scripts/workflow-gate.test.ts
+  h_9d56aba080c170 27,32,35-41,46-61
+.github/workflows/verify.yml
+  h_9d56aba080c170 49,99,105-106,110-111,125-170,213,222,224
+CONTRIBUTING.md
+  h_9d56aba080c170 287-291,296,304-306
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "29cd84c2a9c32b6a45aaaffc8362cd1a297c6a3c",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
