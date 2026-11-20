@@ -62,7 +62,13 @@ export function PhotosViewerMenu({
       >
         <Ellipsis width={24} height={24} />
       </Menu.Trigger>
-      <Menu.Content aria-label="Photo options" xstyle={menu.popup} align="end">
+      <Menu.Content
+        aria-label="Photo options"
+        xstyle={[menu.popup, s.menuGlass]}
+        side="bottom"
+        sideOffset={8}
+        align="end"
+      >
         <Menu.ActionGroup aria-label="Photo actions">
           <Menu.Action onClick={onCopy}>
             <Copy width={22} height={22} />
@@ -98,7 +104,7 @@ export function PhotosViewerMenu({
               <ChevronRight />
             </Menu.Item.SubmenuIndicator>
           </Menu.SubTrigger>
-          <Menu.SubContent aria-label="Add to album" align="end">
+          <Menu.SubContent aria-label="Add to album" align="end" xstyle={s.menuGlass}>
             {albumNames.map((name) => (
               <Menu.Item key={name} onClick={() => onAlbum(name)}>
                 {name}
@@ -119,7 +125,7 @@ export function PhotosViewerMenu({
               <ChevronRight />
             </Menu.Item.SubmenuIndicator>
           </Menu.SubTrigger>
-          <Menu.SubContent aria-label="Adjust information" align="end">
+          <Menu.SubContent aria-label="Adjust information" align="end" xstyle={s.menuGlass}>
             <Menu.Item onClick={onInformation}>Edit Caption</Menu.Item>
             <Menu.Item disabled title="Capture dates were not supplied with these sample photos">
               Adjust Date and Time
