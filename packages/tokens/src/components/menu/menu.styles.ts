@@ -86,6 +86,11 @@ export const menuStyles = stylex.create({
     outline: { default: "none", ":focus-visible": "2px solid var(--lenso-focus-ring)" },
   },
 
+  panelPaint: {
+    "--lenso-panel-paint-1": {
+      "@container style(--lenso-panel-blend-1: lighten)": "rgb(255 255 255 / 0.56)",
+    },
+  },
   popup: {
     visibility: {
       default: null,

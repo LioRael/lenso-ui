@@ -242,6 +242,7 @@ export function MenuSurface({
     materialStyles.root,
     materialStyles.accessible,
     s.popup,
+    s.panelPaint,
     (!!motion || !!submenu) && s.morph,
     layout?.panelXstyle,
     !layout && xstyle,
