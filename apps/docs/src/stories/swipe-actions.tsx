@@ -1,13 +1,16 @@
 "use client";
 import { useState } from "react";
-import { Button, List, SwipeActions } from "@lenso/ui";
+import { Archive, Flag, TrashBin } from "@gravity-ui/icons";
+import { Button, List, SwipeActions, type SwipeAction } from "@lenso/ui";
 export interface SwipeActionsStoryProps {
   disabled: boolean;
   fullSwipe: boolean;
+  labelPlacement?: SwipeAction["labelPlacement"];
 }
 const messages = ["Design review", "Travel plans", "Weekly notes"];
-export function SwipeActionsStory({ disabled, fullSwipe }: SwipeActionsStoryProps) {
+export function SwipeActionsStory({ disabled, fullSwipe, labelPlacement }: SwipeActionsStoryProps) {
   const [visible, setVisible] = useState(messages);
+  const [flagged, setFlagged] = useState<string[]>([]);
   const [status, setStatus] = useState("Swipe a row or use its action buttons.");
   const remove = (name: string, action: string) => {
     setVisible((rows) => rows.filter((row) => row !== name));
@@ -27,6 +30,8 @@ export function SwipeActionsStory({ disabled, fullSwipe }: SwipeActionsStoryProp
               {
                 id: "archive",
                 label: "Archive",
+                icon: <Archive width="100%" height="100%" />,
+                labelPlacement,
                 variant: "tint",
                 fullSwipe,
                 onAction: () => remove(name, "archived"),
@@ -34,8 +39,20 @@ export function SwipeActionsStory({ disabled, fullSwipe }: SwipeActionsStoryProp
             ]}
             endActions={[
               {
+                id: "flag",
+                label: flagged.includes(name) ? "Unflag" : "Flag",
+                icon: <Flag width="100%" height="100%" />,
+                labelPlacement,
+                onAction: () =>
+                  setFlagged((rows) =>
+                    rows.includes(name) ? rows.filter((row) => row !== name) : [...rows, name],
+                  ),
+              },
+              {
                 id: "delete",
                 label: "Delete",
+                icon: <TrashBin width="100%" height="100%" />,
+                labelPlacement,
                 variant: "danger",
                 onAction: () => remove(name, "deleted"),
               },
@@ -43,7 +60,9 @@ export function SwipeActionsStory({ disabled, fullSwipe }: SwipeActionsStoryProp
           >
             <List.Content>
               <List.Title>{name}</List.Title>
-              <List.Description>Demo message</List.Description>
+              <List.Description>
+                {flagged.includes(name) ? "Flagged message" : "Demo message"}
+              </List.Description>
             </List.Content>
           </SwipeActions>
         ))}
@@ -52,6 +71,7 @@ export function SwipeActionsStory({ disabled, fullSwipe }: SwipeActionsStoryProp
       <Button
         onClick={() => {
           setVisible(messages);
+          setFlagged([]);
           setStatus("Inbox restored.");
         }}
       >

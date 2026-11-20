@@ -19,6 +19,7 @@ export interface SwipeAction {
   id: string;
   label: string;
   icon?: ReactNode;
+  labelPlacement?: "inline" | "below" | "hidden";
   variant?: "default" | "danger" | "tint";
   disabled?: boolean;
   fullSwipe?: boolean;
@@ -82,25 +83,46 @@ export function SwipeActions({
         data-swipe-actions-side={side}
         {...stylex.props(s.actions, side === "start" ? s.start : s.end)}
       >
-        {entries(side).map((action) => (
-          <NativeButton
-            key={action.id}
-            disabled={disabled || action.disabled}
-            data-swipe-action=""
-            {...stylex.props(
-              s.action,
-              action.variant === "danger" && s.danger,
-              action.variant === "tint" && s.tint,
-            )}
-            onClick={() => {
-              controller.setOpenSide(null);
-              return action.onAction();
-            }}
-          >
-            {action.icon && <span aria-hidden="true">{action.icon}</span>}
-            {action.label}
-          </NativeButton>
-        ))}
+        {entries(side).map((action) => {
+          const placement = action.icon ? (action.labelPlacement ?? "inline") : "inline";
+          return (
+            <NativeButton
+              key={action.id}
+              disabled={disabled || action.disabled}
+              aria-label={placement === "hidden" ? action.label : undefined}
+              data-swipe-action=""
+              {...stylex.props(s.action)}
+              onClick={() => {
+                controller.setOpenSide(null);
+                return action.onAction();
+              }}
+            >
+              <span
+                {...stylex.props(
+                  s.face,
+                  placement === "below" && s.captionFace,
+                  action.variant === "danger" && s.danger,
+                  action.variant === "tint" && s.tint,
+                )}
+              >
+                {action.icon && (
+                  <span
+                    aria-hidden="true"
+                    {...stylex.props(s.actionIcon, placement === "inline" && s.inlineIcon)}
+                  >
+                    {action.icon}
+                  </span>
+                )}
+                {placement === "inline" && <span {...stylex.props(s.label)}>{action.label}</span>}
+              </span>
+              {placement === "below" && (
+                <span data-swipe-caption="" {...stylex.props(s.label, s.caption)}>
+                  {action.label}
+                </span>
+              )}
+            </NativeButton>
+          );
+        })}
       </Primitive.Actions>
     ) : null;
   const onFullSwipe: SwipeActionsOptions["onFullSwipe"] = (side) => {
