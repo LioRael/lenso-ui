@@ -49,14 +49,36 @@ try {
         page.on("pageerror", (error) => errors.push(error.message));
         await page.goto(`${base}__swipe-wheel?theme=${theme}`, { timeout: 120_000 });
         const row = page.locator('[data-case="row"]');
+        const cover = row.locator('[data-lenso-slot="swipe-actions-content"]');
+        const leading = row.getByRole("button", { name: "Show leading actions" });
+        await leading.click();
+        const archive = row.getByRole("button", { name: "Archive", exact: true });
+        assert.ok(await archive.isVisible());
+        assert.equal(await archive.textContent(), "↓", "icon-only keeps the name off the face");
+        await archive.press("Escape");
+        assert.equal(
+          await cover.evaluate((node) => getComputedStyle(node).borderStartEndRadius),
+          "0px",
+        );
         await row.getByRole("button", { name: "Show trailing actions" }).click();
         const remove = row.getByRole("button", { name: "Delete", exact: true });
         assert.ok(
-          await remove.evaluate((node) => parseFloat(getComputedStyle(node).borderRadius) >= 16),
+          await cover.evaluate(
+            (node) =>
+              parseFloat(getComputedStyle(node).borderStartEndRadius) >= node.clientHeight / 2,
+          ),
         );
         assert.equal(
-          await remove.evaluate((node) => getComputedStyle(node).color),
-          "rgb(255, 255, 255)",
+          await cover.evaluate((node) => getComputedStyle(node).borderStartStartRadius),
+          "0px",
+        );
+        const symbol = await remove.getByText("×", { exact: true }).boundingBox();
+        const caption = await remove.getByText("Delete", { exact: true }).boundingBox();
+        assert.ok(caption.y > symbol.y + symbol.height, "caption sits below the symbol");
+        assert.ok(
+          await remove
+            .getByText("×", { exact: true })
+            .evaluate((node) => getComputedStyle(node).color === "rgb(255, 255, 255)"),
         );
         await row
           .getByRole("button", { name: "Show trailing actions" })
@@ -225,6 +247,15 @@ try {
               (node) =>
                 node.getBoundingClientRect().x < node.parentElement.getBoundingClientRect().x + 2,
             ),
+        );
+        assert.ok(
+          await cover.evaluate(
+            (node) => parseFloat(getComputedStyle(node).borderTopLeftRadius) > 0,
+          ),
+        );
+        assert.equal(
+          await cover.evaluate((node) => getComputedStyle(node).borderTopRightRadius),
+          "0px",
         );
         await row.getByRole("button", { name: "Show trailing actions" }).click();
         await page.getByRole("button", { name: "Toggle disabled" }).click();

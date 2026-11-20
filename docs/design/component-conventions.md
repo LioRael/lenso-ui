@@ -359,9 +359,14 @@ bubbled `lostpointercapture` during that transfer. Non-editable row text suppres
 selection and callout, while focused native editors retain both. Release selection
 projects recent movement by 150ms and discards velocity after a 100ms pause; these
 are Lenso choices matching the observed slow/fast cases, not a native spring fit.
-Actions use 4.5px vertical inset, 10px gap/edge spacing, 63px minimum width and 16px
-corners, adapted from the 68pt-row device reference. Solid destructive/tint fills
-retain white labels; neutral actions keep readable semantic labels.
+The [Figma row reference](https://www.figma.com/design/PUcXplzG6sQoXpLMdKJS0T/?node-id=550-49969)
+rounds only the revealed end of the moving row. Action capsules use a 60px
+minimum width, 10px between buttons and 16px from the outside edge. With an icon,
+`labelPlacement` supports `inline` (default), `hidden` (label remains the accessible
+name) and `below` (68px minimum row height). Without an icon, the text stays visible
+inside the capsule. The label beneath a capsule is part of its button hit target.
+Existing calls need no migration. Lenso keeps semantic colors rather than copying
+Figma's sample fills, and retains the non-gesture reveal buttons for the web.
 
 WheelPicker composes the existing ListBox selection model with native scrolling
 and CSS snap alignment. Single selection follows keyboard focus and stops at the

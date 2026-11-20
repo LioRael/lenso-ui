@@ -31,6 +31,8 @@ export function SwipeWheelFixture({ dark = false }: { dark?: boolean }) {
                 {
                   id: "archive",
                   label: "Archive",
+                  icon: <span>↓</span>,
+                  labelPlacement: "hidden",
                   variant: "tint",
                   fullSwipe: true,
                   onAction: () => setCount(count + 1),
@@ -40,6 +42,8 @@ export function SwipeWheelFixture({ dark = false }: { dark?: boolean }) {
                 {
                   id: "delete",
                   label: "Delete",
+                  icon: <span>×</span>,
+                  labelPlacement: "below",
                   variant: "danger",
                   onAction: () => setCount(count + 1),
                 },

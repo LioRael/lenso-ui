@@ -67711,7 +67711,7 @@
       "description": "",
       "source": {
         "path": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
-        "line": 31
+        "line": 32
       },
       "default": null
     },
@@ -67723,7 +67723,7 @@
       "description": "",
       "source": {
         "path": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
-        "line": 32
+        "line": 33
       },
       "default": null
     },
@@ -67735,7 +67735,7 @@
       "description": "",
       "source": {
         "path": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
-        "line": 33
+        "line": 34
       },
       "default": null
     },
@@ -67747,7 +67747,7 @@
       "description": "",
       "source": {
         "path": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
-        "line": 34
+        "line": 35
       },
       "default": "null"
     },
@@ -67759,7 +67759,7 @@
       "description": "",
       "source": {
         "path": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
-        "line": 35
+        "line": 36
       },
       "default": null
     },
@@ -67771,7 +67771,7 @@
       "description": "",
       "source": {
         "path": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
-        "line": 36
+        "line": 37
       },
       "default": "\"Show leading actions\""
     },
@@ -67783,7 +67783,7 @@
       "description": "",
       "source": {
         "path": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
-        "line": 37
+        "line": 38
       },
       "default": "\"Show trailing actions\""
     },
@@ -94275,7 +94275,7 @@
           "props": "SwipeActionsProps",
           "source": {
             "path": "packages/ui/src/components/swipe-actions/swipe-actions.tsx",
-            "line": 39
+            "line": 40
           },
           "native": ["@ui-sdk/core"],
           "members": [],
