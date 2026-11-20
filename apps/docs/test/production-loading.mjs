@@ -17,7 +17,9 @@ const server = await startStaticServer();
 const { base } = server;
 
 try {
-  for (const [name, engine] of Object.entries({ chromium, webkit })) {
+  async function checkEngine([name, engine]) {
+    const started = performance.now();
+    console.log(`${name}: starting production checks`);
     const browser = await engine.launch();
     try {
       for (const [route, budget, byteBudget, gzipBudget] of [
@@ -205,8 +207,16 @@ try {
       throw error;
     } finally {
       await browser.close();
+      console.log(`${name}: production checks took ${Math.round(performance.now() - started)}ms`);
     }
   }
+
+  // Wait for both browsers to finish and save their traces before closing the shared server.
+  const results = await Promise.allSettled(Object.entries({ chromium, webkit }).map(checkEngine));
+  const errors = results
+    .filter((result) => result.status === "rejected")
+    .map((result) => result.reason);
+  if (errors.length) throw new AggregateError(errors, "Production browser checks failed");
 } finally {
   await server.close();
 }
