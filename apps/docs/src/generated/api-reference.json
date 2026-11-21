@@ -53393,7 +53393,7 @@
       "expandedType": "undefined | \"auto\" | \"cascade\" | \"stacked\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 465 },
+      "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 466 },
       "default": "\"auto\""
     },
     {
@@ -87599,7 +87599,7 @@
           "name": "MenuContent",
           "signature": "(props: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuContent>>): React.JSX.Element",
           "props": "StyleXProps<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"children\" | \"className\" | \"style\"> & { className?: string | ((state: SdkMenu.MenuContentState<unknown>) => string | undefined) | undefined; style?: React.CSSProperties | ((state: SdkMenu.MenuContentState<unknown>) => React.CSSProperties | undefined) | undefined; render?: RenderProp<SdkMenu.MenuContentState<unknown>> | undefined; children?: ((state: SdkMenu.MenuContentState<unknown>) => React.ReactNode) | React.ReactNode; } & PositionProps & PortalProps & { side?: PositionProps[\"side\"]; align?: PositionProps[\"align\"]; sideOffset?: number; alignOffset?: number; finalFocus?: SdkMenu.MenuFinalFocus; keepMounted?: boolean; }>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 355 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 356 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87635,7 +87635,7 @@
           "name": "MenuSubContent",
           "signature": "(props: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuSubContent>>): React.JSX.Element",
           "props": "StyleXProps<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"children\" | \"className\" | \"style\"> & { className?: string | ((state: SdkMenu.MenuContentState<unknown>) => string | undefined) | undefined; style?: React.CSSProperties | ((state: SdkMenu.MenuContentState<unknown>) => React.CSSProperties | undefined) | undefined; render?: RenderProp<SdkMenu.MenuContentState<unknown>> | undefined; children?: ((state: SdkMenu.MenuContentState<unknown>) => React.ReactNode) | React.ReactNode; } & PositionProps & PortalProps & { side?: PositionProps[\"side\"]; align?: PositionProps[\"align\"]; sideOffset?: number; alignOffset?: number; finalFocus?: SdkMenu.MenuFinalFocus; keepMounted?: boolean; }>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 358 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 359 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87671,7 +87671,7 @@
           "name": "MenuBar",
           "signature": "({ xstyle, style, children, ref, render, ...props }: StyleXProps<PartProps<\"div\">>): React.ReactElement<any, string | React.JSXElementConstructor<any>>",
           "props": "StyleXProps<PartProps<\"div\">>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 363 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 364 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {},
@@ -87699,7 +87699,7 @@
           "name": "MenuBarItem",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<typeof NativeButton>>): React.JSX.Element",
           "props": "StyleXProps<Omit<Omit<PartProps<\"button\", ButtonState>, \"onClick\" | \"type\"> & { disabled?: boolean; focusableWhenDisabled?: boolean; type?: \"button\" | \"submit\" | \"reset\"; pendingAnnouncement?: string; } & PrimitiveOptions & { onClick?: (event: React.MouseEvent<HTMLElement>, details: ButtonActionDetails) => unknown; }, \"ref\"> & { ref?: React.Ref<HTMLElement>; \"data-lenso-slot\"?: unknown; }>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 393 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 394 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87734,7 +87734,7 @@
           "name": "MenuSeparator",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuSeparator>>): React.JSX.Element",
           "props": "StyleXProps<object & BaseSlotProps & ElementProps<\"div\", {}, object & BaseSlotProps>>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 408 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 409 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {},
@@ -87762,7 +87762,7 @@
           "name": "MenuSubTrigger",
           "signature": "({ ref, children, xstyle, style, ...props }: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuSubTrigger>>): React.JSX.Element",
           "props": "StyleXProps<Omit<PartProps<\"div\", SdkMenu.MenuTriggerState>, Clashing> & SubTriggerProps>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 423 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 424 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87795,7 +87795,7 @@
           "name": "MenuSub",
           "signature": "({ presentation, controller, onOpenChange, ...props }: React.ComponentProps<typeof SdkMenu.MenuSub> & {\n    presentation?: \"auto\" | \"stacked\" | \"cascade\";\n}): React.JSX.Element",
           "props": "Pick<SdkMenu.MenuOptions, \"controller\" | \"debug\" | \"defaultOpen\" | \"delay\" | \"loop\" | \"onOpenChange\" | \"onOpenChangeComplete\" | \"open\"> & { children?: React.ReactNode; } & { presentation?: \"auto\" | \"stacked\" | \"cascade\"; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 459 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 460 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {},
@@ -87805,7 +87805,7 @@
           "name": "MenuRadioGroup",
           "signature": "<T extends string = string>({ name, value, defaultValue, onValueChange, render, ...props }: Omit<PartProps<\"div\", SdkMenu.MenuRadioGroupState>, Clashing> & SdkMenu.MenuRadioGroupProps<T>): React.JSX.Element | null",
           "props": "Omit<PartProps<\"div\", MenuRadioGroupState>, Clashing> & Omit<RadioGroupProps<T>, \"name\"> & { name?: string; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 506 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 507 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87837,7 +87837,7 @@
           "name": "MenuExpandTrigger",
           "signature": "({ xstyle, children, ...props }: React.ComponentProps<typeof MenuTrigger>): React.JSX.Element",
           "props": "Omit<Omit<PartProps<\"button\", SdkMenu.MenuTriggerState>, Clashing> & TriggerProps & { controller?: SdkMenu.MenuController<any>; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-menu-expand\"?: boolean; morphSource?: \"container\" | \"trigger\" | \"toolbar\"; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 507 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 508 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87871,7 +87871,7 @@
           "name": "MenuActionGroup",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentPropsWithRef<typeof SdkMenu.MenuGroup>>): React.JSX.Element",
           "props": "StyleXProps<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"children\" | \"className\" | \"style\"> & { className?: string | ((state: {}) => string | undefined) | undefined; style?: React.CSSProperties | ((state: {}) => React.CSSProperties | undefined) | undefined; render?: RenderProp<{}> | undefined; children?: ((state: {}) => React.ReactNode) | React.ReactNode; }>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 529 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 530 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {},
@@ -87899,7 +87899,7 @@
           "name": "MenuAction",
           "signature": "({ xstyle, ...props }: React.ComponentProps<typeof MenuItem>): React.JSX.Element",
           "props": "Omit<Omit<Omit<PartProps<\"div\", SdkMenu.MenuItemState>, Clashing> & ItemProps, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<Omit<PartProps<\"div\", SdkMenu.MenuItemState>, Clashing> & ItemProps, \"ref\"> & { variant?: \"default\" | \"danger\"; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 544 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 545 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87934,7 +87934,7 @@
           "name": "Menu",
           "signature": "({ elastic, morphTrigger, onOpenChange, ...props }: MenuRootProps): React.JSX.Element",
           "props": "MenuRootProps",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 547 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 548 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [
             "Root",
