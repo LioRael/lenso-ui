@@ -176,6 +176,7 @@ export function PhotosSelectionActions({
 export function PhotosSelectionMenu({
   count,
   active = true,
+  side = "bottom",
   allFavorites,
   onFavorite,
   onAddTo,
@@ -183,6 +184,7 @@ export function PhotosSelectionMenu({
 }: {
   count: number;
   active?: boolean;
+  side?: "left" | "bottom";
   allFavorites: boolean;
   onFavorite: () => void;
   onAddTo: (album: DemoPhoto["collection"]) => void;
@@ -204,7 +206,11 @@ export function PhotosSelectionMenu({
           <Ellipsis width={22} height={22} />
         </span>
       </Menu.Trigger>
-      <Menu.Content aria-label="Selection options" side="bottom" align="end">
+      <Menu.Content
+        aria-label="Selection options"
+        side={side}
+        align={side === "left" ? "start" : "end"}
+      >
         <Menu.Item onClick={onFavorite}>
           <Menu.Item.Icon>
             <Heart />

@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useRef } from "react";
 
-export function usePhotosSelectionTransition(selecting: boolean) {
+export function usePhotosSelectionTransition(selecting: boolean, vertical: boolean) {
   const root = useRef<HTMLDivElement>(null);
   const before = useRef(new Map<string, { rect: DOMRect; contents: DOMRect[] }>());
   const animations = useRef(new Set<Animation>());
@@ -36,6 +36,7 @@ export function usePhotosSelectionTransition(selecting: boolean) {
       );
     };
     host.querySelectorAll<HTMLElement>("[data-selection-morph]").forEach((element) => {
+      if (vertical) return; // The Duo rail animates capsule height in layout.
       const snapshot = previous.get(element.dataset["selectionMorph"]!);
       const from = snapshot?.rect;
       const to = element.getBoundingClientRect();
@@ -77,7 +78,7 @@ export function usePhotosSelectionTransition(selecting: boolean) {
       .closest("main")
       ?.querySelector(selecting ? "[data-photo-selection-footer]" : '[data-lenso-slot="tab-bar"]');
     if (footer) play(footer, [{ transform: "translateY(10px)" }, { transform: "none" }], 180);
-  }, [selecting]);
+  }, [selecting, vertical]);
   useLayoutEffect(
     () => () => {
       animations.current.forEach((animation) => animation.cancel());

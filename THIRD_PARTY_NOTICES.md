@@ -1180,13 +1180,15 @@ SOFTWARE.
 Copyright (c) 2026 Kelvin Zhang and Moein Saharkhiz. Full MIT license and file-level
 adaptation details are in `packages/ui-native/LICENSE` and `packages/ui-native/NOTICE.md`.
 
-## Duo fold ramp and hinge strip (MIT)
+## Duo fold ramp, hinge strip and status ring (MIT)
 
 The fold progress and edge-shading curves in `apps/docs/src/lib/device-scene.ts`
 adapt the live DOM ramp from `doan-labs/duo`, `packages/shell/main.ts`; the curved
 hinge strip adapts `packages/shell/shaders/fold.ts` from the same project, commit
 `3b94a8c45f8dd98f72fc8005ae496e063b38b379`. The projected iframe implementation
 uses StyleX and smoothly masked SVG blur levels instead of backdrop-filter bands.
+The Photos Device Lab status glyph adapts the ring and radio geometry from
+[`packages/shell/springboard/status-bar.tsx`](https://github.com/doan-labs/duo/blob/60c5218a1438a735671c55f02e8913ca73a95f7c/packages/shell/springboard/status-bar.tsx).
 No device model or simulated operating system assets are included.
 
 MIT License

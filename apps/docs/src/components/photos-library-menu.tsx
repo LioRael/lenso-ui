@@ -81,6 +81,7 @@ export function PhotosLibraryMenu({
   library = true,
   grid = true,
   trigger,
+  side = "bottom",
 }: {
   filter: PhotoFilter;
   onFilter: (value: PhotoFilter) => void;
@@ -93,6 +94,7 @@ export function PhotosLibraryMenu({
   library?: boolean;
   grid?: boolean;
   trigger?: ReactElement;
+  side?: "left" | "bottom";
 }) {
   function item(value: PhotoFilter) {
     const Icon = {
@@ -130,9 +132,9 @@ export function PhotosLibraryMenu({
       <Menu.Content
         aria-label="Sort and filter"
         xstyle={[s.popup, photos.menuGlass]}
-        side="bottom"
-        sideOffset={24}
-        align="end"
+        side={side}
+        sideOffset={side === "left" ? 8 : 24}
+        align={side === "left" ? "start" : "end"}
       >
         {library && (
           <>

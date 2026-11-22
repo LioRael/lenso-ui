@@ -135,6 +135,51 @@ function Collections({
   );
 }
 
+function DuoStatus({ cover }: { cover: boolean }) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 10_000);
+    return () => window.clearInterval(timer);
+  }, []);
+  return (
+    <aside aria-label="Device status" {...stylex.props(s.deviceStatus)}>
+      <time>
+        {now.toLocaleTimeString(undefined, {
+          hour: "numeric",
+          minute: "2-digit",
+          hourCycle: "h23",
+        })}
+      </time>
+      {cover && (
+        // Status glyph geometry adapted from Doan Labs' Duo (MIT).
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 40 44"
+          width="40"
+          height="44"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+        >
+          <path d="M6.4 30.8a15.8 15.8 0 1 1 27.2 0" strokeWidth="2.6" />
+          <path d="M13 21a10.2 10.2 0 0 1 14 0m-11 3.1a6 6 0 0 1 8 0" strokeWidth="2.3" />
+          <path
+            d="M18.2 26.3q1.8-1.45 3.6 0a.5.5 0 0 1 0 .7l-1.4 1.4a.6.6 0 0 1-.8 0L18.2 27a.5.5 0 0 1 0-.7Z"
+            fill="currentColor"
+            stroke="none"
+          />
+          <g fill="currentColor" stroke="none" opacity=".28">
+            <circle cx="12" cy="36" r="1.65" />
+            <circle cx="17.4" cy="38" r="1.65" />
+            <circle cx="22.6" cy="38" r="1.65" />
+            <circle cx="28" cy="36" r="1.65" />
+          </g>
+        </svg>
+      )}
+    </aside>
+  );
+}
+
 export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) {
   const [local] = useState(() => (controlled ? null : createPhotosSession()));
   const model = controlled ?? local!.screen("standalone");
@@ -143,6 +188,10 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const tablet = useSyncExternalStore(subscribeTablet, isTabletViewport, isServerTablet);
   const landscape = useSyncExternalStore(subscribeLandscape, isLandscapeViewport, isServerTablet);
   const dockSidebar = tablet && landscape;
+  const cover = model.surface === "cover";
+  const verticalControls = cover || (model.surface !== "standalone" && landscape);
+  const Navigation = verticalControls ? Toolbar : TabBar;
+  const NavigationGroup = verticalControls ? Toolbar.Group : TabBar.Group;
   const [destination, setDestination] = usePhotosField(model, "destination");
   const [query, setQuery] = usePhotosField(model, "query");
   const [recentSearches, setRecentSearches] = usePhotosField(model, "recentSearches");
@@ -150,6 +199,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const { fieldRef: searchFieldRef, capture: captureSearch } = usePhotosSearchTransition(
     destination === "search",
     searchTrigger,
+    verticalControls,
   );
   const searchRequested = useRef(false);
   const focusSearch = useCallback(
@@ -185,8 +235,10 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const [dense, setDense] = usePhotosField(model, "dense");
   const [dark, setDark] = usePhotosField(model, "dark");
   const [selecting, setSelectingState] = usePhotosField(model, "selecting");
-  const { headerRef: selectionHeaderRef, capture: captureSelection } =
-    usePhotosSelectionTransition(selecting);
+  const { headerRef: selectionHeaderRef, capture: captureSelection } = usePhotosSelectionTransition(
+    selecting,
+    verticalControls,
+  );
   function setSelecting(value: boolean, animate = false) {
     captureSelection(animate);
     setSelectingState(value);
@@ -490,12 +542,19 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     collection ??
     (destination === "library" ? "Library" : destination === "search" ? "Search" : "Collections");
   const headingOverPhotos = isLibrary && libraryView === "all" && visible.length > 0;
+  const railSearch = verticalControls && destination === "search";
   return (
     <ThemeScope
       theme={dark ? "dark" : "light"}
-      xstyle={[s.root, dockSidebar && s.dockSidebar]}
+      xstyle={[
+        s.root,
+        dockSidebar && s.dockSidebar,
+        verticalControls && s.verticalControls,
+        cover && s.coverControls,
+      ]}
       inert={!interactive}
     >
+      {verticalControls && <DuoStatus cover={cover} />}
       <Tabs
         value={libraryView}
         onValueChange={(value) => {
@@ -551,7 +610,13 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
           }}
           {...stylex.props(s.main)}
         >
-          <header {...stylex.props(s.header, headingOverPhotos && s.libraryHeader)}>
+          <header
+            {...stylex.props(
+              s.header,
+              headingOverPhotos && s.libraryHeader,
+              railSearch && s.railSearchHeader,
+            )}
+          >
             {headingOverPhotos && <ScrollEdge variant="soft" edge="top" xstyle={s.headerEdge} />}
             <div {...stylex.props(s.headingRow)}>
               <div
@@ -570,12 +635,25 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               <GlassContainer
                 ref={selectionHeaderRef}
                 spacing={8}
-                xstyle={[s.actions, s.libraryGlass, destination === "search" && s.hidden]}
+                xstyle={[
+                  s.actions,
+                  s.libraryGlass,
+                  verticalControls && s.railActions,
+                  destination === "search" && s.hidden,
+                ]}
               >
-                <Toolbar aria-label={selecting ? "Selection options" : "Library options"}>
+                <Toolbar
+                  orientation={verticalControls ? "vertical" : "horizontal"}
+                  aria-label={selecting ? "Selection options" : "Library options"}
+                >
                   <Toolbar.Group
                     data-selection-morph="filter"
-                    xstyle={[s.headerFilterGroup, selecting && s.headerFilterExpanded]}
+                    xstyle={[
+                      s.headerFilterGroup,
+                      verticalControls && s.railFilterGroup,
+                      selecting &&
+                        (verticalControls ? s.railFilterExpanded : s.headerFilterExpanded),
+                    ]}
                   >
                     <PhotosLibraryMenu
                       filter={filter}
@@ -587,6 +665,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                       dark={dark}
                       onDark={setDark}
                       library={isLibrary}
+                      side={verticalControls ? "left" : "bottom"}
                       grid={
                         (destination !== "collections" || Boolean(collection)) &&
                         (!isLibrary || libraryView === "all")
@@ -598,10 +677,16 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     <span
                       inert={!selecting}
                       aria-hidden={!selecting}
-                      {...stylex.props(s.headerMore, selecting && s.headerMoreVisible)}
+                      {...stylex.props(
+                        s.headerMore,
+                        selecting && s.headerMoreVisible,
+                        verticalControls && s.railMore,
+                        verticalControls && selecting && s.railMoreVisible,
+                      )}
                     >
                       <PhotosSelectionMenu
                         active={selecting}
+                        side={verticalControls ? "left" : "bottom"}
                         count={selection.size}
                         allFavorites={allFavorites}
                         onFavorite={favoriteSelection}
@@ -627,7 +712,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                       s.selectControl,
                       s.libraryGlassButton,
                       s.selectionSwitch,
-                      selecting && s.selectionSwitchActive,
+                      (selecting || verticalControls) && s.selectionSwitchActive,
                     ]}
                     onClick={(event) => {
                       if (selecting) {
@@ -650,7 +735,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                         aria-hidden={selecting}
                         {...stylex.props(s.selectionLabel, selecting && s.selectionLabelHidden)}
                       >
-                        Select
+                        {verticalControls ? <Check width={22} height={22} /> : "Select"}
                       </span>
                       <span
                         aria-hidden={!selecting}
@@ -661,7 +746,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     </span>
                   </GlassButton>
                 )}
-                {tablet && destination !== "search" && !selecting && (
+                {(tablet || verticalControls) && destination !== "search" && !selecting && (
                   <GlassButton
                     ref={searchTrigger}
                     isIconOnly
@@ -886,8 +971,13 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
             glassTint={0.875}
             xstyle={[
               s.navigation,
-              tablet && !selecting && destination !== "search" && s.tabletNavigationHost,
+              (tablet || verticalControls) &&
+                !selecting &&
+                destination !== "search" &&
+                s.tabletNavigationHost,
+              verticalControls && s.railBottomContent,
               destination === "search" && s.searchNavigation,
+              railSearch && s.railSearchDock,
             ]}
           >
             {destination === "search" ? (
@@ -931,6 +1021,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   data-search-close=""
                   isIconOnly
                   aria-label="Close search"
+                  xstyle={railSearch && s.headerIconButton}
                   onClick={(event) => closeSearch(event.detail > 0)}
                 >
                   <Xmark width={22} height={22} />
@@ -943,27 +1034,52 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                 onDelete={deleteSelection}
               />
             ) : (
-              <TabBar
+              <Navigation
                 aria-label="Photos navigation"
-                layout={tablet ? "tablet" : "phone"}
-                xstyle={[tablet && s.tabletNavigation, tablet && s.sidebarCovered]}
-                autoMinimize={!tablet && isLibrary && libraryView === "all" ? "up" : false}
-                scrollTarget={main}
-                minimized={!tablet && navigationMinimized}
-                onMinimizedChange={setNavigationMinimized}
+                xstyle={
+                  verticalControls
+                    ? s.railNavigation
+                    : [tablet && s.tabletNavigation, tablet && s.sidebarCovered]
+                }
+                {...(verticalControls
+                  ? { orientation: "vertical" as const }
+                  : {
+                      layout: tablet ? ("tablet" as const) : ("phone" as const),
+                      autoMinimize:
+                        !tablet && isLibrary && libraryView === "all"
+                          ? ("up" as const)
+                          : (false as const),
+                      scrollTarget: main,
+                      minimized: !tablet && navigationMinimized,
+                      onMinimizedChange: setNavigationMinimized,
+                    })}
               >
-                <TabBar.Group xstyle={!tablet && !navigationMinimized && s.compactDestinations}>
+                <NavigationGroup
+                  xstyle={[
+                    cover && s.coverNavigationGroup,
+                    !verticalControls && !tablet && !navigationMinimized && s.compactDestinations,
+                  ]}
+                >
                   {tablet && (
                     <Drawer side="start" modal={!dockSidebar} preventEdgeSwipe>
                       <Drawer.Trigger
                         aria-label="Show sidebar"
                         data-photos-sidebar-trigger=""
                         render={
-                          <TabBar.Button
-                            iconOnly
-                            icon={<LayoutSideContentLeft />}
-                            xstyle={dockSidebar && s.sidebarCoveredControl}
-                          />
+                          verticalControls ? (
+                            <Toolbar.Button
+                              isIconOnly
+                              xstyle={[s.headerIconButton, s.sidebarCoveredControl]}
+                            >
+                              <LayoutSideContentLeft />
+                            </Toolbar.Button>
+                          ) : (
+                            <TabBar.Button
+                              iconOnly
+                              icon={<LayoutSideContentLeft />}
+                              xstyle={dockSidebar && s.sidebarCoveredControl}
+                            />
+                          )
                         }
                       />
                       {!dockSidebar && <Drawer.Backdrop xstyle={s.sidebarBackdrop} />}
@@ -1030,32 +1146,43 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                       </Drawer.Content>
                     </Drawer>
                   )}
-                  <TabBar.Link
-                    href="#library"
-                    xstyle={dockSidebar && s.sidebarCoveredControl}
-                    isCurrent={destination === "library"}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigate("library");
-                    }}
-                    icon={<CopyPicture />}
-                  >
-                    Library
-                  </TabBar.Link>
-                  <TabBar.Link
-                    href="#collections"
-                    xstyle={dockSidebar && s.sidebarCoveredControl}
-                    isCurrent={destination === "collections"}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigate("collections");
-                    }}
-                    icon={<LayoutCellsLarge />}
-                  >
-                    Collections
-                  </TabBar.Link>
-                </TabBar.Group>
-                {!tablet && (
+                  {(
+                    [
+                      ["library", "Library", CopyPicture],
+                      ["collections", "Collections", LayoutCellsLarge],
+                    ] as const
+                  ).map(([value, label, Icon]) => {
+                    const props = {
+                      href: `#${value}`,
+                      onClick: (event: React.MouseEvent<HTMLAnchorElement>) => {
+                        event.preventDefault();
+                        navigate(value);
+                      },
+                    };
+                    return verticalControls ? (
+                      <Toolbar.Link
+                        key={value}
+                        {...props}
+                        aria-label={label}
+                        aria-current={destination === value ? "page" : undefined}
+                        xstyle={[s.railLink, cover && s.coverRailLink]}
+                      >
+                        <Icon width={22} height={22} aria-hidden="true" />
+                      </Toolbar.Link>
+                    ) : (
+                      <TabBar.Link
+                        key={value}
+                        {...props}
+                        xstyle={dockSidebar && s.sidebarCoveredControl}
+                        isCurrent={destination === value}
+                        icon={<Icon />}
+                      >
+                        {label}
+                      </TabBar.Link>
+                    );
+                  })}
+                </NavigationGroup>
+                {!tablet && !verticalControls && (
                   <TabBar.Group separate>
                     <TabBar.Button
                       ref={searchTrigger}
@@ -1066,16 +1193,23 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     </TabBar.Button>
                   </TabBar.Group>
                 )}
-              </TabBar>
+              </Navigation>
             )}
-            {!selecting && isLibrary && (tablet || navigationMinimized) && (
-              <div {...stylex.props(s.timelineControls, tablet && s.tabletTimelineControls)}>
+            {!selecting && isLibrary && (tablet || verticalControls || navigationMinimized) && (
+              <div
+                {...stylex.props(
+                  s.timelineControls,
+                  (tablet || verticalControls) && s.tabletTimelineControls,
+                  verticalControls && s.railTimeline,
+                )}
+              >
                 <Tabs.ListContainer xstyle={s.timelineContainer}>
                   <Tabs.List
                     aria-label="Library view"
                     xstyle={[
                       s.timelineList,
                       tablet && s.tabletTimelineList,
+                      verticalControls && s.railTimelineList,
                       !dark && s.timelineLightSelection,
                     ]}
                   >
