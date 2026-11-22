@@ -16,6 +16,7 @@ const graph = [
   { file: "assets/b.js", modules: ["packages/docs/dist/framework/docs-theme-panel.js"] },
   { file: "assets/c.js", modules: ["apps/docs/src/stories/story-source.tsx"] },
   { file: "assets/d.js", modules: ["apps/docs/src/lib/page-markdown.ts"] },
+  { file: "assets/settings.js", modules: ["packages/docs/dist/framework/docs-settings-panel.js"] },
   { file: "assets/e.js", modules: ["apps/docs/src/generated/lenso-docs-index.json"] },
 ];
 const initial = graph.slice(0, 3).map((chunk) => chunk.file);
@@ -30,7 +31,7 @@ test("accepts deferred implementations regardless of their chunk names", () => {
 // A permitted filename must not conceal an eagerly loaded implementation.
 test("rejects lazy implementations merged into an initially loaded chunk", () => {
   for (const deferred of [
-    ...graph.slice(3, 7),
+    ...graph.slice(3, -1),
     { modules: ["node_modules/@shikijs/langs/dist/typescript.mjs"] },
     { modules: ["node_modules/@shikijs/engine-oniguruma/dist/wasm-inlined.mjs"] },
   ]) {

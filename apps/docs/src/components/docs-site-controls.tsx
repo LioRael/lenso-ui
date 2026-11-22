@@ -6,17 +6,15 @@ import { TabBar } from "@lenso/ui/tab-bar";
 import Link from "fumadocs-core/link";
 import {
   DocumentationCompactSearchTrigger,
-  DocumentationLanguageToggle,
   useDocumentationSearchTrigger,
   type DocumentationSiteLayoutProps,
 } from "@lenso/docs/client";
+import { DocsSettings, type DocsSettingsProps } from "@lenso/docs/appearance";
 import { Globe, LogoGithub, Magnifier } from "@gravity-ui/icons";
 import { GlassButton } from "@lenso/ui";
 import type { Locale } from "@/lib/source";
 import { headerControls as s } from "@/styles/header-controls.stylex";
 import { SearchDialog } from "./fumadocs/ui/search-dialog";
-import { ThemeToggle } from "./fumadocs/ui/theme-toggle";
-import { DocsThemePicker } from "./docs-theme-picker";
 
 export function SiteSearch({ locale }: { locale: Locale }) {
   return <SearchDialog locale={locale} />;
@@ -28,24 +26,14 @@ export function DesktopActions({
   repository,
 }: {
   locale: Locale;
-  alternates: Parameters<typeof DocumentationLanguageToggle>[0]["alternates"];
+  alternates: DocsSettingsProps["alternates"];
   repository: string;
 }) {
   return (
     <>
-      <DocumentationLanguageToggle locale={locale} alternates={alternates} />
-      <AppearanceControls locale={locale} />
+      <DocsSettings locale={locale} alternates={alternates} />
       <RepositoryControl repository={repository} />
     </>
-  );
-}
-
-export function AppearanceControls({ locale }: { locale: Locale }) {
-  return (
-    <fieldset aria-label={locale === "cn" ? "外观" : "Appearance"} {...stylex.props(s.appearance)}>
-      <DocsThemePicker locale={locale} />
-      <ThemeToggle />
-    </fieldset>
   );
 }
 
@@ -65,20 +53,14 @@ export function RepositoryControl({ repository }: { repository: string }) {
   );
 }
 
-export function MobileActions({ locale }: { locale: Locale }) {
-  return <DocsThemePicker locale={locale} />;
-}
-
-export function DrawerActions({
+export function MobileActions({
   locale,
   alternates,
-}: Parameters<typeof DocumentationLanguageToggle>[0]) {
-  return (
-    <>
-      <DocumentationLanguageToggle locale={locale} alternates={alternates} />
-      <ThemeToggle />
-    </>
-  );
+}: {
+  locale: Locale;
+  alternates: DocsSettingsProps["alternates"];
+}) {
+  return <DocsSettings presentation="sheet" locale={locale} alternates={alternates} />;
 }
 
 export function ReactWebDrawerLabel() {

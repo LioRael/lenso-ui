@@ -15,7 +15,7 @@ for (const [name, type] of [
         await page.goto(`${base}/en/docs/react/components/glass-button`, {
           waitUntil: "domcontentloaded",
         });
-        await page.getByRole("button", { name: "Theme", exact: true }).waitFor();
+        await page.getByRole("button", { name: "Settings", exact: true }).waitFor();
         await page.evaluate(
           async ({ theme, tint }) => {
             const { mount } = await import("/test/glass-prominent-fixture.tsx");

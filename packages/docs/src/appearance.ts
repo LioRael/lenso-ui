@@ -1,6 +1,7 @@
 "use client";
 export { ThemeToggle } from "./theme-toggle";
 export { DocsThemePicker } from "./docs-theme-picker";
+export { DocsSettings, type DocsSettingsProps } from "./docs-settings";
 export { DocsDesignThemeProvider } from "./docs-design-theme";
 export {
   DesignThemeContext,

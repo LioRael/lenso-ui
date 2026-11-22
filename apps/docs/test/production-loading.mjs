@@ -86,7 +86,7 @@ try {
         assert.ok(gzip <= gzipBudget, `${route} exceeds its compressed-JavaScript budget`);
         assert.deepEqual(
           loaded.filter((script) =>
-            /\/search-dialog-|\/wasm-inlined-|\/typescript-|\/(?:docs-theme-panel|story-source|page-markdown)-/.test(
+            /\/search-dialog-|\/wasm-inlined-|\/typescript-|\/(?:docs-(?:settings|theme)-panel|story-source|page-markdown)-/.test(
               script.url,
             ),
           ),

@@ -4,6 +4,7 @@ import type { Plugin } from "vite";
 
 const deferred = [
   /packages\/docs\/(?:dist\/framework|src)\/search-dialog\.[jt]sx?$/,
+  /packages\/docs\/(?:dist\/framework|src)\/docs-settings-panel\.[jt]sx?$/,
   /packages\/docs\/(?:dist\/framework|src)\/docs-theme-panel\.[jt]sx?$/,
   /apps\/docs\/src\/stories\/story-source\.tsx$/,
   /apps\/docs\/src\/lib\/page-markdown\.ts$/,

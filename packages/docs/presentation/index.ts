@@ -5,3 +5,4 @@ export { sidebar } from "./styles/sidebar.stylex";
 export { codeStyles } from "./styles/code.stylex";
 export { headerControls } from "./styles/header-controls.stylex";
 export { docsThemePicker } from "./styles/docs-theme-picker.stylex";
+export { docsSettings } from "./styles/docs-settings.stylex";

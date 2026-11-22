@@ -125,6 +125,13 @@ custom controls to `desktopActions`, `mobileActions` or `drawerActions`.
 MDX Tabs compose the public Lenso Tabs component. Product-specific controls such
 as a release selector remain slots.
 
+The Lenso UI site uses `DocsSettings` from `@lenso/docs/appearance` in its
+header slots to group color mode, glass appearance, design presets and page
+language links. Custom hosts can opt in by supplying the page's `locale` and
+`alternates`. The default presentation is a split-pane dialog; use
+`presentation="sheet"` for the phone slot. Existing header controls remain
+available and default host layouts are unchanged.
+
 Use root-relative internal links without `basePath`, such as `/guides/`.
 TanStack Router adds the deployment prefix. Markdown images and the configured
 logo receive it automatically; native HTML asset URLs in custom JSX remain

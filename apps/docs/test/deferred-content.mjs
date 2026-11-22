@@ -42,7 +42,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     await page.waitForLoadState("networkidle");
     assert.deepEqual(
       scripts.filter((url) =>
-        /materials-preview|semantic-color-examples|docs-theme-panel|page-markdown|tabs\.sources|\?raw|\/stories\/previews\/(?:input|search-field|slider|menu|glass|glass-magnifier)\.tsx/.test(
+        /materials-preview|semantic-color-examples|docs-(?:settings|theme)-panel|page-markdown|tabs\.sources|\?raw|\/stories\/previews\/(?:input|search-field|slider|menu|glass|glass-magnifier)\.tsx/.test(
           url,
         ),
       ),
@@ -83,13 +83,72 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     await page.waitForFunction(() => window.copiedMarkdown?.includes("<ComponentPlayground"));
     assert.ok(scripts.some((url) => url.includes("page-markdown")));
     assert.ok(!(await page.evaluate(() => window.copiedMarkdown)).includes("## API Reference"));
-    await page.getByRole("button", { name: "Theme", exact: true }).first().click();
-    await page.getByRole("listbox", { name: "Theme presets" }).waitFor();
+    await page.getByRole("button", { name: "Settings", exact: true }).click();
+    const desktopSettings = page.getByRole("dialog", { name: "Settings", exact: true });
+    const categories = desktopSettings.getByRole("navigation", { name: "Settings categories" });
+    const appearance = categories.getByRole("button", { name: "Appearance" });
+    await appearance.waitFor();
+    assert.equal(await appearance.getAttribute("aria-current"), "true");
+    await page.emulateMedia({ colorScheme: "light" });
+    const automatic = desktopSettings.getByRole("switch", { name: "Automatic" });
+    const light = desktopSettings.getByRole("radio", { name: "Light", exact: true });
+    const dark = desktopSettings.getByRole("radio", { name: "Dark", exact: true });
+    await desktopSettings.getByRole("switch", { name: "Automatic", checked: true }).waitFor();
+    await dark.click();
+    await desktopSettings.getByRole("switch", { name: "Automatic", checked: false }).waitFor();
+    assert.equal(await dark.getAttribute("aria-checked"), "true");
+    await automatic.click();
+    await desktopSettings.getByRole("radio", { name: "Light", checked: true }).waitFor();
+    await automatic.click();
+    assert.equal(await light.getAttribute("aria-checked"), "true");
+    await automatic.click();
+
+    const glassRow = desktopSettings.getByRole("button", { name: /^Glass appearance/ });
+    const glassSlider = desktopSettings.getByRole("slider", { name: "Glass appearance" });
+    const glassPreview = desktopSettings.getByRole("figure", { name: "Live glass preview" });
+    assert.equal(await glassSlider.count(), 0);
+    assert.equal(await glassPreview.count(), 0);
+    await glassRow.press("Enter");
+    await glassSlider.waitFor();
+    await glassPreview.waitFor({ timeout: 3000 });
+    const back = desktopSettings.getByRole("button", { name: "Back to Appearance" });
+    assert.equal(await back.evaluate((button) => button === document.activeElement), true);
+    await glassSlider.press("End");
+    await back.press("Enter");
+    await desktopSettings.getByRole("button", { name: "Glass appearance More tinted" }).waitFor();
+    assert.equal(await glassRow.evaluate((button) => button === document.activeElement), true);
+    assert.equal(await glassPreview.count(), 0);
+
+    const theme = categories.getByRole("button", { name: "Theme" });
+    await theme.press("Space");
+    await desktopSettings.getByRole("listbox", { name: "Theme presets" }).waitFor();
+    assert.equal(await theme.getAttribute("aria-current"), "true");
+    assert.equal(await appearance.getAttribute("aria-current"), null);
+    await desktopSettings
+      .getByRole("radiogroup", { name: "Color theme" })
+      .waitFor({ state: "hidden" });
     await page.keyboard.press("Escape");
     assert.deepEqual(await page.evaluate(() => window.playgroundContinuity), {
       seen: true,
       lost: false,
     });
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${base}/en/docs/react/getting-started`, { waitUntil: "networkidle" });
+    const settings = page.getByRole("button", { name: "Settings", exact: true });
+    const dialog = page.getByRole("dialog", { name: "Settings", exact: true });
+    await settings.press("Enter");
+    await dialog.getByRole("radio", { name: "Auto", checked: true }).waitFor();
+    await page.keyboard.press("Escape");
+    await dialog.waitFor({ state: "hidden" });
+    assert.equal(await settings.evaluate((button) => button === document.activeElement), true);
+
+    await settings.click();
+    const chinese = dialog.getByRole("link", { name: "中文", exact: true });
+    assert.equal(await chinese.getAttribute("href"), "/cn/docs/react/getting-started");
+    await chinese.click();
+    await page.waitForURL("**/cn/docs/react/getting-started");
+    await page.getByRole("dialog", { name: "设置", exact: true }).waitFor({ state: "hidden" });
     assert.deepEqual(errors, []);
     console.log(`${name}: compact content, lazy playground scenarios and first-use source passed`);
   } finally {

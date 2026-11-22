@@ -228,8 +228,10 @@ for (const [name, engine] of [
           ),
         );
         await page.locator("[data-provider-hmr-probe]").waitFor({ state: "attached" });
-        await page.getByRole("button", { name: "Theme", exact: true }).click();
-        const tint = page.getByRole("slider", { name: "Global glass appearance", exact: true });
+        await page.getByRole("button", { name: "Settings", exact: true }).click();
+        const settings = page.getByRole("dialog", { name: "Settings", exact: true });
+        await settings.getByRole("button", { name: /^Glass appearance/ }).click();
+        const tint = settings.getByRole("slider", { name: "Glass appearance", exact: true });
         await tint.press("End");
         await page.waitForFunction(() =>
           [...document.querySelectorAll("[style]")].some(
