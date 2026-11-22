@@ -11,6 +11,7 @@ import {
 } from "react";
 import {
   Button,
+  Drawer,
   GlassButton,
   GlassContainer,
   Link,
@@ -24,9 +25,12 @@ import {
   Check,
   ChevronLeft,
   CopyPicture,
+  Folder,
   Heart,
   HeartFill,
   LayoutCellsLarge,
+  LayoutSideContentLeft,
+  Person,
   Xmark,
   Magnifier,
   Sliders,
@@ -57,6 +61,20 @@ function subscribeTablet(onChange: () => void) {
 }
 const isTabletViewport = () => matchMedia(tabletQuery).matches;
 const isServerTablet = () => false;
+
+const landscapeQuery = "(orientation: landscape)";
+function subscribeLandscape(onChange: () => void) {
+  const query = matchMedia(landscapeQuery);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+const isLandscapeViewport = () => matchMedia(landscapeQuery).matches;
+
+const pinnedCollections = [
+  { name: "Favorites", icon: Heart },
+  { name: "People", icon: Person },
+  { name: "Edited", icon: Sliders },
+] as const;
 
 function Collections({
   photos,
@@ -123,6 +141,8 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const snapshot = useSyncExternalStore(model.subscribe, model.getSnapshot, model.getSnapshot);
   const { interactive, revision } = snapshot;
   const tablet = useSyncExternalStore(subscribeTablet, isTabletViewport, isServerTablet);
+  const landscape = useSyncExternalStore(subscribeLandscape, isLandscapeViewport, isServerTablet);
+  const dockSidebar = tablet && landscape;
   const [destination, setDestination] = usePhotosField(model, "destination");
   const [query, setQuery] = usePhotosField(model, "query");
   const [recentSearches, setRecentSearches] = usePhotosField(model, "recentSearches");
@@ -277,6 +297,10 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     setNavigationMinimized(false);
     main.current?.scrollTo({ top: 0, behavior: "instant" });
     setCollection(name);
+  }
+  function openSidebarCollection(name: string) {
+    setDestination("collections");
+    openCollection(name);
   }
   function changeLibraryView(next: LibraryView) {
     setScrollAnchor(null);
@@ -467,7 +491,11 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     (destination === "library" ? "Library" : destination === "search" ? "Search" : "Collections");
   const headingOverPhotos = isLibrary && libraryView === "all" && visible.length > 0;
   return (
-    <ThemeScope theme={dark ? "dark" : "light"} xstyle={s.root} inert={!interactive}>
+    <ThemeScope
+      theme={dark ? "dark" : "light"}
+      xstyle={[s.root, dockSidebar && s.dockSidebar]}
+      inert={!interactive}
+    >
       <Tabs
         value={libraryView}
         onValueChange={(value) => {
@@ -526,7 +554,12 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
           <header {...stylex.props(s.header, headingOverPhotos && s.libraryHeader)}>
             {headingOverPhotos && <ScrollEdge variant="soft" edge="top" xstyle={s.headerEdge} />}
             <div {...stylex.props(s.headingRow)}>
-              <div {...stylex.props(headingOverPhotos && s.headingOverPhotos)}>
+              <div
+                {...stylex.props(
+                  headingOverPhotos && s.headingOverPhotos,
+                  !dockSidebar && s.sidebarCovered,
+                )}
+              >
                 <h1 {...stylex.props(s.title)}>{title}</h1>
                 {isLibrary && (
                   <p {...stylex.props(s.itemCount)}>
@@ -913,15 +946,93 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               <TabBar
                 aria-label="Photos navigation"
                 layout={tablet ? "tablet" : "phone"}
-                xstyle={tablet && s.tabletNavigation}
+                xstyle={[tablet && s.tabletNavigation, tablet && s.sidebarCovered]}
                 autoMinimize={!tablet && isLibrary && libraryView === "all" ? "up" : false}
                 scrollTarget={main}
                 minimized={!tablet && navigationMinimized}
                 onMinimizedChange={setNavigationMinimized}
               >
                 <TabBar.Group xstyle={!tablet && !navigationMinimized && s.compactDestinations}>
+                  {tablet && (
+                    <Drawer side="start" modal={!dockSidebar} preventEdgeSwipe>
+                      <Drawer.Trigger
+                        aria-label="Show sidebar"
+                        data-photos-sidebar-trigger=""
+                        render={
+                          <TabBar.Button
+                            iconOnly
+                            icon={<LayoutSideContentLeft />}
+                            xstyle={dockSidebar && s.sidebarCoveredControl}
+                          />
+                        }
+                      />
+                      {!dockSidebar && <Drawer.Backdrop xstyle={s.sidebarBackdrop} />}
+                      <Drawer.Content xstyle={s.sidebar}>
+                        <div {...stylex.props(s.sidebarHeader)}>
+                          <Drawer.Title xstyle={s.sidebarTitle}>Photos</Drawer.Title>
+                          <Drawer.Close
+                            aria-label="Hide sidebar"
+                            render={<GlassButton size="md" isIconOnly />}
+                          >
+                            <LayoutSideContentLeft />
+                          </Drawer.Close>
+                        </div>
+                        <nav aria-label="Photos sidebar" {...stylex.props(s.sidebarNavigation)}>
+                          <Drawer.Close
+                            render={<Button variant="borderless" xstyle={s.sidebarRow} />}
+                            aria-current={isLibrary || undefined}
+                            onClick={() => navigate("library")}
+                          >
+                            <CopyPicture aria-hidden="true" {...stylex.props(s.sidebarIcon)} />
+                            Library
+                          </Drawer.Close>
+                          <Drawer.Close
+                            render={<Button variant="borderless" xstyle={s.sidebarRow} />}
+                            aria-current={
+                              (destination === "collections" && !collection) || undefined
+                            }
+                            onClick={() => navigate("collections")}
+                          >
+                            <LayoutCellsLarge aria-hidden="true" {...stylex.props(s.sidebarIcon)} />
+                            Collections
+                          </Drawer.Close>
+                          <h3 {...stylex.props(s.sidebarSectionTitle)}>Pinned</h3>
+                          {pinnedCollections.map(({ name, icon: Icon }) => (
+                            <Drawer.Close
+                              key={name}
+                              render={<Button variant="borderless" xstyle={s.sidebarRow} />}
+                              aria-current={collection === name || undefined}
+                              onClick={() => openSidebarCollection(name)}
+                            >
+                              <Icon aria-hidden="true" {...stylex.props(s.sidebarIcon)} />
+                              {name}
+                            </Drawer.Close>
+                          ))}
+                          <details {...stylex.props(s.sidebarAlbums)}>
+                            <summary {...stylex.props(s.sidebarSummary)}>Albums</summary>
+                            {[...new Set([...albumNames, ...albums.keys()])]
+                              .filter(
+                                (name) => !pinnedCollections.some((item) => item.name === name),
+                              )
+                              .map((name) => (
+                                <Drawer.Close
+                                  key={name}
+                                  render={<Button variant="borderless" xstyle={s.sidebarRow} />}
+                                  aria-current={collection === name || undefined}
+                                  onClick={() => openSidebarCollection(name)}
+                                >
+                                  <Folder aria-hidden="true" {...stylex.props(s.sidebarIcon)} />
+                                  {name}
+                                </Drawer.Close>
+                              ))}
+                          </details>
+                        </nav>
+                      </Drawer.Content>
+                    </Drawer>
+                  )}
                   <TabBar.Link
                     href="#library"
+                    xstyle={dockSidebar && s.sidebarCoveredControl}
                     isCurrent={destination === "library"}
                     onClick={(event) => {
                       event.preventDefault();
@@ -933,6 +1044,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   </TabBar.Link>
                   <TabBar.Link
                     href="#collections"
+                    xstyle={dockSidebar && s.sidebarCoveredControl}
                     isCurrent={destination === "collections"}
                     onClick={(event) => {
                       event.preventDefault();
