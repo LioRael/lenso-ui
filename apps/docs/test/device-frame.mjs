@@ -46,10 +46,28 @@ for (const engine of [chromium, webkit]) {
       () => document.querySelector("canvas") && !document.querySelector("output"),
     );
     const inner = page.locator('iframe[title="Inner display"]');
-    await page
-      .frameLocator('iframe[title="Inner display"]')
-      .getByRole("button", { name: "Select", exact: true })
-      .waitFor();
+    const unfolded = page.frameLocator('iframe[title="Inner display"]');
+    await unfolded.getByRole("button", { name: "Select", exact: true }).waitFor();
+    const assertVerticalControls = async (app) => {
+      const bounds = (locator) =>
+        locator.evaluate((node) => node.getBoundingClientRect().toJSON(), undefined, {
+          timeout: 5000,
+        });
+      const status = await bounds(app.getByLabel("Device status", { exact: true }));
+      const filter = await bounds(app.getByRole("button", { name: "Sort and filter" }));
+      const collections = await bounds(app.getByRole("link", { name: "Collections" }));
+      const gallery = await bounds(app.getByRole("main"));
+      const center = (box) => box.x + box.width / 2;
+      assert.ok(Math.abs(center(status) - center(filter)) < 6, "Status and toolbar share an axis");
+      assert.ok(Math.abs(center(filter) - center(collections)) < 6, "Navigation shares the axis");
+      assert.ok(
+        status.y < filter.y && filter.y < collections.y,
+        "Controls run down the right side",
+      );
+      assert.ok(gallery.right < filter.left, "The right rail reserves space outside the gallery");
+      await app.getByRole("tab", { name: "Months", exact: true }).waitFor();
+    };
+    await assertVerticalControls(unfolded);
     const viewport = await inner.evaluate((frame) => ({
       width: frame.contentWindow.innerWidth,
       height: frame.contentWindow.innerHeight,
@@ -337,6 +355,7 @@ for (const engine of [chromium, webkit]) {
     await page.waitForFunction(
       () => !document.querySelector('iframe[title="Cover display"]').closest("[inert]"),
     );
+    await assertVerticalControls(coverApp);
     await page.waitForFunction(
       ({ id, offset }) => {
         const doc = document.querySelector('iframe[title="Cover display"]').contentDocument;
@@ -356,6 +375,15 @@ for (const engine of [chromium, webkit]) {
     assert.ok(
       coverPosition > -1 && Math.abs(coverPosition - sourcePosition) < 0.02,
       `Narrow layout must retain photo ${anchor} and its relative offset: ${coverPosition} vs ${sourcePosition}`,
+    );
+    const coverFilter = coverApp.getByRole("button", { name: "Sort and filter" });
+    await coverFilter.press("Enter");
+    const coverMenu = coverApp.getByRole("menu", { name: "Sort and filter" });
+    assert.equal(await coverMenu.getAttribute("data-side"), "left");
+    await page.keyboard.press("Escape");
+    await coverMenu.waitFor({ state: "hidden" });
+    assert.ok(
+      await coverFilter.evaluate((button) => button.ownerDocument.activeElement === button),
     );
     await page.getByRole("button", { name: "Unfold", exact: true }).click();
     await page.waitForFunction((input) => input.value === "180", await slider.elementHandle());
