@@ -10,7 +10,6 @@ export const docsSettings = stylex.create({
     border: "1px solid color-mix(in srgb, var(--lenso-label-primary) 16%, transparent)",
     backgroundColor: "var(--lenso-background-grouped-primary)",
   },
-  loading: { padding: 32 },
   dialogClose: { top: 16, insetInlineEnd: 16, zIndex: 1 },
   split: {
     display: "grid",

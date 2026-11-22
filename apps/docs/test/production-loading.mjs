@@ -102,6 +102,14 @@ try {
             ),
             "The homepage must not download the document index or MDX registry",
           );
+          const settings = page.getByRole("button", { name: "Settings", exact: true });
+          await settings.press("Enter");
+          const settingsDialog = page.getByRole("dialog", { name: "Settings", exact: true });
+          await settingsDialog.getByRole("button", { name: "Appearance", exact: true }).waitFor();
+          await page.keyboard.press("Escape");
+          await settingsDialog.waitFor({ state: "hidden" });
+          assert.ok(await settings.evaluate((node) => document.activeElement === node));
+
           const playground = page.getByRole("region", { name: "Typography playground" });
           const text = playground.getByRole("textbox", { name: "Poster text" });
           await text.fill("Hello");

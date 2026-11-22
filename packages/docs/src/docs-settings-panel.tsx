@@ -21,6 +21,7 @@ import { Modal } from "@lenso/ui/modal";
 import { Radio } from "@lenso/ui/radio";
 import { RadioGroup } from "@lenso/ui/radio-group";
 import { SegmentedControl } from "@lenso/ui/segmented-control";
+import { Sheet } from "@lenso/ui/sheet";
 import { Sidebar } from "@lenso/ui/sidebar";
 import { Switch } from "@lenso/ui/switch";
 import { docsSettings as s } from "@lenso/docs/presentation";
@@ -36,7 +37,45 @@ export interface DocsSettingsPanelProps {
   split: boolean;
 }
 
-export default function DocsSettingsPanel({
+export default function DocsSettingsOverlay({
+  open,
+  onOpenChange,
+  finalFocus,
+  ...panel
+}: Omit<DocsSettingsPanelProps, "onLanguageSelect"> & {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  finalFocus: () => HTMLButtonElement | null;
+}) {
+  const cn = panel.locale === "cn";
+  const closeLabel = cn ? "关闭设置" : "Close settings";
+  const body = <DocsSettingsPanel {...panel} onLanguageSelect={() => onOpenChange(false)} />;
+  if (!panel.split)
+    return (
+      <Sheet open={open} onOpenChange={onOpenChange} snapPoints={[0.76, 1]} defaultSnapPoint={0.76}>
+        <Sheet.Backdrop />
+        <Sheet.Content finalFocus={finalFocus}>
+          <Sheet.Handle />
+          <Sheet.Header>
+            <Sheet.Close aria-label={closeLabel} />
+            <Sheet.Title>{cn ? "设置" : "Settings"}</Sheet.Title>
+          </Sheet.Header>
+          <Sheet.Body xstyle={s.sheetBody}>{body}</Sheet.Body>
+        </Sheet.Content>
+      </Sheet>
+    );
+  return (
+    <Modal open={open} onOpenChange={onOpenChange}>
+      <Modal.Backdrop />
+      <Modal.Content placement="center" xstyle={s.dialog} finalFocus={finalFocus}>
+        <Modal.Close aria-label={closeLabel} xstyle={s.dialogClose} />
+        {body}
+      </Modal.Content>
+    </Modal>
+  );
+}
+
+function DocsSettingsPanel({
   locale,
   alternates,
   onLanguageSelect,
