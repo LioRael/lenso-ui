@@ -1,5 +1,20 @@
 import * as stylex from "@stylexjs/stylex";
 
+const pageEnter = stylex.keyframes({
+  from: {
+    opacity: "var(--docs-settings-fade)",
+    transform: "translateX(var(--docs-settings-enter-x))",
+  },
+  to: { opacity: 1, transform: "translateX(0)" },
+});
+const pageExit = stylex.keyframes({
+  from: { opacity: 1, transform: "translateX(0)" },
+  to: {
+    opacity: "var(--docs-settings-fade)",
+    transform: "translateX(var(--docs-settings-exit-x))",
+  },
+});
+
 export const docsSettings = stylex.create({
   dialog: {
     maxWidth: 880,
@@ -261,33 +276,87 @@ export const docsSettings = stylex.create({
     gap: 4,
     color: "var(--lenso-tint)",
   },
-  sheetBody: { paddingBottom: "calc(24px + env(safe-area-inset-bottom, 0px))" },
-  sections: {
+  sheetSurface: {
+    backgroundColor: {
+      default: "var(--lenso-background-grouped-primary)",
+      ":is([data-expanded] > *)": "var(--lenso-background-grouped-primary)",
+    },
+  },
+  sheetHandle: { zIndex: 1 },
+  sheetHeader: { minHeight: 68, paddingInline: 16, paddingBlockStart: 10 },
+  sheetTitle: { fontSize: 17, lineHeight: "24px" },
+  sheetLargeTitle: {
+    position: "static",
+    fontSize: 32,
+    lineHeight: "1.15",
+    letterSpacing: "-0.025em",
+    fontWeight: 700,
+    textAlign: "start",
+  },
+  sheetButton: { width: 44, height: 44, flexShrink: 0 },
+  sheetClose: { marginInlineStart: "auto", flexShrink: 0 },
+  sheetPages: {
     display: "grid",
-    gap: 24,
-    // Groups sit on a translucent sheet material, not an opaque grouped page.
-    "--lenso-background-grouped-secondary": "var(--lenso-fill-quaternary)",
+    gridTemplate: "minmax(0, 1fr) / minmax(0, 1fr)",
+    flex: "1 1 0%",
+    minHeight: 0,
+    overflow: "clip",
   },
-  section: { display: "grid", gap: 8, margin: 0, padding: 0, borderWidth: 0, minWidth: 0 },
-  heading: {
-    margin: 0,
+  sheetBody: {
+    gridArea: "1 / 1",
+    backgroundColor: "var(--lenso-background-grouped-primary)",
+    padding: "8px 16px calc(24px + env(safe-area-inset-bottom, 0px))",
+  },
+  sheetPush: { "--docs-settings-enter-x": "100%", "--docs-settings-exit-x": "-28%" },
+  sheetPop: { "--docs-settings-enter-x": "-28%", "--docs-settings-exit-x": "100%" },
+  sheetTopPage: { zIndex: 1 },
+  sheetPageMotion: {
+    "--docs-settings-fade": "1",
+    animationDuration: "240ms",
+    animationTimingFunction: "var(--lenso-motion-ease-out-fluid)",
+    animationFillMode: "both",
+    "@media (prefers-reduced-motion: reduce)": {
+      "--docs-settings-fade": "0",
+      animationDuration: "120ms",
+      "--docs-settings-enter-x": "0px",
+      "--docs-settings-exit-x": "0px",
+    },
+  },
+  sheetEnter: { animationName: pageEnter },
+  sheetExit: { animationName: pageExit },
+  sheetItem: {
+    paddingInline: 0,
+    "::after": {
+      content: { default: '""', ":last-child": "none" },
+      position: "absolute",
+      bottom: 0,
+      insetInlineStart: 58,
+      insetInlineEnd: 16,
+      height: 1,
+      backgroundColor: "var(--lenso-separator)",
+      pointerEvents: "none",
+    },
+  },
+  sheetRow: {
+    gap: 8,
     paddingInline: 16,
-    fontSize: 15,
-    lineHeight: "20px",
-    fontWeight: 400,
-    color: "var(--lenso-label-secondary)",
+    lineHeight: "1.25",
+    whiteSpace: "normal",
+    textAlign: "start",
   },
+  sheetRowLabel: { display: "flex", alignItems: "center", gap: 14 },
+  sheetIcon: { display: "grid", placeItems: "center", flexShrink: 0 },
+  sheetValue: {
+    color: "color-mix(in srgb, var(--lenso-label-secondary), var(--lenso-label-primary) 25%)",
+  },
+  sheetChevron: { flexShrink: 0, color: "var(--lenso-label-tertiary)" },
+  section: { display: "grid", gap: 8, margin: 0, padding: 0, borderWidth: 0, minWidth: 0 },
   stackedRow: {
     gridTemplateColumns: "minmax(0, 1fr)",
     paddingBlock: 14,
     rowGap: 8,
   },
   presetsRow: { paddingBlock: 16 },
-  mode: {
-    width: "100%",
-    // Three equal segments across the row: list padding 2px each side, 4px gaps.
-    "--lg-tab-width": "calc((100% - 8px) / 3)",
-  },
   languageItem: {
     paddingInline: 0,
     "::after": {

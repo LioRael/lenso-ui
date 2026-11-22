@@ -16,11 +16,11 @@ import {
 import { Button } from "@lenso/ui/button";
 import { Fieldset } from "@lenso/ui/fieldset";
 import { Glass } from "@lenso/ui/glass";
+import { GlassButton } from "@lenso/ui/glass-button";
 import { List } from "@lenso/ui/list";
 import { Modal } from "@lenso/ui/modal";
 import { Radio } from "@lenso/ui/radio";
 import { RadioGroup } from "@lenso/ui/radio-group";
-import { SegmentedControl } from "@lenso/ui/segmented-control";
 import { Sheet } from "@lenso/ui/sheet";
 import { Sidebar } from "@lenso/ui/sidebar";
 import { Switch } from "@lenso/ui/switch";
@@ -28,6 +28,7 @@ import { docsSettings as s } from "@lenso/docs/presentation";
 import type { DocumentationLocale } from "./document-model";
 import { useDocsDesignTheme } from "./docs-design-theme-context";
 import { GlassAppearance, ThemePresets } from "./docs-theme-panel";
+import { themes } from "./docs-theme-presets";
 import { useDocumentationMessages } from "./i18n";
 
 export interface DocsSettingsPanelProps {
@@ -36,6 +37,10 @@ export interface DocsSettingsPanelProps {
   onLanguageSelect: () => void;
   split: boolean;
 }
+
+type SettingsCategory = "appearance" | "theme" | "language";
+type MobileSettingsPage = SettingsCategory | "overview" | "glass";
+const settingsSnapPoints = [0.58, 1];
 
 export default function DocsSettingsOverlay({
   open,
@@ -49,18 +54,12 @@ export default function DocsSettingsOverlay({
 }) {
   const cn = panel.locale === "cn";
   const closeLabel = cn ? "关闭设置" : "Close settings";
-  const body = <DocsSettingsPanel {...panel} onLanguageSelect={() => onOpenChange(false)} />;
   if (!panel.split)
     return (
-      <Sheet open={open} onOpenChange={onOpenChange} snapPoints={[0.76, 1]} defaultSnapPoint={0.76}>
+      <Sheet open={open} onOpenChange={onOpenChange} snapPoints={settingsSnapPoints}>
         <Sheet.Backdrop />
-        <Sheet.Content finalFocus={finalFocus}>
-          <Sheet.Handle />
-          <Sheet.Header>
-            <Sheet.Close aria-label={closeLabel} />
-            <Sheet.Title>{cn ? "设置" : "Settings"}</Sheet.Title>
-          </Sheet.Header>
-          <Sheet.Body xstyle={s.sheetBody}>{body}</Sheet.Body>
+        <Sheet.Content finalFocus={finalFocus} surfaceXstyle={s.sheetSurface}>
+          <DocsSettingsPanel {...panel} onLanguageSelect={() => onOpenChange(false)} />
         </Sheet.Content>
       </Sheet>
     );
@@ -69,7 +68,7 @@ export default function DocsSettingsOverlay({
       <Modal.Backdrop />
       <Modal.Content placement="center" xstyle={s.dialog} finalFocus={finalFocus}>
         <Modal.Close aria-label={closeLabel} xstyle={s.dialogClose} />
-        {body}
+        <DocsSettingsPanel {...panel} onLanguageSelect={() => onOpenChange(false)} />
       </Modal.Content>
     </Modal>
   );
@@ -84,12 +83,28 @@ function DocsSettingsPanel({
   const cn = locale === "cn";
   const messages = useDocumentationMessages();
   const { theme, resolvedTheme, setTheme } = useTheme();
-  const { glassTint } = useDocsDesignTheme();
-  const [category, setCategory] = useState("appearance");
+  const { active, glassTint } = useDocsDesignTheme();
+  const [category, setCategory] = useState<SettingsCategory | null>(split ? "appearance" : null);
   const [glassOpen, setGlassOpen] = useState(false);
+  const mobilePage: MobileSettingsPage = glassOpen ? "glass" : (category ?? "overview");
+  const [leaving, setLeaving] = useState<{
+    page: MobileSettingsPage;
+    back: boolean;
+  } | null>(null);
   const glassRow = useRef<HTMLButtonElement>(null);
   const glassBack = useRef<HTMLButtonElement>(null);
   const moveFocus = useRef(false);
+  const mobileBack = useRef<HTMLButtonElement>(null);
+  const mobileRows = useRef<Partial<Record<SettingsCategory, HTMLElement | null>>>({});
+  const mobileReturn = useRef<SettingsCategory | null>(null);
+  useLayoutEffect(() => {
+    if (!mobileReturn.current) return;
+    if (category) mobileBack.current?.focus();
+    else {
+      mobileRows.current[mobileReturn.current]?.focus();
+      mobileReturn.current = null;
+    }
+  }, [category]);
   useLayoutEffect(() => {
     if (!moveFocus.current) return;
     moveFocus.current = false;
@@ -98,7 +113,9 @@ function DocsSettingsPanel({
   const detailHeading = useId();
   const detailId = useId();
   const glassHint = useId();
-  const languageHeading = useId();
+  const settingsLabel = cn ? "设置" : "Settings";
+  const categoriesLabel = cn ? "设置分类" : "Settings categories";
+  const backToAppearance = cn ? "返回外观" : "Back to Appearance";
   const appearanceLabel = cn ? "外观" : "Appearance";
   const glassLabel = cn ? "玻璃外观" : "Glass appearance";
   const languageLabel = cn ? "语言" : "Language";
@@ -122,25 +139,7 @@ function DocsSettingsPanel({
     { value: "light", label: cn ? "浅色" : "Light" },
     { value: "dark", label: cn ? "深色" : "Dark" },
   ] as const;
-  const colorMode = (
-    <Fieldset.Row xstyle={s.stackedRow}>
-      <SegmentedControl
-        aria-label={messages.colorTheme}
-        items={[...modes, { value: "system", label: cn ? "自动" : "Auto" }]}
-        value={theme ?? "system"}
-        onValueChange={(value) => {
-          if (value) setTheme(value);
-        }}
-        xstyle={s.mode}
-      />
-    </Fieldset.Row>
-  );
-  const glassAppearance = (
-    <Fieldset.Row xstyle={s.stackedRow}>
-      <GlassAppearance locale={locale} />
-    </Fieldset.Row>
-  );
-  const appearance = split ? (
+  const appearance = (
     <div {...stylex.props(s.detailGroups)}>
       <Fieldset xstyle={s.section}>
         <Fieldset.Legend xstyle={s.detailLegend}>{appearanceLabel}</Fieldset.Legend>
@@ -220,6 +219,7 @@ function DocsSettingsPanel({
             aria-describedby={glassHint}
             xstyle={s.glassRow}
             onClick={() => {
+              if (!split) setLeaving({ page: mobilePage, back: false });
               moveFocus.current = true;
               setGlassOpen(true);
             }}
@@ -243,27 +243,11 @@ function DocsSettingsPanel({
         </p>
       </div>
     </div>
-  ) : (
-    <Fieldset xstyle={s.section}>
-      <Fieldset.Legend>{appearanceLabel}</Fieldset.Legend>
-      <Fieldset.Group>
-        {colorMode}
-        {glassAppearance}
-      </Fieldset.Group>
-    </Fieldset>
   );
   const language =
     alternates.length > 1 ? (
-      <section
-        aria-labelledby={split ? detailHeading : languageHeading}
-        {...stylex.props(s.section)}
-      >
-        {!split && (
-          <h3 id={languageHeading} {...stylex.props(s.heading)}>
-            {languageLabel}
-          </h3>
-        )}
-        <List aria-labelledby={split ? detailHeading : languageHeading}>
+      <section aria-labelledby={detailHeading} {...stylex.props(s.section)}>
+        <List aria-labelledby={detailHeading}>
           {alternates.map((alternate) => (
             <List.Item key={alternate.code} xstyle={s.languageItem}>
               <Link
@@ -295,7 +279,6 @@ function DocsSettingsPanel({
     ) : null;
   const presets = (
     <Fieldset xstyle={s.section}>
-      {!split && <Fieldset.Legend>{themeLabel}</Fieldset.Legend>}
       <Fieldset.Group>
         <Fieldset.Row xstyle={[s.stackedRow, s.presetsRow]}>
           <ThemePresets locale={locale} />
@@ -304,35 +287,166 @@ function DocsSettingsPanel({
     </Fieldset>
   );
 
-  if (!split) {
-    return (
-      <div {...stylex.props(s.sections)}>
-        {appearance}
-        {language}
-        {presets}
-      </div>
-    );
-  }
-
   const categories = [
     {
       id: "appearance",
       label: appearanceLabel,
       icon: Display,
       tone: s.neutral,
+      value: automatic ? automaticLabel : modes.find(({ value }) => value === colorScheme)?.label,
       content: appearance,
     },
-    { id: "theme", label: themeLabel, icon: BucketPaint, tone: s.purple, content: presets },
+    {
+      id: "theme",
+      label: themeLabel,
+      icon: BucketPaint,
+      tone: s.purple,
+      value: active === "default" && cn ? "默认" : themes.find(({ id }) => id === active)?.label,
+      content: presets,
+    },
     ...(language
-      ? [{ id: "language", label: languageLabel, icon: Globe, tone: s.blue, content: language }]
+      ? [
+          {
+            id: "language" as const,
+            label: languageLabel,
+            icon: Globe,
+            tone: s.blue,
+            value: alternates.find(({ code }) => code === locale)?.label,
+            content: language,
+          },
+        ]
       : []),
   ] as const;
   const current = categories.find(({ id }) => id === category) ?? categories[0];
+  const glassDetail = (
+    <>
+      <Fieldset.Group>
+        <figure
+          aria-label={cn ? "玻璃实时预览" : "Live glass preview"}
+          {...stylex.props(s.glassScene, colorScheme === "dark" && s.glassSceneDark)}
+        >
+          <div data-lenso-backdrop {...stylex.props(s.glassBackdrop)} />
+          <Glass aria-hidden="true" xstyle={s.glassSample}>
+            <Magnifier width={18} height={18} aria-hidden="true" />
+            {cn ? "搜索文档" : "Search docs"}
+          </Glass>
+        </figure>
+        <div {...stylex.props(s.glassAdjustments)}>
+          <GlassAppearance locale={locale} />
+        </div>
+      </Fieldset.Group>
+      <p {...stylex.props(s.settingsHint)}>
+        {cn
+          ? "清透会保留更多背景细节，浓染会让文字和控件更清晰。"
+          : "Clearer glass shows more background detail. A stronger tint makes text and controls easier to see."}
+      </p>
+    </>
+  );
+  if (!split) {
+    return (
+      <>
+        <Sheet.Handle xstyle={s.sheetHandle} />
+        <Sheet.Header xstyle={s.sheetHeader}>
+          {category && (
+            <GlassButton
+              ref={glassOpen ? glassBack : mobileBack}
+              isIconOnly
+              size="sm"
+              xstyle={s.sheetButton}
+              aria-label={glassOpen ? backToAppearance : cn ? "返回设置" : "Back to Settings"}
+              onClick={() => {
+                setLeaving({ page: mobilePage, back: true });
+                if (glassOpen) {
+                  moveFocus.current = true;
+                  setGlassOpen(false);
+                } else {
+                  setCategory(null);
+                }
+              }}
+            >
+              <ChevronLeft width={18} height={18} aria-hidden="true" {...stylex.props(s.chevron)} />
+            </GlassButton>
+          )}
+          <Sheet.Title id={detailHeading} xstyle={category ? s.sheetTitle : s.sheetLargeTitle}>
+            {glassOpen ? glassLabel : category ? current.label : settingsLabel}
+          </Sheet.Title>
+          <Sheet.Close aria-label={cn ? "关闭设置" : "Close settings"} xstyle={s.sheetClose} />
+        </Sheet.Header>
+        <div {...stylex.props(s.sheetPages)}>
+          {(leaving ? [leaving.page, mobilePage] : [mobilePage]).map((page) => {
+            const outgoing = page === leaving?.page;
+            return (
+              <Sheet.Body
+                key={page}
+                inert={outgoing}
+                aria-hidden={outgoing || undefined}
+                xstyle={[
+                  s.sheetBody,
+                  leaving && (leaving.back ? s.sheetPop : s.sheetPush),
+                  leaving && s.sheetPageMotion,
+                  leaving?.back === outgoing && s.sheetTopPage,
+                  leaving && (outgoing ? s.sheetExit : s.sheetEnter),
+                ]}
+                onAnimationEnd={
+                  outgoing
+                    ? (event) => {
+                        if (event.target === event.currentTarget) setLeaving(null);
+                      }
+                    : undefined
+                }
+              >
+                {page === "glass" ? (
+                  glassDetail
+                ) : page !== "overview" ? (
+                  categories.find(({ id }) => id === page)?.content
+                ) : (
+                  <List aria-label={categoriesLabel}>
+                    {categories.map(({ id, label, icon: Icon, tone, value }) => (
+                      <List.Item key={id} xstyle={s.sheetItem}>
+                        <Button
+                          ref={(node) => {
+                            mobileRows.current[id] = node;
+                          }}
+                          variant="borderless"
+                          xstyle={[s.glassRow, s.sheetRow]}
+                          onClick={() => {
+                            setLeaving({ page: mobilePage, back: false });
+                            mobileReturn.current = id;
+                            setCategory(id);
+                          }}
+                        >
+                          <span {...stylex.props(s.sheetRowLabel)}>
+                            <span {...stylex.props(s.categoryIcon, s.sheetIcon, tone)}>
+                              <Icon width={17} height={17} aria-hidden="true" />
+                            </span>
+                            {label}
+                          </span>
+                          <span {...stylex.props(s.glassValue, s.sheetValue)}>
+                            {value}
+                            <ChevronRight
+                              width={14}
+                              height={14}
+                              aria-hidden="true"
+                              {...stylex.props(s.chevron, s.sheetChevron)}
+                            />
+                          </span>
+                        </Button>
+                      </List.Item>
+                    ))}
+                  </List>
+                )}
+              </Sheet.Body>
+            );
+          })}
+        </div>
+      </>
+    );
+  }
   return (
     <div {...stylex.props(s.split)}>
-      <Sidebar aria-label={cn ? "设置分类" : "Settings categories"} xstyle={s.sidebar}>
+      <Sidebar aria-label={categoriesLabel} xstyle={s.sidebar}>
         <Sidebar.Header xstyle={s.sidebarHeader}>
-          <Modal.Title xstyle={s.sidebarTitle}>{cn ? "设置" : "Settings"}</Modal.Title>
+          <Modal.Title xstyle={s.sidebarTitle}>{settingsLabel}</Modal.Title>
         </Sidebar.Header>
         <Sidebar.Content xstyle={s.sidebarContent}>
           <Sidebar.Group>
@@ -364,7 +478,7 @@ function DocsSettingsPanel({
             <Button
               ref={glassBack}
               variant="borderless"
-              aria-label={cn ? "返回外观" : "Back to Appearance"}
+              aria-label={backToAppearance}
               xstyle={s.back}
               onClick={() => {
                 moveFocus.current = true;
@@ -380,32 +494,7 @@ function DocsSettingsPanel({
           </h3>
         </header>
         <div key={glassOpen ? "glass" : current.id} {...stylex.props(s.detailBody)}>
-          {glassOpen ? (
-            <>
-              <Fieldset.Group>
-                <figure
-                  aria-label={cn ? "玻璃实时预览" : "Live glass preview"}
-                  {...stylex.props(s.glassScene, colorScheme === "dark" && s.glassSceneDark)}
-                >
-                  <div data-lenso-backdrop {...stylex.props(s.glassBackdrop)} />
-                  <Glass aria-hidden="true" xstyle={s.glassSample}>
-                    <Magnifier width={18} height={18} aria-hidden="true" />
-                    {cn ? "搜索文档" : "Search docs"}
-                  </Glass>
-                </figure>
-                <div {...stylex.props(s.glassAdjustments)}>
-                  <GlassAppearance locale={locale} />
-                </div>
-              </Fieldset.Group>
-              <p {...stylex.props(s.settingsHint)}>
-                {cn
-                  ? "清透会保留更多背景细节，浓染会让文字和控件更清晰。"
-                  : "Clearer glass shows more background detail. A stronger tint makes text and controls easier to see."}
-              </p>
-            </>
-          ) : (
-            current.content
-          )}
+          {glassOpen ? glassDetail : current.content}
         </div>
       </section>
     </div>
