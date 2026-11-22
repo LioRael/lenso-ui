@@ -1,0 +1,18 @@
+apps/docs/src/components/photos-demo.tsx
+  h_9d56aba080c170 14,28,32-33,65-78,144-145,302-305,496-500,561-566,956,963-1039,1042,1054
+apps/docs/src/styles/photos-demo.stylex.ts
+  h_9d56aba080c170 22,30-35,390-454,460-462,470-471
+apps/docs/test/photos-glass.mjs
+  h_9d56aba080c170 10,110-179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ce9d9ad41599f3aeded4373b563383d6a0d7523d",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
