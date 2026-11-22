@@ -130,7 +130,6 @@ export const photos = stylex.create({
     bottom: "max(calc(var(--photos-rail-bottom, 22px) + 2px), env(safe-area-inset-bottom))",
     width: "var(--photos-rail-timeline-width)",
   },
-  railTimelineList: { "--lg-tab-width": "calc((var(--photos-rail-timeline-width) - 16px) / 3)" },
   dockSidebar: {
     "--photos-sidebar-space": {
       ":is(:has([data-photos-sidebar-trigger][data-open]))": "var(--photos-sidebar-width)",
@@ -257,7 +256,6 @@ export const photos = stylex.create({
     top: 0,
     height: 112,
     boxSizing: "border-box",
-    marginBottom: -112,
     zIndex: 4,
     paddingTop: "max(18px, env(safe-area-inset-top))",
     paddingBottom: 20,
@@ -265,6 +263,7 @@ export const photos = stylex.create({
     pointerEvents: "none",
     isolation: "isolate",
   },
+  railLibraryHeader: { marginBottom: -112 },
   headingOverPhotos: {
     color: {
       default: "white",
@@ -568,7 +567,6 @@ export const photos = stylex.create({
     width: 336,
     height: 44,
   },
-  tabletTimelineList: { "--lg-tab-width": "112px" },
   timelineControls: {
     width: "calc(100% - 120px)",
     position: "absolute",
@@ -602,10 +600,12 @@ export const photos = stylex.create({
   searchSuggestions: { paddingInline: 20, paddingBlock: 24 },
   searchSuggestionsRow: { display: "flex", flexWrap: "wrap", gap: 12, marginTop: 16 },
   viewPanel: { padding: 0 },
-  timelineContainer: { width: "100%" },
+  libraryGridPanel: { marginTop: 0 },
+  timelineContainer: { width: "100%", containerType: "inline-size" },
   timelineList: {
     width: "100%",
-    "--lg-tab-width": "calc((min(100vw - 40px, 420px) - 132px) / 3)",
+    // Leave room for the list's padding and gaps, including subpixel rounding.
+    "--lg-tab-width": "calc((100cqi - 16px) / 3)",
     "--lg-tab-height": "44px",
   },
   timelineLightSelection: {

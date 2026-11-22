@@ -256,6 +256,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     return () => local?.dispose();
   }, [local]);
   const main = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
   useLayoutEffect(() => {
     if (destination !== "library" || collection || !restoreLibraryPosition.current) return;
     const element = main.current;
@@ -541,7 +542,8 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const title =
     collection ??
     (destination === "library" ? "Library" : destination === "search" ? "Search" : "Collections");
-  const headingOverPhotos = isLibrary && libraryView === "all" && visible.length > 0;
+  const stickyLibraryHeader = isLibrary && libraryView === "all" && visible.length > 0;
+  const headingOverPhotos = stickyLibraryHeader && (verticalControls || scrolled);
   const railSearch = verticalControls && destination === "search";
   return (
     <ThemeScope
@@ -570,7 +572,11 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
           data-photos-demo=""
           data-photos-revision={controlled ? revision : undefined}
           inert={!interactive}
-          onScroll={() => {
+          onScroll={(event) => {
+            if (!verticalControls) {
+              const next = event.currentTarget.scrollTop > 0;
+              if (next !== scrolled) setScrolled(next);
+            }
             if (restoringScroll.current) {
               restoringScroll.current = false;
               return;
@@ -613,7 +619,8 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
           <header
             {...stylex.props(
               s.header,
-              headingOverPhotos && s.libraryHeader,
+              stickyLibraryHeader && s.libraryHeader,
+              stickyLibraryHeader && verticalControls && s.railLibraryHeader,
               railSearch && s.railSearchHeader,
             )}
           >
@@ -765,7 +772,10 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               </Button>
             )}
           </header>
-          <Tabs.Panel value={libraryView} xstyle={s.viewPanel}>
+          <Tabs.Panel
+            value={libraryView}
+            xstyle={[s.viewPanel, stickyLibraryHeader && !verticalControls && s.libraryGridPanel]}
+          >
             {destination === "search" && !query.trim() ? (
               <section {...stylex.props(s.searchSuggestions)} aria-label="Search suggestions">
                 <h2 {...stylex.props(s.sectionTitle)}>
@@ -1206,12 +1216,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                 <Tabs.ListContainer xstyle={s.timelineContainer}>
                   <Tabs.List
                     aria-label="Library view"
-                    xstyle={[
-                      s.timelineList,
-                      tablet && s.tabletTimelineList,
-                      verticalControls && s.railTimelineList,
-                      !dark && s.timelineLightSelection,
-                    ]}
+                    xstyle={[s.timelineList, !dark && s.timelineLightSelection]}
                   >
                     {(
                       [
