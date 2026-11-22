@@ -6,13 +6,12 @@ import { type ReactNode, useEffect, useMemo, useState, useSyncExternalStore } fr
 import * as stylex from "@stylexjs/stylex";
 import NextLink from "fumadocs-core/link";
 import { Glass, GlassButton, Link, Popover, ScrollEdge, ThemeScope } from "@lenso/ui";
-import { ChevronDown, Sliders } from "@gravity-ui/icons";
-import { AppearanceControls, RepositoryControl } from "./docs-site-controls";
+import { ChevronDown } from "@gravity-ui/icons";
+import { RepositoryControl } from "./docs-site-controls";
 import { CompactSearchTrigger, SearchDialog } from "./fumadocs/ui/search-dialog";
-import { DocumentationLanguageToggle } from "@lenso/docs/client";
+import { DocsSettings } from "@lenso/docs/appearance";
 import { documentationLocales } from "@/lib/locale";
 import { homeLayout as s } from "@/styles/home-layout.stylex";
-import { headerControls } from "@/styles/header-controls.stylex";
 import { product } from "@/lib/product";
 import type { Locale } from "@/lib/source";
 
@@ -70,18 +69,14 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
                 </div>
                 <div {...stylex.props(s.desktopActions)}>
                   <CompactSearchTrigger />
-                  <Popover.Root>
-                    <Popover.Trigger
-                      aria-label={cn ? "外观与语言" : "Appearance and language"}
-                      render={
-                        <GlassButton
-                          size="sm"
-                          isIconOnly
-                          xstyle={[headerControls.control, headerControls.icon]}
-                        />
-                      }
-                    >
-                      <Sliders width={16} height={16} aria-hidden="true" />
+                  <DocsSettings locale={locale} alternates={alternates} />
+                  <RepositoryControl repository={product.repository} />
+                </div>
+                <div {...stylex.props(s.mobileActions)}>
+                  <Popover.Root open={menuOpen} onOpenChange={setMenuOpen}>
+                    <Popover.Trigger render={<GlassButton size="lg" xstyle={s.menuTrigger} />}>
+                      {cn ? "导航" : "Menu"}
+                      <ChevronDown width={14} height={14} aria-hidden="true" />
                     </Popover.Trigger>
                     <Popover.Content
                       xstyle={s.mobileContent}
@@ -90,49 +85,24 @@ export function HomeShell({ locale, children }: { locale: Locale; children: Reac
                       collisionPadding={24}
                     >
                       <Popover.Title xstyle={s.mobileTitle}>
-                        {cn ? "外观与语言" : "Appearance and language"}
+                        {cn ? "导航" : "Navigation"}
                       </Popover.Title>
-                      <div {...stylex.props(s.mobilePreferences)}>
-                        <DocumentationLanguageToggle locale={locale} alternates={alternates} />
-                        <AppearanceControls locale={locale} />
-                      </div>
+                      <nav
+                        aria-label={cn ? "移动端导航" : "Mobile navigation"}
+                        {...stylex.props(s.mobileNavigation)}
+                      >
+                        {navigation}
+                      </nav>
                     </Popover.Content>
                   </Popover.Root>
-                  <RepositoryControl repository={product.repository} />
-                </div>
-                <div {...stylex.props(s.mobileActions)}>
                   <CompactSearchTrigger />
-                </div>
-              </div>
-              <div {...stylex.props(s.mobileMenu)}>
-                <Popover.Root open={menuOpen} onOpenChange={setMenuOpen}>
-                  <div {...stylex.props(s.menuTriggerPosition)}>
-                    <Popover.Trigger render={<GlassButton size="lg" xstyle={s.menuTrigger} />}>
-                      {cn ? "导航" : "Menu"}
-                      <ChevronDown width={14} height={14} aria-hidden="true" />
-                    </Popover.Trigger>
+                  <div {...stylex.props(s.phoneSettings)}>
+                    <DocsSettings presentation="sheet" locale={locale} alternates={alternates} />
                   </div>
-                  <Popover.Content
-                    xstyle={s.mobileContent}
-                    align="end"
-                    sideOffset={12}
-                    collisionPadding={24}
-                  >
-                    <Popover.Title xstyle={s.mobileTitle}>
-                      {cn ? "导航与外观" : "Navigation & appearance"}
-                    </Popover.Title>
-                    <nav
-                      aria-label={cn ? "移动端导航" : "Mobile navigation"}
-                      {...stylex.props(s.mobileNavigation)}
-                    >
-                      {navigation}
-                    </nav>
-                    <div {...stylex.props(s.mobilePreferences)}>
-                      <DocumentationLanguageToggle locale={locale} alternates={alternates} />
-                      <AppearanceControls locale={locale} />
-                    </div>
-                  </Popover.Content>
-                </Popover.Root>
+                  <div {...stylex.props(s.tabletSettings)}>
+                    <DocsSettings locale={locale} alternates={alternates} />
+                  </div>
+                </div>
               </div>
             </ThemeScope>
           </header>

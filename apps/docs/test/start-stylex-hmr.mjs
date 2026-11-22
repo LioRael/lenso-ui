@@ -37,14 +37,14 @@ for (const [name, engine] of [
     );
     await page.locator("#home-title").waitFor();
     await page.waitForLoadState("networkidle");
-    await page.getByRole("button", { name: "Appearance and language", exact: true }).click();
+    await page.getByRole("button", { name: "Settings", exact: true }).click();
     await page
-      .getByRole("tablist", { name: "Color theme" })
-      .locator('[aria-selected="true"]')
+      .getByRole("radiogroup", { name: "Color theme" })
+      .getByRole("radio", { checked: true })
       .waitFor();
-    await page.getByRole("tab", { name: "Dark theme", exact: true }).click();
+    await page.getByRole("radio", { name: "Dark", exact: true }).click();
     await page.waitForFunction(() => document.documentElement.classList.contains("dark"));
-    await page.getByRole("tab", { name: "Light theme", exact: true }).click();
+    await page.getByRole("radio", { name: "Light", exact: true }).click();
     await page.waitForFunction(() => document.documentElement.classList.contains("light"));
     await page.keyboard.press("Escape");
     await page.waitForTimeout(1500);

@@ -41,7 +41,7 @@ export const homeLayout = stylex.create({
   headerInner: {
     display: "flex",
     alignItems: "center",
-    gap: 16,
+    gap: { default: 8, "@media (min-width: 768px)": 16 },
     minHeight: { default: 64, "@media (min-width: 1024px)": 56 },
     justifyContent: "space-between",
   },
@@ -106,27 +106,15 @@ export const homeLayout = stylex.create({
   mobileActions: {
     display: { default: "flex", "@media (min-width: 1024px)": "none" },
     alignItems: "center",
+    gap: 6,
   },
+  phoneSettings: { display: { default: "flex", "@media (min-width: 768px)": "none" } },
+  tabletSettings: { display: { default: "none", "@media (min-width: 768px)": "flex" } },
   desktopActions: {
     display: { default: "none", "@media (min-width: 1024px)": "flex" },
     marginInlineStart: "auto",
     alignItems: "center",
     gap: 6,
-  },
-  mobileMenu: {
-    position: "static",
-    display: { default: "block", "@media (min-width: 1024px)": "none" },
-  },
-  menuTriggerPosition: {
-    position: "absolute",
-    top: 16,
-    insetInlineEnd: {
-      default: 72,
-      "@media (min-width: 768px)": 68,
-    },
-    display: "flex",
-    alignItems: "center",
-    height: 56,
   },
   menuTrigger: {
     height: 44,
@@ -148,11 +136,4 @@ export const homeLayout = stylex.create({
     color: "var(--lenso-label-secondary)",
   },
   mobileNavigation: { display: "flex", flexDirection: "column", gap: 4 },
-  mobilePreferences: {
-    display: "flex",
-    alignItems: "center",
-    flexWrap: "wrap",
-    gap: 12,
-    marginTop: 16,
-  },
 });

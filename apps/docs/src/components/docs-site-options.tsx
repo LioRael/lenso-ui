@@ -6,7 +6,6 @@ import type { SearchEntry } from "./fumadocs/ui/search-dialog";
 import { DocsHeaderBackdrop } from "./docs-header-backdrop";
 import {
   DesktopActions,
-  DrawerActions,
   MobileActions,
   ReactWebDrawerLabel,
   HeaderNavigation,
@@ -69,8 +68,7 @@ export function createLensoSiteOptions({
       desktopActions: (
         <DesktopActions locale={locale} alternates={alternates} repository={repository} />
       ),
-      mobileActions: <MobileActions locale={locale} />,
-      drawerActions: <DrawerActions locale={locale} alternates={alternates} />,
+      mobileActions: <MobileActions locale={locale} alternates={alternates} />,
       drawerFooter: <ReactWebDrawerLabel />,
     },
   };
