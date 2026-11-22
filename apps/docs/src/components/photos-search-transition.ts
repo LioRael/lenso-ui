@@ -6,6 +6,7 @@ const sourceGroup = (trigger: HTMLButtonElement | null) =>
 export function usePhotosSearchTransition(
   active: boolean,
   trigger: RefObject<HTMLButtonElement | null>,
+  rail: boolean,
 ) {
   const fieldRef = useRef<HTMLDivElement>(null);
   const previous = useRef<DOMRect | null>(null);
@@ -33,8 +34,8 @@ export function usePhotosSearchTransition(
     const easing =
       getComputedStyle(target).getPropertyValue("--lenso-motion-ease-out-quart").trim() ||
       "ease-out";
-    const play = (node: Element, frames: Keyframe[], duration = 240) => {
-      const animation = node.animate(frames, { duration, easing });
+    const play = (node: Element, frames: Keyframe[], duration = 240, delay = 0) => {
+      const animation = node.animate(frames, { duration, easing, delay, fill: "backwards" });
       animations.current.add(animation);
       animation.finished.then(
         () => animations.current.delete(animation),
@@ -66,7 +67,7 @@ export function usePhotosSearchTransition(
           '[data-lenso-slot="search-field-input"], [data-lenso-slot="search-field-search-icon"]',
         )
         .forEach((content) => {
-          play(content, [{ opacity: 0 }, { opacity: 1 }], 180);
+          play(content, [{ opacity: 0 }, { opacity: 1 }], rail ? 140 : 180, rail ? 80 : 0);
         });
     }
     const close = target.closest("[data-photos-demo]")?.querySelector("[data-search-close]");
@@ -79,7 +80,7 @@ export function usePhotosSearchTransition(
         ],
         180,
       );
-  }, [active, trigger]);
+  }, [active, rail, trigger]);
   useLayoutEffect(
     () => () => {
       animations.current.forEach((animation) => animation.cancel());

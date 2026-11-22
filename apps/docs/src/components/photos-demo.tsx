@@ -135,6 +135,51 @@ function Collections({
   );
 }
 
+function DuoStatus({ cover }: { cover: boolean }) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 10_000);
+    return () => window.clearInterval(timer);
+  }, []);
+  return (
+    <aside aria-label="Device status" {...stylex.props(s.deviceStatus)}>
+      <time>
+        {now.toLocaleTimeString(undefined, {
+          hour: "numeric",
+          minute: "2-digit",
+          hourCycle: "h23",
+        })}
+      </time>
+      {cover && (
+        // Status glyph geometry adapted from Doan Labs' Duo (MIT).
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 40 44"
+          width="40"
+          height="44"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+        >
+          <path d="M6.4 30.8a15.8 15.8 0 1 1 27.2 0" strokeWidth="2.6" />
+          <path d="M13 21a10.2 10.2 0 0 1 14 0m-11 3.1a6 6 0 0 1 8 0" strokeWidth="2.3" />
+          <path
+            d="M18.2 26.3q1.8-1.45 3.6 0a.5.5 0 0 1 0 .7l-1.4 1.4a.6.6 0 0 1-.8 0L18.2 27a.5.5 0 0 1 0-.7Z"
+            fill="currentColor"
+            stroke="none"
+          />
+          <g fill="currentColor" stroke="none" opacity=".28">
+            <circle cx="12" cy="36" r="1.65" />
+            <circle cx="17.4" cy="38" r="1.65" />
+            <circle cx="22.6" cy="38" r="1.65" />
+            <circle cx="28" cy="36" r="1.65" />
+          </g>
+        </svg>
+      )}
+    </aside>
+  );
+}
+
 export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) {
   const [local] = useState(() => (controlled ? null : createPhotosSession()));
   const model = controlled ?? local!.screen("standalone");
@@ -154,6 +199,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const { fieldRef: searchFieldRef, capture: captureSearch } = usePhotosSearchTransition(
     destination === "search",
     searchTrigger,
+    verticalControls,
   );
   const searchRequested = useRef(false);
   const focusSearch = useCallback(
@@ -189,8 +235,10 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const [dense, setDense] = usePhotosField(model, "dense");
   const [dark, setDark] = usePhotosField(model, "dark");
   const [selecting, setSelectingState] = usePhotosField(model, "selecting");
-  const { headerRef: selectionHeaderRef, capture: captureSelection } =
-    usePhotosSelectionTransition(selecting);
+  const { headerRef: selectionHeaderRef, capture: captureSelection } = usePhotosSelectionTransition(
+    selecting,
+    verticalControls,
+  );
   function setSelecting(value: boolean, animate = false) {
     captureSelection(animate);
     setSelectingState(value);
@@ -494,6 +542,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     collection ??
     (destination === "library" ? "Library" : destination === "search" ? "Search" : "Collections");
   const headingOverPhotos = isLibrary && libraryView === "all" && visible.length > 0;
+  const railSearch = verticalControls && destination === "search";
   return (
     <ThemeScope
       theme={dark ? "dark" : "light"}
@@ -505,34 +554,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
       ]}
       inert={!interactive}
     >
-      {verticalControls && (
-        <aside aria-label="Device status" {...stylex.props(s.deviceStatus)}>
-          <time dateTime="09:41">9:41</time>
-          <svg aria-hidden="true" width="36" height="36" viewBox="0 0 36 36">
-            <path
-              d="M4.5 26a15.5 15.5 0 1 1 27 0"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.7"
-              strokeLinecap="round"
-            />
-            <path
-              d="M11.5 16a10 10 0 0 1 13 0m-10.5 2.75a6.2 6.2 0 0 1 8 0"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.25"
-              strokeLinecap="round"
-            />
-            <path d="M15.7 21.5q2.3-2.2 4.6 0l-1.65 1.65a.92.92 0 0 1-1.3 0z" fill="currentColor" />
-            <g fill="currentColor" opacity=".28">
-              <circle cx="10" cy="31.5" r="1.65" />
-              <circle cx="15.25" cy="33.75" r="1.65" />
-              <circle cx="20.75" cy="33.75" r="1.65" />
-              <circle cx="26" cy="31.5" r="1.65" />
-            </g>
-          </svg>
-        </aside>
-      )}
+      {verticalControls && <DuoStatus cover={cover} />}
       <Tabs
         value={libraryView}
         onValueChange={(value) => {
@@ -588,7 +610,13 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
           }}
           {...stylex.props(s.main)}
         >
-          <header {...stylex.props(s.header, headingOverPhotos && s.libraryHeader)}>
+          <header
+            {...stylex.props(
+              s.header,
+              headingOverPhotos && s.libraryHeader,
+              railSearch && s.railSearchHeader,
+            )}
+          >
             {headingOverPhotos && <ScrollEdge variant="soft" edge="top" xstyle={s.headerEdge} />}
             <div {...stylex.props(s.headingRow)}>
               <div
@@ -622,6 +650,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     data-selection-morph="filter"
                     xstyle={[
                       s.headerFilterGroup,
+                      verticalControls && s.railFilterGroup,
                       selecting &&
                         (verticalControls ? s.railFilterExpanded : s.headerFilterExpanded),
                     ]}
@@ -650,8 +679,9 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                       aria-hidden={!selecting}
                       {...stylex.props(
                         s.headerMore,
-                        verticalControls && s.railMore,
                         selecting && s.headerMoreVisible,
+                        verticalControls && s.railMore,
+                        verticalControls && selecting && s.railMoreVisible,
                       )}
                     >
                       <PhotosSelectionMenu
@@ -947,6 +977,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                 s.tabletNavigationHost,
               verticalControls && s.railBottomContent,
               destination === "search" && s.searchNavigation,
+              railSearch && s.railSearchDock,
             ]}
           >
             {destination === "search" ? (
@@ -990,6 +1021,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   data-search-close=""
                   isIconOnly
                   aria-label="Close search"
+                  xstyle={railSearch && s.headerIconButton}
                   onClick={(event) => closeSearch(event.detail > 0)}
                 >
                   <Xmark width={22} height={22} />
@@ -1023,9 +1055,10 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     })}
               >
                 <NavigationGroup
-                  xstyle={
-                    !verticalControls && !tablet && !navigationMinimized && s.compactDestinations
-                  }
+                  xstyle={[
+                    cover && s.coverNavigationGroup,
+                    !verticalControls && !tablet && !navigationMinimized && s.compactDestinations,
+                  ]}
                 >
                   {tablet && (
                     <Drawer side="start" modal={!dockSidebar} preventEdgeSwipe>
@@ -1132,7 +1165,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                         {...props}
                         aria-label={label}
                         aria-current={destination === value ? "page" : undefined}
-                        xstyle={s.railLink}
+                        xstyle={[s.railLink, cover && s.coverRailLink]}
                       >
                         <Icon width={22} height={22} aria-hidden="true" />
                       </Toolbar.Link>
