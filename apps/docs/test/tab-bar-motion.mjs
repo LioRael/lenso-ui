@@ -140,25 +140,93 @@ export async function assertTabBarMotion(page, base, appearance = "light") {
   return result.samples;
 }
 
-export async function assertTabletMinimize(page, base) {
-  await page.goto(`${base}/en/docs/react/components/tab-bar`);
-  await page.locator("summary").filter({ hasText: "Composition and actions (1)" }).click();
-  const example = page.locator('[data-example-name="tab-bar-tablet"]');
-  await example.scrollIntoViewIfNeeded();
-  const nav = example.getByRole("navigation", { name: "Main navigation", exact: true });
-  const group = nav.locator("[data-tab-bar-group]");
-  // Nearby deferred previews can move this scene after the first scroll.
-  for (let attempt = 0; attempt < 12 && !(await group.count()); attempt++) {
-    await example.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(250);
+export async function assertVerticalMinimize(page, base, shots) {
+  await page.goto(`${base}/en/docs/react/components/tab-bar?scenario=Vertical`, {
+    waitUntil: "domcontentloaded",
+  });
+  const story = page.locator('[data-component-story="TabBar"]');
+  const nav = story.getByRole("navigation", { name: "Main navigation", exact: true });
+  const group = nav.locator('[data-tab-bar-group][data-layout="vertical"]');
+  const selected = nav.getByRole("link", { name: "Recent", exact: true });
+  const collapse = story.getByRole("button", { name: "Minimize navigation", exact: true });
+  const expand = nav.getByRole("button", { name: "Expand navigation", exact: true });
+  await group.and(nav.locator("[data-indicator-ready]")).waitFor();
+  await selected.press("Enter");
+  await selected.and(nav.locator('[aria-current="page"]')).waitFor();
+  const element = await group.elementHandle();
+  const settle = (height) =>
+    page.waitForFunction(
+      ([node, size]) => Math.abs(node.getBoundingClientRect().height - size) < 0.1,
+      [element, height],
+    );
+  const capture = async (state) => {
+    if (!shots) return;
+    await group.scrollIntoViewIfNeeded();
+    const { x, y, width, height } = await group.boundingBox();
+    await page.screenshot({
+      path: `${shots}-${state}.png`,
+      clip: { x: x + width / 2 - 58, y: y - 12, width: 116, height: height + 24 },
+    });
+  };
+  const expandedHeight = await group.evaluate((node) => node.offsetHeight);
+  assert.ok(expandedHeight > 3 * 44);
+  await settle(expandedHeight);
+  if (shots) {
+    await selected.blur();
+    await page.waitForFunction((node) => {
+      const current = node
+        .querySelector("[data-tab-bar-list] [data-current]")
+        .getBoundingClientRect();
+      const paint = node
+        .querySelector('[data-lenso-slot="tab-bar-indicator"]')
+        .getBoundingClientRect();
+      return Math.abs(current.y + current.height / 2 - paint.y - paint.height / 2) < 0.5;
+    }, element);
   }
-  await group.locator("[data-tab-bar-list]").waitFor();
-  await page.waitForLoadState("networkidle");
+  await capture("expanded");
+  await collapse.click();
+  await settle(48);
+  const geometry = await group.evaluate((node) => {
+    const bounds = node.getBoundingClientRect();
+    const current = node.querySelector("[data-tab-bar-list] [data-current]");
+    const icon = current.querySelector("svg").getBoundingClientRect();
+    return {
+      label: current.textContent,
+      width: bounds.width,
+      dx: icon.x + icon.width / 2 - (bounds.x + bounds.width / 2),
+      dy: icon.y + icon.height / 2 - (bounds.y + bounds.height / 2),
+    };
+  });
+  assert.equal(geometry.label, "Recent");
+  assert.ok(Math.abs(geometry.width - 48) < 0.5, "The compact rail keeps its width");
+  assert.ok(Math.hypot(geometry.dx, geometry.dy) < 0.5, "Center the actual current destination");
+  assert.equal(await nav.getByRole("link").count(), 0, "Collapsed links are not exposed");
+  await capture("collapsed");
+  await expand.press("Enter");
+  await settle(expandedHeight);
+  assert.ok(await selected.evaluate((node) => node === document.activeElement));
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await collapse.click();
+  assert.equal(await group.evaluate((node) => node.offsetHeight), 48);
+  await expand.click();
+  assert.equal(await group.evaluate((node) => node.offsetHeight), expandedHeight);
+}
+
+export async function assertTabletMinimize(page, base) {
+  await page.goto(`${base}/en/docs/react/components/tab-bar?scenario=Tablet`, {
+    waitUntil: "domcontentloaded",
+  });
+  const story = page.locator('[data-component-story="TabBar"]');
+  const nav = story.getByRole("navigation", { name: "Main navigation", exact: true });
+  const group = nav.locator('[data-tab-bar-group][data-layout="tablet"][data-indicator-ready]');
+  await group.waitFor();
   const expanded = await group.boundingBox();
   const selected = nav.getByRole("link", { name: "Search", exact: true });
-  await selected.click();
+  await selected.press("Enter");
+  await selected.and(nav.locator('[aria-current="page"]')).waitFor();
   const element = await group.elementHandle();
-  await example.getByRole("button", { name: "Minimize navigation", exact: true }).click();
+  await story.getByRole("button", { name: "Minimize navigation", exact: true }).click();
   await page.waitForFunction(
     (node) => node.style.getPropertyValue("--tab-bar-collapse") === "1",
     element,
@@ -180,6 +248,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   ]) {
     const browser = await engine.launch();
     try {
+      const vertical = await browser.newPage({ viewport: { width: 1280, height: 980 } });
+      await assertVerticalMinimize(vertical, process.env.DOCS_URL ?? "http://127.0.0.1:3000");
+      await vertical.close();
+      console.log(`${name}: vertical compact geometry, focus and reduced motion passed`);
       const tablet = await browser.newPage({ viewport: { width: 1100, height: 900 } });
       await assertTabletMinimize(tablet, process.env.DOCS_URL ?? "http://127.0.0.1:3000");
       await tablet.close();

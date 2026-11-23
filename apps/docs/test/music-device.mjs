@@ -28,26 +28,32 @@ for (const engine of [chromium, webkit]) {
       await rail.getByRole("link", { name: "Home" }).getAttribute("aria-current"),
       "page",
     );
-    await rail.locator('[aria-current="page"] [data-tab-bar-fallback]').waitFor();
     const checkRail = async (navigation) => {
+      await navigation.locator("[data-indicator-ready]:not([data-highlight-active])").waitFor({
+        timeout: 5000,
+      });
       const bounds = await navigation.evaluate((nav) => {
-        const main = nav.ownerDocument.querySelector("main").getBoundingClientRect();
+        const account = nav.ownerDocument.querySelector('[aria-label="Account and appearance"]');
         const { left, width, height } = nav.getBoundingClientRect();
         const current = nav.querySelector('[aria-current="page"]');
-        const paint = current.querySelector("[data-tab-bar-fallback]").getBoundingClientRect();
+        const paint = nav
+          .querySelector('[data-lenso-slot="tab-bar-indicator"]')
+          .getBoundingClientRect();
         const hit = current.getBoundingClientRect();
+        const scaleX = hit.width / current.offsetWidth;
+        const scaleY = hit.height / current.offsetHeight;
         return {
           left,
           width,
           height,
-          contentEnd: main.right,
-          hitWidth: hit.width,
-          hitHeight: hit.height,
+          contentEnd: account.getBoundingClientRect().right,
+          hitWidth: current.offsetWidth,
+          hitHeight: current.offsetHeight,
           inset: [
-            paint.left - hit.left,
-            hit.right - paint.right,
-            paint.top - hit.top,
-            hit.bottom - paint.bottom,
+            (paint.left - hit.left) / scaleX,
+            (hit.right - paint.right) / scaleX,
+            (paint.top - hit.top) / scaleY,
+            (hit.bottom - paint.bottom) / scaleY,
           ],
         };
       });
@@ -57,11 +63,90 @@ for (const engine of [chromium, webkit]) {
       );
       assert.ok(bounds.hitWidth >= 44 && bounds.hitHeight >= 44);
       assert.ok(
-        bounds.inset.every((gap) => gap >= 3.9),
-        "Selection leaves space on all four sides",
+        bounds.inset.every((gap) => Math.abs(gap - 4) < 0.5),
+        `Selection is inset on all four sides: ${JSON.stringify(bounds.inset)}`,
       );
     };
+    const checkStatusBackdrop = async (frame, surface) => {
+      const status = frame.getByRole("complementary", { name: "Simulated device status" });
+      const main = frame.getByRole("main");
+      await main.evaluate((element) => {
+        const clock = element.ownerDocument.querySelector("aside time").getBoundingClientRect();
+        const card = element.querySelector('[aria-label$="Made for You"]').getBoundingClientRect();
+        element.scrollTop += card.top + card.height / 2 - clock.top - clock.height / 2;
+      });
+      assert.ok(
+        await status.locator("time").evaluate((clock) => {
+          const { x, y, width, height } = clock.getBoundingClientRect();
+          return Boolean(
+            clock.ownerDocument
+              .elementFromPoint(x + width / 2, y + height / 2)
+              ?.closest('button[aria-label$="Made for You"]'),
+          );
+        }),
+        "Scrolling Home brings artwork directly behind the transparent status area",
+      );
+      if (process.env.MUSIC_SHOTS) {
+        await page.screenshot({
+          path: `${process.env.MUSIC_SHOTS}-${engine.name()}-${surface}-status.png`,
+        });
+      }
+      const lastCard = main.getByRole("button", { name: /Made for You$/ }).last();
+      assert.ok(
+        await lastCard.evaluate((card) => {
+          const shelf = card.parentElement;
+          shelf.scrollLeft = shelf.scrollWidth;
+          const rail = card.ownerDocument.querySelector('[aria-label="Music navigation"]');
+          const clearsRail =
+            card.getBoundingClientRect().right <= rail.getBoundingClientRect().left;
+          shelf.scrollLeft = 0;
+          return clearsRail;
+        }),
+        "The last cover can scroll fully clear of the right-hand rail",
+      );
+      await main.evaluate((element) => (element.scrollTop = 0));
+    };
     await checkRail(rail);
+    const homeLink = rail.getByRole("link", { name: "Home", exact: true });
+    const libraryLink = rail.getByRole("link", { name: "Library", exact: true });
+    const from = await homeLink.boundingBox();
+    const to = await libraryLink.boundingBox();
+    const x = from.x + from.width / 2;
+    const startY = from.y + from.height / 2;
+    const endY = to.y + to.height / 2;
+    await page.mouse.move(x, startY);
+    await page.mouse.down();
+    await rail.locator("[data-lifted][data-refracting]").waitFor();
+    await page.mouse.move(x, endY, { steps: 12 });
+    assert.equal(await homeLink.getAttribute("aria-current"), "page");
+    await rail.evaluate(async (nav) => {
+      const indicator = nav.querySelector('[data-lenso-slot="tab-bar-indicator"]');
+      const library = nav.querySelector('a[href="#library"]');
+      const deadline = performance.now() + 1500;
+      while (performance.now() < deadline) {
+        const lens = indicator.getBoundingClientRect();
+        const target = library.getBoundingClientRect();
+        if (
+          Math.abs(lens.y + lens.height / 2 - target.y - target.height / 2) < 8 &&
+          lens.height > target.height
+        )
+          return;
+        await new Promise(requestAnimationFrame);
+      }
+      throw new Error("The held lens should lift and follow the pointer along the vertical rail");
+    });
+    if (process.env.MUSIC_SHOTS) {
+      await page.screenshot({
+        path: `${process.env.MUSIC_SHOTS}-${engine.name()}-vertical-drag.png`,
+      });
+    }
+    await page.mouse.up();
+    await inner.getByRole("heading", { name: "Library", exact: true }).waitFor();
+    assert.equal(await libraryLink.getAttribute("aria-current"), "page");
+    await checkRail(rail);
+    await homeLink.press("Enter");
+    await inner.getByRole("heading", { name: "Home", exact: true }).waitFor();
+    await checkStatusBackdrop(inner, "inner");
     const mini = inner.getByRole("region", { name: "Mini player" });
     const controls = await mini
       .getByRole("button")
@@ -144,6 +229,7 @@ for (const engine of [chromium, webkit]) {
     const coverRail = cover.getByRole("navigation", { name: "Music navigation" });
     await coverRail.getByRole("link", { name: "Home", exact: true }).click({ trial: true });
     await checkRail(coverRail);
+    await checkStatusBackdrop(cover, "cover");
     assert.equal(
       await cover.getByRole("region", { name: "Mini player" }).getByRole("button").count(),
       3,

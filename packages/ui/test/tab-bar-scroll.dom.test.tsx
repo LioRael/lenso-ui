@@ -20,7 +20,11 @@ afterEach(async () => {
   else Reflect.deleteProperty(CSSStyleDeclaration.prototype, Symbol.iterator);
 });
 
-async function fixture(autoMinimize: TabBarRootProps["autoMinimize"], controlled?: boolean) {
+async function fixture(
+  autoMinimize: TabBarRootProps["autoMinimize"],
+  controlled?: boolean,
+  layout?: TabBarRootProps["layout"],
+) {
   const target = createRef<HTMLDivElement>();
   const changes: boolean[] = [];
   const host = document.createElement("div");
@@ -32,6 +36,7 @@ async function fixture(autoMinimize: TabBarRootProps["autoMinimize"], controlled
         <div ref={target}>
           <TabBar
             aria-label="Navigation"
+            layout={layout}
             autoMinimize={mode}
             scrollTarget={target}
             minimized={controlled}
@@ -54,6 +59,18 @@ async function fixture(autoMinimize: TabBarRootProps["autoMinimize"], controlled
   const minimized = () => host.querySelector("nav")!.hasAttribute("data-minimized");
   return { scroll, minimized, changes, render, target };
 }
+
+test("vertical navigation only follows scroll after opting in", async () => {
+  const f = await fixture(undefined, undefined, "vertical");
+  await f.scroll(32);
+  expect(f.minimized()).toBe(false);
+  await f.render(true);
+  await f.scroll(48);
+  expect(f.minimized()).toBe(true);
+  await f.scroll(32);
+  expect(f.minimized()).toBe(false);
+  expect(f.changes).toEqual([true, false]);
+});
 
 test("true and down minimize after accumulated travel, reverse after 8px, and expand at the top", async () => {
   const f = await fixture(true);
@@ -125,47 +142,50 @@ test("controlled minimization reports intent without changing owner state or rep
 
 // Scroll coverage above has no groups. This catches the optical-layer remount and
 // focus loss that occur when a populated navigation collapses during interaction.
-test("minimizing retains the row and optical layers while moving focus to an expand control", async () => {
-  // Happy DOM's style declarations lack the browser's iterable interface.
-  Object.defineProperty(CSSStyleDeclaration.prototype, Symbol.iterator, {
-    configurable: true,
-    value: function* (this: CSSStyleDeclaration) {
-      for (let index = 0; index < this.length; index++) yield this.item(index);
-    },
-  });
-  const host = document.createElement("div");
-  document.body.append(host);
-  root = createRoot(host);
-  const render = (minimized: boolean) =>
-    act(() =>
-      root!.render(
-        <TabBar minimized={minimized}>
-          <TabBar.Group>
-            <TabBar.Link href="#home" icon={<svg />} isCurrent>
-              Home
-            </TabBar.Link>
-            <TabBar.Link href="#library" icon={<svg />}>
-              Library
-            </TabBar.Link>
-          </TabBar.Group>
-        </TabBar>,
-      ),
-    );
-  await render(false);
-  const current = host.querySelector<HTMLElement>("[data-tab-bar-list] [data-current]")!;
-  const indicator = host.querySelector("[data-lenso-slot='tab-bar-indicator']");
-  const highlight = host.querySelector("[data-lenso-slot='tab-bar-highlight']");
-  const list = host.querySelector("[data-tab-bar-list]")!;
-  current.focus();
-  await render(true);
-  expect(host.querySelector("[data-lenso-slot='tab-bar-indicator']")).toBe(indicator);
-  expect(host.querySelector("[data-lenso-slot='tab-bar-highlight']")).toBe(highlight);
-  expect(host.querySelectorAll("[data-tab-bar-list] [data-tab-bar-item]")).toHaveLength(2);
-  expect(list.hasAttribute("inert")).toBe(true);
-  expect(list.getAttribute("aria-hidden")).toBe("true");
-  expect(document.activeElement).toBe(host.querySelector("[data-tab-bar-expand]"));
-  await render(false);
-  expect(document.activeElement).toBe(current);
-  expect(list.hasAttribute("inert")).toBe(false);
-  expect(host.querySelector("[data-lenso-slot='tab-bar-indicator']")).toBe(indicator);
-});
+test.each(["phone", "vertical"] as const)(
+  "%s minimization retains the list and optical layers while moving focus",
+  async (layout) => {
+    // Happy DOM's style declarations lack the browser's iterable interface.
+    Object.defineProperty(CSSStyleDeclaration.prototype, Symbol.iterator, {
+      configurable: true,
+      value: function* (this: CSSStyleDeclaration) {
+        for (let index = 0; index < this.length; index++) yield this.item(index);
+      },
+    });
+    const host = document.createElement("div");
+    document.body.append(host);
+    root = createRoot(host);
+    const render = (minimized: boolean) =>
+      act(() =>
+        root!.render(
+          <TabBar layout={layout} minimized={minimized}>
+            <TabBar.Group>
+              <TabBar.Link href="#home" icon={<svg />} isCurrent>
+                Home
+              </TabBar.Link>
+              <TabBar.Link href="#library" icon={<svg />}>
+                Library
+              </TabBar.Link>
+            </TabBar.Group>
+          </TabBar>,
+        ),
+      );
+    await render(false);
+    const current = host.querySelector<HTMLElement>("[data-tab-bar-list] [data-current]")!;
+    const indicator = host.querySelector("[data-lenso-slot='tab-bar-indicator']");
+    const highlight = host.querySelector("[data-lenso-slot='tab-bar-highlight']");
+    const list = host.querySelector("[data-tab-bar-list]")!;
+    current.focus();
+    await render(true);
+    expect(host.querySelector("[data-lenso-slot='tab-bar-indicator']")).toBe(indicator);
+    expect(host.querySelector("[data-lenso-slot='tab-bar-highlight']")).toBe(highlight);
+    expect(host.querySelectorAll("[data-tab-bar-list] [data-tab-bar-item]")).toHaveLength(2);
+    expect(list.hasAttribute("inert")).toBe(true);
+    expect(list.getAttribute("aria-hidden")).toBe("true");
+    expect(document.activeElement).toBe(host.querySelector("[data-tab-bar-expand]"));
+    await render(false);
+    expect(document.activeElement).toBe(current);
+    expect(list.hasAttribute("inert")).toBe(false);
+    expect(host.querySelector("[data-lenso-slot='tab-bar-indicator']")).toBe(indicator);
+  },
+);

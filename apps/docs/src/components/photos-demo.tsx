@@ -1119,7 +1119,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   !verticalControls && !tablet && isLibrary && libraryView === "all" ? "up" : false
                 }
                 scrollTarget={main}
-                minimized={!tablet && navigationMinimized}
+                minimized={!verticalControls && !tablet && navigationMinimized}
                 onMinimizedChange={setNavigationMinimized}
               >
                 <TabBar.Group

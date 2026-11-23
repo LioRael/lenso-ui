@@ -43,7 +43,7 @@ const MotionContext = createContext({
 });
 
 export type TabBarRootProps = StyleXProps<PartProps<"nav">> & {
-  /** Vertical uses icon-only destinations and does not minimize or drag the indicator. */
+  /** Vertical defaults to icon-only destinations and collapses along the rail. */
   layout?: TabBarLayout;
   /** Enable press enlargement, elastic dragging and spring return on each glass group. */
   elastic?: boolean;
@@ -89,7 +89,7 @@ export function TabBarRoot({
     [ref],
   );
   const [uncontrolledMinimized, setUncontrolledMinimized] = useState(defaultMinimized);
-  const minimized = layout !== "vertical" && (controlledMinimized ?? uncontrolledMinimized);
+  const minimized = controlledMinimized ?? uncontrolledMinimized;
   const setMinimized = useCallback(
     (next: boolean) => {
       if (next === minimized) return;
@@ -99,7 +99,7 @@ export function TabBarRoot({
     [controlledMinimized, minimized, onMinimizedChange],
   );
   useTabBarScrollMinimize({
-    enabled: layout !== "vertical" && Boolean(autoMinimize),
+    enabled: Boolean(autoMinimize),
     minimizeDirection: autoMinimize === "up" ? "up" : "down",
     scrollTarget,
     root: rootRef,
@@ -151,7 +151,13 @@ export function TabBarGroup({
 }: TabBarGroupProps) {
   const layout = useContext(LayoutContext);
   const vertical = layout === "vertical";
-  const { elastic, minimized, expandLabel, setMinimized } = useContext(MotionContext);
+  const {
+    elastic,
+    minimized: rootMinimized,
+    expandLabel,
+    setMinimized,
+  } = useContext(MotionContext);
+  const minimized = rootMinimized && !(vertical && separate);
   const groupRef = useRef<HTMLDivElement | null>(null);
   const expandRef = useRef<HTMLButtonElement | null>(null);
   const focusAfterExpand = useRef(false);
@@ -168,7 +174,7 @@ export function TabBarGroup({
     [ref],
   );
   useTabBarMinimize(groupRef, minimized, separate, layout);
-  const motionRef = useTabBarMotionRef(mergedRef, !vertical && !separate);
+  const motionRef = useTabBarMotionRef(mergedRef, !separate, vertical);
   const shouldStart = useCallback((event: PointerEvent) => {
     const target = event.target instanceof Element ? event.target : null;
     return (
@@ -189,19 +195,17 @@ export function TabBarGroup({
   });
   useLayoutEffect(() => {
     const group = groupRef.current;
-    if (!group || separate) return;
-    if (
-      minimized &&
-      group.querySelector("[data-tab-bar-list]")?.contains(group.ownerDocument.activeElement)
-    ) {
+    const list = group?.querySelector("[data-tab-bar-list]");
+    if (!group || !list || separate) return;
+    if (minimized && list.contains(group.ownerDocument.activeElement)) {
       expandRef.current?.focus({ preventScroll: true });
     } else if (!minimized && focusAfterExpand.current) {
       focusAfterExpand.current = false;
       const target =
-        group.querySelector<HTMLElement>(
+        list.querySelector<HTMLElement>(
           '[data-tab-bar-item][data-current]:not([aria-disabled="true"]):not(:disabled)',
         ) ??
-        group.querySelector<HTMLElement>(
+        list.querySelector<HTMLElement>(
           '[data-tab-bar-item]:not([aria-disabled="true"]):not(:disabled)',
         );
       target?.focus({ preventScroll: true });
@@ -240,7 +244,7 @@ export function TabBarGroup({
         data-material-resting=""
         xstyle={[tabBarStyles.material, layout !== "phone" && tabBarStyles.tabletMaterial]}
       />
-      {!vertical && !separate && (
+      {!separate && (
         <span
           data-lenso-slot="tab-bar-indicator"
           aria-hidden="true"
@@ -255,7 +259,7 @@ export function TabBarGroup({
           </span>
         </span>
       )}
-      {!vertical && !separate && (
+      {!separate && (
         <span
           data-lenso-slot="tab-bar-highlight"
           aria-hidden="true"
@@ -312,8 +316,9 @@ export function TabBarGroup({
           onFocus={() => {
             focusAfterExpand.current = true;
           }}
-          onBlur={() => {
-            focusAfterExpand.current = false;
+          onBlur={(event) => {
+            // Removing the expand button also blurs it, before the list can take focus.
+            if (event.relatedTarget) focusAfterExpand.current = false;
           }}
           onClick={() => {
             focusAfterExpand.current = true;
@@ -342,6 +347,7 @@ function ItemContent({ icon, iconOnly, children }: ContentProps) {
           {...stylex.props(
             tabBarStyles.icon,
             layout === "tablet" && !iconOnly && tabBarStyles.tabletIcon,
+            layout === "vertical" && iconOnly && tabBarStyles.verticalIcon,
           )}
         >
           {icon}
