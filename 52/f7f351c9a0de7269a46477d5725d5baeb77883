@@ -1,0 +1,43 @@
+apps/docs/src/generated/api-reference.json
+  s_c4cecb510eb0ec::t_e1655a51060388 67924,68015,68024,68033,68042,94580,94611,94646
+apps/docs/src/styles/music-demo.stylex.ts
+  s_dde83b52c0c490::t_095b0963663574 49-50,68-72,118-123
+apps/docs/test/device-frame.mjs
+  s_dde83b52c0c490::t_9fa457068f4085 62-63,71
+apps/docs/test/music-device.mjs
+  s_dde83b52c0c490::t_09fa02724b0aa3 32-34,36,39-41,43-44,49-51,53-56,66-105,107,110-149,232
+apps/docs/test/tab-bar-motion.mjs
+  s_c4cecb510eb0ec::t_295418ca795512 143-184,186-223,226-227,229,251-254
+packages/tokens/src/components/tab-bar/tab-bar.styles.ts
+  s_c4cecb510eb0ec::t_405dd114b22e7d 47-54,124,142,331
+packages/ui/src/components/tab-bar/tab-bar-minimize.ts
+  s_c4cecb510eb0ec::t_33b2362447953a 5,14-15,24-25,30-33,36,47-56,80,89-92,98,108,132-133
+packages/ui/src/components/tab-bar/tab-bar.tsx
+  s_c4cecb510eb0ec::t_6df7a7b3d43033 46,92,102,154-160,177,198-200,205,208,247,262,319-321,350
+packages/ui/test/presentation-ref-cleanup.dom.test.tsx
+  s_dde83b52c0c490::t_4da247aecb0826 52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "52f7f351c9a0de7269a46477d5725d5baeb77883",
+  "prompts": {},
+  "sessions": {
+    "s_c4cecb510eb0ec": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20801-2fc9-72d2-a51d-adf5f04b4290",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    },
+    "s_dde83b52c0c490": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a207e1-0f8b-7151-96b5-17c0157579d2",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
