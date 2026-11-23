@@ -606,6 +606,25 @@ export const photos = stylex.create({
     bottom: "calc(max(12px, env(safe-area-inset-bottom)) + var(--photos-keyboard-inset, 0px))",
   },
   searchDock: { display: "flex", alignItems: "center", gap: 8 },
+  searchOriginHidden: { visibility: "hidden" },
+  inlineSearchDock: {
+    top: "max(24px, env(safe-area-inset-top))",
+    right: 32,
+    bottom: "auto",
+    left: "auto",
+    width: 360,
+    transform: "none",
+  },
+  inlineRailSearchDock: {
+    top: "var(--photos-rail-actions-top, 82px)",
+    right: "calc(var(--photos-rail-center) - 22px)",
+  },
+  inlineRailResultsHeader: {
+    boxSizing: "border-box",
+    minHeight: "calc(var(--photos-rail-actions-top, 82px) + 52px)",
+    marginBottom: 0,
+  },
+  inlineSearchGroup: { minHeight: 44 },
   railSearchHeader: {
     boxSizing: "border-box",
     minHeight: "calc(var(--photos-rail-search-top) + 44px)",

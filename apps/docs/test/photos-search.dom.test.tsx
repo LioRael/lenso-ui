@@ -28,12 +28,20 @@ test.each([390, 834])(
       const triggerSelector =
         width < 768 ? '[data-lenso-slot="tab-bar-button"]' : 'button[aria-label="Search"]';
       expect(host.querySelector("nav")?.dataset.layout).toBe(width < 768 ? "phone" : "tablet");
+      const grid = host.querySelector('[aria-label="Photo library"]');
+      expect(grid).not.toBeNull();
       await act(() => host.querySelector<HTMLButtonElement>(triggerSelector)!.click());
       const input = host.querySelector<HTMLInputElement>('input[name="photos-search"]')!;
       expect(input).not.toBeNull();
       expect(document.activeElement).toBe(input);
-      expect(host.querySelector('[aria-label="Search suggestions"]')).not.toBeNull();
-      expect(host.querySelector('[aria-label="Photo library"]')).toBeNull();
+      if (width < 768) {
+        expect(host.querySelector('[aria-label="Search suggestions"]')).not.toBeNull();
+        expect(host.querySelector('[aria-label="Photo library"]')).toBeNull();
+      } else {
+        expect(host.querySelector('[aria-label="Search suggestions"]')).toBeNull();
+        expect(host.querySelector('[aria-label="Photo library"]')).toBe(grid);
+        expect(main.scrollTop).toBe(240);
+      }
       for (const composition of [{ isComposing: true }, { keyCode: 229 }]) {
         await act(() =>
           input.dispatchEvent(

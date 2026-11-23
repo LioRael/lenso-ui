@@ -421,6 +421,10 @@ for (const engine of [chromium, webkit]) {
     assert.equal(await innerApp.locator("main").evaluate(firstVisible), anchor);
     await innerApp.getByRole("button", { name: "Search", exact: true }).click();
     const search = innerApp.getByRole("searchbox", { name: "Search photos" });
+    await search.waitFor();
+    assert.equal(await innerApp.locator("main").evaluate(firstVisible), anchor);
+    assert.equal(await innerApp.getByRole("region", { name: "Search suggestions" }).count(), 0);
+    assert.equal(await innerApp.getByRole("button", { name: "Sort and filter" }).count(), 0);
     await search.fill("中文照片");
     await search.evaluate((input) => {
       input.dispatchEvent(new CompositionEvent("compositionstart", { bubbles: true }));
