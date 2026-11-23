@@ -13,6 +13,8 @@ for (const engine of [chromium, webkit]) {
       Object.defineProperty(navigator, "clipboard", {
         value: {
           writeText: async (text) => {
+            if (window.rejectAlbumCopy)
+              throw new DOMException("Clipboard denied", "NotAllowedError");
             window.copiedAlbum = text;
           },
         },
@@ -147,6 +149,22 @@ for (const engine of [chromium, webkit]) {
     await homeLink.press("Enter");
     await inner.getByRole("heading", { name: "Home", exact: true }).waitFor();
     await checkStatusBackdrop(inner, "inner");
+    const artists = inner.getByRole("region", { name: "Your Favorite Artists" });
+    const firstArtist = artists.getByRole("button").first();
+    const shelfAlignment = await firstArtist.evaluate(async (first) => {
+      const shelf = first.parentElement;
+      const second = first.nextElementSibling;
+      const leadingEdge = first.getBoundingClientRect().left;
+      shelf.scrollLeft = second.getBoundingClientRect().left - leadingEdge;
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      const offset = second.getBoundingClientRect().left - leadingEdge;
+      shelf.scrollLeft = 0;
+      return offset;
+    });
+    assert.ok(
+      Math.abs(shelfAlignment) < 1,
+      `Snapped cards keep the shelf gutter: ${shelfAlignment}`,
+    );
     const mini = inner.getByRole("region", { name: "Mini player" });
     const controls = await mini
       .getByRole("button")
@@ -190,6 +208,13 @@ for (const engine of [chromium, webkit]) {
     await lyrics.click();
     await miniDialog.getByRole("heading", { name: "Lyrics", exact: true }).waitFor();
     await miniDialog.getByText("This instrumental preview has no lyrics.").waitFor();
+    const lyricsArtwork = miniDialog.locator('img:not([aria-hidden="true"])');
+    await lyricsArtwork.waitFor();
+    assert.equal(
+      await lyricsArtwork.getAttribute("src"),
+      await mini.locator("img").getAttribute("src"),
+      "Lyrics keeps the artwork of the current song, not just the blurred backdrop",
+    );
     if (process.env.MUSIC_SHOTS) {
       await page.screenshot({
         path: `${process.env.MUSIC_SHOTS}-${engine.name()}-mini-lyrics.png`,
@@ -212,6 +237,15 @@ for (const engine of [chromium, webkit]) {
     await rail.getByRole("link", { name: "Library" }).click();
     await inner.getByRole("button", { name: "Songs", exact: true }).click();
     await inner.getByRole("heading", { name: "Songs", exact: true }).waitFor();
+    const songListMain = inner.getByRole("main");
+    const songPlayerGap = await songListMain.evaluate((node) => {
+      const player = node.ownerDocument.querySelector('[aria-label="Mini player"]');
+      return player.getBoundingClientRect().top - node.getBoundingClientRect().bottom;
+    });
+    assert.ok(songPlayerGap > 0, "Songs do not scroll behind the mini player");
+    const currentSong = songListMain.getByRole("button", { name: /Undertow/ });
+    assert.equal(await currentSong.getAttribute("aria-current"), "true");
+    await currentSong.getByText("0:41", { exact: true }).waitFor();
     await rail.getByRole("link", { name: "Home" }).click();
     await inner.getByRole("heading", { name: "Home", exact: true }).waitFor();
     if (process.env.MUSIC_SHOTS) {
@@ -259,6 +293,12 @@ for (const engine of [chromium, webkit]) {
     assert.equal(await cover.locator("audio").count(), 0);
     await inner.getByRole("button", { name: /^Now Playing: Neon Platform/ }).click();
     const widePlayer = inner.getByRole("dialog", { name: "Now Playing" });
+    const checkPlayerStatus = async (display) => {
+      const status = display.getByRole("complementary", { name: "Simulated device status" });
+      assert.equal(await status.count(), 1, "The device clock stays present in Now Playing");
+      assert.match(await status.locator("time").textContent(), /^\d{2}:\d{2}$/);
+    };
+    await checkPlayerStatus(inner);
     const wideQueue = widePlayer.getByRole("button", { name: "Playing Next" });
     await wideQueue.click();
     const shuffle = widePlayer.getByRole("button", { name: "Shuffle", exact: true });
@@ -287,6 +327,7 @@ for (const engine of [chromium, webkit]) {
     await page.getByRole("button", { name: "Fold", exact: true }).click();
     const coverPosition = cover.getByRole("slider", { name: "Playback position" });
     await coverPosition.waitFor();
+    await checkPlayerStatus(cover);
     assert.ok(
       await audio.evaluate(
         (node, time) => node.isConnected && !node.paused && node.currentTime > time,
@@ -296,7 +337,17 @@ for (const engine of [chromium, webkit]) {
     );
     const coverQueue = cover.getByRole("button", { name: "Playing Next" });
     await coverQueue.click();
-    await cover.getByRole("button", { name: "Repeat: One", exact: true }).click();
+    const coverRepeat = cover.getByRole("button", { name: "Repeat: One", exact: true });
+    assert.ok(
+      await coverRepeat.evaluate((button) => {
+        const status = button.ownerDocument.querySelector('[aria-label="Simulated device status"]');
+        const control = button.getBoundingClientRect();
+        const overlay = status.getBoundingClientRect();
+        return control.right <= overlay.left || control.top >= overlay.bottom;
+      }),
+      "The folded queue's repeat button clears the device status",
+    );
+    await coverRepeat.click();
     await coverQueue.click();
     await cover
       .getByRole("dialog", { name: "Now Playing" })
@@ -370,6 +421,16 @@ for (const engine of [chromium, webkit]) {
       const play = main.getByRole("button", { name: "Play", exact: true });
       const shuffleAlbum = main.getByRole("button", { name: "Shuffle", exact: true });
       await shuffleAlbum.click({ trial: true });
+      if (folded) {
+        const gap = await main.evaluate((node) => {
+          const player = node.ownerDocument.querySelector('[aria-label="Mini player"]');
+          return player.getBoundingClientRect().top - node.getBoundingClientRect().bottom;
+        });
+        assert.ok(
+          gap > 0,
+          `Folded album content stops above the mini player throughout scrolling: ${gap}px`,
+        );
+      }
       assert.deepEqual(
         await background(display),
         lowTideBackground,
@@ -400,6 +461,15 @@ for (const engine of [chromium, webkit]) {
       );
       assert.equal((await shuffleAlbum.textContent()).trim(), "");
       const songs = display.getByRole("list", { name: "Songs" });
+      if (folded) {
+        const secondTrack = songs.getByRole("button", { name: /Salt in the Seams/ });
+        const clearance = await secondTrack.evaluate(
+          (track) =>
+            track.closest("main").getBoundingClientRect().bottom -
+            track.getBoundingClientRect().bottom,
+        );
+        assert.ok(clearance >= 0, `Two complete tracks fit on entry: ${clearance}px clearance`);
+      }
       const firstTrack = songs.getByRole("button", { name: /Postcards from the Shore/ });
       const rowHeight = await firstTrack.evaluate(
         (button) => button.getBoundingClientRect().height,
@@ -439,6 +509,13 @@ for (const engine of [chromium, webkit]) {
         await copied.evaluate(() => window.copiedAlbum),
         "Low Tide Letters · Marina Vale",
       );
+      if (folded) {
+        await copied.waitFor({ state: "hidden", timeout: 5000 });
+        await shareAlbum.evaluate(() => (window.rejectAlbumCopy = true));
+        await shareAlbum.click();
+        await display.getByText("Couldn’t share album details", { exact: true }).waitFor();
+        await shareAlbum.evaluate(() => (window.rejectAlbumCopy = false));
+      }
       // macOS WebKit uses Option-Tab to include buttons in keyboard navigation.
       await shuffleAlbum.press(
         engine.name() === "webkit" && process.platform === "darwin" ? "Alt+Tab" : "Tab",
@@ -455,7 +532,15 @@ for (const engine of [chromium, webkit]) {
     await page.getByRole("button", { name: "Unfold", exact: true }).click();
     const preview = "**/assets/demo/music/0.mp3";
     await page.route(preview, (route) => route.abort());
-    await inner.getByRole("main").getByRole("button", { name: "Play", exact: true }).click();
+    await miniShuffle.click();
+    assert.equal(await miniShuffle.getAttribute("aria-pressed"), "true");
+    await inner.getByRole("button", { name: "Album options", exact: true }).click();
+    await inner.getByRole("menuitem", { name: "Play", exact: true }).click();
+    assert.equal(
+      await miniShuffle.getAttribute("aria-pressed"),
+      "false",
+      "Menu Play uses album order",
+    );
     await inner.getByRole("button", { name: /^Now Playing: Postcards from the Shore/ }).click();
     const player = inner.getByRole("dialog", { name: "Now Playing" });
     await player.getByText("Couldn’t play preview").waitFor();

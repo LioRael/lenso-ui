@@ -411,6 +411,7 @@ export function NowPlaying({
   const position = usePlaybackPosition(model, state);
   const [draft, setDraft] = useState<number | null>(null);
   const close = useRef<HTMLButtonElement>(null);
+  const queueHeading = useRef<HTMLHeadingElement>(null);
   const wasOpen = useRef(state.nowPlaying);
   useEffect(() => {
     if (wasOpen.current === state.nowPlaying) return;
@@ -419,6 +420,7 @@ export function NowPlaying({
     if (state.nowPlaying) close.current?.focus({ preventScroll: true });
     else returnFocus.current?.focus({ preventScroll: true });
   }, [state.nowPlaying, interactive, returnFocus]);
+  const duo = model.surface !== "standalone";
   const loved = state.loved.has(track.id);
   const shown = draft ?? position;
   const upcoming = state.queue.slice(state.index + 1);
@@ -474,10 +476,14 @@ export function NowPlaying({
         </header>
         {showQueue ? (
           <div {...stylex.props(s.queue)}>
-            <div {...stylex.props(s.queueHeader)}>
-              <div>
-                <h2 {...stylex.props(s.queueTitle)}>Playing Next</h2>
-                <p {...stylex.props(s.queueSource)}>From {state.source}</p>
+            <div {...stylex.props(s.queueHeader, model.surface === "cover" && s.coverQueueHeader)}>
+              <div {...stylex.props(s.caption)}>
+                <h2 ref={queueHeading} tabIndex={-1} {...stylex.props(s.queueTitle)}>
+                  Playing Next
+                </h2>
+                <p title={state.source} {...stylex.props(s.queueSource)}>
+                  From {state.source}
+                </p>
               </div>
               <div {...stylex.props(s.queueModes)}>
                 <ShuffleButton model={model} state={state} />
@@ -489,11 +495,16 @@ export function NowPlaying({
                 {upcoming.map((id, offset) => {
                   const item = trackById(id);
                   const itemAlbum = albumOf(item);
+                  const index = state.index + offset + 1;
                   return (
-                    <li key={`${id}-${offset}`}>
+                    <li key={`${index}-${id}`}>
                       <button
                         type="button"
-                        onClick={() => model.jumpTo(state.index + offset + 1)}
+                        onClick={(event) => {
+                          event.currentTarget.closest("ol")?.scrollTo(0, 0);
+                          queueHeading.current?.focus({ preventScroll: true });
+                          model.jumpTo(index);
+                        }}
                         {...stylex.props(s.queueRow)}
                       >
                         <Artwork album={itemAlbum} xstyle={s.queueArt} />
@@ -501,26 +512,37 @@ export function NowPlaying({
                           <span {...stylex.props(s.captionTitle)}>{item.title}</span>
                           <span {...stylex.props(s.secondary)}>{itemAlbum.artist}</span>
                         </span>
+                        <span {...stylex.props(s.queueDuration)}>{formatTime(item.duration)}</span>
+                        {offset < upcoming.length - 1 && (
+                          <span aria-hidden="true" {...stylex.props(s.queueRowDivider)} />
+                        )}
                       </button>
                     </li>
                   );
                 })}
               </ol>
             ) : (
-              <p {...stylex.props(s.queueSource)}>Nothing else is queued.</p>
+              <div {...stylex.props(s.queueEmpty)}>
+                <ListUl aria-hidden="true" {...stylex.props(s.icon)} />
+                <p {...stylex.props(s.queueSource)}>Nothing else is queued.</p>
+              </div>
             )}
           </div>
         ) : showLyrics ? (
           <div {...stylex.props(s.lyricsEmpty)}>
-            <LyricsIcon xstyle={s.transportIcon} />
-            <h2 {...stylex.props(s.queueTitle)}>Lyrics</h2>
-            <p {...stylex.props(s.queueSource)}>This instrumental preview has no lyrics.</p>
+            <Artwork album={album} xstyle={s.lyricsArtwork} />
+            <h2 {...stylex.props(s.lyricsTitle)}>Lyrics</h2>
+            <p {...stylex.props(s.lyricsDescription)}>This instrumental preview has no lyrics.</p>
           </div>
         ) : (
           <div {...stylex.props(s.playerArtworkSlot)}>
             <Artwork
               album={album}
-              xstyle={[s.playerArtwork, state.playing && s.playerArtworkPlaying]}
+              xstyle={[
+                s.playerArtwork,
+                duo && s.duoPlayerArtwork,
+                state.playing && s.playerArtworkPlaying,
+              ]}
             />
           </div>
         )}
@@ -537,7 +559,7 @@ export function NowPlaying({
               aria-label={loved ? "Remove from Favorites" : "Add to Favorites"}
               aria-pressed={loved}
               onClick={toggleLove}
-              xstyle={s.playerRound}
+              xstyle={[s.playerRound, duo && s.duoPlayerRound]}
             >
               {loved ? (
                 <StarFill {...stylex.props(s.smallIcon)} />
@@ -549,7 +571,7 @@ export function NowPlaying({
               model={model}
               album={album}
               saved={state.saved.has(album.id)}
-              xstyle={s.playerRound}
+              xstyle={[s.playerRound, duo && s.duoPlayerRound]}
               onShowAlbum={onShowAlbum}
             />
           </div>
@@ -568,9 +590,12 @@ export function NowPlaying({
               xstyle={s.slider}
             >
               <Slider.Control xstyle={s.playerSliderControl}>
-                <Slider.Track>
-                  <Slider.Fill />
-                  <Slider.Thumb aria-label="Playback position" xstyle={s.playerSliderThumb} />
+                <Slider.Track xstyle={duo && s.duoProgressTrack}>
+                  <Slider.Fill xstyle={duo && s.duoProgressFill} />
+                  <Slider.Thumb
+                    aria-label="Playback position"
+                    xstyle={duo ? s.duoProgressThumb : s.playerSliderThumb}
+                  />
                 </Slider.Track>
               </Slider.Control>
             </Slider>
@@ -631,8 +656,8 @@ export function NowPlaying({
             </Slider>
             <VolumeFill aria-hidden="true" {...stylex.props(s.smallIcon)} />
           </div>
-          <div {...stylex.props(s.playerFooter)}>
-            {model.surface !== "standalone" && (
+          <div {...stylex.props(s.playerFooter, duo && s.duoPlayerFooter)}>
+            {duo && (
               <Button
                 variant="borderless"
                 aria-label="Lyrics"
