@@ -1,0 +1,19 @@
+apps/docs/src/components/photos-viewer.tsx
+  s_810028d97f0688::t_ece356bd8bb1d7 534,536-537
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a2598a254316e72843d70091ee534e54cc80bfa5",
+  "prompts": {},
+  "sessions": {
+    "s_810028d97f0688": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a207e1-63cf-75e2-9a84-eec0ff6a675d",
+        "model": "unknown"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
