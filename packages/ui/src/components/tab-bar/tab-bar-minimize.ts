@@ -1,15 +1,17 @@
 import { useLayoutEffect, useRef, type RefObject } from "react";
 import { createSpring, type Spring } from "@lenso/glass/motion";
+import type { TabBarLayout } from "./tab-bar.js";
 
 /** Keep the expanded row intact while the material and selected destination converge. */
 export function useTabBarMinimize(
   ref: RefObject<HTMLDivElement | null>,
   minimized: boolean,
   separate: boolean,
-  layout: "phone" | "tablet",
+  layout: TabBarLayout,
 ) {
   const motion = useRef<Spring | null>(null);
   useLayoutEffect(() => {
+    if (layout === "vertical") return;
     const group = ref.current;
     const root = group?.parentElement;
     const list = group?.querySelector<HTMLElement>("[data-tab-bar-list]");

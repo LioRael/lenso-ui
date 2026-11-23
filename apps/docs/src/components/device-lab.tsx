@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Button, Slider } from "@lenso/ui";
+import { Button, Link, Slider } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import type { DeviceScene } from "../lib/device-scene";
+import { createMusicSession, type MusicFrame } from "../lib/music-model";
 import { createPhotosSession, type PhotosFrame } from "../lib/photos-model";
 import { deviceLab as s } from "../styles/device-lab.stylex";
 
@@ -16,9 +17,11 @@ const copy = {
     unfold: "Unfold",
     reset: "Reset view",
     loading: "Preparing 3D view…",
-    error: "The 3D view needs WebGL. You can still open the Photos demo directly.",
-    screenError: "The screens did not become ready. Reload the preview or open Photos directly.",
-    photos: "Open Photos",
+    error: "The 3D view needs WebGL. You can still open the demo directly.",
+    screenError: "The screens did not become ready. Reload the preview or open the demo directly.",
+    openDemo: "Open demo without device",
+    photos: "Photos",
+    music: "Music",
   },
   cn: {
     title: "设备预览",
@@ -28,18 +31,38 @@ const copy = {
     unfold: "展开",
     reset: "重置视角",
     loading: "正在准备 3D 视图…",
-    error: "3D 视图需要 WebGL 支持，你仍可直接打开相册示例。",
-    screenError: "屏幕内容未能就绪。请重新加载预览，或直接打开相册。",
-    photos: "打开相册",
+    error: "3D 视图需要 WebGL 支持，你仍可直接打开示例。",
+    screenError: "屏幕内容未能就绪。请重新加载预览，或直接打开示例。",
+    openDemo: "不使用模拟器，直接打开示例",
+    photos: "照片",
+    music: "音乐",
   },
 };
 
-export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
+export function DeviceLab({ locale, app }: { locale: "en" | "cn"; app: "photos" | "music" }) {
   const t = copy[locale];
   const [hinge, setHinge] = useState(180);
   const [animating, setAnimating] = useState(false);
   const [status, setStatus] = useState<"loading" | "ready" | "error" | "content-error">("loading");
-  const [photos] = useState(createPhotosSession);
+  const [content] = useState(() => {
+    if (app === "music") {
+      const session = createMusicSession();
+      return {
+        ...session,
+        mount(frame: HTMLIFrameElement, surface: "inner" | "inner-right" | "cover") {
+          (frame as MusicFrame).musicModel = session.screen(surface);
+        },
+      };
+    }
+    const session = createPhotosSession();
+    return {
+      ...session,
+      mount(frame: HTMLIFrameElement, surface: "inner" | "inner-right" | "cover") {
+        (frame as PhotosFrame).photosModel = session.screen(surface);
+      },
+    };
+  });
+  const src = `/${locale}/${app}`;
   const host = useRef<HTMLDivElement>(null);
   const scene = useRef<DeviceScene | null>(null);
   const frame = useRef(0);
@@ -48,9 +71,9 @@ export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
 
   useLayoutEffect(() => {
     pose.current = { hinge, busy };
-    photos.setPose(hinge, busy);
+    content.setPose(hinge, busy);
     scene.current?.setHinge(hinge, busy);
-  }, [hinge, busy, photos]);
+  }, [hinge, busy, content]);
 
   useEffect(() => {
     let cancelled = false;
@@ -59,17 +82,15 @@ export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
     import("../lib/device-scene")
       .then(({ createDeviceScene }) => {
         if (cancelled || !host.current) return;
-        const device = createDeviceScene(host.current, `/${locale}/photos`, {
-          mount(frame, surface) {
-            (frame as PhotosFrame).photosModel = photos.screen(surface);
-          },
-          isReady: photos.isReady,
-          subscribePaint: photos.subscribePaint,
-        });
+        const device = createDeviceScene(host.current, src, content);
         scene.current = device;
         device.setHinge(pose.current.hinge, pose.current.busy);
         const checkContent = () => {
-          if (photos.isReady("inner") && photos.isReady("inner-right") && photos.isReady("cover")) {
+          if (
+            content.isReady("inner") &&
+            content.isReady("inner-right") &&
+            content.isReady("cover")
+          ) {
             clearTimeout(contentTimer);
             contentTimer = undefined;
             setStatus("ready");
@@ -77,7 +98,7 @@ export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
             contentTimer = setTimeout(() => setStatus("content-error"), 8000);
           }
         };
-        unsubscribeContent = photos.subscribePaint(checkContent);
+        unsubscribeContent = content.subscribePaint(checkContent);
         checkContent();
       })
       .catch((error: unknown) => {
@@ -93,8 +114,8 @@ export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
       scene.current?.dispose();
       scene.current = null;
     };
-  }, [locale, photos]);
-  useEffect(() => () => photos.dispose(), [photos]);
+  }, [src, content]);
+  useEffect(() => () => content.dispose(), [content]);
 
   const animateTo = (target: number) => {
     cancelAnimationFrame(frame.current);
@@ -122,6 +143,17 @@ export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
       <header {...stylex.props(s.header)}>
         <h1 {...stylex.props(s.title)}>{t.title}</h1>
         <p {...stylex.props(s.description)}>{t.description}</p>
+        <div {...stylex.props(s.apps)}>
+          <Link href={`/${locale}/device-lab`} aria-current={app === "photos" ? "page" : undefined}>
+            {t.photos}
+          </Link>
+          <Link
+            href={`/${locale}/device-lab?app=music`}
+            aria-current={app === "music" ? "page" : undefined}
+          >
+            {t.music}
+          </Link>
+        </div>
       </header>
       <div {...stylex.props(s.stage)}>
         <div ref={host} {...stylex.props(s.viewport)} />
@@ -134,9 +166,7 @@ export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
                   ? t.screenError
                   : t.loading}
             </span>
-            {(status === "error" || status === "content-error") && (
-              <a href={`/${locale}/photos`}>{t.photos}</a>
-            )}
+            {(status === "error" || status === "content-error") && <a href={src}>{t.openDemo}</a>}
           </output>
         )}
       </div>
@@ -148,7 +178,7 @@ export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
           value={hinge}
           disabled={status !== "ready"}
           onValueChange={(next) => {
-            photos.handoff(() => {
+            content.handoff(() => {
               cancelAnimationFrame(frame.current);
               setAnimating(false);
               setHinge(typeof next === "number" ? next : next[0]!);
@@ -165,7 +195,7 @@ export function DeviceLab({ locale }: { locale: "en" | "cn" }) {
         </Slider>
         <Button
           disabled={status !== "ready"}
-          onClick={() => photos.handoff(() => animateTo(open ? 0 : 180))}
+          onClick={() => content.handoff(() => animateTo(open ? 0 : 180))}
         >
           {open ? t.fold : t.unfold}
         </Button>

@@ -45,7 +45,6 @@ export const photos = stylex.create({
     "--photos-rail-actions-top": "calc(var(--photos-status-top) + 76px)",
     "--photos-rail-action-gap": "6px",
     "--photos-rail-bottom": "28px",
-    "--photos-rail-nav-width": "44px",
     "--photos-rail-timeline-max-width": "272px",
   },
   deviceStatus: {
@@ -107,39 +106,8 @@ export const photos = stylex.create({
     "@media (prefers-reduced-motion: reduce)": { transitionDelay: "0ms" },
   },
   railNavigation: {
-    position: "fixed",
-    left: "auto",
-    top: "auto",
-    right: "calc(var(--photos-rail-center) - var(--photos-rail-nav-width, 52px) / 2)",
+    insetInlineEnd: "calc(var(--photos-rail-center) - 24px)",
     bottom: "max(var(--photos-rail-bottom, 16px), env(safe-area-inset-bottom))",
-    width: "var(--photos-rail-nav-width, 52px)",
-    maxWidth: "none",
-    transform: "none",
-    zIndex: 20,
-  },
-  coverNavigationGroup: { padding: 0 },
-  railLink: {
-    display: "grid",
-    placeItems: "center",
-    width: 44,
-    height: 44,
-    borderRadius: 1000,
-    textDecorationLine: "none",
-    color: "var(--lenso-label-primary)",
-    backgroundColor: { ':is([aria-current="page"])': "var(--lenso-fill-secondary)" },
-  },
-  coverRailLink: {
-    backgroundColor: { ':is([aria-current="page"])': "transparent" },
-    backgroundImage: {
-      ':is([aria-current="page"])':
-        "radial-gradient(circle 17px, var(--lenso-fill-tertiary) 97%, transparent)",
-    },
-    outline: {
-      "@media (forced-colors: active)": {
-        ':is([aria-current="page"])': "1px solid Highlight",
-      },
-    },
-    outlineOffset: { "@media (forced-colors: active)": -5 },
   },
   railBottomContent: {
     left: "calc((100% - var(--photos-rail-width) + var(--photos-sidebar-space, 0px)) / 2)",

@@ -55,7 +55,23 @@ for (const engine of [chromium, webkit]) {
         });
       const status = await bounds(app.getByLabel("Device status", { exact: true }));
       const filter = await bounds(app.getByRole("button", { name: "Sort and filter" }));
-      const collections = await bounds(app.getByRole("link", { name: "Collections" }));
+      const nav = app.getByRole("navigation", { name: "Photos navigation" });
+      const collections = await bounds(nav.getByRole("link", { name: "Collections" }));
+      const current = nav.getByRole("link").and(nav.locator('[aria-current="page"]'));
+      const hit = await bounds(current);
+      const paint = await bounds(current.locator("[data-tab-bar-fallback]"));
+      assert.equal(await nav.getAttribute("data-layout"), "vertical");
+      assert.ok(
+        [
+          paint.left - hit.left,
+          hit.right - paint.right,
+          paint.top - hit.top,
+          hit.bottom - paint.bottom,
+        ].every((gap) => gap >= 3.9),
+        "The current destination has room on all four sides",
+      );
+      assert.ok(await nav.getByRole("button", { name: "Search", exact: true }).isVisible());
+      assert.equal(await app.getByRole("button", { name: "Search", exact: true }).count(), 1);
       const center = (box) => box.x + box.width / 2;
       assert.ok(Math.abs(center(status) - center(filter)) < 6, "Status and toolbar share an axis");
       assert.ok(Math.abs(center(filter) - center(collections)) < 6, "Navigation shares the axis");

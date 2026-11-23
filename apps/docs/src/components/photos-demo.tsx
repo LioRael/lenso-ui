@@ -37,6 +37,7 @@ import {
 } from "@gravity-ui/icons";
 import * as stylex from "@stylexjs/stylex";
 import { albumNames, type DemoPhoto } from "../lib/photos-library";
+import { deviceLab } from "../styles/device-lab.stylex";
 import { photos as s } from "../styles/photos-demo.stylex";
 import { PhotoImage } from "./photos-image";
 import { ScrollEdge } from "../../../../packages/ui/src/utils/materials/render.tsx";
@@ -198,8 +199,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const cover = model.surface === "cover";
   const verticalControls = cover || (model.surface !== "standalone" && landscape);
   const tabletToolbar = tablet && !verticalControls;
-  const Navigation = verticalControls ? Toolbar : TabBar;
-  const NavigationGroup = verticalControls ? Toolbar.Group : TabBar.Group;
+  const tabIconSize = verticalControls ? { width: 22, height: 22 } : {};
   const [sessionDestination, setDestination] = usePhotosField(model, "destination");
   const [searchOrigin, setSearchOrigin] = usePhotosField(model, "searchOrigin");
   const searching = sessionDestination === "search";
@@ -570,6 +570,15 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const railSearch = verticalControls && searching;
   const showTimeline =
     !searching && !selecting && isLibrary && (tablet || verticalControls || navigationMinimized);
+  const searchTab = (
+    <TabBar.Button
+      ref={searchTrigger}
+      onClick={(event) => openSearch(event.detail > 0)}
+      icon={<Magnifier {...tabIconSize} />}
+    >
+      Search
+    </TabBar.Button>
+  );
   return (
     <ThemeScope
       theme={dark ? "dark" : "light"}
@@ -784,7 +793,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     </span>
                   </GlassButton>
                 )}
-                {(tablet || verticalControls) && !searching && !selecting && (
+                {tabletToolbar && !searching && !selecting && (
                   <GlassButton
                     ref={searchTrigger}
                     isIconOnly
@@ -1098,31 +1107,25 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                 onDelete={deleteSelection}
               />
             ) : (
-              <Navigation
+              <TabBar
                 aria-label="Photos navigation"
+                layout={verticalControls ? "vertical" : tablet ? "tablet" : "phone"}
                 xstyle={
                   verticalControls
-                    ? s.railNavigation
+                    ? [deviceLab.appTabBar, s.railNavigation]
                     : [tablet && s.tabletNavigation, tablet && s.sidebarCovered]
                 }
-                {...(verticalControls
-                  ? { orientation: "vertical" as const }
-                  : {
-                      layout: tablet ? ("tablet" as const) : ("phone" as const),
-                      autoMinimize:
-                        !tablet && isLibrary && libraryView === "all"
-                          ? ("up" as const)
-                          : (false as const),
-                      scrollTarget: main,
-                      minimized: !tablet && navigationMinimized,
-                      onMinimizedChange: setNavigationMinimized,
-                    })}
+                autoMinimize={
+                  !verticalControls && !tablet && isLibrary && libraryView === "all" ? "up" : false
+                }
+                scrollTarget={main}
+                minimized={!tablet && navigationMinimized}
+                onMinimizedChange={setNavigationMinimized}
               >
-                <NavigationGroup
-                  xstyle={[
-                    cover && s.coverNavigationGroup,
-                    !verticalControls && !tablet && !navigationMinimized && s.compactDestinations,
-                  ]}
+                <TabBar.Group
+                  xstyle={
+                    !verticalControls && !tablet && !navigationMinimized && s.compactDestinations
+                  }
                 >
                   {tablet && (
                     <Drawer side="start" modal={!dockSidebar} preventEdgeSwipe>
@@ -1130,20 +1133,11 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                         aria-label="Show sidebar"
                         data-photos-sidebar-trigger=""
                         render={
-                          verticalControls ? (
-                            <Toolbar.Button
-                              isIconOnly
-                              xstyle={[s.headerIconButton, s.sidebarCoveredControl]}
-                            >
-                              <LayoutSideContentLeft />
-                            </Toolbar.Button>
-                          ) : (
-                            <TabBar.Button
-                              iconOnly
-                              icon={<LayoutSideContentLeft />}
-                              xstyle={dockSidebar && s.sidebarCoveredControl}
-                            />
-                          )
+                          <TabBar.Button
+                            iconOnly
+                            icon={<LayoutSideContentLeft {...tabIconSize} />}
+                            xstyle={(verticalControls || dockSidebar) && s.sidebarCoveredControl}
+                          />
                         }
                       />
                       {!dockSidebar && <Drawer.Backdrop xstyle={s.sidebarBackdrop} />}
@@ -1223,41 +1217,22 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                         navigate(value);
                       },
                     };
-                    return verticalControls ? (
-                      <Toolbar.Link
-                        key={value}
-                        {...props}
-                        aria-label={label}
-                        aria-current={destination === value ? "page" : undefined}
-                        xstyle={[s.railLink, cover && s.coverRailLink]}
-                      >
-                        <Icon width={22} height={22} aria-hidden="true" />
-                      </Toolbar.Link>
-                    ) : (
+                    return (
                       <TabBar.Link
                         key={value}
                         {...props}
-                        xstyle={dockSidebar && s.sidebarCoveredControl}
+                        xstyle={!verticalControls && dockSidebar && s.sidebarCoveredControl}
                         isCurrent={destination === value}
-                        icon={<Icon />}
+                        icon={<Icon {...tabIconSize} />}
                       >
                         {label}
                       </TabBar.Link>
                     );
                   })}
-                </NavigationGroup>
-                {!tablet && !verticalControls && (
-                  <TabBar.Group separate>
-                    <TabBar.Button
-                      ref={searchTrigger}
-                      onClick={(event) => openSearch(event.detail > 0)}
-                      icon={<Magnifier />}
-                    >
-                      Search
-                    </TabBar.Button>
-                  </TabBar.Group>
-                )}
-              </Navigation>
+                  {verticalControls && searchTab}
+                </TabBar.Group>
+                {!tablet && !verticalControls && <TabBar.Group separate>{searchTab}</TabBar.Group>}
+              </TabBar>
             )}
             {showTimeline && (
               <div
