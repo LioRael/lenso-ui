@@ -843,6 +843,24 @@
     },
     {
       "locale": "en",
+      "slug": "react/templates",
+      "title": "Templates",
+      "description": "Try complete Lenso UI apps in your browser or on a foldable Duo.",
+      "navigationOrder": 0,
+      "markdownFile": "content/lenso/en/react/templates/index.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
+      "slug": "react/templates/music",
+      "title": "Music",
+      "description": "A responsive music library and player built with Lenso UI.",
+      "navigationOrder": 2,
+      "markdownFile": "content/lenso/en/react/templates/music.mdx",
+      "examples": []
+    },
+    {
+      "locale": "en",
       "slug": "react/templates/photos",
       "title": "Photos",
       "description": "A responsive photo library built with Lenso UI.",
@@ -4439,6 +4457,24 @@
       "description": "基于 UI SDK core behavior 组合非模态导航面板。",
       "navigationOrder": 1,
       "markdownFile": "content/lenso/cn/react/primitives/sidebar.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/templates",
+      "title": "模板",
+      "description": "在网页或折叠设备 Duo 中体验完整的 Lenso UI 应用。",
+      "navigationOrder": 0,
+      "markdownFile": "content/lenso/cn/react/templates/index.mdx",
+      "examples": []
+    },
+    {
+      "locale": "cn",
+      "slug": "react/templates/music",
+      "title": "Music",
+      "description": "使用 Lenso UI 构建的响应式音乐库和播放器。",
+      "navigationOrder": 2,
+      "markdownFile": "content/lenso/cn/react/templates/music.mdx",
       "examples": []
     },
     {

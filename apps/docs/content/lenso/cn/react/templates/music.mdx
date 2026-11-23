@@ -1,0 +1,27 @@
+---
+title: "Music"
+description: "使用 Lenso UI 构建的响应式音乐库和播放器。"
+navigationOrder: 2
+---
+
+[在网页打开 Music](/cn/music) · [在 Duo 中体验](/docs/react/templates) · [浏览源码](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/src/components/music-demo.tsx)
+
+## 包含的界面
+
+Music 包含专辑浏览、搜索、资料库和播放队列。在 Duo 上折叠或展开设备时，播放和导航状态会随当前屏幕切换。
+
+1. 在搜索中找到一首歌并播放。
+2. 从迷你播放器打开「正在播放」，试试拖动进度、随机播放或查看播放队列。
+3. 在 Duo 中播放时折叠设备，切换到外屏继续操作。
+
+## 迁移的文件
+
+| 文件 | 职责 |
+| --- | --- |
+| `apps/docs/src/routes/$locale.music.tsx` | 独立网页和 Duo 屏幕入口 |
+| `apps/docs/src/components/music-demo.tsx`、`music-player.tsx` | 导航、资料库视图和播放控件 |
+| `apps/docs/src/lib/music-model.ts`、`music-library.ts` | 播放会话、队列和示例曲库 |
+| `apps/docs/src/styles/music-demo.stylex.ts` | 响应式布局和外观 |
+| `apps/docs/public/assets/demo/music/` | 示例音频和来源说明 |
+
+按照[快速开始](/docs/react/getting-started/installation)配置主题 CSS 和 StyleX。这是仓库内模板，不是独立分发包或流媒体服务。迁移时请一并带上支持模块，并保留[示例音频署名](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/public/assets/demo/music/README.md)，或替换为有权使用的曲目。
