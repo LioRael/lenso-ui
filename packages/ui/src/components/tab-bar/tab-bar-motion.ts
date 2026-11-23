@@ -82,7 +82,7 @@ function copyItemContent(item: HTMLElement) {
   return copy;
 }
 
-function present(group: HTMLElement) {
+function present(group: HTMLElement, vertical: boolean) {
   const list = group.querySelector<HTMLElement>("[data-tab-bar-list]");
   const indicator = group.querySelector<HTMLElement>("[data-lenso-slot='tab-bar-indicator']");
   const highlight = group.querySelector<HTMLElement>("[data-lenso-slot='tab-bar-highlight']");
@@ -112,6 +112,10 @@ function present(group: HTMLElement) {
     "[data-lenso-slot='tab-bar-highlight-optics']",
   );
   const refraction = contentOptics ? createLabelRefraction(contentOptics) : undefined;
+  const axis = vertical ? "y" : "x";
+  const length = vertical ? "height" : "width";
+  const pointer = (event: PointerEvent) => (vertical ? event.clientY : event.clientX);
+  const centerOf = (rect: DOMRect) => rect[axis] + rect[length] / 2;
   let growY = 20;
   const ringClipSupported = CSS.supports("clip-path", 'path(evenodd, "M 0 0 H 1 V 1 H 0 Z")');
   const items = () => [...list.querySelectorAll<HTMLElement>("[data-tab-bar-item]")];
@@ -143,12 +147,13 @@ function present(group: HTMLElement) {
   const box = (item: HTMLElement) => {
     const { outer, scaleX, scaleY } = metrics();
     const rect = item.getBoundingClientRect();
-    const inset = group.dataset["layout"] === "tablet" ? 4 : 0;
+    const insetY = vertical || group.dataset["layout"] === "tablet" ? 4 : 0;
+    const insetX = vertical ? 4 : 0;
     return {
-      x: (rect.left - outer.left) / scaleX,
-      y: (rect.top - outer.top) / scaleY + inset,
-      width: rect.width / scaleX,
-      height: rect.height / scaleY - inset * 2,
+      x: (rect.left - outer.left) / scaleX + insetX,
+      y: (rect.top - outer.top) / scaleY + insetY,
+      width: rect.width / scaleX - insetX * 2,
+      height: rect.height / scaleY - insetY * 2,
     };
   };
   let active: HTMLElement | undefined;
@@ -219,8 +224,9 @@ function present(group: HTMLElement) {
       contentOptics?.style.setProperty("--lg-anchor-edge", "1");
     }
     const stretch = 1 + state.stretch;
-    const sx = (1 + (Math.round((growY * 4) / 3) / state.width) * state.lift) * stretch;
-    const sy = (1 + (growY / state.height) * state.lift) / stretch;
+    const growX = Math.round((growY * (vertical ? 3 : 4)) / (vertical ? 4 : 3));
+    const sx = (1 + (growX / state.width) * state.lift) * (vertical ? 1 / stretch : stretch);
+    const sy = (1 + (growY / state.height) * state.lift) * (vertical ? stretch : 1 / stretch);
     const radius = Math.min(state.width * sx, state.height * sy) / 2;
     const inset = Math.min(state.height * 0.24, state.width / 2, state.height / 2);
     const innerWidth = state.width - inset * 2;
@@ -278,8 +284,8 @@ function present(group: HTMLElement) {
       settledBox &&
       state.lift < 0.01 &&
       Math.abs(state.stretch) < 0.01 &&
-      Math.abs(state.x - settledBox.x) < 0.1 &&
-      Math.abs(state.width - settledBox.width) < 0.1
+      Math.abs(state[axis] - settledBox[axis]) < 0.1 &&
+      Math.abs(state[length] - settledBox[length]) < 0.1
     )
       delete group.dataset["highlightActive"];
     if (!gesture && state.lift < 0.01) delete group.dataset["refracting"];
@@ -294,26 +300,28 @@ function present(group: HTMLElement) {
     },
   });
   const position = createSpring(0, REST[0], REST[1], (value) => {
-    state.x = value;
+    state[axis] = value;
     if (!batching) lens.move(value);
   });
-  const width = createSpring(0, REST[0], REST[1], (value) => {
-    state.width = value;
+  const size = createSpring(0, REST[0], REST[1], (value) => {
+    state[length] = value;
     paint();
   });
   const move = (target: ReturnType<typeof box>, lifted: boolean, instant = false) => {
     const [slideStiffness, slideDamping] = gesture?.moved ? DRAG : REST;
     const [, , liftStiffness, liftDamping] = gesture ? DRAG : REST;
     position.tune(slideStiffness, slideDamping);
-    width.tune(slideStiffness, slideDamping);
+    size.tune(slideStiffness, slideDamping);
     lens.tune(liftStiffness, liftDamping);
-    state.y = target.y;
-    state.height = target.height;
+    const crossAxis = vertical ? "x" : "y";
+    const crossLength = vertical ? "width" : "height";
+    state[crossAxis] = target[crossAxis];
+    state[crossLength] = target[crossLength];
     batching = instant;
     try {
-      if (instant) lens.move(target.x, true);
-      width.set(target.width, instant);
-      position.set(target.x, instant);
+      if (instant) lens.move(target[axis], true);
+      size.set(target[length], instant);
+      position.set(target[axis], instant);
       lens.lift(lifted, instant);
     } finally {
       batching = false;
@@ -339,28 +347,28 @@ function present(group: HTMLElement) {
     }
     const target = box(active);
     settledBox = target;
-    const visible = target.x + target.width > 0 && target.x < group.clientWidth;
+    const extent = vertical ? group.clientHeight : group.clientWidth;
+    const visible = target[axis] + target[length] > 0 && target[axis] < extent;
     group.toggleAttribute("data-indicator-hidden", !visible);
     if (visible) {
       if (
         shown &&
-        (Math.abs(state.x - target.x) >= 0.1 || Math.abs(state.width - target.width) >= 0.1)
+        (Math.abs(state[axis] - target[axis]) >= 0.1 ||
+          Math.abs(state[length] - target[length]) >= 0.1)
       )
         group.dataset["highlightActive"] = "";
       move(target, !!gesture?.animated, instant || !shown);
     }
     shown = visible;
   };
-  const nearest = (clientX: number) => {
+  const nearest = (coordinate: number) => {
     const candidates = items()
       .filter((item) => item.hasAttribute("data-tab-bar-destination") && enabled(item))
       .filter((item) => item.getClientRects().length > 0);
     return candidates.reduce<HTMLElement | undefined>((best, item) => {
-      const rect = item.getBoundingClientRect();
-      const distance = Math.abs(clientX - (rect.left + rect.width / 2));
+      const distance = Math.abs(coordinate - centerOf(item.getBoundingClientRect()));
       if (!best) return item;
-      const prior = best.getBoundingClientRect();
-      return distance < Math.abs(clientX - (prior.left + prior.width / 2)) ? item : best;
+      return distance < Math.abs(coordinate - centerOf(best.getBoundingClientRect())) ? item : best;
     }, undefined);
   };
   const light = (event: PointerEvent) => {
@@ -391,11 +399,10 @@ function present(group: HTMLElement) {
       event.altKey
     )
       return;
-    const rect = item.getBoundingClientRect();
     gesture = {
       id: event.pointerId,
-      start: event.clientX,
-      center: rect.left + rect.width / 2,
+      start: pointer(event),
+      center: centerOf(item.getBoundingClientRect()),
       moved: false,
       origin: item,
       animated: !prefersReducedMotion(),
@@ -414,7 +421,7 @@ function present(group: HTMLElement) {
   };
   const movePointer = (event: PointerEvent) => {
     if (!gesture || event.pointerId !== gesture.id) return;
-    if (!gesture.moved && Math.abs(event.clientX - gesture.start) > 6) {
+    if (!gesture.moved && Math.abs(pointer(event) - gesture.start) > 6) {
       gesture.moved = true;
       group.dataset["highlightActive"] = "";
       group.setPointerCapture(event.pointerId);
@@ -427,20 +434,17 @@ function present(group: HTMLElement) {
       (item) => item.hasAttribute("data-tab-bar-destination") && enabled(item),
     );
     if (!all.length) return;
-    const centers = all.map((item) => {
-      const rect = item.getBoundingClientRect();
-      return rect.left + rect.width / 2;
-    });
+    const centers = all.map((item) => centerOf(item.getBoundingClientRect()));
     const center = clamp(
-      gesture.center + event.clientX - gesture.start,
+      gesture.center + pointer(event) - gesture.start,
       Math.min(...centers),
       Math.max(...centers),
     );
     const item = nearest(center);
     if (!item) return;
     const target = box(item);
-    const { outer, scaleX } = metrics();
-    target.x = (center - outer.left) / scaleX - target.width / 2;
+    const { outer, scaleX, scaleY } = metrics();
+    target[axis] = (center - outer[axis]) / (vertical ? scaleY : scaleX) - target[length] / 2;
     move(target, gesture.animated);
     if (gesture.animated) light(event);
     if (event.cancelable) event.preventDefault();
@@ -458,7 +462,7 @@ function present(group: HTMLElement) {
     const blockedHit =
       hit && list.contains(hit) && (!hit.hasAttribute("data-tab-bar-destination") || !enabled(hit));
     const destination =
-      event?.type === "pointerup" && old.moved && !blockedHit ? nearest(event.clientX) : undefined;
+      event?.type === "pointerup" && old.moved && !blockedHit ? nearest(pointer(event)) : undefined;
     gesture = undefined;
     delete group.dataset["lifted"];
     delete indicator.dataset["pressed"];
@@ -555,7 +559,7 @@ function present(group: HTMLElement) {
   const minimize = new MutationObserver(() => {
     if (minimized()) {
       end();
-      for (const spring of [position, width, lens]) spring.stop();
+      for (const spring of [position, size, lens]) spring.stop();
       refraction?.setActive(false);
       delete group.dataset["highlightActive"];
       delete group.dataset["refracting"];
@@ -619,7 +623,7 @@ function present(group: HTMLElement) {
     cancelAnimationFrame(resizeFrame);
     clearTimeout(suppressTimer);
     if (gesture && group.hasPointerCapture(gesture.id)) group.releasePointerCapture(gesture.id);
-    for (const spring of [position, width]) spring.stop();
+    for (const spring of [position, size]) spring.stop();
     lens.destroy();
     refraction?.destroy();
     resize.disconnect();
@@ -663,9 +667,16 @@ function present(group: HTMLElement) {
   };
 }
 
-export function useTabBarMotionRef(ref: Ref<HTMLDivElement> | undefined, enabled: boolean) {
+export function useTabBarMotionRef(
+  ref: Ref<HTMLDivElement> | undefined,
+  enabled: boolean,
+  vertical: boolean,
+) {
   return useBindRef(
     ref,
-    useCallback((element: HTMLDivElement) => (enabled ? present(element) : undefined), [enabled]),
+    useCallback(
+      (element: HTMLDivElement) => (enabled ? present(element, vertical) : undefined),
+      [enabled, vertical],
+    ),
   );
 }

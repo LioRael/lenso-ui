@@ -49,7 +49,7 @@ test.each(["switch", "slider", "tabs", "submenu", "tab-bar"] as const)(
       slider: useSliderThumbRef,
       tabs: (ref) => useTabsListRef(ref, true),
       submenu: (ref) => useSubmenuPopupRef(ref, trigger, unmount, false),
-      "tab-bar": (ref) => useTabBarMotionRef(ref, true),
+      "tab-bar": (ref) => useTabBarMotionRef(ref, true, false),
     };
     const usePresentation = hooks[kind];
     let renders = 0;

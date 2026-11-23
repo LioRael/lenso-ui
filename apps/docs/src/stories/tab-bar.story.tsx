@@ -10,5 +10,6 @@ export const story = defineStory({
     { variant: "Minimized", initial: { ...initialArgs, minimized: true } },
     { variant: "Scroll up", initial: { ...initialArgs, autoMinimize: "up" } },
     { variant: "Scroll", initial: { ...initialArgs, autoMinimize: true } },
+    { variant: "Vertical", initial: { ...initialArgs, layout: "vertical", showSearch: false } },
   ],
 });

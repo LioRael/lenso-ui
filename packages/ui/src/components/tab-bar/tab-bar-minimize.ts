@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, type RefObject } from "react";
 import { createSpring, type Spring } from "@lenso/glass/motion";
 import type { TabBarLayout } from "./tab-bar.js";
 
-/** Keep the expanded row intact while the material and selected destination converge. */
+/** Keep the expanded list intact while the material and selected destination converge. */
 export function useTabBarMinimize(
   ref: RefObject<HTMLDivElement | null>,
   minimized: boolean,
@@ -11,7 +11,8 @@ export function useTabBarMinimize(
 ) {
   const motion = useRef<Spring | null>(null);
   useLayoutEffect(() => {
-    if (layout === "vertical") return;
+    const vertical = layout === "vertical";
+    if (vertical && separate) return;
     const group = ref.current;
     const root = group?.parentElement;
     const list = group?.querySelector<HTMLElement>("[data-tab-bar-list]");
@@ -20,16 +21,19 @@ export function useTabBarMinimize(
     let expandedWidth = 0;
     let selectedShift = 0;
     const material = group.querySelector<HTMLElement>(":scope > [data-material]");
-    const expandedHeight = layout === "phone" ? 54 : 44;
+    let expandedHeight = layout === "phone" ? 54 : 44;
+    const compactHeight = vertical ? 48 : 44;
     group.setAttribute("data-minimize-ready", "");
     const paint = (value: number) => {
       progress = value;
       const width = expandedWidth + (44 - expandedWidth) * progress;
-      group.style.setProperty("--tab-bar-flex", `0 1 ${width}px`);
-      group.style.setProperty("--tab-bar-width", `${width}px`);
+      if (!vertical) {
+        group.style.setProperty("--tab-bar-flex", `0 1 ${width}px`);
+        group.style.setProperty("--tab-bar-width", `${width}px`);
+      }
       group.style.setProperty(
         "--tab-bar-height",
-        `${expandedHeight + (44 - expandedHeight) * progress}px`,
+        `${expandedHeight + (compactHeight - expandedHeight) * progress}px`,
       );
       group.style.setProperty("--tab-bar-collapse", String(progress));
       group.style.setProperty("--tab-bar-content-opacity", String(Math.max(0, 1 - 3 * progress)));
@@ -40,6 +44,16 @@ export function useTabBarMinimize(
       if (separate) group.style.setProperty("--tab-bar-expanded-width", `${width}px`);
     };
     const measure = () => {
+      if (vertical) {
+        // The column keeps its natural height even when the glass has contracted.
+        expandedHeight = list.offsetHeight;
+        const current = list.querySelector<HTMLElement>("[data-tab-bar-item][data-current]");
+        const row = current?.parentElement;
+        const center = row ? row.offsetTop + row.offsetHeight / 2 : compactHeight / 2;
+        group.style.setProperty("--tab-bar-selected-shift-y", `${compactHeight / 2 - center}px`);
+        paint(progress);
+        return;
+      }
       // Measure the normal flex layout, never an intermediate shrinking row.
       const siblings = [...root.children].filter(
         (node): node is HTMLElement => node instanceof HTMLElement && node !== group,
@@ -63,7 +77,7 @@ export function useTabBarMinimize(
       } else selectedShift = 0;
       for (const [node, style] of saved) node.style.cssText = style;
       group.style.setProperty("--tab-bar-expanded-width", `${expandedWidth}px`);
-      group.style.setProperty("--tab-bar-selected-shift", `${selectedShift}px`);
+      group.style.setProperty("--tab-bar-selected-shift-x", `${selectedShift}px`);
       paint(progress);
     };
     measure();
@@ -72,12 +86,16 @@ export function useTabBarMinimize(
     let rootWidth: number | undefined;
     const resize = new ResizeObserver(([entry]) => {
       if (!entry) return;
+      if (vertical) {
+        measure();
+        return;
+      }
       const width = entry.contentRect.width;
       const changed = rootWidth === undefined || Math.abs(width - rootWidth) > 0.1;
       rootWidth = width;
       if (changed) measure();
     });
-    resize.observe(root);
+    resize.observe(vertical ? list : root);
     const mutation = new MutationObserver(measure);
     mutation.observe(list, {
       subtree: true,
@@ -87,7 +105,7 @@ export function useTabBarMinimize(
       attributeFilter: ["data-current"],
     });
     const groups = new MutationObserver(measure);
-    groups.observe(root, { childList: true });
+    if (!vertical) groups.observe(root, { childList: true });
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const finish = () => {
       if (reduced.matches) spring.set(group.hasAttribute("data-minimized") ? 1 : 0, true);
@@ -111,7 +129,8 @@ export function useTabBarMinimize(
         "--tab-bar-collapse",
         "--tab-bar-content-opacity",
         "--tab-bar-expanded-width",
-        "--tab-bar-selected-shift",
+        "--tab-bar-selected-shift-x",
+        "--tab-bar-selected-shift-y",
       ])
         group.style.removeProperty(name);
     };

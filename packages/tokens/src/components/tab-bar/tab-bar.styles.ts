@@ -44,7 +44,14 @@ export const tabBarStyles = stylex.create({
     },
     height: "var(--tab-bar-height, 44px)",
   },
-  verticalGroup: { width: 48, flex: "0 0 auto" },
+  verticalGroup: {
+    width: 48,
+    flex: "0 0 auto",
+    height: {
+      default: "var(--tab-bar-height, auto)",
+      ":is([data-minimized]:not([data-minimize-ready]))": 48,
+    },
+  },
   separate: {
     flex: {
       default: "var(--tab-bar-flex, 0 0 auto)",
@@ -114,7 +121,7 @@ export const tabBarStyles = stylex.create({
     height: "auto",
     padding: 2,
     overflow: "visible",
-    touchAction: "auto",
+    touchAction: "pan-x",
   },
   itemContainer: {
     display: {
@@ -132,7 +139,7 @@ export const tabBarStyles = stylex.create({
     translate: {
       default: "none",
       ":has([data-current]):not(:is([data-separate] *))":
-        "calc(var(--tab-bar-selected-shift, 0px) * var(--tab-bar-collapse)) 0px",
+        "calc(var(--tab-bar-selected-shift-x, 0px) * var(--tab-bar-collapse)) calc(var(--tab-bar-selected-shift-y, 0px) * var(--tab-bar-collapse))",
     },
   },
   tabletItemContainer: {
@@ -321,6 +328,7 @@ export const tabBarStyles = stylex.create({
     },
   },
   tabletIcon: { position: "absolute", opacity: "var(--tab-bar-collapse)", translate: "none" },
+  verticalIcon: { translate: "none" },
   label: {
     display: "block",
     overflow: "hidden",

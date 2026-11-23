@@ -114,8 +114,10 @@ must not silently receive only a rim and a blurred paint stack. Other engines
 retain their supported fallback rather than claiming native backdrop refraction.
 
 The vertical TabBar keeps 44px icon-only destinations with accessible labels.
-Its resting selection is inset on all four sides; it does not use the
-horizontal drag or minimization motion.
+Its resting selection is inset on all four sides. The selection lens lifts and
+stretches along the rail during a drag. When minimized, the main group contracts
+along the rail to a 48px circle; separate vertical actions keep their size and
+remain available.
 
 Tabs and SegmentedControl's lifted selection lens samples the composited track.
 Its local live-backdrop boundary prevents a copied page image from bypassing
@@ -143,7 +145,9 @@ selection, disabled state and tab/panel associations. Vertical lists keep their
 scrolling behavior. This overflow presentation is a Lenso convention inspired
 by the compact edit menu; it does not claim native iOS segmented-control parity.
 
-TabBar minimization keeps its expanded row, indicator and label optics mounted.
+TabBar minimization keeps its expanded list, indicator and label optics mounted.
+All layouts support controlled or initial minimized state. Scroll minimization
+is opt-in through `autoMinimize` and can observe a `scrollTarget`.
 Fade secondary destinations and labels ahead of the capsule's final contraction;
 move the current icon continuously into the collapsed circle. Reverse the active
 spring from its current position and velocity. Keep collapsed links inert and
@@ -170,7 +174,7 @@ lens receives the selected tint; `aria-current` follows navigation activation.
 Consumers should use `isCurrent` rather than adding a second selected text color
 that overrides this transient state.
 
-TabBar taps and keyboard activation use a lightly underdamped position/width
+TabBar taps and keyboard activation use a lightly underdamped position/size
 spring (225/21); an actual drag uses the stiff 2500/94 spring. A pointer down
 without movement remains a tap. Ignore target-box changes below 0.1 CSS px from
 press-scale layout rounding so they cannot interrupt the slide. These values
