@@ -10,6 +10,7 @@ export const tabBarStyles = stylex.create({
     maxWidth: "100%",
   },
   phoneRoot: { width: "100%" },
+  verticalRoot: { flexDirection: "column", gap: 8 },
   lift: (pixels: number) => ({ "--tab-bar-lift": `${pixels}px` }),
   group: {
     position: "relative",
@@ -43,6 +44,7 @@ export const tabBarStyles = stylex.create({
     },
     height: "var(--tab-bar-height, 44px)",
   },
+  verticalGroup: { width: 48, flex: "0 0 auto" },
   separate: {
     flex: {
       default: "var(--tab-bar-flex, 0 0 auto)",
@@ -107,6 +109,13 @@ export const tabBarStyles = stylex.create({
   },
   tabletList: { padding: "0 4px" },
   tabletSeparateList: { padding: 0 },
+  verticalList: {
+    flexDirection: "column",
+    height: "auto",
+    padding: 2,
+    overflow: "visible",
+    touchAction: "auto",
+  },
   itemContainer: {
     display: {
       default: "flex",
@@ -180,6 +189,7 @@ export const tabBarStyles = stylex.create({
     fontSize: 15,
     lineHeight: "20px",
   },
+  verticalItem: { width: 44, height: 44, color: tokens.labelPrimary },
   iconOnlyItem: { padding: 0 },
   current: {
     color: {
@@ -202,6 +212,7 @@ export const tabBarStyles = stylex.create({
     },
   },
   tabletFallback: { inset: "4px 0" },
+  verticalFallback: { inset: 4 },
   indicator: {
     position: "absolute",
     zIndex: 0,

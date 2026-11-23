@@ -113,6 +113,10 @@ backdrop optics also apply to decorative material layers; a material background
 must not silently receive only a rim and a blurred paint stack. Other engines
 retain their supported fallback rather than claiming native backdrop refraction.
 
+The vertical TabBar keeps 44px icon-only destinations with accessible labels.
+Its resting selection is inset on all four sides; it does not use the
+horizontal drag or minimization motion.
+
 Tabs and SegmentedControl's lifted selection lens samples the composited track.
 Its local live-backdrop boundary prevents a copied page image from bypassing
 the track's material and showing sharp content through the selected segment.

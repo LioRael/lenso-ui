@@ -34,6 +34,8 @@ export default defineConfig(({ command }) => {
         { path: "/cn" },
         { path: "/en/photos" },
         { path: "/cn/photos" },
+        { path: "/en/music" },
+        { path: "/cn/music" },
         { path: "/en/device-lab" },
         { path: "/cn/device-lab" },
         { path: "/en/glass-lab" },

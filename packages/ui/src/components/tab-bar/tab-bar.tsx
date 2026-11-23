@@ -32,7 +32,7 @@ import { useTabBarMotionRef } from "./tab-bar-motion.js";
 import { useTabBarMinimize } from "./tab-bar-minimize.js";
 import { useTabBarScrollMinimize } from "./tab-bar-scroll.js";
 
-export type TabBarLayout = "phone" | "tablet";
+export type TabBarLayout = "phone" | "tablet" | "vertical";
 const LayoutContext = createContext<TabBarLayout>("phone");
 const SeparateContext = createContext(false);
 const MotionContext = createContext({
@@ -43,6 +43,7 @@ const MotionContext = createContext({
 });
 
 export type TabBarRootProps = StyleXProps<PartProps<"nav">> & {
+  /** Vertical uses icon-only destinations and does not minimize or drag the indicator. */
   layout?: TabBarLayout;
   /** Enable press enlargement, elastic dragging and spring return on each glass group. */
   elastic?: boolean;
@@ -88,7 +89,7 @@ export function TabBarRoot({
     [ref],
   );
   const [uncontrolledMinimized, setUncontrolledMinimized] = useState(defaultMinimized);
-  const minimized = controlledMinimized ?? uncontrolledMinimized;
+  const minimized = layout !== "vertical" && (controlledMinimized ?? uncontrolledMinimized);
   const setMinimized = useCallback(
     (next: boolean) => {
       if (next === minimized) return;
@@ -98,7 +99,7 @@ export function TabBarRoot({
     [controlledMinimized, minimized, onMinimizedChange],
   );
   useTabBarScrollMinimize({
-    enabled: Boolean(autoMinimize),
+    enabled: layout !== "vertical" && Boolean(autoMinimize),
     minimizeDirection: autoMinimize === "up" ? "up" : "down",
     scrollTarget,
     root: rootRef,
@@ -108,6 +109,7 @@ export function TabBarRoot({
   const compiled = stylex.props(
     tabBarStyles.root,
     layout === "phone" && tabBarStyles.phoneRoot,
+    layout === "vertical" && tabBarStyles.verticalRoot,
     tabBarStyles.lift(Number.isFinite(lift) ? Math.max(0, lift) : 20),
     xstyle,
   );
@@ -148,6 +150,7 @@ export function TabBarGroup({
   ...props
 }: TabBarGroupProps) {
   const layout = useContext(LayoutContext);
+  const vertical = layout === "vertical";
   const { elastic, minimized, expandLabel, setMinimized } = useContext(MotionContext);
   const groupRef = useRef<HTMLDivElement | null>(null);
   const expandRef = useRef<HTMLButtonElement | null>(null);
@@ -165,7 +168,7 @@ export function TabBarGroup({
     [ref],
   );
   useTabBarMinimize(groupRef, minimized, separate, layout);
-  const motionRef = useTabBarMotionRef(mergedRef, !separate);
+  const motionRef = useTabBarMotionRef(mergedRef, !vertical && !separate);
   const shouldStart = useCallback((event: PointerEvent) => {
     const target = event.target instanceof Element ? event.target : null;
     return (
@@ -206,9 +209,15 @@ export function TabBarGroup({
   }, [minimized, separate]);
   const compiled = stylex.props(
     tabBarStyles.group,
-    layout === "phone" ? tabBarStyles.phoneGroup : tabBarStyles.tabletGroup,
+    layout === "phone"
+      ? tabBarStyles.phoneGroup
+      : vertical
+        ? tabBarStyles.verticalGroup
+        : tabBarStyles.tabletGroup,
     separate && tabBarStyles.separate,
-    separate && (layout === "phone" ? tabBarStyles.phoneSeparate : tabBarStyles.tabletSeparate),
+    separate &&
+      !vertical &&
+      (layout === "phone" ? tabBarStyles.phoneSeparate : tabBarStyles.tabletSeparate),
     elastic && tabBarStyles.elastic,
     xstyle,
   );
@@ -229,9 +238,9 @@ export function TabBarGroup({
         variant="glass-small"
         liveGeometry
         data-material-resting=""
-        xstyle={[tabBarStyles.material, layout === "tablet" && tabBarStyles.tabletMaterial]}
+        xstyle={[tabBarStyles.material, layout !== "phone" && tabBarStyles.tabletMaterial]}
       />
-      {!separate && (
+      {!vertical && !separate && (
         <span
           data-lenso-slot="tab-bar-indicator"
           aria-hidden="true"
@@ -246,7 +255,7 @@ export function TabBarGroup({
           </span>
         </span>
       )}
-      {!separate && (
+      {!vertical && !separate && (
         <span
           data-lenso-slot="tab-bar-highlight"
           aria-hidden="true"
@@ -287,6 +296,7 @@ export function TabBarGroup({
           tabBarStyles.list,
           layout === "tablet" && tabBarStyles.tabletList,
           layout === "tablet" && separate && tabBarStyles.tabletSeparateList,
+          vertical && tabBarStyles.verticalList,
         )}
       >
         <SeparateContext value={separate}>{children}</SeparateContext>
@@ -374,7 +384,7 @@ export function TabBarLink({
 }: TabBarLinkProps) {
   const layout = useContext(LayoutContext);
   const separate = useContext(SeparateContext);
-  const iconOnly = ownIconOnly ?? separate;
+  const iconOnly = ownIconOnly ?? (separate || layout === "vertical");
   const ariaCurrent = props["aria-current"];
   const current =
     ariaCurrent == null ? (ownCurrent ?? false) : ariaCurrent !== false && ariaCurrent !== "false";
@@ -406,6 +416,7 @@ export function TabBarLink({
         xstyle={[
           tabBarStyles.item,
           layout === "tablet" && tabBarStyles.tabletItem,
+          layout === "vertical" && tabBarStyles.verticalItem,
           iconOnly && tabBarStyles.iconOnlyItem,
           current && tabBarStyles.current,
           xstyle,
@@ -418,6 +429,7 @@ export function TabBarLink({
             {...stylex.props(
               tabBarStyles.fallback,
               layout === "tablet" && tabBarStyles.tabletFallback,
+              layout === "vertical" && tabBarStyles.verticalFallback,
             )}
           />
         )}
@@ -442,10 +454,11 @@ export function TabBarButton({
 }: TabBarButtonProps) {
   const layout = useContext(LayoutContext);
   const separate = useContext(SeparateContext);
-  const iconOnly = ownIconOnly ?? separate;
+  const iconOnly = ownIconOnly ?? (separate || layout === "vertical");
   const compiled = stylex.props(
     tabBarStyles.item,
     layout === "tablet" && tabBarStyles.tabletItem,
+    layout === "vertical" && tabBarStyles.verticalItem,
     iconOnly && tabBarStyles.iconOnlyItem,
     xstyle,
   );

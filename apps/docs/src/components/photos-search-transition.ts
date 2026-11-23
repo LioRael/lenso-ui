@@ -1,7 +1,7 @@
 import { useCallback, useLayoutEffect, useRef, type RefObject } from "react";
 
-const sourceGroup = (trigger: HTMLButtonElement | null) =>
-  trigger?.closest<HTMLElement>('[data-lenso-slot="tab-bar-group"]') ?? trigger;
+const searchOrigin = (trigger: HTMLButtonElement | null, rail: boolean) =>
+  rail ? trigger : (trigger?.closest<HTMLElement>('[data-lenso-slot="tab-bar-group"]') ?? trigger);
 
 export function usePhotosSearchTransition(
   active: boolean,
@@ -14,11 +14,13 @@ export function usePhotosSearchTransition(
   const capture = useCallback(
     (opening: boolean, animate: boolean) => {
       previous.current = animate
-        ? ((opening ? sourceGroup(trigger.current) : fieldRef.current)?.getBoundingClientRect() ??
-          null)
+        ? ((opening
+            ? searchOrigin(trigger.current, rail)
+            : fieldRef.current
+          )?.getBoundingClientRect() ?? null)
         : null;
     },
-    [trigger],
+    [rail, trigger],
   );
   useLayoutEffect(() => {
     animations.current.forEach((animation) => animation.cancel());
@@ -27,7 +29,7 @@ export function usePhotosSearchTransition(
     previous.current = null;
     const target = active
       ? fieldRef.current?.querySelector<HTMLElement>('[data-lenso-slot="search-field-group"]')
-      : sourceGroup(trigger.current);
+      : searchOrigin(trigger.current, rail);
     if (!from?.width || !target || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const to = target.getBoundingClientRect();
     if (!to.width || !to.height) return;

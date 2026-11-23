@@ -67919,10 +67919,10 @@
     {
       "name": "layout",
       "type": "TabBarLayout | undefined",
-      "expandedType": "undefined | \"phone\" | \"tablet\"",
+      "expandedType": "undefined | \"phone\" | \"tablet\" | \"vertical\"",
       "required": false,
-      "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 46 },
+      "description": "Vertical uses icon-only destinations and does not minimize or drag the indicator.",
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 47 },
       "default": "\"phone\""
     },
     {
@@ -67931,7 +67931,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "Enable press enlargement, elastic dragging and spring return on each glass group.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 48 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 49 },
       "default": "true"
     },
     {
@@ -67940,7 +67940,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "Extra indicator height in pixels while held; defaults to 20. Zero disables enlargement.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 50 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 51 },
       "default": "20"
     },
     {
@@ -67949,7 +67949,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 51 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 52 },
       "default": null
     },
     {
@@ -67958,7 +67958,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 52 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 53 },
       "default": "false"
     },
     {
@@ -67967,7 +67967,7 @@
       "expandedType": "((minimized: boolean) => void) | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 53 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 54 },
       "default": null
     },
     {
@@ -67976,7 +67976,7 @@
       "expandedType": "undefined | \"down\" | \"up\" | false | true",
       "required": false,
       "description": "Choose the scroll direction that minimizes; true means down. Defaults to false.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 55 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 56 },
       "default": "false"
     },
     {
@@ -67985,7 +67985,7 @@
       "expandedType": "RefObject<HTMLElement | null> | undefined",
       "required": false,
       "description": "Ref to the scrollable element to observe; defaults to the page.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 57 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 58 },
       "default": null
     },
     {
@@ -67994,7 +67994,7 @@
       "expandedType": "string | undefined",
       "required": false,
       "description": "Accessible label for the minimized navigation's expand button.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 59 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 60 },
       "default": "\"Expand navigation\""
     },
     {
@@ -68003,7 +68003,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "A separate circular surface for a search destination or action.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 139 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 141 },
       "default": "false"
     },
     {
@@ -68012,7 +68012,7 @@
       "expandedType": "ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 322 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 332 },
       "default": null
     },
     {
@@ -68021,7 +68021,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 322 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 332 },
       "default": null
     },
     {
@@ -68030,7 +68030,7 @@
       "expandedType": "ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 322 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 332 },
       "default": null
     },
     {
@@ -68039,7 +68039,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "Marks the current destination and supplies aria-current=\"page\" by default.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 353 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 363 },
       "default": null
     },
     {
@@ -94518,7 +94518,7 @@
           "name": "TabBarRoot",
           "signature": "({ layout, elastic, lift, minimized: controlledMinimized, defaultMinimized, onMinimizedChange, autoMinimize, scrollTarget, expandLabel, render, ref, xstyle, style, ...props }: TabBarRootProps): React.JSX.Element",
           "props": "TabBarRootProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 62 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 63 },
           "native": ["@ui-sdk/react/primitive"],
           "members": [],
           "states": {},
@@ -94549,7 +94549,7 @@
           "name": "TabBarGroup",
           "signature": "({ separate, children, ref, xstyle, style, ...props }: TabBarGroupProps): React.JSX.Element",
           "props": "TabBarGroupProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 142 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 144 },
           "native": ["@ui-sdk/react/primitive"],
           "members": [],
           "states": {},
@@ -94577,7 +94577,7 @@
           "name": "TabBarLink",
           "signature": "({ icon, iconOnly: ownIconOnly, children, isCurrent: ownCurrent, disabled, render, xstyle, ...props }: TabBarLinkProps): React.JSX.Element",
           "props": "TabBarLinkProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 365 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 375 },
           "native": ["@ui-sdk/react/primitive"],
           "members": [],
           "states": {},
@@ -94608,7 +94608,7 @@
           "name": "TabBarButton",
           "signature": "({ icon, iconOnly: ownIconOnly, children, xstyle, style, ...props }: TabBarButtonProps): React.JSX.Element",
           "props": "TabBarButtonProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 435 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 447 },
           "native": ["@ui-sdk/react/primitive"],
           "members": [],
           "states": {
@@ -94643,7 +94643,7 @@
           "name": "TabBar",
           "signature": "({ layout, elastic, lift, minimized: controlledMinimized, defaultMinimized, onMinimizedChange, autoMinimize, scrollTarget, expandLabel, render, ref, xstyle, style, ...props }: TabBarRootProps): React.JSX.Element",
           "props": "TabBarRootProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 475 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 488 },
           "native": ["@ui-sdk/react/primitive"],
           "members": ["Root", "Group", "Link", "Button"],
           "states": {},

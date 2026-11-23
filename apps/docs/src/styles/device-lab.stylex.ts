@@ -1,6 +1,12 @@
 import * as stylex from "@stylexjs/stylex";
 
 export const deviceLab = stylex.create({
+  appTabBar: {
+    position: "fixed",
+    zIndex: 20,
+    insetInlineEnd: 12,
+    bottom: "max(16px, env(safe-area-inset-bottom))",
+  },
   root: {
     position: "fixed",
     inset: 0,
@@ -21,6 +27,7 @@ export const deviceLab = stylex.create({
     fontSize: 15,
     color: "var(--lenso-label-secondary)",
   },
+  apps: { display: "flex", justifyContent: "center", gap: 20, marginTop: 12 },
   stage: { position: "relative", minHeight: 0, minWidth: 0, overflow: "clip" },
   viewport: { position: "absolute", inset: 0, touchAction: "none" },
   status: {

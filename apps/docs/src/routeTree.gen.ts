@@ -17,6 +17,7 @@ import { Route as LocaleDeviceLabRouteImport } from './routes/$locale.device-lab
 import { Route as LocaleDocsRouteImport } from './routes/$locale.docs'
 import { Route as LocaleGlassLabRouteImport } from './routes/$locale.glass-lab'
 import { Route as LocaleListLabRouteImport } from './routes/$locale.list-lab'
+import { Route as LocaleMusicRouteImport } from './routes/$locale.music'
 import { Route as LocalePhotosRouteImport } from './routes/$locale.photos'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as DocsSplatRouteImport } from './routes/docs.$'
@@ -63,6 +64,11 @@ const LocaleListLabRoute = LocaleListLabRouteImport.update({
   path: '/list-lab',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleMusicRoute = LocaleMusicRouteImport.update({
+  id: '/music',
+  path: '/music',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocalePhotosRoute = LocalePhotosRouteImport.update({
   id: '/photos',
   path: '/photos',
@@ -97,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/$locale/docs': typeof LocaleDocsRouteWithChildren
   '/$locale/glass-lab': typeof LocaleGlassLabRoute
   '/$locale/list-lab': typeof LocaleListLabRoute
+  '/$locale/music': typeof LocaleMusicRoute
   '/$locale/photos': typeof LocalePhotosRoute
   '/docs/$': typeof DocsSplatRoute
   '/$locale/': typeof LocaleIndexRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/$locale/device-lab': typeof LocaleDeviceLabRoute
   '/$locale/glass-lab': typeof LocaleGlassLabRoute
   '/$locale/list-lab': typeof LocaleListLabRoute
+  '/$locale/music': typeof LocaleMusicRoute
   '/$locale/photos': typeof LocalePhotosRoute
   '/docs/$': typeof DocsSplatRoute
   '/$locale': typeof LocaleIndexRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/$locale/docs': typeof LocaleDocsRouteWithChildren
   '/$locale/glass-lab': typeof LocaleGlassLabRoute
   '/$locale/list-lab': typeof LocaleListLabRoute
+  '/$locale/music': typeof LocaleMusicRoute
   '/$locale/photos': typeof LocalePhotosRoute
   '/docs/$': typeof DocsSplatRoute
   '/$locale/': typeof LocaleIndexRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/$locale/docs'
     | '/$locale/glass-lab'
     | '/$locale/list-lab'
+    | '/$locale/music'
     | '/$locale/photos'
     | '/docs/$'
     | '/$locale/'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/$locale/device-lab'
     | '/$locale/glass-lab'
     | '/$locale/list-lab'
+    | '/$locale/music'
     | '/$locale/photos'
     | '/docs/$'
     | '/$locale'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/$locale/docs'
     | '/$locale/glass-lab'
     | '/$locale/list-lab'
+    | '/$locale/music'
     | '/$locale/photos'
     | '/docs/$'
     | '/$locale/'
@@ -245,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleListLabRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/music': {
+      id: '/$locale/music'
+      path: '/music'
+      fullPath: '/$locale/music'
+      preLoaderRoute: typeof LocaleMusicRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/photos': {
       id: '/$locale/photos'
       path: '/photos'
@@ -302,6 +321,7 @@ interface LocaleRouteChildren {
   LocaleDocsRoute: typeof LocaleDocsRouteWithChildren
   LocaleGlassLabRoute: typeof LocaleGlassLabRoute
   LocaleListLabRoute: typeof LocaleListLabRoute
+  LocaleMusicRoute: typeof LocaleMusicRoute
   LocalePhotosRoute: typeof LocalePhotosRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
 }
@@ -311,6 +331,7 @@ const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleDocsRoute: LocaleDocsRouteWithChildren,
   LocaleGlassLabRoute: LocaleGlassLabRoute,
   LocaleListLabRoute: LocaleListLabRoute,
+  LocaleMusicRoute: LocaleMusicRoute,
   LocalePhotosRoute: LocalePhotosRoute,
   LocaleIndexRoute: LocaleIndexRoute,
 }
