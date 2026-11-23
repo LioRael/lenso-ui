@@ -1,0 +1,35 @@
+apps/docs/src/components/music-demo.tsx
+  s_dde83b52c0c490::t_7b5c1b9ffcb52b 1-1107
+apps/docs/src/components/music-player.tsx
+  s_dde83b52c0c490::t_7984ac4a021076 1-660
+apps/docs/src/styles/device-lab.stylex.ts
+  s_dde83b52c0c490::t_6dee7692ee20f4 4-9,30
+apps/docs/src/styles/music-demo.stylex.ts
+  s_dde83b52c0c490::t_a58db6671e72e0 1-986
+apps/docs/test/music-device.mjs
+  s_dde83b52c0c490::t_cd23010d92f873 1-470
+docs/design/component-conventions.md
+  s_dde83b52c0c490::t_eb16c21ae4310d 116-119
+packages/tokens/src/components/tab-bar/tab-bar.styles.ts
+  s_dde83b52c0c490::t_cec6b6b317b8e2 13,47,112-118,192,215
+packages/ui/src/components/tab-bar/tab-bar-minimize.ts
+  s_dde83b52c0c490::t_0e56f5b26474e7 3,10,14
+packages/ui/src/components/tab-bar/tab-bar.tsx
+  s_dde83b52c0c490::t_722c0dd468f9df 35,46,92,102,112,153,171,212-216,218-220,241,243,258,299,387,419,432,457,461
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8d9357a8cf1e9fdb6060769e87e5a9d510891129",
+  "prompts": {},
+  "sessions": {
+    "s_dde83b52c0c490": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a207e1-0f8b-7151-96b5-17c0157579d2",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
