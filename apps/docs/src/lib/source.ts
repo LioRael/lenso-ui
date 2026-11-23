@@ -85,6 +85,7 @@ export function getSectionEntries(locale: Locale): DocSection[] {
     ["primitives", "Primitives"],
     ["templates", "Templates"],
   ] as const) {
+    if (sections.some(({ slug }) => slug === `react/${section}`)) continue;
     const entry = source.pages
       .filter((page) => page.locale === locale && page.slug.startsWith(`react/${section}/`))
       .sort((a, b) => (a.navigationOrder ?? 0) - (b.navigationOrder ?? 0))[0];
@@ -109,9 +110,12 @@ export function getNavigation(locale: Locale, section: string) {
       }),
     ];
   }
-  return documentationSource.getNavigation(locale, section).map(({ title, url, description }) => ({
-    label: title,
-    ...(url ? { href: url } : {}),
-    ...(description !== undefined ? { description } : {}),
-  }));
+  return documentationSource
+    .getNavigation(locale, section)
+    .filter(({ url }) => section !== "templates" || url !== `/${locale}/docs/react/templates`)
+    .map(({ title, url, description }) => ({
+      label: title,
+      ...(url ? { href: url } : {}),
+      ...(description !== undefined ? { description } : {}),
+    }));
 }

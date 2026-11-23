@@ -1,6 +1,13 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  ArrowRightArrowLeft,
+  ArrowRotateLeft,
+  ArrowsRotateRight,
+  ChevronsCollapseHorizontal,
+  ChevronsExpandHorizontal,
+} from "@gravity-ui/icons";
 import { Button, Link, Slider } from "@lenso/ui";
 import * as stylex from "@stylexjs/stylex";
 import type { DeviceScene } from "../lib/device-scene";
@@ -12,10 +19,13 @@ const copy = {
   en: {
     title: "Device frame",
     description: "Lenso, in a folding device. Drag beside the device to look around.",
+    controls: "Duo controls",
     hinge: "Hinge angle",
     fold: "Fold",
     unfold: "Unfold",
+    flip: "Flip device",
     reset: "Reset view",
+    rotate: "Auto-rotate",
     loading: "Preparing 3D view…",
     error: "The 3D view needs WebGL. You can still open the demo directly.",
     screenError: "The screens did not become ready. Reload the preview or open the demo directly.",
@@ -26,10 +36,13 @@ const copy = {
   cn: {
     title: "设备预览",
     description: "在折叠设备中体验 Lenso。拖动设备周围的空白区域查看不同角度。",
+    controls: "Duo 设备控件",
     hinge: "铰链角度",
     fold: "折叠",
     unfold: "展开",
+    flip: "翻转设备",
     reset: "重置视角",
+    rotate: "自动旋转",
     loading: "正在准备 3D 视图…",
     error: "3D 视图需要 WebGL 支持，你仍可直接打开示例。",
     screenError: "屏幕内容未能就绪。请重新加载预览，或直接打开示例。",
@@ -39,10 +52,21 @@ const copy = {
   },
 };
 
-export function DeviceLab({ locale, app }: { locale: "en" | "cn"; app: "photos" | "music" }) {
+const formatAngle = (value: number) => `${Math.round(value)}°`;
+
+export function DeviceLab({
+  locale,
+  app,
+  embedded = false,
+}: {
+  locale: "en" | "cn";
+  app: "photos" | "music";
+  embedded?: boolean;
+}) {
   const t = copy[locale];
   const [hinge, setHinge] = useState(180);
   const [animating, setAnimating] = useState(false);
+  const [rotating, setRotating] = useState(false);
   const [status, setStatus] = useState<"loading" | "ready" | "error" | "content-error">("loading");
   const [content] = useState(() => {
     if (app === "music") {
@@ -138,23 +162,34 @@ export function DeviceLab({ locale, app }: { locale: "en" | "cn"; app: "photos" 
   };
 
   const open = hinge > 90;
+  const disabled = status !== "ready";
+  const Root = embedded ? "div" : "main";
   return (
-    <main id="main-content" tabIndex={-1} {...stylex.props(s.root)}>
-      <header {...stylex.props(s.header)}>
-        <h1 {...stylex.props(s.title)}>{t.title}</h1>
-        <p {...stylex.props(s.description)}>{t.description}</p>
-        <div {...stylex.props(s.apps)}>
-          <Link href={`/${locale}/device-lab`} aria-current={app === "photos" ? "page" : undefined}>
-            {t.photos}
-          </Link>
-          <Link
-            href={`/${locale}/device-lab?app=music`}
-            aria-current={app === "music" ? "page" : undefined}
-          >
-            {t.music}
-          </Link>
-        </div>
-      </header>
+    <Root
+      id={embedded ? undefined : "main-content"}
+      tabIndex={embedded ? undefined : -1}
+      {...stylex.props(s.root, embedded && s.embedded)}
+    >
+      {!embedded && (
+        <header {...stylex.props(s.header)}>
+          <h1 {...stylex.props(s.title)}>{t.title}</h1>
+          <p {...stylex.props(s.description)}>{t.description}</p>
+          <div {...stylex.props(s.apps)}>
+            <Link
+              href={`/${locale}/device-lab`}
+              aria-current={app === "photos" ? "page" : undefined}
+            >
+              {t.photos}
+            </Link>
+            <Link
+              href={`/${locale}/device-lab?app=music`}
+              aria-current={app === "music" ? "page" : undefined}
+            >
+              {t.music}
+            </Link>
+          </div>
+        </header>
+      )}
       <div {...stylex.props(s.stage)}>
         <div ref={host} {...stylex.props(s.viewport)} />
         {status !== "ready" && (
@@ -170,39 +205,81 @@ export function DeviceLab({ locale, app }: { locale: "en" | "cn"; app: "photos" 
           </output>
         )}
       </div>
-      <div {...stylex.props(s.controls)}>
-        <Slider
-          min={0}
-          max={180}
-          step={1}
-          value={hinge}
-          disabled={status !== "ready"}
-          onValueChange={(next) => {
-            content.handoff(() => {
-              cancelAnimationFrame(frame.current);
-              setAnimating(false);
-              setHinge(typeof next === "number" ? next : next[0]!);
-            });
-          }}
-          xstyle={s.slider}
-        >
-          <Slider.Control>
-            <Slider.Track>
-              <Slider.Fill />
-              <Slider.Thumb aria-label={t.hinge} />
-            </Slider.Track>
-          </Slider.Control>
-        </Slider>
-        <Button
-          disabled={status !== "ready"}
-          onClick={() => content.handoff(() => animateTo(open ? 0 : 180))}
-        >
-          {open ? t.fold : t.unfold}
-        </Button>
-        <Button disabled={status !== "ready"} onClick={() => scene.current?.resetView()}>
-          {t.reset}
-        </Button>
-      </div>
-    </main>
+      <fieldset {...stylex.props(s.controls)} aria-label={t.controls}>
+        <div {...stylex.props(s.angle)}>
+          <Slider
+            min={0}
+            max={180}
+            step={1}
+            value={hinge}
+            format={formatAngle}
+            disabled={disabled}
+            onValueChange={(next) => {
+              content.handoff(() => {
+                cancelAnimationFrame(frame.current);
+                setAnimating(false);
+                setHinge(typeof next === "number" ? next : next[0]!);
+              });
+            }}
+            xstyle={s.slider}
+          >
+            <Slider.Control>
+              <Slider.Track>
+                <Slider.Fill />
+                <Slider.Thumb aria-label={t.hinge} />
+              </Slider.Track>
+            </Slider.Control>
+          </Slider>
+          <span {...stylex.props(s.degrees)} aria-hidden="true">
+            {formatAngle(hinge)}
+          </span>
+        </div>
+        <div {...stylex.props(s.actions)}>
+          <Button
+            disabled={disabled}
+            aria-label={open ? t.fold : t.unfold}
+            title={open ? t.fold : t.unfold}
+            icon={open ? <ChevronsCollapseHorizontal /> : <ChevronsExpandHorizontal />}
+            variant="borderless"
+            xstyle={s.action}
+            onClick={() => content.handoff(() => animateTo(open ? 0 : 180))}
+          />
+          <Button
+            disabled={disabled}
+            aria-label={t.flip}
+            title={t.flip}
+            icon={<ArrowRightArrowLeft />}
+            variant="borderless"
+            xstyle={s.action}
+            onClick={() => scene.current?.flipView()}
+          />
+          <Button
+            disabled={disabled}
+            aria-label={t.reset}
+            title={t.reset}
+            icon={<ArrowRotateLeft />}
+            variant="borderless"
+            xstyle={s.action}
+            onClick={() => {
+              setRotating(false);
+              scene.current?.resetView();
+            }}
+          />
+          <Button
+            disabled={disabled}
+            aria-label={t.rotate}
+            aria-pressed={rotating}
+            title={t.rotate}
+            icon={<ArrowsRotateRight />}
+            variant={rotating ? "bordered" : "borderless"}
+            xstyle={s.action}
+            onClick={() => {
+              scene.current?.setAutoRotate(!rotating);
+              setRotating(!rotating);
+            }}
+          />
+        </div>
+      </fieldset>
+    </Root>
   );
 }

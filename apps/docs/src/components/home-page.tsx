@@ -3,15 +3,66 @@
 /* oxlint-disable jsx-a11y/prefer-tag-over-role -- These polymorphic Buttons render anchors. */
 // Copyright 2025 NextUI Inc.
 // Modified: an interactive component composition and component library.
+import { lazy, Suspense, useState } from "react";
 import NextLink from "fumadocs-core/link";
 import * as stylex from "@stylexjs/stylex";
 import { Accordion, Button, Link } from "@lenso/ui";
 import { ChevronDown } from "@gravity-ui/icons";
 import { HomeShell } from "./home-layout";
-import { HomePlayground } from "./home-playground";
 import { home as s } from "@/styles/home.stylex";
 import { product } from "@/lib/product";
 import type { Locale } from "@/lib/source";
+
+const DeviceLab = lazy(() =>
+  import("./device-lab").then(({ DeviceLab }) => ({ default: DeviceLab })),
+);
+
+function HomeMusicDuo({ locale }: { locale: Locale }) {
+  const [active, setActive] = useState(false);
+  const cn = locale === "cn";
+  const poster = (
+    <img
+      {...stylex.props(s.duoPoster)}
+      src="/assets/home/duo-music.webp"
+      alt={cn ? "展开的 Duo 上显示 Music" : "Music on the unfolded Duo"}
+      width={1280}
+      height={986}
+      fetchPriority="high"
+    />
+  );
+  return (
+    <section aria-label={cn ? "Duo 中的 Music" : "Music in Duo"} {...stylex.props(s.duo)}>
+      <div id="home-duo-stage" {...stylex.props(s.duoStage)}>
+        {active ? (
+          <Suspense fallback={poster}>
+            <DeviceLab locale={locale} app="music" embedded />
+          </Suspense>
+        ) : (
+          poster
+        )}
+      </div>
+      <div {...stylex.props(s.duoActions)}>
+        <Button
+          size="lg"
+          aria-expanded={active}
+          aria-controls="home-duo-stage"
+          onClick={() => setActive(!active)}
+        >
+          {active
+            ? cn
+              ? "关闭 Duo 预览"
+              : "Close Duo preview"
+            : cn
+              ? "在 Duo 中体验 Music"
+              : "Try Music in Duo"}
+        </Button>
+        <Link href={`/${locale}/music`} xstyle={s.duoWeb}>
+          {cn ? "在网页打开 Music" : "Open Music on the web"}
+        </Link>
+      </div>
+    </section>
+  );
+}
 
 const families = [
   {
@@ -104,7 +155,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               </div>
             </div>
           </div>
-          <HomePlayground locale={locale} />
+          <HomeMusicDuo locale={locale} />
         </section>
 
         <section aria-labelledby="library-title" {...stylex.props(s.library)}>

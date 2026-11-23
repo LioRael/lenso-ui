@@ -17,7 +17,9 @@ const SCREEN_RADIUS = 32;
 
 export type DeviceScene = {
   setHinge: (angle: number, busy: boolean) => void;
+  flipView: () => void;
   resetView: () => void;
+  setAutoRotate: (enabled: boolean) => void;
   dispose: () => void;
 };
 type Surface = "inner" | "inner-right" | "cover";
@@ -792,6 +794,7 @@ export function createDeviceScene(
   let busy = false;
   const distance = 1700;
   let queued = 0;
+  let orbitFrame = 0;
   let disposed = false;
   const normal = new THREE.Vector3();
   const towardCamera = new THREE.Vector3();
@@ -815,7 +818,8 @@ export function createDeviceScene(
       // The moving depth plane also cuts out the right half of the single open-screen DOM.
       panel.visible = facing && (panel !== inner.panel || hingeAngle > 0.5);
       element.style.display = shown ? "block" : "none";
-      frame.style.visibility = content.isReady(surface) ? "visible" : "hidden";
+      const sleeping = surface === "cover" && hingeAngle >= 179.5;
+      frame.style.visibility = !sleeping && content.isReady(surface) ? "visible" : "hidden";
       element.inert =
         !shown ||
         busy ||
@@ -875,10 +879,24 @@ export function createDeviceScene(
     camera.top = span / 2;
     camera.bottom = -span / 2;
     camera.updateProjectionMatrix();
-    controls.update();
+    controls.update(0);
     draw();
   }
+  function setAutoRotate(enabled: boolean) {
+    cancelAnimationFrame(orbitFrame);
+    controls.autoRotate = enabled;
+    if (!enabled) return;
+
+    let previous = performance.now();
+    const tick = (now: number) => {
+      controls.update(Math.min(Math.max(0, (now - previous) / 1000), 0.05));
+      previous = now;
+      orbitFrame = requestAnimationFrame(tick);
+    };
+    orbitFrame = requestAnimationFrame(tick);
+  }
   function resetView() {
+    setAutoRotate(false);
     camera.position.set(-0.24, 0.16, 1).normalize().multiplyScalar(distance).add(controls.target);
     controls.update();
     draw();
@@ -915,11 +933,19 @@ export function createDeviceScene(
       device.position.x = -center * 100;
       draw();
     },
+    flipView() {
+      const { x, z } = controls.target;
+      camera.position.x = 2 * x - camera.position.x;
+      camera.position.z = 2 * z - camera.position.z;
+      controls.update(0);
+    },
     resetView,
+    setAutoRotate,
     dispose() {
       disposed = true;
       unsubscribe();
       cancelAnimationFrame(queued);
+      setAutoRotate(false);
       observer.disconnect();
       controls.dispose();
       const geometries = new Set<THREE.BufferGeometry>();

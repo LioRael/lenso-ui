@@ -1,0 +1,27 @@
+---
+title: "Music"
+description: "A responsive music library and player built with Lenso UI."
+navigationOrder: 2
+---
+
+[Open Music on the web](/en/music) · [Preview in Duo](/docs/react/templates) · [Browse source](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/src/components/music-demo.tsx)
+
+## What is included
+
+Music combines album browsing, search, library views and a player with a queue. In Duo, playback and navigation follow the active screen when you fold or unfold the device.
+
+1. Find a track in Search and start playback.
+2. Open Now Playing from the mini player. Try scrubbing, shuffling or opening the queue.
+3. In Duo, fold the device while a track is playing and resume from the cover screen.
+
+## Files to adapt
+
+| Files | Responsibility |
+| --- | --- |
+| `apps/docs/src/routes/$locale.music.tsx` | Standalone web entry and Duo screen entry |
+| `apps/docs/src/components/music-demo.tsx`, `music-player.tsx` | Navigation, library views and playback controls |
+| `apps/docs/src/lib/music-model.ts`, `music-library.ts` | Playback session, queue and sample catalog |
+| `apps/docs/src/styles/music-demo.stylex.ts` | Responsive layouts and appearance |
+| `apps/docs/public/assets/demo/music/` | Sample tracks and source notes |
+
+Follow [Quick start](/docs/react/getting-started/installation) for theme CSS and StyleX. This is a repository template, not a standalone distribution or streaming service. Bring the supporting modules when adapting it and preserve the [sample audio credits](https://github.com/LioRael/lenso-ui/blob/main/apps/docs/public/assets/demo/music/README.md) or replace the tracks.

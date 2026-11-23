@@ -11,7 +11,7 @@ const graph = [
     ],
   },
   { file: "assets/icons-456.js", modules: ["node_modules/@gravity-ui/icons/esm/Bold.js"] },
-  { file: "assets/shell-789.js", modules: ["apps/docs/src/components/home-playground.tsx"] },
+  { file: "assets/shell-789.js", modules: ["apps/docs/src/components/home-page.tsx"] },
   { file: "assets/a.js", modules: ["packages/docs/dist/framework/search-dialog.js"] },
   { file: "assets/b.js", modules: ["packages/docs/dist/framework/docs-theme-panel.js"] },
   { file: "assets/c.js", modules: ["apps/docs/src/stories/story-source.tsx"] },
