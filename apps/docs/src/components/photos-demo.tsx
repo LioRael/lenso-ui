@@ -135,14 +135,21 @@ function Collections({
   );
 }
 
-function DuoStatus({ cover }: { cover: boolean }) {
+function DuoStatus({ cover, overPhotos }: { cover: boolean; overPhotos: boolean }) {
   const [now, setNow] = useState(() => new Date());
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 10_000);
     return () => window.clearInterval(timer);
   }, []);
   return (
-    <aside aria-label="Device status" {...stylex.props(s.deviceStatus)}>
+    <aside
+      aria-label="Device status"
+      {...stylex.props(
+        s.deviceStatus,
+        overPhotos && s.headingOverPhotos,
+        overPhotos && cover && s.coverStatusOverPhotos,
+      )}
+    >
       <time>
         {now.toLocaleTimeString(undefined, {
           hour: "numeric",
@@ -544,6 +551,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     (destination === "library" ? "Library" : destination === "search" ? "Search" : "Collections");
   const stickyLibraryHeader = isLibrary && libraryView === "all" && visible.length > 0;
   const headingOverPhotos = stickyLibraryHeader && (verticalControls || scrolled);
+  const fullBleedLibrary = verticalControls && stickyLibraryHeader;
   const railSearch = verticalControls && destination === "search";
   return (
     <ThemeScope
@@ -552,11 +560,12 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
         s.root,
         dockSidebar && s.dockSidebar,
         verticalControls && s.verticalControls,
+        verticalControls && !fullBleedLibrary && s.reserveRail,
         cover && s.coverControls,
       ]}
       inert={!interactive}
     >
-      {verticalControls && <DuoStatus cover={cover} />}
+      {verticalControls && <DuoStatus cover={cover} overPhotos={fullBleedLibrary} />}
       <Tabs
         value={libraryView}
         onValueChange={(value) => {

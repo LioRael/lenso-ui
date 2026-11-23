@@ -31,8 +31,8 @@ export const photos = stylex.create({
     "--photos-rail-width": "76px",
     "--photos-rail-center": "38px",
     "--photos-rail-search-top": "max(92px, calc(env(safe-area-inset-top) + 64px))",
-    paddingRight: "var(--photos-rail-width)",
   },
+  reserveRail: { paddingRight: "var(--photos-rail-width)" },
   coverControls: {
     "--photos-rail-width": "70px",
     "--photos-rail-center": "40px",
@@ -62,6 +62,28 @@ export const photos = stylex.create({
     fontVariantNumeric: "var(--photos-clock-numerals, tabular-nums)",
     zIndex: 1,
     pointerEvents: "none",
+  },
+  coverStatusOverPhotos: {
+    isolation: "isolate",
+    "::before": {
+      content: '""',
+      position: "absolute",
+      inset: -12,
+      zIndex: -1,
+      borderRadius: 16,
+      backgroundImage: {
+        default:
+          "radial-gradient(ellipse, rgb(0 0 0 / .59) 24%, rgb(0 0 0 / .34) 54%, transparent 84%)",
+        ":is([data-contrast='increased'] *)": "none",
+        "@media (prefers-reduced-transparency: reduce)": "none",
+        "@media (forced-colors: active)": "none",
+      },
+      backgroundColor: {
+        ":is([data-contrast='increased'] *)": "var(--lenso-background-primary)",
+        "@media (prefers-reduced-transparency: reduce)": "var(--lenso-background-primary)",
+        "@media (forced-colors: active)": "Canvas",
+      },
+    },
   },
   railActions: {
     position: "fixed",
