@@ -1,0 +1,22 @@
+THIRD_PARTY_NOTICES.md
+  h_9d56aba080c170 1183,1190-1191
+apps/docs/src/components/photos-demo.tsx
+  h_9d56aba080c170 138-182,202,238-241,545,557,613-619,653,683-684,980,1024,1058-1061,1168
+apps/docs/src/components/photos-search-transition.ts
+  h_9d56aba080c170 9,37-38,70,83
+apps/docs/src/components/photos-selection-transition.ts
+  h_9d56aba080c170 3,39,81
+apps/docs/src/styles/photos-demo.stylex.ts
+  h_9d56aba080c170 33,37-45,47-48,57-62,69-70,74-85,90,92,97,108-120,128,130,589-600
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "75c49838c4ca0aa7220cbcfc88cec3ea1a79fbdf",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
