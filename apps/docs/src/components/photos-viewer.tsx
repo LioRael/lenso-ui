@@ -254,7 +254,6 @@ export function PhotosViewer({
                   </Toolbar>
                   <PhotosViewerMenu
                     open={moreOpen}
-                    morphTrigger={model.surface === "standalone"}
                     submenu={viewerMenu === "root" ? null : viewerMenu}
                     onSubmenuChange={(submenu, open, details) => {
                       // The root owns cascading closes, including canceled frame blurs.
@@ -531,10 +530,10 @@ export function PhotosViewer({
               }}
             >
               {confirmation?.kind === "revert"
-                ? "Revert to Original"
+                ? "Revert"
                 : confirmation?.kind === "hide"
-                  ? "Hide Photo"
-                  : "Delete Photo"}
+                  ? "Hide"
+                  : "Delete"}
             </AlertDialog.Action>
           </AlertDialog.Footer>
         </AlertDialog.Content>

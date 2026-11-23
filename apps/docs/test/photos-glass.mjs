@@ -68,16 +68,22 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     assert.ok(await filterTrigger.evaluate((button) => document.activeElement === button));
 
     await page.getByRole("button", { name: "Open Portrait in red", exact: true }).press("Enter");
-    await page.getByRole("button", { name: "Photo options", exact: true }).click();
+    const options = page.getByRole("button", { name: "Photo options", exact: true });
+    const optionsBox = await options.boundingBox();
+    await options.click();
     const menu = page.getByRole("menu", { name: "Photo options", exact: true });
-    const title = page.getByRole("heading", { name: "Portrait in red", includeHidden: true });
     await menu.waitFor();
     const menuBox = await menu.boundingBox();
-    const titleBox = await title.boundingBox();
     assert.ok(
-      menuBox && titleBox && menuBox.y >= titleBox.y + titleBox.height,
-      `${name}: the photo options menu overlaps the viewer title`,
+      optionsBox &&
+        menuBox &&
+        Math.abs(menuBox.y - optionsBox.y) <= 2 &&
+        Math.abs(menuBox.x + menuBox.width - optionsBox.x - optionsBox.width) <= 2,
+      `${name}: photo options expands in place from the ellipsis button`,
     );
+    await menu.press("Escape");
+    await menu.waitFor({ state: "hidden" });
+    assert.ok(await options.evaluate((button) => document.activeElement === button));
 
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.goto(`${base}/en/photos`, { waitUntil: "networkidle" });
