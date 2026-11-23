@@ -27,6 +27,7 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
+  CircleExclamation,
   Ellipsis,
   HeartFill,
   HouseFill,
@@ -81,7 +82,7 @@ const statusClock = new Intl.DateTimeFormat("en", {
   hourCycle: "h23",
 });
 
-function DuoMusicStatus() {
+function DuoMusicStatus({ onDarkBackdrop }: { onDarkBackdrop: boolean }) {
   const [time, setTime] = useState(() => statusClock.format(new Date()));
   useEffect(() => {
     let timer: number;
@@ -94,7 +95,10 @@ function DuoMusicStatus() {
     return () => window.clearTimeout(timer);
   }, []);
   return (
-    <aside aria-label="Simulated device status" {...stylex.props(s.duoStatus)}>
+    <aside
+      aria-label="Simulated device status"
+      {...stylex.props(s.duoStatus, onDarkBackdrop && s.duoStatusOnDark)}
+    >
       <LocationArrowFill aria-hidden="true" width={11} height={11} />
       <time dateTime={time}>{time}</time>
       <svg aria-hidden="true" viewBox="0 0 32 32" width="32" height="32" fill="none">
@@ -118,17 +122,22 @@ function DuoMusicStatus() {
 }
 
 function DuoAlbumShare({ album }: { album: MusicAlbum }) {
-  const [feedback, setFeedback] = useState("");
+  const [feedback, setFeedback] = useState<{ copied: boolean } | null>(null);
+  useEffect(() => {
+    if (!feedback) return;
+    const timer = window.setTimeout(() => setFeedback(null), 3500);
+    return () => window.clearTimeout(timer);
+  }, [feedback]);
   return (
     <>
       <Button
         variant="borderless"
         isIconOnly
         aria-label="Share album"
-        xstyle={s.duoActionButton}
+        xstyle={[s.duoActionButton, s.duoGroupedAction]}
         onClick={async () => {
           const text = `${album.title} · ${album.artist}`;
-          setFeedback("");
+          setFeedback(null);
           if (navigator.share) {
             try {
               await navigator.share({ text });
@@ -139,16 +148,26 @@ function DuoAlbumShare({ album }: { album: MusicAlbum }) {
           }
           try {
             await navigator.clipboard.writeText(text);
-            setFeedback("Album details copied");
+            setFeedback({ copied: true });
           } catch {
-            setFeedback("Couldn’t share album details");
+            setFeedback({ copied: false });
           }
         }}
       >
         <ArrowUpFromSquare aria-hidden="true" width={19} height={19} />
       </Button>
       <output {...stylex.props(s.duoShareFeedback, !feedback && s.duoShareSilent)}>
-        {feedback}
+        {feedback?.copied ? (
+          <>
+            <Check aria-hidden="true" width={14} height={14} />
+            <span>Album details copied</span>
+          </>
+        ) : feedback ? (
+          <>
+            <CircleExclamation aria-hidden="true" width={14} height={14} />
+            <span>Couldn’t share album details</span>
+          </>
+        ) : null}
       </output>
     </>
   );
@@ -237,24 +256,38 @@ function SongRow({
   current,
   playing,
   loved,
+  duo,
   onPlay,
 }: {
   track: MusicTrack;
   current: boolean;
   playing: boolean;
   loved: boolean;
+  duo: boolean;
   onPlay: () => void;
 }) {
   const album = albumOf(track);
+  const artwork = <Artwork album={album} xstyle={[s.rowArt, duo && s.duoSongArt]} />;
   return (
     <li>
       <button
         type="button"
         aria-current={current || undefined}
         onClick={onPlay}
-        {...stylex.props(s.row)}
+        {...stylex.props(s.row, duo && s.duoSongRow)}
       >
-        <Artwork album={album} xstyle={s.rowArt} />
+        {duo ? (
+          <span {...stylex.props(s.duoSongArtworkSlot)}>
+            {artwork}
+            {current && (
+              <span aria-hidden="true" {...stylex.props(s.duoSongPlaying)}>
+                <PlayingBars playing={playing} compact />
+              </span>
+            )}
+          </span>
+        ) : (
+          artwork
+        )}
         <span {...stylex.props(s.rowBody)}>
           <span {...stylex.props(s.captionTitle, current && s.trackCurrent)}>{track.title}</span>
           <span {...stylex.props(s.secondary)}>
@@ -263,10 +296,12 @@ function SongRow({
         </span>
         <span {...stylex.props(s.rowTrailing)}>
           {loved && <HeartFill aria-label="Loved" {...stylex.props(s.loved)} />}
-          {current ? (
+          {current && !duo ? (
             <PlayingBars playing={playing} />
           ) : (
-            <span {...stylex.props(s.trackDuration)}>{formatTime(track.duration)}</span>
+            <span {...stylex.props(s.trackDuration, duo && s.duoSongDuration)}>
+              {formatTime(track.duration)}
+            </span>
           )}
         </span>
       </button>
@@ -290,7 +325,9 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
   const page = state.pages.at(-1);
   const album = page?.kind === "album" ? albums[page.id]! : null;
   const duoAlbum = Boolean(controlled && album);
+  const coverAlbum = duoAlbum && model.surface === "cover";
   const splitAlbum = duoAlbum && tablet;
+  const duoSongs = Boolean(controlled && page?.kind === "list" && page.id === "songs");
   const viewKey = page ? `${page.kind}:${page.id}` : state.tab;
   const saveScroll = useSyncedScroll(model, viewKey, main, interactive, snapshot);
   useEffect(() => () => local?.dispose(), [local]);
@@ -312,6 +349,10 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
   const openAlbum = (id: number) => open({ kind: "album", id });
   const playTracks = (ids: number[], index: number, source: string) =>
     model.play(ids, index, source);
+  const playCollection = (ids: number[], source: string) => {
+    if (state.shuffle) model.setShuffle(false);
+    playTracks(ids, 0, source);
+  };
   const toggleSet = (key: "loved" | "saved", id: number) =>
     model.set(key, (previous) => {
       const next = new Set(previous);
@@ -319,7 +360,7 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
       return next;
     });
   const songList = (ids: number[], source: string) => (
-    <ul {...stylex.props(s.list)}>
+    <ul {...stylex.props(s.list, duoSongs && s.duoSongsList)}>
       {ids.map((id, index) => (
         <SongRow
           key={id}
@@ -327,6 +368,7 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
           current={current.id === id}
           playing={state.playing}
           loved={state.loved.has(id)}
+          duo={duoSongs}
           onPlay={() => playTracks(ids, index, source)}
         />
       ))}
@@ -656,7 +698,14 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
 
   function trackList(ids: number[], source: string, withArt: boolean) {
     return (
-      <ol aria-label="Songs" {...stylex.props(s.tracks, splitAlbum && s.splitAlbumTracks)}>
+      <ol
+        aria-label="Songs"
+        {...stylex.props(
+          s.tracks,
+          coverAlbum && s.coverAlbumTracks,
+          splitAlbum && s.splitAlbumTracks,
+        )}
+      >
         {ids.map((id, index) => {
           const track = trackById(id);
           const album = albumOf(track);
@@ -744,23 +793,28 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
       </Button>
     );
     return (
-      <div {...stylex.props(s.hero, splitAlbum && s.splitAlbumHero)}>
+      <div
+        {...stylex.props(s.hero, coverAlbum && s.coverAlbumHero, splitAlbum && s.splitAlbumHero)}
+      >
         {art}
         <div {...stylex.props(s.heroText, splitAlbum && s.splitAlbumText)}>
           <h1 {...stylex.props(s.heroTitle)}>{title}</h1>
           <p {...stylex.props(s.heroArtist, duoAlbum && s.duoAlbumArtist)}>{subtitle}</p>
           <p {...stylex.props(s.heroMeta)}>{meta}</p>
           {description && <p {...stylex.props(s.heroDescription)}>{description}</p>}
-          <div {...stylex.props(s.heroActions, duoAlbum && s.duoAlbumActions)}>
+          <div
+            {...stylex.props(
+              s.heroActions,
+              duoAlbum && s.duoAlbumActions,
+              coverAlbum && s.coverAlbumActions,
+            )}
+          >
             {duoAlbum && shuffle}
             <Button
               variant={duoAlbum ? "prominent" : "borderless"}
               fullWidth={duoAlbum || undefined}
               tint={duoAlbum ? "var(--lenso-label-primary)" : undefined}
-              onClick={() => {
-                if (state.shuffle) model.setShuffle(false);
-                playTracks(ids, 0, source);
-              }}
+              onClick={() => playCollection(ids, source)}
               xstyle={duoAlbum ? [s.duoAlbumAction, s.duoAlbumPlay] : s.heroAction}
             >
               <PlayFill aria-hidden="true" {...stylex.props(s.smallIcon)} />
@@ -778,11 +832,15 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
     const minutes = Math.round(album.tracks.reduce((sum, track) => sum + track.duration, 0) / 60);
     const saved = state.saved.has(album.id);
     const options = (
-      <Menu>
+      <Menu morphTrigger={!duoAlbum}>
         <Menu.Trigger
           render={
             duoAlbum ? (
-              <Button variant="borderless" isIconOnly xstyle={s.duoActionButton} />
+              <Button
+                variant="borderless"
+                isIconOnly
+                xstyle={[s.duoActionButton, s.duoGroupedAction, s.duoMore]}
+              />
             ) : (
               <GlassButton isIconOnly xstyle={s.pageBarControl} />
             )
@@ -801,7 +859,7 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
             <Menu.Item.Icon>{saved ? <Check /> : <Plus />}</Menu.Item.Icon>
             <Menu.Item.Label>{saved ? "Remove from Library" : "Add to Library"}</Menu.Item.Label>
           </Menu.Item>
-          <Menu.Item onClick={() => playTracks(ids, 0, album.title)}>
+          <Menu.Item onClick={() => playCollection(ids, album.title)}>
             <Menu.Item.Icon>
               <PlayFill />
             </Menu.Item.Icon>
@@ -824,7 +882,12 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
         )}
         <div {...stylex.props(splitAlbum && s.splitAlbum)}>
           {collectionHero({
-            art: <Artwork album={album} xstyle={[s.heroArt, splitAlbum && s.splitAlbumArt]} />,
+            art: (
+              <Artwork
+                album={album}
+                xstyle={[s.heroArt, coverAlbum && s.coverAlbumArt, splitAlbum && s.splitAlbumArt]}
+              />
+            ),
             title: album.title,
             subtitle: album.artist,
             meta: `${album.genre} · ${album.year}`,
@@ -877,7 +940,7 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
         <header {...stylex.props(s.header)}>
           <h1 {...stylex.props(s.title)}>{title}</h1>
         </header>
-        <div {...stylex.props(s.section)}>
+        <div {...stylex.props(s.section, duoSongs && s.duoSongsSection)}>
           {id === "albums" ? (
             savedAlbums.length ? (
               <div {...stylex.props(s.grid)}>
@@ -1051,7 +1114,7 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
       ]}
       inert={!interactive}
     >
-      {controlled && !state.nowPlaying && <DuoMusicStatus />}
+      {controlled && <DuoMusicStatus onDarkBackdrop={duoAlbum || state.nowPlaying} />}
       <main
         ref={main}
         key={viewKey}
@@ -1064,6 +1127,7 @@ export function MusicDemo({ model: controlled }: { model?: MusicModel } = {}) {
           s.main,
           controlled ? s.mainWithDuoRail : tablet && s.mainWithSidebar,
           tablet && page && page.kind !== "list" && s.mainCollection,
+          (coverAlbum || duoSongs) && s.mainAboveDuoPlayer,
         )}
       >
         {content}
