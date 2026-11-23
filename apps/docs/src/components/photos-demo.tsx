@@ -199,12 +199,16 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const verticalControls = cover || (model.surface !== "standalone" && landscape);
   const Navigation = verticalControls ? Toolbar : TabBar;
   const NavigationGroup = verticalControls ? Toolbar.Group : TabBar.Group;
-  const [destination, setDestination] = usePhotosField(model, "destination");
+  const [sessionDestination, setDestination] = usePhotosField(model, "destination");
+  const [searchOrigin, setSearchOrigin] = usePhotosField(model, "searchOrigin");
+  const searching = sessionDestination === "search";
+  const inlineSearch = tablet && searching;
+  const destination = inlineSearch ? searchOrigin.destination : sessionDestination;
   const [query, setQuery] = usePhotosField(model, "query");
   const [recentSearches, setRecentSearches] = usePhotosField(model, "recentSearches");
   const searchTrigger = useRef<HTMLButtonElement>(null);
   const { fieldRef: searchFieldRef, capture: captureSearch } = usePhotosSearchTransition(
-    destination === "search",
+    searching,
     searchTrigger,
     verticalControls,
   );
@@ -221,10 +225,14 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     },
     [controlled, model],
   );
-  const [searchOrigin, setSearchOrigin] = usePhotosField(model, "searchOrigin");
   const [selectionAnchor, setSelectionAnchor] = usePhotosField(model, "selectionAnchor");
   const searchRestore = useRef<typeof searchOrigin | null>(null);
-  const [collection, setCollection] = usePhotosField(model, "collection");
+  const [sessionCollection, setCollection] = usePhotosField(model, "collection");
+  const collection = searching
+    ? inlineSearch
+      ? searchOrigin.collection
+      : null
+    : sessionCollection;
   const [favorites, setFavorites] = usePhotosField(model, "favorites");
   const [deleted, setDeleted] = usePhotosField(model, "deleted");
   const [sources] = usePhotosField(model, "sources");
@@ -295,27 +303,32 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     (photo) => !deleted.has(photo.id) && !hiddenPhotos.has(photo.id),
   );
   const isLibrary = destination === "library" && !collection;
-  const visible = activeLibrary.filter(
-    (photo) =>
-      (collection === "Favorites"
-        ? favorites.has(photo.id)
-        : collection === "Edited"
-          ? edits.has(photo.id)
-          : !collection ||
-            photo.collection === collection ||
-            Boolean(albums.get(collection)?.has(photo.id))) &&
-      (!isLibrary ||
-        filter === "all" ||
-        (filter === "favorites"
-          ? favorites.has(photo.id)
-          : filter === "edited"
-            ? edits.has(photo.id)
-            : filter === "photos")) &&
-      (destination !== "search" ||
-        `${photo.title} ${photo.collection} ${captions.get(photo.id) ?? ""}`
+  const searchTerm = searching ? query.trim().toLowerCase() : "";
+  const inlineResults = inlineSearch && Boolean(searchTerm);
+  const visible = activeLibrary.filter((photo) =>
+    searchTerm
+      ? `${photo.title} ${photo.collection} ${captions.get(photo.id) ?? ""}`
           .toLowerCase()
-          .includes(query.trim().toLowerCase())),
+          .includes(searchTerm)
+      : (collection === "Favorites"
+          ? favorites.has(photo.id)
+          : collection === "Edited"
+            ? edits.has(photo.id)
+            : !collection ||
+              photo.collection === collection ||
+              Boolean(albums.get(collection)?.has(photo.id))) &&
+        (!isLibrary ||
+          filter === "all" ||
+          (filter === "favorites"
+            ? favorites.has(photo.id)
+            : filter === "edited"
+              ? edits.has(photo.id)
+              : filter === "photos")),
   );
+  useLayoutEffect(() => {
+    if (inlineSearch && interactive && main.current)
+      main.current.scrollTop = inlineResults ? 0 : searchOrigin.top;
+  }, [inlineSearch, inlineResults, interactive, searchOrigin.top]);
   const selectionGrid = usePhotosDragSelection({
     active: selecting && interactive,
     ids: visible.map((photo) => photo.id),
@@ -394,7 +407,8 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
       anchor: scrollAnchor,
     });
     setQuery("");
-    navigate("search");
+    if (tablet) setDestination("search");
+    else navigate("search");
   }
   function closeSearch(animate = false) {
     captureSearch(false, animate);
@@ -409,14 +423,14 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   }
   useLayoutEffect(() => {
     const origin = searchRestore.current;
-    if (destination === "search" || !origin) return;
+    if (searching || !origin) return;
     searchRestore.current = null;
     if (main.current && !controlled) main.current.scrollTop = origin.top;
     searchTrigger.current?.focus({ preventScroll: true });
-  }, [destination, controlled]);
+  }, [searching, controlled]);
 
   useEffect(() => {
-    if (destination !== "search") return;
+    if (!searching || inlineSearch) return;
     const viewport = window.visualViewport;
     const host = main.current;
     const update = () =>
@@ -432,7 +446,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
       viewport?.removeEventListener("scroll", update);
       host?.style.removeProperty("--photos-keyboard-inset");
     };
-  }, [destination]);
+  }, [searching, inlineSearch]);
   function toggleFavorite(id: number) {
     setFavorites((previous) => {
       const next = new Set(previous);
@@ -550,9 +564,11 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
     collection ??
     (destination === "library" ? "Library" : destination === "search" ? "Search" : "Collections");
   const stickyLibraryHeader = isLibrary && libraryView === "all" && visible.length > 0;
-  const headingOverPhotos = stickyLibraryHeader && (verticalControls || scrolled);
-  const fullBleedLibrary = verticalControls && stickyLibraryHeader;
-  const railSearch = verticalControls && destination === "search";
+  const headingOverPhotos = !inlineSearch && stickyLibraryHeader && (verticalControls || scrolled);
+  const fullBleedLibrary = verticalControls && stickyLibraryHeader && !inlineResults;
+  const railSearch = verticalControls && searching;
+  const showTimeline =
+    !searching && !selecting && isLibrary && (tablet || verticalControls || navigationMinimized);
   return (
     <ThemeScope
       theme={dark ? "dark" : "light"}
@@ -630,7 +646,8 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               s.header,
               stickyLibraryHeader && s.libraryHeader,
               stickyLibraryHeader && verticalControls && s.railLibraryHeader,
-              railSearch && s.railSearchHeader,
+              railSearch && !inlineSearch && s.railSearchHeader,
+              railSearch && inlineResults && s.inlineRailResultsHeader,
             )}
           >
             {headingOverPhotos && <ScrollEdge variant="soft" edge="top" xstyle={s.headerEdge} />}
@@ -639,6 +656,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                 {...stylex.props(
                   headingOverPhotos && s.headingOverPhotos,
                   !dockSidebar && s.sidebarCovered,
+                  inlineSearch && s.searchOriginHidden,
                 )}
               >
                 <h1 {...stylex.props(s.title)}>{title}</h1>
@@ -655,7 +673,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   s.actions,
                   s.libraryGlass,
                   verticalControls && s.railActions,
-                  destination === "search" && s.hidden,
+                  searching && s.hidden,
                 ]}
               >
                 <Toolbar
@@ -762,7 +780,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     </span>
                   </GlassButton>
                 )}
-                {(tablet || verticalControls) && destination !== "search" && !selecting && (
+                {(tablet || verticalControls) && !searching && !selecting && (
                   <GlassButton
                     ref={searchTrigger}
                     isIconOnly
@@ -776,7 +794,11 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               </GlassContainer>
             </div>
             {collection && (
-              <Button variant="borderless" onClick={() => openCollection(null)}>
+              <Button
+                variant="borderless"
+                xstyle={inlineSearch && s.searchOriginHidden}
+                onClick={() => openCollection(null)}
+              >
                 <ChevronLeft /> All collections
               </Button>
             )}
@@ -800,22 +822,28 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   )}
                 </div>
               </section>
-            ) : destination === "collections" && !collection ? (
+            ) : destination === "collections" && !collection && !inlineResults ? (
               <Collections
                 photos={activeLibrary}
                 favorites={favorites}
                 edited={edits}
                 albums={albums}
-                onOpen={openCollection}
+                onOpen={(name) => {
+                  if (inlineSearch) closeSearch();
+                  openCollection(name);
+                }}
               />
             ) : (
               <>
-                <div {...stylex.props(s.sectionHeading, isLibrary && s.visuallyHidden)}>
+                <div
+                  {...stylex.props(
+                    s.sectionHeading,
+                    isLibrary && !inlineResults && s.visuallyHidden,
+                  )}
+                >
                   <h2 {...stylex.props(s.sectionTitle)}>
-                    {destination === "search"
-                      ? query
-                        ? "Search results"
-                        : "All Photos"
+                    {searchTerm
+                      ? "Search results"
                       : (collection ??
                         (isLibrary && libraryView !== "all"
                           ? libraryView === "years"
@@ -827,7 +855,11 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                     {visible.length} {visible.length === 1 ? "photo" : "photos"}
                   </span>
                 </div>
-                {isLibrary && libraryView !== "all" && !selecting && visible.length ? (
+                {isLibrary &&
+                !inlineResults &&
+                libraryView !== "all" &&
+                !selecting &&
+                visible.length ? (
                   <PhotosLibraryOverview
                     view={libraryView}
                     photos={visible}
@@ -886,36 +918,40 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   <output {...stylex.props(s.empty)}>
                     <Magnifier {...stylex.props(s.emptyIcon)} />
                     <h2>
-                      {collection === "Favorites" || (isLibrary && filter === "favorites")
-                        ? "No favorites yet"
-                        : collection === "Edited" || (isLibrary && filter === "edited")
-                          ? "No edited photos"
-                          : isLibrary && filter === "videos"
-                            ? "No videos"
-                            : isLibrary && filter === "screenshots"
-                              ? "No screenshots"
-                              : isLibrary && filter === "shared"
-                                ? "Nothing shared with you"
-                                : isLibrary && filter === "mine"
-                                  ? "No photos taken by you"
-                                  : isLibrary && filter === "unfiled"
-                                    ? "All photos are in albums"
-                                    : "No photos found"}
+                      {inlineResults
+                        ? "No photos found"
+                        : collection === "Favorites" || (isLibrary && filter === "favorites")
+                          ? "No favorites yet"
+                          : collection === "Edited" || (isLibrary && filter === "edited")
+                            ? "No edited photos"
+                            : isLibrary && filter === "videos"
+                              ? "No videos"
+                              : isLibrary && filter === "screenshots"
+                                ? "No screenshots"
+                                : isLibrary && filter === "shared"
+                                  ? "Nothing shared with you"
+                                  : isLibrary && filter === "mine"
+                                    ? "No photos taken by you"
+                                    : isLibrary && filter === "unfiled"
+                                      ? "All photos are in albums"
+                                      : "No photos found"}
                     </h2>
                     <p>
-                      {collection === "Favorites" || (isLibrary && filter === "favorites")
-                        ? "Open a photo and tap the heart to keep it here."
-                        : collection === "Edited" || (isLibrary && filter === "edited")
-                          ? "Open a photo and choose Edit to make an adjustment."
-                          : isLibrary && filter !== "all"
-                            ? "There are no matching items in this sample library."
-                            : collection
-                              ? "This album has no photos."
-                              : destination === "search"
-                                ? "Try searching for people, city or coast."
-                                : "This sample library is empty. Use Undo to restore removed photos."}
+                      {inlineResults
+                        ? "Try searching for people, city or coast."
+                        : collection === "Favorites" || (isLibrary && filter === "favorites")
+                          ? "Open a photo and tap the heart to keep it here."
+                          : collection === "Edited" || (isLibrary && filter === "edited")
+                            ? "Open a photo and choose Edit to make an adjustment."
+                            : isLibrary && filter !== "all"
+                              ? "There are no matching items in this sample library."
+                              : collection
+                                ? "This album has no photos."
+                                : destination === "search"
+                                  ? "Try searching for people, city or coast."
+                                  : "This sample library is empty. Use Undo to restore removed photos."}
                     </p>
-                    {isLibrary && filter !== "all" && (
+                    {!inlineResults && isLibrary && filter !== "all" && (
                       <Button variant="borderless" onClick={() => changeFilter("all")}>
                         Remove Filters
                       </Button>
@@ -978,7 +1014,13 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               </output>
             )}
           </div>
-          <footer {...stylex.props(s.footer, destination === "search" && s.hidden)}>
+          <footer
+            {...stylex.props(
+              s.footer,
+              searching && (!inlineSearch || inlineResults) && s.hidden,
+              inlineSearch && !inlineResults && s.searchOriginHidden,
+            )}
+          >
             <p {...stylex.props(s.libraryCount)}>
               {shownCount} {shownCount === 1 ? "Photo" : "Photos"}
             </p>
@@ -990,16 +1032,15 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
             glassTint={0.875}
             xstyle={[
               s.navigation,
-              (tablet || verticalControls) &&
-                !selecting &&
-                destination !== "search" &&
-                s.tabletNavigationHost,
+              (tablet || verticalControls) && !selecting && !searching && s.tabletNavigationHost,
               verticalControls && s.railBottomContent,
-              destination === "search" && s.searchNavigation,
-              railSearch && s.railSearchDock,
+              searching && !inlineSearch && s.searchNavigation,
+              railSearch && !inlineSearch && s.railSearchDock,
+              inlineSearch && s.inlineSearchDock,
+              inlineSearch && railSearch && s.inlineRailSearchDock,
             ]}
           >
-            {destination === "search" ? (
+            {searching ? (
               <div {...stylex.props(s.searchDock)}>
                 <SearchField
                   fullWidth
@@ -1008,7 +1049,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   aria-label="Search photos"
                   xstyle={s.searchField}
                 >
-                  <SearchField.Group>
+                  <SearchField.Group xstyle={inlineSearch && s.inlineSearchGroup}>
                     <SearchField.SearchIcon />
                     <SearchField.Input
                       ref={focusSearch}
@@ -1214,7 +1255,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                 )}
               </Navigation>
             )}
-            {!selecting && isLibrary && (tablet || verticalControls || navigationMinimized) && (
+            {showTimeline && (
               <div
                 {...stylex.props(
                   s.timelineControls,
