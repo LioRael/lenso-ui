@@ -88,6 +88,28 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     const sidebarTrigger = navigation.getByRole("button", { name: "Show sidebar" });
     const sidebar = page.getByRole("dialog", { name: "Photos", exact: true });
     const libraryTitle = page.getByRole("heading", { name: "Library", exact: true, level: 1 });
+    const navBox = await navigation.boundingBox();
+    const searchButton = await search.boundingBox();
+    assert.ok(navBox && searchButton);
+    const navCenter = navBox.y + navBox.height / 2;
+    assert.ok(
+      Math.abs(navCenter - (searchButton.y + searchButton.height / 2)) < 1,
+      `${name}: the tablet navigation and library actions share a centerline`,
+    );
+    await search.click();
+    const searchField = page.getByRole("searchbox", { name: "Search photos" });
+    await searchField.evaluate(async (input) => {
+      await Promise.allSettled(
+        input.parentElement.getAnimations().map((animation) => animation.finished),
+      );
+    });
+    const searchBox = await searchField.boundingBox();
+    assert.ok(searchBox);
+    assert.ok(
+      Math.abs(navCenter - (searchBox.y + searchBox.height / 2)) < 1,
+      `${name}: expanding search preserves the toolbar centerline`,
+    );
+    await page.keyboard.press("Escape");
     const timeline = page.getByRole("tablist", { name: "Library view", exact: true });
     const expectInlineTimeline = async () => {
       await timeline.waitFor();
