@@ -1,0 +1,21 @@
+apps/docs/src/components/music-player.tsx
+  s_c4cecb510eb0ec::t_093b68fc1cc20d 414,423,479-486,498,500,503-507,515-518,525-528,533-535,541-545,562,574,593-598,659-660
+apps/docs/test/music-device.mjs
+  s_c4cecb510eb0ec::t_860fa012449cf1 16-17,152-167,211-217,240-248,296-301,330,340-350,424-433,464-472,512-518,535-543
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a04bd7b172f8125a222f1362e22755870a284f9e",
+  "prompts": {},
+  "sessions": {
+    "s_c4cecb510eb0ec": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20801-2fc9-72d2-a51d-adf5f04b4290",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
