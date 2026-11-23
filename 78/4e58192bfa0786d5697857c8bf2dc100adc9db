@@ -1,0 +1,33 @@
+apps/docs/test/templates-gallery.mjs
+  s_c4cecb510eb0ec::t_6330a99778da9f 1-152
+apps/docs/src/components/templates-gallery.tsx
+  s_c4cecb510eb0ec::t_2429d571ecc23e 1-163
+apps/docs/src/lib/source.ts
+  s_c4cecb510eb0ec::t_45f8e2d07aee41 88,113-120
+apps/docs/src/styles/device-lab.stylex.ts
+  s_c4cecb510eb0ec::t_66f7ae23fad24b 22-28,57-80,82-83
+apps/docs/src/lib/device-scene.ts
+  s_c4cecb510eb0ec::t_8ca5a795024b7e 20,22,797,821-822,882,885-897,899,936-941,943,948
+apps/docs/content/lenso/en/react/templates/index.mdx
+  s_c4cecb510eb0ec::t_933a8cdfe1b653 1-9
+apps/docs/content/lenso/cn/react/templates/index.mdx
+  s_c4cecb510eb0ec::t_60673bb9ffb087 1-9
+apps/docs/src/components/device-lab.tsx
+  s_c4cecb510eb0ec::t_b7185e25442ccc 4-10,22,26,28,39,43,45,55-65,69,165-166,168-192,208-283
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "784e58192bfa0786d5697857c8bf2dc100adc9db",
+  "prompts": {},
+  "sessions": {
+    "s_c4cecb510eb0ec": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20801-2fc9-72d2-a51d-adf5f04b4290",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
