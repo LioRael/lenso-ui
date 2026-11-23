@@ -48,7 +48,7 @@ for (const engine of [chromium, webkit]) {
     const inner = page.locator('iframe[title="Inner display"]');
     const unfolded = page.frameLocator('iframe[title="Inner display"]');
     await unfolded.getByRole("button", { name: "Select", exact: true }).waitFor();
-    const assertVerticalControls = async (app) => {
+    const assertVerticalControls = async (app, cover = false) => {
       const bounds = (locator) =>
         locator.evaluate((node) => node.getBoundingClientRect().toJSON(), undefined, {
           timeout: 5000,
@@ -56,15 +56,24 @@ for (const engine of [chromium, webkit]) {
       const status = await bounds(app.getByLabel("Device status", { exact: true }));
       const filter = await bounds(app.getByRole("button", { name: "Sort and filter" }));
       const collections = await bounds(app.getByRole("link", { name: "Collections" }));
-      const gallery = await bounds(app.getByRole("main"));
       const center = (box) => box.x + box.width / 2;
       assert.ok(Math.abs(center(status) - center(filter)) < 6, "Status and toolbar share an axis");
       assert.ok(Math.abs(center(filter) - center(collections)) < 6, "Navigation shares the axis");
       assert.ok(
-        status.y < filter.y && filter.y < collections.y,
-        "Controls run down the right side",
+        status.bottom <= filter.top && filter.bottom <= collections.top,
+        "The toolbar clears the status group without sharing its hit area",
       );
-      assert.ok(gallery.right < filter.left, "The right rail reserves space outside the gallery");
+      const lastTileInFirstRow = app.locator("[data-selection-id]").nth(cover ? 2 : 3);
+      const tile = await bounds(lastTileInFirstRow);
+      const screenWidth = await lastTileInFirstRow.evaluate(
+        (node) => node.ownerDocument.documentElement.clientWidth,
+      );
+      assert.ok(
+        Math.abs(tile.right - screenWidth) < 1 &&
+          tile.left < status.left &&
+          tile.right > status.right,
+        `${cover ? "Cover" : "Inner"} library photos reach the display edge behind the status group`,
+      );
       await app.getByRole("tab", { name: "Months", exact: true }).waitFor();
     };
     await assertVerticalControls(unfolded);
@@ -81,10 +90,32 @@ for (const engine of [chromium, webkit]) {
     // Uniform content separates shell shading/seam defects from photo brightness.
     await page.locator("iframe").evaluateAll((frames) => {
       for (const frame of frames) {
-        const white = frame.contentDocument.createElement("div");
-        white.dataset.foldProbe = "";
-        white.style.cssText = "position:fixed;inset:0;background:white;z-index:2147483647";
-        frame.contentDocument.body.append(white);
+        const fill = frame.contentDocument.createElement("div");
+        fill.dataset.foldProbe = "";
+        fill.style.cssText = "position:fixed;inset:0;background:black;z-index:2147483647";
+        frame.contentDocument.body.append(fill);
+      }
+    });
+    const cornerProbes = await inner.evaluate((frame) => {
+      const panel = frame.parentElement;
+      const origin = panel.parentElement.getBoundingClientRect();
+      const matrix = new DOMMatrix(getComputedStyle(panel).transform);
+      // Just inside the bezel opening, where a circular clip can expose the page behind it.
+      return Object.fromEntries(
+        [8, frame.clientWidth - 8].map((x) => {
+          const p = matrix.transformPoint(new DOMPoint(x, 9));
+          return [x, { x: p.x + origin.x, y: p.y + origin.y }];
+        }),
+      );
+    });
+    const corners = await brightnessAt(page, await page.screenshot(), cornerProbes);
+    assert.ok(
+      Object.values(corners).every((value) => value < 100),
+      `Inner screen corners must not expose the page backdrop: ${JSON.stringify(corners)}`,
+    );
+    await page.locator("iframe").evaluateAll((frames) => {
+      for (const frame of frames) {
+        frame.contentDocument.querySelector("[data-fold-probe]").style.background = "white";
       }
     });
     await slider.evaluate((input) => {
@@ -355,7 +386,7 @@ for (const engine of [chromium, webkit]) {
     await page.waitForFunction(
       () => !document.querySelector('iframe[title="Cover display"]').closest("[inert]"),
     );
-    await assertVerticalControls(coverApp);
+    await assertVerticalControls(coverApp, true);
     await page.waitForFunction(
       ({ id, offset }) => {
         const doc = document.querySelector('iframe[title="Cover display"]').contentDocument;

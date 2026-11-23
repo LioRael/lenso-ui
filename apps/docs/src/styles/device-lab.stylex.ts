@@ -55,15 +55,10 @@ export const deviceLab = stylex.create({
     backgroundColor: "#000",
     overflow: "hidden",
     backfaceVisibility: "hidden",
-    clipPath: "inset(0 round 0 32px 32px 0)",
   },
-  cover: { clipPath: "inset(0 round 32px 6px 6px 32px)" },
   screenHeight: (height: number) => ({ height }),
-  innerClip: (clipPath: string) => ({
-    clipPath,
-    overflow: "visible",
-  }),
-  movingClip: (inset: number) => ({ clipPath: `inset(0 0 0 ${inset}px round 0 32px 32px 0)` }),
+  screenClip: (clipPath: string) => ({ clipPath }),
+  warpedScreen: { overflow: "visible" },
   screenFrame: {
     position: "absolute",
     top: 0,
