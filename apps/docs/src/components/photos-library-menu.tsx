@@ -133,7 +133,6 @@ export function PhotosLibraryMenu({
         aria-label="Sort and filter"
         xstyle={[s.popup, photos.menuGlass]}
         side={side}
-        sideOffset={side === "left" ? 8 : 24}
         align={side === "left" ? "start" : "end"}
       >
         {library && (

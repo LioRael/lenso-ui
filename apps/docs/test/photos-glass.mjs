@@ -47,7 +47,10 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     console.log(`${name}: Photos dock backdrop contrast swing ${swing.toFixed(1)}/255`);
     await backdrop.evaluate((element) => element.remove());
 
-    await page.getByRole("button", { name: "Sort and filter", exact: true }).click();
+    const filterTrigger = page.getByRole("button", { name: "Sort and filter", exact: true });
+    const filterTriggerBox = await filterTrigger.boundingBox();
+    assert.ok(filterTriggerBox);
+    await filterTrigger.click();
     const filters = page.getByRole("menu", { name: "Sort and filter", exact: true });
     const viewOptions = filters.getByRole("menuitem", { name: "View Options", exact: true });
     assert.equal(
@@ -56,13 +59,13 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       `${name}: the filter menu inherits the photo header's text shadow`,
     );
     const filtersBox = await filters.boundingBox();
-    const countBox = await page.getByText("24 Items", { exact: true }).boundingBox();
     assert.ok(
-      filtersBox && countBox && filtersBox.y >= countBox.y + countBox.height,
-      `${name}: the filters menu overlaps the library heading`,
+      filtersBox && Math.abs(filtersBox.y - filterTriggerBox.y) <= 2,
+      `${name}: the filters menu expands from the button rather than settling below it`,
     );
     await filters.press("Escape");
     await filters.waitFor({ state: "hidden" });
+    assert.ok(await filterTrigger.evaluate((button) => document.activeElement === button));
 
     await page.getByRole("button", { name: "Open Portrait in red", exact: true }).press("Enter");
     await page.getByRole("button", { name: "Photo options", exact: true }).click();
@@ -85,6 +88,30 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     const sidebarTrigger = navigation.getByRole("button", { name: "Show sidebar" });
     const sidebar = page.getByRole("dialog", { name: "Photos", exact: true });
     const libraryTitle = page.getByRole("heading", { name: "Library", exact: true, level: 1 });
+    const timeline = page.getByRole("tablist", { name: "Library view", exact: true });
+    const expectInlineTimeline = async () => {
+      await timeline.waitFor();
+      assert.deepEqual(await timeline.getByRole("tab").allTextContents(), [
+        "Years",
+        "Months",
+        "All",
+      ]);
+      assert.equal(await page.getByRole("button", { name: "More tabs", exact: true }).count(), 0);
+    };
+    await expectInlineTimeline();
+    const edge = header.locator('[data-lenso-slot="scroll-edge"]');
+    for (const top of [0, 1, 72, 0]) {
+      await libraryMain.evaluate((main, scrollTop) => (main.scrollTop = scrollTop), top);
+      await edge.waitFor({ state: top ? "attached" : "detached", timeout: 3000 });
+      const headerBox = await header.boundingBox();
+      const photoBox = await firstPhoto.boundingBox();
+      assert.ok(headerBox && photoBox);
+      const overlap = headerBox.y + headerBox.height - photoBox.y;
+      assert.ok(
+        Math.abs(overlap - top) < 1,
+        `${name}: the first photo goes under the sticky header only as the gallery scrolls`,
+      );
+    }
     await sidebarTrigger.press("Enter");
     await sidebar.waitFor({ timeout: 3000 });
     assert.equal(await sidebar.getAttribute("aria-modal"), "true");
@@ -150,6 +177,21 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     await sidebar.getByRole("button", { name: "Favorites", exact: true }).click();
     await sidebar.waitFor({ state: "hidden" });
     await page.getByRole("heading", { name: "Favorites", exact: true, level: 1 }).waitFor();
+
+    await page.setViewportSize({ width: 320, height: 680 });
+    await page.goto(`${base}/en/photos`, { waitUntil: "networkidle" });
+    await libraryMain.evaluate((main) => {
+      main.scrollTop = 320;
+    });
+    await edge.waitFor({ state: "attached" });
+    await libraryMain.evaluate((main) => {
+      main.scrollTop = 240;
+    });
+    await expectInlineTimeline();
+    await timeline.getByRole("tab", { name: "Months", exact: true }).press("Enter");
+    await page.getByRole("region", { name: "Photos by month added" }).waitFor();
+    await expectInlineTimeline();
+    assert.equal(await timeline.getByRole("tab", { selected: true }).textContent(), "Months");
   } finally {
     await browser.close();
   }
