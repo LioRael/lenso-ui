@@ -81,10 +81,32 @@ for (const engine of [chromium, webkit]) {
     // Uniform content separates shell shading/seam defects from photo brightness.
     await page.locator("iframe").evaluateAll((frames) => {
       for (const frame of frames) {
-        const white = frame.contentDocument.createElement("div");
-        white.dataset.foldProbe = "";
-        white.style.cssText = "position:fixed;inset:0;background:white;z-index:2147483647";
-        frame.contentDocument.body.append(white);
+        const fill = frame.contentDocument.createElement("div");
+        fill.dataset.foldProbe = "";
+        fill.style.cssText = "position:fixed;inset:0;background:black;z-index:2147483647";
+        frame.contentDocument.body.append(fill);
+      }
+    });
+    const cornerProbes = await inner.evaluate((frame) => {
+      const panel = frame.parentElement;
+      const origin = panel.parentElement.getBoundingClientRect();
+      const matrix = new DOMMatrix(getComputedStyle(panel).transform);
+      // Just inside the bezel opening, where a circular clip can expose the page behind it.
+      return Object.fromEntries(
+        [8, frame.clientWidth - 8].map((x) => {
+          const p = matrix.transformPoint(new DOMPoint(x, 9));
+          return [x, { x: p.x + origin.x, y: p.y + origin.y }];
+        }),
+      );
+    });
+    const corners = await brightnessAt(page, await page.screenshot(), cornerProbes);
+    assert.ok(
+      Object.values(corners).every((value) => value < 100),
+      `Inner screen corners must not expose the page backdrop: ${JSON.stringify(corners)}`,
+    );
+    await page.locator("iframe").evaluateAll((frames) => {
+      for (const frame of frames) {
+        frame.contentDocument.querySelector("[data-fold-probe]").style.background = "white";
       }
     });
     await slider.evaluate((input) => {

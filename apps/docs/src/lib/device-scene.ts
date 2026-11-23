@@ -12,6 +12,8 @@ const BODY_HEIGHT = SCREEN_HEIGHT / 100 + 0.24;
 const HINGE_Z = 0.21;
 const FLEX_WIDTH = 0.36;
 const FLEX_SEGMENTS = 24;
+const INNER_HALF_WIDTH = (SCREEN_WIDTH - FLEX_WIDTH * 100) / 2;
+const SCREEN_RADIUS = 32;
 
 export type DeviceScene = {
   setHinge: (angle: number, busy: boolean) => void;
@@ -41,6 +43,47 @@ function outline(width: number, height: number, left: number, right: number) {
   shape.quadraticCurveTo(x, y, x + left, y);
   return shape;
 }
+
+// Use screen pixels for both the WebGL opening and the DOM mask; only their Y axes differ.
+function screenOutline(
+  start: number,
+  end: number,
+  left: number,
+  right: number,
+  bend: readonly { x: number; y: number }[] = [],
+) {
+  const shape = new THREE.Shape();
+  shape.moveTo(start + left, 0);
+  if (bend.length) {
+    for (const { x, y } of bend) shape.lineTo(x, -y);
+    for (let i = bend.length - 1; i >= 0; i--) {
+      const { x, y } = bend[i]!;
+      shape.lineTo(x, -SCREEN_HEIGHT - y);
+    }
+  } else {
+    shape.lineTo(end - right, 0);
+    shape.quadraticCurveTo(end, 0, end, -right);
+    shape.lineTo(end, right - SCREEN_HEIGHT);
+    shape.quadraticCurveTo(end, -SCREEN_HEIGHT, end - right, -SCREEN_HEIGHT);
+  }
+  shape.lineTo(start + left, -SCREEN_HEIGHT);
+  shape.quadraticCurveTo(start, -SCREEN_HEIGHT, start, left - SCREEN_HEIGHT);
+  shape.lineTo(start, -left);
+  shape.quadraticCurveTo(start, 0, start + left, 0);
+  return shape;
+}
+
+function screenClip(shape: THREE.Shape) {
+  const start = shape.curves[0]!.getPoint(0);
+  const edges = shape.curves.map((curve) =>
+    curve instanceof THREE.QuadraticBezierCurve
+      ? `Q${curve.v1.x} ${-curve.v1.y} ${curve.v2.x} ${-curve.v2.y}`
+      : `L${curve.getPoint(1).x} ${-curve.getPoint(1).y}`,
+  );
+  return `path("M${start.x} ${-start.y} ${edges.join(" ")} Z")`;
+}
+
+const flatInnerClip = screenClip(screenOutline(0, SCREEN_WIDTH, SCREEN_RADIUS, SCREEN_RADIUS));
 
 function setDynamicStyle(element: HTMLElement, style: ReturnType<typeof stylex.props>["style"]) {
   for (const [property, value] of Object.entries(style ?? {})) {
@@ -84,7 +127,7 @@ function hingeWarp(panel: HTMLElement) {
     const enabled = profile.length > 0;
     setDynamicStyle(panel, stylex.props(s.foldFilter(enabled ? `url("#${id}")` : "none")).style);
     if (!enabled) {
-      setDynamicStyle(panel, stylex.props(s.innerClip("inset(0 round 32px)")).style);
+      setDynamicStyle(panel, stylex.props(s.screenClip(flatInnerClip)).style);
       return;
     }
     const scale =
@@ -102,17 +145,10 @@ function hingeWarp(panel: HTMLElement) {
       image.setAttribute("href", `data:image/svg+xml,${encodeURIComponent(map)}`);
       displacement.setAttribute("scale", String(scale));
     }
-    const top = profile.map((p) => `L${p.x} ${p.y}`).join(" ");
-    const bottom = [...profile]
-      .reverse()
-      .map((p) => `L${p.x} ${SCREEN_HEIGHT + p.y}`)
-      .join(" ");
     setDynamicStyle(
       panel,
       stylex.props(
-        s.innerClip(
-          `path("M32 0 ${top} ${bottom} H32 Q0 ${SCREEN_HEIGHT} 0 ${SCREEN_HEIGHT - 32} V32 Q0 0 32 0 Z")`,
-        ),
+        s.screenClip(screenClip(screenOutline(0, INNER_HALF_WIDTH, SCREEN_RADIUS, 0, profile))),
       ).style,
     );
   };
@@ -672,20 +708,30 @@ export function createDeviceScene(
 
   function screen(title: string, width: number, x: number, z: number, cover = false) {
     const element = document.createElement("div");
+    const surface: Surface =
+      title === "Cover display" ? "cover" : title === "Inner display" ? "inner" : "inner-right";
+    const start = surface === "inner-right" ? SCREEN_WIDTH * 0.5 - INNER_HALF_WIDTH : 0;
+    const end = surface === "inner" ? INNER_HALF_WIDTH : width;
+    const left = surface === "inner-right" ? 0 : SCREEN_RADIUS;
+    const right = cover ? 6 : surface === "inner-right" ? SCREEN_RADIUS : 0;
+    const opening = screenOutline(start, end, left, right);
+    const clip =
+      surface === "inner"
+        ? flatInnerClip
+        : screenClip(
+            surface === "inner-right" ? screenOutline(start - 0.5, end, left, right) : opening,
+          );
     const screenProps = stylex.props(
       s.screen,
       s.screenHeight(SCREEN_HEIGHT),
-      cover && s.cover,
-      title === "Inner display" && s.innerClip("inset(0 round 32px)"),
-      title === "Inner display, right half" && s.movingClip(FLEX_WIDTH * 50 - 0.5),
+      surface === "inner" && s.warpedScreen,
+      s.screenClip(clip),
       s.foldFilter("none"),
     );
     element.className = screenProps.className ?? "";
     setDynamicStyle(element, screenProps.style);
     element.style.width = `${width}px`;
     const frame = document.createElement("iframe");
-    const surface: Surface =
-      title === "Cover display" ? "cover" : title === "Inner display" ? "inner" : "inner-right";
     frame.title = title;
     content.mount(frame, surface);
     frame.src = src;
@@ -703,24 +749,10 @@ export function createDeviceScene(
     const panel = new THREE.Object3D();
     panel.scale.setScalar(0.01);
     panel.position.set(x, 0, z);
-    const halfWidth = (SCREEN_WIDTH - FLEX_WIDTH * 100) / 2;
     const depth = new THREE.Mesh(
-      new THREE.ShapeGeometry(
-        outline(
-          cover ? width : halfWidth,
-          SCREEN_HEIGHT,
-          surface === "inner-right" ? 0 : 32,
-          cover ? 6 : surface === "inner-right" ? 32 : 0,
-        ),
-        24,
-      ),
+      new THREE.ShapeGeometry(opening, 24).translate(-width / 2, SCREEN_HEIGHT / 2, 0),
       screenDepth,
     );
-    depth.position.x = cover
-      ? 0
-      : surface === "inner"
-        ? -(SCREEN_WIDTH - halfWidth) / 2
-        : (width - halfWidth) / 2;
     depth.renderOrder = -1;
     panel.add(depth);
     if (cover) {
