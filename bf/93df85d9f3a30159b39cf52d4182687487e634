@@ -1,0 +1,21 @@
+apps/docs/test/photos-glass.mjs
+  s_810028d97f0688::t_ef49fbfc247b70 71-73,78-82,84-86
+apps/docs/src/components/photos-viewer-menu.tsx
+  s_810028d97f0688::t_3a315495b3554f 49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bf93df85d9f3a30159b39cf52d4182687487e634",
+  "prompts": {},
+  "sessions": {
+    "s_810028d97f0688": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a207e1-63cf-75e2-9a84-eec0ff6a675d",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
