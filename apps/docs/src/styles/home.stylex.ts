@@ -8,7 +8,7 @@ export const home = stylex.create({
     maxWidth: 1408,
     marginInline: "auto",
     paddingInline: { default: 20, "@media (min-width: 768px)": 48 },
-    paddingTop: { default: 140, "@media (min-width: 768px)": 144 },
+    paddingTop: { default: 112, "@media (min-width: 768px)": 144 },
     paddingBottom: 24,
     textAlign: "center",
   },
@@ -61,6 +61,36 @@ export const home = stylex.create({
     gap: 24,
     marginTop: 28,
   },
+  duo: { marginTop: { default: 24, "@media (min-width: 768px)": 32 } },
+  duoStage: {
+    position: "relative",
+    overflow: "clip",
+    height: {
+      default: "clamp(300px, 40svh, 360px)",
+      "@media (min-width: 768px)": "clamp(400px, 58svh, 570px)",
+    },
+    borderRadius: { default: 20, "@media (min-width: 768px)": 32 },
+    backgroundColor: "var(--lenso-background-primary)",
+    backgroundImage:
+      "radial-gradient(ellipse at 50% 45%, color-mix(in srgb, var(--lenso-label-primary) 6%, transparent), transparent 65%)",
+  },
+  duoPoster: {
+    position: "absolute",
+    inset: 0,
+    margin: "auto",
+    objectFit: "contain",
+    width: "min(100%, 620px)",
+    height: "84%",
+  },
+  duoActions: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "4px 20px",
+    marginTop: 8,
+  },
+  duoWeb: { display: "inline-flex", minHeight: 44, alignItems: "center" },
   sectionTitle: {
     marginTop: 0,
     marginBottom: 24,
@@ -74,6 +104,7 @@ export const home = stylex.create({
     maxWidth: 1408,
     marginInline: "auto",
     paddingInline: { default: 20, "@media (min-width: 768px)": 48 },
+    paddingTop: { default: 24, "@media (min-width: 768px)": 40 },
     paddingBottom: 100,
   },
   libraryHeading: {

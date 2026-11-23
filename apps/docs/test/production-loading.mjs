@@ -110,22 +110,13 @@ try {
           await settingsDialog.waitFor({ state: "hidden" });
           assert.ok(await settings.evaluate((node) => document.activeElement === node));
 
-          const playground = page.getByRole("region", { name: "Typography playground" });
-          const text = playground.getByRole("textbox", { name: "Poster text" });
-          await text.fill("Hello");
-          const bold = playground.getByRole("button", { name: "Bold", exact: true });
-          assert.equal(await bold.getAttribute("aria-pressed"), "true");
-          await bold.click();
-          await page.waitForFunction(
-            () =>
-              document
-                .querySelector('[data-home-playground] [aria-label="Bold"]')
-                ?.getAttribute("aria-pressed") === "false",
+          assert.ok(
+            !loaded.some(({ url }) => /\/(?:device-scene|device-lab|music-model)-/.test(url)),
+            "The Duo poster must not load the simulator or Music session on first paint",
           );
-          assert.equal(await text.inputValue(), "Hello", "Editing must survive a React update");
           await page
             .locator("#main-content")
-            .getByRole("link", { name: "Explore components", exact: true })
+            .getByRole("link", { name: "View all components" })
             .click();
           await page.getByRole("heading", { name: "Components", exact: true }).waitFor();
         } else {
