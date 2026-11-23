@@ -531,10 +531,10 @@ export function PhotosViewer({
               }}
             >
               {confirmation?.kind === "revert"
-                ? "Revert to Original"
+                ? "Revert"
                 : confirmation?.kind === "hide"
-                  ? "Hide Photo"
-                  : "Delete Photo"}
+                  ? "Hide"
+                  : "Delete"}
             </AlertDialog.Action>
           </AlertDialog.Footer>
         </AlertDialog.Content>
