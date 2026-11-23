@@ -1,0 +1,32 @@
+apps/docs/src/components/photos-demo.tsx
+  s_dde83b52c0c490::t_20c3c7f51b11a6 40,202,573-581,796,1110,1112,1115,1118-1123,1125-1128,1136-1140,1220,1224,1226,1232-1235
+apps/docs/src/components/photos-search-transition.ts
+  s_dde83b52c0c490::t_659fd86a62d99a 3-4,17-20,23,32
+apps/docs/src/generated/api-reference.json
+  s_dde83b52c0c490::t_377a2c7362ebeb 67922,67924-67925,67934,67943,67952,67961,67970,67979,67988,67997,68006,68015,68024,68033,68042,94521,94552,94580,94611,94646
+apps/docs/src/styles/photos-demo.stylex.ts
+  s_dde83b52c0c490::t_6614623f4386c4 109
+apps/docs/test/device-frame.mjs
+  s_dde83b52c0c490::t_750466ecc1511e 58-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dfe83151e346de80c3f66ca3501939b5e7ad7635",
+  "prompts": {},
+  "humans": {
+    "h_9d56aba080c170": {
+      "author": "LioRael <leo@lenso.dev>"
+    }
+  },
+  "sessions": {
+    "s_dde83b52c0c490": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a207e1-0f8b-7151-96b5-17c0157579d2",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
