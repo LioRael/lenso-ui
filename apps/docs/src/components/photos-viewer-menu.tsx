@@ -21,7 +21,6 @@ const menu = stylex.create({
 export function PhotosViewerMenu({
   open,
   onOpenChange,
-  morphTrigger,
   submenu,
   onSubmenuChange,
   onCopy,
@@ -33,7 +32,6 @@ export function PhotosViewerMenu({
 }: {
   open: boolean;
   onOpenChange: NonNullable<MenuRootProps["onOpenChange"]>;
-  morphTrigger?: boolean;
   submenu: "album" | "information" | null;
   onSubmenuChange: (
     submenu: "album" | "information",
@@ -48,7 +46,7 @@ export function PhotosViewerMenu({
   onInformation: () => void;
 }) {
   return (
-    <Menu open={open} onOpenChange={onOpenChange} morphTrigger={morphTrigger}>
+    <Menu open={open} onOpenChange={onOpenChange}>
       <Menu.Trigger
         render={
           <GlassButton
@@ -66,7 +64,6 @@ export function PhotosViewerMenu({
         aria-label="Photo options"
         xstyle={[menu.popup, s.menuGlass]}
         side="bottom"
-        sideOffset={8}
         align="end"
       >
         <Menu.ActionGroup aria-label="Photo actions">
