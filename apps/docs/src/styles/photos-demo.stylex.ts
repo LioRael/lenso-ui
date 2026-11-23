@@ -20,6 +20,7 @@ export const photos = stylex.create({
   },
   root: {
     "--photos-sidebar-width": "280px",
+    "--photos-tablet-toolbar-top": "max(24px, env(safe-area-inset-top))",
     "--lenso-label-secondary":
       "color-mix(in srgb, var(--lenso-label-primary) 70%, var(--lenso-background-primary))",
     minHeight: "100dvh",
@@ -286,6 +287,9 @@ export const photos = stylex.create({
     isolation: "isolate",
   },
   railLibraryHeader: { marginBottom: -112 },
+  tabletHeader: { paddingTop: "var(--photos-tablet-toolbar-top)" },
+  tabletTitle: { marginBlockStart: 0 },
+  tabletActions: { alignSelf: "flex-start" },
   headingOverPhotos: {
     color: {
       default: "white",
@@ -302,6 +306,27 @@ export const photos = stylex.create({
     "@media (forced-colors: active)": {
       color: "CanvasText",
       textShadow: "none",
+    },
+  },
+  railHeadingOverPhotos: {
+    position: "relative",
+    isolation: "isolate",
+    "::before": {
+      content: '""',
+      position: "absolute",
+      inset: "-16px -28px -18px -24px",
+      zIndex: -1,
+      backgroundImage: {
+        default: "radial-gradient(ellipse, rgb(0 0 0 / .56) 38%, transparent 74%)",
+        ":is([data-contrast='increased'] *)": "none",
+        "@media (prefers-reduced-transparency: reduce)": "none",
+        "@media (forced-colors: active)": "none",
+      },
+      backgroundColor: {
+        ":is([data-contrast='increased'] *)": "var(--lenso-background-primary)",
+        "@media (prefers-reduced-transparency: reduce)": "var(--lenso-background-primary)",
+        "@media (forced-colors: active)": "Canvas",
+      },
     },
   },
   itemCount: { margin: "3px 0 0", fontSize: 14, fontWeight: 600 },
@@ -508,7 +533,7 @@ export const photos = stylex.create({
   tabletNavigation: {
     position: "fixed",
     zIndex: 20,
-    top: "max(24px, env(safe-area-inset-top))",
+    top: "var(--photos-tablet-toolbar-top)",
     left: "50%",
     transform: "translateX(-50%)",
     maxWidth: "calc(100% - 480px)",
@@ -608,7 +633,7 @@ export const photos = stylex.create({
   searchDock: { display: "flex", alignItems: "center", gap: 8 },
   searchOriginHidden: { visibility: "hidden" },
   inlineSearchDock: {
-    top: "max(24px, env(safe-area-inset-top))",
+    top: "var(--photos-tablet-toolbar-top)",
     right: 32,
     bottom: "auto",
     left: "auto",

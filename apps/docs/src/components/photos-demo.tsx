@@ -197,6 +197,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
   const dockSidebar = tablet && landscape;
   const cover = model.surface === "cover";
   const verticalControls = cover || (model.surface !== "standalone" && landscape);
+  const tabletToolbar = tablet && !verticalControls;
   const Navigation = verticalControls ? Toolbar : TabBar;
   const NavigationGroup = verticalControls ? Toolbar.Group : TabBar.Group;
   const [sessionDestination, setDestination] = usePhotosField(model, "destination");
@@ -646,6 +647,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               s.header,
               stickyLibraryHeader && s.libraryHeader,
               stickyLibraryHeader && verticalControls && s.railLibraryHeader,
+              tabletToolbar && s.tabletHeader,
               railSearch && !inlineSearch && s.railSearchHeader,
               railSearch && inlineResults && s.inlineRailResultsHeader,
             )}
@@ -655,14 +657,15 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
               <div
                 {...stylex.props(
                   headingOverPhotos && s.headingOverPhotos,
+                  headingOverPhotos && verticalControls && s.railHeadingOverPhotos,
                   !dockSidebar && s.sidebarCovered,
                   inlineSearch && s.searchOriginHidden,
                 )}
               >
-                <h1 {...stylex.props(s.title)}>{title}</h1>
+                <h1 {...stylex.props(s.title, tabletToolbar && s.tabletTitle)}>{title}</h1>
                 {isLibrary && (
                   <p {...stylex.props(s.itemCount)}>
-                    {`${visible.length} ${visible.length === 1 ? "Item" : "Items"}${filter !== "all" ? ` · ${photoFilters[filter]}` : ""}`}
+                    {`${visible.length} ${visible.length === 1 ? "Photo" : "Photos"}${filter !== "all" ? ` · ${photoFilters[filter]}` : ""}`}
                   </p>
                 )}
               </div>
@@ -673,6 +676,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   s.actions,
                   s.libraryGlass,
                   verticalControls && s.railActions,
+                  tabletToolbar && s.tabletActions,
                   searching && s.hidden,
                 ]}
               >
@@ -1081,7 +1085,7 @@ export function PhotosDemo({ model: controlled }: { model?: PhotosModel } = {}) 
                   data-search-close=""
                   isIconOnly
                   aria-label="Close search"
-                  xstyle={railSearch && s.headerIconButton}
+                  xstyle={(inlineSearch || railSearch) && s.headerIconButton}
                   onClick={(event) => closeSearch(event.detail > 0)}
                 >
                   <Xmark width={22} height={22} />
