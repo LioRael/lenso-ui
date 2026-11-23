@@ -1,0 +1,25 @@
+apps/docs/scripts/chunk-isolation.test.ts
+  s_c4cecb510eb0ec::t_49d88d90510242 14
+apps/docs/src/components/home-page.tsx
+  s_c4cecb510eb0ec::t_e47c923c247db0 6,16-66,158
+apps/docs/src/styles/home.stylex.ts
+  s_c4cecb510eb0ec::t_25be7eb2d80ec1 11,64-93,107
+apps/docs/test/production-loading.mjs
+  s_c4cecb510eb0ec::t_c800432c3d21af 113-115,119
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "88abccce710fc979e2962e574400521cbe28e140",
+  "prompts": {},
+  "sessions": {
+    "s_c4cecb510eb0ec": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20801-2fc9-72d2-a51d-adf5f04b4290",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
