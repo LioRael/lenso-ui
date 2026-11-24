@@ -1,0 +1,21 @@
+tests/consumer/solid-consumer-runtime.ts
+  s_dab8d0fc1c0fe9::t_cd8ca8fe302331 1-65
+tests/consumer/solid-consumer.test.ts
+  s_dab8d0fc1c0fe9::t_8eca7515554714 60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "520f066a9d114b41372766b57cf358196ad86013",
+  "prompts": {},
+  "sessions": {
+    "s_dab8d0fc1c0fe9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20c30-1b0f-7a51-802f-a7e5ed3dc012",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
