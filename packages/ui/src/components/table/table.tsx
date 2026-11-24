@@ -4,7 +4,11 @@ import * as stylex from "@stylexjs/stylex";
 import { tableStyles } from "@lenso/tokens/table";
 import { type StyleXProps } from "../../utils/styled.js";
 import { useCollectionWindow, type WindowOptions } from "../list-box/windowed.js";
-import { resolveColumnWidths, type ColumnSize, type ColumnWidth } from "./column-layout.js";
+import {
+  resolveColumnWidths,
+  type ColumnSize,
+  type ColumnWidth,
+} from "@lenso/primitives/table/core";
 import { ButtonRoot } from "../button/button.js";
 import {
   useCollectionModel,

@@ -9,3 +9,5 @@ export {
   deformationSpring,
   velocityDeformation,
 } from "./velocity-deformation.js";
+export { bindTabsOverflow, type OverflowTab } from "./tabs-overflow.js";
+export { bindTabBarScroll } from "./tab-bar-scroll.js";

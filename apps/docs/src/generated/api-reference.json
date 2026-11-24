@@ -68048,7 +68048,7 @@
       "expandedType": "undefined | \"primary\" | \"secondary\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 56 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 60 },
       "default": "\"primary\""
     },
     {
@@ -68057,7 +68057,7 @@
       "expandedType": "SortDescriptor | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 122 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 126 },
       "default": null
     },
     {
@@ -68066,7 +68066,7 @@
       "expandedType": "SortDescriptor | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 123 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 127 },
       "default": null
     },
     {
@@ -68075,7 +68075,7 @@
       "expandedType": "((sort: SortDescriptor) => void) | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 124 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 128 },
       "default": null
     },
     {
@@ -68084,7 +68084,7 @@
       "expandedType": "ReadonlySet<React.Key> | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 125 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 129 },
       "default": null
     },
     {
@@ -68093,7 +68093,7 @@
       "expandedType": "ReadonlySet<React.Key> | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 126 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 130 },
       "default": null
     },
     {
@@ -68102,7 +68102,7 @@
       "expandedType": "((keys: Set<CollectionKey>) => void) | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 127 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 131 },
       "default": null
     },
     {
@@ -68111,7 +68111,7 @@
       "expandedType": "Widths | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 128 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 132 },
       "default": null
     },
     {
@@ -68120,7 +68120,7 @@
       "expandedType": "Widths | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 129 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 133 },
       "default": null
     },
     {
@@ -68129,7 +68129,7 @@
       "expandedType": "((widths: Map<CollectionKey, number>) => void) | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 130 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 134 },
       "default": null
     },
     {
@@ -68138,7 +68138,7 @@
       "expandedType": "React.Key | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 131 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 135 },
       "default": null
     },
     {
@@ -68201,7 +68201,7 @@
       "expandedType": "readonly T[] | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 369 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 373 },
       "default": null
     },
     {
@@ -68210,7 +68210,7 @@
       "expandedType": "((column: T) => React.ReactNode) | React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 370 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 374 },
       "default": null
     },
     {
@@ -68219,7 +68219,7 @@
       "expandedType": "readonly T[] | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 403 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 407 },
       "default": null
     },
     {
@@ -68228,7 +68228,7 @@
       "expandedType": "((item: T) => React.ReactNode) | React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 404 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 408 },
       "default": null
     },
     {
@@ -68237,7 +68237,7 @@
       "expandedType": "WindowOptions | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 405 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 409 },
       "default": null
     },
     {
@@ -68246,7 +68246,7 @@
       "expandedType": "React.Key",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 528 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 532 },
       "default": null
     },
     {
@@ -68255,7 +68255,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 529 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 533 },
       "default": "false"
     },
     {
@@ -68264,7 +68264,7 @@
       "expandedType": "ColumnWidth | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 530 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 534 },
       "default": null
     },
     {
@@ -68273,7 +68273,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 531 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 535 },
       "default": "48"
     },
     {
@@ -68282,7 +68282,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 532 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 536 },
       "default": "2000"
     },
     {
@@ -68291,7 +68291,7 @@
       "expandedType": "((state: { sortDirection?: SortDescriptor[\"direction\"]; }) => React.ReactNode) | React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 533 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 537 },
       "default": null
     },
     {
@@ -68300,7 +68300,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 624 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 628 },
       "default": null
     },
     {
@@ -68309,7 +68309,7 @@
       "expandedType": "React.Key",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 625 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 629 },
       "default": null
     },
     {
@@ -68318,7 +68318,7 @@
       "expandedType": "string | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 626 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 630 },
       "default": null
     },
     {
@@ -68327,7 +68327,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 627 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 631 },
       "default": "false"
     },
     {
@@ -68336,7 +68336,7 @@
       "expandedType": "React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 628 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 632 },
       "default": null
     },
     {
@@ -68345,7 +68345,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 629 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 633 },
       "default": "1"
     },
     {
@@ -71477,7 +71477,7 @@
       "expandedType": "React.Key | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 778 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 782 },
       "default": null
     },
     {
@@ -71486,7 +71486,7 @@
       "expandedType": "((state: { hasChildItems: boolean; isExpanded: boolean; isDisabled: boolean; isTreeColumn: boolean; }) => React.ReactNode) | React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 779 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 783 },
       "default": null
     },
     {
@@ -71495,7 +71495,7 @@
       "expandedType": "undefined | \"ascending\" | \"descending\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 892 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 896 },
       "default": null
     },
     {
@@ -71504,7 +71504,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 893 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 897 },
       "default": "true"
     },
     {
@@ -71513,7 +71513,7 @@
       "expandedType": "React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 894 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 898 },
       "default": null
     },
     {
@@ -71522,7 +71522,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1042 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1046 },
       "default": "1"
     },
     {
@@ -71531,7 +71531,7 @@
       "expandedType": "(() => void) | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1043 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1047 },
       "default": null
     },
     {
@@ -71540,7 +71540,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1044 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1048 },
       "default": "false"
     },
     {
@@ -71549,7 +71549,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1045 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1049 },
       "default": "true"
     },
     {
@@ -71558,7 +71558,7 @@
       "expandedType": "readonly T[]",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1080 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1084 },
       "default": null
     },
     {
@@ -71567,7 +71567,7 @@
       "expandedType": "(item: T) => React.ReactNode",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1081 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1085 },
       "default": null
     },
     {
@@ -94678,7 +94678,7 @@
           "name": "TableRoot",
           "signature": "({ variant, xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"div\">> & {\n    variant?: \"primary\" | \"secondary\";\n}): React.JSX.Element",
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { variant?: \"primary\" | \"secondary\"; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 51 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 55 },
           "native": [],
           "members": [],
           "states": {},
@@ -94706,7 +94706,7 @@
           "name": "TableScrollContainer",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"div\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 73 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 77 },
           "native": [],
           "members": [],
           "states": {},
@@ -94734,7 +94734,7 @@
           "name": "TableResizableContainer",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"div\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 90 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 94 },
           "native": [],
           "members": [],
           "states": {},
@@ -94762,7 +94762,7 @@
           "name": "TableFooter",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"div\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 107 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 111 },
           "native": [],
           "members": [],
           "states": {},
@@ -94790,7 +94790,7 @@
           "name": "TableContent",
           "signature": "({ selectionMode, selectedKeys, defaultSelectedKeys, disabledKeys, onSelectionChange, dragAndDrop, sortDescriptor, defaultSortDescriptor, onSortChange, expandedKeys, defaultExpandedKeys, onExpandedChange, columnWidths, defaultColumnWidths, onColumnWidthsChange, xstyle, style, onKeyDown, treeColumn, ref, ...props }: TableContentProps): React.JSX.Element",
           "props": "TableContentProps",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 133 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 137 },
           "native": [],
           "members": [],
           "states": {},
@@ -94822,7 +94822,7 @@
           "name": "TableHeader",
           "signature": "<T extends {\n    key: CollectionKey;\n}>({ children, columns, xstyle, style, ...props }: StyleXProps<Omit<React.ComponentProps<\"thead\">, \"children\">> & {\n    columns?: readonly T[];\n    children?: React.ReactNode | ((column: T) => React.ReactNode);\n}): React.JSX.Element",
           "props": "Omit<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>, \"children\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { columns?: readonly T[]; children?: React.ReactNode | ((column: T) => React.ReactNode); }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 362 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 366 },
           "native": [],
           "members": [],
           "states": { "T": [{ "name": "key", "type": "React.Key", "required": true }] },
@@ -94852,7 +94852,7 @@
           "name": "TableBody",
           "signature": "<T extends {\n    key: CollectionKey;\n}>({ xstyle, style, children, items, virtualized, ref, ...props }: StyleXProps<Omit<React.ComponentProps<\"tbody\">, \"children\">> & {\n    items?: readonly T[];\n    children?: React.ReactNode | ((item: T) => React.ReactNode);\n    virtualized?: WindowOptions;\n}): React.JSX.Element",
           "props": "Omit<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>, \"children\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { items?: readonly T[]; children?: React.ReactNode | ((item: T) => React.ReactNode); virtualized?: WindowOptions; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 394 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 398 },
           "native": [],
           "members": [],
           "states": { "T": [{ "name": "key", "type": "React.Key", "required": true }] },
@@ -94882,7 +94882,7 @@
           "name": "TableColumn",
           "signature": "({ columnKey, allowsSorting, width, minWidth, maxWidth, children, xstyle, style, onClick, onKeyDown, ref, ...props }: TableColumnProps): React.JSX.Element",
           "props": "TableColumnProps",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 537 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 541 },
           "native": [],
           "members": [],
           "states": {
@@ -94921,7 +94921,7 @@
           "name": "TableRow",
           "signature": "({ itemKey, textValue, disabled, expandedContent, expandedColSpan, children, ref, xstyle, style, onClick, onKeyDown, ...props }: TableRowProps): React.JSX.Element",
           "props": "TableRowProps",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 669 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 673 },
           "native": [],
           "members": [],
           "states": {},
@@ -94951,7 +94951,7 @@
           "name": "TableCell",
           "signature": "({ xstyle, columnKey, children, style, ...props }: StyleXProps<Omit<React.ComponentPropsWithRef<\"td\">, \"children\">> & {\n    columnKey?: CollectionKey;\n    children?: React.ReactNode | ((state: {\n        hasChildItems: boolean;\n        isExpanded: boolean;\n        isDisabled: boolean;\n        isTreeColumn: boolean;\n    }) => React.ReactNode);\n}): React.JSX.Element",
           "props": "Omit<Omit<React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>, \"children\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { columnKey?: CollectionKey; children?: React.ReactNode | ((state: { hasChildItems: boolean; isExpanded: boolean; isDisabled: boolean; isTreeColumn: boolean; }) => React.ReactNode); }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 771 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 775 },
           "native": [],
           "members": [],
           "states": {
@@ -94989,7 +94989,7 @@
           "name": "TableSelectionCheckbox",
           "signature": "(props: StyleXProps<React.ComponentPropsWithRef<\"input\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 823 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 827 },
           "native": [],
           "members": [],
           "states": {},
@@ -95021,7 +95021,7 @@
           "name": "TableExpandButton",
           "signature": "({ onClick, children, ...props }: StyleXProps<Omit<React.ComponentPropsWithRef<\"button\">, \"onClick\">> & Pick<React.ComponentProps<typeof ButtonRoot>, \"onClick\">): React.JSX.Element",
           "props": "Omit<Omit<React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"onClick\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<Omit<Omit<PartProps<\"button\", ButtonState>, \"onClick\" | \"type\"> & { disabled?: boolean; focusableWhenDisabled?: boolean; type?: \"button\" | \"submit\" | \"reset\"; pendingAnnouncement?: string; } & PrimitiveOptions & { onClick?: (event: React.MouseEvent<HTMLElement>, details: ButtonActionDetails) => unknown; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-lenso-slot\"?: unknown; size?: ButtonSize; variant?: ButtonVariant; isIconOnly?: boolean; icon?: React.ReactNode; destructive?: boolean; tint?: string; fullWidth?: boolean; isLoading?: boolean; }, \"onClick\">",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 854 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 858 },
           "native": [],
           "members": [],
           "states": {},
@@ -95050,7 +95050,7 @@
           "name": "TableSortableColumnHeader",
           "signature": "({ sortDirection, children, showIndicator, indicator, xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"span\">> & {\n    sortDirection?: SortDescriptor[\"direction\"];\n    showIndicator?: boolean;\n    indicator?: React.ReactNode;\n}): React.JSX.Element",
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { sortDirection?: SortDescriptor[\"direction\"]; showIndicator?: boolean; indicator?: React.ReactNode; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 883 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 887 },
           "native": [],
           "members": [],
           "states": {},
@@ -95080,7 +95080,7 @@
           "name": "TableColumnResizer",
           "signature": "({ xstyle, style, onKeyDown, onPointerDown, onPointerMove, onPointerUp, onPointerCancel, ...props }: StyleXProps<React.ComponentPropsWithRef<\"span\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 933 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 937 },
           "native": [],
           "members": [],
           "states": {},
@@ -95110,7 +95110,7 @@
           "name": "TableLoadMoreContent",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"div\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1014 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1018 },
           "native": [],
           "members": [],
           "states": {},
@@ -95138,7 +95138,7 @@
           "name": "TableLoadMore",
           "signature": "({ colSpan, children, onLoadMore, loading, hasMore, ref, xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"tr\">> & {\n    colSpan?: number;\n    onLoadMore?: () => void;\n    loading?: boolean;\n    hasMore?: boolean;\n}): React.JSX.Element",
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { colSpan?: number; onLoadMore?: () => void; loading?: boolean; hasMore?: boolean; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1031 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1035 },
           "native": [],
           "members": [],
           "states": {},
@@ -95168,7 +95168,7 @@
           "name": "TableCollection",
           "signature": "<T extends {\n    key: CollectionKey;\n}>({ items, children }: {\n    items: readonly T[];\n    children: (item: T) => React.ReactNode;\n}): React.JSX.Element[]",
           "props": "{ items: readonly T[]; children: (item: T) => React.ReactNode; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1076 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1080 },
           "native": [],
           "members": [],
           "states": { "T": [{ "name": "key", "type": "React.Key", "required": true }] },
@@ -95178,7 +95178,7 @@
           "name": "Table",
           "signature": "({ variant, xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"div\">> & {\n    variant?: \"primary\" | \"secondary\";\n}): React.JSX.Element",
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { variant?: \"primary\" | \"secondary\"; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1087 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1091 },
           "native": [],
           "members": [
             "Root",

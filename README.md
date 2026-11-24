@@ -52,6 +52,12 @@ runtime, which is not yet published. To use this source revision, work from the
 workspace or packed artifacts that include it. See [release notes](RELEASE.md)
 for package availability and migration details.
 
+## Solid 2 preview
+
+The experimental [Solid package](packages/ui-solid/README.md) has entry points
+for all 99 component families with the shared Lenso theme and native Solid UI SDK
+interactions. See the package guide for setup and current differences.
+
 ## Build with an agent
 
 Two portable skills help coding agents work with Lenso's installed components
