@@ -1,0 +1,132 @@
+{
+  "name": "@lenso/ui-solid",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Experimental Lenso UI components for Solid 2.",
+  "license": "(Apache-2.0 AND MIT)",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "solid": "./dist/index.js"
+    },
+    "./button": {
+      "types": "./dist/button.d.ts",
+      "solid": "./dist/button.jsx"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox.d.ts",
+      "solid": "./dist/checkbox.jsx"
+    },
+    "./glass-button": {
+      "types": "./dist/glass-button.d.ts",
+      "solid": "./dist/glass-button.jsx"
+    },
+    "./glass-container": {
+      "types": "./dist/glass-container.d.ts",
+      "solid": "./dist/glass-container.jsx"
+    },
+    "./glass-magnifier": {
+      "types": "./dist/glass-magnifier.d.ts",
+      "solid": "./dist/glass-magnifier.jsx"
+    },
+    "./glass-toggle-button": {
+      "types": "./dist/glass-toggle-button.d.ts",
+      "solid": "./dist/glass-toggle-button.jsx"
+    },
+    "./glass": {
+      "types": "./dist/glass.d.ts",
+      "solid": "./dist/glass.jsx"
+    },
+    "./list": {
+      "types": "./dist/list.d.ts",
+      "solid": "./dist/list.jsx"
+    },
+    "./page-control": {
+      "types": "./dist/page-control.d.ts",
+      "solid": "./dist/page-control.jsx"
+    },
+    "./progress-circle": {
+      "types": "./dist/progress-circle.d.ts",
+      "solid": "./dist/progress-circle.jsx"
+    },
+    "./refresh-control": {
+      "types": "./dist/refresh-control.d.ts",
+      "solid": "./dist/refresh-control.jsx"
+    },
+    "./section-index": {
+      "types": "./dist/section-index.d.ts",
+      "solid": "./dist/section-index.jsx"
+    },
+    "./spinner": {
+      "types": "./dist/spinner.d.ts",
+      "solid": "./dist/spinner.jsx"
+    },
+    "./swipe-actions": {
+      "types": "./dist/swipe-actions.d.ts",
+      "solid": "./dist/swipe-actions.jsx"
+    },
+    "./tab-bar": {
+      "types": "./dist/tab-bar.d.ts",
+      "solid": "./dist/tab-bar.jsx"
+    },
+    "./wheel-picker": {
+      "types": "./dist/wheel-picker.d.ts",
+      "solid": "./dist/wheel-picker.jsx"
+    },
+    "./parts": null,
+    "./styled": null,
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "solid": "./dist/*.js"
+    },
+    "./color-swatch": {
+      "types": "./dist/color-swatch.d.ts",
+      "solid": "./dist/color-swatch.jsx"
+    },
+    "./close-button": {
+      "types": "./dist/close-button.d.ts",
+      "solid": "./dist/close-button.jsx"
+    },
+    "./tabs": {
+      "types": "./dist/tabs.d.ts",
+      "solid": "./dist/tabs.jsx"
+    },
+    "./table": {
+      "types": "./dist/table.d.ts",
+      "solid": "./dist/table.jsx"
+    },
+    "./table-state": null
+  },
+  "scripts": {
+    "build": "bun -e 'import { rmSync } from \"node:fs\"; rmSync(\"dist\", { recursive: true, force: true });' && tsc -p tsconfig.json --noEmit false --declaration --outDir dist && cp ../../THIRD_PARTY_NOTICES.md dist/",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@lenso/glass": "workspace:*",
+    "@lenso/primitives": "workspace:*",
+    "@lenso/tokens": "workspace:*",
+    "@stylexjs/stylex": "catalog:",
+    "@ui-sdk/core": "0.1.0-beta.8",
+    "@ui-sdk/solid": "0.1.0-beta.8"
+  },
+  "devDependencies": {
+    "@solidjs/babel-plugin": "2.0.2",
+    "@solidjs/vite-plugin": "3.0.1",
+    "@solidjs/web": "2.0.3",
+    "@stylexjs/unplugin": "catalog:",
+    "playwright": "1.65.0",
+    "solid-js": "2.0.3",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  },
+  "peerDependencies": {
+    "@solidjs/web": "^2.0.3",
+    "solid-js": "^2.0.3"
+  }
+}

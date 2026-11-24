@@ -9,6 +9,14 @@
   },
   "overrides": [
     {
+      "files": ["**/packages/ui-solid/**/*.tsx"],
+      "rules": {
+        "react/immutability": "off",
+        "react/refs": "off",
+        "react/static-components": "off"
+      }
+    },
+    {
       "files": [
         "**/packages/primitives/src/resize-handle/index.tsx",
         "**/packages/primitives/src/sidebar/index.tsx"
