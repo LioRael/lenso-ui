@@ -47,6 +47,10 @@
       "types": "./dist/list/list.d.ts",
       "import": "./dist/list/list.js"
     },
+    "./table/core": {
+      "types": "./dist/table/column-layout.d.ts",
+      "import": "./dist/table/column-layout.js"
+    },
     "./wheel-picker/core": {
       "types": "./dist/wheel-picker/wheel-picker.d.ts",
       "import": "./dist/wheel-picker/wheel-picker.js"

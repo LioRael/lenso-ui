@@ -1,8 +1,8 @@
-import type { Key } from "react";
+export type TableKey = string | number | bigint;
 
 export type ColumnWidth = number | `${number}%` | `${number}fr`;
 export interface ColumnSize {
-  key: Key;
+  key: TableKey;
   width?: ColumnWidth;
   min: number;
   max: number;
@@ -12,9 +12,9 @@ export interface ColumnSize {
 export function resolveColumnWidths(
   columns: readonly ColumnSize[],
   available: number,
-  resized: ReadonlyMap<Key, number>,
+  resized: ReadonlyMap<TableKey, number>,
 ) {
-  const result = new Map<Key, number>();
+  const result = new Map<TableKey, number>();
   let remaining = available;
   const flexible: { column: ColumnSize; weight: number }[] = [];
   for (const column of columns) {
