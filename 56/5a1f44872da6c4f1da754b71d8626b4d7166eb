@@ -1,0 +1,415 @@
+packages/ui-solid/src/button-group.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-3,25-29
+  s_dab8d0fc1c0fe9::t_02c758e218c996 4-24
+packages/ui-solid/src/share-sheet.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-137
+packages/ui-solid/src/tag.ts
+  s_dab8d0fc1c0fe9::t_0ecaa4b1dcb308 1-41
+packages/ui-solid/src/textfield.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-6,8,41,47-50
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 7,9,23-26,42-46
+  s_dab8d0fc1c0fe9::t_02c758e218c996 10-22,27-40
+packages/ui-solid/src/input-otp.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 21-27,34-39
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 9,11-20,28
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1,8,10,33,40-44
+  s_dab8d0fc1c0fe9::t_02c758e218c996 2-7,29-32
+packages/ui-solid/src/empty-state.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 5-14,16-31
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-4,15,32-41
+packages/ui-solid/src/parts.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 3
+  s_dab8d0fc1c0fe9::t_02c758e218c996 50-58
+  s_dab8d0fc1c0fe9::t_25aa7057237091 4,17,36
+  s_dab8d0fc1c0fe9::t_2b8b6e46953cf8 1-2,5,11-16,18-35,37-49,59-62,66
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 6-9
+  s_dab8d0fc1c0fe9::t_2673fae33a64ef 10,63-65
+packages/ui-solid/src/fieldset.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 3-8,27-31
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-2,10,32-33,41-46
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 34-40
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 9,11-26
+.github/workflows/verify.yml
+  s_dab8d0fc1c0fe9::t_cf68c4c982e526 156
+packages/ui-solid/src/button.tsx
+  s_dab8d0fc1c0fe9::t_7901a45e10689c 7-69
+  s_dab8d0fc1c0fe9::t_99a09392ded957 1-6
+packages/ui-solid/src/progress-circle.tsx
+  s_dab8d0fc1c0fe9::t_8fcf083b062c7b 85-86
+  s_dab8d0fc1c0fe9::t_25aa7057237091 1-84,87-110
+packages/ui-solid/src/link.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-10
+packages/ui-solid/src/disclosure.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1,8,29,35,44-50
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 7,9-13,19,24
+  s_dab8d0fc1c0fe9::t_02c758e218c996 2-6,14-18,20-23,25-28,30-34
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 36-43
+packages/ui-solid/src/skeleton.ts
+  s_dab8d0fc1c0fe9::t_487e279b2ea900 1-3,10-13
+  s_dab8d0fc1c0fe9::t_02c758e218c996 4-9
+packages/ui-solid/src/segmented-control.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 26-30
+  s_dab8d0fc1c0fe9::t_02c758e218c996 3-7,16-19,21-24
+  s_dab8d0fc1c0fe9::t_edf3826067fa92 1
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 2,9,25,31-34
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 15,20
+  s_dab8d0fc1c0fe9::t_48a6954bedb245 8,10-14
+packages/ui-solid/src/close-button.tsx
+  s_dab8d0fc1c0fe9::t_8df004d1ea96c9 1-34
+packages/ui-solid/src/meter.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1,9,11,40,48-53
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 10,30-39
+  s_dab8d0fc1c0fe9::t_02c758e218c996 2-8,13-15
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 12,16-29,41-47
+packages/ui-solid/test/fixture/vite.config.mjs
+  s_dab8d0fc1c0fe9::t_99a09392ded957 1-16
+packages/ui-solid/src/progress-bar.ts
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 15,44-49
+  s_dab8d0fc1c0fe9::t_02c758e218c996 1-13,19,21-25,28,30-34,37,39-43,50-53
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 14,16,54,62-67
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 17-18,20,26-27,29,35-36,38,55-61
+packages/ui-solid/src/label.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-3,5,10,14-15
+  s_dab8d0fc1c0fe9::t_02c758e218c996 7-9
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 11-13
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 4,6
+packages/ui-solid/src/tooltip.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 36-41
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 3-8,10,12-34
+  s_dab8d0fc1c0fe9::t_2fab7ff313b317 1-2,9,11,35,42-46
+packages/ui-solid/src/description.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 13-15
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 5,7
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-4,6,12,16-17
+  s_dab8d0fc1c0fe9::t_02c758e218c996 8-11
+packages/ui-solid/src/glass-container.tsx
+  s_dab8d0fc1c0fe9::t_f739fbcdb7f0bd 1-62
+packages/ui-solid/src/notification.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-92
+packages/ui-solid/src/form.ts
+  s_dab8d0fc1c0fe9::t_487e279b2ea900 1-8
+packages/ui-solid/src/calendar-year-picker.ts
+  s_dab8d0fc1c0fe9::t_25aa7057237091 1-3
+packages/ui-solid/src/alert-dialog.ts
+  s_dab8d0fc1c0fe9::t_2fab7ff313b317 1-3,14,16,65,81-82,98-111
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 4-13,15,17-64,66-80
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 83-97
+packages/ui-solid/src/radio.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 11-15,21
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 3,5-9,16-20
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-2,4,10,22,29-33
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 23-28
+packages/ui-solid/src/context-menu.ts
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 4-10,12,14-41
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1-3,11,13,42,50-55
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 43-49
+README.md
+  s_dab8d0fc1c0fe9::t_d59dfb858b612c 55-56,60
+  s_dab8d0fc1c0fe9::t_100c5b3375800e 57-58
+  s_dab8d0fc1c0fe9::t_0246228e6a4abd 59
+packages/ui-solid/src/select.ts
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 5-20,22,29-97,99-103
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1-4,21,23,98,104,122-137
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 105-121
+  s_dab8d0fc1c0fe9::t_9078d149c9980f 24-28
+packages/ui-solid/test/fixture/server.tsx
+  s_dab8d0fc1c0fe9::t_99a09392ded957 1-8
+packages/ui-solid/src/toast.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-65
+packages/ui-solid/test/fixture/app.tsx
+  s_dab8d0fc1c0fe9::t_100c5b3375800e 15-16
+  s_dab8d0fc1c0fe9::t_02c758e218c996 1-13,156-175
+  s_dab8d0fc1c0fe9::t_99a09392ded957 17-155,216-217,232-236
+  s_dab8d0fc1c0fe9::t_de12b2d4154418 14,176-215,218-231
+packages/ui-solid/src/list-box.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 61-69
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 1-6,8-16,25-59
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 7,17-19,60,70-77
+  s_dab8d0fc1c0fe9::t_24be1ef36badc1 20-24
+packages/ui-solid/src/tab-bar.tsx
+  s_dab8d0fc1c0fe9::t_ac587677ae9abf 20-24
+  s_dab8d0fc1c0fe9::t_39a22ab075d44f 1-19,25-311
+packages/ui-solid/src/accordion.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 43-51
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1,10,36,42,52-59
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 16-21,26,30-34
+  s_dab8d0fc1c0fe9::t_02c758e218c996 2-8,22-25,27-29,35,37-41
+  s_dab8d0fc1c0fe9::t_e0f4f77b7cc0bf 9,11-15
+packages/ui-solid/src/date-picker.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-82
+packages/ui-solid/src/navigation-bar.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-62
+packages/ui-solid/src/command.ts
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1-2,24,26,57,68,123-127,156-182
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 128-155
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 3-23,25,27-56,58-67,69-122
+packages/ui-solid/src/glass-toggle-button.tsx
+  s_dab8d0fc1c0fe9::t_f739fbcdb7f0bd 1-20,25-59
+  s_dab8d0fc1c0fe9::t_8fcf083b062c7b 21-24
+packages/ui-solid/src/tag-group.ts
+  s_dab8d0fc1c0fe9::t_0ecaa4b1dcb308 1-10
+packages/ui-solid/src/date-range-picker.ts
+  s_dab8d0fc1c0fe9::t_25aa7057237091 1-32
+packages/ui-solid/src/toggle-button.ts
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 5,26-30
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-4,6,31,36-38
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 7-10,32-35
+  s_dab8d0fc1c0fe9::t_02c758e218c996 11-25
+packages/ui-solid/src/radio-group.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 13-17
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-7,11-12
+  s_dab8d0fc1c0fe9::t_02c758e218c996 8-10
+packages/ui-solid/src/avatar-group.ts
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 4-9
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1-3,10-15
+packages/ui-solid/src/color-swatch.tsx
+  s_dab8d0fc1c0fe9::t_6c1aedb1075349 30
+  s_dab8d0fc1c0fe9::t_8df004d1ea96c9 1-29,31-43
+packages/ui-solid/src/field-error.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-4,6,12,16-17
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 5,7
+  s_dab8d0fc1c0fe9::t_02c758e218c996 8-11
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 13-15
+packages/ui-solid/test/fixture/styles.css
+  s_dab8d0fc1c0fe9::t_99a09392ded957 1-2
+packages/ui-solid/src/kbd.ts
+  s_dab8d0fc1c0fe9::t_487e279b2ea900 1-3,10-17
+  s_dab8d0fc1c0fe9::t_02c758e218c996 4-9
+packages/ui-solid/src/range-calendar.ts
+  s_dab8d0fc1c0fe9::t_25aa7057237091 1-22
+packages/ui-solid/src/wheel-picker.tsx
+  s_dab8d0fc1c0fe9::t_8fcf083b062c7b 2-175
+  s_dab8d0fc1c0fe9::t_0ecaa4b1dcb308 1
+packages/ui-solid/src/time-field.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-45
+packages/ui-solid/src/popup-button.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-22
+packages/ui-solid/src/input.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 10-22
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-3,5,23,27-28
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 4,6-9,24-26
+packages/ui-solid/src/textarea.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 4,6-9,26-28
+  s_dab8d0fc1c0fe9::t_02c758e218c996 10-24
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-3,5,25,29-30
+packages/ui-solid/src/sidebar.ts
+  s_dab8d0fc1c0fe9::t_0ecaa4b1dcb308 1-82
+packages/ui-solid/src/spinner.tsx
+  s_dab8d0fc1c0fe9::t_25aa7057237091 1-54
+packages/ui-solid/src/breadcrumbs.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-5,11-16
+  s_dab8d0fc1c0fe9::t_02c758e218c996 6-10
+packages/ui-solid/src/drawer.ts
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 3-12,14,16-51,55-59
+  s_dab8d0fc1c0fe9::t_2fab7ff313b317 1-2,13,15,52-54,60,74-85
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 61-73
+packages/ui-solid/src/color-slider.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-29
+packages/ui-solid/src/input-group.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-6,8,42,48,55-59
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 7,27-31,43-47
+  s_dab8d0fc1c0fe9::t_02c758e218c996 13-26,32-41
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 9-12,49-54
+packages/ui-solid/src/date-field.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-45
+packages/ui-solid/src/combo-box.ts
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 5-26,28,35-106,108-137
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 139-162
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1-4,27,29,107,138,163-185
+  s_dab8d0fc1c0fe9::t_a2887f40cb24f0 30-34
+packages/ui-solid/src/scroll-shadow.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-28
+packages/ui-solid/src/glass.tsx
+  s_dab8d0fc1c0fe9::t_f739fbcdb7f0bd 1-82
+packages/ui-solid/src/checkbox.tsx
+  s_dab8d0fc1c0fe9::t_99a09392ded957 52-56
+  s_dab8d0fc1c0fe9::t_7901a45e10689c 1-51,57-116
+packages/ui-solid/src/calendar.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-102
+packages/ui-solid/src/separator.ts
+  s_dab8d0fc1c0fe9::t_487e279b2ea900 1-3,5,19,23-24
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 4,6-7,9,20-22
+  s_dab8d0fc1c0fe9::t_02c758e218c996 8,10-18
+packages/ui-solid/src/modal.ts
+  s_dab8d0fc1c0fe9::t_2fab7ff313b317 1,11,13-14,62-66,80-91
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 67-79
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 2-10,12,15-61
+packages/ui-solid/src/color-input-group.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-33
+packages/ui-solid/src/glass-button.tsx
+  s_dab8d0fc1c0fe9::t_8fcf083b062c7b 28
+  s_dab8d0fc1c0fe9::t_f739fbcdb7f0bd 1-27,29-87
+packages/ui-solid/src/sheet.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 73-86
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 4-13,15,18-58,62-71
+  s_dab8d0fc1c0fe9::t_2fab7ff313b317 1-3,14,16-17,59-61,72,87-99
+packages/ui-solid/src/toggle-button-group.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-4,20,25-27
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 21-24
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 9
+  s_dab8d0fc1c0fe9::t_02c758e218c996 15-19
+  s_dab8d0fc1c0fe9::t_b7ad5cb8a39391 5-8,10-14
+packages/ui-solid/src/slider.ts
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1,10-12,53-54,66-75
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 2-9,18-52
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 55-65
+  s_dab8d0fc1c0fe9::t_b301ebbf07f9e0 13-17
+packages/ui-solid/src/index.ts
+  s_dab8d0fc1c0fe9::t_0ecaa4b1dcb308 83-94
+  s_dab8d0fc1c0fe9::t_2fab7ff313b317 10
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 9
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 13-14
+  s_dab8d0fc1c0fe9::t_7901a45e10689c 1-8
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 20,25-27
+  s_dab8d0fc1c0fe9::t_f739fbcdb7f0bd 46-49
+  s_dab8d0fc1c0fe9::t_25aa7057237091 70
+  s_dab8d0fc1c0fe9::t_8fcf083b062c7b 77
+  s_dab8d0fc1c0fe9::t_8df004d1ea96c9 24,31
+  s_dab8d0fc1c0fe9::t_ab7efb44d43565 11-12,15-19,21-23,28-30,32-45,50-69,71-76,78-82,95-105
+packages/ui-solid/README.md
+  s_dab8d0fc1c0fe9::t_100c5b3375800e 14-16
+  s_dab8d0fc1c0fe9::t_ac587677ae9abf 89-117
+  s_dab8d0fc1c0fe9::t_d59dfb858b612c 1-13,17-87,120-127
+  s_dab8d0fc1c0fe9::t_3ffa796998ddb0 88,118-119
+packages/ui-solid/src/typography.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-54
+packages/ui-solid/src/switch.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 29-36
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 4,6-18,22-26
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1-3,5,19-21,27-28,37-43
+packages/ui-solid/src/styled.ts
+  s_dab8d0fc1c0fe9::t_7901a45e10689c 1-3,12-41
+  s_dab8d0fc1c0fe9::t_25aa7057237091 4-11
+packages/ui-solid/src/number-field.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-2,12,14,61,71-78
+  s_dab8d0fc1c0fe9::t_02c758e218c996 3-11,19-23,28-40,46,48-51,53-60
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 13,15-18,41-45,47,52
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 24-27,62-70
+packages/ui-solid/src/popover.ts
+  s_dab8d0fc1c0fe9::t_2fab7ff313b317 1-2,12,14,53,63-70
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 54-62
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 3-11,13,15-52
+packages/ui-solid/src/action-sheet.ts
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 4-13,15,17-78
+  s_dab8d0fc1c0fe9::t_2fab7ff313b317 1-3,14,16,79,92-102
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 80-91
+packages/ui-solid/test/fixture/index.html
+  s_dab8d0fc1c0fe9::t_99a09392ded957 1-12
+packages/ui-solid/test/browser.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 83-88
+  s_dab8d0fc1c0fe9::t_9180e7c37214ad 1-82,89-225
+packages/ui-solid/src/color-area.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-32
+packages/ui-solid/src/card.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 5-15
+  s_dab8d0fc1c0fe9::t_487e279b2ea900 1-4,16-29
+packages/ui-solid/src/stepper.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-56
+packages/ui-solid/src/swipe-actions.tsx
+  s_dab8d0fc1c0fe9::t_8fcf083b062c7b 1-14,16-175
+  s_dab8d0fc1c0fe9::t_0ecaa4b1dcb308 15
+packages/ui-solid/src/color-swatch-picker.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-39
+packages/ui-solid/src/avatar.ts
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 13,15,65,71-74
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 66-70
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 1-12,14,16-64
+.oxlintrc.json
+  s_dab8d0fc1c0fe9::t_6c1aedb1075349 12-18
+  s_dab8d0fc1c0fe9::t_09d107a9d8a7f5 11
+packages/ui-solid/tsconfig.json
+  s_dab8d0fc1c0fe9::t_7901a45e10689c 1-10
+packages/ui-solid/src/glass-magnifier.tsx
+  s_dab8d0fc1c0fe9::t_f739fbcdb7f0bd 1-22,24-32
+  s_dab8d0fc1c0fe9::t_8fcf083b062c7b 23
+packages/ui-solid/src/color-picker.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-110
+packages/ui-solid/src/pagination.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1,3,24,26-34
+  s_dab8d0fc1c0fe9::t_02c758e218c996 7-9,16-23
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 2,4-6,10-15,25
+packages/ui-solid/src/page-control.tsx
+  s_dab8d0fc1c0fe9::t_0ecaa4b1dcb308 1-168
+packages/ui-solid/test/fixture/tsconfig.json
+  s_dab8d0fc1c0fe9::t_99a09392ded957 1-13
+packages/ui-solid/package.json
+  s_dab8d0fc1c0fe9::t_f739fbcdb7f0bd 111-112
+  s_dab8d0fc1c0fe9::t_8df004d1ea96c9 17,21,25,29,33,37,41,45,49,53,57,61,65,69,73,77,81,87-95,99,103
+  s_dab8d0fc1c0fe9::t_6c1aedb1075349 107
+  s_dab8d0fc1c0fe9::t_99a09392ded957 7-12
+  s_dab8d0fc1c0fe9::t_74d9f7d89c2af7 1-6,13-16,18-20,22-24,26-28,30-32,34-36,38-40,42-44,46-48,50-52,54-56,58-60,62-64,66-68,70-72,74-76,78-80,82-86,96-98,100-102,104-106,108-110,113-132
+packages/ui-solid/test/fixture/client.tsx
+  s_dab8d0fc1c0fe9::t_99a09392ded957 1-8
+packages/ui-solid/src/toolbar.ts
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1-2,12,42,51-57
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 43-50
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 3-11,13-41
+packages/ui-solid/src/menu.ts
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 1-2,22,24-25,92,117,137-154
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 3-21,23,26-91,93-116
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 118-136
+packages/ui-solid/src/badge.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 1-8,12-37
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 9-11,38-45
+tests/consumer/solid-consumer.test.ts
+  s_dab8d0fc1c0fe9::t_f739fbcdb7f0bd 22
+  s_dab8d0fc1c0fe9::t_cf68c4c982e526 1-21,23-73,109-127
+  s_dab8d0fc1c0fe9::t_96ce4e7abb7bc2 74-108
+packages/ui-solid/src/refresh-control.tsx
+  s_dab8d0fc1c0fe9::t_14912663ecfd32 1-322
+packages/ui-solid/src/checkbox-group.ts
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 13-17
+  s_dab8d0fc1c0fe9::t_02c758e218c996 8-10
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-7,11-12
+packages/ui-solid/src/section-index.tsx
+  s_dab8d0fc1c0fe9::t_8fcf083b062c7b 6,9-10,15-20,24-47
+  s_dab8d0fc1c0fe9::t_ac587677ae9abf 1-5,7-8,11,21-23
+  s_dab8d0fc1c0fe9::t_0ecaa4b1dcb308 12-14
+packages/ui-solid/src/table-state.ts
+  s_dab8d0fc1c0fe9::t_5ded2bf50b0ab1 1-139
+packages/ui-solid/src/date-input-group.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-52
+packages/ui-solid/src/surface.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 5-17
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-4,18-21
+packages/ui-solid/src/alert.ts
+  s_dab8d0fc1c0fe9::t_02c758e218c996 5-9
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 1-4,10-21
+packages/ui-solid/src/color-field.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-34
+packages/ui-solid/src/search-field.ts
+  s_dab8d0fc1c0fe9::t_f83f45e40caa33 1-50
+packages/ui-solid/src/autocomplete.ts
+  s_dab8d0fc1c0fe9::t_dfd070bb072893 2-4,23,25,112,132-149
+  s_dab8d0fc1c0fe9::t_fc073fc80ec0d1 1,5-22,24,26-111
+  s_dab8d0fc1c0fe9::t_50f4e085425e3f 113-131
+packages/ui-solid/src/chip.ts
+  s_dab8d0fc1c0fe9::t_781f469f5303a2 9-10,33-38
+  s_dab8d0fc1c0fe9::t_02c758e218c996 1-8,11-32
+bun.lock
+  s_dab8d0fc1c0fe9::t_c3b3b96f80e94b 313-338,366-367,746-747,1098-1119,1322-1323,1778-1779,1828-1829,1958-1959,2148-2149,2316,2318,2340-2341,2622-2629,2636-2639,2654-2655,2658-2661,2762-2763,2886-2889
+package.json
+  s_dab8d0fc1c0fe9::t_411d919ab2ae59 32
+packages/ui-solid/src/list.tsx
+  s_dab8d0fc1c0fe9::t_dc43ecee8dcb27 1-286
+packages/ui-solid/src/table.tsx
+  s_dab8d0fc1c0fe9::t_286b48c3865e07 1-712
+packages/ui-solid/src/tabs.tsx
+  s_dab8d0fc1c0fe9::t_87003f4ed51463 1-171
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "565a1f44872da6c4f1da754b71d8626b4d7166eb",
+  "prompts": {},
+  "sessions": {
+    "s_dab8d0fc1c0fe9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20c30-1b0f-7a51-802f-a7e5ed3dc012",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
