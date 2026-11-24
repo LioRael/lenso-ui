@@ -1,0 +1,44 @@
+packages/glass/src/motion/tab-bar-scroll.ts
+  s_dab8d0fc1c0fe9::t_f576b426298770 1-52
+packages/ui/src/components/table/table.tsx
+  s_dab8d0fc1c0fe9::t_5ded2bf50b0ab1 7-9,11
+  s_dab8d0fc1c0fe9::t_f5c2745251be70 10
+packages/glass/src/motion/index.ts
+  s_dab8d0fc1c0fe9::t_f576b426298770 12-13
+packages/primitives/tsdown.config.ts
+  s_dab8d0fc1c0fe9::t_5ded2bf50b0ab1 11
+packages/ui/src/components/tab-bar/tab-bar-scroll.ts
+  s_dab8d0fc1c0fe9::t_f576b426298770 1,23-28,30-31
+  s_dab8d0fc1c0fe9::t_ab18a29733175b 29
+packages/ui/src/utils/interaction/tabs-overflow.ts
+  s_dab8d0fc1c0fe9::t_f576b426298770 1,8,10
+.changeset/shared-navigation-behavior.md
+  s_dab8d0fc1c0fe9::t_f576b426298770 1-6
+packages/primitives/package.json
+  s_dab8d0fc1c0fe9::t_5ded2bf50b0ab1 50-53
+packages/glass/src/motion/tabs-overflow.ts
+  s_dab8d0fc1c0fe9::t_f576b426298770 1-8,10-11,14-16,18-63,65-109,111-122
+  s_dab8d0fc1c0fe9::t_30b747c01d3357 9,12-13,17,64,110
+.changeset/shared-table-layout.md
+  s_dab8d0fc1c0fe9::t_5ded2bf50b0ab1 1-6
+packages/primitives/src/table/column-layout.ts
+  s_dab8d0fc1c0fe9::t_5ded2bf50b0ab1 1-51
+apps/docs/src/generated/api-reference.json
+  s_dab8d0fc1c0fe9::t_5e5512e1807cfb 68051,68060,68069,68078,68087,68096,68105,68114,68123,68132,68141,68204,68213,68222,68231,68240,68249,68258,68267,68276,68285,68294,68303,68312,68321,68330,68339,68348,71480,71489,71498,71507,71516,71525,71534,71543,71552,71561,71570,94681,94709,94737,94765,94793,94825,94855,94885,94924,94954,94992,95024,95053,95083,95113,95141,95171,95181
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c0d07b7492e6bf3af5f135b6f47176fe5c69eed2",
+  "prompts": {},
+  "sessions": {
+    "s_dab8d0fc1c0fe9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a20c30-1b0f-7a51-802f-a7e5ed3dc012",
+        "model": "gpt-6.2-sol"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
