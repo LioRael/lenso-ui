@@ -1,0 +1,1908 @@
+packages/ui-svelte/src/drawer/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 15-27
+  s_43eedcb0aed93c::t_56660a21dcd29f 1-14,28-54
+packages/ui-svelte/src/command/command-viewport.svelte
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1-4,6-8
+  s_43eedcb0aed93c::t_0f08d16612be6b 5
+packages/ui-solid/test/fixture/app.tsx
+  s_43eedcb0aed93c::t_672e2c094c0b75 112-113,117,227-234,237-246,255-258,260-263
+  s_43eedcb0aed93c::t_d67c3d6ae9057f 1,4,259
+packages/ui-svelte/src/glass/attachment.svelte.ts
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-3,5-6,8-45
+  s_43eedcb0aed93c::t_3511f584c0a013 4,7
+packages/ui-svelte/src/action-sheet/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 12-23
+  s_43eedcb0aed93c::t_254f376bbed1aa 1-11,24-46
+packages/ui-svelte/src/glass-toggle-button/glass-toggle-button.svelte
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-37,40-51
+  s_43eedcb0aed93c::t_5ffee4018a4758 38-39
+packages/ui-svelte/src/tabs/tab-separator.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/glass/glass.svelte
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-25,28-33
+  s_43eedcb0aed93c::t_def88bda4e6fe3 26-27
+package.json
+  s_43eedcb0aed93c::t_8685a66362689c 32
+  s_43eedcb0aed93c::t_c992ce79474704 70
+packages/ui-svelte/README.md
+  s_43eedcb0aed93c::t_8685a66362689c 1-81,115-132
+  s_43eedcb0aed93c::t_820750adbf5636 82-114
+packages/ui-svelte/tsconfig.json
+  s_43eedcb0aed93c::t_a7918464137c08 1-9
+packages/ui-svelte/src/glass-button/appearance.ts
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-36
+packages/ui-solid/src/color-field.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1,9,27-33,35-40,45-47
+  s_43eedcb0aed93c::t_0c54b378e2a812 48-50,55-63
+packages/ui-svelte/src/glass-button/glass-button-icon.svelte
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-16
+packages/ui-svelte/src/command/command-action-key.svelte
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1-4,6-13
+  s_43eedcb0aed93c::t_f1c1e4ffdd6c6d 5
+packages/ui-svelte/src/select/index.ts
+  s_43eedcb0aed93c::t_f7951fafb958fa 1-2,34-50
+  s_43eedcb0aed93c::t_780787adc2da27 17-33
+  s_43eedcb0aed93c::t_e7f14b9a27fcf7 3-16,51-66
+packages/ui-svelte/src/slider/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 11-21
+  s_43eedcb0aed93c::t_a71c42e1fb8bc7 1-10,22-46
+packages/ui-svelte/src/command/command-key.svelte
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1-4,6-13
+  s_43eedcb0aed93c::t_84b37e4148d78b 5
+packages/ui-svelte/src/glass-magnifier/glass-magnifier.svelte
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-16,18-26
+  s_43eedcb0aed93c::t_16956012c14d1b 17
+packages/ui-svelte/src/stepper/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 8-15
+  s_43eedcb0aed93c::t_d8a22249df773e 1-7,16-38
+packages/ui-solid/src/date-field.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1,34,36-40,47-50
+  s_43eedcb0aed93c::t_afa226a639eae6 51,58-62
+packages/ui-svelte/src/alert-dialog/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 15-29
+  s_43eedcb0aed93c::t_afd55ecfd05f8b 1-14,30-58
+packages/ui-svelte/src/tab-bar/index.ts
+  s_43eedcb0aed93c::t_1bca69bfa55211 5
+  s_43eedcb0aed93c::t_ac668c59f623c7 1-4,6-22
+packages/tokens/src/components/calendar-year-picker/calendar-year-picker.styles.ts
+  s_43eedcb0aed93c::t_3a249a25d29468 6-7
+packages/ui-svelte/src/list/list-action.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-6,9-12
+  s_43eedcb0aed93c::t_5085f1c5f9146d 7-8
+packages/ui-svelte/src/glass-container/glass-container.svelte
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-29,31-32,34-35,38-44,46-62
+  s_43eedcb0aed93c::t_74d3433083e9d8 30,33,36-37,45
+packages/tokens/src/components/table/table.styles.ts
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 70
+  s_43eedcb0aed93c::t_90cce8cb225033 63-67,69
+  s_43eedcb0aed93c::t_6382ede27d79b6 68
+packages/ui-svelte/src/tag/tag-root.svelte
+  s_43eedcb0aed93c::t_820750adbf5636 129,148-151,153-154
+  s_43eedcb0aed93c::t_d02ba290ec3bb9 152
+  s_43eedcb0aed93c::t_64f18fe702e2de 1-128,130-147,155-173
+packages/ui-svelte/src/navigation-bar/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 9-17
+  s_43eedcb0aed93c::t_02c3727b9a74f7 1-8,18-34
+packages/primitives/src/table/window.ts
+  s_43eedcb0aed93c::t_90cce8cb225033 13-19,21-23
+  s_43eedcb0aed93c::t_d9035612f294d8 1-10,12,20,24-40
+  s_43eedcb0aed93c::t_a0f8068ae0c384 11
+packages/ui-svelte/src/popover/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 9-17
+  s_43eedcb0aed93c::t_33b154239acac2 1-8,18-34
+packages/ui-svelte/src/glass/index.ts
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1
+packages/glass/src/motion/tab-bar-minimize.ts
+  s_43eedcb0aed93c::t_ed9201d50047d1 1-138,158,160,162
+  s_43eedcb0aed93c::t_c1ee496ecf5272 139-157,159,161
+packages/ui-svelte/src/notification/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 14-27
+  s_43eedcb0aed93c::t_f58d1a794108ee 1-13,28-54
+packages/ui-svelte/src/button/button-icon.svelte
+  s_43eedcb0aed93c::t_d1dae565e02fae 1-16
+packages/ui-svelte/src/button-group/button-group-separator.svelte
+  s_43eedcb0aed93c::t_7f7fdf029951d4 6-20,22-24,27-30
+  s_43eedcb0aed93c::t_3d950de7b28b84 1-5,21,25-26,31-32
+packages/ui-svelte/src/hooks/index.ts
+  s_43eedcb0aed93c::t_8502b481548e1c 1-9,11
+  s_43eedcb0aed93c::t_08cd38ace5f349 10
+packages/ui-svelte/src/section-index/parts.ts
+  s_43eedcb0aed93c::t_974600cedbacf1 1,3,5
+  s_43eedcb0aed93c::t_f0cc3fea9e4eb0 2,4
+packages/ui-solid/src/menu.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 40,45,53,61,68-69,158-159,161-162,165-166,169,171-172,175-176,178-179,181-182,185-218,220-224,228,234,243-245
+  s_43eedcb0aed93c::t_127183c952941c 1-2,24,27-39,41-44,46-52,54,59-60,62-67,76,143,157,160,163-164,167-168,170,173-174,177,180,183-184,246-247,251,257,266-267
+packages/ui-svelte/src/table/window-row.svelte
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 1-9
+.github/workflows/verify.yml
+  s_43eedcb0aed93c::t_8685a66362689c 156
+packages/glass/src/motion/label-refraction.ts
+  s_43eedcb0aed93c::t_ed9201d50047d1 1-16
+packages/ui-svelte/src/calendar-year-picker/trigger-heading.svelte
+  s_43eedcb0aed93c::t_3a249a25d29468 1-30,32-34,37-44,46-47
+  s_43eedcb0aed93c::t_4468baeacf85a9 31,35-36,45
+packages/ui-svelte/src/calendar-year-picker/index.ts
+  s_43eedcb0aed93c::t_cc1a176f77caf4 2-25,27-32,34-40,42
+  s_43eedcb0aed93c::t_0c89d6619d6865 1,26,33,41,43-46
+packages/ui-svelte/src/color-picker/index.ts
+  s_43eedcb0aed93c::t_d1dae565e02fae 1,29-52
+  s_43eedcb0aed93c::t_780787adc2da27 15-28
+  s_43eedcb0aed93c::t_a76bf2ffcaeea9 2-14,53-76
+packages/ui-svelte/src/progress-circle/progress-circle-label.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-5,8-11
+  s_43eedcb0aed93c::t_6670d20f631d47 6-7
+packages/ui-svelte/src/refresh-control/refresh-control.svelte
+  s_43eedcb0aed93c::t_6ddbe23a305827 1-52,55-61,63-217
+  s_43eedcb0aed93c::t_bf770adb24c4d6 53-54,62
+packages/ui-solid/src/color-picker.tsx
+  s_43eedcb0aed93c::t_d1dae565e02fae 1-31,33,35-42,44-137
+  s_43eedcb0aed93c::t_1d44169a18a62a 32,34,43,138-148
+packages/ui-solid/src/hooks.ts
+  s_43eedcb0aed93c::t_8502b481548e1c 2-10,12-17,21-31,33,35
+  s_43eedcb0aed93c::t_1a2a9511e92db8 1,11,18-20,32,34
+packages/ui-solid/src/time-field.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1,34,36-40,47-50
+  s_43eedcb0aed93c::t_1784194d94bedb 51,58-62
+packages/ui-solid/src/button.tsx
+  s_43eedcb0aed93c::t_d1dae565e02fae 1,10-13,22,26-34,42,49-52,54,57-61,64-67,70,77-79,82-88,93-95
+packages/ui-svelte/src/number-field/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 9-17
+  s_43eedcb0aed93c::t_972cde13412c68 1-8,18-34
+packages/ui-svelte/src/tabs/root.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-16,19,21-23
+  s_43eedcb0aed93c::t_126a22060f2839 17-18,20,24
+packages/ui-svelte/src/tabs/tab-root.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-6,9,11-14
+  s_43eedcb0aed93c::t_98929d52950e01 7-8,10
+packages/ui-svelte/src/list-box/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 9-17,23
+  s_43eedcb0aed93c::t_0d86953aac5fb5 1-8,18-22,24-44
+.gitignore
+  s_43eedcb0aed93c::t_52be2a89958b88 29-31
+packages/ui-svelte/src/date-input-group/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 9-15
+  s_43eedcb0aed93c::t_6570420fcc99a4 1-8,16-30
+packages/ui-svelte/test/fixture/app.svelte
+  s_43eedcb0aed93c::t_c7a6aaff162fdf 30,167-196
+  s_43eedcb0aed93c::t_672e2c094c0b75 20-21,49-50,150-151,164-165,206,212-213,219-227,229-232
+  s_43eedcb0aed93c::t_eeeeae3e716797 32
+  s_43eedcb0aed93c::t_097fd3cf04041e 1-19,22-29,31,33-48,51-149,152-163,166,197-205,207-211,214-218,228,233
+packages/ui-svelte/src/list/selection.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/refresh-control/index.ts
+  s_43eedcb0aed93c::t_6ddbe23a305827 1-3,5-16
+  s_43eedcb0aed93c::t_1bca69bfa55211 4
+packages/ui-svelte/src/table/tree-rows.svelte
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 1-5,7-10
+  s_43eedcb0aed93c::t_cace4d6fe14881 6
+packages/ui-svelte/src/calendar-year-picker/trigger.svelte
+  s_43eedcb0aed93c::t_3a249a25d29468 1-11,13-22,24,28-33,35-59
+  s_43eedcb0aed93c::t_9e6816220900e1 12,23,25-27,34
+packages/ui-svelte/src/progress-circle/root.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1,7-10,30-34,37-39
+  s_43eedcb0aed93c::t_974600cedbacf1 2-4,6,11-27,29,40
+  s_43eedcb0aed93c::t_c77d35f01e7de3 5,28,35-36
+packages/ui-svelte/src/toast/pill-swap.svelte
+  s_43eedcb0aed93c::t_d02ba290ec3bb9 1-31,33-38,40-60
+  s_43eedcb0aed93c::t_2208ebb71ac240 32,39
+packages/ui-svelte/src/table/table-footer.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-solid/src/command.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1-5,140-141,143-144,147-148,151,153-154,157-158,160-161,163-164,167-168,171,173-174,177-178,180-181,183-184,187-188,190-196,224-230
+  s_43eedcb0aed93c::t_0d8ef62ccd1e34 29,133-139,142,145-146,149-150,152,155-156,159,162,165-166,169-170,172,175-176,179,182,185-186
+packages/ui-svelte/src/color-picker/color-picker-root.svelte
+  s_43eedcb0aed93c::t_d1dae565e02fae 7-30
+  s_43eedcb0aed93c::t_2c8e652bf83863 1-6
+packages/ui-svelte/src/tab-bar/link.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/table/cell.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-2,5-7,10,12-16,50-53,57-59,66
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 3-4,11,17-25,28-30,35,55-56,60-63,65
+  s_43eedcb0aed93c::t_cace4d6fe14881 39-42,44
+  s_43eedcb0aed93c::t_182ee1a93db4a2 8-9,31-34,36-38,45-46,49,54
+  s_43eedcb0aed93c::t_762d3c96501ccb 26-27,43,47-48,64
+packages/ui-svelte/src/tag-group/context.ts
+  s_43eedcb0aed93c::t_820750adbf5636 23-24
+  s_43eedcb0aed93c::t_cace4d6fe14881 1-22,25-33
+  s_43eedcb0aed93c::t_b67d8e2d16d7f5 34-35
+packages/ui-svelte/src/hooks/hooks.svelte.ts
+  s_43eedcb0aed93c::t_8502b481548e1c 1-7,11-21,23-25,28
+  s_43eedcb0aed93c::t_c4c469fe552195 8-10,22,26-27
+packages/ui-svelte/src/toast/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 13-24
+  s_43eedcb0aed93c::t_de2834db210b92 1-10,12,26-27,37-38,48-50
+packages/ui/src/hooks/use-list-data.ts
+  s_43eedcb0aed93c::t_8502b481548e1c 17-22,24-32,34
+  s_43eedcb0aed93c::t_b4e46e21fc737c 23,33
+packages/ui-svelte/src/list/reorder.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-6,9-12
+  s_43eedcb0aed93c::t_c543e0c774543a 7-8
+packages/ui-svelte/src/calendar-year-picker/context.ts
+  s_43eedcb0aed93c::t_3a249a25d29468 1-32,49,54
+  s_43eedcb0aed93c::t_6b733fe7d052db 33-48,50-53
+packages/ui-svelte/src/list/list-content.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/color-swatch-picker/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 6-11
+  s_43eedcb0aed93c::t_c0e493fd9c6810 1-5,12-22
+packages/ui-svelte/src/pagination/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 14-23
+  s_43eedcb0aed93c::t_9cc9796a5fb416 1-13,24-46
+packages/ui-solid/src/index.ts
+  s_43eedcb0aed93c::t_d1dae565e02fae 1-2,12,14,22
+  s_43eedcb0aed93c::t_c62758b85b17c7 23,28,31,60,88-89,93,100-106
+packages/ui-svelte/src/table/index.ts
+  s_43eedcb0aed93c::t_1bca69bfa55211 2-19
+  s_43eedcb0aed93c::t_b1cb6013a90b57 1,20-86
+packages/ui-svelte/src/table/column-resizer.svelte
+  s_43eedcb0aed93c::t_6ddbe23a305827 32-33
+  s_43eedcb0aed93c::t_719981d3d7bda9 1-31,34-94
+.changeset/share-collection-and-surface-motion.md
+  s_43eedcb0aed93c::t_90cce8cb225033 1-7
+  s_43eedcb0aed93c::t_22d205836f0281 8
+packages/ui-svelte/src/menu/menu-action-group.svelte
+  s_43eedcb0aed93c::t_31f218dbbfd85d 3,5-8,10-12
+  s_43eedcb0aed93c::t_6c38e1a2ad3999 1-2,4,9
+packages/ui-svelte/src/calendar/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 20-33,94
+  s_43eedcb0aed93c::t_9f54f7e62ce5b0 1-19,34-93,95-98
+packages/ui-svelte/src/table/body.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 8,10-11,15-16,53,55,132,146,182
+  s_43eedcb0aed93c::t_cace4d6fe14881 1-5,7,9,12-14,17-34,36-48,50-52,56-59,61-99,101-131,133-145,147-166,168-178
+  s_43eedcb0aed93c::t_a7b41780c58bda 6,35,49,54,60,100,167,179-181
+packages/ui-svelte/src/command/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 42-69
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1-10,73-111
+  s_43eedcb0aed93c::t_058461c37a56fa 11-41,70-72,112-138
+packages/ui-svelte/src/table/header.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 3-17,19-22,28
+  s_43eedcb0aed93c::t_8397b63e9e3028 1-2,18,23-27
+packages/primitives/src/table/column-layout.ts
+  s_43eedcb0aed93c::t_d9035612f294d8 52-54
+packages/ui-svelte/src/calendar/calendar-root.svelte
+  s_43eedcb0aed93c::t_3a249a25d29468 4-9,16-55
+  s_43eedcb0aed93c::t_1091a77b32c6c3 1-3,10-15
+packages/ui-svelte/src/combo-box/root.svelte
+  s_43eedcb0aed93c::t_f7951fafb958fa 1-15
+packages/ui-solid/src/glass-button.tsx
+  s_43eedcb0aed93c::t_7f7fdf029951d4 9-11,62,65,70-79,81
+  s_43eedcb0aed93c::t_93639e7c8a38f1 80
+packages/ui-svelte/src/list/context.ts
+  s_43eedcb0aed93c::t_3449c545c20b01 1-3,5,7-9
+  s_43eedcb0aed93c::t_83b5933ae59a44 4,6,10
+packages/ui/src/components/list-box/windowed.tsx
+  s_43eedcb0aed93c::t_d9035612f294d8 5-7,9-10,21,26
+  s_43eedcb0aed93c::t_82ee7c2849d559 8
+packages/ui-svelte/src/tabs/tab-panel.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-6,9-12
+  s_43eedcb0aed93c::t_92931a533eb40b 7-8
+packages/ui-svelte/src/combo-box/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 25-48
+  s_43eedcb0aed93c::t_f7951fafb958fa 2,49-74
+  s_43eedcb0aed93c::t_8564855321e752 1,3-24,75-101
+packages/ui-svelte/src/sidebar/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 16-31
+  s_43eedcb0aed93c::t_743668df52f5ae 1-15,32-62
+packages/glass/src/motion/tab-bar-motion.ts
+  s_43eedcb0aed93c::t_ed9201d50047d1 2-687
+  s_43eedcb0aed93c::t_02383f52dfd4b3 1
+packages/primitives/src/table/drag.ts
+  s_43eedcb0aed93c::t_d9035612f294d8 1-11,13-36,38-71,73-108,110-122,124-130,132-144,146-156
+  s_43eedcb0aed93c::t_22e5d80442da89 12,37,72,109,123,131,145
+packages/ui-svelte/src/calendar-year-picker/grid-body.svelte
+  s_43eedcb0aed93c::t_cc1a176f77caf4 1-19,21-25
+  s_43eedcb0aed93c::t_2916a0515e126f 20
+packages/ui-svelte/src/table/table-scroll-container.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/calendar/calendar-grid.svelte
+  s_43eedcb0aed93c::t_3a249a25d29468 2-19,21-22,25-33
+  s_43eedcb0aed93c::t_666ff9126f040f 1,20,23-24,34-41
+packages/ui-svelte/src/progress-circle/index.ts
+  s_43eedcb0aed93c::t_1bca69bfa55211 5-6
+  s_43eedcb0aed93c::t_974600cedbacf1 1-4,7-11,13,21-26
+  s_43eedcb0aed93c::t_df64b0cc8b0ede 12,14-20
+packages/ui-svelte/src/swipe-actions/index.ts
+  s_43eedcb0aed93c::t_91cd319fd275c5 1-4,6
+  s_43eedcb0aed93c::t_137bd28e9610c0 5
+packages/primitives/src/model-control/model-control.ts
+  s_43eedcb0aed93c::t_cace4d6fe14881 147-155,177-178
+  s_43eedcb0aed93c::t_88c8f2044b18e4 140
+packages/ui-svelte/src/section-index/index.ts
+  s_43eedcb0aed93c::t_974600cedbacf1 1-7
+packages/ui-svelte/src/button/index.ts
+  s_43eedcb0aed93c::t_d1dae565e02fae 1-5
+packages/ui-svelte/src/list/index.ts
+  s_43eedcb0aed93c::t_3449c545c20b01 1-2,10,12-21,23-50
+  s_43eedcb0aed93c::t_1bca69bfa55211 3-9,11
+  s_43eedcb0aed93c::t_2da4c281c1e48d 22
+README.md
+  s_43eedcb0aed93c::t_8685a66362689c 61-67
+packages/ui-svelte/src/toast/toast-title.svelte
+  s_43eedcb0aed93c::t_d02ba290ec3bb9 5-26
+  s_43eedcb0aed93c::t_1ec9fc12a33679 1-4,27-31
+packages/ui-svelte/src/list/list-title.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/refresh-control/context.ts
+  s_43eedcb0aed93c::t_6ddbe23a305827 2-5,7-21
+  s_43eedcb0aed93c::t_cd9d04d4b25593 1,6
+packages/ui-svelte/src/command/command-search-icon.svelte
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1-4,6-8
+  s_43eedcb0aed93c::t_6ef3ca028faef1 5
+packages/ui-svelte/src/glass-toggle-button/index.ts
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-7,9
+  s_43eedcb0aed93c::t_bf24d5ff658c13 8
+packages/ui-svelte/src/table/state.svelte.ts
+  s_43eedcb0aed93c::t_182ee1a93db4a2 8-16,22,25-47,49,52-64,92-99,111-201
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 1-5,7,17-21,23-24,50-51,65-69,71-91,100-110
+  s_43eedcb0aed93c::t_fb93d9a0401254 6,48,70
+packages/ui-svelte/src/glass-magnifier/index.ts
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1
+packages/ui-svelte/src/refresh-control/trigger.svelte
+  s_43eedcb0aed93c::t_6ddbe23a305827 1-4,7,10,12-21,25-38
+  s_43eedcb0aed93c::t_1bca69bfa55211 5-6,8-9,11,22-24
+packages/ui-svelte/src/table/row.svelte
+  s_43eedcb0aed93c::t_cace4d6fe14881 41-42,51-55,57
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 6,18-19,24,33-37,43-44,61-65,68,80-103,117-118,136-138
+  s_43eedcb0aed93c::t_182ee1a93db4a2 1-5,7-11,13,15,21-23,25-32,38-40,45-46,48-50,58-60,71-79,104-116,119-133,139-143
+  s_43eedcb0aed93c::t_1bca69bfa55211 12,14,16-17,20,69-70,134-135
+  s_43eedcb0aed93c::t_42b838e538bdcd 47,56,66-67
+packages/ui-svelte/src/glass-button/index.ts
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-8,10
+  s_43eedcb0aed93c::t_08d3e07a7541fc 9
+packages/ui-svelte/src/glass-container/index.ts
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-5
+packages/ui-svelte/src/list/list-root.svelte
+  s_43eedcb0aed93c::t_3449c545c20b01 1-41,44,48-52,54-55,58-67
+  s_43eedcb0aed93c::t_6ddbe23a305827 42-43,45-47
+  s_43eedcb0aed93c::t_b42a323cabccbb 53,56-57
+packages/ui-svelte/src/range-calendar/range-calendar.svelte
+  s_43eedcb0aed93c::t_3a249a25d29468 10-25
+  s_43eedcb0aed93c::t_bbbf8d1561438e 1-9,26
+packages/ui-svelte/src/button-group/button-group-root.svelte
+  s_43eedcb0aed93c::t_7f7fdf029951d4 4-39,41-77
+  s_43eedcb0aed93c::t_0af498c850aa88 1-3,40,78
+packages/ui-svelte/src/menu/menu-expand-trigger.svelte
+  s_43eedcb0aed93c::t_31f218dbbfd85d 3,5-8,10-17
+  s_43eedcb0aed93c::t_43f03942ba4137 1-2,4,9
+packages/ui-svelte/src/accordion/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 9-17
+  s_43eedcb0aed93c::t_6d75bcff9cf041 1-8,18-34
+packages/ui-svelte/src/calendar-year-picker/trigger-indicator.svelte
+  s_43eedcb0aed93c::t_3a249a25d29468 1-16,18-39
+  s_43eedcb0aed93c::t_d9672128e20dcd 17
+packages/ui-svelte/src/table/table-load-more-content.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/date-picker/index.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 13,39-48,58-64
+  s_43eedcb0aed93c::t_780787adc2da27 24-33
+  s_43eedcb0aed93c::t_aa2742555d9fe0 1-12,14-23,34-38,49-57,65-90
+packages/ui/src/components/list-box/drag-and-drop.tsx
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 2-7,9-11,15-17,19-23,25-29,33,48,50-51
+  s_43eedcb0aed93c::t_32c9056c359820 8,24,30-31,35-37,39-41,43-45,47,49
+packages/ui-svelte/src/menu/menu-action.svelte
+  s_43eedcb0aed93c::t_31f218dbbfd85d 3,5-8,10-12
+  s_43eedcb0aed93c::t_a922a16c65d65e 1-2,4,9
+packages/ui-svelte/src/tabs/index.ts
+  s_43eedcb0aed93c::t_1bca69bfa55211 4-8
+  s_43eedcb0aed93c::t_bdbb8a13c78931 1-3,9-29
+packages/ui-svelte/src/tabs/list.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-6,13-14,18-20,23-26
+  s_43eedcb0aed93c::t_8497aa425a6bfa 7-12,15-17,21-22
+packages/primitives/src/hooks/index.ts
+  s_43eedcb0aed93c::t_8502b481548e1c 1-5,7-15,17-22,26-29,31-48,50-57,59-66,68-73,83-90,92-93,95-97,99-104,106-109,112-118,120-122,124-127,129-136,138-139,141-142,144-145,147-148,150,152-161,163,165-168,170-173,175-179,181-183,185-186,188-190,192-194,197-208,210-211
+  s_43eedcb0aed93c::t_5824af072e58c0 6,16,23-25,30,49,58,67,74-82,91,94,98,105,110-111,119,123,128,137,140,143,146,149,151,162,164,169,174,180,184,187,191,195-196,209
+packages/primitives/package.json
+  s_43eedcb0aed93c::t_8502b481548e1c 57-61,65
+  s_43eedcb0aed93c::t_281a86809656e8 62-64,66-68
+packages/ui-svelte/src/context-menu/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 11-17,20
+  s_43eedcb0aed93c::t_600b9dab001ea9 1-10,18-19,21-46
+packages/primitives/src/hooks/list-data.ts
+  s_43eedcb0aed93c::t_8502b481548e1c 1-165
+packages/ui-svelte/test/fixture/tsconfig.json
+  s_43eedcb0aed93c::t_f7951fafb958fa 1-14
+packages/ui-svelte/src/tab-bar/tab-bar-link.svelte
+  s_43eedcb0aed93c::t_820750adbf5636 6-25,27-53
+  s_43eedcb0aed93c::t_7f903622918a0b 1-5,26,54-66
+packages/ui-svelte/src/tab-bar/action.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-6,9-12
+  s_43eedcb0aed93c::t_0ae848d3887dca 7-8
+packages/ui-svelte/src/wheel-picker/index.ts
+  s_43eedcb0aed93c::t_974600cedbacf1 1-7
+packages/ui-svelte/src/table/root.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-5,20-24
+  s_43eedcb0aed93c::t_182ee1a93db4a2 6-17,19
+  s_43eedcb0aed93c::t_296f7286e5d549 18
+packages/ui-svelte/src/swipe-actions/types.ts
+  s_43eedcb0aed93c::t_91cd319fd275c5 1-3,5-35
+  s_43eedcb0aed93c::t_f5ae63fbc0eed7 4
+packages/ui/src/utils/materials/control-lens.ts
+  s_43eedcb0aed93c::t_ed9201d50047d1 12
+packages/ui-svelte/src/swipe-actions/parts.ts
+  s_43eedcb0aed93c::t_91cd319fd275c5 1,3,5-9
+  s_43eedcb0aed93c::t_2707455222d27c 2,4,10-12
+packages/ui-svelte/src/sheet/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 14-27
+  s_43eedcb0aed93c::t_4f14649d3d750a 1-13,28-54
+packages/ui-svelte/src/list/list-section.svelte
+  s_43eedcb0aed93c::t_3449c545c20b01 1-14
+  s_43eedcb0aed93c::t_7b3a73134696a9 15
+packages/ui-svelte/src/list/list-separator.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/list/row.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-19
+packages/ui-svelte/src/modal/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 13-25
+  s_43eedcb0aed93c::t_3843b0ed6e68ab 1-12,26-50
+packages/ui-svelte/src/share-sheet/index.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1,42-64
+  s_43eedcb0aed93c::t_780787adc2da27 21-40
+  s_43eedcb0aed93c::t_0659f4fc42ee82 2-20,41,65-83
+packages/ui-svelte/src/section-index/section-index.svelte
+  s_43eedcb0aed93c::t_974600cedbacf1 1,3-24,27-54
+  s_43eedcb0aed93c::t_5faef047ec2370 2,25-26
+packages/ui-solid/src/share-sheet.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 1,101-102,122-123
+packages/ui-svelte/src/styled.ts
+  s_43eedcb0aed93c::t_21e7f961d4ecb0 24
+  s_43eedcb0aed93c::t_70218f713e2041 1-23,25-33
+packages/ui-svelte/src/autocomplete/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 22-40
+  s_43eedcb0aed93c::t_d45836549ba4f2 1-21,41-85
+packages/ui-svelte/src/tabs/tab-indicator.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-6,9,11-14
+  s_43eedcb0aed93c::t_32f1f3dfdd9ee3 7-8,10
+packages/ui-svelte/src/tag-group/tag-group-root.svelte
+  s_43eedcb0aed93c::t_cace4d6fe14881 1-24,26-36,38-79,81-83,85-89,91-94,97-107,115-118,120,122,124,126-152,154-162,164-165,167-258,260-276,278-284
+  s_43eedcb0aed93c::t_820750adbf5636 25,84,96,108-111,113-114,153,163,166
+  s_43eedcb0aed93c::t_ef4c4add43bf33 37,80,90,95,112,119,121,123,125,259,277
+packages/ui-solid/src/button-group.tsx
+  s_43eedcb0aed93c::t_7f7fdf029951d4 2-12,14-50,52,54,56-73,75,78-79,81-87,89-90,92
+  s_43eedcb0aed93c::t_d571117e74550a 13,51,53,55,74,76,80,88,91
+packages/ui-svelte/src/refresh-control/viewport.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-3,7,17-19,45
+  s_43eedcb0aed93c::t_6ddbe23a305827 4-6,8-16,20-27,29-39,41-44
+  s_43eedcb0aed93c::t_b9f6be5bfa665e 28,40
+packages/ui-svelte/src/calendar-year-picker/cell.svelte
+  s_43eedcb0aed93c::t_cc1a176f77caf4 1-10,12,15-26,28-46,48-51,54-81,83-86
+  s_43eedcb0aed93c::t_d3b6ea53f5ce82 11,13-14,27,47,52-53,82
+packages/primitives/tsdown.config.ts
+  s_43eedcb0aed93c::t_8502b481548e1c 13
+  s_43eedcb0aed93c::t_c39b5dd9928b80 11-12
+packages/ui-svelte/src/list/section.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/package.json
+  s_43eedcb0aed93c::t_d7edaccc6dc6ed 1-28,31-36,38,41-42,45-46,48-49
+  s_43eedcb0aed93c::t_52be2a89958b88 43
+  s_43eedcb0aed93c::t_8685a66362689c 47
+  s_43eedcb0aed93c::t_1cb3506791717f 29-30,37,39-40,44
+packages/ui-svelte/src/progress-circle/context.ts
+  s_43eedcb0aed93c::t_974600cedbacf1 2-3,5-11
+  s_43eedcb0aed93c::t_8c462b3cb63648 1,4
+packages/ui-svelte/test/browser.ts
+  s_43eedcb0aed93c::t_c7a6aaff162fdf 87,95,98,101,114,147-148,150-152,175,178-201,203-207,209-212,243,245,247,267
+  s_43eedcb0aed93c::t_672e2c094c0b75 65-72
+  s_43eedcb0aed93c::t_eeeeae3e716797 137
+  s_43eedcb0aed93c::t_baf6ad58dc1242 1-64,73-86,88-94,96-97,99-100,102-113,115-136,138-146,149,153-174,176-177,202,208,213-242,244,246,248-266,268-270
+packages/ui-svelte/src/tab-bar/item.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui/src/components/tab-bar/tab-bar-motion.ts
+  s_43eedcb0aed93c::t_ed9201d50047d1 2,13
+packages/ui-svelte/src/swipe-actions/swipe-actions.svelte
+  s_43eedcb0aed93c::t_91cd319fd275c5 1-30,32-82,84-127
+  s_43eedcb0aed93c::t_644b93979193d6 31,83
+packages/ui-svelte/src/table/content.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 5-6,8,135,191-192,208-209
+  s_43eedcb0aed93c::t_90cce8cb225033 183-187,194
+  s_43eedcb0aed93c::t_182ee1a93db4a2 1-4,7,10-13,16-41,48-90,92-100,102-113,116-134,136-137,140-143,171-182,188-190,196,202-207
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 9,14-15,42-47,138-139,144-170,193,195,197,199-201
+  s_43eedcb0aed93c::t_d5698cba124b74 91,101,114-115,198
+packages/ui-svelte/src/progress-circle/track-circle.svelte
+  s_43eedcb0aed93c::t_974600cedbacf1 17-20
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-16,21-26
+packages/ui-svelte/src/empty-state/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 9-17
+  s_43eedcb0aed93c::t_199e974b5ea86e 1-8,18-34
+AGENTS.md
+  s_43eedcb0aed93c::t_8685a66362689c 14-17
+packages/ui-svelte/src/toast/toast-indicator.svelte
+  s_43eedcb0aed93c::t_d02ba290ec3bb9 2-22,24-67
+  s_43eedcb0aed93c::t_41bc486fc26916 1,23,68
+packages/ui-svelte/src/color-field/index.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 7-26
+  s_43eedcb0aed93c::t_269ed56651f6bc 1-6,27-42
+packages/ui-solid/test/browser.ts
+  s_43eedcb0aed93c::t_672e2c094c0b75 72-79
+  s_43eedcb0aed93c::t_6691495e31d451 1,80-83,149-163,248
+packages/ui-svelte/src/progress-circle/fill-circle.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-5,8-14,22-25,34-39
+  s_43eedcb0aed93c::t_974600cedbacf1 6-7,15-21,26-33
+packages/ui-solid/package.json
+  s_43eedcb0aed93c::t_d1dae565e02fae 108,112,116,120,124,128,132-136,140,144,148,152
+  s_43eedcb0aed93c::t_8a31451ceace7c 104-107,109-111,113-115,117-119,121-123,125-127,129-131,137-139,141-143,145-147,149-151,153-156
+packages/ui-svelte/src/list/list-leading.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/glass/src/motion/index.ts
+  s_43eedcb0aed93c::t_ed9201d50047d1 16
+  s_43eedcb0aed93c::t_fcd93385bde0ca 14-15,17-21
+packages/ui-svelte/src/list/list-description.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/list/list-trailing.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/menu/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 29-47,74
+  s_43eedcb0aed93c::t_31f218dbbfd85d 5-12,56,78-86,88-92,94-104
+  s_43eedcb0aed93c::t_2fe69da0d8a3c5 1-4,13-28,48-55,57-73,75-77,87,93,105-127
+packages/ui-svelte/src/table/column.svelte
+  s_43eedcb0aed93c::t_182ee1a93db4a2 1-12,14,16,19-78,80-89,92,94-96,99-105,107-121
+  s_43eedcb0aed93c::t_1bca69bfa55211 13,15,17-18,93,97-98,122
+  s_43eedcb0aed93c::t_41683fa7b47630 79,90-91,106
+packages/ui-svelte/src/calendar-year-picker/provider.svelte
+  s_43eedcb0aed93c::t_3a249a25d29468 1-21,23-26,28-39,41-57,59-65
+  s_43eedcb0aed93c::t_2632a5c135d574 22,27,40,58
+packages/ui-svelte/src/time-field/index.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 3-26
+  s_43eedcb0aed93c::t_c6ccddad94dbeb 1-2,27-38
+packages/ui/src/components/tab-bar/tab-bar-minimize.ts
+  s_43eedcb0aed93c::t_ed9201d50047d1 2,11,13-15,17-18,22-23
+packages/ui-svelte/src/list/list-item.svelte
+  s_43eedcb0aed93c::t_3449c545c20b01 1-71,74-136
+  s_43eedcb0aed93c::t_58da04758938c6 72-73
+packages/ui-svelte/src/table/table-resizable-container.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/date-field/index.ts
+  s_43eedcb0aed93c::t_31f218dbbfd85d 3-26
+  s_43eedcb0aed93c::t_1e0752d7cfaa81 1-2,27-38
+packages/ui-svelte/src/progress-circle/track.svelte
+  s_43eedcb0aed93c::t_974600cedbacf1 2,6-7,15-20,22-24,27,31-33
+  s_43eedcb0aed93c::t_1bca69bfa55211 1,3-5,8-14,28-30,34-39
+  s_43eedcb0aed93c::t_ebe6765b050ff6 21,25-26
+packages/ui-svelte/src/glass-button/glass-button.svelte
+  s_43eedcb0aed93c::t_7f7fdf029951d4 19-22,37,39,43-47,49-52,66-67
+  s_43eedcb0aed93c::t_5bdc924c3dd2ce 1-18,23-36,40-42,53-55,58-65,68-79
+  s_43eedcb0aed93c::t_d82a487bef042d 38,48,56-57
+packages/ui/src/components/table/table.tsx
+  s_43eedcb0aed93c::t_90cce8cb225033 252,791
+packages/ui-svelte/src/command/command-action.svelte
+  s_43eedcb0aed93c::t_31f218dbbfd85d 3,5-8,10-17
+  s_43eedcb0aed93c::t_fee614bca307a4 1-2,4,9
+packages/ui-svelte/src/calendar-year-picker/grid.svelte
+  s_43eedcb0aed93c::t_cc1a176f77caf4 1-16,18-19,21-54,56-60,62-67,69-93,96-146,148-165,168-208,210-213
+  s_43eedcb0aed93c::t_568344ca61574e 17,20,55,61,68,94-95,147,166-167,209
+packages/ui-svelte/src/select/root.svelte
+  s_43eedcb0aed93c::t_f7951fafb958fa 1-15
+packages/ui-svelte/src/wheel-picker/wheel-picker.svelte
+  s_43eedcb0aed93c::t_974600cedbacf1 1-95,97-142,147
+  s_43eedcb0aed93c::t_48b6bfb7580718 96,143-146
+packages/ui-svelte/src/table/context.ts
+  s_43eedcb0aed93c::t_182ee1a93db4a2 1,3-4,8-10,13,15-19,24-25,28-29
+  s_43eedcb0aed93c::t_3aedcee6cebe5d 12,20,22-23
+  s_43eedcb0aed93c::t_cace4d6fe14881 11,21
+  s_43eedcb0aed93c::t_4d53f2a475b3cc 2,5-7,14,26-27
+packages/ui-svelte/src/close-button/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 1-5,10-12
+  s_43eedcb0aed93c::t_7e1660f21ffbf3 6-9
+packages/ui-svelte/src/list/section-heading.svelte
+  s_43eedcb0aed93c::t_1bca69bfa55211 1-18
+packages/ui-svelte/src/disclosure/index.ts
+  s_43eedcb0aed93c::t_780787adc2da27 8-15
+  s_43eedcb0aed93c::t_4fabcaaca3aa06 1-7,16-30
+bun.lock
+  s_43eedcb0aed93c::t_c81b204a8e508b 24,340-364,774-775,1174-1181,1360-1361,1444,1456-1457,1590-1591,1594-1595,1616-1617,1658-1659,1662-1663,1878-1879,1948-1949,2144-2145,2354-2355,2366-2367,2450-2453,2612-2613,2668-2671,2732-2733,2868-2869,2950-2951,3080-3081
+packages/glass/src/motion/context-preview.ts
+  s_43eedcb0aed93c::t_b07a57627d8595 1-95
+packages/glass/src/motion/menu-placement.ts
+  s_43eedcb0aed93c::t_db78e1fdc17b86 1-18
+packages/glass/src/motion/pill.ts
+  s_43eedcb0aed93c::t_0592c64a85444a 1-157
+packages/glass/src/motion/scroll-edge.ts
+  s_43eedcb0aed93c::t_9f1474a704744a 1-117
+packages/primitives/src/color/color.ts
+  s_43eedcb0aed93c::t_404f6f581fb278 1-10
+packages/primitives/src/locale/locale.ts
+  s_43eedcb0aed93c::t_dcdd31a9cb0283 1-5
+packages/tokens/src/components/calendar/calendar.styles.ts
+  s_43eedcb0aed93c::t_3c972b4d07d740 60-89
+packages/tokens/src/components/icons/index.ts
+  s_43eedcb0aed93c::t_032463b77c1a8b 1-77
+packages/tokens/src/components/tag/tag.styles.ts
+  s_43eedcb0aed93c::t_2971d602a105a3 5-11
+packages/ui-solid/README.md
+  s_43eedcb0aed93c::t_b2ffaf2d30f733 116-132
+packages/ui-solid/src/agent.ts
+  s_43eedcb0aed93c::t_d48a4088e25db5 1
+packages/ui-solid/src/autocomplete.ts
+  s_43eedcb0aed93c::t_e21626571c704a 1,40,114-118,120-122,141-143,162-163
+packages/ui-solid/src/calendar-year-picker.ts
+  s_43eedcb0aed93c::t_9baa2e26e0bb33 1,3-21
+packages/ui-solid/src/calendar.tsx
+  s_43eedcb0aed93c::t_d6b6c58a3045a7 1-5,22,27-64,81,84,86-105,121-124,138-151,153-164,178-189,203-212
+packages/ui-solid/src/checkbox-group.ts
+  s_43eedcb0aed93c::t_9cc50533e237bb 3-4,10,12-17
+packages/ui-solid/src/checkbox.tsx
+  s_43eedcb0aed93c::t_6c45decb941e40 15,18-21,27,31-37,57,61,124-131
+packages/ui-solid/src/color-input-group.ts
+  s_43eedcb0aed93c::t_8fbe8d9d02a297 25-34,36-37,42-43
+packages/ui-solid/src/color-slider.tsx
+  s_43eedcb0aed93c::t_6968aa0f70e5b7 1-2,10-14,21-52,54-56,60-62
+packages/ui-solid/src/combo-box.ts
+  s_43eedcb0aed93c::t_7e5668d3a320c0 1,47,141-142,166-167,191-192
+packages/ui-solid/src/context-menu.tsx
+  s_43eedcb0aed93c::t_e40ff8dc9a61d9 1-2,12-19,22-42,47-119,132-166,170
+packages/ui-solid/src/date-input-group.ts
+  s_43eedcb0aed93c::t_17bec56fd59aef 40-44,46,53
+packages/ui-solid/src/date-picker.tsx
+  s_43eedcb0aed93c::t_dee2c2ec2a4e08 1-11,26,31-55,77,100-106,108-120,130-142,152-162
+packages/ui-solid/src/date-range-picker.ts
+  s_43eedcb0aed93c::t_808c9c274a0bcb 2,28,32,35-63
+packages/ui-solid/src/drawer.ts
+  s_43eedcb0aed93c::t_c13a945a1eba5c 61,63,76
+packages/ui-solid/src/fieldset.ts
+  s_43eedcb0aed93c::t_6dae125e78a2d3 47-48
+packages/ui-solid/src/glass-provider.tsx
+  s_43eedcb0aed93c::t_e2d2d3a086aeef 1-37
+packages/ui-solid/src/icons.tsx
+  s_43eedcb0aed93c::t_40a07739aeb3e5 1-37
+packages/ui-solid/src/input-group.ts
+  s_43eedcb0aed93c::t_cc5d1cb12d7c5d 50,56
+packages/ui-solid/src/list-box.ts
+  s_43eedcb0aed93c::t_5c497146c982ef 61-62,65,67,73,75,80-81
+packages/ui-solid/src/pagination.tsx
+  s_43eedcb0aed93c::t_69674651197008 25-68,70-71
+packages/ui-solid/src/popover.ts
+  s_43eedcb0aed93c::t_6e9240e8cc09f0 28
+packages/ui-solid/src/providers.tsx
+  s_43eedcb0aed93c::t_38299152866efe 1-66
+packages/ui-solid/src/radio-group.ts
+  s_43eedcb0aed93c::t_789a3af820f96a 3-4,10,12-17
+packages/ui-solid/src/radio.ts
+  s_43eedcb0aed93c::t_be1b8f932c78ce 1,6-7,14,20-29
+packages/ui-solid/src/range-calendar.ts
+  s_43eedcb0aed93c::t_8f9a5bf392c023 2,23-48
+packages/ui-solid/src/scroll-edge.tsx
+  s_43eedcb0aed93c::t_0332a017b18b94 1-84
+packages/ui-solid/src/search-field.ts
+  s_43eedcb0aed93c::t_777ed287ae0141 8-9,34-44,51-55,57-59,65-67,73-76
+packages/ui-solid/src/select.ts
+  s_43eedcb0aed93c::t_ef863814ff1bc5 46
+packages/ui-solid/src/slider.ts
+  s_43eedcb0aed93c::t_99e3796eee6b10 56-57,68-69
+packages/ui-solid/src/stepper.ts
+  s_43eedcb0aed93c::t_f56f9fce490bc3 43-44,52-53,61-64
+packages/ui-solid/src/tab-bar.tsx
+  s_43eedcb0aed93c::t_ace1123f3e66a4 1-11,31,36,51,97,108,137-163,176,182-183,194,202,205-246,284-288,304-305,317,337-340,350-357,359,364
+packages/ui-solid/src/table-state.ts
+  s_43eedcb0aed93c::t_6e75b307bc3569 1-7,18-19,45-46,61-63,76-91,93-105
+packages/ui-solid/src/table.tsx
+  s_43eedcb0aed93c::t_4b84c945090d37 1-7,100-101,126-127,147-152,203-207,212-214,254,259-371,374-393,397-410,413,550,554-556,576-580,589-614,624-628,643-667,683-685,695,706-710
+packages/ui-solid/src/tabs.tsx
+  s_43eedcb0aed93c::t_7a9047832f9cf0 172-173
+packages/ui-solid/src/tag-group.tsx
+  s_43eedcb0aed93c::t_6bd49ec4382707 1-275
+packages/ui-solid/src/tag.tsx
+  s_43eedcb0aed93c::t_812cf217d3c877 1-199
+packages/ui-solid/src/textfield.ts
+  s_43eedcb0aed93c::t_99b88bab5068e0 1-2,45-46,51-52
+packages/ui-solid/src/toast.tsx
+  s_43eedcb0aed93c::t_d5629e8751c4f4 1-318
+packages/ui-solid/src/tooltip.ts
+  s_43eedcb0aed93c::t_ca163bb5cc082b 25
+packages/ui-solid/src/typography.ts
+  s_43eedcb0aed93c::t_e5d280a3b673ca 55-62
+packages/ui-solid/src/year-picker.tsx
+  s_43eedcb0aed93c::t_949bfd90f385ed 1-302
+packages/ui-solid/test/fixture/parity.tsx
+  s_43eedcb0aed93c::t_754e4aa96749a0 1-185
+packages/ui-svelte/src/accordion/accordion-body.svelte
+  s_43eedcb0aed93c::t_97305880e20c0a 1-18
+packages/ui-svelte/src/accordion/accordion-heading.svelte
+  s_43eedcb0aed93c::t_2782610a71d533 1-12
+packages/ui-svelte/src/accordion/accordion-indicator.svelte
+  s_43eedcb0aed93c::t_60d0ab38d50588 1-18
+packages/ui-svelte/src/accordion/accordion-item.svelte
+  s_43eedcb0aed93c::t_d74f35bacef689 1-12
+packages/ui-svelte/src/accordion/accordion-panel.svelte
+  s_43eedcb0aed93c::t_b07e50e0195854 1-12
+packages/ui-svelte/src/accordion/accordion-root.svelte
+  s_43eedcb0aed93c::t_6dadfc27574acf 1-12
+packages/ui-svelte/src/accordion/accordion-trigger.svelte
+  s_43eedcb0aed93c::t_0d33a05c9f16b5 1-12
+packages/ui-svelte/src/action-sheet/action-sheet-action.svelte
+  s_43eedcb0aed93c::t_03293bef8bf39b 1-19
+packages/ui-svelte/src/action-sheet/action-sheet-actions.svelte
+  s_43eedcb0aed93c::t_f18eed865f6d73 1-18
+packages/ui-svelte/src/action-sheet/action-sheet-backdrop.svelte
+  s_43eedcb0aed93c::t_585cbff54d8921 1-19
+packages/ui-svelte/src/action-sheet/action-sheet-close.svelte
+  s_43eedcb0aed93c::t_6dd3099edada70 1-12
+packages/ui-svelte/src/action-sheet/action-sheet-content.svelte
+  s_43eedcb0aed93c::t_639b30a52c7fc3 1-27
+packages/ui-svelte/src/action-sheet/action-sheet-description.svelte
+  s_43eedcb0aed93c::t_9fa9d4faf11c90 1-12
+packages/ui-svelte/src/action-sheet/action-sheet-header.svelte
+  s_43eedcb0aed93c::t_40436069014c16 1-18
+packages/ui-svelte/src/action-sheet/action-sheet-root.svelte
+  s_43eedcb0aed93c::t_8b4308d69cd8c1 1-12
+packages/ui-svelte/src/action-sheet/action-sheet-title.svelte
+  s_43eedcb0aed93c::t_d2c1fac0a2e220 1-12
+packages/ui-svelte/src/action-sheet/action-sheet-trigger.svelte
+  s_43eedcb0aed93c::t_3f3111ff0a3e6b 1-12
+packages/ui-svelte/src/agent/index.ts
+  s_43eedcb0aed93c::t_851aebf4f29418 1
+packages/ui-svelte/src/alert-dialog/alert-dialog-action.svelte
+  s_43eedcb0aed93c::t_28539d77092f76 1-12
+packages/ui-svelte/src/alert-dialog/alert-dialog-backdrop.svelte
+  s_43eedcb0aed93c::t_db6bb04af4f056 1-21
+packages/ui-svelte/src/alert-dialog/alert-dialog-body.svelte
+  s_43eedcb0aed93c::t_71f9c7f46eee69 1-18
+packages/ui-svelte/src/alert-dialog/alert-dialog-close.svelte
+  s_43eedcb0aed93c::t_8fcfd7d1b736e3 1-12
+packages/ui-svelte/src/alert-dialog/alert-dialog-content.svelte
+  s_43eedcb0aed93c::t_2083915b3c2feb 1-27
+packages/ui-svelte/src/alert-dialog/alert-dialog-description.svelte
+  s_43eedcb0aed93c::t_073d906c021397 1-12
+packages/ui-svelte/src/alert-dialog/alert-dialog-fields.svelte
+  s_43eedcb0aed93c::t_8d9d0c68962b60 1-18
+packages/ui-svelte/src/alert-dialog/alert-dialog-footer.svelte
+  s_43eedcb0aed93c::t_a1072d65a77947 1-18
+packages/ui-svelte/src/alert-dialog/alert-dialog-header.svelte
+  s_43eedcb0aed93c::t_166e330dad9f29 1-18
+packages/ui-svelte/src/alert-dialog/alert-dialog-icon.svelte
+  s_43eedcb0aed93c::t_d856079343e923 1-18
+packages/ui-svelte/src/alert-dialog/alert-dialog-root.svelte
+  s_43eedcb0aed93c::t_e85521dde08e7d 1-12
+packages/ui-svelte/src/alert-dialog/alert-dialog-title.svelte
+  s_43eedcb0aed93c::t_fc3496fd8a5129 1-12
+packages/ui-svelte/src/alert-dialog/alert-dialog-trigger.svelte
+  s_43eedcb0aed93c::t_3cc50e24e0a60f 1-12
+packages/ui-svelte/src/alert/alert-content.svelte
+  s_43eedcb0aed93c::t_4a6bf7dba33f07 1-18
+packages/ui-svelte/src/alert/alert-description.svelte
+  s_43eedcb0aed93c::t_d485133b08943f 1-18
+packages/ui-svelte/src/alert/alert-indicator.svelte
+  s_43eedcb0aed93c::t_3376325d3229e0 1-18
+packages/ui-svelte/src/alert/alert-root.svelte
+  s_43eedcb0aed93c::t_0ad62914b2aa7f 1-26
+packages/ui-svelte/src/alert/alert-title.svelte
+  s_43eedcb0aed93c::t_dce79332cb57a6 1-18
+packages/ui-svelte/src/alert/index.ts
+  s_43eedcb0aed93c::t_f5288a5885046a 1-20
+packages/ui-svelte/src/autocomplete/autocomplete-arrow.svelte
+  s_43eedcb0aed93c::t_0e8bb5c041f404 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-clear-button.svelte
+  s_43eedcb0aed93c::t_7da3e50963ef49 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-content.svelte
+  s_43eedcb0aed93c::t_d52c0b86fb957d 1-28
+packages/ui-svelte/src/autocomplete/autocomplete-empty.svelte
+  s_43eedcb0aed93c::t_8dbcc3f454c2ce 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-group-label.svelte
+  s_43eedcb0aed93c::t_4a0f797a015c7a 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-group.svelte
+  s_43eedcb0aed93c::t_e0709c1df6b057 1-11
+packages/ui-svelte/src/autocomplete/autocomplete-indicator.svelte
+  s_43eedcb0aed93c::t_e69e10b81a4c42 1-18
+packages/ui-svelte/src/autocomplete/autocomplete-input-group.svelte
+  s_43eedcb0aed93c::t_9e053833970835 1-19
+packages/ui-svelte/src/autocomplete/autocomplete-input.svelte
+  s_43eedcb0aed93c::t_3219dfb9691447 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-item-icon.svelte
+  s_43eedcb0aed93c::t_8573dcc345311b 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-item-text.svelte
+  s_43eedcb0aed93c::t_b3eccb2ba27ce9 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-item.svelte
+  s_43eedcb0aed93c::t_4dbb971552a7a1 1-15
+packages/ui-svelte/src/autocomplete/autocomplete-label.svelte
+  s_43eedcb0aed93c::t_bf6610a402b947 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-list.svelte
+  s_43eedcb0aed93c::t_eb0799268bf50c 1-15
+packages/ui-svelte/src/autocomplete/autocomplete-root.svelte
+  s_43eedcb0aed93c::t_4baf0da0f59197 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-separator.svelte
+  s_43eedcb0aed93c::t_2bb612825e826c 1-12
+packages/ui-svelte/src/autocomplete/autocomplete-trigger.svelte
+  s_43eedcb0aed93c::t_a0937f816c04a7 1-12
+packages/ui-svelte/src/avatar-group/avatar-group-count.svelte
+  s_43eedcb0aed93c::t_5e7b8cb284b86c 1-17
+packages/ui-svelte/src/avatar-group/avatar-group-root.svelte
+  s_43eedcb0aed93c::t_10040bcbe7bc8e 1-21
+packages/ui-svelte/src/avatar-group/index.ts
+  s_43eedcb0aed93c::t_ba1b13d70ce82b 1-11
+packages/ui-svelte/src/avatar/avatar-fallback.svelte
+  s_43eedcb0aed93c::t_8e43d826c14070 1-41
+packages/ui-svelte/src/avatar/avatar-image.svelte
+  s_43eedcb0aed93c::t_cd02b555ac5490 1-12
+packages/ui-svelte/src/avatar/avatar-root.svelte
+  s_43eedcb0aed93c::t_389f5ee4b3905b 1-20
+packages/ui-svelte/src/avatar/index.ts
+  s_43eedcb0aed93c::t_a118b6f3f51fef 1-14
+packages/ui-svelte/src/badge/badge-anchor.svelte
+  s_43eedcb0aed93c::t_11783d35681d87 1-18
+packages/ui-svelte/src/badge/badge-label.svelte
+  s_43eedcb0aed93c::t_6a4594247128bf 1-18
+packages/ui-svelte/src/badge/badge-root.svelte
+  s_43eedcb0aed93c::t_1501eaebf8d5b9 1-52
+packages/ui-svelte/src/badge/index.ts
+  s_43eedcb0aed93c::t_dd55a0bf411721 1-14
+packages/ui-svelte/src/breadcrumbs/breadcrumbs-item.svelte
+  s_43eedcb0aed93c::t_5c8951197d8c3a 1-18
+packages/ui-svelte/src/breadcrumbs/breadcrumbs-root.svelte
+  s_43eedcb0aed93c::t_16b1e02bd33a1f 1-18
+packages/ui-svelte/src/breadcrumbs/breadcrumbs-separator.svelte
+  s_43eedcb0aed93c::t_ade0bc34a7dc8f 1-18
+packages/ui-svelte/src/breadcrumbs/index.ts
+  s_43eedcb0aed93c::t_8feb451ec8d3c3 1-14
+packages/ui-svelte/src/button-group/context.ts
+  s_43eedcb0aed93c::t_ec5a685947d65b 1-12
+packages/ui-svelte/src/button-group/index.ts
+  s_43eedcb0aed93c::t_4b99c24f79fcfe 1-11
+packages/ui-svelte/src/button/button.svelte
+  s_43eedcb0aed93c::t_9c5a77efbe6b8a 1-92
+packages/ui-svelte/src/calendar/calendar-cell-indicator.svelte
+  s_43eedcb0aed93c::t_c5c308bf4bc159 1-17
+packages/ui-svelte/src/calendar/calendar-day.svelte
+  s_43eedcb0aed93c::t_7310d311ad3cfa 1-12
+packages/ui-svelte/src/calendar/calendar-header.svelte
+  s_43eedcb0aed93c::t_4f8dbb3d519282 1-18
+packages/ui-svelte/src/calendar/calendar-heading.svelte
+  s_43eedcb0aed93c::t_8d5ee220254b46 1-12
+packages/ui-svelte/src/calendar/calendar-month-select.svelte
+  s_43eedcb0aed93c::t_214ed3c63f3490 1-12
+packages/ui-svelte/src/calendar/calendar-nav-button.svelte
+  s_43eedcb0aed93c::t_6b9bfef54fe72f 1-12
+packages/ui-svelte/src/calendar/calendar-next.svelte
+  s_43eedcb0aed93c::t_807ed40d0a133b 1-12
+packages/ui-svelte/src/calendar/calendar-previous.svelte
+  s_43eedcb0aed93c::t_97afdec0147a5d 1-12
+packages/ui-svelte/src/calendar/calendar-weekday.svelte
+  s_43eedcb0aed93c::t_9a40896ad37778 1-12
+packages/ui-svelte/src/calendar/calendar-weekdays.svelte
+  s_43eedcb0aed93c::t_41fa54ae1ddd4d 1-11
+packages/ui-svelte/src/calendar/calendar-weeks.svelte
+  s_43eedcb0aed93c::t_254bd4613b668c 1-12
+packages/ui-svelte/src/calendar/calendar-year-select.svelte
+  s_43eedcb0aed93c::t_92b1085b6860af 1-12
+packages/ui-svelte/src/card/card-content.svelte
+  s_43eedcb0aed93c::t_9cd0a46e0683b1 1-18
+packages/ui-svelte/src/card/card-description.svelte
+  s_43eedcb0aed93c::t_0c0d0c86a530b9 1-18
+packages/ui-svelte/src/card/card-footer.svelte
+  s_43eedcb0aed93c::t_103456d115438b 1-18
+packages/ui-svelte/src/card/card-header.svelte
+  s_43eedcb0aed93c::t_eac419d7208647 1-18
+packages/ui-svelte/src/card/card-root.svelte
+  s_43eedcb0aed93c::t_d4c9c869d5d148 1-33
+packages/ui-svelte/src/card/card-title.svelte
+  s_43eedcb0aed93c::t_52f5946d47cc51 1-18
+packages/ui-svelte/src/card/index.ts
+  s_43eedcb0aed93c::t_5c79106f634fe4 1-23
+packages/ui-svelte/src/checkbox-group/checkbox-group-root.svelte
+  s_43eedcb0aed93c::t_018b883e87467c 1-14
+packages/ui-svelte/src/checkbox-group/index.ts
+  s_43eedcb0aed93c::t_da9e99c901d3bf 1-8
+packages/ui-svelte/src/checkbox/checkbox-content.svelte
+  s_43eedcb0aed93c::t_d7d17f0e165ff0 1-20
+packages/ui-svelte/src/checkbox/checkbox-control.svelte
+  s_43eedcb0aed93c::t_2555a1f2262658 1-33
+packages/ui-svelte/src/checkbox/checkbox-indicator.svelte
+  s_43eedcb0aed93c::t_2089fed9933a93 1-48
+packages/ui-svelte/src/checkbox/checkbox-root.svelte
+  s_43eedcb0aed93c::t_10dc4bb436c4fd 1-28
+packages/ui-svelte/src/checkbox/index.ts
+  s_43eedcb0aed93c::t_7b23ba04a90b38 1-32
+packages/ui-svelte/src/checkbox/variant.ts
+  s_43eedcb0aed93c::t_bb161c9367aea4 1-4
+packages/ui-svelte/src/chip/chip-label.svelte
+  s_43eedcb0aed93c::t_86ef7329d2d9e5 1-18
+packages/ui-svelte/src/chip/chip-root.svelte
+  s_43eedcb0aed93c::t_bbfb1a8db3b2ee 1-47
+packages/ui-svelte/src/chip/index.ts
+  s_43eedcb0aed93c::t_bee2166f0a3ab5 1-11
+packages/ui-svelte/src/close-button/close-button-icon.svelte
+  s_43eedcb0aed93c::t_5accccd90bc241 1-18
+packages/ui-svelte/src/close-button/close-button.svelte
+  s_43eedcb0aed93c::t_2405d1112050e9 1-33
+packages/ui-svelte/src/color-area/color-area-canvas.svelte
+  s_43eedcb0aed93c::t_0ca053d6d8ee0f 1-11
+packages/ui-svelte/src/color-area/color-area-root.svelte
+  s_43eedcb0aed93c::t_c29370211ede9c 1-14
+packages/ui-svelte/src/color-area/color-area-thumb.svelte
+  s_43eedcb0aed93c::t_d0078cb6a4c2c4 1-12
+packages/ui-svelte/src/color-area/index.ts
+  s_43eedcb0aed93c::t_72812fbd4b7c99 1-14
+packages/ui-svelte/src/color-field/color-field-channel-input.svelte
+  s_43eedcb0aed93c::t_a4d8540ca93a38 1-12
+packages/ui-svelte/src/color-field/color-field-description.svelte
+  s_43eedcb0aed93c::t_113e045506e29e 1-18
+packages/ui-svelte/src/color-field/color-field-error.svelte
+  s_43eedcb0aed93c::t_77df6679a0af52 1-18
+packages/ui-svelte/src/color-field/color-field-input.svelte
+  s_43eedcb0aed93c::t_c1f0b14732cc0b 1-12
+packages/ui-svelte/src/color-field/color-field-label.svelte
+  s_43eedcb0aed93c::t_25d41e12ca91c3 1-18
+packages/ui-svelte/src/color-field/color-field-root.svelte
+  s_43eedcb0aed93c::t_f0df85e5db8252 1-12
+packages/ui-svelte/src/color-input-group/color-input-group-channel-input.svelte
+  s_43eedcb0aed93c::t_d1d3e3a070912d 1-12
+packages/ui-svelte/src/color-input-group/color-input-group-input.svelte
+  s_43eedcb0aed93c::t_51e641f82ffb5a 1-12
+packages/ui-svelte/src/color-input-group/color-input-group-prefix.svelte
+  s_43eedcb0aed93c::t_468952cfcbf47b 1-17
+packages/ui-svelte/src/color-input-group/color-input-group-root.svelte
+  s_43eedcb0aed93c::t_8b639f40077f74 1-18
+packages/ui-svelte/src/color-input-group/color-input-group-suffix.svelte
+  s_43eedcb0aed93c::t_a0d138d72fdc21 1-17
+packages/ui-svelte/src/color-input-group/index.ts
+  s_43eedcb0aed93c::t_cd59dcb48b4929 1-22
+packages/ui-svelte/src/color-picker/color-picker-area-canvas.svelte
+  s_43eedcb0aed93c::t_3f7fd684f91c7d 1-11
+packages/ui-svelte/src/color-picker/color-picker-area-thumb.svelte
+  s_43eedcb0aed93c::t_5e2e7936341d98 1-12
+packages/ui-svelte/src/color-picker/color-picker-area.svelte
+  s_43eedcb0aed93c::t_6b156cc7f0c574 1-12
+packages/ui-svelte/src/color-picker/color-picker-channel-input.svelte
+  s_43eedcb0aed93c::t_29dcfaad8b527b 1-12
+packages/ui-svelte/src/color-picker/color-picker-eye-dropper.svelte
+  s_43eedcb0aed93c::t_82216538061bd3 1-11
+packages/ui-svelte/src/color-picker/color-picker-input.svelte
+  s_43eedcb0aed93c::t_38b81936d56788 1-12
+packages/ui-svelte/src/color-picker/color-picker-slider-thumb.svelte
+  s_43eedcb0aed93c::t_a8daf63f2d6834 1-12
+packages/ui-svelte/src/color-picker/color-picker-slider.svelte
+  s_43eedcb0aed93c::t_f22810a029aa43 1-12
+packages/ui-svelte/src/color-picker/color-picker-swatch-item.svelte
+  s_43eedcb0aed93c::t_6816dc341ebc2c 1-12
+packages/ui-svelte/src/color-picker/color-picker-swatch.svelte
+  s_43eedcb0aed93c::t_fd79ec1e3b791d 1-12
+packages/ui-svelte/src/color-picker/color-picker-swatches.svelte
+  s_43eedcb0aed93c::t_dc91bc1aa0a69e 1-12
+packages/ui-svelte/src/color-slider/channel.svelte
+  s_43eedcb0aed93c::t_368ddd8ad0a1a7 1-8
+packages/ui-svelte/src/color-slider/color-slider-label.svelte
+  s_43eedcb0aed93c::t_1f601d16ed4429 1-17
+packages/ui-svelte/src/color-slider/color-slider-output.svelte
+  s_43eedcb0aed93c::t_67c962bb6eb99c 1-19
+packages/ui-svelte/src/color-slider/color-slider-root.svelte
+  s_43eedcb0aed93c::t_ce3c315bf9a5fd 1-34
+packages/ui-svelte/src/color-slider/color-slider-thumb.svelte
+  s_43eedcb0aed93c::t_71363dcce1fca9 1-12
+packages/ui-svelte/src/color-slider/color-slider-track.svelte
+  s_43eedcb0aed93c::t_be3bd39a40d77e 1-15
+packages/ui-svelte/src/color-slider/context.ts
+  s_43eedcb0aed93c::t_851f56c8d0d91c 1-2
+packages/ui-svelte/src/color-slider/index.ts
+  s_43eedcb0aed93c::t_0d009203f03963 1-23
+packages/ui-svelte/src/color-swatch-picker/color-swatch-picker-indicator.svelte
+  s_43eedcb0aed93c::t_fdaf227e720242 1-20
+packages/ui-svelte/src/color-swatch-picker/color-swatch-picker-item.svelte
+  s_43eedcb0aed93c::t_ba4fd83723929e 1-12
+packages/ui-svelte/src/color-swatch-picker/color-swatch-picker-root.svelte
+  s_43eedcb0aed93c::t_ca84eb247725ef 1-12
+packages/ui-svelte/src/color-swatch-picker/color-swatch-picker-swatch.svelte
+  s_43eedcb0aed93c::t_41776891e8d336 1-18
+packages/ui-svelte/src/color-swatch/color-swatch.svelte
+  s_43eedcb0aed93c::t_783f72de8dac66 1-53
+packages/ui-svelte/src/color-swatch/index.ts
+  s_43eedcb0aed93c::t_efbdedb7443a82 1-5
+packages/ui-svelte/src/combo-box/combo-box-arrow.svelte
+  s_43eedcb0aed93c::t_ff265ed8634fcc 1-12
+packages/ui-svelte/src/combo-box/combo-box-chip-remove.svelte
+  s_43eedcb0aed93c::t_6db37e8388dd97 1-12
+packages/ui-svelte/src/combo-box/combo-box-chip.svelte
+  s_43eedcb0aed93c::t_ad5c4930b1ee8a 1-12
+packages/ui-svelte/src/combo-box/combo-box-chips.svelte
+  s_43eedcb0aed93c::t_5bc7d1810ff38e 1-12
+packages/ui-svelte/src/combo-box/combo-box-clear-button.svelte
+  s_43eedcb0aed93c::t_db42742a493a84 1-12
+packages/ui-svelte/src/combo-box/combo-box-content.svelte
+  s_43eedcb0aed93c::t_e0b8297123a533 1-29
+packages/ui-svelte/src/combo-box/combo-box-empty.svelte
+  s_43eedcb0aed93c::t_994aea26a9f4e7 1-12
+packages/ui-svelte/src/combo-box/combo-box-group-label.svelte
+  s_43eedcb0aed93c::t_1e5e8df6b863e4 1-12
+packages/ui-svelte/src/combo-box/combo-box-group.svelte
+  s_43eedcb0aed93c::t_fea805329624ce 1-11
+packages/ui-svelte/src/combo-box/combo-box-indicator.svelte
+  s_43eedcb0aed93c::t_f91c67e88ce4e6 1-18
+packages/ui-svelte/src/combo-box/combo-box-input-group.svelte
+  s_43eedcb0aed93c::t_20d31176358988 1-20
+packages/ui-svelte/src/combo-box/combo-box-input.svelte
+  s_43eedcb0aed93c::t_d41f48a50a94a7 1-14
+packages/ui-svelte/src/combo-box/combo-box-item-indicator.svelte
+  s_43eedcb0aed93c::t_c6cb1602ca29fc 1-12
+packages/ui-svelte/src/combo-box/combo-box-item-text.svelte
+  s_43eedcb0aed93c::t_ad83b04dc52f1d 1-12
+packages/ui-svelte/src/combo-box/combo-box-item.svelte
+  s_43eedcb0aed93c::t_449b4353c54359 1-15
+packages/ui-svelte/src/combo-box/combo-box-label.svelte
+  s_43eedcb0aed93c::t_76fd8058da0afd 1-12
+packages/ui-svelte/src/combo-box/combo-box-list.svelte
+  s_43eedcb0aed93c::t_cffef4de03f473 1-15
+packages/ui-svelte/src/combo-box/combo-box-separator.svelte
+  s_43eedcb0aed93c::t_7ffc496d17b0f8 1-12
+packages/ui-svelte/src/combo-box/combo-box-trigger.svelte
+  s_43eedcb0aed93c::t_542618494ff5d2 1-12
+packages/ui-svelte/src/command/command-backdrop.svelte
+  s_43eedcb0aed93c::t_307626aea6cba4 1-12
+packages/ui-svelte/src/command/command-close.svelte
+  s_43eedcb0aed93c::t_2278af3b5bac12 1-12
+packages/ui-svelte/src/command/command-content.svelte
+  s_43eedcb0aed93c::t_e42d754380e072 1-20
+packages/ui-svelte/src/command/command-empty.svelte
+  s_43eedcb0aed93c::t_3ae76b8a5c573e 1-12
+packages/ui-svelte/src/command/command-footer.svelte
+  s_43eedcb0aed93c::t_048eb7946604eb 1-18
+packages/ui-svelte/src/command/command-group-label.svelte
+  s_43eedcb0aed93c::t_a883c78bec185b 1-12
+packages/ui-svelte/src/command/command-group.svelte
+  s_43eedcb0aed93c::t_9dbd500867e99c 1-11
+packages/ui-svelte/src/command/command-header.svelte
+  s_43eedcb0aed93c::t_e3e0935b24995c 1-18
+packages/ui-svelte/src/command/command-hint.svelte
+  s_43eedcb0aed93c::t_b0a191ed0ba791 1-18
+packages/ui-svelte/src/command/command-icon.svelte
+  s_43eedcb0aed93c::t_3dc3c55ef42f40 1-15
+packages/ui-svelte/src/command/command-input-group.svelte
+  s_43eedcb0aed93c::t_c5f9d85ec8fcf5 1-18
+packages/ui-svelte/src/command/command-input.svelte
+  s_43eedcb0aed93c::t_a4ed8dc792870f 1-12
+packages/ui-svelte/src/command/command-item-body.svelte
+  s_43eedcb0aed93c::t_4999d274a36428 1-18
+packages/ui-svelte/src/command/command-item-content.svelte
+  s_43eedcb0aed93c::t_40a973e5fd1aa8 1-18
+packages/ui-svelte/src/command/command-item-description.svelte
+  s_43eedcb0aed93c::t_caa5d130e59918 1-18
+packages/ui-svelte/src/command/command-item-icon.svelte
+  s_43eedcb0aed93c::t_2b99b483e1961a 1-12
+packages/ui-svelte/src/command/command-item-meta.svelte
+  s_43eedcb0aed93c::t_be8a6e4af8996b 1-18
+packages/ui-svelte/src/command/command-item-text.svelte
+  s_43eedcb0aed93c::t_688f42bc664f32 1-12
+packages/ui-svelte/src/command/command-item.svelte
+  s_43eedcb0aed93c::t_2a9b9708f417de 1-12
+packages/ui-svelte/src/command/command-list.svelte
+  s_43eedcb0aed93c::t_e43b7cc39c19d7 1-12
+packages/ui-svelte/src/command/command-message.svelte
+  s_43eedcb0aed93c::t_a20fd3a860ae01 1-18
+packages/ui-svelte/src/command/command-root.svelte
+  s_43eedcb0aed93c::t_b4b5f0ec850cc2 1-28
+packages/ui-svelte/src/command/command-section-label.svelte
+  s_43eedcb0aed93c::t_09eb5dd7b9d0dc 1-17
+packages/ui-svelte/src/command/command-separator.svelte
+  s_43eedcb0aed93c::t_64eecb1b711bb6 1-12
+packages/ui-svelte/src/command/command-status.svelte
+  s_43eedcb0aed93c::t_351ba86da2ba3c 1-12
+packages/ui-svelte/src/command/command-trigger.svelte
+  s_43eedcb0aed93c::t_9abbc541735e6d 1-11
+packages/ui-svelte/src/context-menu/context-menu-bar-item.svelte
+  s_43eedcb0aed93c::t_0a7bd89586b2be 1-17
+packages/ui-svelte/src/context-menu/context-menu-content.svelte
+  s_43eedcb0aed93c::t_5283990fc7238f 1-79
+packages/ui-svelte/src/context-menu/context-menu-item.svelte
+  s_43eedcb0aed93c::t_3d3943d5826442 1-12
+packages/ui-svelte/src/context-menu/context-menu-preview.svelte
+  s_43eedcb0aed93c::t_596d4ab62f34a0 1-32
+packages/ui-svelte/src/context-menu/context-menu-root.svelte
+  s_43eedcb0aed93c::t_9925d1416e5ba3 1-22
+packages/ui-svelte/src/context-menu/context-menu-separator.svelte
+  s_43eedcb0aed93c::t_4d19ff68138aeb 1-12
+packages/ui-svelte/src/context-menu/context-menu-trigger.svelte
+  s_43eedcb0aed93c::t_f8d5d06ef6fa51 1-20
+packages/ui-svelte/src/context-menu/context.ts
+  s_43eedcb0aed93c::t_3395f34b93b9cf 1-5
+packages/ui-svelte/src/context.ts
+  s_43eedcb0aed93c::t_6f8cd821c53479 1-9
+packages/ui-svelte/src/date-field/date-field-description.svelte
+  s_43eedcb0aed93c::t_a70d67a3e137f1 1-18
+packages/ui-svelte/src/date-field/date-field-error.svelte
+  s_43eedcb0aed93c::t_a4c66b09fbef1c 1-18
+packages/ui-svelte/src/date-field/date-field-input.svelte
+  s_43eedcb0aed93c::t_34c472dc347939 1-15
+packages/ui-svelte/src/date-field/date-field-label.svelte
+  s_43eedcb0aed93c::t_cb599462f379a5 1-18
+packages/ui-svelte/src/date-field/date-field-root.svelte
+  s_43eedcb0aed93c::t_d7cec43d348f65 1-27
+packages/ui-svelte/src/date-field/date-field-segment.svelte
+  s_43eedcb0aed93c::t_8e10c5163f675f 1-19
+packages/ui-svelte/src/date-input-group/date-input-group-input-container.svelte
+  s_43eedcb0aed93c::t_1051df4cefe254 1-19
+packages/ui-svelte/src/date-input-group/date-input-group-input.svelte
+  s_43eedcb0aed93c::t_c032b36c9c277f 1-12
+packages/ui-svelte/src/date-input-group/date-input-group-prefix.svelte
+  s_43eedcb0aed93c::t_2522ebcffce208 1-18
+packages/ui-svelte/src/date-input-group/date-input-group-root.svelte
+  s_43eedcb0aed93c::t_b5cd05d8829368 1-32
+packages/ui-svelte/src/date-input-group/date-input-group-segment.svelte
+  s_43eedcb0aed93c::t_25227bda0e719b 1-19
+packages/ui-svelte/src/date-input-group/date-input-group-suffix.svelte
+  s_43eedcb0aed93c::t_ba1c6022e12609 1-18
+packages/ui-svelte/src/date-picker/context.ts
+  s_43eedcb0aed93c::t_3c96be539eab74 1-3
+packages/ui-svelte/src/date-picker/date-picker-clear.svelte
+  s_43eedcb0aed93c::t_ea28e3420f620f 1-12
+packages/ui-svelte/src/date-picker/date-picker-close.svelte
+  s_43eedcb0aed93c::t_01fa385ae92eb8 1-21
+packages/ui-svelte/src/date-picker/date-picker-content.svelte
+  s_43eedcb0aed93c::t_b89c058d2cbbc1 1-26
+packages/ui-svelte/src/date-picker/date-picker-hint.svelte
+  s_43eedcb0aed93c::t_e787e9aec4e084 1-12
+packages/ui-svelte/src/date-picker/date-picker-indicator.svelte
+  s_43eedcb0aed93c::t_c607c5ca234c77 1-18
+packages/ui-svelte/src/date-picker/date-picker-input.svelte
+  s_43eedcb0aed93c::t_2e7c3bd8eac791 1-14
+packages/ui-svelte/src/date-picker/date-picker-popover-description.svelte
+  s_43eedcb0aed93c::t_0529923572a483 1-17
+packages/ui-svelte/src/date-picker/date-picker-preset.svelte
+  s_43eedcb0aed93c::t_adde3c6db2a01a 1-12
+packages/ui-svelte/src/date-picker/date-picker-root.svelte
+  s_43eedcb0aed93c::t_73159ad90ef1f7 1-33
+packages/ui-svelte/src/date-picker/date-picker-title.svelte
+  s_43eedcb0aed93c::t_997579d03d63ff 1-15
+packages/ui-svelte/src/date-picker/date-picker-trigger.svelte
+  s_43eedcb0aed93c::t_d63d79d54e2dac 1-12
+packages/ui-svelte/src/date-range-picker/date-range-picker-separator.svelte
+  s_43eedcb0aed93c::t_cadf23ee2b6845 1-18
+packages/ui-svelte/src/date-range-picker/date-range-picker.svelte
+  s_43eedcb0aed93c::t_839a3d273e3f9c 1-26
+packages/ui-svelte/src/date-range-picker/index.ts
+  s_43eedcb0aed93c::t_749a97f7075ece 1-44
+packages/ui-svelte/src/description/description-root.svelte
+  s_43eedcb0aed93c::t_7ca89fb6685e4f 1-21
+packages/ui-svelte/src/description/index.ts
+  s_43eedcb0aed93c::t_ad32ae6542277a 1-8
+packages/ui-svelte/src/disclosure/disclosure-body.svelte
+  s_43eedcb0aed93c::t_e8e0651b57ee5b 1-18
+packages/ui-svelte/src/disclosure/disclosure-content.svelte
+  s_43eedcb0aed93c::t_fd644e96f0ad07 1-12
+packages/ui-svelte/src/disclosure/disclosure-heading.svelte
+  s_43eedcb0aed93c::t_146821b527265c 1-18
+packages/ui-svelte/src/disclosure/disclosure-indicator.svelte
+  s_43eedcb0aed93c::t_7db0e317bbf512 1-18
+packages/ui-svelte/src/disclosure/disclosure-root.svelte
+  s_43eedcb0aed93c::t_7b3d45e9036d0f 1-12
+packages/ui-svelte/src/disclosure/disclosure-trigger.svelte
+  s_43eedcb0aed93c::t_9cef0287f3269b 1-12
+packages/ui-svelte/src/drawer/drawer-backdrop.svelte
+  s_43eedcb0aed93c::t_49d2edaed30e9a 1-16
+packages/ui-svelte/src/drawer/drawer-body.svelte
+  s_43eedcb0aed93c::t_7eb4274d86b7e3 1-18
+packages/ui-svelte/src/drawer/drawer-close.svelte
+  s_43eedcb0aed93c::t_d1fca8c569c08d 1-12
+packages/ui-svelte/src/drawer/drawer-content.svelte
+  s_43eedcb0aed93c::t_b23b285bf9168e 1-14
+packages/ui-svelte/src/drawer/drawer-description.svelte
+  s_43eedcb0aed93c::t_d0ebaa0dd468ee 1-12
+packages/ui-svelte/src/drawer/drawer-footer.svelte
+  s_43eedcb0aed93c::t_159ff2cb4d1e3e 1-18
+packages/ui-svelte/src/drawer/drawer-handle.svelte
+  s_43eedcb0aed93c::t_dabc253615135b 1-12
+packages/ui-svelte/src/drawer/drawer-header.svelte
+  s_43eedcb0aed93c::t_fb1ef863625e0a 1-18
+packages/ui-svelte/src/drawer/drawer-layout.svelte
+  s_43eedcb0aed93c::t_acc2d645c8e240 1-15
+packages/ui-svelte/src/drawer/drawer-root.svelte
+  s_43eedcb0aed93c::t_684a3fdc198a32 1-12
+packages/ui-svelte/src/drawer/drawer-title.svelte
+  s_43eedcb0aed93c::t_f374018cfa1744 1-12
+packages/ui-svelte/src/drawer/drawer-trigger.svelte
+  s_43eedcb0aed93c::t_d04938c540213c 1-12
+packages/ui-svelte/src/empty-state/empty-state-actions.svelte
+  s_43eedcb0aed93c::t_8a857c2c3b8af6 1-18
+packages/ui-svelte/src/empty-state/empty-state-content.svelte
+  s_43eedcb0aed93c::t_85c5395e83f07d 1-18
+packages/ui-svelte/src/empty-state/empty-state-description.svelte
+  s_43eedcb0aed93c::t_65897a2e749247 1-18
+packages/ui-svelte/src/empty-state/empty-state-icon.svelte
+  s_43eedcb0aed93c::t_a27b3e9e92f0f8 1-27
+packages/ui-svelte/src/empty-state/empty-state-message.svelte
+  s_43eedcb0aed93c::t_efe70344f96c50 1-18
+packages/ui-svelte/src/empty-state/empty-state-root.svelte
+  s_43eedcb0aed93c::t_ca90163f1aa2af 1-18
+packages/ui-svelte/src/empty-state/empty-state-title.svelte
+  s_43eedcb0aed93c::t_01078d645a607b 1-18
+packages/ui-svelte/src/field-error/field-error-root.svelte
+  s_43eedcb0aed93c::t_fc0c5c8f0d96f3 1-21
+packages/ui-svelte/src/field-error/index.ts
+  s_43eedcb0aed93c::t_afbc527444f1c5 1-8
+packages/ui-svelte/src/fieldset/fieldset-actions.svelte
+  s_43eedcb0aed93c::t_4f285fa187f588 1-18
+packages/ui-svelte/src/fieldset/fieldset-group.svelte
+  s_43eedcb0aed93c::t_115eba71228844 1-20
+packages/ui-svelte/src/fieldset/fieldset-legend.svelte
+  s_43eedcb0aed93c::t_6fb7e90d98d270 1-12
+packages/ui-svelte/src/fieldset/fieldset-root.svelte
+  s_43eedcb0aed93c::t_7840d6d2491337 1-12
+packages/ui-svelte/src/fieldset/fieldset-row.svelte
+  s_43eedcb0aed93c::t_d522191542235c 1-20
+packages/ui-svelte/src/fieldset/index.ts
+  s_43eedcb0aed93c::t_e8a005174aa6fc 1-22
+packages/ui-svelte/src/form/form-root.svelte
+  s_43eedcb0aed93c::t_bd0484bb34ea0d 1-18
+packages/ui-svelte/src/form/index.ts
+  s_43eedcb0aed93c::t_8608ff16c6fa7d 1-8
+packages/ui-svelte/src/glass-provider/context.ts
+  s_43eedcb0aed93c::t_42cd251b6a68b3 1-10
+packages/ui-svelte/src/glass-provider/glass-provider.svelte
+  s_43eedcb0aed93c::t_d9a0732eb33ed6 1-32
+packages/ui-svelte/src/glass-provider/index.ts
+  s_43eedcb0aed93c::t_289ee30ed86c1c 1-2
+packages/ui-svelte/src/glass/material-background.svelte
+  s_43eedcb0aed93c::t_2a4fd964e2db08 1-43
+packages/ui-svelte/src/icons/circle-dashed-icon.svelte
+  s_43eedcb0aed93c::t_3fafe68eb16ad1 1-7
+packages/ui-svelte/src/icons/close-icon.svelte
+  s_43eedcb0aed93c::t_17e659e94592c2 1-7
+packages/ui-svelte/src/icons/danger-icon.svelte
+  s_43eedcb0aed93c::t_c80246f6e864f5 1-7
+packages/ui-svelte/src/icons/external-link-icon.svelte
+  s_43eedcb0aed93c::t_bb7242c9a5af97 1-7
+packages/ui-svelte/src/icons/icon-calendar.svelte
+  s_43eedcb0aed93c::t_71dd1792b382c1 1-7
+packages/ui-svelte/src/icons/icon-chevron-down.svelte
+  s_43eedcb0aed93c::t_88b64ba59a8fc6 1-7
+packages/ui-svelte/src/icons/icon-chevron-left.svelte
+  s_43eedcb0aed93c::t_df40900c2e997e 1-7
+packages/ui-svelte/src/icons/icon-chevron-right.svelte
+  s_43eedcb0aed93c::t_14bfc0fb91892d 1-7
+packages/ui-svelte/src/icons/icon-chevron-up.svelte
+  s_43eedcb0aed93c::t_b1580415ad4323 1-7
+packages/ui-svelte/src/icons/icon-minus.svelte
+  s_43eedcb0aed93c::t_c9ebaa3834e6f9 1-7
+packages/ui-svelte/src/icons/icon-plus.svelte
+  s_43eedcb0aed93c::t_ca30c874339a34 1-7
+packages/ui-svelte/src/icons/icon-search.svelte
+  s_43eedcb0aed93c::t_6156c1555217f1 1-7
+packages/ui-svelte/src/icons/icon.svelte
+  s_43eedcb0aed93c::t_a12e632523aa51 1-22
+packages/ui-svelte/src/icons/index.ts
+  s_43eedcb0aed93c::t_df6b39933ba067 1-17
+packages/ui-svelte/src/icons/info-icon.svelte
+  s_43eedcb0aed93c::t_e880980112c386 1-7
+packages/ui-svelte/src/icons/success-icon.svelte
+  s_43eedcb0aed93c::t_92761d1dc3e523 1-7
+packages/ui-svelte/src/icons/warning-icon.svelte
+  s_43eedcb0aed93c::t_379bb4982a31b4 1-7
+packages/ui-svelte/src/index.ts
+  s_43eedcb0aed93c::t_9f2200ff149092 1-106
+packages/ui-svelte/src/input-group/index.ts
+  s_43eedcb0aed93c::t_1d9617b265424e 1-20
+packages/ui-svelte/src/input-group/input-group-input.svelte
+  s_43eedcb0aed93c::t_31bea16ef6648c 1-14
+packages/ui-svelte/src/input-group/input-group-prefix.svelte
+  s_43eedcb0aed93c::t_1f3894693bd2e8 1-20
+packages/ui-svelte/src/input-group/input-group-root.svelte
+  s_43eedcb0aed93c::t_34b4d6fe9a318d 1-25
+packages/ui-svelte/src/input-group/input-group-suffix.svelte
+  s_43eedcb0aed93c::t_ef2f5a7295eb8f 1-20
+packages/ui-svelte/src/input-group/input-group-text-area.svelte
+  s_43eedcb0aed93c::t_4a4737820a6aa3 1-20
+packages/ui-svelte/src/input-otp/index.ts
+  s_43eedcb0aed93c::t_6613fd41527daa 1-17
+packages/ui-svelte/src/input-otp/input-otpgroup.svelte
+  s_43eedcb0aed93c::t_a9557f2c21e39d 1-12
+packages/ui-svelte/src/input-otp/input-otproot.svelte
+  s_43eedcb0aed93c::t_274ea5c404a6cf 1-12
+packages/ui-svelte/src/input-otp/input-otpseparator.svelte
+  s_43eedcb0aed93c::t_3a02a9f50802af 1-12
+packages/ui-svelte/src/input-otp/input-otpslot.svelte
+  s_43eedcb0aed93c::t_38636acd680343 1-19
+packages/ui-svelte/src/input/index.ts
+  s_43eedcb0aed93c::t_f3ca34ed8d0ba7 1-8
+packages/ui-svelte/src/input/input-root.svelte
+  s_43eedcb0aed93c::t_0f65b49a1b8dad 1-32
+packages/ui-svelte/src/kbd/index.ts
+  s_43eedcb0aed93c::t_0a7df93b092b19 1-14
+packages/ui-svelte/src/kbd/kbd-abbr.svelte
+  s_43eedcb0aed93c::t_bec691c6be1c50 1-18
+packages/ui-svelte/src/kbd/kbd-content.svelte
+  s_43eedcb0aed93c::t_aa3a74a0817794 1-18
+packages/ui-svelte/src/kbd/kbd-root.svelte
+  s_43eedcb0aed93c::t_c3d7669d6fe706 1-22
+packages/ui-svelte/src/label/index.ts
+  s_43eedcb0aed93c::t_477f72899b643d 1-8
+packages/ui-svelte/src/label/label-root.svelte
+  s_43eedcb0aed93c::t_00fd2eb1a7efb6 1-15
+packages/ui-svelte/src/link/index.ts
+  s_43eedcb0aed93c::t_3c977bf1111bea 1-11
+packages/ui-svelte/src/link/link-icon.svelte
+  s_43eedcb0aed93c::t_3bd044860f7bc1 1-18
+packages/ui-svelte/src/link/link-root.svelte
+  s_43eedcb0aed93c::t_22400e1b0ade90 1-18
+packages/ui-svelte/src/list-box/list-box-item-indicator.svelte
+  s_43eedcb0aed93c::t_d0992be8d98142 1-12
+packages/ui-svelte/src/list-box/list-box-item.svelte
+  s_43eedcb0aed93c::t_3db65a7edfe8d2 1-23
+packages/ui-svelte/src/list-box/list-box-root.svelte
+  s_43eedcb0aed93c::t_ef71a20a5c0ff4 1-12
+packages/ui-svelte/src/list-box/list-box-section-label.svelte
+  s_43eedcb0aed93c::t_51cea19451b9a0 1-12
+packages/ui-svelte/src/list-box/list-box-section.svelte
+  s_43eedcb0aed93c::t_d56a4ce7e6814d 1-12
+packages/ui-svelte/src/list-box/list-box-separator.svelte
+  s_43eedcb0aed93c::t_27a86a336fb46a 1-12
+packages/ui-svelte/src/menu/context.ts
+  s_43eedcb0aed93c::t_225869e5e65151 1-13
+packages/ui-svelte/src/menu/menu-bar-item.svelte
+  s_43eedcb0aed93c::t_c49eb4d9683edb 1-12
+packages/ui-svelte/src/menu/menu-bar.svelte
+  s_43eedcb0aed93c::t_fbc587e8d20f80 1-15
+packages/ui-svelte/src/menu/menu-checkbox-item.svelte
+  s_43eedcb0aed93c::t_c0a3371571b62b 1-12
+packages/ui-svelte/src/menu/menu-content.svelte
+  s_43eedcb0aed93c::t_b972dec747d34b 1-27
+packages/ui-svelte/src/menu/menu-group-label.svelte
+  s_43eedcb0aed93c::t_5f22e58b83e864 1-14
+packages/ui-svelte/src/menu/menu-group.svelte
+  s_43eedcb0aed93c::t_fbacb20edf2427 1-12
+packages/ui-svelte/src/menu/menu-item-content.svelte
+  s_43eedcb0aed93c::t_f348993d0771f4 1-19
+packages/ui-svelte/src/menu/menu-item-description.svelte
+  s_43eedcb0aed93c::t_5738325c45db84 1-19
+packages/ui-svelte/src/menu/menu-item-icon.svelte
+  s_43eedcb0aed93c::t_89355aabcfcc7d 1-12
+packages/ui-svelte/src/menu/menu-item-indicator.svelte
+  s_43eedcb0aed93c::t_480c152cf03a21 1-14
+packages/ui-svelte/src/menu/menu-item-label.svelte
+  s_43eedcb0aed93c::t_e2fa4ec3eca1e1 1-19
+packages/ui-svelte/src/menu/menu-item-submenu-indicator.svelte
+  s_43eedcb0aed93c::t_72d3504e31dd43 1-19
+packages/ui-svelte/src/menu/menu-item.svelte
+  s_43eedcb0aed93c::t_358327c760b0eb 1-19
+packages/ui-svelte/src/menu/menu-radio-group.svelte
+  s_43eedcb0aed93c::t_e9925bc88327ac 1-11
+packages/ui-svelte/src/menu/menu-radio-item.svelte
+  s_43eedcb0aed93c::t_e92341d7371c87 1-12
+packages/ui-svelte/src/menu/menu-root.svelte
+  s_43eedcb0aed93c::t_63990afa8c30e8 1-14
+packages/ui-svelte/src/menu/menu-separator.svelte
+  s_43eedcb0aed93c::t_b9f22de56cdf97 1-12
+packages/ui-svelte/src/menu/menu-shortcut.svelte
+  s_43eedcb0aed93c::t_084f5e60bc5534 1-12
+packages/ui-svelte/src/menu/menu-sub-content.svelte
+  s_43eedcb0aed93c::t_c1801e507cb2aa 1-27
+packages/ui-svelte/src/menu/menu-sub-trigger.svelte
+  s_43eedcb0aed93c::t_0c22028e191a11 1-12
+packages/ui-svelte/src/menu/menu-trigger.svelte
+  s_43eedcb0aed93c::t_e14026a1d838af 1-14
+packages/ui-svelte/src/meter/index.ts
+  s_43eedcb0aed93c::t_eb3d42344138f8 1-20
+packages/ui-svelte/src/meter/meter-fill.svelte
+  s_43eedcb0aed93c::t_84bc77776d4179 1-14
+packages/ui-svelte/src/meter/meter-label.svelte
+  s_43eedcb0aed93c::t_efdc9218a9bcd3 1-12
+packages/ui-svelte/src/meter/meter-output.svelte
+  s_43eedcb0aed93c::t_65e2c3443c375e 1-12
+packages/ui-svelte/src/meter/meter-root.svelte
+  s_43eedcb0aed93c::t_d2a98e73eb7e98 1-14
+packages/ui-svelte/src/meter/meter-track.svelte
+  s_43eedcb0aed93c::t_a623504da7a70a 1-14
+packages/ui-svelte/src/modal/modal-backdrop.svelte
+  s_43eedcb0aed93c::t_d16c73d2e44ffb 1-15
+packages/ui-svelte/src/modal/modal-body.svelte
+  s_43eedcb0aed93c::t_fe840db16f2cbf 1-18
+packages/ui-svelte/src/modal/modal-close.svelte
+  s_43eedcb0aed93c::t_bd63fed3a6fa99 1-12
+packages/ui-svelte/src/modal/modal-content.svelte
+  s_43eedcb0aed93c::t_42380d98aa7c5c 1-28
+packages/ui-svelte/src/modal/modal-description.svelte
+  s_43eedcb0aed93c::t_dcb5700cd9a8b2 1-12
+packages/ui-svelte/src/modal/modal-footer.svelte
+  s_43eedcb0aed93c::t_7260e8c42105e4 1-18
+packages/ui-svelte/src/modal/modal-header.svelte
+  s_43eedcb0aed93c::t_8bc64108f9dcc7 1-18
+packages/ui-svelte/src/modal/modal-icon.svelte
+  s_43eedcb0aed93c::t_1373d9c92ecaec 1-18
+packages/ui-svelte/src/modal/modal-root.svelte
+  s_43eedcb0aed93c::t_45b3008873b634 1-12
+packages/ui-svelte/src/modal/modal-title.svelte
+  s_43eedcb0aed93c::t_bf4d7b8d5383e2 1-12
+packages/ui-svelte/src/modal/modal-trigger.svelte
+  s_43eedcb0aed93c::t_b2a167bda45db2 1-12
+packages/ui-svelte/src/navigation-bar/navigation-bar-back-icon.svelte
+  s_43eedcb0aed93c::t_90192effe1bfbf 1-18
+packages/ui-svelte/src/navigation-bar/navigation-bar-back.svelte
+  s_43eedcb0aed93c::t_5525b353e5ca72 1-11
+packages/ui-svelte/src/navigation-bar/navigation-bar-large-title.svelte
+  s_43eedcb0aed93c::t_fc9a2a2d7906be 1-18
+packages/ui-svelte/src/navigation-bar/navigation-bar-leading.svelte
+  s_43eedcb0aed93c::t_27fc92b6060418 1-12
+packages/ui-svelte/src/navigation-bar/navigation-bar-root.svelte
+  s_43eedcb0aed93c::t_f12e30b397d199 1-12
+packages/ui-svelte/src/navigation-bar/navigation-bar-title.svelte
+  s_43eedcb0aed93c::t_046f9fb29d573f 1-18
+packages/ui-svelte/src/navigation-bar/navigation-bar-trailing.svelte
+  s_43eedcb0aed93c::t_6170d392690b28 1-14
+packages/ui-svelte/src/notification/notification-actions.svelte
+  s_43eedcb0aed93c::t_38e99f85f31b23 1-18
+packages/ui-svelte/src/notification/notification-body.svelte
+  s_43eedcb0aed93c::t_bb5d031793bb61 1-18
+packages/ui-svelte/src/notification/notification-content.svelte
+  s_43eedcb0aed93c::t_952004746cb571 1-18
+packages/ui-svelte/src/notification/notification-description.svelte
+  s_43eedcb0aed93c::t_f072d60aaa2cbe 1-18
+packages/ui-svelte/src/notification/notification-header.svelte
+  s_43eedcb0aed93c::t_052bb5aefb0010 1-18
+packages/ui-svelte/src/notification/notification-icon.svelte
+  s_43eedcb0aed93c::t_b1d2c7959b9c18 1-18
+packages/ui-svelte/src/notification/notification-panel.svelte
+  s_43eedcb0aed93c::t_4d7e1a85eb17c9 1-12
+packages/ui-svelte/src/notification/notification-preview.svelte
+  s_43eedcb0aed93c::t_a61817dd17fa4a 1-18
+packages/ui-svelte/src/notification/notification-root.svelte
+  s_43eedcb0aed93c::t_e9705a5cc16396 1-12
+packages/ui-svelte/src/notification/notification-time.svelte
+  s_43eedcb0aed93c::t_7160ad8ad7dda6 1-18
+packages/ui-svelte/src/notification/notification-title.svelte
+  s_43eedcb0aed93c::t_bbcf90203396ff 1-18
+packages/ui-svelte/src/notification/notification-trigger.svelte
+  s_43eedcb0aed93c::t_de71e7a75fa459 1-12
+packages/ui-svelte/src/number-field/number-field-decrement-button.svelte
+  s_43eedcb0aed93c::t_2b27b97ed74507 1-14
+packages/ui-svelte/src/number-field/number-field-group.svelte
+  s_43eedcb0aed93c::t_9ab38b79d6f02c 1-26
+packages/ui-svelte/src/number-field/number-field-increment-button.svelte
+  s_43eedcb0aed93c::t_e49852abf69f40 1-14
+packages/ui-svelte/src/number-field/number-field-input.svelte
+  s_43eedcb0aed93c::t_19cd74f23b5d61 1-15
+packages/ui-svelte/src/number-field/number-field-root.svelte
+  s_43eedcb0aed93c::t_4432a60fc87dee 1-26
+packages/ui-svelte/src/page-control/index.ts
+  s_43eedcb0aed93c::t_c26f0053631d80 1
+packages/ui-svelte/src/page-control/page-control.svelte
+  s_43eedcb0aed93c::t_df1c45bc149718 1-154
+packages/ui-svelte/src/pagination/pagination-content.svelte
+  s_43eedcb0aed93c::t_6f3ccf0ac6946f 1-18
+packages/ui-svelte/src/pagination/pagination-ellipsis.svelte
+  s_43eedcb0aed93c::t_2cb04359197550 1-18
+packages/ui-svelte/src/pagination/pagination-item.svelte
+  s_43eedcb0aed93c::t_b68aa7198ef755 1-18
+packages/ui-svelte/src/pagination/pagination-link.svelte
+  s_43eedcb0aed93c::t_7bea3e90ed042e 1-18
+packages/ui-svelte/src/pagination/pagination-next-icon.svelte
+  s_43eedcb0aed93c::t_c3a2084b977f8f 1-30
+packages/ui-svelte/src/pagination/pagination-next.svelte
+  s_43eedcb0aed93c::t_fb3791551f0eb0 1-18
+packages/ui-svelte/src/pagination/pagination-previous-icon.svelte
+  s_43eedcb0aed93c::t_b2f6ea613cc042 1-30
+packages/ui-svelte/src/pagination/pagination-previous.svelte
+  s_43eedcb0aed93c::t_9ddf14f9054324 1-18
+packages/ui-svelte/src/pagination/pagination-root.svelte
+  s_43eedcb0aed93c::t_4b2b3d4d6a5abe 1-18
+packages/ui-svelte/src/pagination/pagination-summary.svelte
+  s_43eedcb0aed93c::t_16f685decc7b67 1-18
+packages/ui-svelte/src/popover/popover-arrow.svelte
+  s_43eedcb0aed93c::t_ac989c60b177de 1-12
+packages/ui-svelte/src/popover/popover-close.svelte
+  s_43eedcb0aed93c::t_f27b6b4c1d461a 1-11
+packages/ui-svelte/src/popover/popover-content.svelte
+  s_43eedcb0aed93c::t_9ee50cbfbac790 1-26
+packages/ui-svelte/src/popover/popover-description.svelte
+  s_43eedcb0aed93c::t_cc51fc1638644a 1-12
+packages/ui-svelte/src/popover/popover-root.svelte
+  s_43eedcb0aed93c::t_5f5d28cfefa39e 1-12
+packages/ui-svelte/src/popover/popover-title.svelte
+  s_43eedcb0aed93c::t_4c06e5b2d5ccb5 1-12
+packages/ui-svelte/src/popover/popover-trigger.svelte
+  s_43eedcb0aed93c::t_cdd0e5c9229ae7 1-12
+packages/ui-svelte/src/popup-button/index.ts
+  s_43eedcb0aed93c::t_e5db65407bee27 1-11
+packages/ui-svelte/src/popup-button/popup-button-indicator.svelte
+  s_43eedcb0aed93c::t_0cc141fc462784 1-18
+packages/ui-svelte/src/popup-button/popup-button-root.svelte
+  s_43eedcb0aed93c::t_ac2769926612cb 1-12
+packages/ui-svelte/src/progress-bar/index.ts
+  s_43eedcb0aed93c::t_ad8a19b40cfd26 1-20
+packages/ui-svelte/src/progress-bar/progress-bar-fill.svelte
+  s_43eedcb0aed93c::t_f9c2d1f229284b 1-15
+packages/ui-svelte/src/progress-bar/progress-bar-label.svelte
+  s_43eedcb0aed93c::t_e77e8ead5cf952 1-12
+packages/ui-svelte/src/progress-bar/progress-bar-output.svelte
+  s_43eedcb0aed93c::t_c3d46aa94d0628 1-12
+packages/ui-svelte/src/progress-bar/progress-bar-root.svelte
+  s_43eedcb0aed93c::t_9097cf6879e32d 1-20
+packages/ui-svelte/src/progress-bar/progress-bar-track.svelte
+  s_43eedcb0aed93c::t_b8a240e4c46add 1-20
+packages/ui-svelte/src/providers/i18n-provider.svelte
+  s_43eedcb0aed93c::t_f0fbf944148e5d 1-10
+packages/ui-svelte/src/providers/index.ts
+  s_43eedcb0aed93c::t_ef8e91095dfa3d 1-3
+packages/ui-svelte/src/providers/locale.ts
+  s_43eedcb0aed93c::t_64c42bf2a48fa6 1-15
+packages/ui-svelte/src/providers/theme-scope.svelte
+  s_43eedcb0aed93c::t_c65c9c32f184e1 1-43
+packages/ui-svelte/src/radio-group/index.ts
+  s_43eedcb0aed93c::t_dadd60993559cc 1-8
+packages/ui-svelte/src/radio-group/radio-group-root.svelte
+  s_43eedcb0aed93c::t_9a97c0f21afd1b 1-14
+packages/ui-svelte/src/radio/index.ts
+  s_43eedcb0aed93c::t_ac729b90b4bbdc 1-19
+packages/ui-svelte/src/radio/radio-content.svelte
+  s_43eedcb0aed93c::t_9c1dbf527fa72b 1-18
+packages/ui-svelte/src/radio/radio-control.svelte
+  s_43eedcb0aed93c::t_06f5dee417e70f 1-29
+packages/ui-svelte/src/radio/radio-indicator.svelte
+  s_43eedcb0aed93c::t_3c9abbd117edcb 1-12
+packages/ui-svelte/src/radio/radio-root.svelte
+  s_43eedcb0aed93c::t_ee02eb9d8a17c6 1-12
+packages/ui-svelte/src/radio/variant.ts
+  s_43eedcb0aed93c::t_4aa7175623f390 1-4
+packages/ui-svelte/src/range-calendar/index.ts
+  s_43eedcb0aed93c::t_1abafc83997483 1-41
+packages/ui-svelte/src/scroll-edge/index.ts
+  s_43eedcb0aed93c::t_360a73ed74c303 1
+packages/ui-svelte/src/scroll-edge/scroll-edge.svelte
+  s_43eedcb0aed93c::t_7afe1c52074ae7 1-85
+packages/ui-svelte/src/scroll-shadow/index.ts
+  s_43eedcb0aed93c::t_a8ac472a6704a2 1-8
+packages/ui-svelte/src/scroll-shadow/scroll-shadow-root.svelte
+  s_43eedcb0aed93c::t_ad09f36ea01b3a 1-39
+packages/ui-svelte/src/search-field/index.ts
+  s_43eedcb0aed93c::t_356bc8b7098e21 1-29
+packages/ui-svelte/src/search-field/search-field-clear.svelte
+  s_43eedcb0aed93c::t_67040669886a80 1-12
+packages/ui-svelte/src/search-field/search-field-group.svelte
+  s_43eedcb0aed93c::t_84cbd4d79a8b14 1-15
+packages/ui-svelte/src/search-field/search-field-icon.svelte
+  s_43eedcb0aed93c::t_9a68b0ce825d0b 1-19
+packages/ui-svelte/src/search-field/search-field-input.svelte
+  s_43eedcb0aed93c::t_9edfe088d1ba02 1-15
+packages/ui-svelte/src/search-field/search-field-root.svelte
+  s_43eedcb0aed93c::t_240a3b025b7d7d 1-24
+packages/ui-svelte/src/segmented-control/index.ts
+  s_43eedcb0aed93c::t_e7f5b26d0b003d 1-14
+packages/ui-svelte/src/segmented-control/segmented-control-indicator.svelte
+  s_43eedcb0aed93c::t_d806b1558cd29f 1-12
+packages/ui-svelte/src/segmented-control/segmented-control-item.svelte
+  s_43eedcb0aed93c::t_7b37e7581709b6 1-12
+packages/ui-svelte/src/segmented-control/segmented-control-root.svelte
+  s_43eedcb0aed93c::t_e30dc088c29dc1 1-12
+packages/ui-svelte/src/select/select-arrow.svelte
+  s_43eedcb0aed93c::t_dee2a0455ff408 1-12
+packages/ui-svelte/src/select/select-content.svelte
+  s_43eedcb0aed93c::t_5bdcef0ab3ef2d 1-29
+packages/ui-svelte/src/select/select-group-label.svelte
+  s_43eedcb0aed93c::t_1e34e98410e427 1-12
+packages/ui-svelte/src/select/select-group.svelte
+  s_43eedcb0aed93c::t_15d7dbdfd47cc0 1-11
+packages/ui-svelte/src/select/select-indicator.svelte
+  s_43eedcb0aed93c::t_b22b9b4bd73610 1-18
+packages/ui-svelte/src/select/select-item-indicator.svelte
+  s_43eedcb0aed93c::t_82268c3d55ecd9 1-12
+packages/ui-svelte/src/select/select-item-text.svelte
+  s_43eedcb0aed93c::t_2a9854f7afd89a 1-12
+packages/ui-svelte/src/select/select-item.svelte
+  s_43eedcb0aed93c::t_23589b2bf275af 1-15
+packages/ui-svelte/src/select/select-label.svelte
+  s_43eedcb0aed93c::t_ba299ce9c4129a 1-12
+packages/ui-svelte/src/select/select-list.svelte
+  s_43eedcb0aed93c::t_dd105818b1a6a7 1-15
+packages/ui-svelte/src/select/select-separator.svelte
+  s_43eedcb0aed93c::t_f07cab6dc0cc21 1-12
+packages/ui-svelte/src/select/select-trigger.svelte
+  s_43eedcb0aed93c::t_af395dfbedbd25 1-24
+packages/ui-svelte/src/select/select-value.svelte
+  s_43eedcb0aed93c::t_a043a2c1a21ac7 1-12
+packages/ui-svelte/src/separator/index.ts
+  s_43eedcb0aed93c::t_4186e5e25d7e8e 1-8
+packages/ui-svelte/src/separator/separator-root.svelte
+  s_43eedcb0aed93c::t_0eb014d048fdbf 1-24
+packages/ui-svelte/src/share-sheet/share-sheet-action-group.svelte
+  s_43eedcb0aed93c::t_fd0013c5120e54 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-action-row.svelte
+  s_43eedcb0aed93c::t_40f17b84866c1a 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-action.svelte
+  s_43eedcb0aed93c::t_f2d4f62c6dd7c5 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-backdrop.svelte
+  s_43eedcb0aed93c::t_5d4474726f0b9d 1-12
+packages/ui-svelte/src/share-sheet/share-sheet-body.svelte
+  s_43eedcb0aed93c::t_e0bb250fc7fe22 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-contact.svelte
+  s_43eedcb0aed93c::t_2cccc3ffcc0b2e 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-content.svelte
+  s_43eedcb0aed93c::t_3b2697bd4fdda5 1-15
+packages/ui-svelte/src/share-sheet/share-sheet-description.svelte
+  s_43eedcb0aed93c::t_8cfbed2aacc712 1-12
+packages/ui-svelte/src/share-sheet/share-sheet-header.svelte
+  s_43eedcb0aed93c::t_9ea74be3274220 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-metadata.svelte
+  s_43eedcb0aed93c::t_09db5a08799351 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-root.svelte
+  s_43eedcb0aed93c::t_e35d966a2b33d4 1-12
+packages/ui-svelte/src/share-sheet/share-sheet-surface.svelte
+  s_43eedcb0aed93c::t_d9080939db0897 1-26
+packages/ui-svelte/src/share-sheet/share-sheet-target-icon.svelte
+  s_43eedcb0aed93c::t_05895b35f975d4 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-target.svelte
+  s_43eedcb0aed93c::t_dda0747b171dc4 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-targets.svelte
+  s_43eedcb0aed93c::t_0f70570f19a53f 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-thumbnail.svelte
+  s_43eedcb0aed93c::t_301f6e57318d39 1-18
+packages/ui-svelte/src/share-sheet/share-sheet-title.svelte
+  s_43eedcb0aed93c::t_6fb6f23649ff42 1-12
+packages/ui-svelte/src/share-sheet/share-sheet-trigger.svelte
+  s_43eedcb0aed93c::t_cceb1142a9546c 1-11
+packages/ui-svelte/src/sheet/sheet-backdrop.svelte
+  s_43eedcb0aed93c::t_a71224f89aa3e4 1-14
+packages/ui-svelte/src/sheet/sheet-body.svelte
+  s_43eedcb0aed93c::t_8148d9d8936db3 1-18
+packages/ui-svelte/src/sheet/sheet-close.svelte
+  s_43eedcb0aed93c::t_d578127f0c0b4c 1-12
+packages/ui-svelte/src/sheet/sheet-content.svelte
+  s_43eedcb0aed93c::t_bd9d357cdc291d 1-27
+packages/ui-svelte/src/sheet/sheet-description.svelte
+  s_43eedcb0aed93c::t_b53dc445f7cb7e 1-11
+packages/ui-svelte/src/sheet/sheet-footer.svelte
+  s_43eedcb0aed93c::t_1e8495e8af8a84 1-18
+packages/ui-svelte/src/sheet/sheet-handle.svelte
+  s_43eedcb0aed93c::t_56b3e5dfdf550a 1-12
+packages/ui-svelte/src/sheet/sheet-header.svelte
+  s_43eedcb0aed93c::t_0f55f053c524c7 1-18
+packages/ui-svelte/src/sheet/sheet-root.svelte
+  s_43eedcb0aed93c::t_a76fb1d8da8fda 1-12
+packages/ui-svelte/src/sheet/sheet-surface.svelte
+  s_43eedcb0aed93c::t_48d124d4780c09 1-26
+packages/ui-svelte/src/sheet/sheet-title.svelte
+  s_43eedcb0aed93c::t_fd182a312b9d66 1-12
+packages/ui-svelte/src/sheet/sheet-trigger.svelte
+  s_43eedcb0aed93c::t_40f10507d675d5 1-12
+packages/ui-svelte/src/sidebar/sidebar-accessory.svelte
+  s_43eedcb0aed93c::t_8f1886a4b75dd2 1-18
+packages/ui-svelte/src/sidebar/sidebar-content.svelte
+  s_43eedcb0aed93c::t_fda503a1838603 1-18
+packages/ui-svelte/src/sidebar/sidebar-disclosure-body.svelte
+  s_43eedcb0aed93c::t_b63ef4fd174a1b 1-18
+packages/ui-svelte/src/sidebar/sidebar-disclosure-panel.svelte
+  s_43eedcb0aed93c::t_e525113b5fb926 1-12
+packages/ui-svelte/src/sidebar/sidebar-disclosure-trigger.svelte
+  s_43eedcb0aed93c::t_51e216e7aa5ec9 1-14
+packages/ui-svelte/src/sidebar/sidebar-footer.svelte
+  s_43eedcb0aed93c::t_d25a8252593901 1-18
+packages/ui-svelte/src/sidebar/sidebar-group.svelte
+  s_43eedcb0aed93c::t_5ef6c957e718f7 1-18
+packages/ui-svelte/src/sidebar/sidebar-header.svelte
+  s_43eedcb0aed93c::t_bb7d13d30dc2e2 1-18
+packages/ui-svelte/src/sidebar/sidebar-icon.svelte
+  s_43eedcb0aed93c::t_319cbbed43ef1e 1-18
+packages/ui-svelte/src/sidebar/sidebar-item.svelte
+  s_43eedcb0aed93c::t_a0dc44e5d66400 1-28
+packages/ui-svelte/src/sidebar/sidebar-label.svelte
+  s_43eedcb0aed93c::t_13af804e40a2b0 1-18
+packages/ui-svelte/src/sidebar/sidebar-root.svelte
+  s_43eedcb0aed93c::t_559f07bdee9ddd 1-18
+packages/ui-svelte/src/sidebar/sidebar-text.svelte
+  s_43eedcb0aed93c::t_11230dcdd93e26 1-18
+packages/ui-svelte/src/skeleton/index.ts
+  s_43eedcb0aed93c::t_e9b0f1480c5fb6 1-8
+packages/ui-svelte/src/skeleton/skeleton-root.svelte
+  s_43eedcb0aed93c::t_93d9c7e3f3472d 1-27
+packages/ui-svelte/src/slider/slider-control.svelte
+  s_43eedcb0aed93c::t_e8c1f09dd452d7 1-12
+packages/ui-svelte/src/slider/slider-fill.svelte
+  s_43eedcb0aed93c::t_1cbd92af8f58ed 1-12
+packages/ui-svelte/src/slider/slider-label.svelte
+  s_43eedcb0aed93c::t_f272383fd402ae 1-12
+packages/ui-svelte/src/slider/slider-marks.svelte
+  s_43eedcb0aed93c::t_9921fd6d3e4b66 1-18
+packages/ui-svelte/src/slider/slider-output.svelte
+  s_43eedcb0aed93c::t_bb8b2f8ac49075 1-12
+packages/ui-svelte/src/slider/slider-root.svelte
+  s_43eedcb0aed93c::t_ae27ecd71056fd 1-12
+packages/ui-svelte/src/slider/slider-thumb.svelte
+  s_43eedcb0aed93c::t_8f738e869c256b 1-12
+packages/ui-svelte/src/slider/slider-track-paint.svelte
+  s_43eedcb0aed93c::t_b1fd3d986c1b26 1-18
+packages/ui-svelte/src/slider/slider-track.svelte
+  s_43eedcb0aed93c::t_850ee2dfd2422f 1-12
+packages/ui-svelte/src/spinner/index.ts
+  s_43eedcb0aed93c::t_1f7554737943c7 1-5
+packages/ui-svelte/src/spinner/spinner.svelte
+  s_43eedcb0aed93c::t_37f365a5bab7b6 1-53
+packages/ui-svelte/src/stepper/stepper-decrement.svelte
+  s_43eedcb0aed93c::t_1526d1e623ca21 1-14
+packages/ui-svelte/src/stepper/stepper-group.svelte
+  s_43eedcb0aed93c::t_378b191c8d2707 1-12
+packages/ui-svelte/src/stepper/stepper-increment.svelte
+  s_43eedcb0aed93c::t_d9b6ebd5812715 1-14
+packages/ui-svelte/src/stepper/stepper-input.svelte
+  s_43eedcb0aed93c::t_c53f26a5bb10cb 1-12
+packages/ui-svelte/src/stepper/stepper-root.svelte
+  s_43eedcb0aed93c::t_8911113b77177d 1-12
+packages/ui-svelte/src/stepper/stepper-separator.svelte
+  s_43eedcb0aed93c::t_0cdd607588ff73 1-18
+packages/ui-svelte/src/surface/index.ts
+  s_43eedcb0aed93c::t_46b41558e11771 1-8
+packages/ui-svelte/src/surface/surface-root.svelte
+  s_43eedcb0aed93c::t_afef1735721a01 1-35
+packages/ui-svelte/src/switch/index.ts
+  s_43eedcb0aed93c::t_1c3674fd78a7eb 1-23
+packages/ui-svelte/src/switch/switch-content.svelte
+  s_43eedcb0aed93c::t_71edbed117f261 1-18
+packages/ui-svelte/src/switch/switch-control.svelte
+  s_43eedcb0aed93c::t_d3abf17601505e 1-18
+packages/ui-svelte/src/switch/switch-icon.svelte
+  s_43eedcb0aed93c::t_a42f66a33ff5f3 1-18
+packages/ui-svelte/src/switch/switch-root.svelte
+  s_43eedcb0aed93c::t_503d4d5719142e 1-23
+packages/ui-svelte/src/switch/switch-thumb.svelte
+  s_43eedcb0aed93c::t_2bd75d80f586ec 1-12
+packages/ui-svelte/src/switch/switch-track.svelte
+  s_43eedcb0aed93c::t_896de3d9a41438 1-18
+packages/ui-svelte/src/tab-bar/context.ts
+  s_43eedcb0aed93c::t_f38e9daa46072e 1-11
+packages/ui-svelte/src/tab-bar/label.svelte
+  s_43eedcb0aed93c::t_d0692a7e41cfd1 1-28
+packages/ui-svelte/src/tab-bar/tab-bar-button.svelte
+  s_43eedcb0aed93c::t_b31914356dadcd 1-42
+packages/ui-svelte/src/tab-bar/tab-bar-group.svelte
+  s_43eedcb0aed93c::t_3bf4ce2f5fc2da 1-193
+packages/ui-svelte/src/tab-bar/tab-bar.svelte
+  s_43eedcb0aed93c::t_6d0df6f6b16fbb 1-87
+packages/ui-svelte/src/table/collection.svelte
+  s_43eedcb0aed93c::t_64d29df2d8fe42 1-10
+packages/ui-svelte/src/table/expand-button.svelte
+  s_43eedcb0aed93c::t_b28ef2691b6a28 1-32
+packages/ui-svelte/src/table/load-more.svelte
+  s_43eedcb0aed93c::t_202ec4e978cda2 1-43
+packages/ui-svelte/src/table/selection-checkbox.svelte
+  s_43eedcb0aed93c::t_ef230a55badb2b 1-65
+packages/ui-svelte/src/table/sortable-column-header.svelte
+  s_43eedcb0aed93c::t_f6e799d4d11d08 1-49
+packages/ui-svelte/src/tabs/context.ts
+  s_43eedcb0aed93c::t_eb3565ed10583c 1-4
+packages/ui-svelte/src/tabs/list-container.svelte
+  s_43eedcb0aed93c::t_f81def115ac91b 1-99
+packages/ui-svelte/src/tag-group/index.ts
+  s_43eedcb0aed93c::t_f0a3824b114a24 1-2,4-8,12-17
+packages/ui-svelte/src/tag-group/tag-group-list.svelte
+  s_43eedcb0aed93c::t_30d8b7c86cb4c1 1-33
+packages/ui-svelte/src/tag/index.ts
+  s_43eedcb0aed93c::t_a7859ae0babe3a 1-2,4,12-13
+packages/ui-svelte/src/tag/tag-remove-button.svelte
+  s_43eedcb0aed93c::t_efc712e0e8a3b7 1-45
+packages/ui-svelte/src/textarea/index.ts
+  s_43eedcb0aed93c::t_b0d5b4ad44d17a 1-8
+packages/ui-svelte/src/textarea/text-area-root.svelte
+  s_43eedcb0aed93c::t_5128c4c68646f6 1-34
+packages/ui-svelte/src/textfield/index.ts
+  s_43eedcb0aed93c::t_7dda7c15de87cc 1-20
+packages/ui-svelte/src/textfield/text-field-group.svelte
+  s_43eedcb0aed93c::t_af947bc57182ce 1-26
+packages/ui-svelte/src/textfield/text-field-input.svelte
+  s_43eedcb0aed93c::t_55f7f5bed9e9d0 1-34
+packages/ui-svelte/src/textfield/text-field-root.svelte
+  s_43eedcb0aed93c::t_4c21b3f6b7a684 1-19
+packages/ui-svelte/src/time-field/time-field-description.svelte
+  s_43eedcb0aed93c::t_47e238e9299299 1-18
+packages/ui-svelte/src/time-field/time-field-error.svelte
+  s_43eedcb0aed93c::t_7a7d9d8f9e112c 1-18
+packages/ui-svelte/src/time-field/time-field-input.svelte
+  s_43eedcb0aed93c::t_ae8f133381a88c 1-15
+packages/ui-svelte/src/time-field/time-field-label.svelte
+  s_43eedcb0aed93c::t_89a9149dcccbd0 1-18
+packages/ui-svelte/src/time-field/time-field-root.svelte
+  s_43eedcb0aed93c::t_66103518f45cab 1-27
+packages/ui-svelte/src/time-field/time-field-segment.svelte
+  s_43eedcb0aed93c::t_75ed5503904807 1-19
+packages/ui-svelte/src/toast/context.ts
+  s_43eedcb0aed93c::t_11d457c494d00a 1-13
+packages/ui-svelte/src/toast/pill-digit.svelte
+  s_43eedcb0aed93c::t_3f03a03ec6557c 1-73
+packages/ui-svelte/src/toast/toast-action.svelte
+  s_43eedcb0aed93c::t_11ffded69ae048 1-26
+packages/ui-svelte/src/toast/toast-close.svelte
+  s_43eedcb0aed93c::t_816b571e0cc0dd 1-42
+packages/ui-svelte/src/toast/toast-content.svelte
+  s_43eedcb0aed93c::t_0e0a6b9cd854aa 1-27
+packages/ui-svelte/src/toast/toast-data.svelte
+  s_43eedcb0aed93c::t_fd3d85b5af9aef 1-10
+packages/ui-svelte/src/toast/toast-description.svelte
+  s_43eedcb0aed93c::t_1bf8c340d6b411 1-12
+packages/ui-svelte/src/toast/toast-marquee.svelte
+  s_43eedcb0aed93c::t_f705743a2f068d 1-40
+packages/ui-svelte/src/toast/toast-progress.svelte
+  s_43eedcb0aed93c::t_226d5ee5c81ae8 1-51
+packages/ui-svelte/src/toast/toast-region.svelte
+  s_43eedcb0aed93c::t_365f1eda906529 1-45
+packages/ui-svelte/src/toast/toast-root.svelte
+  s_43eedcb0aed93c::t_50e3049a84ba30 1-108
+packages/ui-svelte/src/toggle-button-group/index.ts
+  s_43eedcb0aed93c::t_90f9dde90c4fb2 1-11
+packages/ui-svelte/src/toggle-button-group/toggle-button-group-root.svelte
+  s_43eedcb0aed93c::t_3f88aac3c90212 1-24
+packages/ui-svelte/src/toggle-button-group/toggle-button-group-separator.svelte
+  s_43eedcb0aed93c::t_75cb5eefaaae2f 1-20
+packages/ui-svelte/src/toggle-button/index.ts
+  s_43eedcb0aed93c::t_20f43d6bbfc801 1-11
+packages/ui-svelte/src/toggle-button/toggle-button-icon.svelte
+  s_43eedcb0aed93c::t_18acf37835bf76 1-12
+packages/ui-svelte/src/toggle-button/toggle-button-root.svelte
+  s_43eedcb0aed93c::t_d423ed0f6ac0de 1-35
+packages/ui-svelte/src/toolbar/index.ts
+  s_43eedcb0aed93c::t_842440ad71abe3 1-23
+packages/ui-svelte/src/toolbar/toolbar-button.svelte
+  s_43eedcb0aed93c::t_909787ce5002c1 1-12
+packages/ui-svelte/src/toolbar/toolbar-group.svelte
+  s_43eedcb0aed93c::t_bbbbd65f1a0515 1-12
+packages/ui-svelte/src/toolbar/toolbar-input.svelte
+  s_43eedcb0aed93c::t_fd6bf61a28a863 1-11
+packages/ui-svelte/src/toolbar/toolbar-link.svelte
+  s_43eedcb0aed93c::t_8ee2a3f39c9bda 1-12
+packages/ui-svelte/src/toolbar/toolbar-root.svelte
+  s_43eedcb0aed93c::t_4f9bb1abe0662b 1-19
+packages/ui-svelte/src/toolbar/toolbar-separator.svelte
+  s_43eedcb0aed93c::t_6b7e5ba15d63b0 1-12
+packages/ui-svelte/src/tooltip/index.ts
+  s_43eedcb0aed93c::t_0a390ba7d1ba36 1-17
+packages/ui-svelte/src/tooltip/tooltip-arrow.svelte
+  s_43eedcb0aed93c::t_9688b8f1be9c5c 1-12
+packages/ui-svelte/src/tooltip/tooltip-content.svelte
+  s_43eedcb0aed93c::t_9230c43de0c427 1-26
+packages/ui-svelte/src/tooltip/tooltip-root.svelte
+  s_43eedcb0aed93c::t_34326c33a302de 1-12
+packages/ui-svelte/src/tooltip/tooltip-trigger.svelte
+  s_43eedcb0aed93c::t_16ca441e7c8563 1-12
+packages/ui-svelte/src/typography/index.ts
+  s_43eedcb0aed93c::t_27da21a7b28567 1-28
+packages/ui-svelte/src/typography/typography-code.svelte
+  s_43eedcb0aed93c::t_efe4178dc519ce 1-20
+packages/ui-svelte/src/typography/typography-heading.svelte
+  s_43eedcb0aed93c::t_690db19d9c1bc5 1-18
+packages/ui-svelte/src/typography/typography-paragraph.svelte
+  s_43eedcb0aed93c::t_bcd1f3652e594a 1-18
+packages/ui-svelte/src/typography/typography-prose.svelte
+  s_43eedcb0aed93c::t_987490800f2e7c 1-18
+packages/ui-svelte/src/typography/typography-root.svelte
+  s_43eedcb0aed93c::t_cca7a1c189101e 1-50
+packages/ui-svelte/test/fixture/client.ts
+  s_43eedcb0aed93c::t_438c6a2a0c6956 1-10
+packages/ui-svelte/test/fixture/index.html
+  s_43eedcb0aed93c::t_6e05fce75e88e1 1-12
+packages/ui-svelte/test/fixture/parity.svelte
+  s_43eedcb0aed93c::t_75703661bc3183 1-201
+packages/ui-svelte/test/fixture/server.ts
+  s_43eedcb0aed93c::t_db1dd8214528af 1-6
+packages/ui-svelte/test/fixture/styles.css
+  s_43eedcb0aed93c::t_e63df9f2fb9a16 1-10
+packages/ui-svelte/test/fixture/vite.config.mjs
+  s_43eedcb0aed93c::t_52b965ff8821ba 1-16
+packages/ui/src/components/tab-bar/tab-bar.tsx
+  s_43eedcb0aed93c::t_140628427f51d6 26,204,314-318
+packages/ui/src/components/toast/pill-marquee.tsx
+  s_43eedcb0aed93c::t_4ecf7c65d74b51 5,15
+packages/ui/src/components/toast/pill-motion.tsx
+  s_43eedcb0aed93c::t_603b4fab58a647 5,9,11-13,15-16,19,30,32-34,36-37,39-40
+packages/ui/src/icons/index.tsx
+  s_43eedcb0aed93c::t_ec556326884843 1,5,23-37
+packages/ui/src/utils/interaction/context-preview.ts
+  s_43eedcb0aed93c::t_58e1e7935241d7 1
+packages/ui/src/utils/interaction/menu-placement.ts
+  s_43eedcb0aed93c::t_a1c0d980570eb4 3
+packages/ui/src/utils/locale.tsx
+  s_43eedcb0aed93c::t_a70dab9fc0bf19 3-4
+packages/ui/src/utils/materials/scroll-edge.ts
+  s_43eedcb0aed93c::t_c4347d0f8c1f32 4-5,30
+packages/ui/src/utils/materials/soft-edge.ts
+  s_43eedcb0aed93c::t_6b25342a4f306b 1-6
+tests/consumer/adapter-parity.ts
+  s_43eedcb0aed93c::t_43f8c5007c5d67 1-157
+tests/consumer/svelte-consumer.test.ts
+  s_43eedcb0aed93c::t_a8f2f6de33b22a 1-79
+apps/docs/src/generated/api-reference.json
+  s_43eedcb0aed93c::t_5c9a58eeb67265 53396,68015,68024,68033,68042,68204,68213,68222,68231,68240,68249,68258,68267,68276,68285,68294,68303,68312,68321,68330,68339,68348,71480,71489,71498,71507,71516,71525,71534,71543,71552,71561,71570,87602,87638,87674,87702,87737,87765,87798,87808,87840,87874,87902,87937,94580,94611,94646,94825,94855,94885,94924,94954,94992,95024,95053,95083,95113,95141,95171,95181
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c160070a85c4492130e013a208c88b7ee373435b",
+  "prompts": {},
+  "sessions": {
+    "s_43eedcb0aed93c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a21c84-b98a-79a2-b305-5a9f9f504bfe",
+        "model": "gpt-6.2-astra"
+      },
+      "human_author": "LioRael <leo@lenso.dev>"
+    }
+  }
+}
