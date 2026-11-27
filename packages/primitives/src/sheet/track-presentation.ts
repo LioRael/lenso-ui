@@ -1,4 +1,4 @@
-import type { SnapPoint } from "@ui-sdk/react/drawer";
+import type { SnapPoint } from "@ui-sdk/core/drawer";
 import { resolvePresentationPoints, sheetPresentationAt } from "./presentation.js";
 
 export function trackSheetPresentation(

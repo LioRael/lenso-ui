@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "bun:test";
 import { tmpdir } from "node:os";
 import { execFile } from "node:child_process";
-import { mkdtemp, readFile, readdir, realpath, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdtemp, readFile, readdir, realpath, rm, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -184,10 +184,15 @@ test("installed packages preserve consumer exports, types, SSR and production as
       join(directory, "index.html"),
       '<html><body><div id="root"></div><script type="module" src="/main.tsx"></script></body></html>',
     );
+    await copyFile(
+      join(workspace, "tests/consumer/ReactParity.tsx"),
+      join(directory, "ReactParity.tsx"),
+    );
     await writeFile(
       join(directory, "main.tsx"),
       `
 import {createRoot} from "react-dom/client";
+import {ReactParity} from "./ReactParity";
 import {GlassButton, ButtonGroup, ToggleButtonGroup, Modal, ThemeScope} from "@lenso/ui";
 import {GlassToggleButton} from "@lenso/ui/glass-toggle-button";
 import {GlassContainer} from "@lenso/ui/glass-container";
@@ -242,7 +247,7 @@ createRoot(document.getElementById("root")!).render(
   <ListBox<string, true> multiple defaultValue={["alpha"]} name="topics"><ListBox.Item value="alpha" label="Alpha">{state => state.selected ? "Chosen" : "Alpha"}</ListBox.Item></ListBox>
 <Command xstyle={styles.width(320)}><Command.Input aria-label="Styled commands"/><Command.List><Command.Item value="Settings">Settings</Command.Item></Command.List></Command>
   <SdkCommand items={["Open"]}><SdkCommandInput aria-label="Unstyled commands"/><SdkCommandList/></SdkCommand>
-  </ThemeScope>);
+  <ReactParity/></ThemeScope>);
 `,
     );
     await writeFile(

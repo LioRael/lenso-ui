@@ -1,8 +1,5 @@
 import { expect, test } from "bun:test";
-import {
-  resolvePresentationPoints,
-  sheetPresentationAt,
-} from "../src/components/sheet/presentation.js";
+import { resolvePresentationPoints, sheetPresentationAt } from "@lenso/primitives/sheet/core";
 
 // Snap selection tests cannot catch a detached low stop, a gap at full height,
 // or a discontinuity while moving between stops.
