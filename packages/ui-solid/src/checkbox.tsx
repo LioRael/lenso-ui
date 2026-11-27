@@ -12,23 +12,29 @@ import {
   type CheckboxIndicatorState,
   type CheckboxState,
 } from "@ui-sdk/solid/checkbox";
-import { createMemo, omit, type ComponentProps } from "solid-js";
+import { createContext, useContext, createMemo, omit, type ComponentProps } from "solid-js";
 import { styled, type StyleXProps } from "./styled.js";
 
-export type CheckboxProps = ComponentProps<typeof SdkCheckbox> & StyleXProps;
+export type CheckboxVariant = "primary" | "secondary";
+export const CheckboxVariantContext = createContext<() => CheckboxVariant>(() => "primary");
+export type CheckboxProps = ComponentProps<typeof SdkCheckbox> &
+  StyleXProps & { variant?: CheckboxVariant };
 export type CheckboxContentProps = JSX.IntrinsicElements["span"] & StyleXProps;
 export type CheckboxControlProps = CheckboxContentProps & { variant?: "primary" | "secondary" };
 export type CheckboxIndicatorProps = ComponentProps<typeof SdkIndicator> & StyleXProps;
 
 function CheckboxRoot(props: CheckboxProps) {
+  const inherited = useContext(CheckboxVariantContext);
   const compiled = createMemo(() => stylex.props(checkboxStyles.root, props.xstyle));
 
   return (
-    <SdkCheckbox
-      data-lenso-slot="checkbox"
-      {...omit(props, "xstyle", "class", "style")}
-      {...styled<CheckboxState>(compiled, props)}
-    />
+    <CheckboxVariantContext value={() => props.variant ?? inherited()}>
+      <SdkCheckbox
+        data-lenso-slot="checkbox"
+        {...omit(props, "variant", "xstyle", "class", "style")}
+        {...styled<CheckboxState>(compiled, props)}
+      />
+    </CheckboxVariantContext>
   );
 }
 
@@ -48,10 +54,11 @@ function CheckboxContent(props: CheckboxContentProps) {
 }
 
 function CheckboxControl(props: CheckboxControlProps) {
+  const inherited = useContext(CheckboxVariantContext);
   const compiled = createMemo(() =>
     stylex.props(
       checkboxStyles.control,
-      props.variant === "secondary" && checkboxStyles.secondary,
+      (props.variant ?? inherited()) === "secondary" && checkboxStyles.secondary,
       props.xstyle,
     ),
   );
@@ -114,3 +121,11 @@ export const Checkbox = Object.assign(CheckboxRoot, {
   Control: CheckboxControl,
   Indicator: CheckboxIndicator,
 });
+
+export { CheckboxContent };
+
+export { CheckboxControl };
+
+export { CheckboxIndicator };
+
+export { CheckboxRoot };

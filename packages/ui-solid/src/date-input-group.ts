@@ -37,13 +37,20 @@ export const DateInputGroupSuffix = htmlPart(
   () => dateInputGroupStyles.suffix,
 );
 
+export const DateInputGroupInputContainer = htmlPart(
+  "div",
+  "date-input-group-input-container",
+  () => dateInputGroupStyles.inputContainer,
+);
 export const DateInputGroup: typeof DateInputGroupRoot & {
+  InputContainer: typeof DateInputGroupInputContainer;
   Root: typeof DateInputGroupRoot;
   Input: typeof DateInputGroupInput;
   Segment: typeof DateInputGroupSegment;
   Prefix: typeof DateInputGroupPrefix;
   Suffix: typeof DateInputGroupSuffix;
 } = Object.assign(DateInputGroupRoot, {
+  InputContainer: DateInputGroupInputContainer,
   Root: DateInputGroupRoot,
   Input: DateInputGroupInput,
   Segment: DateInputGroupSegment,

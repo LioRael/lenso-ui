@@ -44,3 +44,5 @@ export const Fieldset: typeof FieldsetRoot & {
   Row: FieldsetRow,
   Actions: FieldsetActions,
 });
+
+export const FieldGroup: typeof Fieldset.Group = Fieldset.Group;

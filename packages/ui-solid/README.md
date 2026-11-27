@@ -113,10 +113,23 @@ Solid controls follow the native Solid UI SDK props. Date inputs and calendars
 use ISO string values and ISO date tuples for ranges. The color editor uses UI
 SDK's color model and its parts compose inside the picker.
 
-Styled entry points cover the product component catalog. Advanced behavior still
-differs from React in the TabBar optical and collapse animations, the year
-picker presentation, pill Toast transitions, Table virtualization, row drag and
-drop, tree grids, and TagGroup collection editing. The Solid year picker currently uses the SDK's native year select.
+Use `Table.Body virtualized={{ rowHeight, height, overscan }}` for a window of keyed rows.
+Tree grids use `treeColumn` and a row's `childRows`. The table's `dragAndDrop`
+callback handles keyboard and pointer reorder requests. `TagGroup.List` renders
+keyed items and restores focus after the owner accepts a removal.
+
+Compose `Calendar.YearPickerTrigger` and `Calendar.YearPickerGrid` to choose
+a year within the calendar's bounds. The TabBar uses the shared Glass motion
+bindings. Set `variant="pill"` on `Toast.Region` for intrinsic pill sizing.
+
+Import reactive utilities from `@lenso/ui-solid/hooks`. Read
+`useIsHydrated()`, `useMediaQuery()` and `useCSSVariable()` through their
+returned accessors. List, overlay and theme state expose reactive properties.
+Pass an element getter to `useMeasuredHeight`.
+
+For a segmented date picker, compose `DateField` and `DatePicker.Segment`
+inside the picker and control both with the same ISO value. The
+[installed example](test/fixture/parity.tsx) exercises keyboard editing.
 
 The [consumer fixture](test/fixture) builds both Vite targets from installed
 tarballs and exercises development and production in Chromium and WebKit.

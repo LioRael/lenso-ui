@@ -43,7 +43,7 @@ export const SelectContent: StyledPart<typeof SdkContent> = sdkPart(
   () => [
     materialStyles.root,
     materialStyles.accessible,
-    materialStyles.anchored,
+    materialStyles.blur,
     menuStyles.popup,
     selectStyles.positioner,
     selectStyles.popover,

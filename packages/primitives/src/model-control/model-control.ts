@@ -137,16 +137,22 @@ function modelControl(
       root: slot<{}, State>({
         state: (state) => state,
         attrs: (state) => ({
-          role: "group",
+          role: name === "tag-group" ? "grid" : "group",
           "data-disabled": state.disabled ? "" : undefined,
           "data-readonly": state.readOnly ? "" : undefined,
         }),
       }),
     }),
     agent: {
-      actions: name === "year-picker" ? ["setValue"] : ["setValue", "clear", "reset"],
-      ...(name === "year-picker" ? { closed: true } : {}),
-      ...(name === "calendar" || name === "range-calendar" || name === "year-picker"
+      actions:
+        name === "year-picker" || name === "tag-group"
+          ? ["setValue"]
+          : ["setValue", "clear", "reset"],
+      ...(name === "year-picker" || name === "tag-group" ? { closed: true } : {}),
+      ...(name === "calendar" ||
+      name === "range-calendar" ||
+      name === "year-picker" ||
+      name === "tag-group"
         ? {
             items: (api: Api) =>
               api.roving.items().map((item: RovingFocusItem<Item> & { el: HTMLElement }) => ({
@@ -168,3 +174,5 @@ export const rangeCalendar: ReturnType<typeof modelControl> = modelControl("rang
 export const colorField: ReturnType<typeof modelControl> = modelControl("color-field");
 
 export const yearPicker: ReturnType<typeof modelControl> = modelControl("year-picker");
+
+export const tagGroup: ReturnType<typeof modelControl> = modelControl("tag-group");

@@ -3,6 +3,8 @@ import * as stylex from "@stylexjs/stylex";
 import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const calendarYearPickerStyles = stylex.create({
+  provider: { display: "contents" },
+  dayGridHidden: { visibility: "hidden", pointerEvents: "none" },
   trigger: {
     display: "flex",
     flex: 1,

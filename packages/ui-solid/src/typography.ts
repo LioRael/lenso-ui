@@ -52,3 +52,11 @@ export const Typography = Object.assign(TypographyRoot, {
   Code: TypographyCode,
   Prose: TypographyProse,
 });
+
+export const Code: typeof Typography.Code = Typography.Code;
+
+export const Heading: typeof Typography.Heading = Typography.Heading;
+
+export const Paragraph: typeof Typography.Paragraph = Typography.Paragraph;
+
+export const Prose: typeof Typography.Prose = Typography.Prose;

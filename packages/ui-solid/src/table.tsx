@@ -1,4 +1,10 @@
-import type { ColumnWidth, TableKey } from "@lenso/primitives/table/core";
+import {
+  revealWindowRow,
+  collectionWindow,
+  type WindowOptions,
+  type ColumnWidth,
+  type TableKey,
+} from "@lenso/primitives/table/core";
 import { tableStyles as s } from "@lenso/tokens/table";
 import type { JSX } from "@solidjs/web";
 import { isRTL } from "@ui-sdk/core";
@@ -91,7 +97,8 @@ export const TableLoadMoreContent = htmlPart(
   () => s.loadMoreContent,
 );
 
-export type TableContentProps = ComponentProps<typeof Content> & TableStateProps;
+export type TableContentProps = Omit<ComponentProps<typeof Content>, keyof TableStateProps> &
+  TableStateProps;
 export function TableContent(props: TableContentProps) {
   const [node, setNode] = createSignal<HTMLTableElement>();
   const [available, setAvailable] = createSignal(0);
@@ -116,6 +123,8 @@ export function TableContent(props: TableContentProps) {
     "ref",
     "style",
     "onKeyDown",
+    "treeColumn",
+    "dragAndDrop",
     "selectionMode",
     "selectedKeys",
     "defaultSelectedKeys",
@@ -135,6 +144,12 @@ export function TableContent(props: TableContentProps) {
     <State value={table}>
       <Content
         {...rest}
+        aria-rowcount={
+          table.collectionSize() !== undefined
+            ? table.collectionSize()! + (node()?.tHead?.rows.length ?? 0)
+            : props["aria-rowcount"]
+        }
+        role={props.treeColumn === undefined ? props.role : "treegrid"}
         ref={[setNode, props.ref]}
         style={
           typeof props.style === "string"
@@ -185,11 +200,18 @@ export function TableContent(props: TableContentProps) {
           }
         }}
       />
+      <Show when={props.dragAndDrop}>
+        <span aria-live="polite" {...attributes(s.dragStatus)}>
+          {table.announcement()}
+        </span>
+      </Show>
     </State>
   );
 }
 
-type CollectionItem = { key: TableKey };
+type CollectionItem = { key: TableKey; disabled?: boolean };
+const WindowRow = createContext<(() => number) | null>(null);
+const TreeParent = createContext<{ level: number; key: () => TableKey | undefined } | null>(null);
 function TableCollectionItem<T>(props: { item: T; render: (item: T) => JSX.Element }) {
   return <>{props.render(props.item)}</>;
 }
@@ -229,23 +251,166 @@ export function TableHeader<T extends CollectionItem>(
 export function TableBody<T extends CollectionItem>(
   props: Omit<ComponentProps<typeof Body>, "children"> & {
     items?: readonly T[];
+    virtualized?: WindowOptions;
     children?: JSX.Element | ((item: T) => JSX.Element);
   },
 ) {
   const variant = useContext(Variant);
+  const table = useContext(State);
+  const [body, setBody] = createSignal<HTMLTableSectionElement>();
+  const [focused, setFocused] = createSignal<TableKey>();
+  const [offset, setOffset] = createSignal(0);
+  const config = () =>
+    props.virtualized &&
+    Number.isFinite(props.virtualized.height) &&
+    Number.isFinite(props.virtualized.rowHeight) &&
+    props.virtualized.rowHeight > 0 &&
+    props.virtualized.height > 0
+      ? props.virtualized
+      : undefined;
+  createEffect(
+    () => [body(), config()] as const,
+    ([node, options]) => {
+      const viewport = node?.closest<HTMLElement>(
+        '[data-lenso-slot="table-scroll-container"],[data-lenso-slot="table-resizable-container"]',
+      );
+      if (!viewport || !options) return;
+      const update = () => setOffset(Math.floor(viewport.scrollTop / options.rowHeight));
+      update();
+      viewport.addEventListener("scroll", update, { passive: true });
+      return () => viewport.removeEventListener("scroll", update);
+    },
+  );
+  createEffect(
+    () => config() && props.items,
+    (items) => {
+      if (items && table) {
+        table.setWindowRows(items, (key) =>
+          focusRow(
+            items.findIndex((item) => item.key === key),
+            0,
+          ),
+        );
+        return () => {
+          table.setWindowRows(undefined);
+        };
+      }
+    },
+  );
+  let focusRequest = 0;
+  const focusRow = (index: number, column: number) => {
+    const item = props.items?.[index],
+      options = config();
+    if (!item || !options) return;
+    const request = ++focusRequest;
+    setFocused(item.key);
+    const viewport = body()?.closest<HTMLElement>(
+      '[data-lenso-slot="table-scroll-container"],[data-lenso-slot="table-resizable-container"]',
+    );
+    if (viewport) {
+      revealWindowRow(viewport, index, options);
+      setOffset(Math.floor(viewport.scrollTop / options.rowHeight));
+    }
+    requestAnimationFrame(() => {
+      if (request !== focusRequest || props.items?.[index]?.key !== item.key) return;
+      const row = table?.rowFor(item.key);
+      (row?.cells[column] ?? row?.cells[0])?.focus({ preventScroll: true });
+    });
+  };
+  const navigateWindow = (event: KeyboardEvent) => {
+    const options = config(),
+      items = props.items,
+      section = body();
+    if (
+      !options ||
+      !items ||
+      !section ||
+      event.defaultPrevented ||
+      hasControl(event.target) ||
+      !(event.target instanceof HTMLElement)
+    )
+      return;
+    const cell = event.target.closest<HTMLTableCellElement>("td");
+    const row = cell?.parentElement;
+    if (!row || !cell) return;
+    const position = items.findIndex((item) => table?.rowFor(item.key) === row);
+    if (position < 0) return;
+    const step =
+      event.key === "ArrowDown" || (event.ctrlKey && event.key === "Home")
+        ? 1
+        : event.key === "ArrowUp" || (event.ctrlKey && event.key === "End")
+          ? -1
+          : 0;
+    if (!step) return;
+    let index = event.key === "Home" ? 0 : event.key === "End" ? items.length - 1 : position + step;
+    while (items[index] && (items[index]!.disabled || table?.disabled(items[index]!.key)))
+      index += step;
+    const item = items[index];
+    if (!item) return;
+    event.preventDefault();
+    if (event.shiftKey) table?.select(item.key, true);
+    focusRow(index, cell.cellIndex);
+  };
+  const indices = () =>
+    collectionWindow(
+      props.items?.length ?? 0,
+      offset(),
+      config(),
+      props.items?.findIndex((item) => item.key === focused()),
+    );
+  const spacer = (count: number) =>
+    count > 0 && config() ? (
+      <tr aria-hidden="true">
+        {/* A virtual spacer has no accessible content. */}
+        {/* oxlint-disable-next-line jsx-a11y/control-has-associated-label */}
+        <td
+          colspan={1000}
+          style={{ height: count * config()!.rowHeight + "px", padding: "0", border: "0" }}
+        />
+      </tr>
+    ) : null;
   return (
     <Body
-      {...omit(props, "items", "children", "xstyle")}
+      {...omit(props, "items", "virtualized", "children", "xstyle", "ref", "onKeyDown")}
+      onFocusIn={(e) => {
+        call(props.onFocusIn, e);
+        const row =
+          e.target instanceof Element
+            ? e.target.closest<HTMLTableRowElement>("[data-window-index]")
+            : null;
+        if (row && row.parentElement === body())
+          setFocused(props.items?.[Number(row.dataset["windowIndex"])]?.key);
+      }}
+      onFocusOut={(e) => {
+        call(props.onFocusOut, e);
+        if (e.relatedTarget instanceof Node && !body()?.contains(e.relatedTarget))
+          setFocused(undefined);
+      }}
+      onKeyDown={(e) => {
+        call(props.onKeyDown, e);
+        navigateWindow(e);
+      }}
+      ref={[setBody, props.ref]}
       xstyle={[variant() === "secondary" && s.secondaryBody, props.xstyle]}
     >
       {(() => {
-        const children = props.children;
-        return typeof children === "function" ? (
-          <TableCollection items={props.items ?? []}>{children}</TableCollection>
-        ) : (
-          children
+        const render = props.children;
+        if (typeof render !== "function") return render;
+        if (!config()) return <TableCollection items={props.items ?? []}>{render}</TableCollection>;
+        return (
+          <For each={indices()} keyed={(index) => props.items![index]!.key}>
+            {(index, position) => (
+              <>
+                {spacer(index() - (position() === 0 ? 0 : indices()[position() - 1]! + 1))}
+                <WindowRow value={index}>
+                  <TableCollectionItem item={props.items![index()]!} render={render} />
+                </WindowRow>
+              </>
+            )}
+          </For>
         );
       })()}
+      {spacer((props.items?.length ?? 0) - (indices().at(-1) ?? -1) - 1)}
     </Body>
   );
 }
@@ -382,9 +547,13 @@ export type TableRowProps = ComponentProps<typeof Row> & {
   disabled?: boolean;
   expandedContent?: JSX.Element;
   expandedColSpan?: number;
+  childRows?: JSX.Element;
 };
 
 export function TableRow(props: TableRowProps) {
+  const windowIndex = useContext(WindowRow);
+  const parent = useContext(TreeParent);
+  const level = (parent?.level ?? 0) + 1;
   const table = useContext(State);
   const [node, setNode] = createSignal<HTMLTableRowElement>();
   const key = () => props.itemKey;
@@ -404,6 +573,11 @@ export function TableRow(props: TableRowProps) {
           props,
           "ref",
           "itemKey",
+          "childRows",
+          "onDragStart",
+          "onDragEnd",
+          "onDragOver",
+          "onDrop",
           "disabled",
           "expandedContent",
           "expandedColSpan",
@@ -412,6 +586,32 @@ export function TableRow(props: TableRowProps) {
           "onKeyDown",
         )}
         ref={[setNode, props.ref]}
+        aria-rowindex={props["aria-rowindex"] ?? (windowIndex ? windowIndex() + 2 : undefined)}
+        data-window-index={windowIndex?.()}
+        aria-level={
+          table?.treeColumn() !== undefined && key() !== undefined ? level : props["aria-level"]
+        }
+        draggable={
+          key() !== undefined && table?.drag.enabled() && !disabled() ? "true" : props.draggable
+        }
+        onDragStart={(e) => {
+          call(props.onDragStart, e);
+          if (!e.defaultPrevented && key() !== undefined && table?.drag.enabled())
+            table.drag.start(e, key()!);
+        }}
+        onDragOver={(e) => {
+          call(props.onDragOver, e);
+          if (!e.defaultPrevented && key() !== undefined) table?.drag.over(e, key()!);
+        }}
+        onDrop={(e) => {
+          call(props.onDrop, e);
+          if (!e.defaultPrevented && key() !== undefined)
+            table?.drag.drop(e, key()!, e.currentTarget);
+        }}
+        onDragEnd={(e) => {
+          call(props.onDragEnd, e);
+          table?.drag.end();
+        }}
         aria-disabled={disabled() ? "true" : props["aria-disabled"]}
         aria-selected={
           key() !== undefined && table && table.mode() !== "none"
@@ -421,7 +621,11 @@ export function TableRow(props: TableRowProps) {
             : props["aria-selected"]
         }
         aria-expanded={
-          "expandedContent" in props ? (expanded() ? "true" : "false") : props["aria-expanded"]
+          "childRows" in props || "expandedContent" in props
+            ? expanded()
+              ? "true"
+              : "false"
+            : props["aria-expanded"]
         }
         xstyle={[disabled() && s.disabled, props.xstyle]}
         onClick={(event) => {
@@ -436,6 +640,31 @@ export function TableRow(props: TableRowProps) {
         }}
         onKeyDown={(event) => {
           call(props.onKeyDown, event);
+          if (event.defaultPrevented || disabled() || key() === undefined) return;
+          if (table?.drag.keyDown(event, key()!)) return;
+          if (
+            event.target instanceof Element &&
+            event.target.closest("[data-tree-column]") &&
+            !hasControl(event.target)
+          ) {
+            const forward = isRTL(event.currentTarget) ? "ArrowLeft" : "ArrowRight";
+            if (event.key === forward && "childRows" in props) {
+              event.preventDefault();
+              if (!expanded()) table?.toggleExpanded(key()!);
+              else
+                event.currentTarget.nextElementSibling
+                  ?.querySelector<HTMLElement>("[data-tree-column]")
+                  ?.focus();
+            } else if (event.key === (forward === "ArrowLeft" ? "ArrowRight" : "ArrowLeft")) {
+              if (expanded()) {
+                event.preventDefault();
+                table?.toggleExpanded(key()!);
+              } else if (parent?.key() !== undefined) {
+                event.preventDefault();
+                table?.focus(parent.key()!);
+              }
+            }
+          }
           if (
             event.defaultPrevented ||
             disabled() ||
@@ -451,6 +680,9 @@ export function TableRow(props: TableRowProps) {
           }
         }}
       />
+      <Show when={expanded() && "childRows" in props}>
+        <TreeParent value={{ level, key }}>{props.childRows}</TreeParent>
+      </Show>
       <Show when={expanded() && "expandedContent" in props}>
         <tr data-lenso-slot="table-expanded-row">
           <td colspan={props.expandedColSpan ?? 1}>{props.expandedContent}</td>
@@ -460,7 +692,7 @@ export function TableRow(props: TableRowProps) {
   );
 }
 
-export function TableCell(props: ComponentProps<typeof Cell>) {
+export function TableCell(props: ComponentProps<typeof Cell> & { columnKey?: TableKey }) {
   const table = useContext(State);
   const row = useContext(RowState);
   const variant = useContext(Variant);
@@ -471,7 +703,11 @@ export function TableCell(props: ComponentProps<typeof Cell>) {
   return (
     <Cell
       tabindex={row?.key() === undefined ? undefined : row.disabled() ? -1 : 0}
-      {...omit(props, "xstyle")}
+      {...omit(props, "xstyle", "columnKey")}
+      role={table?.treeColumn() !== undefined ? "gridcell" : props.role}
+      data-tree-column={
+        props.columnKey !== undefined && props.columnKey === table?.treeColumn() ? "" : undefined
+      }
       xstyle={[
         variant() === "secondary" && s.secondaryCell,
         selected() && s.selectedCell,

@@ -47,11 +47,13 @@ export const InputGroupTextArea: StyledPart<typeof SdkTextarea> = sdkPart(
 );
 
 export const InputGroup: typeof InputGroupRoot & {
+  TextArea: typeof InputGroupTextArea;
   Root: typeof InputGroupRoot;
   Input: typeof InputGroupInput;
   Prefix: typeof InputGroupPrefix;
   Suffix: typeof InputGroupSuffix;
 } = Object.assign(InputGroupRoot, {
+  TextArea: InputGroupTextArea,
   Root: InputGroupRoot,
   Input: InputGroupInput,
   Prefix: InputGroupPrefix,

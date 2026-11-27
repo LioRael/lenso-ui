@@ -22,7 +22,7 @@ export const TooltipContent: StyledPart<typeof SdkContent> = sdkPart(
   () => [
     materialStyles.root,
     materialStyles.accessible,
-    materialStyles.anchored,
+    materialStyles.blur,
     tooltipStyles.positioner,
     tooltipStyles.popup,
   ],

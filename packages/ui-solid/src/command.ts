@@ -1,3 +1,8 @@
+import { SearchFieldIcon as CommandSearchIconBase } from "./search-field.js";
+import { ScrollShadow as CommandViewportBase } from "./scroll-shadow.js";
+import { Kbd as CommandActionKeyBase } from "./kbd.js";
+import { Kbd as CommandKeyBase } from "./kbd.js";
+import { GlassButton as CommandActionBase } from "./glass-button.jsx";
 import { commandStyles } from "@lenso/tokens/command";
 import { materialStyles } from "@lenso/tokens/materials";
 import {
@@ -21,7 +26,7 @@ import {
   DialogContent as SdkContent,
   DialogClose as SdkClose,
 } from "@ui-sdk/solid/dialog";
-import { createComponent, type ComponentProps } from "solid-js";
+import { merge, createComponent, type ComponentProps } from "solid-js";
 import { htmlPart, sdkPart, type StyledPart } from "./parts.js";
 
 export const CommandRoot: StyledPart<typeof SdkRoot> = sdkPart(SdkRoot, "command", () => [
@@ -125,7 +130,70 @@ export const CommandFooter = htmlPart("div", "command-footer", () => commandStyl
 export const CommandHint = htmlPart("span", "command-hint", () => commandStyles.hint);
 export const CommandMessage = htmlPart("p", "command-message", () => commandStyles.message);
 
+export const CommandIcon = htmlPart("span", "command-icon", () => commandStyles.icon);
+export const CommandSectionLabel = htmlPart(
+  "div",
+  "command-section-label",
+  () => commandStyles.sectionLabel,
+);
+export function CommandAction(props: ComponentProps<typeof CommandActionBase>) {
+  return createComponent(
+    CommandActionBase,
+    merge({ size: "sm" as const, "data-lenso-slot": "command-action" }, props, {
+      get xstyle() {
+        return [commandStyles.action, props.xstyle];
+      },
+    }),
+  );
+}
+export function CommandKey(props: ComponentProps<typeof CommandKeyBase>) {
+  return createComponent(
+    CommandKeyBase,
+    merge({ variant: "light" as const, "data-lenso-slot": "command-key" }, props, {
+      get xstyle() {
+        return [commandStyles.key, props.xstyle];
+      },
+    }),
+  );
+}
+export function CommandActionKey(props: ComponentProps<typeof CommandActionKeyBase>) {
+  return createComponent(
+    CommandActionKeyBase,
+    merge({ variant: "light" as const, "data-lenso-slot": "command-action-key" }, props, {
+      get xstyle() {
+        return [commandStyles.actionKey, props.xstyle];
+      },
+    }),
+  );
+}
+export function CommandViewport(props: ComponentProps<typeof CommandViewportBase>) {
+  return createComponent(
+    CommandViewportBase,
+    merge({ "data-lenso-slot": "command-viewport" }, props, {
+      get xstyle() {
+        return [commandStyles.viewport, props.xstyle];
+      },
+    }),
+  );
+}
+export function CommandSearchIcon(props: ComponentProps<typeof CommandSearchIconBase>) {
+  return createComponent(
+    CommandSearchIconBase,
+    merge({ "data-lenso-slot": "command-search-icon" }, props, {
+      get xstyle() {
+        return [commandStyles.searchIcon, props.xstyle];
+      },
+    }),
+  );
+}
 export const Command: typeof CommandRoot & {
+  Icon: typeof CommandIcon;
+  SectionLabel: typeof CommandSectionLabel;
+  Action: typeof CommandAction;
+  Key: typeof CommandKey;
+  ActionKey: typeof CommandActionKey;
+  Viewport: typeof CommandViewport;
+  SearchIcon: typeof CommandSearchIcon;
   Root: typeof CommandRoot;
   Input: typeof CommandInput;
   List: typeof CommandList;
@@ -153,6 +221,13 @@ export const Command: typeof CommandRoot & {
   Hint: typeof CommandHint;
   Message: typeof CommandMessage;
 } = Object.assign(CommandRoot, {
+  Icon: CommandIcon,
+  SectionLabel: CommandSectionLabel,
+  Action: CommandAction,
+  Key: CommandKey,
+  ActionKey: CommandActionKey,
+  Viewport: CommandViewport,
+  SearchIcon: CommandSearchIcon,
   Root: CommandRoot,
   Input: CommandInput,
   List: CommandList,

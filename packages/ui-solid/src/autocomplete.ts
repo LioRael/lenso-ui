@@ -1,3 +1,4 @@
+import { AutocompleteStatus } from "@ui-sdk/solid/autocomplete";
 import { autocompleteStyles, autocompleteFieldStyles } from "@lenso/tokens/autocomplete";
 import { selectStyles } from "@lenso/tokens/select";
 import { menuStyles, menuItemStyles, menuSectionStyles } from "@lenso/tokens/menu";
@@ -36,7 +37,7 @@ export const AutocompleteContent: StyledPart<typeof SdkContent> = sdkPart(
   () => [
     materialStyles.root,
     materialStyles.accessible,
-    materialStyles.anchored,
+    materialStyles.blur,
     selectStyles.positioner,
     autocompleteStyles.popover,
     selectStyles.typography,
@@ -110,7 +111,15 @@ export const AutocompleteIndicator = htmlPart(
   () => selectStyles.indicator,
 );
 
+export const AutocompleteInputGroup = htmlPart(
+  "div",
+  "autocomplete-input-group",
+  () => autocompleteFieldStyles.inputGroup,
+);
 export const Autocomplete: typeof AutocompleteRoot & {
+  Clear: typeof AutocompleteClearButton;
+  Status: typeof AutocompleteStatus;
+  InputGroup: typeof AutocompleteInputGroup;
   Root: typeof AutocompleteRoot;
   Trigger: typeof AutocompleteTrigger;
   Content: typeof AutocompleteContent;
@@ -129,6 +138,9 @@ export const Autocomplete: typeof AutocompleteRoot & {
   ClearButton: typeof AutocompleteClearButton;
   Indicator: typeof AutocompleteIndicator;
 } = Object.assign(AutocompleteRoot, {
+  Clear: AutocompleteClearButton,
+  Status: AutocompleteStatus,
+  InputGroup: AutocompleteInputGroup,
   Root: AutocompleteRoot,
   Trigger: AutocompleteTrigger,
   Content: AutocompleteContent,
@@ -147,3 +159,5 @@ export const Autocomplete: typeof AutocompleteRoot & {
   ClearButton: AutocompleteClearButton,
   Indicator: AutocompleteIndicator,
 });
+
+export { AutocompleteStatus };

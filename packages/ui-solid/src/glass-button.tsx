@@ -6,7 +6,9 @@ import {
 } from "@lenso/tokens/glass-button";
 import { liquidMaterialStyles } from "@lenso/tokens/materials";
 import { Button as SdkButton, type ButtonState } from "@ui-sdk/solid/button";
-import { omit, type ComponentProps } from "solid-js";
+import { ButtonGroupContext } from "./button-group.jsx";
+import { buttonGroupItemStyles } from "@lenso/tokens/button-group";
+import { useContext, omit, type ComponentProps } from "solid-js";
 import { createGlassElement } from "./glass.jsx";
 import { htmlPart, sdkPart, type SlotProps, type StyledPart } from "./parts.js";
 
@@ -57,13 +59,26 @@ const PressHighlight = htmlPart(
 );
 
 export function GlassButtonRoot(props: GlassButtonProps) {
+  const group = useContext(ButtonGroupContext);
   const { ref } = createGlassElement<HTMLButtonElement>({
     profile: "glass-small",
-    elastic: () => !props.disabled && props.elastic !== false,
+    elastic: () => !props.disabled && !group?.disabled && props.elastic !== false,
   });
   return (
     <Action
       {...omit(props, "ref", "children", "elastic")}
+      size={props.size ?? group?.size}
+      variant={props.variant ?? (group?.variant === "prominent" ? "prominent" : "default")}
+      tint={props.tint ?? group?.tint}
+      destructive={props.destructive ?? group?.destructive}
+      fullWidth={props.fullWidth ?? group?.fullWidth}
+      disabled={props.disabled || group?.disabled}
+      data-lenso-group-item={group ? "" : undefined}
+      xstyle={[
+        group && !group.isDetached && buttonGroupItemStyles[group.orientation ?? "horizontal"],
+        group?.fullWidth && buttonGroupItemStyles.stretch,
+        props.xstyle,
+      ]}
       ref={[ref, props.ref]}
       data-glass="true"
       data-icon={props.isIconOnly ? "only" : undefined}

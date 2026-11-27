@@ -1,0 +1,49 @@
+{
+  "name": "@lenso/ui-svelte",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Experimental Lenso UI components for Svelte 5.",
+  "license": "(Apache-2.0 AND MIT)",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "svelte": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "svelte": "./dist/*/index.js"
+    }
+  },
+  "scripts": {
+    "build": "svelte-package --input src && cp ../../THIRD_PARTY_NOTICES.md dist/",
+    "typecheck": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "@lenso/glass": "workspace:*",
+    "@lenso/primitives": "workspace:*",
+    "@lenso/tokens": "workspace:*",
+    "@stylexjs/stylex": "catalog:",
+    "@ui-sdk/core": "0.1.0-beta.8",
+    "@ui-sdk/svelte": "0.1.0-beta.8"
+  },
+  "devDependencies": {
+    "@stylexjs/unplugin": "catalog:",
+    "@sveltejs/package": "3.0.3",
+    "@sveltejs/vite-plugin-svelte": "7.3.2",
+    "playwright": "1.65.0",
+    "svelte": "5.59.2",
+    "svelte-check": "4.7.8",
+    "typescript": "6.0.3",
+    "vite": "catalog:"
+  },
+  "peerDependencies": {
+    "svelte": "^5.46.4"
+  }
+}

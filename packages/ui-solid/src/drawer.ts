@@ -58,7 +58,9 @@ export const DrawerHandle: StyledPart<typeof SdkHandle> = sdkPart(
   () => drawerStyles.handle,
 );
 
+export const DrawerLayout = htmlPart("div", "drawer-layout", () => drawerStyles.content);
 export const Drawer: typeof DrawerRoot & {
+  Layout: typeof DrawerLayout;
   Root: typeof DrawerRoot;
   Trigger: typeof DrawerTrigger;
   Backdrop: typeof DrawerBackdrop;
@@ -71,6 +73,7 @@ export const Drawer: typeof DrawerRoot & {
   Footer: typeof DrawerFooter;
   Handle: typeof DrawerHandle;
 } = Object.assign(DrawerRoot, {
+  Layout: DrawerLayout,
   Root: DrawerRoot,
   Trigger: DrawerTrigger,
   Backdrop: DrawerBackdrop,

@@ -1,3 +1,5 @@
+import { Label as FieldLabel } from "./label.js";
+import { Description as FieldDescription } from "./description.js";
 import { textFieldStyles } from "@lenso/tokens/textfield";
 import { inputStyles } from "@lenso/tokens/input";
 import { groupStyles } from "@lenso/tokens/surface";
@@ -40,10 +42,14 @@ export const TextFieldInput: StyledPart<
 );
 
 export const TextField: typeof TextFieldRoot & {
+  Label: typeof FieldLabel;
+  Description: typeof FieldDescription;
   Root: typeof TextFieldRoot;
   Group: typeof TextFieldGroup;
   Input: typeof TextFieldInput;
 } = Object.assign(TextFieldRoot, {
+  Label: FieldLabel,
+  Description: FieldDescription,
   Root: TextFieldRoot,
   Group: TextFieldGroup,
   Input: TextFieldInput,

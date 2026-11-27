@@ -5,18 +5,11 @@ import { knobMaterialStyles } from "@lenso/tokens/materials";
 import * as stylex from "@stylexjs/stylex";
 
 const profiles = {
-  segment: { strength: 0.3, dispersion: 0.1, depth: 2.5, dome: 0, splay: 1, ink: true },
   switch: { strength: 0.45, dispersion: 1, depth: 2, dome: 6, splay: 0.4 },
   slider: { strength: 0.75, dispersion: 0.65, depth: 2, dome: 5, splay: 0.5 },
 } satisfies Record<string, ControlLensOptions>;
 
-export function createLabelRefraction(element: HTMLElement) {
-  return createControlLens(element, element, {
-    ...profiles.segment,
-    paintsLight: true,
-    pill: true,
-  });
-}
+export { createLabelRefraction } from "@lenso/glass/motion";
 
 interface TrackSurface {
   content: HTMLElement;

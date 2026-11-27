@@ -25,7 +25,7 @@ export const PopoverContent: StyledPart<typeof SdkContent> = sdkPart(
   () => [
     materialStyles.root,
     materialStyles.accessible,
-    materialStyles.anchored,
+    materialStyles.blur,
     popoverStyles.positioner,
     popoverStyles.popup,
   ],

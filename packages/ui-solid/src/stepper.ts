@@ -40,6 +40,8 @@ export const StepperSeparator = htmlPart(
 );
 
 export const Stepper: typeof StepperRoot & {
+  DecrementButton: typeof StepperDecrement;
+  IncrementButton: typeof StepperIncrement;
   Root: typeof StepperRoot;
   Group: typeof StepperGroup;
   Input: typeof StepperInput;
@@ -47,6 +49,8 @@ export const Stepper: typeof StepperRoot & {
   Decrement: typeof StepperDecrement;
   Separator: typeof StepperSeparator;
 } = Object.assign(StepperRoot, {
+  DecrementButton: StepperDecrement,
+  IncrementButton: StepperIncrement,
   Root: StepperRoot,
   Group: StepperGroup,
   Input: StepperInput,
@@ -54,3 +58,7 @@ export const Stepper: typeof StepperRoot & {
   Decrement: StepperDecrement,
   Separator: StepperSeparator,
 });
+
+export const StepperDecrementButton: typeof Stepper.DecrementButton = Stepper.DecrementButton;
+
+export const StepperIncrementButton: typeof Stepper.IncrementButton = Stepper.IncrementButton;

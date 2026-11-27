@@ -54,6 +54,18 @@
     "./wheel-picker/core": {
       "types": "./dist/wheel-picker/wheel-picker.d.ts",
       "import": "./dist/wheel-picker/wheel-picker.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js"
+    },
+    "./locale/core": {
+      "types": "./dist/locale/locale.d.ts",
+      "import": "./dist/locale/locale.js"
+    },
+    "./color/core": {
+      "types": "./dist/color/color.d.ts",
+      "import": "./dist/color/color.js"
     }
   },
   "publishConfig": {

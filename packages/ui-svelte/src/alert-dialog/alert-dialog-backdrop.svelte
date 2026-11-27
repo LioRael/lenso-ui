@@ -1,0 +1,21 @@
+<script lang="ts">
+  import { alertDialogStyles } from "@lenso/tokens/alert-dialog";
+  import { modalStyles } from "@lenso/tokens/modal";
+  import type { ComponentProps } from "svelte";
+  import { AlertDialogBackdrop as Part } from "@ui-sdk/svelte/alert-dialog";
+  import { styled, type StyleXProps } from "../styled.js";
+
+  type Props = ComponentProps<typeof Part> &
+    StyleXProps & { variant?: "transparent" | "opaque" | "blur" };
+  let { variant, xstyle, class: className, style, ...rest }: Props = $props();
+  const presentation = $derived(
+    styled(
+      [alertDialogStyles.backdrop, modalStyles[variant ?? "opaque"]],
+      xstyle,
+      className,
+      style,
+    ),
+  );
+</script>
+
+<Part data-lenso-slot="alert-dialog-backdrop" {...rest} {...presentation} />

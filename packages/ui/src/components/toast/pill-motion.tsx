@@ -2,79 +2,24 @@
 import * as React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { toastStyles as s } from "@lenso/tokens/toast";
-import { createSpring, prefersReducedMotion } from "@lenso/glass/motion";
+import { bindPillSize, createPillTransition, prefersReducedMotion } from "@lenso/glass/motion";
 
-/** Resize the surface, leaving its live text and native controls at their natural scale. */
 export function usePillSize(enabled: boolean) {
   const measure = React.useRef<HTMLDivElement>(null);
-  const update = React.useRef<(() => void) | null>(null);
+  const motion = React.useRef<ReturnType<typeof bindPillSize>>(undefined);
   React.useLayoutEffect(() => {
-    const content = measure.current;
-    const root = content?.parentElement?.parentElement;
-    if (!enabled || !content || !root) return;
-    const viewport =
-      root.closest<HTMLElement>('[data-lenso-slot="toast-viewport"]') ?? root.parentElement;
-    let available = Infinity;
-    const constrain = () => {
-      available = viewport?.clientWidth ?? Infinity;
-      if (viewport) content.style.setProperty("--toast-pill-available", `${available}px`);
-    };
-    constrain();
-    const dimensions = ["width", "height"] as const;
-    const size = () => [content.offsetWidth, content.offsetHeight];
-    let target = size();
-    const springs = target.map((value, index) =>
-      createSpring(value, 480, 38, (next) => {
-        root.style.setProperty(`--toast-pill-${dimensions[index]}`, `${next}px`);
-        if (index === 0)
-          root.style.setProperty(
-            "--toast-pill-inline-offset",
-            `${Math.min(next, available) - target[0]!}px`,
-          );
-      }),
-    );
-    springs.forEach((spring) => spring.paint());
-    const resize = () => {
-      constrain();
-      target = size();
-      target.forEach((value, index) => springs[index]!.set(value));
-      springs[0]!.paint();
-    };
-    update.current = resize;
-    let frame: number | null = null;
-    const observer = new ResizeObserver(() => {
-      // Compensate live controls before paint; the size spring starts next frame.
-      available = viewport?.clientWidth ?? Infinity;
-      target = size();
-      springs[0]!.paint();
-      // Reduced-motion springs paint synchronously; defer writes outside observer delivery.
-      if (frame !== null) return;
-      frame = requestAnimationFrame(() => {
-        frame = null;
-        resize();
-      });
-    });
-    observer.observe(content);
-    if (viewport) observer.observe(viewport);
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    reduced.addEventListener("change", resize);
+    if (!enabled || !measure.current) return;
+    const binding = bindPillSize(measure.current);
+    motion.current = binding;
     return () => {
-      update.current = null;
-      observer.disconnect();
-      if (frame !== null) cancelAnimationFrame(frame);
-      reduced.removeEventListener("change", resize);
-      springs.forEach((spring) => spring.stop());
-      dimensions.forEach((dimension) => root.style.removeProperty(`--toast-pill-${dimension}`));
-      root.style.removeProperty("--toast-pill-inline-offset");
+      binding?.destroy();
+      motion.current = undefined;
     };
   }, [enabled]);
-  React.useLayoutEffect(() => {
-    update.current?.();
-  });
+  React.useLayoutEffect(() => motion.current?.resize());
   return measure;
 }
 
-/** An inert presentation snapshot lets removed actions fade without retaining live controls. */
 export function usePillTransition(
   measure: React.RefObject<HTMLDivElement | null>,
   phase: string | undefined,
@@ -82,58 +27,17 @@ export function usePillTransition(
   enabled: boolean,
 ) {
   const overlay = React.useRef<HTMLDivElement>(null);
-  const previous = React.useRef<HTMLElement | null>(null);
-  const previousPhase = React.useRef(phase);
+  const motion = React.useRef<ReturnType<typeof createPillTransition>>(undefined);
   React.useLayoutEffect(() => {
-    const content = measure.current;
-    const layer = overlay.current;
-    if (!enabled || !content || !layer) {
-      previous.current = null;
-      return;
-    }
-    const outgoing = previousPhase.current === phase ? null : previous.current;
-    previousPhase.current = phase;
-    const snapshot = content.cloneNode(true) as HTMLElement;
-    snapshot.querySelectorAll("[inert]").forEach((node) => node.remove());
-    snapshot.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
-    snapshot.style.width = `${content.offsetWidth}px`;
-    const paint = getComputedStyle(content);
-    for (const variable of ["--toast-title-color", "--toast-indicator-color"])
-      snapshot.style.setProperty(variable, paint.getPropertyValue(variable));
-    previous.current = snapshot;
-    if (!outgoing || prefersReducedMotion()) return;
-    layer.append(outgoing);
-    const options = { duration: 260, easing: "cubic-bezier(.2,.8,.2,1)", fill: "both" as const };
-    const leaving = outgoing.animate(
-      [
-        { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
-        { opacity: 0, filter: "blur(3px)", transform: "translateY(-5px)" },
-      ],
-      options,
-    );
-    const entering = content.animate(
-      [
-        { opacity: 0, filter: "blur(3px)", transform: "translateY(5px)" },
-        { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
-      ],
-      options,
-    );
-    const finish = () => {
-      outgoing.remove();
-      entering.cancel();
-      leaving.cancel();
-    };
-    entering.onfinish = finish;
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    const settle = () => {
-      if (reduced.matches) finish();
-    };
-    reduced.addEventListener("change", settle);
+    if (!enabled || !measure.current || !overlay.current) return;
+    const binding = createPillTransition(measure.current, overlay.current);
+    motion.current = binding;
     return () => {
-      finish();
-      reduced.removeEventListener("change", settle);
+      binding.destroy();
+      motion.current = undefined;
     };
-  }, [enabled, phase, revision, measure]);
+  }, [enabled, measure]);
+  React.useLayoutEffect(() => motion.current?.update(phase), [enabled, measure, phase, revision]);
   return overlay;
 }
 

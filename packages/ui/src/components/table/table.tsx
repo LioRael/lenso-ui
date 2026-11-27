@@ -249,16 +249,7 @@ export function TableContent({
   return (
     <TableContext.Provider value={value}>
       {dragAndDrop && (
-        <span
-          aria-live="polite"
-          style={{
-            position: "absolute",
-            width: 1,
-            height: 1,
-            overflow: "hidden",
-            clipPath: "inset(50%)",
-          }}
-        >
+        <span aria-live="polite" {...stylex.props(tableStyles.dragStatus)}>
           {selection.drag.announcement}
         </span>
       )}
@@ -797,6 +788,7 @@ export function TableCell({
     tableStyles.cell,
     variant === "secondary" && tableStyles.secondaryCell,
     !!row && context?.selection.selected.has(row.key) && tableStyles.selectedCell,
+    isTreeColumn && tableStyles.treeDepth(row?.depth ?? 0),
     xstyle,
   );
   return (
@@ -810,7 +802,6 @@ export function TableCell({
       style={{
         ...compiled.style,
         ...style,
-        ...(isTreeColumn && { paddingInlineStart: 16 + (row?.depth ?? 0) * 20 }),
       }}
     >
       {typeof children === "function"

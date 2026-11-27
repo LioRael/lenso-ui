@@ -53,6 +53,8 @@ export const SliderThumb: StyledPart<typeof SdkThumb> = sdkPart(
 export const SliderMarks = htmlPart("div", "slider-marks", () => sliderStyles.marks);
 
 export const Slider: typeof SliderRoot & {
+  Value: typeof SliderOutput;
+  Indicator: typeof SliderFill;
   Root: typeof SliderRoot;
   Control: typeof SliderControl;
   Label: typeof SliderLabel;
@@ -63,6 +65,8 @@ export const Slider: typeof SliderRoot & {
   Thumb: typeof SliderThumb;
   Marks: typeof SliderMarks;
 } = Object.assign(SliderRoot, {
+  Value: SliderOutput,
+  Indicator: SliderFill,
   Root: SliderRoot,
   Control: SliderControl,
   Label: SliderLabel,

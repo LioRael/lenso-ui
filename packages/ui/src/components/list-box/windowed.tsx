@@ -2,11 +2,12 @@
 
 import * as React from "react";
 
-export interface WindowOptions {
-  rowHeight: number;
-  height: number;
-  overscan?: number;
-}
+import {
+  collectionWindow,
+  revealWindowRow,
+  type WindowOptions,
+} from "@lenso/primitives/table/core";
+export type { WindowOptions } from "@lenso/primitives/table/core";
 
 /** A fixed-height native collection window. Focused rows stay mounted during scroll. */
 export function useCollectionWindow(
@@ -17,24 +18,12 @@ export function useCollectionWindow(
   const [start, setStart] = React.useState(0);
   const [focused, setFocused] = React.useState<number | null>(null);
   const pending = React.useRef<number | null>(null);
-  const overscan = options?.overscan ?? 3;
-  const visible = options ? Math.ceil(options.height / options.rowHeight) : count;
-  const first = options ? Math.max(0, start - overscan) : 0;
-  const last = options ? Math.min(count, start + visible + overscan) : count;
-  const indices = Array.from({ length: last - first }, (_, index) => first + index);
-  if (focused !== null && focused >= 0 && focused < count && !indices.includes(focused))
-    indices.push(focused);
-  indices.sort((a, b) => a - b);
+  const indices = collectionWindow(count, start, options, focused);
   const scrollTo = React.useCallback(
     (index: number) => {
       if (!options || !node.current) return;
-      const top = index * options.rowHeight;
       const viewport = node.current;
-      // oxlint-disable-next-line react/immutability -- Event-time scrolling mutates the browser viewport, not React-owned data.
-      if (top < viewport.scrollTop) viewport.scrollTop = top;
-      else if (top + options.rowHeight > viewport.scrollTop + options.height)
-        // oxlint-disable-next-line react/immutability -- Keep the focused row in the imperative DOM viewport.
-        viewport.scrollTop = top + options.rowHeight - options.height;
+      revealWindowRow(viewport, index, options);
       setStart(Math.floor(viewport.scrollTop / options.rowHeight));
       setFocused(index);
       pending.current = index;

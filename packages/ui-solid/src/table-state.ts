@@ -1,4 +1,10 @@
-import { resolveColumnWidths, type ColumnSize, type TableKey } from "@lenso/primitives/table/core";
+import {
+  createCollectionDrag,
+  type CollectionDragAndDrop,
+  resolveColumnWidths,
+  type ColumnSize,
+  type TableKey,
+} from "@lenso/primitives/table/core";
 import { createMemo, createSignal } from "solid-js";
 
 export interface SortDescriptor {
@@ -9,6 +15,8 @@ export interface SortDescriptor {
 type Widths = ReadonlyMap<TableKey, number>;
 
 export interface TableStateProps {
+  treeColumn?: TableKey;
+  dragAndDrop?: CollectionDragAndDrop;
   selectionMode?: "none" | "single" | "multiple";
   selectedKeys?: ReadonlySet<TableKey>;
   defaultSelectedKeys?: ReadonlySet<TableKey>;
@@ -34,6 +42,8 @@ export function createTableState(props: TableStateProps, available: () => number
   const [rows, setRows] = createSignal<
     ReadonlyMap<TableKey, { node: HTMLTableRowElement; disabled: () => boolean }>
   >(new Map());
+  const [windowRows, updateWindowRows] =
+    createSignal<readonly { key: TableKey; disabled?: boolean }[]>();
   let anchor: TableKey | undefined;
   let range = new Set<TableKey>();
 
@@ -48,6 +58,9 @@ export function createTableState(props: TableStateProps, available: () => number
 
   const disabled = (key: TableKey) => Boolean(props.disabledKeys?.has(key));
   const enabledKeys = () =>
+    windowRows()
+      ?.filter((item) => !disabled(item.key) && !item.disabled)
+      .map((item) => item.key) ??
     [...rows()]
       .filter(([key, row]) => !disabled(key) && !row.disabled())
       .sort(([, a], [, b]) =>
@@ -60,7 +73,36 @@ export function createTableState(props: TableStateProps, available: () => number
     props.onSelectionChange?.(next);
   }
 
+  const [announcement, announce] = createSignal("");
+  let focusInWindow: ((key: TableKey) => void) | undefined;
+  const focus = (key: TableKey) => {
+    if (focusInWindow) {
+      focusInWindow(key);
+      return;
+    }
+    rows().get(key)?.node.cells[0]?.focus();
+  };
+  const drag = createCollectionDrag({
+    configuration: () => props.dragAndDrop,
+    enabledKeys,
+    selected,
+    focus,
+    announce,
+  });
   return {
+    collectionSize: () => windowRows()?.length,
+    rowFor: (key: TableKey) => rows().get(key)?.node,
+    drag,
+    announcement,
+    setWindowRows(
+      items: readonly { key: TableKey; disabled?: boolean }[] | undefined,
+      focusRow?: (key: TableKey) => void,
+    ) {
+      focusInWindow = focusRow;
+      updateWindowRows(items);
+    },
+    focus,
+    treeColumn: () => props.treeColumn,
     mode,
     selected,
     sort,

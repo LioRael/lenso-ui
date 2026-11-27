@@ -22,11 +22,25 @@ export const ColorInputGroupChannelInput: StyledPart<typeof SdkChannelInput> = s
   () => inputStyles.input,
 );
 
+export const ColorInputGroupPrefix = htmlPart(
+  "div",
+  "color-input-group-prefix",
+  () => colorInputGroupStyles.prefix,
+);
+export const ColorInputGroupSuffix = htmlPart(
+  "div",
+  "color-input-group-suffix",
+  () => colorInputGroupStyles.suffix,
+);
 export const ColorInputGroup: typeof ColorInputGroupRoot & {
+  Prefix: typeof ColorInputGroupPrefix;
+  Suffix: typeof ColorInputGroupSuffix;
   Root: typeof ColorInputGroupRoot;
   Input: typeof ColorInputGroupInput;
   ChannelInput: typeof ColorInputGroupChannelInput;
 } = Object.assign(ColorInputGroupRoot, {
+  Prefix: ColorInputGroupPrefix,
+  Suffix: ColorInputGroupSuffix,
   Root: ColorInputGroupRoot,
   Input: ColorInputGroupInput,
   ChannelInput: ColorInputGroupChannelInput,
