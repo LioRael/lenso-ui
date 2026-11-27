@@ -58,20 +58,24 @@ export const ListBoxSeparator: StyledPart<typeof SdkSeparator> = sdkPart(
 export const ListBoxItems = (props: ComponentProps<typeof SdkItems>) =>
   createComponent(SdkItems, props);
 
+const Item = Object.assign(ListBoxItem, { Root: ListBoxItem, Indicator: ListBoxItemIndicator });
+const Section = Object.assign(ListBoxSection, { Root: ListBoxSection });
 export const ListBox: typeof ListBoxRoot & {
   Root: typeof ListBoxRoot;
-  Item: typeof ListBoxItem;
+  Item: typeof Item;
   ItemIndicator: typeof ListBoxItemIndicator;
-  Section: typeof ListBoxSection;
+  Section: typeof Section;
   SectionLabel: typeof ListBoxSectionLabel;
   Separator: typeof ListBoxSeparator;
   Items: typeof ListBoxItems;
 } = Object.assign(ListBoxRoot, {
   Root: ListBoxRoot,
-  Item: ListBoxItem,
+  Item,
   ItemIndicator: ListBoxItemIndicator,
-  Section: ListBoxSection,
+  Section,
   SectionLabel: ListBoxSectionLabel,
   Separator: ListBoxSeparator,
   Items: ListBoxItems,
 });
+
+export { createListboxController, type ListboxController } from "@ui-sdk/core/listbox";

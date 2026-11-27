@@ -58,6 +58,13 @@ The experimental [Solid package](packages/ui-solid/README.md) has entry points
 for all 99 component families with the shared Lenso theme and native Solid UI SDK
 interactions. See the package guide for setup and current differences.
 
+## Svelte 5 preview
+
+The experimental [Svelte package](packages/ui-svelte/README.md) exposes all 99
+component families with shared Lenso styling and native Svelte UI SDK
+interactions. The package guide covers Vite setup, bindings and current
+limitations.
+
 ## Build with an agent
 
 Two portable skills help coding agents work with Lenso's installed components

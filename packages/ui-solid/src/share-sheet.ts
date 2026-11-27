@@ -1,3 +1,4 @@
+import { Sheet } from "./sheet.js";
 import { shareSheetStyles } from "@lenso/tokens/share-sheet";
 import { sheetStyles } from "@lenso/tokens/sheet";
 import { materialStyles } from "@lenso/tokens/materials";
@@ -97,6 +98,8 @@ export const ShareSheetAction = htmlPart(
 );
 
 export const ShareSheet: typeof ShareSheetRoot & {
+  Handle: typeof Sheet.Handle;
+  Close: typeof Sheet.Close;
   Root: typeof ShareSheetRoot;
   Trigger: typeof ShareSheetTrigger;
   Backdrop: typeof ShareSheetBackdrop;
@@ -116,6 +119,8 @@ export const ShareSheet: typeof ShareSheetRoot & {
   ActionRow: typeof ShareSheetActionRow;
   Action: typeof ShareSheetAction;
 } = Object.assign(ShareSheetRoot, {
+  Handle: Sheet.Handle,
+  Close: Sheet.Close,
   Root: ShareSheetRoot,
   Trigger: ShareSheetTrigger,
   Backdrop: ShareSheetBackdrop,

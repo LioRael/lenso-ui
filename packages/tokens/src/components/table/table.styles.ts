@@ -60,6 +60,14 @@ export const tableStyles = stylex.create({
   body: { boxShadow: tokens.surfaceShadow },
   secondaryBody: { boxShadow: "none" },
   row: { position: "relative", height: "100%" },
+  dragStatus: {
+    position: "absolute",
+    width: 1,
+    height: 1,
+    overflow: "hidden",
+    clipPath: "inset(50%)",
+  },
+  treeDepth: (depth: number) => ({ paddingInlineStart: 16 + depth * 20 }),
   cell: {
     boxSizing: "border-box",
     height: "100%",

@@ -1,3 +1,4 @@
+import { verifyAdapterParity } from "../../../tests/consumer/adapter-parity.ts";
 import assert from "node:assert/strict";
 import { chromium, webkit } from "playwright";
 
@@ -68,6 +69,18 @@ export async function verifySolidBrowser(url: string) {
       assert.equal(await page.locator("#source").textContent(), "agent");
 
       assert.equal(await theme.getAttribute("data-custom-render"), "true");
+      const saving = page.getByRole("button", { name: "Save changes" });
+      await saving.focus();
+      assert.equal(await saving.getAttribute("aria-busy"), "true");
+      await saving.press("Enter");
+      assert.equal(await page.getByLabel("Save count").textContent(), "0");
+      await page.getByRole("button", { name: "Finish saving" }).click();
+      await saving.press("Enter");
+      assert.equal(await page.getByLabel("Save count").textContent(), "1");
+      const grouped = page.getByRole("button", { name: "Grouped action" });
+      assert.equal(await grouped.isDisabled(), true);
+      assert.equal(await grouped.getAttribute("data-variant"), "prominent");
+      assert.equal(await grouped.evaluate((button) => button.closest("fieldset")?.disabled), true);
       const lightText = await checkbox
         .locator('[data-lenso-slot="checkbox-content"]')
         .evaluate((element) => getComputedStyle(element).color);
@@ -132,6 +145,21 @@ export async function verifySolidBrowser(url: string) {
         element.scrollTop = 0;
       });
       await expand.waitFor({ state: "hidden" });
+
+      const activity = nav.getByRole("link", { name: "Activity" });
+      const group = nav.locator("[data-tab-bar-group]");
+      await overview.scrollIntoViewIfNeeded();
+      const from = (await overview.boundingBox())!;
+      const to = (await activity.boundingBox())!;
+      await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2);
+      await page.mouse.down();
+      try {
+        await page.mouse.move(to.x + to.width / 2, to.y + to.height / 2, { steps: 8 });
+        assert.equal(await group.getAttribute("data-highlight-active"), "");
+      } finally {
+        await page.mouse.up();
+      }
+      await nav.locator('a[href="#source"][aria-current="page"]').waitFor();
 
       const modal = page.getByRole("button", { name: "Open settings" });
       await modal.click();
@@ -217,6 +245,7 @@ export async function verifySolidBrowser(url: string) {
         () => document.querySelector('[aria-label="Account loads"]')?.textContent === "1",
       );
 
+      await verifyAdapterParity(page, "Close");
       assert.deepEqual(errors, [], engine.name());
     } finally {
       await browser.close();

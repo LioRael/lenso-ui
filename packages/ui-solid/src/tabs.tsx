@@ -169,3 +169,5 @@ export const Tabs: typeof TabsRoot & {
   Panel: TabPanel,
   Separator: TabSeparator,
 });
+
+export const TabListContainer: typeof Tabs.ListContainer = Tabs.ListContainer;

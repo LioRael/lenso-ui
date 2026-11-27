@@ -1,11 +1,5 @@
-export { Button, type ButtonProps } from "./button.jsx";
-export {
-  Checkbox,
-  type CheckboxProps,
-  type CheckboxContentProps,
-  type CheckboxControlProps,
-  type CheckboxIndicatorProps,
-} from "./checkbox.jsx";
+export { Button, ButtonIcon, ButtonRoot, type ButtonProps } from "./button.jsx";
+export * from "./checkbox.jsx";
 export * from "./accordion.js";
 export * from "./action-sheet.js";
 export * from "./alert-dialog.js";
@@ -15,9 +9,9 @@ export * from "./avatar-group.js";
 export * from "./avatar.js";
 export * from "./badge.js";
 export * from "./breadcrumbs.js";
-export * from "./button-group.js";
+export * from "./button-group.jsx";
 export * from "./calendar-year-picker.js";
-export * from "./calendar.js";
+export * from "./calendar.jsx";
 export * from "./card.js";
 export * from "./checkbox-group.js";
 export * from "./chip.js";
@@ -25,16 +19,16 @@ export * from "./close-button.jsx";
 export * from "./color-area.js";
 export * from "./color-field.js";
 export * from "./color-input-group.js";
-export * from "./color-picker.js";
-export * from "./color-slider.js";
+export * from "./color-picker.jsx";
+export * from "./color-slider.jsx";
 export * from "./color-swatch-picker.js";
 export * from "./color-swatch.jsx";
 export * from "./combo-box.js";
 export * from "./command.js";
-export * from "./context-menu.js";
+export * from "./context-menu.jsx";
 export * from "./date-field.js";
 export * from "./date-input-group.js";
-export * from "./date-picker.js";
+export * from "./date-picker.jsx";
 export * from "./date-range-picker.js";
 export * from "./description.js";
 export * from "./disclosure.js";
@@ -63,7 +57,7 @@ export * from "./navigation-bar.js";
 export * from "./notification.js";
 export * from "./number-field.js";
 export * from "./page-control.jsx";
-export * from "./pagination.js";
+export * from "./pagination.jsx";
 export * from "./popover.js";
 export * from "./popup-button.js";
 export * from "./progress-bar.js";
@@ -91,15 +85,22 @@ export * from "./switch.js";
 export * from "./tab-bar.jsx";
 export * from "./table.jsx";
 export * from "./tabs.jsx";
-export * from "./tag-group.js";
-export * from "./tag.js";
+export * from "./tag-group.jsx";
+export * from "./tag.jsx";
 export * from "./textarea.js";
 export * from "./textfield.js";
 export * from "./time-field.js";
-export * from "./toast.js";
+export * from "./toast.jsx";
 export * from "./toggle-button-group.js";
 export * from "./toggle-button.js";
 export * from "./toolbar.js";
 export * from "./tooltip.js";
 export * from "./typography.js";
 export * from "./wheel-picker.jsx";
+export * from "./scroll-edge.jsx";
+export * from "./glass-provider.jsx";
+export * from "./icons.jsx";
+
+export * from "./hooks.js";
+
+export * from "./providers.jsx";

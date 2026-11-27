@@ -1,5 +1,7 @@
+import { Parity } from "./parity";
 import {
   Button,
+  ButtonGroup,
   Checkbox,
   Label,
   List,
@@ -107,9 +109,12 @@ function AccountsTable() {
 }
 
 export function App() {
+  const [busy, setBusy] = createSignal(true);
+  const [saves, setSaves] = createSignal(0);
   const [dark, setDark] = createSignal(false);
   const [saved, setSaved] = createSignal("");
   const [source, setSource] = createSignal("");
+  const [destination, setDestination] = createSignal("overview");
   const [scroller, setScroller] = createSignal<HTMLDivElement>();
 
   return (
@@ -219,10 +224,26 @@ export function App() {
       </RefreshControl>
       <TabBar aria-label="Account navigation" autoMinimize scrollTarget={scroller}>
         <TabBar.Group>
-          <TabBar.Link href="#saved" isCurrent>
+          <TabBar.Link
+            href="#saved"
+            isCurrent={destination() === "overview"}
+            onClick={(e) => {
+              e.preventDefault();
+              setDestination("overview");
+            }}
+          >
             Overview
           </TabBar.Link>
-          <TabBar.Link href="#source">Activity</TabBar.Link>
+          <TabBar.Link
+            href="#source"
+            isCurrent={destination() === "activity"}
+            onClick={(e) => {
+              e.preventDefault();
+              setDestination("activity");
+            }}
+          >
+            Activity
+          </TabBar.Link>
         </TabBar.Group>
       </TabBar>
       <div id="tabbar-scroll" ref={setScroller} style={{ height: "100px", overflow: "auto" }}>
@@ -231,6 +252,15 @@ export function App() {
       <AccountsTable />
       <output id="saved">{saved()}</output>
       <output id="source">{source()}</output>
+      <ButtonGroup disabled variant="prominent" size="lg">
+        <Button>Grouped action</Button>
+      </ButtonGroup>
+      <Parity />
+      <Button isLoading={busy()} onClick={() => setSaves((n) => n + 1)}>
+        Save changes
+      </Button>
+      <Button onClick={() => setBusy(false)}>Finish saving</Button>
+      <output aria-label="Save count">{saves()}</output>
     </main>
   );
 }

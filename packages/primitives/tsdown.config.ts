@@ -8,6 +8,9 @@ export default defineConfig({
   },
   dts: false,
   entry: {
+    "color/color": path.resolve(import.meta.dirname, "src/color/color.ts"),
+    "locale/locale": path.resolve(import.meta.dirname, "src/locale/locale.ts"),
+    "hooks/index": path.resolve(import.meta.dirname, "src/hooks/index.ts"),
     "table/column-layout": path.resolve(import.meta.dirname, "src/table/column-layout.ts"),
     "wheel-picker/wheel-picker": path.resolve(
       import.meta.dirname,

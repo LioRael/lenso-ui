@@ -23,7 +23,7 @@ import {
 import { protectLoadingRender } from "../../utils/action-button.js";
 import { useElasticRef } from "@lenso/glass/react";
 import { assignRef } from "../../utils/interaction/ref.js";
-import { prefersReducedMotion } from "@lenso/glass/motion";
+import { prefersReducedMotion, restoreTabBarFocus } from "@lenso/glass/motion";
 import { KnobMaterial } from "../../utils/materials/knob.js";
 import { Material } from "../../utils/materials/render.js";
 import { mergeStyle, type StyleXProps } from "../../utils/styled.js";
@@ -201,14 +201,7 @@ export function TabBarGroup({
       expandRef.current?.focus({ preventScroll: true });
     } else if (!minimized && focusAfterExpand.current) {
       focusAfterExpand.current = false;
-      const target =
-        list.querySelector<HTMLElement>(
-          '[data-tab-bar-item][data-current]:not([aria-disabled="true"]):not(:disabled)',
-        ) ??
-        list.querySelector<HTMLElement>(
-          '[data-tab-bar-item]:not([aria-disabled="true"]):not(:disabled)',
-        );
-      target?.focus({ preventScroll: true });
+      return restoreTabBarFocus(list);
     }
   }, [minimized, separate]);
   const compiled = stylex.props(
@@ -318,7 +311,11 @@ export function TabBarGroup({
           }}
           onBlur={(event) => {
             // Removing the expand button also blurs it, before the list can take focus.
-            if (event.relatedTarget) focusAfterExpand.current = false;
+            if (
+              event.relatedTarget &&
+              event.relatedTarget !== event.currentTarget.ownerDocument.body
+            )
+              focusAfterExpand.current = false;
           }}
           onClick={() => {
             focusAfterExpand.current = true;

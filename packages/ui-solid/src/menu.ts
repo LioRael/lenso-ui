@@ -1,3 +1,5 @@
+import { Button as MenuNativeButton } from "@ui-sdk/solid/button";
+import { htmlPart } from "./parts.js";
 import { menuStyles, menuItemStyles, menuSectionStyles } from "@lenso/tokens/menu";
 import { materialStyles } from "@lenso/tokens/materials";
 import {
@@ -19,22 +21,59 @@ import {
   MenuItems as SdkItems,
   MenuShortcut as SdkShortcut,
 } from "@ui-sdk/solid/menu";
-import { createComponent, type ComponentProps } from "solid-js";
+import { createContext, useContext, merge, createComponent, type ComponentProps } from "solid-js";
 import { sdkPart, type StyledPart } from "./parts.js";
 
-export const MenuRoot = (props: ComponentProps<typeof SdkRoot>) => createComponent(SdkRoot, props);
-export const MenuTrigger: StyledPart<typeof SdkTrigger> = sdkPart(
+function createMenuSource() {
+  let current: HTMLElement | null = null;
+  return {
+    get current() {
+      return current;
+    },
+    attach(node: HTMLElement) {
+      current = node;
+      return () => {
+        if (current === node) current = null;
+      };
+    },
+  };
+}
+export const MenuSource = createContext<ReturnType<typeof createMenuSource> | null>(null);
+export function useMenuSourceRef() {
+  const source = useContext(MenuSource);
+  return (node: HTMLElement) => source?.attach(node);
+}
+export function MenuRoot(props: ComponentProps<typeof SdkRoot>) {
+  return createComponent(MenuSource, {
+    value: createMenuSource(),
+    get children() {
+      return createComponent(SdkRoot, props);
+    },
+  });
+}
+const Trigger: StyledPart<typeof SdkTrigger> = sdkPart(
   SdkTrigger,
   "menu-trigger",
   () => menuStyles.trigger,
 );
+export function MenuTrigger(props: ComponentProps<typeof Trigger>) {
+  const ref = useMenuSourceRef();
+  return createComponent(
+    Trigger,
+    merge(props, {
+      get ref() {
+        return [ref, props.ref];
+      },
+    }),
+  );
+}
 export const MenuContent: StyledPart<typeof SdkContent> = sdkPart(
   SdkContent,
   "menu-content",
   () => [
     materialStyles.root,
     materialStyles.accessible,
-    materialStyles.anchored,
+    materialStyles.blur,
     menuStyles.positioner,
     menuStyles.popup,
     menuStyles.content,
@@ -101,7 +140,7 @@ export const MenuSubContent: StyledPart<typeof SdkSubContent> = sdkPart(
   () => [
     materialStyles.root,
     materialStyles.accessible,
-    materialStyles.anchored,
+    materialStyles.blur,
     menuStyles.positioner,
     menuStyles.popup,
     menuStyles.content,
@@ -115,17 +154,84 @@ export const MenuShortcut: StyledPart<typeof SdkShortcut> = sdkPart(
   () => menuItemStyles.shortcut,
 );
 
+export function MenuAction(props: ComponentProps<typeof MenuItem>) {
+  return createComponent(
+    MenuItem,
+    merge({ "data-lenso-slot": "menu-action" }, props, {
+      get xstyle() {
+        return [menuStyles.action, props.xstyle];
+      },
+    }),
+  );
+}
+export function MenuActionGroup(props: ComponentProps<typeof MenuGroup>) {
+  return createComponent(
+    MenuGroup,
+    merge({ "data-lenso-slot": "menu-action-group" }, props, {
+      get xstyle() {
+        return [menuStyles.actionGroup, props.xstyle];
+      },
+    }),
+  );
+}
+export function MenuExpandTrigger(props: ComponentProps<typeof MenuTrigger>) {
+  return createComponent(
+    MenuTrigger,
+    merge({ "aria-label": "More actions", "data-lenso-slot": "menu-expand-trigger" }, props, {
+      get xstyle() {
+        return [menuStyles.expand, props.xstyle];
+      },
+    }),
+  );
+}
+export const MenuBar = htmlPart("div", "menu-bar", () => menuStyles.bar);
+export const MenuBarItem: StyledPart<typeof MenuNativeButton> = sdkPart(
+  MenuNativeButton,
+  "menu-bar-item",
+  () => menuStyles.barItem,
+);
+const MenuItemContent = htmlPart("span", "menu-item-content", () => menuItemStyles.content);
+const MenuItemLabel = htmlPart("span", "menu-item-label", () => menuItemStyles.label);
+const MenuItemDescription = htmlPart(
+  "span",
+  "menu-item-description",
+  () => menuItemStyles.description,
+);
+const MenuItemSubmenuIndicator = htmlPart(
+  "span",
+  "menu-item-submenu-indicator",
+  () => menuItemStyles.submenuIndicator,
+);
+const ItemParts = {
+  Root: MenuItem,
+  Icon: MenuItemIcon,
+  Content: MenuItemContent,
+  Shortcut: MenuShortcut,
+  Checkbox: MenuCheckboxItem,
+  Radio: MenuRadioItem,
+  Indicator: MenuItemIndicator,
+  SubmenuIndicator: MenuItemSubmenuIndicator,
+  Label: MenuItemLabel,
+  Description: MenuItemDescription,
+};
+const Item = Object.assign(MenuItem, ItemParts);
+const Group = Object.assign(MenuGroup, { Root: MenuGroup, Label: MenuGroupLabel });
 export const Menu: typeof MenuRoot & {
+  Action: typeof MenuAction;
+  ActionGroup: typeof MenuActionGroup;
+  ExpandTrigger: typeof MenuExpandTrigger;
+  Bar: typeof MenuBar;
+  BarItem: typeof MenuBarItem;
   Root: typeof MenuRoot;
   Trigger: typeof MenuTrigger;
   Content: typeof MenuContent;
-  Item: typeof MenuItem;
+  Item: typeof Item;
   ItemIcon: typeof MenuItemIcon;
   CheckboxItem: typeof MenuCheckboxItem;
   RadioItem: typeof MenuRadioItem;
   RadioGroup: typeof MenuRadioGroup;
   ItemIndicator: typeof MenuItemIndicator;
-  Group: typeof MenuGroup;
+  Group: typeof Group;
   GroupLabel: typeof MenuGroupLabel;
   Separator: typeof MenuSeparator;
   Sub: typeof MenuSub;
@@ -134,16 +240,21 @@ export const Menu: typeof MenuRoot & {
   Items: typeof MenuItems;
   Shortcut: typeof MenuShortcut;
 } = Object.assign(MenuRoot, {
+  Action: MenuAction,
+  ActionGroup: MenuActionGroup,
+  ExpandTrigger: MenuExpandTrigger,
+  Bar: MenuBar,
+  BarItem: MenuBarItem,
   Root: MenuRoot,
   Trigger: MenuTrigger,
   Content: MenuContent,
-  Item: MenuItem,
+  Item,
   ItemIcon: MenuItemIcon,
   CheckboxItem: MenuCheckboxItem,
   RadioItem: MenuRadioItem,
   RadioGroup: MenuRadioGroup,
   ItemIndicator: MenuItemIndicator,
-  Group: MenuGroup,
+  Group,
   GroupLabel: MenuGroupLabel,
   Separator: MenuSeparator,
   Sub: MenuSub,
@@ -152,3 +263,5 @@ export const Menu: typeof MenuRoot & {
   Items: MenuItems,
   Shortcut: MenuShortcut,
 });
+
+export { MenuContent as MenuSurface };

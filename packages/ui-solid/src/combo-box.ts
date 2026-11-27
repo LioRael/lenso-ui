@@ -1,3 +1,4 @@
+import { ComboboxStatus } from "@ui-sdk/solid/combobox";
 import { comboBoxStyles } from "@lenso/tokens/combo-box";
 import { selectStyles } from "@lenso/tokens/select";
 import { menuStyles, menuItemStyles, menuSectionStyles } from "@lenso/tokens/menu";
@@ -43,7 +44,7 @@ export const ComboBoxContent: StyledPart<typeof SdkContent> = sdkPart(
   () => [
     materialStyles.root,
     materialStyles.accessible,
-    materialStyles.anchored,
+    materialStyles.blur,
     menuStyles.popup,
     selectStyles.positioner,
     selectStyles.popover,
@@ -137,6 +138,8 @@ export const ComboBoxClearButton: StyledPart<typeof SdkClearButton> = sdkPart(
 );
 
 export const ComboBox: typeof ComboBoxRoot & {
+  Clear: typeof ComboBoxClearButton;
+  Status: typeof ComboboxStatus;
   Root: typeof ComboBoxRoot;
   Trigger: typeof ComboBoxTrigger;
   Content: typeof ComboBoxContent;
@@ -160,6 +163,8 @@ export const ComboBox: typeof ComboBoxRoot & {
   Empty: typeof ComboBoxEmpty;
   ClearButton: typeof ComboBoxClearButton;
 } = Object.assign(ComboBoxRoot, {
+  Clear: ComboBoxClearButton,
+  Status: ComboboxStatus,
   Root: ComboBoxRoot,
   Trigger: ComboBoxTrigger,
   Content: ComboBoxContent,
@@ -183,3 +188,5 @@ export const ComboBox: typeof ComboBoxRoot & {
   Empty: ComboBoxEmpty,
   ClearButton: ComboBoxClearButton,
 });
+
+export const ComboBoxStatus: typeof ComboBox.Status = ComboBox.Status;

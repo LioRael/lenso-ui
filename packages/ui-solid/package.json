@@ -101,7 +101,59 @@
       "types": "./dist/table.d.ts",
       "solid": "./dist/table.jsx"
     },
-    "./table-state": null
+    "./table-state": null,
+    "./button-group": {
+      "types": "./dist/button-group.d.ts",
+      "solid": "./dist/button-group.jsx"
+    },
+    "./scroll-edge": {
+      "types": "./dist/scroll-edge.d.ts",
+      "solid": "./dist/scroll-edge.jsx"
+    },
+    "./glass-provider": {
+      "types": "./dist/glass-provider.d.ts",
+      "solid": "./dist/glass-provider.jsx"
+    },
+    "./toast": {
+      "types": "./dist/toast.d.ts",
+      "solid": "./dist/toast.jsx"
+    },
+    "./tag": {
+      "types": "./dist/tag.d.ts",
+      "solid": "./dist/tag.jsx"
+    },
+    "./tag-group": {
+      "types": "./dist/tag-group.d.ts",
+      "solid": "./dist/tag-group.jsx"
+    },
+    "./calendar": {
+      "types": "./dist/calendar.d.ts",
+      "solid": "./dist/calendar.jsx"
+    },
+    "./color-picker": {
+      "types": "./dist/color-picker.d.ts",
+      "solid": "./dist/color-picker.jsx"
+    },
+    "./pagination": {
+      "types": "./dist/pagination.d.ts",
+      "solid": "./dist/pagination.jsx"
+    },
+    "./context-menu": {
+      "types": "./dist/context-menu.d.ts",
+      "solid": "./dist/context-menu.jsx"
+    },
+    "./color-slider": {
+      "types": "./dist/color-slider.d.ts",
+      "solid": "./dist/color-slider.jsx"
+    },
+    "./date-picker": {
+      "types": "./dist/date-picker.d.ts",
+      "solid": "./dist/date-picker.jsx"
+    },
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "solid": "./dist/icons.jsx"
+    }
   },
   "scripts": {
     "build": "bun -e 'import { rmSync } from \"node:fs\"; rmSync(\"dist\", { recursive: true, force: true });' && tsc -p tsconfig.json --noEmit false --declaration --outDir dist && cp ../../THIRD_PARTY_NOTICES.md dist/",

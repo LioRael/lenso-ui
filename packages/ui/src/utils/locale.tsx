@@ -1,10 +1,7 @@
 "use client";
 import { createContext, use, type ReactNode } from "react";
-export function isRTL(locale: string) {
-  return /^(Arab|Hebr|Thaa|Nkoo|Adlm|Rohg|Syrc|Samr|Mand)$/.test(
-    new Intl.Locale(locale).maximize().script ?? "",
-  );
-}
+import { isRTL } from "@lenso/primitives/locale/core";
+export { isRTL };
 const LocaleContext = createContext("en-US");
 export function I18nProvider({ locale, children }: { locale: string; children?: ReactNode }) {
   const direction = isRTL(locale) ? "rtl" : "ltr";

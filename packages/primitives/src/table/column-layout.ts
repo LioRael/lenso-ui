@@ -49,3 +49,6 @@ export function resolveColumnWidths(
   }
   return result;
 }
+
+export { collectionWindow, revealWindowRow, type WindowOptions } from "./window.js";
+export { createCollectionDrag, type CollectionDragAndDrop, type CollectionDrop } from "./drag.js";

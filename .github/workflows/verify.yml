@@ -153,7 +153,7 @@ jobs:
           node-version: 26.10.0
       - run: bun install --frozen-lockfile
         if: steps.candidate.outputs.found != 'true'
-      - run: bunx turbo run build --filter=@lenso/docs-starter --filter=@lenso/ui-solid
+      - run: bunx turbo run build --filter=@lenso/docs-starter --filter=@lenso/ui-solid --filter=@lenso/ui-svelte
         if: steps.candidate.outputs.found != 'true'
       - name: Verify installed packages in isolated consumers
         if: steps.candidate.outputs.found != 'true'

@@ -57,6 +57,36 @@ export const calendarStyles = stylex.create({
     transitionDuration: { default: "150ms,0ms", "@media (prefers-reduced-motion: reduce)": "0ms" },
     transitionTimingFunction: tokens.motionEaseSmooth,
   },
+  nativeGrid: { width: "100%", tableLayout: "fixed", borderSpacing: 0 },
+  nativeDay: {
+    display: "table-cell",
+    padding: 0,
+    verticalAlign: "middle",
+    backgroundColor: {
+      default: "transparent",
+      ":is([data-selected]:not([data-range-middle]), [data-range-start], [data-range-end])":
+        tokens.tint,
+      ":is([data-range-middle])": tokens.controlTintSubtleFill,
+      ":is([data-today]:not([data-selected]))": tokens.controlTintSubtleFill,
+    },
+    color: {
+      default: tokens.labelPrimary,
+      ":is([data-selected]:not([data-range-middle]), [data-range-start], [data-range-end])":
+        tokens.labelOnTint,
+      ":is([data-range-middle])": tokens.tintText,
+      ":is([data-today]:not([data-selected]))": tokens.tintText,
+    },
+    opacity: { default: 1, ":is([data-outside],[data-disabled])": 0.5 },
+    textDecoration: { default: "none", ":is([data-unavailable])": "line-through" },
+    outline: { default: "none", ":focus-visible": "2px solid var(--lenso-focus-ring)" },
+    outlineOffset: -2,
+  },
+  nativeIndicator: {
+    backgroundColor: {
+      default: tokens.labelSecondary,
+      ":is([data-selected] *)": tokens.labelOnTint,
+    },
+  },
   dayGrid: { display: "flex", flexDirection: "column", paddingBlock: 8 },
   section: { display: "contents" },
   row: { display: "contents" },

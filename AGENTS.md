@@ -11,6 +11,10 @@ workspace package. In this checkout, the UI package's copy is
 relevant component pages; installed docs and public `.d.ts` files define the
 version in use. Do not inspect compiled SDK JavaScript.
 
+For Svelte components, use the installed `packages/ui-svelte/node_modules/@ui-sdk/svelte/docs/llms.txt`
+and corresponding public declarations. Follow the native Svelte binding,
+snippet and attachment contracts.
+
 Before creating a new component or behavior, check the SDK component catalog,
 search `docs/core.md` by heading, and read `docs/rendering.md` beside
 `llms.txt`. Compose the SDK's existing parts and behaviors before implementing

@@ -53393,7 +53393,7 @@
       "expandedType": "undefined | \"auto\" | \"cascade\" | \"stacked\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 465 },
+      "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 466 },
       "default": "\"auto\""
     },
     {
@@ -68012,7 +68012,7 @@
       "expandedType": "ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 337 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 334 },
       "default": null
     },
     {
@@ -68021,7 +68021,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 337 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 334 },
       "default": null
     },
     {
@@ -68030,7 +68030,7 @@
       "expandedType": "ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 337 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 334 },
       "default": null
     },
     {
@@ -68039,7 +68039,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "Marks the current destination and supplies aria-current=\"page\" by default.",
-      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 369 },
+      "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 366 },
       "default": null
     },
     {
@@ -68201,7 +68201,7 @@
       "expandedType": "readonly T[] | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 373 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 364 },
       "default": null
     },
     {
@@ -68210,7 +68210,7 @@
       "expandedType": "((column: T) => React.ReactNode) | React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 374 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 365 },
       "default": null
     },
     {
@@ -68219,7 +68219,7 @@
       "expandedType": "readonly T[] | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 407 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 398 },
       "default": null
     },
     {
@@ -68228,7 +68228,7 @@
       "expandedType": "((item: T) => React.ReactNode) | React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 408 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 399 },
       "default": null
     },
     {
@@ -68237,7 +68237,7 @@
       "expandedType": "WindowOptions | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 409 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 400 },
       "default": null
     },
     {
@@ -68246,7 +68246,7 @@
       "expandedType": "React.Key",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 532 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 523 },
       "default": null
     },
     {
@@ -68255,7 +68255,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 533 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 524 },
       "default": "false"
     },
     {
@@ -68264,7 +68264,7 @@
       "expandedType": "ColumnWidth | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 534 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 525 },
       "default": null
     },
     {
@@ -68273,7 +68273,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 535 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 526 },
       "default": "48"
     },
     {
@@ -68282,7 +68282,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 536 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 527 },
       "default": "2000"
     },
     {
@@ -68291,7 +68291,7 @@
       "expandedType": "((state: { sortDirection?: SortDescriptor[\"direction\"]; }) => React.ReactNode) | React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 537 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 528 },
       "default": null
     },
     {
@@ -68300,7 +68300,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 628 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 619 },
       "default": null
     },
     {
@@ -68309,7 +68309,7 @@
       "expandedType": "React.Key",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 629 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 620 },
       "default": null
     },
     {
@@ -68318,7 +68318,7 @@
       "expandedType": "string | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 630 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 621 },
       "default": null
     },
     {
@@ -68327,7 +68327,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 631 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 622 },
       "default": "false"
     },
     {
@@ -68336,7 +68336,7 @@
       "expandedType": "React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 632 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 623 },
       "default": null
     },
     {
@@ -68345,7 +68345,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 633 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 624 },
       "default": "1"
     },
     {
@@ -71477,7 +71477,7 @@
       "expandedType": "React.Key | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 782 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 773 },
       "default": null
     },
     {
@@ -71486,7 +71486,7 @@
       "expandedType": "((state: { hasChildItems: boolean; isExpanded: boolean; isDisabled: boolean; isTreeColumn: boolean; }) => React.ReactNode) | React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 783 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 774 },
       "default": null
     },
     {
@@ -71495,7 +71495,7 @@
       "expandedType": "undefined | \"ascending\" | \"descending\"",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 896 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 887 },
       "default": null
     },
     {
@@ -71504,7 +71504,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 897 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 888 },
       "default": "true"
     },
     {
@@ -71513,7 +71513,7 @@
       "expandedType": "React.ReactNode",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 898 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 889 },
       "default": null
     },
     {
@@ -71522,7 +71522,7 @@
       "expandedType": "number | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1046 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1037 },
       "default": "1"
     },
     {
@@ -71531,7 +71531,7 @@
       "expandedType": "(() => void) | undefined",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1047 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1038 },
       "default": null
     },
     {
@@ -71540,7 +71540,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1048 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1039 },
       "default": "false"
     },
     {
@@ -71549,7 +71549,7 @@
       "expandedType": "undefined | false | true",
       "required": false,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1049 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1040 },
       "default": "true"
     },
     {
@@ -71558,7 +71558,7 @@
       "expandedType": "readonly T[]",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1084 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1075 },
       "default": null
     },
     {
@@ -71567,7 +71567,7 @@
       "expandedType": "(item: T) => React.ReactNode",
       "required": true,
       "description": "",
-      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1085 },
+      "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1076 },
       "default": null
     },
     {
@@ -87599,7 +87599,7 @@
           "name": "MenuContent",
           "signature": "(props: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuContent>>): React.JSX.Element",
           "props": "StyleXProps<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"children\" | \"className\" | \"style\"> & { className?: string | ((state: SdkMenu.MenuContentState<unknown>) => string | undefined) | undefined; style?: React.CSSProperties | ((state: SdkMenu.MenuContentState<unknown>) => React.CSSProperties | undefined) | undefined; render?: RenderProp<SdkMenu.MenuContentState<unknown>> | undefined; children?: ((state: SdkMenu.MenuContentState<unknown>) => React.ReactNode) | React.ReactNode; } & PositionProps & PortalProps & { side?: PositionProps[\"side\"]; align?: PositionProps[\"align\"]; sideOffset?: number; alignOffset?: number; finalFocus?: SdkMenu.MenuFinalFocus; keepMounted?: boolean; }>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 355 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 356 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87635,7 +87635,7 @@
           "name": "MenuSubContent",
           "signature": "(props: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuSubContent>>): React.JSX.Element",
           "props": "StyleXProps<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"children\" | \"className\" | \"style\"> & { className?: string | ((state: SdkMenu.MenuContentState<unknown>) => string | undefined) | undefined; style?: React.CSSProperties | ((state: SdkMenu.MenuContentState<unknown>) => React.CSSProperties | undefined) | undefined; render?: RenderProp<SdkMenu.MenuContentState<unknown>> | undefined; children?: ((state: SdkMenu.MenuContentState<unknown>) => React.ReactNode) | React.ReactNode; } & PositionProps & PortalProps & { side?: PositionProps[\"side\"]; align?: PositionProps[\"align\"]; sideOffset?: number; alignOffset?: number; finalFocus?: SdkMenu.MenuFinalFocus; keepMounted?: boolean; }>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 358 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 359 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87671,7 +87671,7 @@
           "name": "MenuBar",
           "signature": "({ xstyle, style, children, ref, render, ...props }: StyleXProps<PartProps<\"div\">>): React.ReactElement<any, string | React.JSXElementConstructor<any>>",
           "props": "StyleXProps<PartProps<\"div\">>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 363 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 364 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {},
@@ -87699,7 +87699,7 @@
           "name": "MenuBarItem",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<typeof NativeButton>>): React.JSX.Element",
           "props": "StyleXProps<Omit<Omit<PartProps<\"button\", ButtonState>, \"onClick\" | \"type\"> & { disabled?: boolean; focusableWhenDisabled?: boolean; type?: \"button\" | \"submit\" | \"reset\"; pendingAnnouncement?: string; } & PrimitiveOptions & { onClick?: (event: React.MouseEvent<HTMLElement>, details: ButtonActionDetails) => unknown; }, \"ref\"> & { ref?: React.Ref<HTMLElement>; \"data-lenso-slot\"?: unknown; }>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 393 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 394 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87734,7 +87734,7 @@
           "name": "MenuSeparator",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuSeparator>>): React.JSX.Element",
           "props": "StyleXProps<object & BaseSlotProps & ElementProps<\"div\", {}, object & BaseSlotProps>>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 408 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 409 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {},
@@ -87762,7 +87762,7 @@
           "name": "MenuSubTrigger",
           "signature": "({ ref, children, xstyle, style, ...props }: StyleXProps<React.ComponentProps<typeof SdkMenu.MenuSubTrigger>>): React.JSX.Element",
           "props": "StyleXProps<Omit<PartProps<\"div\", SdkMenu.MenuTriggerState>, Clashing> & SubTriggerProps>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 423 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 424 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87795,7 +87795,7 @@
           "name": "MenuSub",
           "signature": "({ presentation, controller, onOpenChange, ...props }: React.ComponentProps<typeof SdkMenu.MenuSub> & {\n    presentation?: \"auto\" | \"stacked\" | \"cascade\";\n}): React.JSX.Element",
           "props": "Pick<SdkMenu.MenuOptions, \"controller\" | \"debug\" | \"defaultOpen\" | \"delay\" | \"loop\" | \"onOpenChange\" | \"onOpenChangeComplete\" | \"open\"> & { children?: React.ReactNode; } & { presentation?: \"auto\" | \"stacked\" | \"cascade\"; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 459 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 460 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {},
@@ -87805,7 +87805,7 @@
           "name": "MenuRadioGroup",
           "signature": "<T extends string = string>({ name, value, defaultValue, onValueChange, render, ...props }: Omit<PartProps<\"div\", SdkMenu.MenuRadioGroupState>, Clashing> & SdkMenu.MenuRadioGroupProps<T>): React.JSX.Element | null",
           "props": "Omit<PartProps<\"div\", MenuRadioGroupState>, Clashing> & Omit<RadioGroupProps<T>, \"name\"> & { name?: string; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 506 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 507 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87837,7 +87837,7 @@
           "name": "MenuExpandTrigger",
           "signature": "({ xstyle, children, ...props }: React.ComponentProps<typeof MenuTrigger>): React.JSX.Element",
           "props": "Omit<Omit<PartProps<\"button\", SdkMenu.MenuTriggerState>, Clashing> & TriggerProps & { controller?: SdkMenu.MenuController<any>; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-menu-expand\"?: boolean; morphSource?: \"container\" | \"trigger\" | \"toolbar\"; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 507 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 508 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87871,7 +87871,7 @@
           "name": "MenuActionGroup",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentPropsWithRef<typeof SdkMenu.MenuGroup>>): React.JSX.Element",
           "props": "StyleXProps<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"children\" | \"className\" | \"style\"> & { className?: string | ((state: {}) => string | undefined) | undefined; style?: React.CSSProperties | ((state: {}) => React.CSSProperties | undefined) | undefined; render?: RenderProp<{}> | undefined; children?: ((state: {}) => React.ReactNode) | React.ReactNode; }>",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 529 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 530 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {},
@@ -87899,7 +87899,7 @@
           "name": "MenuAction",
           "signature": "({ xstyle, ...props }: React.ComponentProps<typeof MenuItem>): React.JSX.Element",
           "props": "Omit<Omit<Omit<PartProps<\"div\", SdkMenu.MenuItemState>, Clashing> & ItemProps, \"ref\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<Omit<PartProps<\"div\", SdkMenu.MenuItemState>, Clashing> & ItemProps, \"ref\"> & { variant?: \"default\" | \"danger\"; }",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 544 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 545 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [],
           "states": {
@@ -87934,7 +87934,7 @@
           "name": "Menu",
           "signature": "({ elastic, morphTrigger, onOpenChange, ...props }: MenuRootProps): React.JSX.Element",
           "props": "MenuRootProps",
-          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 547 },
+          "source": { "path": "packages/ui/src/components/menu/menu.tsx", "line": 548 },
           "native": ["@ui-sdk/react/menu", "@ui-sdk/react/primitive", "@ui-sdk/core/menu"],
           "members": [
             "Root",
@@ -94577,7 +94577,7 @@
           "name": "TabBarLink",
           "signature": "({ icon, iconOnly: ownIconOnly, children, isCurrent: ownCurrent, disabled, render, xstyle, ...props }: TabBarLinkProps): React.JSX.Element",
           "props": "TabBarLinkProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 381 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 378 },
           "native": ["@ui-sdk/react/primitive"],
           "members": [],
           "states": {},
@@ -94608,7 +94608,7 @@
           "name": "TabBarButton",
           "signature": "({ icon, iconOnly: ownIconOnly, children, xstyle, style, ...props }: TabBarButtonProps): React.JSX.Element",
           "props": "TabBarButtonProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 453 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 450 },
           "native": ["@ui-sdk/react/primitive"],
           "members": [],
           "states": {
@@ -94643,7 +94643,7 @@
           "name": "TabBar",
           "signature": "({ layout, elastic, lift, minimized: controlledMinimized, defaultMinimized, onMinimizedChange, autoMinimize, scrollTarget, expandLabel, render, ref, xstyle, style, ...props }: TabBarRootProps): React.JSX.Element",
           "props": "TabBarRootProps",
-          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 494 },
+          "source": { "path": "packages/ui/src/components/tab-bar/tab-bar.tsx", "line": 491 },
           "native": ["@ui-sdk/react/primitive"],
           "members": ["Root", "Group", "Link", "Button"],
           "states": {},
@@ -94822,7 +94822,7 @@
           "name": "TableHeader",
           "signature": "<T extends {\n    key: CollectionKey;\n}>({ children, columns, xstyle, style, ...props }: StyleXProps<Omit<React.ComponentProps<\"thead\">, \"children\">> & {\n    columns?: readonly T[];\n    children?: React.ReactNode | ((column: T) => React.ReactNode);\n}): React.JSX.Element",
           "props": "Omit<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>, \"children\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { columns?: readonly T[]; children?: React.ReactNode | ((column: T) => React.ReactNode); }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 366 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 357 },
           "native": [],
           "members": [],
           "states": { "T": [{ "name": "key", "type": "React.Key", "required": true }] },
@@ -94852,7 +94852,7 @@
           "name": "TableBody",
           "signature": "<T extends {\n    key: CollectionKey;\n}>({ xstyle, style, children, items, virtualized, ref, ...props }: StyleXProps<Omit<React.ComponentProps<\"tbody\">, \"children\">> & {\n    items?: readonly T[];\n    children?: React.ReactNode | ((item: T) => React.ReactNode);\n    virtualized?: WindowOptions;\n}): React.JSX.Element",
           "props": "Omit<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableSectionElement>, HTMLTableSectionElement>, \"children\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { items?: readonly T[]; children?: React.ReactNode | ((item: T) => React.ReactNode); virtualized?: WindowOptions; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 398 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 389 },
           "native": [],
           "members": [],
           "states": { "T": [{ "name": "key", "type": "React.Key", "required": true }] },
@@ -94882,7 +94882,7 @@
           "name": "TableColumn",
           "signature": "({ columnKey, allowsSorting, width, minWidth, maxWidth, children, xstyle, style, onClick, onKeyDown, ref, ...props }: TableColumnProps): React.JSX.Element",
           "props": "TableColumnProps",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 541 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 532 },
           "native": [],
           "members": [],
           "states": {
@@ -94921,7 +94921,7 @@
           "name": "TableRow",
           "signature": "({ itemKey, textValue, disabled, expandedContent, expandedColSpan, children, ref, xstyle, style, onClick, onKeyDown, ...props }: TableRowProps): React.JSX.Element",
           "props": "TableRowProps",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 673 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 664 },
           "native": [],
           "members": [],
           "states": {},
@@ -94951,7 +94951,7 @@
           "name": "TableCell",
           "signature": "({ xstyle, columnKey, children, style, ...props }: StyleXProps<Omit<React.ComponentPropsWithRef<\"td\">, \"children\">> & {\n    columnKey?: CollectionKey;\n    children?: React.ReactNode | ((state: {\n        hasChildItems: boolean;\n        isExpanded: boolean;\n        isDisabled: boolean;\n        isTreeColumn: boolean;\n    }) => React.ReactNode);\n}): React.JSX.Element",
           "props": "Omit<Omit<React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>, \"children\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { columnKey?: CollectionKey; children?: React.ReactNode | ((state: { hasChildItems: boolean; isExpanded: boolean; isDisabled: boolean; isTreeColumn: boolean; }) => React.ReactNode); }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 775 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 766 },
           "native": [],
           "members": [],
           "states": {
@@ -94989,7 +94989,7 @@
           "name": "TableSelectionCheckbox",
           "signature": "(props: StyleXProps<React.ComponentPropsWithRef<\"input\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 827 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 818 },
           "native": [],
           "members": [],
           "states": {},
@@ -95021,7 +95021,7 @@
           "name": "TableExpandButton",
           "signature": "({ onClick, children, ...props }: StyleXProps<Omit<React.ComponentPropsWithRef<\"button\">, \"onClick\">> & Pick<React.ComponentProps<typeof ButtonRoot>, \"onClick\">): React.JSX.Element",
           "props": "Omit<Omit<React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, \"onClick\">, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & Pick<Omit<Omit<PartProps<\"button\", ButtonState>, \"onClick\" | \"type\"> & { disabled?: boolean; focusableWhenDisabled?: boolean; type?: \"button\" | \"submit\" | \"reset\"; pendingAnnouncement?: string; } & PrimitiveOptions & { onClick?: (event: React.MouseEvent<HTMLElement>, details: ButtonActionDetails) => unknown; }, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { \"data-lenso-slot\"?: unknown; size?: ButtonSize; variant?: ButtonVariant; isIconOnly?: boolean; icon?: React.ReactNode; destructive?: boolean; tint?: string; fullWidth?: boolean; isLoading?: boolean; }, \"onClick\">",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 858 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 849 },
           "native": [],
           "members": [],
           "states": {},
@@ -95050,7 +95050,7 @@
           "name": "TableSortableColumnHeader",
           "signature": "({ sortDirection, children, showIndicator, indicator, xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"span\">> & {\n    sortDirection?: SortDescriptor[\"direction\"];\n    showIndicator?: boolean;\n    indicator?: React.ReactNode;\n}): React.JSX.Element",
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { sortDirection?: SortDescriptor[\"direction\"]; showIndicator?: boolean; indicator?: React.ReactNode; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 887 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 878 },
           "native": [],
           "members": [],
           "states": {},
@@ -95080,7 +95080,7 @@
           "name": "TableColumnResizer",
           "signature": "({ xstyle, style, onKeyDown, onPointerDown, onPointerMove, onPointerUp, onPointerCancel, ...props }: StyleXProps<React.ComponentPropsWithRef<\"span\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 937 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 928 },
           "native": [],
           "members": [],
           "states": {},
@@ -95110,7 +95110,7 @@
           "name": "TableLoadMoreContent",
           "signature": "({ xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"div\">>): React.JSX.Element",
           "props": "StyleXProps<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1018 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1009 },
           "native": [],
           "members": [],
           "states": {},
@@ -95138,7 +95138,7 @@
           "name": "TableLoadMore",
           "signature": "({ colSpan, children, onLoadMore, loading, hasMore, ref, xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"tr\">> & {\n    colSpan?: number;\n    onLoadMore?: () => void;\n    loading?: boolean;\n    hasMore?: boolean;\n}): React.JSX.Element",
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { colSpan?: number; onLoadMore?: () => void; loading?: boolean; hasMore?: boolean; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1035 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1026 },
           "native": [],
           "members": [],
           "states": {},
@@ -95168,7 +95168,7 @@
           "name": "TableCollection",
           "signature": "<T extends {\n    key: CollectionKey;\n}>({ items, children }: {\n    items: readonly T[];\n    children: (item: T) => React.ReactNode;\n}): React.JSX.Element[]",
           "props": "{ items: readonly T[]; children: (item: T) => React.ReactNode; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1080 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1071 },
           "native": [],
           "members": [],
           "states": { "T": [{ "name": "key", "type": "React.Key", "required": true }] },
@@ -95178,7 +95178,7 @@
           "name": "Table",
           "signature": "({ variant, xstyle, style, ...props }: StyleXProps<React.ComponentProps<\"div\">> & {\n    variant?: \"primary\" | \"secondary\";\n}): React.JSX.Element",
           "props": "Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"className\"> & { xstyle?: XStyle; \"data-lenso-slot\"?: unknown; } & { variant?: \"primary\" | \"secondary\"; }",
-          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1091 },
+          "source": { "path": "packages/ui/src/components/table/table.tsx", "line": 1082 },
           "native": [],
           "members": [
             "Root",

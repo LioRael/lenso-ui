@@ -2,6 +2,13 @@ import * as stylex from "@stylexjs/stylex";
 import { focusRing } from "../../focus-ring.stylex.const.js";
 import { tokens } from "../../tokens.stylex.const.js";
 export const tagStyles = stylex.create({
+  automaticRemove: {
+    display: {
+      default: "inline-flex",
+      ":is([data-collection-item=tag]:has(> [data-lenso-slot=tag-cell] [data-lenso-slot=tag-remove-button]) *)":
+        "none",
+    },
+  },
   cell: { display: "inline-flex", alignItems: "center", gap: "inherit" },
   root: {
     position: "relative",
