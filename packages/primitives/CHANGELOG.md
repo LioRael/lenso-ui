@@ -1,5 +1,16 @@
 # @lenso/primitives
 
+## 0.10.0
+
+### Minor Changes
+
+- fc7878f: Expose the sheet snap-point presentation tracker through `@lenso/primitives/sheet/core`. React and Vue can now share the same floating-to-attached transition and cleanup behavior.
+
+### Patch Changes
+
+- a3804ec: Share TabBar and pill Toast motion, table windowing and drag and drop, list-data actions, menu preview placement, and icon shapes across framework adapters. React retains its existing component and hook entry points.
+- 11d363d: Share table column sizing with Solid, including fixed, percentage, fractional, and bounded column widths.
+
 ## 0.9.2
 
 ### Patch Changes
