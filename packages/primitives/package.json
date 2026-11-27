@@ -47,6 +47,10 @@
       "types": "./dist/list/list.d.ts",
       "import": "./dist/list/list.js"
     },
+    "./sheet/core": {
+      "types": "./dist/sheet/index.d.ts",
+      "import": "./dist/sheet/index.js"
+    },
     "./table/core": {
       "types": "./dist/table/column-layout.d.ts",
       "import": "./dist/table/column-layout.js"

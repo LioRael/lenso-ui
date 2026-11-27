@@ -15,6 +15,10 @@ For Svelte components, use the installed `packages/ui-svelte/node_modules/@ui-sd
 and corresponding public declarations. Follow the native Svelte binding,
 snippet and attachment contracts.
 
+For Vue components, use the installed `packages/ui-vue/node_modules/@ui-sdk/vue/docs/llms.txt`
+and corresponding public declarations. Follow the Vue `v-model` and scoped
+slot contracts.
+
 Before creating a new component or behavior, check the SDK component catalog,
 search `docs/core.md` by heading, and read `docs/rendering.md` beside
 `llms.txt`. Compose the SDK's existing parts and behaviors before implementing

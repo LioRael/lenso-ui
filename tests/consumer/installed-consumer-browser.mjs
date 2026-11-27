@@ -1,3 +1,4 @@
+import { checkFrameworkParity } from "./framework-parity.mjs";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -33,6 +34,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`);
     });
     await page.goto(base);
+    await checkFrameworkParity(page);
     assert.equal(
       await page.getByTestId("installed-glass").evaluate((node) => getComputedStyle(node).width),
       "180px",

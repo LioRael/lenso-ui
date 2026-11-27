@@ -1,5 +1,5 @@
 import { expect, spyOn, test } from "bun:test";
-import { trackSheetPresentation } from "../src/components/sheet/track-presentation.js";
+import { trackSheetPresentation } from "@lenso/primitives/sheet/core";
 
 function fixture(initial = 0, target = 0, owner = document, compositor = false) {
   const view = owner.defaultView!;

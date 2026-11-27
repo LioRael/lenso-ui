@@ -1,4 +1,4 @@
-import type { SnapPoint } from "@ui-sdk/react/drawer";
+import type { SnapPoint } from "@ui-sdk/core/drawer";
 
 export interface SheetPresentationPoint {
   height: number;

@@ -65,6 +65,11 @@ component families with shared Lenso styling and native Svelte UI SDK
 interactions. The package guide covers Vite setup, bindings and current
 limitations.
 
+## Vue 3 preview
+
+The private [Vue package](packages/ui-vue/README.md) uses native Vue bindings
+and shared Lenso StyleX tokens. The package guide lists setup and preview coverage.
+
 ## Build with an agent
 
 Two portable skills help coding agents work with Lenso's installed components

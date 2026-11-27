@@ -1,0 +1,460 @@
+{
+  "name": "@lenso/ui-vue",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Experimental Lenso UI components for Vue 3.",
+  "license": "(Apache-2.0 AND MIT)",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./accordion": {
+      "types": "./dist/accordion.d.ts",
+      "import": "./dist/accordion.js"
+    },
+    "./action-sheet": {
+      "types": "./dist/action-sheet.d.ts",
+      "import": "./dist/action-sheet.js"
+    },
+    "./agent": {
+      "types": "./dist/agent.d.ts",
+      "import": "./dist/agent.js"
+    },
+    "./alert": {
+      "types": "./dist/alert.d.ts",
+      "import": "./dist/alert.js"
+    },
+    "./alert-dialog": {
+      "types": "./dist/alert-dialog.d.ts",
+      "import": "./dist/alert-dialog.js"
+    },
+    "./autocomplete": {
+      "types": "./dist/autocomplete.d.ts",
+      "import": "./dist/autocomplete.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar.d.ts",
+      "import": "./dist/avatar.js"
+    },
+    "./avatar-group": {
+      "types": "./dist/avatar-group.d.ts",
+      "import": "./dist/avatar-group.js"
+    },
+    "./badge": {
+      "types": "./dist/badge.d.ts",
+      "import": "./dist/badge.js"
+    },
+    "./breadcrumbs": {
+      "types": "./dist/breadcrumbs.d.ts",
+      "import": "./dist/breadcrumbs.js"
+    },
+    "./button": {
+      "types": "./dist/button.d.ts",
+      "import": "./dist/button.js"
+    },
+    "./button-group": {
+      "types": "./dist/button-group.d.ts",
+      "import": "./dist/button-group.js"
+    },
+    "./calendar": {
+      "types": "./dist/calendar.d.ts",
+      "import": "./dist/calendar.js"
+    },
+    "./calendar-year-picker": {
+      "types": "./dist/calendar-year-picker.d.ts",
+      "import": "./dist/calendar-year-picker.js"
+    },
+    "./card": {
+      "types": "./dist/card.d.ts",
+      "import": "./dist/card.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox.d.ts",
+      "import": "./dist/checkbox.js"
+    },
+    "./checkbox-group": {
+      "types": "./dist/checkbox-group.d.ts",
+      "import": "./dist/checkbox-group.js"
+    },
+    "./chip": {
+      "types": "./dist/chip.d.ts",
+      "import": "./dist/chip.js"
+    },
+    "./close-button": {
+      "types": "./dist/close-button.d.ts",
+      "import": "./dist/close-button.js"
+    },
+    "./color-area": {
+      "types": "./dist/color-area.d.ts",
+      "import": "./dist/color-area.js"
+    },
+    "./color-field": {
+      "types": "./dist/color-field.d.ts",
+      "import": "./dist/color-field.js"
+    },
+    "./color-input-group": {
+      "types": "./dist/color-input-group.d.ts",
+      "import": "./dist/color-input-group.js"
+    },
+    "./color-picker": {
+      "types": "./dist/color-picker.d.ts",
+      "import": "./dist/color-picker.js"
+    },
+    "./color-slider": {
+      "types": "./dist/color-slider.d.ts",
+      "import": "./dist/color-slider.js"
+    },
+    "./color-swatch": {
+      "types": "./dist/color-swatch.d.ts",
+      "import": "./dist/color-swatch.js"
+    },
+    "./color-swatch-picker": {
+      "types": "./dist/color-swatch-picker.d.ts",
+      "import": "./dist/color-swatch-picker.js"
+    },
+    "./combo-box": {
+      "types": "./dist/combo-box.d.ts",
+      "import": "./dist/combo-box.js"
+    },
+    "./command": {
+      "types": "./dist/command.d.ts",
+      "import": "./dist/command.js"
+    },
+    "./context-menu": {
+      "types": "./dist/context-menu.d.ts",
+      "import": "./dist/context-menu.js"
+    },
+    "./date-field": {
+      "types": "./dist/date-field.d.ts",
+      "import": "./dist/date-field.js"
+    },
+    "./date-input-group": {
+      "types": "./dist/date-input-group.d.ts",
+      "import": "./dist/date-input-group.js"
+    },
+    "./date-picker": {
+      "types": "./dist/date-picker.d.ts",
+      "import": "./dist/date-picker.js"
+    },
+    "./date-range-picker": {
+      "types": "./dist/date-range-picker.d.ts",
+      "import": "./dist/date-range-picker.js"
+    },
+    "./description": {
+      "types": "./dist/description.d.ts",
+      "import": "./dist/description.js"
+    },
+    "./disclosure": {
+      "types": "./dist/disclosure.d.ts",
+      "import": "./dist/disclosure.js"
+    },
+    "./drawer": {
+      "types": "./dist/drawer.d.ts",
+      "import": "./dist/drawer.js"
+    },
+    "./empty-state": {
+      "types": "./dist/empty-state.d.ts",
+      "import": "./dist/empty-state.js"
+    },
+    "./field-error": {
+      "types": "./dist/field-error.d.ts",
+      "import": "./dist/field-error.js"
+    },
+    "./fieldset": {
+      "types": "./dist/fieldset.d.ts",
+      "import": "./dist/fieldset.js"
+    },
+    "./form": {
+      "types": "./dist/form.d.ts",
+      "import": "./dist/form.js"
+    },
+    "./glass": {
+      "types": "./dist/glass.d.ts",
+      "import": "./dist/glass.js"
+    },
+    "./glass-button": {
+      "types": "./dist/glass-button.d.ts",
+      "import": "./dist/glass-button.js"
+    },
+    "./glass-container": {
+      "types": "./dist/glass-container.d.ts",
+      "import": "./dist/glass-container.js"
+    },
+    "./glass-magnifier": {
+      "types": "./dist/glass-magnifier.d.ts",
+      "import": "./dist/glass-magnifier.js"
+    },
+    "./glass-provider": {
+      "types": "./dist/glass-provider.d.ts",
+      "import": "./dist/glass-provider.js"
+    },
+    "./glass-toggle-button": {
+      "types": "./dist/glass-toggle-button.d.ts",
+      "import": "./dist/glass-toggle-button.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks.d.ts",
+      "import": "./dist/hooks.js"
+    },
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "import": "./dist/icons.js"
+    },
+    "./input": {
+      "types": "./dist/input.d.ts",
+      "import": "./dist/input.js"
+    },
+    "./input-group": {
+      "types": "./dist/input-group.d.ts",
+      "import": "./dist/input-group.js"
+    },
+    "./input-otp": {
+      "types": "./dist/input-otp.d.ts",
+      "import": "./dist/input-otp.js"
+    },
+    "./kbd": {
+      "types": "./dist/kbd.d.ts",
+      "import": "./dist/kbd.js"
+    },
+    "./label": {
+      "types": "./dist/label.d.ts",
+      "import": "./dist/label.js"
+    },
+    "./link": {
+      "types": "./dist/link.d.ts",
+      "import": "./dist/link.js"
+    },
+    "./list": {
+      "types": "./dist/list.d.ts",
+      "import": "./dist/list.js"
+    },
+    "./list-box": {
+      "types": "./dist/list-box.d.ts",
+      "import": "./dist/list-box.js"
+    },
+    "./menu": {
+      "types": "./dist/menu.d.ts",
+      "import": "./dist/menu.js"
+    },
+    "./meter": {
+      "types": "./dist/meter.d.ts",
+      "import": "./dist/meter.js"
+    },
+    "./modal": {
+      "types": "./dist/modal.d.ts",
+      "import": "./dist/modal.js"
+    },
+    "./navigation-bar": {
+      "types": "./dist/navigation-bar.d.ts",
+      "import": "./dist/navigation-bar.js"
+    },
+    "./notification": {
+      "types": "./dist/notification.d.ts",
+      "import": "./dist/notification.js"
+    },
+    "./number-field": {
+      "types": "./dist/number-field.d.ts",
+      "import": "./dist/number-field.js"
+    },
+    "./page-control": {
+      "types": "./dist/page-control.d.ts",
+      "import": "./dist/page-control.js"
+    },
+    "./pagination": {
+      "types": "./dist/pagination.d.ts",
+      "import": "./dist/pagination.js"
+    },
+    "./popover": {
+      "types": "./dist/popover.d.ts",
+      "import": "./dist/popover.js"
+    },
+    "./popup-button": {
+      "types": "./dist/popup-button.d.ts",
+      "import": "./dist/popup-button.js"
+    },
+    "./progress-bar": {
+      "types": "./dist/progress-bar.d.ts",
+      "import": "./dist/progress-bar.js"
+    },
+    "./progress-circle": {
+      "types": "./dist/progress-circle.d.ts",
+      "import": "./dist/progress-circle.js"
+    },
+    "./providers": {
+      "types": "./dist/providers.d.ts",
+      "import": "./dist/providers.js"
+    },
+    "./radio": {
+      "types": "./dist/radio.d.ts",
+      "import": "./dist/radio.js"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group.d.ts",
+      "import": "./dist/radio-group.js"
+    },
+    "./range-calendar": {
+      "types": "./dist/range-calendar.d.ts",
+      "import": "./dist/range-calendar.js"
+    },
+    "./refresh-control": {
+      "types": "./dist/refresh-control.d.ts",
+      "import": "./dist/refresh-control.js"
+    },
+    "./scroll-edge": {
+      "types": "./dist/scroll-edge.d.ts",
+      "import": "./dist/scroll-edge.js"
+    },
+    "./scroll-shadow": {
+      "types": "./dist/scroll-shadow.d.ts",
+      "import": "./dist/scroll-shadow.js"
+    },
+    "./search-field": {
+      "types": "./dist/search-field.d.ts",
+      "import": "./dist/search-field.js"
+    },
+    "./section-index": {
+      "types": "./dist/section-index.d.ts",
+      "import": "./dist/section-index.js"
+    },
+    "./segmented-control": {
+      "types": "./dist/segmented-control.d.ts",
+      "import": "./dist/segmented-control.js"
+    },
+    "./select": {
+      "types": "./dist/select.d.ts",
+      "import": "./dist/select.js"
+    },
+    "./separator": {
+      "types": "./dist/separator.d.ts",
+      "import": "./dist/separator.js"
+    },
+    "./share-sheet": {
+      "types": "./dist/share-sheet.d.ts",
+      "import": "./dist/share-sheet.js"
+    },
+    "./sheet": {
+      "types": "./dist/sheet.d.ts",
+      "import": "./dist/sheet.js"
+    },
+    "./sidebar": {
+      "types": "./dist/sidebar.d.ts",
+      "import": "./dist/sidebar.js"
+    },
+    "./skeleton": {
+      "types": "./dist/skeleton.d.ts",
+      "import": "./dist/skeleton.js"
+    },
+    "./slider": {
+      "types": "./dist/slider.d.ts",
+      "import": "./dist/slider.js"
+    },
+    "./spinner": {
+      "types": "./dist/spinner.d.ts",
+      "import": "./dist/spinner.js"
+    },
+    "./stepper": {
+      "types": "./dist/stepper.d.ts",
+      "import": "./dist/stepper.js"
+    },
+    "./surface": {
+      "types": "./dist/surface.d.ts",
+      "import": "./dist/surface.js"
+    },
+    "./swipe-actions": {
+      "types": "./dist/swipe-actions.d.ts",
+      "import": "./dist/swipe-actions.js"
+    },
+    "./switch": {
+      "types": "./dist/switch.d.ts",
+      "import": "./dist/switch.js"
+    },
+    "./tab-bar": {
+      "types": "./dist/tab-bar.d.ts",
+      "import": "./dist/tab-bar.js"
+    },
+    "./table": {
+      "types": "./dist/table.d.ts",
+      "import": "./dist/table.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs.d.ts",
+      "import": "./dist/tabs.js"
+    },
+    "./tag": {
+      "types": "./dist/tag.d.ts",
+      "import": "./dist/tag.js"
+    },
+    "./tag-group": {
+      "types": "./dist/tag-group.d.ts",
+      "import": "./dist/tag-group.js"
+    },
+    "./textarea": {
+      "types": "./dist/textarea.d.ts",
+      "import": "./dist/textarea.js"
+    },
+    "./textfield": {
+      "types": "./dist/textfield.d.ts",
+      "import": "./dist/textfield.js"
+    },
+    "./time-field": {
+      "types": "./dist/time-field.d.ts",
+      "import": "./dist/time-field.js"
+    },
+    "./toast": {
+      "types": "./dist/toast.d.ts",
+      "import": "./dist/toast.js"
+    },
+    "./toggle-button": {
+      "types": "./dist/toggle-button.d.ts",
+      "import": "./dist/toggle-button.js"
+    },
+    "./toggle-button-group": {
+      "types": "./dist/toggle-button-group.d.ts",
+      "import": "./dist/toggle-button-group.js"
+    },
+    "./toolbar": {
+      "types": "./dist/toolbar.d.ts",
+      "import": "./dist/toolbar.js"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip.d.ts",
+      "import": "./dist/tooltip.js"
+    },
+    "./typography": {
+      "types": "./dist/typography.d.ts",
+      "import": "./dist/typography.js"
+    },
+    "./wheel-picker": {
+      "types": "./dist/wheel-picker.d.ts",
+      "import": "./dist/wheel-picker.js"
+    }
+  },
+  "scripts": {
+    "build": "bun -e 'import { rmSync } from \"node:fs\"; rmSync(\"dist\", { recursive: true, force: true });' && tsc -p tsconfig.json --noEmit false --declaration --outDir dist && cp ../../THIRD_PARTY_NOTICES.md dist/",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@lenso/glass": "workspace:*",
+    "@lenso/primitives": "workspace:*",
+    "@lenso/tokens": "workspace:*",
+    "@stylexjs/stylex": "catalog:",
+    "@ui-sdk/core": "0.1.0-beta.8",
+    "@ui-sdk/vue": "0.1.0-beta.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "6.0.11",
+    "typescript": "catalog:",
+    "vue": "3.5.46",
+    "vue-tsc": "3.3.14"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  }
+}

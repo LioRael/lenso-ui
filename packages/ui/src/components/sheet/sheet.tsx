@@ -12,7 +12,7 @@ import { CloseIcon } from "../../icons/index.js";
 import { MaterialBackground } from "../../utils/materials/render.js";
 import { presentationMaterials } from "../../utils/materials/presentation.js";
 import { assignRef } from "../../utils/interaction/ref.js";
-import { trackSheetPresentation } from "./track-presentation.js";
+import { trackSheetPresentation } from "@lenso/primitives/sheet/core";
 import { mergeStyle, type StyleXProps, type XStyle } from "../../utils/styled.js";
 
 const defaultSnapPoints: SdkDrawer.SnapPoint[] = [0.525, 1];
